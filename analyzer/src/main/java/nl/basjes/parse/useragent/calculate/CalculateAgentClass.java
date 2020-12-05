@@ -19,32 +19,36 @@ package nl.basjes.parse.useragent.calculate;
 
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import nl.basjes.parse.useragent.utils.Normalize;
 
-import static nl.basjes.parse.useragent.UserAgent.NETWORK_TYPE;
+import java.util.Collections;
+import java.util.Set;
 
-public class CalculateNetworkType extends FieldCalculator {
+import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 
+public class CalculateAgentClass extends FieldCalculator {
     @Override
     public void calculate(MutableUserAgent userAgent) {
-        // Make sure the DeviceName always starts with the DeviceBrand
-        AgentField networkType = userAgent.get(NETWORK_TYPE);
-        if (!networkType.isDefaultValue()) {
-            userAgent.setForced(
-                NETWORK_TYPE,
-                Normalize.brand(networkType.getValue()),
-                networkType.getConfidence());
+        // Cleanup the class of the useragent
+        AgentField agentClass = userAgent.get(AGENT_CLASS);
+        if (agentClass.isDefaultValue()) {
+            AgentField agentName = userAgent.get(AGENT_NAME);
+            if (!agentName.isDefaultValue()) {
+                userAgent.setForced(
+                    AGENT_CLASS,
+                    "Special",
+                    1);
+            }
         }
     }
 
     @Override
     public String getCalculatedFieldName() {
-        return NETWORK_TYPE;
+        return AGENT_CLASS;
     }
 
     @Override
-    public String toString() {
-        return "Calculate " + NETWORK_TYPE;
+    public Set<String> getDependencies() {
+        return Collections.singleton(AGENT_NAME);
     }
-
 }

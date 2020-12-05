@@ -71,6 +71,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
+import nl.basjes.parse.useragent.calculate.CalculateAgentClass;
 import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
 import nl.basjes.parse.useragent.calculate.CalculateAgentName;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
@@ -115,7 +116,6 @@ import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
@@ -134,7 +134,6 @@ import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJ
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.MutableUserAgent.isSystemField;
-import static nl.basjes.parse.useragent.UserAgent.NETWORK_TYPE;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
@@ -283,6 +282,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
         kryo.register(CalculateAgentEmail.class);
         kryo.register(CalculateAgentName.class);
+        kryo.register(CalculateAgentClass.class);
         kryo.register(CalculateDeviceBrand.class);
         kryo.register(CalculateDeviceName.class);
         kryo.register(CalculateNetworkType.class);
@@ -1627,28 +1627,35 @@ config:
             return (B)this;
         }
 
-        private void addCalculator(FieldCalculator calculator) {
-            fieldCalculators.add(calculator);
-            if (uaa.wantedFieldNames != null) {
-                Collections.addAll(uaa.wantedFieldNames, calculator.getDependencies());
-            }
-        }
+        protected Set<String> allFieldsForWhichACalculatorExists = new HashSet<>();
 
-        private void addCalculatedMajorVersionField(String result, String dependency) {
-            if (uaa.isWantedField(result)) {
-                fieldCalculators.add(new MajorVersionCalculator(result, dependency));
+        private void registerFieldCalculator(FieldCalculator fieldCalculator) {
+            String calculatedFieldName = fieldCalculator.getCalculatedFieldName();
+            allFieldsForWhichACalculatorExists.add(calculatedFieldName);
+            if (uaa.isWantedField(calculatedFieldName)) {
+                fieldCalculators.add(fieldCalculator);
                 if (uaa.wantedFieldNames != null) {
-                    Collections.addAll(uaa.wantedFieldNames, dependency);
+                    uaa.wantedFieldNames.addAll(fieldCalculator.getDependencies());
                 }
             }
         }
 
-        private void addCalculatedConcatNONDuplicated(String result, String first, String second) {
-            if (uaa.isWantedField(result)) {
-                fieldCalculators.add(new ConcatNONDuplicatedCalculator(result, first, second));
-                if (uaa.wantedFieldNames != null) {
-                    Collections.addAll(uaa.wantedFieldNames, first, second);
+        protected void verifyCalculatorDependencyOrdering() {
+            // Verify calculator dependencies ordering
+            Set<String> seenCalculatedFields = new HashSet<>();
+            for (FieldCalculator fieldCalculator: fieldCalculators) {
+                for (String dependency: fieldCalculator.getDependencies()){
+                    if (allFieldsForWhichACalculatorExists.contains(dependency)) {
+                        if (!seenCalculatedFields.contains(dependency)) {
+                            throw new InvalidParserConfigurationException(
+                                "Calculator ordering is wrong:" +
+                                    "For " + fieldCalculator.getCalculatedFieldName() +
+                                    " we need " + dependency + " which is a " +
+                                    "calculated field but it has not yet been calculated.");
+                        }
+                    }
                 }
+                seenCalculatedFields.add(fieldCalculator.getCalculatedFieldName());
             }
         }
 
@@ -1669,40 +1676,27 @@ config:
                 uaa.wantedFieldNames.add(DEVICE_CLASS);
             }
 
-            addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION_MAJOR,              AGENT_NAME,             AGENT_VERSION_MAJOR);
-            addCalculatedConcatNONDuplicated(AGENT_NAME_VERSION,                    AGENT_NAME,             AGENT_VERSION);
-            addCalculatedMajorVersionField(AGENT_VERSION_MAJOR,                     AGENT_VERSION);
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(AGENT_NAME_VERSION_MAJOR,         AGENT_NAME,             AGENT_VERSION_MAJOR));
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(AGENT_NAME_VERSION,               AGENT_NAME,             AGENT_VERSION));
+            registerFieldCalculator(new MajorVersionCalculator(AGENT_VERSION_MAJOR,                     AGENT_VERSION));
 
-            addCalculatedConcatNONDuplicated(WEBVIEW_APP_NAME_VERSION_MAJOR,        WEBVIEW_APP_NAME,       WEBVIEW_APP_VERSION_MAJOR);
-            addCalculatedMajorVersionField(WEBVIEW_APP_VERSION_MAJOR,               WEBVIEW_APP_VERSION);
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(WEBVIEW_APP_NAME_VERSION_MAJOR,   WEBVIEW_APP_NAME,       WEBVIEW_APP_VERSION_MAJOR));
+            registerFieldCalculator(new MajorVersionCalculator(WEBVIEW_APP_VERSION_MAJOR,               WEBVIEW_APP_VERSION));
 
-            addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION_MAJOR,      LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR);
-            addCalculatedConcatNONDuplicated(LAYOUT_ENGINE_NAME_VERSION,            LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION);
-            addCalculatedMajorVersionField(LAYOUT_ENGINE_VERSION_MAJOR,             LAYOUT_ENGINE_VERSION);
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(LAYOUT_ENGINE_NAME_VERSION_MAJOR, LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR));
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(LAYOUT_ENGINE_NAME_VERSION,       LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION));
+            registerFieldCalculator(new MajorVersionCalculator(LAYOUT_ENGINE_VERSION_MAJOR,             LAYOUT_ENGINE_VERSION));
 
-            addCalculatedMajorVersionField(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION);
-            addCalculatedConcatNONDuplicated(OPERATING_SYSTEM_NAME_VERSION,         OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION);
-            addCalculatedMajorVersionField(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION);
+            registerFieldCalculator(new MajorVersionCalculator(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION));
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(OPERATING_SYSTEM_NAME_VERSION,    OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION));
+            registerFieldCalculator(new MajorVersionCalculator(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION));
 
-            if (uaa.isWantedField(AGENT_NAME)) {
-                addCalculator(new CalculateAgentName());
-            }
-
-            if (uaa.isWantedField(NETWORK_TYPE)) {
-                addCalculator(new CalculateNetworkType());
-            }
-
-            if (uaa.isWantedField(DEVICE_NAME)) {
-                addCalculator(new CalculateDeviceName());
-            }
-
-            if (uaa.isWantedField(DEVICE_BRAND)) {
-                addCalculator(new CalculateDeviceBrand());
-            }
-
-            if (uaa.isWantedField(AGENT_INFORMATION_EMAIL)) {
-                addCalculator(new CalculateAgentEmail());
-            }
+            registerFieldCalculator(new CalculateAgentClass());
+            registerFieldCalculator(new CalculateAgentName());
+            registerFieldCalculator(new CalculateNetworkType());
+            registerFieldCalculator(new CalculateDeviceName());
+            registerFieldCalculator(new CalculateDeviceBrand());
+            registerFieldCalculator(new CalculateAgentEmail());
 
             Collections.reverse(fieldCalculators);
             uaa.setFieldCalculators(fieldCalculators);

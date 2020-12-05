@@ -78,6 +78,7 @@ config:
       'lwp-request'                  : 'lwp-request|lwp-request'
       'libwww-perl'                  : 'libwww-perl|libwww-perl'
       'spray-can'                    : 'spray-can|spray-can'
+      'facebookcatalog'              : 'Facebook|Facebook Catalog'
 
 - lookup:
     name: 'NamedSpecialLayoutEngines'
@@ -9352,3 +9353,30 @@ config:
       AgentNameVersion                     : 'Acme.sh 2.8.6'
       AgentNameVersionMajor                : 'Acme.sh 2'
       AgentInformationUrl                  : 'https://github.com/acmesh-official/acme.sh'
+
+
+- test:
+    input:
+      user_agent_string: 'facebookcatalog/1.0'
+    expected:
+      DeviceClass                          : 'Robot'                   #
+      DeviceName                           : 'Facebook Catalog'        #
+      DeviceBrand                          : 'Facebook'                #
+      OperatingSystemClass                 : 'Cloud'                   #
+      OperatingSystemName                  : 'Cloud'                   #
+      OperatingSystemVersion               : '??'                      #
+      OperatingSystemVersionMajor          : '??'                      #
+      OperatingSystemNameVersion           : 'Cloud ??'                #
+      OperatingSystemNameVersionMajor      : 'Cloud ??'                #
+      LayoutEngineClass                    : 'Robot'                   #
+      LayoutEngineName                     : 'facebookcatalog'         #
+      LayoutEngineVersion                  : '1.0'                     #
+      LayoutEngineVersionMajor             : '1'                       #
+      LayoutEngineNameVersion              : 'facebookcatalog 1.0'     #
+      LayoutEngineNameVersionMajor         : 'facebookcatalog 1'       #
+      AgentClass                           : 'Robot'                   #
+      AgentName                            : 'Facebookcatalog'         #
+      AgentVersion                         : '1.0'                     #
+      AgentVersionMajor                    : '1'                       #
+      AgentNameVersion                     : 'Facebookcatalog 1.0'     #
+      AgentNameVersionMajor                : 'Facebookcatalog 1'       #

@@ -35,7 +35,7 @@ import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractHostname;
 import static org.apache.hc.client5.http.psl.DomainType.ICANN;
 
-public class CalculateDeviceBrand implements FieldCalculator {
+public class CalculateDeviceBrand extends FieldCalculator {
 
     private final Set<String> unwantedUrlBrands;
     private final Set<String> unwantedEmailBrands;
@@ -168,13 +168,12 @@ public class CalculateDeviceBrand implements FieldCalculator {
     }
 
     @Override
-    public String[] getDependencies() {
-        return new String[]{AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL};
+    public String getCalculatedFieldName() {
+        return DEVICE_BRAND;
     }
 
     @Override
-    public String toString() {
-        return "Calculate " + DEVICE_BRAND;
+    public Set<String> getDependencies() {
+        return new HashSet<>(Arrays.asList(AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL));
     }
-
 }

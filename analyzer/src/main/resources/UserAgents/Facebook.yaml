@@ -39,6 +39,20 @@ config:
         'FBBlack'          : 'FBBlack'                   # Unknown, perhaps hacked useragent string?
 
 - lookup:
+    name: 'FaceBookAppOSNames'
+    map:
+      'FBW'              : 'Windows NT'
+      'FB4A'             : 'Android'
+      'FBIOS'            : 'iOS'
+      'FBForIPhone'      : 'iOS'
+      'MessengerForiOS'  : 'iOS'
+      'FBMentionsForiOS' : 'iOS' # Special app for actors and such
+#      'FBPageAdmin'      : 'Facebook Pageadmin'
+      'GroupsForiOS'     : 'iOS'
+      'AtWorkForiOS'     : 'iOS'
+#      'FBBlack'          : 'FBBlack'
+
+- lookup:
     name: 'FaceBookWebviewNames'
     map:
         'FBW'              : 'Chrome WebView'
@@ -51,12 +65,14 @@ config:
 
 - matcher:
     variable:
-    - 'FBANVersion                         :agent.product.(1-2)comments.entry.(1)product.name="FBAN"^.version'
+    - 'FBAN                                :agent.product.(1-2)comments.entry.(1)product.name="FBAN"^.version'
     extract:
+    - 'DeviceClass                         :       50 :"Mobile"'
+    - 'OperatingSystemName                 :        1 : LookUp[FaceBookAppOSNames;@FBAN;"<<<null>>>"]'
     - 'AgentClass                          :     1001 :"Browser Webview"'
-    - 'AgentName                           :     1001 :LookUp[FaceBookWebviewNames;@FBANVersion]'
+    - 'AgentName                           :     1001 :LookUp[FaceBookWebviewNames;@FBAN]'
     - 'AgentVersion                        :       11 :"??"'
-    - 'WebviewAppName                      :     1001 :LookUp[FaceBookAppNames;@FBANVersion]'
+    - 'WebviewAppName                      :     1001 :LookUp[FaceBookAppNames;@FBAN]'
     - 'WebviewAppVersion                   :     1001 :"??"'
 
 - matcher:
@@ -64,6 +80,8 @@ config:
     - 'FBAN                                :agent.product.(1-2)comments.entry.(1)product.name="FBAN"^.version'
     - 'FBAV                                :agent.product.(1-2)comments.entry.(1)product.name="FBAV"^.version'
     extract:
+    - 'DeviceClass                         :       50 :"Mobile"'
+    - 'OperatingSystemName                 :        1 : LookUp[FaceBookAppOSNames;@FBAN;"<<<null>>>"]'
     - 'AgentClass                          :     1001 :"Browser Webview"'
     - 'AgentName                           :     1001 :LookUp[FaceBookWebviewNames;@FBAN]'
     - 'AgentVersion                        :       11 :"??"'
@@ -75,10 +93,11 @@ config:
     - 'FBAN                                :agent.product.(1-2)comments.entry.(1)product.name="FBAN"^.version'
     - 'FBAV                                :agent.product.(1-2)comments.entry.(1)product.name="FBAV"^.version'
     extract:
+    - 'DeviceClass                         :       50 :"Mobile"'
     - 'AgentClass                          :     1000 :"Mobile App"'
-    - 'AgentName                           :     1000 :@FBAN'
-    - 'AgentVersion                        :        5 :@FBAV'
-    - 'WebviewAppName                      :     1000 :@FBAN'
+    - 'AgentName                           :     1000 :Concat["Facebook ";@FBAN]'
+    - 'AgentVersion                        :        9 :@FBAV'
+    - 'WebviewAppName                      :     1000 :Concat["Facebook ";@FBAN]'
     - 'WebviewAppVersion                   :     1000 :@FBAV'
 
 - matcher:
@@ -98,9 +117,9 @@ config:
     - 'FBAV                                :agent.product.(1-2)comments.entry.(1)product.name="FBAV"^.version'
     extract:
     - 'AgentClass                          :     1000 :"Mobile App"'
-    - 'AgentName                           :     1000 :@FBIAB'
+    - 'AgentName                           :     1000 :Concat["Facebook ";@FBIAB]'
     - 'AgentVersion                        :        5 :@FBAV'
-    - 'WebviewAppName                      :     1000 :@FBIAB'
+    - 'WebviewAppName                      :     1000 :Concat["Facebook ";@FBIAB]'
     - 'WebviewAppVersion                   :     1000 :@FBAV'
 
 - matcher:
@@ -157,6 +176,14 @@ config:
     - 'DeviceVersion                       :      201 :LookUp[AppleDeviceVersion;@FBDV]'
 
 - matcher:
+    variable:
+    - 'FBBD                                :agent.product.(1-2)comments.entry.(1)product.name="FBBD"^.version'
+    - 'FBDV                                :agent.product.(1-2)comments.entry.(1)product.name="FBDV"^.version'
+    extract:
+    - 'DeviceBrand                         :      201 :@FBBD'
+    - 'DeviceName                          :      201 :@FBDV'
+
+- matcher:
     extract:
     - 'FacebookOperatingSystemName         :     3000 :agent.product.(1-2)comments.entry.(1)product.name="FBSN"^.version'
     - 'FacebookOperatingSystemVersion      :     3000 :agent.product.(1-2)comments.entry.(1)product.name="FBSV"^.version'
@@ -167,6 +194,12 @@ config:
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :      199 :agent.product.(1-2)comments.entry.(1)product.name="FBSN"^.version'
     - 'OperatingSystemVersion              :      199 :agent.product.(1-2)comments.entry.(1)product.name="FBSV"^.version'
+
+- matcher:
+    extract:
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemVersion              :      199 :agent.product.(1-2)comments.entry.(1)product.name="FBSV"^.version'
+
 
 - lookup:
     name: 'OSNameCleanup'
@@ -440,12 +473,12 @@ config:
       OperatingSystemVersionMajor          : '8'
       OperatingSystemNameVersion           : 'iOS 8.0.2'
       OperatingSystemNameVersionMajor      : 'iOS 8'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
       AgentClass                           : 'Browser Webview'
       AgentName                            : 'UIWebView'
       AgentVersion                         : '??'
@@ -775,3 +808,217 @@ config:
       FacebookOperatingSystemName          : 'iOS'
       FacebookOperatingSystemVersion       : '13.1.3'
       Carrier                              : 'EE'
+
+- test:
+    input:
+      user_agent_string: '[FBAN/FB4A;FBAV/266.0.0.64.124;FBBV/209629367;FBDM/{density=3.375,width=1080,height=2139};FBLC/fr_FR;FBRV/0;FBCR/VOO;FBMF/HUAWEI;FBBD/HUAWEI;FBPN/com.facebook.katana;FBDV/POT-LX1;FBSV/9;FBOP/1;FBCA/arm64-v8a:;]'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Huawei POT-LX1'
+      DeviceBrand                          : 'Huawei'
+      DeviceCpu                            : 'ARM64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Chrome Webview ??'
+      AgentNameVersionMajor                : 'Chrome Webview ??'
+      AgentBuild                           : '209629367'
+      AgentLanguage                        : 'French (France)'
+      AgentLanguageCode                    : 'fr-fr'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppVersion                    : '266.0.0.64.124'
+      WebviewAppVersionMajor               : '266'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 266'
+      FacebookCarrier                      : 'VOO'
+      FacebookFBOP                         : '1'
+      Carrier                              : 'VOO'
+
+- test:
+    input:
+      user_agent_string: '[FBAN/FB4A;FBAV/288.1.0.47.123;FBBV/245303567;FBDM/{density=1.75,width=720,height=1382};FBLC/sq_AL;FBRV/0;FBCR/vodafone GR;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-A105FN;FBSV/10;FBOP/19;FBCA/armeabi-v7a:armeabi;]'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A105FN'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Chrome Webview ??'
+      AgentNameVersionMajor                : 'Chrome Webview ??'
+      AgentBuild                           : '245303567'
+      AgentLanguage                        : 'Albanian (Albania)'
+      AgentLanguageCode                    : 'sq-al'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppVersion                    : '288.1.0.47.123'
+      WebviewAppVersionMajor               : '288'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 288'
+      FacebookCarrier                      : 'vodafone GR'
+      FacebookFBOP                         : '19'
+      Carrier                              : 'vodafone GR'
+
+
+- test:
+    input:
+      user_agent_string: '[FBAN/FB4A;FBAV/289.0.0.40.121;FBBV/246888191;FBDM/{density=2.625,width=1080,height=2047};FBLC/tr_TR;FBRV/248143325;FBCR/vodafone NL;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G975F;FBSV/10;FBOP/19;FBCA/arm64-v8a:;]'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-G975F'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'ARM64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Chrome Webview ??'
+      AgentNameVersionMajor                : 'Chrome Webview ??'
+      AgentBuild                           : '246888191'
+      AgentLanguage                        : 'Turkish (Turkey)'
+      AgentLanguageCode                    : 'tr-tr'
+      WebviewAppName                       : 'Facebook App for Android'
+      WebviewAppVersion                    : '289.0.0.40.121'
+      WebviewAppVersionMajor               : '289'
+      WebviewAppNameVersionMajor           : 'Facebook App for Android 289'
+      FacebookCarrier                      : 'vodafone NL'
+      FacebookFBOP                         : '19'
+      Carrier                              : 'vodafone NL'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; POT-LX1 Build/HUAWEIPOT-L21; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/85.0.4183.127 Mobile Safari/537.36 [FBAN/EMA;FBLC/nl_NL;FBAV/218.0.0.6.119;FBDM/DisplayMetrics{density=3.0, width=1080, height=2139, scaledDensity=3.0, xdpi=403.411, ydpi=407.095, densityDpi=480, noncompatWidthPixels=1080, noncompatHeightPixels=2139, noncompatDensity=3.0, noncompatDensityDpi=480, noncompatXdpi=403.411, noncompatYdpi=407.095};]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei POT-LX1'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'HUAWEIPOT-L21'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '85.0'
+      LayoutEngineVersionMajor             : '85'
+      LayoutEngineNameVersion              : 'Blink 85.0'
+      LayoutEngineNameVersionMajor         : 'Blink 85'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '85.0.4183.127'
+      AgentVersionMajor                    : '85'
+      AgentNameVersion                     : 'Chrome Webview 85.0.4183.127'
+      AgentNameVersionMajor                : 'Chrome Webview 85'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      WebviewAppName                       : 'Facebook EMA'
+      WebviewAppVersion                    : '218.0.0.6.119'
+      WebviewAppVersionMajor               : '218'
+      WebviewAppNameVersionMajor           : 'Facebook EMA 218'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-J330FN Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/85.0.4183.127 Mobile Safari/537.36 [FBAN/EMA;FBLC/nl_NL;FBAV/218.0.0.6.119;FBDM/DisplayMetrics{density=2.0, width=720, height=1280, scaledDensity=2.0, xdpi=294.967, ydpi=295.563};]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-J330FN'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PPR1.180610.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '85.0'
+      LayoutEngineVersionMajor             : '85'
+      LayoutEngineNameVersion              : 'Blink 85.0'
+      LayoutEngineNameVersionMajor         : 'Blink 85'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '85.0.4183.127'
+      AgentVersionMajor                    : '85'
+      AgentNameVersion                     : 'Chrome Webview 85.0.4183.127'
+      AgentNameVersionMajor                : 'Chrome Webview 85'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      WebviewAppName                       : 'Facebook EMA'
+      WebviewAppVersion                    : '218.0.0.6.119'
+      WebviewAppVersionMajor               : '218'
+      WebviewAppNameVersionMajor           : 'Facebook EMA 218'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; Nokia 8.1 Build/QKQ1.190828.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/85.0.4183.127 Mobile Safari/537.36 [FBAN/EMA;FBLC/nl_NL;FBAV/218.0.0.6.119;FBDM/DisplayMetrics{density=2.625, width=1080, height=2034, scaledDensity=2.625, xdpi=403.411, ydpi=401.749};]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 8.1'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QKQ1.190828.002'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '85.0'
+      LayoutEngineVersionMajor             : '85'
+      LayoutEngineNameVersion              : 'Blink 85.0'
+      LayoutEngineNameVersionMajor         : 'Blink 85'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '85.0.4183.127'
+      AgentVersionMajor                    : '85'
+      AgentNameVersion                     : 'Chrome Webview 85.0.4183.127'
+      AgentNameVersionMajor                : 'Chrome Webview 85'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      WebviewAppName                       : 'Facebook EMA'
+      WebviewAppVersion                    : '218.0.0.6.119'
+      WebviewAppVersionMajor               : '218'
+      WebviewAppNameVersionMajor           : 'Facebook EMA 218'

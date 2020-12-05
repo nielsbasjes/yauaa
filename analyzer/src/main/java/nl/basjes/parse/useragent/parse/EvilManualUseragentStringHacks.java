@@ -118,14 +118,14 @@ public final class EvilManualUseragentStringHacks {
         result = replaceString(result, ", _TV_", " _TV_");
 
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
-        if (MISSING_PRODUCT_AT_START.matcher(result).matches()) {
+        if (MISSING_PRODUCT_AT_START.matcher(result).matches() || result.charAt(0) == '[') {
             // We simply prefix a fake product name to continue parsing.
-            result = "Mozilla/5.0 " + result;
+            result = "FakeYauaaProduct/3.14 " + result;
         } else {
             // This happens occasionally
             if (result.charAt(0) == '/') {
                 // We simply prefix a fake product name to continue parsing.
-                result = "Mozilla" + result;
+                result = "FakeYauaaProduct" + result;
             }
         }
 

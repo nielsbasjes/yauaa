@@ -21,9 +21,12 @@ import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
+import java.util.Collections;
+import java.util.Set;
+
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 
-public class MajorVersionCalculator implements FieldCalculator {
+public class MajorVersionCalculator extends FieldCalculator {
 
     private String versionName;
     private String majorVersionName;
@@ -53,8 +56,13 @@ public class MajorVersionCalculator implements FieldCalculator {
     }
 
     @Override
-    public String[] getDependencies() {
-        return new String[]{versionName};
+    public String getCalculatedFieldName() {
+        return majorVersionName;
+    }
+
+    @Override
+    public Set<String> getDependencies() {
+        return Collections.singleton(versionName);
     }
 
     @Override

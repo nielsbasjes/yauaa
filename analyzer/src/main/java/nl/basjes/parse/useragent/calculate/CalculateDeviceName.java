@@ -21,6 +21,8 @@ import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
+import java.util.Collections;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import static java.util.regex.Pattern.CASE_INSENSITIVE;
@@ -29,7 +31,7 @@ import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 
-public class CalculateDeviceName implements FieldCalculator {
+public class CalculateDeviceName extends FieldCalculator {
 
 
     private static final Pattern CLEAN_1_PATTERN = Pattern.compile("AppleWebKit", CASE_INSENSITIVE | LITERAL);
@@ -64,8 +66,13 @@ public class CalculateDeviceName implements FieldCalculator {
     }
 
     @Override
-    public String[] getDependencies() {
-        return new String[]{DEVICE_BRAND};
+    public String getCalculatedFieldName() {
+        return DEVICE_NAME;
+    }
+
+    @Override
+    public Set<String> getDependencies() {
+        return Collections.singleton(DEVICE_BRAND);
     }
 
     @Override

@@ -20,12 +20,20 @@ package nl.basjes.parse.useragent.calculate;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Set;
 
-public interface FieldCalculator extends Serializable {
-    void calculate(MutableUserAgent userAgent);
+public abstract class FieldCalculator implements Serializable {
+    public abstract void calculate(MutableUserAgent userAgent);
 
-    default String[] getDependencies() {
-        return new String[0];
+    public abstract String getCalculatedFieldName();
+
+    public Set<String> getDependencies() {
+        return Collections.emptySet();
     }
 
+    @Override
+    public String toString() {
+        return "Calculate " + getDependencies() + " ==> " + getCalculatedFieldName();
+    }
 }

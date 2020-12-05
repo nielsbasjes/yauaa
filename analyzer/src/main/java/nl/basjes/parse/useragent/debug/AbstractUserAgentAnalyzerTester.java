@@ -583,7 +583,9 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         @SuppressWarnings("EmptyMethod") // We must override the method because of the generic return value.
         @Override
         public UAA build() {
-            return super.build();
+            UAA analyzer = super.build();
+            verifyCalculatorDependencyOrdering();
+            return analyzer;
         }
     }
 

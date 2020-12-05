@@ -21,12 +21,15 @@ import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.Normalize;
 
+import java.util.Collections;
+import java.util.Set;
+
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.utils.Normalize.isLowerCase;
 
-public class CalculateAgentName implements FieldCalculator {
+public class CalculateAgentName extends FieldCalculator {
     @Override
     public void calculate(MutableUserAgent userAgent) {
         // Cleanup the name of the useragent
@@ -61,13 +64,12 @@ public class CalculateAgentName implements FieldCalculator {
     }
 
     @Override
-    public String[] getDependencies() {
-        return new String[]{DEVICE_BRAND};
+    public String getCalculatedFieldName() {
+        return AGENT_NAME;
     }
 
     @Override
-    public String toString() {
-        return "Calculate " + AGENT_NAME;
+    public Set<String> getDependencies() {
+        return Collections.singleton(DEVICE_BRAND);
     }
-
 }

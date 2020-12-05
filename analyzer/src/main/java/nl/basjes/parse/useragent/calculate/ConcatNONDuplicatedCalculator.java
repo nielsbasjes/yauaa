@@ -20,9 +20,13 @@ package nl.basjes.parse.useragent.calculate;
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 
-public class ConcatNONDuplicatedCalculator implements FieldCalculator {
+public class ConcatNONDuplicatedCalculator extends FieldCalculator {
 
     private final String targetName;
     private final String firstName;
@@ -78,8 +82,13 @@ public class ConcatNONDuplicatedCalculator implements FieldCalculator {
     }
 
     @Override
-    public String[] getDependencies() {
-        return new String[]{firstName, secondName};
+    public String getCalculatedFieldName() {
+        return targetName;
+    }
+
+    @Override
+    public Set<String> getDependencies() {
+        return new HashSet<>(Arrays.asList(firstName, secondName));
     }
 
     @Override

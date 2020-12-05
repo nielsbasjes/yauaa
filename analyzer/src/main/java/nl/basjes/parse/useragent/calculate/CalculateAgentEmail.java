@@ -23,7 +23,7 @@ import nl.basjes.parse.useragent.utils.Normalize;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 
-public class CalculateAgentEmail implements FieldCalculator {
+public class CalculateAgentEmail extends FieldCalculator {
     @Override
     public void calculate(MutableUserAgent userAgent) {
         // The email address is a mess
@@ -37,8 +37,7 @@ public class CalculateAgentEmail implements FieldCalculator {
     }
 
     @Override
-    public String toString() {
-        return "Calculate " + AGENT_INFORMATION_EMAIL;
+    public String getCalculatedFieldName() {
+        return AGENT_INFORMATION_EMAIL;
     }
-
 }

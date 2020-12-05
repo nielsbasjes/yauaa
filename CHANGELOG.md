@@ -4,7 +4,10 @@ This is intended as an overview of the major changes
 v5.21-SNAPSHOT
 ===
 - Analyzer:
+  - Improve the Calculator setup.
+- New/improved detections
   - Tests: Edge on Linux
+  - Handle Facebook agents with lists of keyvalues
 
 v5.20
 ===

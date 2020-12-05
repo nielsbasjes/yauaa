@@ -384,6 +384,8 @@ productVersionWithCommas
     | base64
     | singleVersionWithCommas
     | SPECIALVERSIONWORDS
+    // This next one only occurs in a Facebook useragent
+    | CURLYBRACEOPEN keyValue ( COMMA keyValue )* CURLYBRACECLOSE
     ;
 
 
