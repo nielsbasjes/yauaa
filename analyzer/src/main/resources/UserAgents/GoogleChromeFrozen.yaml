@@ -137,30 +137,18 @@ config:
 # }  // namespace frozen_user_agent_strings
 
 
-# Desktop Chrome: If the frozen agent is detected the Operating system is nonsense
+# Desktop Chrome/Edge: If the frozen agent is detected the Operating system is nonsense
 - matcher:
     variable:
     - 'Chrome                              :agent.(3)product.name="Chrome"^'
     - 'ChromeVersion                       :@Chrome.version'
     require:
-    - 'IsNull[agent.product.name="Edg"]'
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - '@ChromeVersion}".0.0.0"'
     extract:
     - 'OperatingSystemName                 :      200 : "<<<null>>>"'
     - 'OperatingSystemVersion              :      200 : "<<<null>>>"'
-
-# Desktop Edge: If the frozen agent is detected the Agent version is nonsense
-- matcher:
-    variable:
-    - 'Chrome                              :agent.(3)product.name="Chrome"^'
-    - 'ChromeVersion                       :@Chrome.version'
-    require:
-    - 'agent.product.name="Edg"'
-    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
-    - '@ChromeVersion}".0.0.0"'
-    extract:
-    - 'AgentVersion                        :     3000 : @ChromeVersion'
+    - 'AgentVersion                        :     3000 : @ChromeVersion[1]'
 
 # Android: If the frozen agent is detected the Operating system Version is nonsense
 - matcher:
@@ -288,9 +276,9 @@ config:
       LayoutEngineNameVersionMajor         : 'Blink 83'
       AgentClass                           : 'Browser'
       AgentName                            : 'Chrome'
-      AgentVersion                         : '83.0.0.0'
+      AgentVersion                         : '83'
       AgentVersionMajor                    : '83'
-      AgentNameVersion                     : 'Chrome 83.0.0.0'
+      AgentNameVersion                     : 'Chrome 83'
       AgentNameVersionMajor                : 'Chrome 83'
 
 
@@ -318,9 +306,9 @@ config:
       LayoutEngineNameVersionMajor         : 'Blink 84'
       AgentClass                           : 'Browser'
       AgentName                            : 'Chrome'
-      AgentVersion                         : '84.0.0.0'
+      AgentVersion                         : '84'
       AgentVersionMajor                    : '84'
-      AgentNameVersion                     : 'Chrome 84.0.0.0'
+      AgentNameVersion                     : 'Chrome 84'
       AgentNameVersionMajor                : 'Chrome 84'
 
 # ======================================
@@ -441,9 +429,9 @@ config:
       LayoutEngineNameVersionMajor         : 'Blink 83'
       AgentClass                           : 'Browser'
       AgentName                            : 'Chrome'
-      AgentVersion                         : '83.0.0.0'
+      AgentVersion                         : '83'
       AgentVersionMajor                    : '83'
-      AgentNameVersion                     : 'Chrome 83.0.0.0'
+      AgentNameVersion                     : 'Chrome 83'
       AgentNameVersionMajor                : 'Chrome 83'
 
 
@@ -505,9 +493,9 @@ config:
       LayoutEngineNameVersionMajor         : 'Blink 83'
       AgentClass                           : 'Browser'
       AgentName                            : 'Chrome'
-      AgentVersion                         : '83.0.0.0'
+      AgentVersion                         : '83'
       AgentVersionMajor                    : '83'
-      AgentNameVersion                     : 'Chrome 83.0.0.0'
+      AgentNameVersion                     : 'Chrome 83'
       AgentNameVersionMajor                : 'Chrome 83'
 
 
@@ -559,11 +547,11 @@ config:
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '10.0'
-      OperatingSystemVersionMajor          : '10'
-      OperatingSystemNameVersion           : 'Windows 10.0'
-      OperatingSystemNameVersionMajor      : 'Windows 10'
+      OperatingSystemName                  : 'Unknown'       # We do NOT know it is Windows 10!
+      OperatingSystemVersion               : '??'            # We do NOT know it is Windows 10!
+      OperatingSystemVersionMajor          : '??'            # We do NOT know it is Windows 10!
+      OperatingSystemNameVersion           : 'Unknown ??'    # We do NOT know it is Windows 10!
+      OperatingSystemNameVersionMajor      : 'Unknown ??'    # We do NOT know it is Windows 10!
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '83.0'
@@ -572,10 +560,40 @@ config:
       LayoutEngineNameVersionMajor         : 'Blink 83'
       AgentClass                           : 'Browser'
       AgentName                            : 'Edge'
-      AgentVersion                         : '83.0.0.0'
+      AgentVersion                         : '83'
       AgentVersionMajor                    : '83'
-      AgentNameVersion                     : 'Edge 83.0.0.0'
+      AgentNameVersion                     : 'Edge 83'
       AgentNameVersionMajor                : 'Edge 83'
+
+
+# Desktop, Linux, Edge 88, FROZEN UserAgent
+- test:
+    input:
+      user_agent_string: ' Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.0.0 Safari/537.36 Edg/75.0.131.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Unknown'     # We do NOT know it is Windows 10!
+      OperatingSystemVersion               : '??'          # We do NOT know it is Windows 10!
+      OperatingSystemVersionMajor          : '??'          # We do NOT know it is Windows 10!
+      OperatingSystemNameVersion           : 'Unknown ??'  # We do NOT know it is Windows 10!
+      OperatingSystemNameVersionMajor      : 'Unknown ??'  # We do NOT know it is Windows 10!
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '88'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Edge 88'
+      AgentNameVersionMajor                : 'Edge 88'
 
 
 # Tablet, Android 11, Chrome 83, Default UserAgent (Android Studio Emulator)

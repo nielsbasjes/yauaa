@@ -7,7 +7,11 @@ v5.21-SNAPSHOT
   - Improve the Calculator setup.
 - New/improved detections
   - Tests: Edge on Linux
+  - Frozen Chrome/Edge:
+    - Minor version of x.0.0.0 is removed.
+    - With Edge on Linux we cannot assume Windows 10 for Edge.
   - Handle Facebook agents with lists of keyvalues
+  - Classify facebookcatalog as a Robot
 
 v5.20
 ===
