@@ -23,7 +23,6 @@ import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.api.java.typeutils.RowTypeInfo;
-import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
@@ -100,7 +99,6 @@ public class DemonstrationOfTumblingTableSQLFunction {
     public void runDemonstration() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment senv = StreamExecutionEnvironment.getExecutionEnvironment();
-        senv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         senv.getConfig().setAutoWatermarkInterval(1000);
 
         // The table environment

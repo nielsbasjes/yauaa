@@ -24,7 +24,6 @@ import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.LocalEnvironment;
 import org.apache.flink.api.java.io.LocalCollectionOutputFormat;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.DataStreamUtils;
 import org.apache.flink.streaming.api.environment.LocalStreamEnvironment;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.junit.jupiter.api.Test;
@@ -122,10 +121,7 @@ public class TestUserAgentAnalysisMapperClass {
 
             .map(new MyUserAgentAnalysisMapper());
 
-        List<TestRecord> result = new ArrayList<>(5);
-        DataStreamUtils
-            .collect(resultDataStream)
-            .forEachRemaining(result::add);
+        List<TestRecord> result = resultDataStream.executeAndCollect(100);
 
         assertEquals(2, result.size());
 

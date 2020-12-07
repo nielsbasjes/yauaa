@@ -12,6 +12,8 @@ v5.21-SNAPSHOT
     - With Edge on Linux we cannot assume Windows 10 for Edge.
   - Handle Facebook agents with lists of keyvalues
   - Classify facebookcatalog as a Robot
+- Updated UDF dependencies
+  - Apache Flink            1.12.0
 
 v5.20
 ===
