@@ -48,14 +48,17 @@ public class TestLoadDissectorDynamicallyInPig {
                 "    '-load:nl.basjes.parse.useragent.dissector.UserAgentDissector:| || classpath*:**/CustomPatterns.yaml | ||'," +
                 "            'HTTP.USERAGENT:request.user-agent'," +
                 "            'HTTP.HOST:request.user-agent.agent_information_url.host'," +
-                "            'STRING:request.user-agent.my_totally_useless_value'" +
+                "            'STRING:request.user-agent.my_totally_useless_value'," +
+                "    '-map:request.firstline.uri.query.ua:HTTP.USERAGENT'," +
+                "            'HTTP.HOST:request.firstline.uri.query.ua.agent_information_url.host'" +
                 "            )" +
                 "         AS (" +
                 "            ConnectionClientHost," +
                 "            RequestReceiveTime," +
                 "            RequestUseragent," +
                 "            RequestUseragentUrlHostName," +
-                "            SomeValue" +
+                "            SomeValue," +
+                "            ParameterUserAgentUrlHost" +
                 "            );"
         );
         Storage.Data data = resetData(pigServer);
@@ -73,7 +76,8 @@ public class TestLoadDissectorDynamicallyInPig {
                         "Mobile Safari/537.36" +
                         "(https://yauaa.basjes.nl:8080/something.html?aap=noot&mies=wim#zus)",
                     "yauaa.basjes.nl",
-                    "Nexus 5X"
+                    "Nexus 5X",
+                    "niels.basjes.nl"
             ).toDelimitedString("><#><"),
             out.get(0).toDelimitedString("><#><"));
     }
