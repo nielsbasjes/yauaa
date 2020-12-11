@@ -20,6 +20,6 @@
 version=$(grep -F '<version>' pom.xml | head -1 | sed 's@.*>\(.*\)<.*$@\1@g')
 echo "Testing version ${version}" && \
 date
-mvn clean test -PskipQuality -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "results/quick-speed-test-${version}-$(date +%Y%m%d-%H%M%S).txt"
+mvn clean test -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "results/quick-speed-test-${version}-$(date +%Y%m%d-%H%M%S).txt"
 date
 
