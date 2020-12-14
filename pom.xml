@@ -453,8 +453,9 @@
               <target>${target.java.version}</target>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
-                <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
-                <!-- Ignore the 'serial' warnings about not having a serialVersionUID -->
+                <!-- Ignore 'classfile' to allow leaving Kryo out. -->
+                <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
+                <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
                 <arg>-Xlint:all,-classfile,-processing,-serial</arg>
                 <arg>-Werror</arg>
               </compilerArgs>
@@ -480,8 +481,9 @@
               <release>${target.java.release}</release>
               <compilerArgs>
                 <!-- Enable almost all warnings.-->
-                <!-- FIXME: Why does the hive udf fail with "An unknown compilation problem occurred" when using -Xlint:classfile,processing ? -->
-                <!-- Ignore the 'serial' warnings about not having a serialVersionUID -->
+                <!-- Ignore 'classfile' to allow leaving Kryo out. -->
+                <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
+                <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
                 <arg>-Xlint:all,-classfile,-processing,-serial</arg>
                 <arg>-Werror</arg>
                 <arg>-implicit:class</arg>
