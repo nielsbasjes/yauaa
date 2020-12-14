@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v5.21-SNAPSHOT
+v5.22-SNAPSHOT
+===
+- ...
+
+v5.21
 ===
 - Analyzer:
   - Improve the Calculator setup.

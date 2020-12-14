@@ -586,7 +586,7 @@ some APIs that allow you to try things out.</p>
 <pre><code>&lt;dependency&gt;
   &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
   &lt;artifactId&gt;yauaa-webapp&lt;/artifactId&gt;
-  &lt;version&gt;5.20&lt;/version&gt;
+  &lt;version&gt;5.21&lt;/version&gt;
   &lt;type&gt;war&lt;/type&gt;
 &lt;/dependency&gt;
 </code></pre>
@@ -598,8 +598,8 @@ some APIs that allow you to try things out.</p>
 <pre><code>https://hub.docker.com/r/nielsbasjes/yauaa
 </code></pre><p>So with docker installed and running on your (Linux) desktop
 you should be able to so something as simple as</p>
-<pre><code>docker pull nielsbasjes/yauaa:5.20
-docker run -p8080:8080 nielsbasjes/yauaa:5.20
+<pre><code>docker pull nielsbasjes/yauaa:5.21
+docker run -p8080:8080 nielsbasjes/yauaa:5.21
 </code></pre>
 
 <p>and then open</p>
@@ -609,7 +609,7 @@ docker run -p8080:8080 nielsbasjes/yauaa:5.20
 <p>The servlet supports loading your own custom rules, which can be useful to classify internal monitoring systems.
 It does this by looking in the folder that start with UserAgents for yaml files (i.e. <code>file:UserAgents*/*.yaml</code> ).</p>
 <p>Based on the docker image this can be easily done with an additional layer where your entire <code>Dockerfile</code> looks like this</p>
-<pre><code>FROM nielsbasjes/yauaa:5.20
+<pre><code>FROM nielsbasjes/yauaa:5.21
 ADD InternalTraffic.yaml UserAgents/
 </code></pre>
 
@@ -646,7 +646,7 @@ spec:
     spec:
       containers:
       - name: yauaa
-        image: nielsbasjes/yauaa:5.20
+        image: nielsbasjes/yauaa:5.21
         ports:
         - containerPort: 8080
           name: yauaa
@@ -756,7 +756,7 @@ spec:
             name: niels-yauaa-rules
       containers:
       - name: yauaa
-        image: nielsbasjes/yauaa:5.20
+        image: nielsbasjes/yauaa:5.21
         volumeMounts:
           # NOTE 1: The directory name MUST start with  &quot;/UserAgents&quot; !!
           # NOTE 2: You can have multiple as long as the mountPaths are all different.
@@ -879,7 +879,7 @@ spec:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"WebServlet","level":"2.6","depth":1,"next":{"title":"Overview","level":"3.1","depth":1,"path":"UDFs.md","ref":"UDFs.md","articles":[]},"previous":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap","livereload"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.20"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-WebServlet.md","mtime":"2020-11-04T12:01:28.513Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-12-13T21:56:38.436Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"WebServlet","level":"2.6","depth":1,"next":{"title":"Overview","level":"3.1","depth":1,"path":"UDFs.md","ref":"UDFs.md","articles":[]},"previous":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.21"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-WebServlet.md","mtime":"2020-11-04T12:01:28.513Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-12-14T15:38:20.770Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -887,10 +887,6 @@ spec:
         
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
-    
-        
-        <script src="gitbook/gitbook-plugin-livereload/plugin.js"></script>
-        
     
         
         <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
