@@ -14,6 +14,7 @@ v5.21-SNAPSHOT
   - Classify facebookcatalog as a Robot
 - Updated UDF dependencies
   - Apache Flink            1.12.0
+  - Apache Beam             2.26.0
 
 v5.20
 ===
