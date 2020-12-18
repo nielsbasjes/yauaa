@@ -31,6 +31,9 @@ import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.Row;
+import org.checkerframework.checker.initialization.qual.Initialized;
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.UnknownKeyFor;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -90,18 +93,15 @@ public class TestParseUserAgentSQL implements Serializable {
                     // Get the current POJO instance
                     List<String> inputValue = c.element();
 
-                    // Create a Row with the appSchema schema
-                    // and values from the current POJO
-                    Row appRow =
-                        Row
-                            .withSchema(inputSchema)
-                            .addValues(inputValue.get(0))
-                            .addValues(inputValue.get(1))
-                            .addValues(inputValue.get(2))
-                            .build();
-
-                    // Output the Row representing the current POJO
-                    c.output(appRow);
+                    if (inputValue != null) {
+                        // Create a Row with the appSchema schema
+                        // and values from the current POJO
+                        Row.Builder appRowBuilder = Row.withSchema(inputSchema);
+                        inputValue.forEach(appRowBuilder::addValues);
+                        Row appRow = appRowBuilder.build();
+                        // Output the Row representing the current POJO
+                        c.output(appRow);
+                    }
                 }
             }))
             .setCoder(RowCoder.of(inputSchema));
@@ -112,7 +112,7 @@ public class TestParseUserAgentSQL implements Serializable {
         // Define a SQL query which calls the UDF
         String sql =
             "SELECT" +
-                " userAgent                                         AS userAgent " +
+                "  userAgent                                        AS userAgent " +
                 ", expectedDeviceClass                              AS expectedDeviceClass " +
                 ", expectedAgentNameVersion                         AS expectedAgentNameVersion " +
                 ", ParseUserAgent(userAgent)                        AS parsedUserAgent " +
