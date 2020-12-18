@@ -35,10 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestDissectUserAgent {
+class TestDissectUserAgent {
 
     @Test
-    public void testUserAgentDissector() {
+    void testUserAgentDissector() {
         DissectorTester
             .create()
             .withDissector(new UserAgentDissector())
@@ -59,7 +59,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void testNullInput() {
+    void testNullInput() {
         // This is an edge case where the webview fields are calculated AND wiped again.
         DissectorTester
             .create()
@@ -70,7 +70,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void testBadInit() {
+    void testBadInit() {
         final InvalidDissectorException invalidDissectorException = assertThrows(InvalidDissectorException.class, () -> {
             final UserAgentDissector userAgentDissector = new UserAgentDissector();
             userAgentDissector.initializeNewInstance(new DissectorTester.DummyDissector());
@@ -81,7 +81,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void testBadInitNull() {
+    void testBadInitNull() {
         final InvalidDissectorException invalidDissectorException = assertThrows(InvalidDissectorException.class, () -> {
             final UserAgentDissector userAgentDissector = new UserAgentDissector();
             userAgentDissector.initializeNewInstance(null);
@@ -92,7 +92,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void validateNameConversion() {
+    void validateNameConversion() {
         UserAgentDissector uad = new UserAgentDissector();
         uad.ensureMappingsExistForFieldName("Foo");
         uad.ensureMappingsExistForFieldName("FooBar");
@@ -107,7 +107,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void checkAllPossibleOutputs() {
+    void checkAllPossibleOutputs() {
         Parser<TestRecord> parser = new HttpdLoglineParser<>(TestRecord.class, "%{User-agent}i");
         parser.addDissector(new UserAgentDissector());
 
@@ -214,7 +214,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void testExtractUrlFields() {
+    void testExtractUrlFields() {
         Parser<TestRecord> parser = new HttpdLoglineParser<>(TestRecord.class, "%t \"%{User-agent}i\"");
         parser.addDissector(new UserAgentDissector());
 
@@ -267,7 +267,7 @@ public class TestDissectUserAgent {
     }
 
     @Test
-    public void testResetScenario() throws NoSuchMethodException, InvalidDissectorException, MissingDissectorsException, DissectionFailure {
+    void testResetScenario() throws NoSuchMethodException, InvalidDissectorException, MissingDissectorsException, DissectionFailure {
         // Create a basic parser
         Parser<NoDuplicatesRecord> parser = new HttpdLoglineParser<>(NoDuplicatesRecord.class, "%t \"%{User-agent}i\"");
         parser.addDissector(new UserAgentDissector());

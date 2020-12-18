@@ -28,10 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestDeveloperTools {
+class TestDeveloperTools {
 
     @Test
-    public void validateErrorSituationOutput() {
+    void validateErrorSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .hideMatcherLoadStats()
@@ -45,7 +45,7 @@ public class TestDeveloperTools {
     }
 
     @Test
-    public void validateNewTestcaseSituationOutput() {
+    void validateNewTestcaseSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .delayInitialization()
@@ -63,7 +63,7 @@ public class TestDeveloperTools {
 
 
     @Test
-    public void validateStringOutputsAndMatches() {
+    void validateStringOutputsAndMatches() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().withField("DeviceName").build();
 
         MutableUserAgent useragent = new MutableUserAgent("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +

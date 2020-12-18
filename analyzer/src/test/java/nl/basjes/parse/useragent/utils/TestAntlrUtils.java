@@ -27,10 +27,10 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestAntlrUtils {
+class TestAntlrUtils {
 
     @Test
-    public void testEdges() {
+    void testEdges() {
         ParserRuleContext context = new ParserRuleContext(null, 42);
 
         ParseTree content = new RuleContext() {

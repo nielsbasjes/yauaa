@@ -21,15 +21,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class TestKryoSerialization {
+class TestKryoSerialization {
 
     @Test
-    public void cycleWithTestBefore() throws IOException, ClassNotFoundException {
+    void cycleWithTestBefore() throws IOException, ClassNotFoundException {
         new SerializeWithKryo().cycleWithTestBefore();
     }
 
     @Test
-    public void cycleWithoutTestBefore() throws IOException, ClassNotFoundException {
+    void cycleWithoutTestBefore() throws IOException, ClassNotFoundException {
         new SerializeWithKryo().cycleWithoutTestBefore();
     }
 }

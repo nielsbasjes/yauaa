@@ -32,10 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestMatcherList {
+class TestMatcherList {
 
     @Test
-    public void testNormalUse() {
+    void testNormalUse() {
         MatcherList list = new MatcherList(1);
         assertEquals(0, list.size());
         assertTrue(list.isEmpty());
@@ -75,7 +75,7 @@ public class TestMatcherList {
     }
 
     @Test
-    public void testTooMany() {
+    void testTooMany() {
         MatcherList list = new MatcherList(5);
         list.add(new Matcher(null));
         list.add(new Matcher(null));
@@ -87,7 +87,7 @@ public class TestMatcherList {
     }
 
     @Test
-    public void testToArray() {
+    void testToArray() {
         MatcherList list = new MatcherList(5);
         list.add(new Matcher(null));
         list.add(new Matcher(null));
@@ -128,7 +128,7 @@ public class TestMatcherList {
     }
 
     @Test
-    public void serializeAndDeserializeMatcherListNonEmpty() {
+    void serializeAndDeserializeMatcherListNonEmpty() {
         MatcherList list = new MatcherList(5);
         list.add(new Matcher(null));
 
@@ -139,7 +139,7 @@ public class TestMatcherList {
     }
 
     @Test
-    public void serializeAndDeserializeMatcherList() {
+    void serializeAndDeserializeMatcherList() {
         MatcherList list = new MatcherList(5);
         list.add(new Matcher(null));
         list.add(new Matcher(null));
@@ -161,43 +161,43 @@ public class TestMatcherList {
     }
 
     @Test
-    public void testUnsupportedAddAll() {
+    void testUnsupportedAddAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).addAll(null));
     }
 
     @Test
-    public void testUnsupportedRemove() {
+    void testUnsupportedRemove() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).remove(null));
     }
 
     @Test
-    public void testUnsupportedRemoveAll() {
+    void testUnsupportedRemoveAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).removeAll(null));
     }
 
     @Test
-    public void testUnsupportedRetainAll() {
+    void testUnsupportedRetainAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).retainAll(null));
     }
 
     @Test
-    public void testUnsupportedContains() {
+    void testUnsupportedContains() {
         assertThrows(UnsupportedOperationException.class, () ->
             assertFalse(new MatcherList(1).contains(null)));
     }
 
     @Test
-    public void testUnsupportedContainsAll() {
+    void testUnsupportedContainsAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).containsAll(null));
     }
 
     @Test
-    public void testUnsupportedToArray() {
+    void testUnsupportedToArray() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatcherList(1).toArray((Object[]) null));
     }

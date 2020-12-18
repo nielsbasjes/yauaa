@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestYamlBasedExpressions {
+class TestYamlBasedExpressions {
     private UserAgentAnalyzerTester createTester(String filename){
         return UserAgentAnalyzerTester
             .newBuilder()
@@ -33,127 +33,127 @@ public class TestYamlBasedExpressions {
     }
 
     @Test
-    public void runMatcherTests() {
+    void runMatcherTests() {
         UserAgentAnalyzerTester uaa = createTester("Matcher-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runMatcherNestedFunctionsTests() {
+    void runMatcherNestedFunctionsTests() {
         UserAgentAnalyzerTester uaa = createTester("Matcher-nested-functions.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runMatcherIsNullTests() {
+    void runMatcherIsNullTests() {
         UserAgentAnalyzerTester uaa = createTester("Matcher-IsNull-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runSubstringTests() {
+    void runSubstringTests() {
         UserAgentAnalyzerTester uaa = createTester("SubString-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runSubstringVersionTests() {
+    void runSubstringVersionTests() {
         UserAgentAnalyzerTester uaa = createTester("SubStringVersion-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runSubsegmentTests() {
+    void runSubsegmentTests() {
         UserAgentAnalyzerTester uaa = createTester("SubSegment-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
 
     @Test
-    public void runLookupTests() {
+    void runLookupTests() {
         UserAgentAnalyzerTester uaa = createTester("Lookup-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runLookupPrefixTests() {
+    void runLookupPrefixTests() {
         UserAgentAnalyzerTester uaa = createTester("LookupPrefix-tests.yaml");
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runVariableTests() {
+    void runVariableTests() {
         UserAgentAnalyzerTester uaa = createTester("Variable-tests.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runPositionalTests() {
+    void runPositionalTests() {
         UserAgentAnalyzerTester uaa = createTester("Positional-tests.yaml");
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runWalkingTests() {
+    void runWalkingTests() {
         UserAgentAnalyzerTester uaa = createTester("Walking-tests.yaml");
         uaa.setVerbose(true);
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runAllFieldsTests() {
+    void runAllFieldsTests() {
         UserAgentAnalyzerTester uaa = createTester("AllFields-tests.yaml");
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runAllStepsTests() {
+    void runAllStepsTests() {
         UserAgentAnalyzerTester uaa = createTester("AllSteps.yaml");
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runDebugOutputTest() {
+    void runDebugOutputTest() {
         UserAgentAnalyzerTester uaa = createTester("DebugOutput-tests.yaml");
         assertTrue(uaa.runTests(true, true));
     }
 
     @Test
-    public void runEdgecasesTest() {
+    void runEdgecasesTest() {
         UserAgentAnalyzerTester uaa = createTester("Edgecases-tests.yaml");
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runAllPossibleSteps() {
+    void runAllPossibleSteps() {
         UserAgentAnalyzerTester uaa = createTester("AllPossibleSteps.yaml");
         uaa.setVerbose(true);
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runOnlyOneTest() {
+    void runOnlyOneTest() {
         UserAgentAnalyzerTester uaa = createTester("TestOnlyOneTest.yaml");
         uaa.setVerbose(true);
         assertTrue(uaa.runTests(false, false));
     }
 
     @Test
-    public void runIsNullLookupTest() {
+    void runIsNullLookupTest() {
         UserAgentAnalyzerTester uaa = createTester("IsNullLookup.yaml");
         uaa.setVerbose(true);
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runDefaultIfNullTest() {
+    void runDefaultIfNullTest() {
         UserAgentAnalyzerTester uaa = createTester("Default-tests.yaml");
         uaa.setVerbose(true);
         assertTrue(uaa.runTests(false, true));
     }
 
     @Test
-    public void runReplaceStringTest() {
+    void runReplaceStringTest() {
         UserAgentAnalyzerTester uaa = createTester("ReplaceString-tests.yaml");
         uaa.setVerbose(true);
         assertTrue(uaa.runTests(false, true));

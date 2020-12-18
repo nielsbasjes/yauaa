@@ -45,10 +45,10 @@ import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestClassifier {
+class TestClassifier {
 
     @Test
-    public void testEnumCreation() {
+    void testEnumCreation() {
         verifyEnum("Desktop");
         verifyEnum("Anonymized");
         verifyEnum("Mobile");
@@ -76,7 +76,7 @@ public class TestClassifier {
 
 
     @Test
-    public void testClassifier() {
+    void testClassifier() {
                        // DeviceClass,           human, mobile, normal, misuse
         verifyDeviceClass(DESKTOP,                true,  false,  true, false);
         verifyDeviceClass(ANONYMIZED,             true,  false, false,  true);

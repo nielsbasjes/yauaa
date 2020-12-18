@@ -76,7 +76,7 @@ public class TestParseServlet {
                 }
 
             }
-            Thread.sleep(100);
+            Thread.sleep(100); // NOSONAR java:S2925 Sleeping in a while loop is safe!
             ResponseEntity<String> response = this.restTemplate.exchange(getAliveURI(), GET, request, String.class);
             statusCode = response.getStatusCode();
         }

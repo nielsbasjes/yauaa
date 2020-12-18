@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestAnnotationCachesetting {
+class TestAnnotationCachesetting {
 
     public static class TestRecord implements Serializable {
         final String useragent;
         String deviceClass;
         String agentNameVersion;
 
-        public TestRecord(String useragent) {
+        TestRecord(String useragent) {
             this.useragent = useragent;
         }
     }
@@ -61,7 +61,7 @@ public class TestAnnotationCachesetting {
     // ----------------------------------------------------------------
 
     @Test
-    public void testAnnotationCacheSetting1() throws IllegalAccessException, NoSuchFieldException {
+    void testAnnotationCacheSetting1() throws IllegalAccessException, NoSuchFieldException {
         UserAgentAnnotationAnalyzer<TestRecord> userAgentAnnotationAnalyzer = new UserAgentAnnotationAnalyzer<>();
 
         // To make sure the internals behave as expected
@@ -104,7 +104,7 @@ public class TestAnnotationCachesetting {
 
 
     @Test
-    public void testAnnotationCacheSetting2() throws IllegalAccessException, NoSuchFieldException {
+    void testAnnotationCacheSetting2() throws IllegalAccessException, NoSuchFieldException {
         UserAgentAnnotationAnalyzer<TestRecord> userAgentAnnotationAnalyzer = new UserAgentAnnotationAnalyzer<>();
 
         // To make sure the internals behave as expected

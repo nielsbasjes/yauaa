@@ -34,12 +34,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestPredefinedBrowsers {
+class TestPredefinedBrowsers {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsers.class);
 
     @Test
-    public void validateAllPredefinedBrowsers() {
+    void validateAllPredefinedBrowsers() {
         UserAgentAnalyzerTester uaa;
         uaa = UserAgentAnalyzerTester.newBuilder().immediateInitialization().build();
         LOG.info("==============================================================");
@@ -77,7 +77,7 @@ public class TestPredefinedBrowsers {
     }
 
     @Test
-    public void validate_DeviceClass_AgentNameVersionMajor() {
+    void validate_DeviceClass_AgentNameVersionMajor() {
         Set<String> fields = new HashSet<>();
         fields.add("DeviceClass");
         fields.add("AgentNameVersionMajor");
@@ -85,7 +85,7 @@ public class TestPredefinedBrowsers {
     }
 
     @Test
-    public void validate_DeviceClass_AgentNameVersionMajor_OperatingSystemVersionBuild() {
+    void validate_DeviceClass_AgentNameVersionMajor_OperatingSystemVersionBuild() {
         Set<String> fields = new HashSet<>();
         fields.add("DeviceClass");
         fields.add("AgentNameVersionMajor");
@@ -94,7 +94,7 @@ public class TestPredefinedBrowsers {
     }
 
     @Test
-    public void makeSureWeDoNotHaveDuplicateTests() {
+    void makeSureWeDoNotHaveDuplicateTests() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().build();
 
         Map<String, List<String>> allTestInputs = new HashMap<>(2000);

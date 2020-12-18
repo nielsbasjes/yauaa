@@ -26,12 +26,12 @@ import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestPerformance {
+class TestPerformance {
     private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
 
     @Disabled
     @Test
-    public void validateAllPredefinedBrowsersPerformance() { //NOSONAR: Do not complain about ignored performance test
+    void validateAllPredefinedBrowsersPerformance() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzerTester uaa =
             UserAgentAnalyzerTester.newBuilder()
             .showMatcherLoadStats()
@@ -41,7 +41,7 @@ public class TestPerformance {
     }
 
     @Test
-    public void checkAllPossibleFieldsFastSpeed() {
+    void checkAllPossibleFieldsFastSpeed() {
         LOG.info("Create analyzer");
         long start = System.nanoTime();
         UserAgentAnalyzer uaa = UserAgentAnalyzer

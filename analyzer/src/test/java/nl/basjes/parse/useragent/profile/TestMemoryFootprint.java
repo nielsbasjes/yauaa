@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestMemoryFootprint {
+class TestMemoryFootprint {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestMemoryFootprint.class);
 
@@ -55,7 +55,7 @@ public class TestMemoryFootprint {
     }
 
     @Test
-    public void checkForMemoryLeaks() {
+    void checkForMemoryLeaks() {
 
         // ----------------------------------------------
         long memoryInitial = getMemoryUsageAfterGC();
@@ -85,7 +85,6 @@ public class TestMemoryFootprint {
             memoryAfterRun, bytesToMegabytes(memoryAfterRun)));
 
         // ----------------------------------------------
-//        uaa.destroy();
 
         long memoryAfterDestroy = getMemoryUsageAfterGC();
         LOG.info(String.format("4: Destroy Analyzer + GC --> Used memory is %10d bytes (%5d MiB).",
@@ -109,7 +108,7 @@ public class TestMemoryFootprint {
 
     @Disabled
     @Test
-    public void checkForMemoryLeaksDuringRuns() { //NOSONAR: Do not complain about ignored performance test
+    void checkForMemoryLeaksDuringRuns() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
@@ -137,7 +136,7 @@ public class TestMemoryFootprint {
 
     @Disabled
     @Test
-    public void assesMemoryImpactPerFieldName() { //NOSONAR: Do not complain about ignored performance test
+    void assesMemoryImpactPerFieldName() { //NOSONAR: Do not complain about ignored performance test
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
 
@@ -201,7 +200,7 @@ public class TestMemoryFootprint {
 
     @Disabled
     @Test
-    public void profileMemoryFootprint() { //NOSONAR: Do not complain about ignored performance test
+    void profileMemoryFootprint() { //NOSONAR: Do not complain about ignored performance test
         printCurrentMemoryProfile("Before ");
 
         UserAgentAnalyzer uaa = UserAgentAnalyzer

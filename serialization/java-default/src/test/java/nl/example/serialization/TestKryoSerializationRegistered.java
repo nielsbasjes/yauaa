@@ -22,16 +22,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestKryoSerializationRegistered {
+class TestKryoSerializationRegistered {
     @Test
-    public void cycleWithTestBefore() {
+    void cycleWithTestBefore() {
         NoClassDefFoundError noClassDefFoundError = assertThrows(NoClassDefFoundError.class,
             () -> new SerializeWithKryoRegistered().cycleWithTestBefore());
         assertTrue(noClassDefFoundError.getMessage().contains("kryo"));
     }
 
     @Test
-    public void cycleWithoutTestBefore() {
+    void cycleWithoutTestBefore() {
         NoClassDefFoundError noClassDefFoundError = assertThrows(NoClassDefFoundError.class,
             () -> new SerializeWithKryoRegistered().cycleWithoutTestBefore());
         assertTrue(noClassDefFoundError.getMessage().contains("kryo"));

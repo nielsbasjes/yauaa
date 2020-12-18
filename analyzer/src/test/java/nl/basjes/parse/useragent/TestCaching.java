@@ -24,10 +24,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestCaching {
+class TestCaching {
 
     @Test
-    public void testSettingCaching() throws IllegalAccessException {
+    void testSettingCaching() throws IllegalAccessException {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withCache(42)
@@ -48,7 +48,7 @@ public class TestCaching {
     }
 
     @Test
-    public void testSettingNoCaching() throws IllegalAccessException {
+    void testSettingNoCaching() throws IllegalAccessException {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
@@ -70,7 +70,7 @@ public class TestCaching {
 
 
     @Test
-    public void testCache() throws IllegalAccessException {
+    void testCache() throws IllegalAccessException {
         String uuid = "11111111-2222-3333-4444-555555555555";
         String fieldName = "AgentUuid";
 
@@ -121,7 +121,7 @@ public class TestCaching {
     }
 
     @Test
-    public void testResultFromCacheMustBeIdentical() {
+    void testResultFromCacheMustBeIdentical() {
         String userAgent = "Mozilla/5.0 (compatible; coccocbot-image/1.0; +http://help.coccoc.com/searchengine)";
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()

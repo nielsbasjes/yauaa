@@ -28,10 +28,10 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestChildIterable {
+class TestChildIterable {
 
     @Test
-    public void testEdgeNoChildren(){
+    void testEdgeNoChildren(){
         ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
 
         ParserRuleContext prc = new ParserRuleContext();
@@ -42,7 +42,7 @@ public class TestChildIterable {
     }
 
     @Test
-    public void testEdgeFewChildrens(){
+    void testEdgeFewChildrens(){
         ChildIterable ci = new ChildIterable(true, 1, 5, x -> (true));
 
         ParserRuleContext prc = new ParserRuleContext();

@@ -29,7 +29,7 @@ import java.io.ObjectOutputStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestUserAgentAnalyzerDirectJavaSerialization extends AbstractAnalyzerSerializationTest<UserAgentAnalyzerDirect> {
+class TestUserAgentAnalyzerDirectJavaSerialization extends AbstractAnalyzerSerializationTest<UserAgentAnalyzerDirect> {
 
     byte[] serialize(UserAgentAnalyzerDirect uaa) throws IOException {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {

@@ -37,32 +37,32 @@ public abstract class AbstractSerializationTest {
     abstract UserAgentAnalyzerTester deserialize(byte[] bytes) throws IOException, ClassNotFoundException;
 
     @Test
-    public void serializeAndDeserializeFullNOTestsBeforeRealTests() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeFullNOTestsBeforeRealTests() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAA(true, false, false);
     }
 
     @Test
-    public void serializeAndDeserializeFullTestsBeforeRealTests() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeFullTestsBeforeRealTests() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAA(true, true, false);
     }
 
     @Test
-    public void serializeAndDeserializeFastRealTests() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeFastRealTests() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAA(false, false, false);
     }
 
     @Test
-    public void serializeAndDeserializeFullNOTestsBeforeTestRules() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeFullNOTestsBeforeTestRules() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAA(true, false, true);
     }
 
     @Test
-    public void serializeAndDeserializeFullTestsBeforeTestRules() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeFullTestsBeforeTestRules() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAA(true, true, true);
     }
 
     @Test
-    public void serializeAndDeserializeFastTestRules() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeFastTestRules() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAA(false, false, true);
     }
 

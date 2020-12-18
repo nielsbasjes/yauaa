@@ -35,11 +35,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 // CHECKSTYLE.OFF: ParenPad
-public class TestParseUserAgent {
+class TestParseUserAgent {
 
     private final String testUserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
     @Test
-    public void testParseUserAgentPigUDF_allFields() throws Exception {
+    void testParseUserAgentPigUDF_allFields() throws Exception {
         PigServer pigServer = new PigServer(ExecType.LOCAL);
         Storage.Data storageData = resetData(pigServer);
 
@@ -53,7 +53,7 @@ public class TestParseUserAgent {
     }
 
     @Test
-    public void testParseUserAgentPigUDF_Cache_allFields() throws Exception {
+    void testParseUserAgentPigUDF_Cache_allFields() throws Exception {
         PigServer pigServer = new PigServer(ExecType.LOCAL);
         Storage.Data storageData = resetData(pigServer);
 
@@ -113,7 +113,7 @@ public class TestParseUserAgent {
     }
 
     @Test
-    public void testParseUserAgentPigUDF_Limited_Fields() throws Exception {
+    void testParseUserAgentPigUDF_Limited_Fields() throws Exception {
         PigServer pigServer = new PigServer(ExecType.LOCAL);
         Storage.Data storageData = resetData(pigServer);
 
@@ -192,7 +192,7 @@ public class TestParseUserAgent {
     }
 
     @Test
-    public void testParseUserAgentPigUDF_NULL() throws Exception {
+    void testParseUserAgentPigUDF_NULL() throws Exception {
         TupleFactory tupleFactory = TupleFactory.getInstance();
         Tuple nullInput = tupleFactory.newTuple();
         nullInput.append(null);

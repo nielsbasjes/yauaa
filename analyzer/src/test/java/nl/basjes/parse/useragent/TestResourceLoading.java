@@ -31,10 +31,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestResourceLoading {
+class TestResourceLoading {
 
     @Test
-    public void checkEmptyAndNormalAndOptionalMissingFile() {
+    void checkEmptyAndNormalAndOptionalMissingFile() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .dropDefaultResources()
@@ -46,7 +46,7 @@ public class TestResourceLoading {
     }
 
     @Test
-    public void checkEmptyAndNormalAndMandatoryMissingFile() {
+    void checkEmptyAndNormalAndMandatoryMissingFile() {
         assertThrows(InvalidParserConfigurationException.class, () -> {
             UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
                 .newBuilder()
@@ -61,7 +61,7 @@ public class TestResourceLoading {
     }
 
     @Test
-    public void checkIfLoadingAllFilesSeparatelyWorks() {
+    void checkIfLoadingAllFilesSeparatelyWorks() {
         UserAgentAnalyzerTesterBuilder uaaB = UserAgentAnalyzerTester
             .newBuilder()
             .hideMatcherLoadStats()
@@ -77,7 +77,7 @@ public class TestResourceLoading {
     }
 
     @Test
-    public void checkIfLoadingAllFilesSeparatelyAsOptionalWorks() {
+    void checkIfLoadingAllFilesSeparatelyAsOptionalWorks() {
         UserAgentAnalyzerTesterBuilder uaaB = UserAgentAnalyzerTester
             .newBuilder()
             .hideMatcherLoadStats()
@@ -93,7 +93,7 @@ public class TestResourceLoading {
     }
 
     @Test
-    public void checkAllFieldsCallsAfterLoadingAdditionalResourceUnsorted() {
+    void checkAllFieldsCallsAfterLoadingAdditionalResourceUnsorted() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .dropDefaultResources()
@@ -116,7 +116,7 @@ public class TestResourceLoading {
     }
 
     @Test
-    public void checkAllFieldsCallsAfterLoadingAdditionalResourceSorted() {
+    void checkAllFieldsCallsAfterLoadingAdditionalResourceSorted() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .dropDefaultResources()

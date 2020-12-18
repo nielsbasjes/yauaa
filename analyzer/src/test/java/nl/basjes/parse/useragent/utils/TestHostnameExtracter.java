@@ -26,17 +26,17 @@ import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractHostname;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestHostnameExtracter {
+class TestHostnameExtracter {
 
     @Test
-    public void testHostnameExtractBadData(){
+    void testHostnameExtractBadData(){
         assertNull(extractHostname(null));
         assertNull(extractHostname(""));
         assertNull(extractHostname(":::::"));
     }
 
     @Test
-    public void testHostnameExtract(){
+    void testHostnameExtract(){
         assertEquals("www.basjes.nl", extractHostname("https://www.basjes.nl/test"));
         assertEquals("www.basjes.nl", extractHostname("//www.basjes.nl/test"));
         assertEquals("www.basjes.nl", extractHostname("www.basjes.nl/test"));
@@ -49,7 +49,7 @@ public class TestHostnameExtracter {
     }
 
     @Test
-    public void testHostnameExtractQueryParams() {
+    void testHostnameExtractQueryParams() {
         assertEquals("www.basjes.nl", extractHostname("https://www.basjes.nl/test?foo=foo"));
         assertEquals("www.basjes.nl", extractHostname("https://www.basjes.nl/test&foo=foo"));
         assertEquals("www.basjes.nl", extractHostname("https://www.basjes.nl/test?foo=foo&bar=bar"));
@@ -72,7 +72,7 @@ public class TestHostnameExtracter {
     }
 
     @Test
-    public void verifyHTTPCLIENT_2030(){
+    void verifyHTTPCLIENT_2030(){
         // See https://issues.apache.org/jira/browse/HTTPCLIENT-2030
         PublicSuffixMatcher matcher = PublicSuffixMatcherLoader.getDefault();
         assertEquals("unknown", matcher.getDomainRoot("www.example.unknown"));

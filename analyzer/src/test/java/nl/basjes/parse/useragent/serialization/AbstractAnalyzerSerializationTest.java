@@ -49,12 +49,12 @@ public abstract class AbstractAnalyzerSerializationTest<ANALYZER extends Abstrac
     }
 
     @Test
-    public void serializeAndDeserializeTestsBefore() throws IOException, ClassNotFoundException {
+    void serializeAndDeserializeTestsBefore() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAANormalInstances(create(), true);
     }
 
     @Test
-    public void serializeAndDeserialize() throws IOException, ClassNotFoundException {
+    void serializeAndDeserialize() throws IOException, ClassNotFoundException {
         serializeAndDeserializeUAANormalInstances(create(), false);
     }
 
@@ -63,8 +63,6 @@ public abstract class AbstractAnalyzerSerializationTest<ANALYZER extends Abstrac
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");
 
-//        String uaaBeforeString = uaaBefore.toString();
-
         if (runTestsBefore) {
             LOG.info("--------------------------------------------------------------");
 
@@ -72,9 +70,6 @@ public abstract class AbstractAnalyzerSerializationTest<ANALYZER extends Abstrac
 
             // Get rid of the data of the last tested useragent
             uaaBefore.reset();
-
-//            String uaaBeforeAfterTestsString = uaaBefore.toString();
-//            assertEquals(uaaBeforeString, uaaBeforeAfterTestsString);
         }
 
         LOG.info("--------------------------------------------------------------");
@@ -95,10 +90,6 @@ public abstract class AbstractAnalyzerSerializationTest<ANALYZER extends Abstrac
 
         LOG.info("Done");
         LOG.info("Deserialize took {} ns ({} ms)", deserializeStopNs - deserializeStartNs, (deserializeStopNs - deserializeStartNs) / 1_000_000);
-
-//        String uaaAfterString = uaaAfter.toString();
-
-//        assertEquals(uaaBeforeString, uaaAfterString);
 
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");

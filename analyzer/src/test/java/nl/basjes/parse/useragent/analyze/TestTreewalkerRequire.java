@@ -39,10 +39,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestTreewalkerRequire {
+class TestTreewalkerRequire {
 
     @Test
-    public void validateWalkPathParsing() {
+    void validateWalkPathParsing() {
         String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
             "[2-3]~\"Foo\"^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
 
@@ -94,7 +94,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathPruneAllSteps() {
+    void validateWalkPathPruneAllSteps() {
         String path = "CleanVersion[agent.(1)product.(1)name[1-2]=\"Foo\"@[1]@]";
 
         String[] expectedHashEntries = {
@@ -108,7 +108,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathPruneOne() {
+    void validateWalkPathPruneOne() {
         String path = "agent.(1)product.(1)name[1-2]=\"Foo\"^.(1-3)version@";
 
         String[] expectedHashEntries = {
@@ -124,7 +124,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathPruneTwo() {
+    void validateWalkPathPruneTwo() {
         String path = "CleanVersion[agent.(1)product.(1)name[1-2]=\"Foo\"^.(1-3)version@]";
 
         String[] expectedHashEntries = {
@@ -140,7 +140,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathPruneFirstWord() {
+    void validateWalkPathPruneFirstWord() {
         String path = "CleanVersion[agent.(1)product.(1)name[1-2]=\"Foo\"[1]@]";
 
         String[] expectedHashEntries = {
@@ -154,7 +154,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathPruneSecondWord() {
+    void validateWalkPathPruneSecondWord() {
         String path = "CleanVersion[agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@]";
 
         String[] expectedHashEntries = {
@@ -170,7 +170,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathPruneUnfallableSteps() {
+    void validateWalkPathPruneUnfallableSteps() {
         String[] paths = {
             "NormalizeBrand[agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@]",
             "CleanVersion[agent.(1)product.(1)name[1-2]=\"Foo\"@[2]@]",
@@ -196,7 +196,7 @@ public class TestTreewalkerRequire {
 
 
     @Test
-    public void validateParseErrorUselessFixedString() {
+    void validateParseErrorUselessFixedString() {
         String path = "\"Safari\"";
 
         TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());
@@ -206,7 +206,7 @@ public class TestTreewalkerRequire {
 
 
     @Test
-    public void validateWalkPathParsingRange() {
+    void validateWalkPathParsingRange() {
         String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
             "[2-3]~\"Foo\"^.(*)version[2]{\"7.\";\"DefaultValue\"]]";
 
@@ -258,7 +258,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateWalkPathParsingRangeNoDefault() {
+    void validateWalkPathParsingRangeNoDefault() {
         String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
             "[2-3]~\"Foo\"^.(*)version[2]{\"7.\"]]";
 
@@ -310,7 +310,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateStartsWithLength() {
+    void validateStartsWithLength() {
         String value = "OneTwoThree";
 
         for (int i = 1; i <= value.length(); i++) {
@@ -343,7 +343,7 @@ public class TestTreewalkerRequire {
     }
 
     @Test
-    public void validateStartsWithLengthNoDefault() {
+    void validateStartsWithLengthNoDefault() {
         String value = "OneTwoThree";
 
         for (int i = 1; i <= value.length(); i++) {

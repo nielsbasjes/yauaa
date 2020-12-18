@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestAnnotationSystemAnonymous {
+class TestAnnotationSystemAnonymous {
 
     TestRecord record = new TestRecord();
 
@@ -41,7 +41,7 @@ public class TestAnnotationSystemAnonymous {
         implements UserAgentAnnotationMapper<T>, Serializable {
         private final transient UserAgentAnnotationAnalyzer<T> userAgentAnalyzer;
 
-        public MyMapper() {
+        MyMapper() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
             userAgentAnalyzer.initialize(this);
         }
@@ -52,7 +52,7 @@ public class TestAnnotationSystemAnonymous {
     }
 
     @Test
-    public void testAnnotationBasedParser(){
+    void testAnnotationBasedParser(){
         record =
             new MyMapper<TestRecord>() {
                 @Override
@@ -87,7 +87,7 @@ public class TestAnnotationSystemAnonymous {
     }
 
     @Test
-    public void testImpossibleField() {
+    void testImpossibleField() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
@@ -103,7 +103,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testWrongReturnType() {
+    void testWrongReturnType() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
@@ -122,7 +122,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testInaccessibleSetter() {
+    void testInaccessibleSetter() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> record =
             new MyErrorMapper() {
@@ -138,7 +138,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testTooManyParameters() {
+    void testTooManyParameters() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
@@ -157,7 +157,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testWrongTypeParameters1() {
+    void testWrongTypeParameters1() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
@@ -176,7 +176,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testWrongTypeParameters2() {
+    void testWrongTypeParameters2() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
@@ -195,7 +195,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testMissingAnnotations() {
+    void testMissingAnnotations() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =
@@ -211,7 +211,7 @@ public class TestAnnotationSystemAnonymous {
     // ----------------------------------------------------------------
 
     @Test
-    public void testSetterFailure() {
+    void testSetterFailure() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
             record =

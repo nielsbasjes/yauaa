@@ -22,10 +22,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DocumentationExample {
+class DocumentationExample {
 
     @Test
-    public void runDocumentationExample() {
+    void runDocumentationExample() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .dropDefaultResources()

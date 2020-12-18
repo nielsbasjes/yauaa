@@ -39,12 +39,12 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestCalculators {
+class TestCalculators {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestCalculators.class);
 
     @Test
-    public void testFieldAgentNameVersionFallback() {
+    void testFieldAgentNameVersionFallback() {
         MutableUserAgent userAgent = new MutableUserAgent();
         userAgent.setForced(UserAgent.DEVICE_BRAND, "some_thing", 1);
         userAgent.setForced(AGENT_VERSION, "1.2.3", 1);
@@ -90,8 +90,8 @@ public class TestCalculators {
 
         // Blacklisted
         list.add(new UrlBrandPair("http://localhost", "Unknown"));
-        list.add(new UrlBrandPair("http://bit.ly/", "Unknown"));
-        list.add(new UrlBrandPair("https://bit.ly/", "Unknown"));
+        list.add(new UrlBrandPair("http://bit.ly/",   "Unknown"));
+        list.add(new UrlBrandPair("https://bit.ly/",  "Unknown"));
 
         // Not a domain
         list.add(new UrlBrandPair("http://50.22.201.16/Wazzup", "Unknown"));
@@ -103,7 +103,7 @@ public class TestCalculators {
 
     @ParameterizedTest(name = "Test {index} -> Input: \"{0}\"")
     @MethodSource("urlsAndBrands")
-    public void checkBrandUrlExtraction(UrlBrandPair pair) {
+    void checkBrandUrlExtraction(UrlBrandPair pair) {
         LOG.info("URL: {}", pair);
         MutableUserAgent userAgent = new MutableUserAgent();
         userAgent.setForced(UserAgent.AGENT_INFORMATION_URL, pair.url, 1);

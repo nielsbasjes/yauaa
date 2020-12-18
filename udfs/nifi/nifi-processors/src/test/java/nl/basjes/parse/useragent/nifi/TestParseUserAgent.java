@@ -32,7 +32,7 @@ import static nl.basjes.parse.useragent.nifi.ParseUserAgent.ATTRIBUTE_PREFIX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // CHECKSTYLE.OFF: ParenPad
-public class TestParseUserAgent {
+class TestParseUserAgent {
 
     private static final String TEST_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) " +
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36";
@@ -40,13 +40,13 @@ public class TestParseUserAgent {
     private TestRunner runner;
 
     @BeforeEach
-    public void before(){
+    void before(){
         // Generate a test runner to mock a processor in a flow
         runner = TestRunners.newTestRunner(new ParseUserAgent());
     }
 
     @Test
-    public void testParserFull() {
+    void testParserFull() {
         // Content to be mock a json file
         String content = "CONTENT:>>" + TEST_USER_AGENT + "<<";
 
@@ -152,7 +152,7 @@ public class TestParseUserAgent {
     }
 
     @Test
-    public void testParserPartial() {
+    void testParserPartial() {
         // Content to be mock a json file
         String content = "CONTENT:>>" + TEST_USER_AGENT + "<<";
 
@@ -226,7 +226,7 @@ public class TestParseUserAgent {
     }
 
     @Test
-    public void testParserMissingInput() {
+    void testParserMissingInput() {
         // Content to be mock a json file
         String content = "CONTENT:>>" + TEST_USER_AGENT + "<<";
         // Add properties

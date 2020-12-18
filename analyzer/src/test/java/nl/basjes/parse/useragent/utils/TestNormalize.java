@@ -25,22 +25,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestNormalize {
+class TestNormalize {
 
     @Test
-    public void checkBrandEdgeCases() {
+    void checkBrandEdgeCases() {
         assertNull(Normalize.brand(null));
         assertEquals("", Normalize.brand(""));
     }
 
     @Test
-    public void checkBrandOne() {
+    void checkBrandOne() {
         assertEquals("N", Normalize.brand("n"));
         assertEquals("N", Normalize.brand("N"));
     }
 
     @Test
-    public void checkBrandTwo() {
+    void checkBrandTwo() {
         assertEquals("NB", Normalize.brand("nb"));
         assertEquals("NB", Normalize.brand("nB"));
         assertEquals("NB", Normalize.brand("Nb"));
@@ -48,7 +48,7 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkBrandThree() {
+    void checkBrandThree() {
         assertEquals("NBA", Normalize.brand("nba"));
         assertEquals("NBA", Normalize.brand("nBa"));
         assertEquals("NBA", Normalize.brand("Nba"));
@@ -56,7 +56,7 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkBrandThreeFour() {
+    void checkBrandThreeFour() {
         assertEquals("NBA/Klmn", Normalize.brand("nba/kLmN"));
         assertEquals("NBA/Klmn", Normalize.brand("nBa/KlMn"));
         assertEquals("NBA/Klmn", Normalize.brand("Nba/klmn"));
@@ -64,7 +64,7 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkBrandNormalizationWord() {
+    void checkBrandNormalizationWord() {
         assertEquals("Niels", Normalize.brand("niels"));
         assertEquals("Niels", Normalize.brand("Niels"));
         assertEquals("Niels", Normalize.brand("NiElS"));
@@ -73,7 +73,7 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkBrandNormalizationExamples() {
+    void checkBrandNormalizationExamples() {
         // At least 3 lowercase
         assertEquals("NielsBasjes",      Normalize.brand("NielsBasjes"));
         assertEquals("NielsBasjes",      Normalize.brand("NIelsBasJES"));
@@ -92,7 +92,7 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkCombiningDeviceNameAndBrand() {
+    void checkCombiningDeviceNameAndBrand() {
         assertEquals("Asus Something T123",     Normalize.cleanupDeviceBrandName("AsUs", "something t123"));
         assertEquals("Sony X1",                 Normalize.cleanupDeviceBrandName("Sony", "sony x1"));
         assertEquals("Sony X1",                 Normalize.cleanupDeviceBrandName("Sony", "sony-x1"));
@@ -102,7 +102,7 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkEmailNormalization() {
+    void checkEmailNormalization() {
         assertEquals("support@zite.com",                   Normalize.email("support [at] zite [dot] com"));
         assertEquals("austin@affectv.co.uk",               Normalize.email("austin at affectv dot co dot uk"));
         assertEquals("epicurus@gmail.com",                 Normalize.email("epicurus at gmail dot com"));
@@ -118,13 +118,13 @@ public class TestNormalize {
     }
 
     @Test
-    public void checkBadInputData() {
+    void checkBadInputData() {
         // This used to trigger an exception in the underlying RegEx.
         assertNotNull(Normalize.cleanupDeviceBrandName("${N", "${N.Foo"));
     }
 
     @Test
-    public void checkIsLowerCase() {
+    void checkIsLowerCase() {
         assertTrue(Normalize.isLowerCase("basjes0123456789`~!@#$%^&*()_-+={}[];:'\",.<>/?"));
 
         assertTrue(Normalize.isLowerCase("niels"));

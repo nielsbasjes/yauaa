@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestYamlParsing {
+class TestYamlParsing {
 
     private void runTest(String inputFilename, String message) {
         InvalidParserConfigurationException exception =
@@ -39,67 +39,67 @@ public class TestYamlParsing {
     }
 
     @Test
-    public void testEmpty() {
+    void testEmpty() {
         runTest("Empty.yaml", "No matchers were loaded at all.");
     }
 
     @Test
-    public void testTopNotConfig() {
+    void testTopNotConfig() {
         runTest("TopNotConfig.yaml", "The top level entry MUST be 'config'");
     }
 
     @Test
-    public void testNotAMapFile() {
+    void testNotAMapFile() {
         runTest("NotAMapFile.yaml", "File must be a Map");
     }
 
     @Test
-    public void testBadConfig1() {
+    void testBadConfig1() {
         runTest("BadConfig1.yaml", "The value should be a sequence but it is a scalar");
     }
 
     @Test
-    public void testBadConfig2() {
+    void testBadConfig2() {
         runTest("BadConfig2.yaml", "The entry MUST be a mapping");
     }
 
     @Test
-    public void testInputAbsent() {
+    void testInputAbsent() {
         runTest("InputAbsent.yaml", "Test is missing input");
     }
 
     @Test
-    public void testInputNotString() {
+    void testInputNotString() {
         runTest("InputNotString.yaml", "The value should be a string but it is a sequence");
     }
 
     @Test
-    public void testNotAMap() {
+    void testNotAMap() {
         runTest("NotAMap.yaml", "The value should be a map but it is a scalar");
     }
 
     @Test
-    public void testNotSingle() {
+    void testNotSingle() {
         runTest("NotSingle.yaml", "There must be exactly 1 value in the list");
     }
 
     @Test
-    public void testNotStringList1() {
+    void testNotStringList1() {
         runTest("NotStringList1.yaml", "The value should be a string but it is a mapping");
     }
 
     @Test
-    public void testNotStringList2() {
+    void testNotStringList2() {
         runTest("NotStringList2.yaml", "The provided node must be a sequence but it is a scalar");
     }
 
     @Test
-    public void testKeyNotString() {
+    void testKeyNotString() {
         runTest("KeyNotString.yaml", "The key should be a string but it is a sequence");
     }
 
     @Test
-    public void testParseError() {
+    void testParseError() {
         runTest("ParseError.yaml", "Parse error in the file ParseError.yaml: ");
     }
 

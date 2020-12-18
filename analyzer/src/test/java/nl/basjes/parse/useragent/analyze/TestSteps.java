@@ -62,7 +62,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestSteps {
+class TestSteps {
 
     private static Map<String, String> lookup;
     private static Set<String>         set;
@@ -76,7 +76,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepContains() {
+    void testStepContains() {
         Step step = new StepContains("Foo");
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -84,21 +84,21 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepDefaultIfNull() {
+    void testStepDefaultIfNull() {
         Step step = new StepDefaultIfNull("Foo");
         assertEquals("Bar", step.walk(null, "Bar").getValue());
         assertEquals("Foo", step.walk(null, null).getValue());
     }
 
     @Test
-    public void testStepDefaultIfNullNoDefault() {
+    void testStepDefaultIfNullNoDefault() {
         Step step = new StepDefaultIfNull(null);
         assertEquals("Bar", step.walk(null, "Bar").getValue());
         assertNull(step.walk(null, null).getValue());
     }
 
     @Test
-    public void testStepEndsWith() {
+    void testStepEndsWith() {
         Step step = new StepEndsWith("Foo");
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -106,7 +106,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepEquals() {
+    void testStepEquals() {
         Step step = new StepEquals("Foo");
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -114,7 +114,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepIsInSet() {
+    void testStepIsInSet() {
         Step step = new StepIsInSet("MySet", set);
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -122,7 +122,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepIsNotInSet() {
+    void testStepIsNotInSet() {
         Step step = new StepIsNotInSet("MySet", set);
         assertNull(step.walk(null, null));
         assertEquals("Something", step.walk(null, "Something").getValue());
@@ -130,7 +130,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepIsNull() {
+    void testStepIsNull() {
         Step step = new StepIsNull();
         assertNull(step.walk(null, "Something"));
         assertNotNull(step.walk(null, null));
@@ -138,7 +138,7 @@ public class TestSteps {
 
 
     @Test
-    public void testStepNotEquals() {
+    void testStepNotEquals() {
         Step step = new StepNotEquals("Foo");
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Foo"));
@@ -147,7 +147,7 @@ public class TestSteps {
 
 
     @Test
-    public void testStepStartsWith() {
+    void testStepStartsWith() {
         Step step = new StepStartsWith("Foo");
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -156,7 +156,7 @@ public class TestSteps {
 
 
     @Test
-    public void testStepIsInLookupContains() {
+    void testStepIsInLookupContains() {
         Step step = new StepIsInLookupContains("Foo", lookup);
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -164,7 +164,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepIsInLookupPrefix() {
+    void testStepIsInLookupPrefix() {
         Step step = new StepIsInLookupPrefix("Foo", lookup);
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -172,7 +172,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepIsNotInLookupPrefix() {
+    void testStepIsNotInLookupPrefix() {
         Step step = new StepIsNotInLookupPrefix("Foo", lookup);
         assertNull(step.walk(null, null).getValue());
         assertEquals("Something", step.walk(null, "Something").getValue());
@@ -180,7 +180,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepLookupContains() {
+    void testStepLookupContains() {
         Step step = new StepLookupContains("Foo", lookup, "Default");
         assertEquals("Default", step.walk(null, null).getValue());
         assertEquals("Default", step.walk(null, "Something").getValue());
@@ -188,7 +188,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepLookupContainsNoDefault() {
+    void testStepLookupContainsNoDefault() {
         Step step = new StepLookupContains("Foo", lookup, null);
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -196,7 +196,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepLookup() {
+    void testStepLookup() {
         Step step = new StepLookup("Foo", lookup, "Default");
         assertEquals("Default", step.walk(null, null).getValue());
         assertEquals("Default", step.walk(null, "Something").getValue());
@@ -204,7 +204,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepLookupNoDefault() {
+    void testStepLookupNoDefault() {
         Step step = new StepLookup("Foo", lookup, null);
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -212,7 +212,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepLookupPrefix() {
+    void testStepLookupPrefix() {
         Step step = new StepLookupPrefix("Foo", lookup, "Default");
         assertEquals("Default", step.walk(null, null).getValue());
         assertEquals("Default", step.walk(null, "Something").getValue());
@@ -220,7 +220,7 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepLookupPrefixNoDefault() {
+    void testStepLookupPrefixNoDefault() {
         Step step = new StepLookupPrefix("Foo", lookup, null);
         assertNull(step.walk(null, null));
         assertNull(step.walk(null, "Something"));
@@ -228,14 +228,14 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepBackToFull() {
+    void testStepBackToFull() {
         Step step = new StepBackToFull();
         assertNull(step.walk(null, null).getValue());
         assertNull(step.walk(null, "Something").getValue());
     }
 
     @Test
-    public void testStepCleanVersion() {
+    void testStepCleanVersion() {
         Step step = new StepCleanVersion();
         assertNull(step.walk(null, null).getValue());
         assertEquals("Something", step.walk(null, "Something").getValue());
@@ -245,7 +245,7 @@ public class TestSteps {
 
 
     @Test
-    public void testStepReplaceString() {
+    void testStepReplaceString() {
         Step step = new StepReplaceString("foo", "bar");
         assertNull(step.walk(null, null).getValue());
         assertEquals("Something", step.walk(null, "Something").getValue());
@@ -254,28 +254,28 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepConcat() {
+    void testStepConcat() {
         Step step = new StepConcat(">>", "<<");
         assertNull(step.walk(null, null));
         assertEquals(">>Something<<", step.walk(null, "Something").getValue());
     }
 
     @Test
-    public void testStepConcatPostfix() {
+    void testStepConcatPostfix() {
         Step step = new StepConcatPostfix("<<");
         assertNull(step.walk(null, null));
         assertEquals("Something<<", step.walk(null, "Something").getValue());
     }
 
     @Test
-    public void testStepConcatPrefix() {
+    void testStepConcatPrefix() {
         Step step = new StepConcatPrefix(">>");
         assertNull(step.walk(null, null));
         assertEquals(">>Something", step.walk(null, "Something").getValue());
     }
 
     @Test
-    public void testStepNormalizeBrand() {
+    void testStepNormalizeBrand() {
         Step step = new StepNormalizeBrand();
         assertNull(step.walk(null, null));
         assertEquals("Something", step.walk(null, "something").getValue());
@@ -283,51 +283,51 @@ public class TestSteps {
     }
 
     @Test
-    public void testStepSegmentRange() {
+    void testStepSegmentRange() {
         Step step = new StepSegmentRange(new Range(2, 3));
         assertNull(step.walk(null, null));
         assertEquals("Two|Tree", step.walk(null, "One|Two|Tree|Four|Five").getValue());
     }
 
     @Test
-    public void testStepWordRange() {
+    void testStepWordRange() {
         Step step = new StepWordRange(new Range(2, 3));
         assertNull(step.walk(null, null));
         assertEquals("Two Tree", step.walk(null, "One Two Tree Four Five").getValue());
     }
 
     @Test
-    public void testStepDown() {
+    void testStepDown() {
         Step step = new StepDown(new NumberRangeList(2, 3), "something");
         assertNull(step.walk(null, null));
     }
 
     @Test
-    public void testStepNext() {
+    void testStepNext() {
         Step step = new StepNext();
         assertNull(step.walk(null, null));
     }
 
     @Test
-    public void testStepNextN() {
+    void testStepNextN() {
         Step step = new StepNextN(5);
         assertNull(step.walk(null, null));
     }
 
     @Test
-    public void testStepPrev() {
+    void testStepPrev() {
         Step step = new StepPrev();
         assertNull(step.walk(null, null));
     }
 
     @Test
-    public void testStepPrevN() {
+    void testStepPrevN() {
         Step step = new StepPrevN(5);
         assertNull(step.walk(null, null));
     }
 
     @Test
-    public void testStepUp() {
+    void testStepUp() {
         Step step = new StepUp();
         assertNull(step.walk(null, null));
     }

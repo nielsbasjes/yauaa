@@ -32,12 +32,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 // CHECKSTYLE.OFF: MethodLength
 // CHECKSTYLE.OFF: WhitespaceAfter
 // CHECKSTYLE.OFF: NoWhitespaceBefore
-public class TestUserAgentFlattening {
+class TestUserAgentFlattening {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
 
     @Test
-    public void testFlatteningProduct() {
+    void testFlatteningProduct() {
         validateUserAgent(
             "Mozilla/5.0"
             ,"agent=\"Mozilla/5.0\""
@@ -203,7 +203,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningComment() {
+    void testFlatteningComment() {
         // Comment variations
         validateUserAgent("One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))"
             ,"agent=\"One/1 (;Key=Value;; Key=Two Value;OneWord;Two words; Numb3rWord ; TwoNumb3r W0rds ; em@il.nl ; http://web.site ; Sub product/2(Sub Comment,))\""
@@ -250,7 +250,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningKeyValue() {
+    void testFlatteningKeyValue() {
 
         // KeyValue variations
 
@@ -447,7 +447,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testRootCases() {
+    void testRootCases() {
         validateUserAgent(
             "FooBar"
             ,"agent=\"FooBar\""
@@ -503,7 +503,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningSpecialCases() {
+    void testFlatteningSpecialCases() {
         validateUserAgent(
             "Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36"
             ,"agent=\"Mozilla/5.0 (Linux; Android 4.4; Nexus 7/JSS15R) AppleWebKit/537.36 (KHTML,like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36\""
@@ -1139,7 +1139,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningParsingErrorCases() {
+    void testFlatteningParsingErrorCases() {
         validateUserAgent(
             "InetURL:/1.0"
             ,"agent=\"InetURL:/1.0\""
@@ -1306,7 +1306,7 @@ public class TestUserAgentFlattening {
     }
 
     @Test
-    public void testFlatteningExtremeTestCase() {
+    void testFlatteningExtremeTestCase() {
 
         validateUserAgent(
             "0n3 Niels Basjes/1/2(+http://niels.basjes.nl/index.html?foo=1&bar=2#marker (http://github.com) ; foo ; bar@baz.com ; Mozilla Mozilla/4.0((Windows NT,etc.)) CE-HTML/1.0 Config(L:nld,CC:BEL) NETRANGEMMH)info@example.com (Yadda)"

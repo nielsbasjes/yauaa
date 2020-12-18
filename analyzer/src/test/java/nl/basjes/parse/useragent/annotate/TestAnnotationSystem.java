@@ -28,14 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TestAnnotationSystem {
+class TestAnnotationSystem {
 
     public static class TestRecord implements Serializable {
         final String useragent;
         String deviceClass;
         String agentNameVersion;
 
-        public TestRecord(String useragent) {
+        TestRecord(String useragent) {
             this.useragent = useragent;
         }
     }
@@ -44,7 +44,7 @@ public class TestAnnotationSystem {
         implements UserAgentAnnotationMapper<TestRecord>, Serializable {
         private final transient UserAgentAnnotationAnalyzer<TestRecord> userAgentAnalyzer;
 
-        public MyBaseMapper() {
+        MyBaseMapper() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
             userAgentAnalyzer.initialize(this);
         }
@@ -76,7 +76,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testAnnotationBasedParser() {
+    void testAnnotationBasedParser() {
         MyMapper mapper = new MyMapper();
 
         TestRecord record = new TestRecord("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
@@ -99,7 +99,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testImpossibleField() {
+    void testImpossibleField() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, ImpossibleFieldMapper::new);
         assertEquals("We cannot provide these fields:[NielsBasjes]", exception.getMessage());
@@ -116,7 +116,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testInaccessibleSetter() {
+    void testInaccessibleSetter() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, InaccessibleSetterMapper::new);
         assertEquals("Method annotated with YauaaField is not public: inaccessibleSetter", exception.getMessage());
@@ -133,7 +133,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testTooManyParameters() {
+    void testTooManyParameters() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, TooManyParameters::new);
         assertTrue(exception.getMessage().contains(
@@ -152,7 +152,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testWrongTypeParameters1() {
+    void testWrongTypeParameters1() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, WrongTypeParameters1::new);
         assertTrue(exception.getMessage().contains(
@@ -171,7 +171,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testWrongTypeParameters2() {
+    void testWrongTypeParameters2() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, WrongTypeParameters2::new);
         assertTrue(exception.getMessage().contains(
@@ -189,7 +189,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testMissingAnnotations() {
+    void testMissingAnnotations() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, MissingAnnotations::new);
         assertEquals("You MUST specify at least 1 field to extract.", exception.getMessage());
@@ -207,7 +207,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testNonVoidSetter() {
+    void testNonVoidSetter() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, WrongReturnType::new);
         assertTrue(exception.getMessage().contains(
@@ -229,13 +229,13 @@ public class TestAnnotationSystem {
         implements UserAgentAnnotationMapper<PrivateTestRecord>, Serializable {
         private final transient UserAgentAnnotationAnalyzer<PrivateTestRecord> userAgentAnalyzer;
 
-        public PrivateMyBaseMapper() {
+        PrivateMyBaseMapper() {
             userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
             userAgentAnalyzer.initialize(this);
         }
 
-        public PrivateTestRecord enrich(PrivateTestRecord record) {
-            return userAgentAnalyzer.map(record);
+        public void enrich(PrivateTestRecord record) {
+            userAgentAnalyzer.map(record);
         }
 
         @Override
@@ -253,7 +253,7 @@ public class TestAnnotationSystem {
     }
 
     @Test
-    public void testInaccessibleSetterClass() {
+    void testInaccessibleSetterClass() {
         PrivateTestRecord record = new PrivateTestRecord("Bla bla bla");
 
         InvalidParserConfigurationException exception =
@@ -265,7 +265,7 @@ public class TestAnnotationSystem {
 
     @SuppressWarnings({"unchecked", "rawtypes"}) // Here we deliberately created some bad code to check the behavior.
     @Test
-    public void testBadGeneric(){
+    void testBadGeneric(){
         UserAgentAnnotationAnalyzer userAgentAnalyzer = new UserAgentAnnotationAnalyzer();
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> assertNull(userAgentAnalyzer.map("Foo")));

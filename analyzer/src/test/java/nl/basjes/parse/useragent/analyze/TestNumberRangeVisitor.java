@@ -28,9 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-public class TestNumberRangeVisitor {
+class TestNumberRangeVisitor {
     @Test
-    public void rangeSingleValue() {
+    void rangeSingleValue() {
         List<Integer> values = new NumberRangeList(5, 5);
         assertEquals(1, values.size());
         assertFalse(values.contains(1));
@@ -47,7 +47,7 @@ public class TestNumberRangeVisitor {
     }
 
     @Test
-    public void rangeMultipleValues() {
+    void rangeMultipleValues() {
         List<Integer> values = new NumberRangeList(3, 5);
         assertEquals(3, values.size());
         assertFalse(values.contains(1));
@@ -64,7 +64,7 @@ public class TestNumberRangeVisitor {
     }
 
     @Test
-    public void testRangeCompare() {
+    void testRangeCompare() {
         Range range1 = new Range(1, 2);
         Range range1b = new Range(1, 2);
         Range range2 = new Range(2, 1);
@@ -72,6 +72,7 @@ public class TestNumberRangeVisitor {
         Range range4 = new Range(2, 2);
         String notARange = "Range";
 
+        // Testing the equals method!
         assertEquals(range1, range1b);
         assertNotEquals(range1, null);
         assertNotEquals(range1, range2);

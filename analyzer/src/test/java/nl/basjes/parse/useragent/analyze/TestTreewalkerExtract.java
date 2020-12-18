@@ -32,10 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestTreewalkerExtract {
+class TestTreewalkerExtract {
 
     @Test
-    public void validateWalkPathSimpleName() {
+    void validateWalkPathSimpleName() {
         String path = "agent.(1)product.(1)name";
 
         String[] expectedHashEntries = {
@@ -49,7 +49,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkPathSimpleNameOpenStartRange() {
+    void validateWalkPathSimpleNameOpenStartRange() {
         String path = "agent.(-3)product.(1)name";
 
         String[] expectedHashEntries = {
@@ -65,7 +65,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkPathSimpleNameOpenEndRange() {
+    void validateWalkPathSimpleNameOpenEndRange() {
         String path = "agent.(5-)product.(1)name";
 
         String[] expectedHashEntries = {
@@ -84,7 +84,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkPathSimpleNameEquals() {
+    void validateWalkPathSimpleNameEquals() {
         String path = "agent.(1)product.(1)name=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
@@ -100,7 +100,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkPathNameSubstring() {
+    void validateWalkPathNameSubstring() {
         String path = "agent.(1)product.(1)name[1-2]=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
@@ -116,7 +116,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkPathNameSubstring2() {
+    void validateWalkPathNameSubstring2() {
         String path = "agent.(1)product.(1)name[3-5]=\"Foo\"^.(1-3)version";
 
         String[] expectedHashEntries = {
@@ -132,7 +132,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkAroundTheWorld() {
+    void validateWalkAroundTheWorld() {
         String path = "agent.(2-4)product.(1)comments.(5-6)entry.(1)text[2]=\"seven\"^^^<.name=\"foo faa\"^.comments.entry.text[-2]=\"three\"@[1-2]";
 
         String[] expectedHashEntries = {
@@ -165,7 +165,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateWalkPathParsingCleanVersion() {
+    void validateWalkPathParsingCleanVersion() {
 
         String path = "CleanVersion[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1-1]=\"Trident\"" +
             "^.(*)version[-2]{\"7.\";\"DefaultValue\"]]";
@@ -216,7 +216,7 @@ public class TestTreewalkerExtract {
     }
 
     @Test
-    public void validateParseError() {
+    void validateParseError() {
         String path = "agent.product.(1)name[3]\"Safari\"";
 
         TestMatcher matcher = new TestMatcher(new HashMap<>(), new HashMap<>());

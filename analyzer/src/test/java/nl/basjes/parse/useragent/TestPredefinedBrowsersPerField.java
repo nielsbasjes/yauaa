@@ -29,7 +29,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestPredefinedBrowsersPerField {
+class TestPredefinedBrowsersPerField {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsersPerField.class);
 
@@ -44,7 +44,7 @@ public class TestPredefinedBrowsersPerField {
 
     @ParameterizedTest(name = "Test {index} -> Only field: \"{0}\"")
     @MethodSource("data")
-    public void validateAllPredefinedBrowsersForField(String fieldName) {
+    void validateAllPredefinedBrowsersForField(String fieldName) {
         Set<String> singleFieldList = Collections.singleton(fieldName);
         LOG.info("==============================================================");
         LOG.info("Validating when ONLY asking for {}", fieldName);

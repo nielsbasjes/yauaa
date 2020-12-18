@@ -36,12 +36,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestUseragent {
+class TestUseragent {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestUseragent.class);
 
     @Test
-    public void testUseragent() {
+    void testUseragent() {
         String    uaString = "Foo Bar";
         UserAgent agent    = new MutableUserAgent(uaString);
         assertEquals(uaString, agent.get(UserAgent.USERAGENT_FIELDNAME).getValue());
@@ -51,7 +51,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void testUseragentValues() {
+    void testUseragentValues() {
         testUseragentValuesDebug(true);
         testUseragentValuesDebug(false);
     }
@@ -135,7 +135,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void testDefaults() {
+    void testDefaults() {
         MutableUserAgent agent = new MutableUserAgent();
         // Defaults for known fields
         assertEquals(UNKNOWN_VALUE,     agent.getValue("DeviceClass"));
@@ -156,7 +156,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void testCopying() {
+    void testCopying() {
         MutableAgentField origNull = new MutableAgentField(null);
         origNull.setValue("One", 1);
         MutableAgentField copyNull = new MutableAgentField("Foo"); // Different default!
@@ -182,7 +182,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void comparingUserAgents() {
+    void comparingUserAgents() {
         MutableUserAgent baseAgent = new MutableUserAgent("Something 2");
         MutableUserAgent mutableAgent0    = new MutableUserAgent("Something 2");
         MutableUserAgent mutableAgent1    = new MutableUserAgent("Something 1");
@@ -271,7 +271,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void comparingUserAgentFields() {
+    void comparingUserAgentFields() {
         MutableAgentField field0 = new MutableAgentField("Foo");
         field0.setValue("One", 1);
 
@@ -314,7 +314,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void fullToString() {
+    void fullToString() {
         MutableUserAgent userAgent1 = new MutableUserAgent("Some'Agent");
         ((MutableAgentField)userAgent1.get("Niels")).setValue("Basjes", 42);
 
@@ -381,7 +381,7 @@ public class TestUseragent {
     }
 
     @Test
-    public void limitedToString() {
+    void limitedToString() {
         List<String> wanted = Arrays.asList("DeviceClass", "AgentVersion", "SomethingElse");
 
         // When only asking for a limited set of fields then the internal datastructures are

@@ -39,10 +39,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.logstash.filters.nl.basjes.parse.useragent.logstash.Yauaa.FIELDS_CONFIG;
 import static org.logstash.filters.nl.basjes.parse.useragent.logstash.Yauaa.SOURCE_CONFIG;
 
-public class TestYauaa {
+class TestYauaa {
 
     @Test
-    public void testNormalUse() {
+    void testNormalUse() {
         String sourceField = "foo";
 
         Map<String, String> fieldMappings = new HashMap<>();
@@ -76,7 +76,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigNothing() {
+    void testBadConfigNothing() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, Object> configMap = new HashMap<>();
             Configuration       config    = new ConfigurationImpl(configMap);
@@ -92,7 +92,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigNoSource() {
+    void testBadConfigNoSource() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, String> fieldMappings = new HashMap<>();
             fieldMappings.put("DeviceClass", "DC");
@@ -111,7 +111,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigEmptySource() {
+    void testBadConfigEmptySource() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, String> fieldMappings = new HashMap<>();
             fieldMappings.put("DeviceClass", "DC");
@@ -131,7 +131,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigNoFields() {
+    void testBadConfigNoFields() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, Object> configMap = new HashMap<>();
             configMap.put("source", "foo");
@@ -146,7 +146,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigFieldsEmpty() {
+    void testBadConfigFieldsEmpty() {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, String> fieldMappings = new HashMap<>();
@@ -165,7 +165,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigIllegalField() {
+    void testBadConfigIllegalField() {
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, String> fieldMappings = new HashMap<>();
@@ -186,7 +186,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigIllegalFieldNoSource() {
+    void testBadConfigIllegalFieldNoSource() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, String> fieldMappings = new HashMap<>();
             fieldMappings.put("NoSuchField", "NSF");
@@ -209,7 +209,7 @@ public class TestYauaa {
     }
 
     @Test
-    public void testBadConfigIllegalFieldEmptySource() {
+    void testBadConfigIllegalFieldEmptySource() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Map<String, String> fieldMappings = new HashMap<>();
             fieldMappings.put("NoSuchField", "NSF");

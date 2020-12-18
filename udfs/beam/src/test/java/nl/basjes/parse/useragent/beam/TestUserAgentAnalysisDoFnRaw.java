@@ -28,7 +28,6 @@ import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.util.UserCodeException;
 import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.vendor.guava.v26_0_jre.com.google.common.util.concurrent.UncheckedExecutionException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -66,7 +65,7 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
 
     @Test
     @Category(NeedsRunner.class)
-    public void testUserAgentAnalysisDoFn() {
+    public void testUserAgentAnalysisDoFn() { // NOSONAR java:S2699 False positive because PAssert is unknown to Sonar
         // Process a single input element:
         String userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
             "Chrome/48.0.2564.82 Safari/537.36";
@@ -125,8 +124,6 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
 // and pulling the real exception my code throws to do the check.
 //            throw e.getCause().getCause();
             });
-
-        assertTrue(exception instanceof UncheckedExecutionException);
 
         Throwable userCodeException = exception.getCause();
         assertTrue(userCodeException instanceof UserCodeException);

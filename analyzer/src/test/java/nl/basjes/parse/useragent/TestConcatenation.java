@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestConcatenation {
+class TestConcatenation {
 
     private MutableUserAgent createUserAgent() {
         MutableUserAgent userAgent = new MutableUserAgent();
@@ -38,7 +38,7 @@ public class TestConcatenation {
     }
 
     @Test
-    public void testFieldConcatenation() {
+    void testFieldConcatenation() {
         FieldCalculator fc;
         MutableUserAgent       userAgent = createUserAgent();
 
@@ -60,7 +60,7 @@ public class TestConcatenation {
     }
 
     @Test
-    public void testFieldConcatenationSamePrefix() {
+    void testFieldConcatenationSamePrefix() {
         FieldCalculator fc;
         MutableUserAgent       userAgent = createUserAgent();
 
@@ -79,7 +79,7 @@ public class TestConcatenation {
 
 
     @Test
-    public void testFieldConcatenationNonExistent() {
+    void testFieldConcatenationNonExistent() {
         FieldCalculator fc;
         MutableUserAgent       userAgent = createUserAgent();
 
@@ -97,7 +97,7 @@ public class TestConcatenation {
     }
 
     @Test
-    public void testFieldConcatenationNoConfidence() {
+    void testFieldConcatenationNoConfidence() {
         FieldCalculator fc;
         MutableUserAgent       userAgent = createUserAgent();
 
@@ -111,7 +111,7 @@ public class TestConcatenation {
     }
 
     @Test
-    public void testFieldConcatenationAllDefaults() {
+    void testFieldConcatenationAllDefaults() {
         FieldCalculator fc;
         MutableUserAgent       userAgent = new MutableUserAgent();
         userAgent.set("FooBarName", "Dummy", 1);

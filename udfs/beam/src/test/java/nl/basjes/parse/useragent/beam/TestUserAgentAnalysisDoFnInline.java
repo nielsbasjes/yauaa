@@ -39,7 +39,7 @@ public class TestUserAgentAnalysisDoFnInline implements Serializable {
     public final transient TestPipeline pipeline = TestPipeline.create();
 
     @Test
-    public void testInlineDefinition() {
+    public void testInlineDefinition() { // NOSONAR java:S2699 False positive because PAssert is unknown to Sonar
         List<String> useragents = Arrays.asList(
             "Mozilla/5.0 (X11; Linux x86_64) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +

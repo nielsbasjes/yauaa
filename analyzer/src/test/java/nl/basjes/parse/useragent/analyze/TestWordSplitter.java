@@ -29,10 +29,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestWordSplitter {
+class TestWordSplitter {
 
     @Test
-    public void versionSplitterEmpty() {
+    void versionSplitterEmpty() {
         String value = "";
         Splitter splitter = VersionSplitter.getInstance();
         assertEquals(null,       splitter.getSingleSplit(value, -5));
@@ -49,7 +49,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterOne() {
+    void versionSplitterOne() {
         String value = "123";
         Splitter splitter = VersionSplitter.getInstance();
         assertEquals(null,       splitter.getSingleSplit(value, -5));
@@ -66,7 +66,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterDOT() {
+    void versionSplitterDOT() {
         String value = "1.2.3";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -86,7 +86,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterUS() {
+    void versionSplitterUS() {
         String value = "1_2_3";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -106,7 +106,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterMIX1() {
+    void versionSplitterMIX1() {
         String value = "1_2.3";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -126,7 +126,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterMIX2() {
+    void versionSplitterMIX2() {
         String value = "1.2_3";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -146,7 +146,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterWWW1() {
+    void versionSplitterWWW1() {
         String value = "www.bar.com";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -158,7 +158,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterWWW2() {
+    void versionSplitterWWW2() {
         String value = "http://bar.com";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -170,7 +170,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterEMail() {
+    void versionSplitterEMail() {
         String value = "foo@bar.com";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -182,7 +182,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void versionSplitterRanges() {
+    void versionSplitterRanges() {
         String value = "1.2.3.4.5";
         Splitter splitter = VersionSplitter.getInstance();
 
@@ -227,7 +227,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void wordSplitterEmpty() {
+    void wordSplitterEmpty() {
         String value = "";
         Splitter splitter = WordSplitter.getInstance();
         assertEquals(null,       splitter.getSingleSplit(value, -5));
@@ -244,7 +244,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void wordSplitterOne() {
+    void wordSplitterOne() {
         String value = "word";
         Splitter splitter = WordSplitter.getInstance();
         assertEquals(null,       splitter.getSingleSplit(value, -5));
@@ -261,7 +261,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void wordSplitter() {
+    void wordSplitter() {
         String value = "one two/3 four-4 five(some more)";
         Splitter splitter = WordSplitter.getInstance();
 
@@ -285,7 +285,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void wordSplitterRange() {
+    void wordSplitterRange() {
         String value = "one two/3 four-4 five(some more)";
         // The '(' is one of the string terminators for this string splitter
 
@@ -344,7 +344,7 @@ public class TestWordSplitter {
 
 
     @Test
-    public void testSplitList(){
+    void testSplitList(){
         String value = "one two/3 four-4 five(some more)";
         Splitter splitter = WordSplitter.getInstance();
 
@@ -407,7 +407,7 @@ public class TestWordSplitter {
     }
 
     @Test
-    public void badCalls() {
+    void badCalls() {
         String value = "one two/3 four-4 five(some more)";
         Splitter splitter = WordSplitter.getInstance();
 
@@ -419,7 +419,7 @@ public class TestWordSplitter {
 
 
     @Test
-    public void segmentSplitterRange() {
+    void segmentSplitterRange() {
         String value = "one two | three | four five";
 
         Splitter splitter = ListSplitter.getInstance();

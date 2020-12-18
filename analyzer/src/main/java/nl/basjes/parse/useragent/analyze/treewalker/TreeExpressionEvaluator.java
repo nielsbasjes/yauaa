@@ -47,14 +47,12 @@ public class TreeExpressionEvaluator implements Serializable {
     private final boolean verbose;
 
     private final String requiredPatternText;
-    private final Matcher matcher;
     private final WalkList walkList;
     private final String fixedValue;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private TreeExpressionEvaluator() {
         requiredPatternText = null;
-        matcher = null;
         verbose = false;
         fixedValue = null;
         walkList = null;
@@ -64,7 +62,6 @@ public class TreeExpressionEvaluator implements Serializable {
                                    Matcher matcher,
                                    boolean verbose) {
         this.requiredPatternText = requiredPattern.getText();
-        this.matcher = matcher;
         this.verbose = verbose;
         this.fixedValue = calculateFixedValue(requiredPattern);
         walkList = new WalkList(requiredPattern, matcher.getLookups(), matcher.getLookupSets(), verbose);
@@ -96,13 +93,34 @@ public class TreeExpressionEvaluator implements Serializable {
 
             // =================
             // Having a lookup that provides a fixed value yields an error as it complicates things needlessly
-            @Override public String visitMatcherPathLookup              (MatcherPathLookupContext              ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
-            @Override public String visitMatcherPathLookupContains      (MatcherPathLookupContainsContext      ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
-            @Override public String visitMatcherPathLookupPrefix        (MatcherPathLookupPrefixContext        ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
-            @Override public String visitMatcherPathIsInLookup          (MatcherPathIsInLookupContext          ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
-            @Override public String visitMatcherPathIsInLookupContains  (MatcherPathIsInLookupContainsContext  ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
-            @Override public String visitMatcherPathIsInLookupPrefix    (MatcherPathIsInLookupPrefixContext    ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
-            @Override public String visitMatcherPathIsNotInLookupPrefix (MatcherPathIsNotInLookupPrefixContext ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathLookupContains(MatcherPathLookupContainsContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathIsInLookup(MatcherPathIsInLookupContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathIsInLookupContains(MatcherPathIsInLookupContainsContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathIsInLookupPrefix(MatcherPathIsInLookupPrefixContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathIsNotInLookupPrefix(MatcherPathIsNotInLookupPrefixContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
 
             private String visitLookupsFailOnFixedString(ParseTree matcherTree) {
                 String value = visit(matcherTree);

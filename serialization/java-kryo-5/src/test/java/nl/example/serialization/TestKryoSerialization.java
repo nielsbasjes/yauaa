@@ -24,17 +24,17 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestKryoSerialization {
+class TestKryoSerialization {
 
     @Test
-    public void cycleWithTestBefore() {
+    void cycleWithTestBefore() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
             () -> new SerializeWithKryo().cycleWithoutTestBefore());
         assertTrue(illegalArgumentException.getMessage().contains("Class is not registered"));
     }
 
     @Test
-    public void cycleWithoutTestBefore() {
+    void cycleWithoutTestBefore() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
             () -> new SerializeWithKryo().cycleWithoutTestBefore());
         assertTrue(illegalArgumentException.getMessage().contains("Class is not registered"));

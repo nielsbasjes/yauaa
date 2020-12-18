@@ -24,9 +24,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestVersionCollisionChecks {
+class TestVersionCollisionChecks {
     @Test
-    public void testBadVersion(){
+    void testBadVersion(){
 
         InvalidParserConfigurationException exception =
 
@@ -41,7 +41,7 @@ public class TestVersionCollisionChecks {
     }
 
     @Test
-    public void testBadVersionNotMap(){
+    void testBadVersionNotMap(){
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()
@@ -54,7 +54,7 @@ public class TestVersionCollisionChecks {
     }
 
     @Test
-    public void testDifferentVersion(){
+    void testDifferentVersion(){
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()
@@ -66,7 +66,7 @@ public class TestVersionCollisionChecks {
     }
 
     @Test
-    public void testDoubleLoadedResources(){
+    void testDoubleLoadedResources(){
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () -> UserAgentAnalyzer
             .newBuilder()

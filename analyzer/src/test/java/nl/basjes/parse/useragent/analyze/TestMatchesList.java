@@ -29,10 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestMatchesList {
+class TestMatchesList {
 
     @Test
-    public void testNormalUse() {
+    void testNormalUse() {
         MatchesList list = new MatchesList(5);
         assertEquals(0, list.size());
         list.add("one", "two", null);
@@ -54,7 +54,7 @@ public class TestMatchesList {
     }
 
     @Test
-    public void testTooMany() {
+    void testTooMany() {
         MatchesList list = new MatchesList(5);
         list.add("one", "two", null);
         list.add("three", "four", null);
@@ -66,7 +66,7 @@ public class TestMatchesList {
     }
 
     @Test
-    public void testSizeAfterClear() {
+    void testSizeAfterClear() {
         MatchesList list = new MatchesList(5);
         list.add("one", "two", null);
         list.add("three", "four", null);
@@ -81,51 +81,51 @@ public class TestMatchesList {
     }
 
     @Test
-    public void testUnsupportedAdd() {
+    void testUnsupportedAdd() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).add(null));
     }
 
     @Test
-    public void testUnsupportedAddAll() {
+    void testUnsupportedAddAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).addAll(null));
     }
 
     @Test
-    public void testUnsupportedRemove() {
+    void testUnsupportedRemove() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).remove(null));
     }
 
     @Test
-    public void testUnsupportedRemoveAll() {
+    void testUnsupportedRemoveAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).removeAll(null));
     }
 
     @Test
-    public void testUnsupportedRetainAll() {
+    void testUnsupportedRetainAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).retainAll(null));
     }
 
     @Test
-    public void testUnsupportedContains() {
+    void testUnsupportedContains() {
         assertThrows(UnsupportedOperationException.class, () ->
             assertFalse(new MatchesList(1).contains(null)));
     }
 
     @Test
-    public void testUnsupportedContainsAll() {
+    void testUnsupportedContainsAll() {
         assertThrows(UnsupportedOperationException.class, () ->
             new MatchesList(1).containsAll(null));
     }
 
     @Test
-    public void testUnsupportedToArray() {
+    void testUnsupportedToArray() {
         assertThrows(UnsupportedOperationException.class, () ->
-            new MatchesList(1).toArray(null));
+            new MatchesList(1).toArray((Object[])null));
     }
 
 }

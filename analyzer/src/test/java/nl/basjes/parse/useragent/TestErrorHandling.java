@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestErrorHandling {
+class TestErrorHandling {
 
     private void runTest(String resourceString, Matcher<String> expectedMessage) {
         InvalidParserConfigurationException exception =
@@ -49,77 +49,77 @@ public class TestErrorHandling {
     }
 
     @Test
-    public void checkNoFile() {
+    void checkNoFile() {
         runTest(
             "classpath*:BadDefinitions/ThisOneDoesNotExist---Really.yaml",
             containsString("There were no resources found for the expression: "));
     }
 
     @Test
-    public void checkEmptyFile() {
+    void checkEmptyFile() {
         runTest(
             "classpath*:BadDefinitions/EmptyFile.yaml",
             containsString("No matchers were loaded at all."));
     }
 
     @Test
-    public void checkAlmostEmptyFile() {
+    void checkAlmostEmptyFile() {
         runTest(
             "classpath*:BadDefinitions/AlmostEmptyFile.yaml",
             containsString("The value should be a sequence but it is a scalar"));
     }
 
     @Test
-    public void checkBadStructure() {
+    void checkBadStructure() {
         runTest(
             "classpath*:BadDefinitions/BadStructure.yaml",
             containsString("The top level entry MUST be 'config'."));
     }
 
     @Test
-    public void checkFileIsNotAMap() {
+    void checkFileIsNotAMap() {
         runTest(
             "classpath*:BadDefinitions/FileIsNotAMap.yaml",
             containsString("Yaml config problem.(FileIsNotAMap.yaml:20): The value should be a sequence but it is a mapping"));
     }
 
     @Test
-    public void checkLookupSetMissing() {
+    void checkLookupSetMissing() {
         runTest(
             "classpath*:BadDefinitions/LookupSetMissing.yaml",
             containsString("Missing lookupSet"));
     }
 
     @Test
-    public void checkBadEntry() {
+    void checkBadEntry() {
         runTest(
             "classpath*:BadDefinitions/BadEntry.yaml",
             containsString("Found unexpected config entry:"));
     }
 
     @Test
-    public void checkLookupMissing() {
+    void checkLookupMissing() {
         runTest(
             "classpath*:BadDefinitions/LookupMissing.yaml",
             containsString("Missing lookup"));
     }
 
     @Test
-    public void checkLookupPrefixMissing() {
+    void checkLookupPrefixMissing() {
         runTest(
             "classpath*:BadDefinitions/LookupPrefixMissing.yaml",
             containsString("Missing lookup"));
     }
 
     @Test
-    public void checkIsInLookupPrefixMissing() {
+    void checkIsInLookupPrefixMissing() {
         runTest(
             "classpath*:BadDefinitions/IsInLookupPrefixMissing.yaml",
             containsString("Missing lookup"));
     }
 
     @Test
-    public void checkLookupDuplicateKey() {
+    void checkLookupDuplicateKey() {
         runTest(
             "classpath*:BadDefinitions/LookupDuplicateKey.yaml",
             containsString("appears multiple times"));
@@ -164,84 +164,84 @@ public class TestErrorHandling {
     }
 
     @Test
-    public void checkNoExtract() {
+    void checkNoExtract() {
         runTest(
             "classpath*:BadDefinitions/NoExtract.yaml",
             containsString("Matcher does not extract anything"));
     }
 
     @Test
-    public void checkInvalidExtract() {
+    void checkInvalidExtract() {
         runTest(
             "classpath*:BadDefinitions/InvalidExtract.yaml",
             containsString("Invalid extract config line: agent.text=\"foo\""));
     }
 
     @Test
-    public void checkNoTestInput() {
+    void checkNoTestInput() {
         runTest(
             "classpath*:BadDefinitions/NoTestInput.yaml",
             containsString("Test is missing input"));
     }
 
     @Test
-    public void checkSyntaxErrorRequire() {
+    void checkSyntaxErrorRequire() {
         runTest(
             "classpath*:BadDefinitions/SyntaxErrorRequire.yaml",
             startsWith("Syntax error"));
     }
 
     @Test
-    public void checkSyntaxErrorExtract1() {
+    void checkSyntaxErrorExtract1() {
         runTest(
             "classpath*:BadDefinitions/SyntaxErrorExtract1.yaml",
             startsWith("Syntax error"));
     }
 
     @Test
-    public void checkSyntaxErrorExtract2() {
+    void checkSyntaxErrorExtract2() {
         runTest(
             "classpath*:BadDefinitions/SyntaxErrorExtract2.yaml",
             startsWith("Invalid extract config line"));
     }
 
     @Test
-    public void checkSyntaxErrorVariable1() {
+    void checkSyntaxErrorVariable1() {
         runTest(
             "classpath*:BadDefinitions/SyntaxErrorVariable1.yaml",
             startsWith("Syntax error"));
     }
 
     @Test
-    public void checkSyntaxErrorVariable2() {
+    void checkSyntaxErrorVariable2() {
         runTest(
             "classpath*:BadDefinitions/SyntaxErrorVariable2.yaml",
             startsWith("Invalid variable config line:"));
     }
 
     @Test
-    public void checkSyntaxErrorVariableBackReference() {
+    void checkSyntaxErrorVariableBackReference() {
         runTest(
             "classpath*:BadDefinitions/Variable-BackReference.yaml",
             startsWith("Syntax error"));
     }
 
     @Test
-    public void checkSyntaxErrorVariableBadDefinition() {
+    void checkSyntaxErrorVariableBadDefinition() {
         runTest(
             "classpath*:BadDefinitions/Variable-BadDefinition.yaml",
             startsWith("Invalid variable config line:"));
     }
 
     @Test
-    public void checkSyntaxErrorVariableFixedString() {
+    void checkSyntaxErrorVariableFixedString() {
         runTest(
             "classpath*:BadDefinitions/Variable-FixedString.yaml",
             startsWith("Syntax error"));
     }
 
     @Test
-    public void checkForVariableExistance() {
+    void checkForVariableExistance() {
         runTest(
             "classpath*:BadDefinitions/Variable-NoSuchVariable.yaml",
             startsWith("Syntax error"));
@@ -249,7 +249,7 @@ public class TestErrorHandling {
 
 
     @Test
-    public void methodInputValidation(){
+    void methodInputValidation(){
         UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder()
             .withField("AgentClass")
             .build();

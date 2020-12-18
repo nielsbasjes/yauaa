@@ -25,7 +25,7 @@ import nl.basjes.parse.useragent.UserAgentAnalyzerDirect.UserAgentAnalyzerDirect
 
 import java.nio.ByteBuffer;
 
-public class TestUserAgentAnalyzerDirectKryoSerialization extends AbstractAnalyzerSerializationTest<UserAgentAnalyzerDirect> {
+class TestUserAgentAnalyzerDirectKryoSerialization extends AbstractAnalyzerSerializationTest<UserAgentAnalyzerDirect> {
 
     byte[] serialize(UserAgentAnalyzerDirect uaa) {
         Kryo             kryo             = new Kryo();

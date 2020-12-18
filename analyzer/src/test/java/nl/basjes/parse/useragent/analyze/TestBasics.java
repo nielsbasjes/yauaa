@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
 import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_USER_AGENT_MAX_LENGTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestBasics {
+class TestBasics {
 
     @Test
-    public void testCacheSetter() {
+    void testCacheSetter() {
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
         userAgentAnalyzer.loadResources("classpath*:AllFields-tests.yaml");
 
@@ -52,7 +52,7 @@ public class TestBasics {
     }
 
     @Test
-    public void testUserAgentMaxLengthSetter() {
+    void testUserAgentMaxLengthSetter() {
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
         userAgentAnalyzer.loadResources("classpath*:AllFields-tests.yaml");
 

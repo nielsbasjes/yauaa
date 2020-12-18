@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // CHECKSTYLE.OFF: ParenPad
-public class TestBuilder {
+class TestBuilder {
 
     private void runTestCase(AbstractUserAgentAnalyzerDirect userAgentAnalyzer) {
         UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
@@ -70,7 +70,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testLimitedFieldsDirect() {
+    void testLimitedFieldsDirect() {
         UserAgentAnalyzerDirect userAgentAnalyzer =
             UserAgentAnalyzerDirect
                 .newBuilder()
@@ -90,7 +90,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testLimitedFields() {
+    void testLimitedFields() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
@@ -112,7 +112,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testLoadAdditionalRules() {
+    void testLoadAdditionalRules() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
@@ -135,7 +135,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testLoadOnlyCustomRules() {
+    void testLoadOnlyCustomRules() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
@@ -156,7 +156,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testLoadOnlyCompanyCustomFormatRules() {
+    void testLoadOnlyCompanyCustomFormatRules() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
@@ -182,7 +182,7 @@ public class TestBuilder {
 
 
     @Test
-    public void testAskingForImpossibleField() {
+    void testAskingForImpossibleField() {
         InvalidParserConfigurationException exception = assertThrows(InvalidParserConfigurationException.class, () ->
             UserAgentAnalyzer
                 .newBuilder()
@@ -198,7 +198,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testDualBuilderUsageNoSecondInstance() {
+    void testDualBuilderUsageNoSecondInstance() {
         UserAgentAnalyzerBuilder builder =
             UserAgentAnalyzer.newBuilder().delayInitialization();
 
@@ -209,7 +209,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testDualBuilderUsageUseSetterAfterBuild() {
+    void testDualBuilderUsageUseSetterAfterBuild() {
         UserAgentAnalyzerBuilder builder =
             UserAgentAnalyzer.newBuilder().delayInitialization();
 
@@ -223,7 +223,7 @@ public class TestBuilder {
 
 
     @Test
-    public void testLoadMoreResources() {
+    void testLoadMoreResources() {
         UserAgentAnalyzerBuilder builder =
             UserAgentAnalyzer.newBuilder().delayInitialization().withField("DeviceClass");
 
@@ -246,7 +246,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testPostPreheatDroptests() {
+    void testPostPreheatDroptests() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
@@ -271,7 +271,7 @@ public class TestBuilder {
     }
 
     @Test
-    public void testPreheatNoTests() {
+    void testPreheatNoTests() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()

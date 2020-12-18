@@ -26,10 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestAnnotationBadUsages {
+class TestAnnotationBadUsages {
 
     @Test
-    public void testNullInitAnalyzer(){
+    void testNullInitAnalyzer(){
         UserAgentAnnotationAnalyzer<String> userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
 
         InvalidParserConfigurationException exception =
@@ -40,13 +40,13 @@ public class TestAnnotationBadUsages {
     }
 
     @Test
-    public void testNullInit(){
+    void testNullInit(){
         UserAgentAnnotationAnalyzer<String> userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
         assertNull(userAgentAnalyzer.map(null));
     }
 
     @Test
-    public void testNoInit(){
+    void testNoInit(){
         UserAgentAnnotationAnalyzer<String> userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
 
         InvalidParserConfigurationException exception =
@@ -74,7 +74,7 @@ public class TestAnnotationBadUsages {
     }
 
     @Test
-    public void testMissingTypeParameter(){
+    void testMissingTypeParameter(){
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, MapperWithoutGenericType::new);
 
