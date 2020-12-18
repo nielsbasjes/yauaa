@@ -125,20 +125,43 @@ public class TestErrorHandling {
             containsString("appears multiple times"));
     }
 
-    @Test
-    public void checkFixedStringLookupMissing() {
+    private static final String FIXED_LOOKUP_ERROR = "A lookup for a fixed input value is a needless complexity.";
+
+    @Test void checkFixedStringLookup() {
         runTest(
-            "classpath*:BadDefinitions/FixedStringLookupMissing.yaml",
-            containsString("Missing lookup"));
+            "classpath*:BadDefinitions/FixedStringLookup.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
     }
 
-    @Test
-    public void checkFixedStringLookupMissingvalue() {
+    @Test void checkFixedStringLookupContains() {
         runTest(
-            "classpath*:BadDefinitions/FixedStringLookupMissingValue.yaml",
-            containsString("Fixed value"));
+            "classpath*:BadDefinitions/FixedStringLookupContains.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
     }
 
+    @Test void checkFixedStringLookupPrefix() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringLookupPrefix.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
+    }
+
+    @Test void checkFixedStringIsInLookup() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringIsInLookup.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
+    }
+
+    @Test void checkFixedStringIsInLookupContains() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringIsInLookupContains.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
+    }
+
+    @Test void checkFixedStringIsInLookupPrefix() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringIsInLookupPrefix.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
+    }
 
     @Test
     public void checkNoExtract() {

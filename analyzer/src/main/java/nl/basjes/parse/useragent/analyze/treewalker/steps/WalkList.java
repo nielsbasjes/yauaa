@@ -318,6 +318,20 @@ public class WalkList implements Serializable {
         }
 
         @Override
+        public Void visitMatcherPathIsInLookup(UserAgentTreeWalkerParser.MatcherPathIsInLookupContext ctx) {
+            visit(ctx.matcher());
+
+            fromHereItCannotBeInHashMapAnymore();
+
+            String lookupName = ctx.lookup.getText();
+            Map<String, String> lookup = getLookup(lookupName);
+
+            // No need to write new code for essentially the same in a different syntax
+            add(new StepIsInSet(lookupName, new LinkedHashSet<>(lookup.keySet())));
+            return null; // Void
+        }
+
+        @Override
         public Void visitMatcherPathLookupContains(MatcherPathLookupContainsContext ctx) {
             visit(ctx.matcher());
 

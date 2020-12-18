@@ -22,18 +22,21 @@ import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * This class gets the symbol table (1 value) uses that to evaluate
@@ -91,39 +94,25 @@ public class TreeExpressionEvaluator implements Serializable {
                 return nextResult == null ? aggregate : nextResult;
             }
 
-            // FIXME: Handle UserAgentTreeWalkerParser.MatcherPathLookupContainsContext
-            @Override
-            public String visitMatcherPathLookup(MatcherPathLookupContext ctx) {
-                return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
-            }
-            @Override
-            public String visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
-                return visitLookups(ctx.matcher(), ctx.lookup, ctx.defaultValue);
-            }
+            // =================
+            // Having a lookup that provides a fixed value yields an error as it complicates things needlessly
+            @Override public String visitMatcherPathLookup              (MatcherPathLookupContext              ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathLookupContains      (MatcherPathLookupContainsContext      ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathLookupPrefix        (MatcherPathLookupPrefixContext        ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathIsInLookup          (MatcherPathIsInLookupContext          ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathIsInLookupContains  (MatcherPathIsInLookupContainsContext  ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathIsInLookupPrefix    (MatcherPathIsInLookupPrefixContext    ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
+            @Override public String visitMatcherPathIsNotInLookupPrefix (MatcherPathIsNotInLookupPrefixContext ctx) { return visitLookupsFailOnFixedString(ctx.matcher()); }
 
-            private String visitLookups(ParseTree matcherTree, Token lookup, Token defaultValue) {
+            private String visitLookupsFailOnFixedString(ParseTree matcherTree) {
                 String value = visit(matcherTree);
                 if (value == null) {
                     return null;
                 }
-                // Now we know this is a fixed value. Yet we can have a problem in the lookup that was
-                // configured. If we have this then this is a FATAL error (it will fail always everywhere).
-
-                Map<String, String> lookupMap = matcher.getLookups().get(lookup.getText());
-                if (lookupMap == null) {
-                    throw new InvalidParserConfigurationException("Missing lookup \"" + lookup.getText() + "\" ");
-                }
-
-                String resultingValue = lookupMap.get(value.toLowerCase());
-                if (resultingValue == null) {
-                    if (defaultValue != null) {
-                        return defaultValue.getText();
-                    }
-                    throw new InvalidParserConfigurationException(
-                        "Fixed value >>" + value + "<< is missing in lookup: \"" + lookup.getText() + "\" ");
-                }
-                return resultingValue;
+                // Now we know this is a fixed value lookup ... JUST DON'T as it is needless.
+                throw new InvalidParserConfigurationException("A lookup for a fixed input value is a needless complexity.");
             }
+            // =================
 
             @Override
             public String visitPathFixedValue(PathFixedValueContext ctx) {

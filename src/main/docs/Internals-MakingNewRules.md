@@ -267,6 +267,7 @@ Cleanup the version from an _ separated to a . separated string| CleanVersion[ex
 Replace every occurrence of a String with another String (fixed text and case sensitive!)| ReplaceString[expression;search;replace] | ReplaceString["onefoofootwo";"foo";"bar"] | onebarbartwo
 LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table (with fallback in case no match) | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
+LookUp the value against a lookup table and return the original value if a matching prefix is present. | IsInLookUp[lookupname;expression] | IsInLookUp[OSNames;agent.product.entry.text]
 LookUp the lookupname in the lookup table that the value contains | LookUpContains[lookupname;expression] | LookUpContains[OSNames;agent.product.entry.text]
 LookUp the lookupname in the lookup table that the value contains (with fallback in case no match) | LookUpContains[lookupname;expression;defaultvalue] | LookUpContains[OSNames;agent.product.entry.text;"Unknown"]
 LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present. | IsInLookUpContains[lookupname;expression] | IsInLookUpContains[OSNames;agent.product.entry.text]

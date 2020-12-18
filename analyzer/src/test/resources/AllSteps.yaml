@@ -128,7 +128,8 @@ config:
     variable:
       - 'Foo: agent.product.name^.name'
     extract:
-      - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix [MyPrefixes;@Foo]'
+      - 'IsInLookUp         :   1 : IsInLookUp        [MyLookup;@Foo]'
+      - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix  [MyPrefixes;@Foo]'
       - 'IsInLookUpContains :   1 : IsInLookUpContains[MyContains;@Foo]'
 
 - matcher:
@@ -136,6 +137,7 @@ config:
       - 'Foo: agent.product.name^.name'
     extract:
       - 'IsInSet            :   1 : @Foo?MySet'
+      - 'IsInSet_Lookup     :   1 : @Foo?MyLookup'
 
 - matcher:
     extract:
@@ -161,8 +163,10 @@ config:
       LookUpPrefix2                        : 'Foo'
       LookUpContains1                      : 'No Bar'
       LookUpContains2                      : 'Foo'
+      IsInLookUp                           : 'Foo'
       IsInLookUpPrefix                     : 'Foo'
       IsInLookUpContains                   : 'Foo'
       IsInSet                              : 'Foo'
+      IsInSet_Lookup                       : 'Foo'
       DeviceBrand                          : "Unknown"
       AgentInformationUrl                  : "::::"

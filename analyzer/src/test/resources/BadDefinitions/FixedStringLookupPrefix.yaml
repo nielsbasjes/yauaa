@@ -17,9 +17,16 @@
 config:
 # ========================================================================
 
-# Fixed string with missing lookup
+  - lookup:
+      name: 'MyLookup'
+      map:
+        "One"   : "One"
+        "Two"   : "Two"
+        "Three" : "Three"
+
+# Any lookup on a fixed string should fail as it is silly
   - matcher:
       extract:
-        - 'Test:1:LookUp[Missing;"Ok"]'
+      - 'Test:1:LookUpPrefix[MyLookup;"One"]'
 
 

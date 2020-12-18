@@ -17,16 +17,16 @@
 config:
 # ========================================================================
 
-# Fixed string with missing lookup value
   - lookup:
-      name: 'MissingValue'
+      name: 'MyLookup'
       map:
-        "111": "One"
-        "222": "Two"
-        "333": "Three"
-        "444": "Four"
+        "One"   : "One"
+        "Two"   : "Two"
+        "Three" : "Three"
 
+# Any lookup on a fixed string should fail as it is silly
   - matcher:
       extract:
-        - 'Test:1:LookUp[MissingValue;"Value"]'
+      - 'Test:1:LookUpContains[MyLookup;"One"]'
+
 

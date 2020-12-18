@@ -32,6 +32,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherDefault
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
@@ -402,6 +403,8 @@ public abstract class MatcherAction implements Serializable {
             calculateInformPath(action, treeName, ((MatcherReplaceStringContext) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,       (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathLookupContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContext.class,  (action, treeName, tree) ->
+            calculateInformPath(action, treeName, ((MatcherPathIsInLookupContext) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,      (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathLookupContainsContext) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,  (action, treeName, tree) ->

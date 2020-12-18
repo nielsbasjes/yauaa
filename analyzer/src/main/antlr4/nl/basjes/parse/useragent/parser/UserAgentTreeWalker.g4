@@ -80,12 +80,17 @@ matcher         : basePath                                                      
                 | 'NormalizeBrand'      BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherNormalizeBrand
                 | 'CleanVersion'        BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherCleanVersion
                 | 'ReplaceString'       BLOCKOPEN matcher          SEMICOLON search=VALUE SEMICOLON replace=VALUE     BLOCKCLOSE #matcherReplaceString
+
                 | 'LookUp'              BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
+                | 'IsInLookUp'          BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookup
+
                 | 'LookUpContains'      BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupContains
                 | 'IsInLookUpContains'  BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupContains
+
                 | 'LookUpPrefix'        BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookupPrefix
                 | 'IsInLookUpPrefix'    BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsInLookupPrefix
                 | 'IsNotInLookUpPrefix' BLOCKOPEN lookup=VALUENAME SEMICOLON matcher                                  BLOCKCLOSE #matcherPathIsNotInLookupPrefix
+
                 | 'DefaultIfNull'       BLOCKOPEN                            matcher  SEMICOLON defaultValue=VALUE    BLOCKCLOSE #matcherDefaultIfNull
                 | matcher wordRange                                                                                              #matcherWordRange
                 | matcher BLOCKOPEN wordRange BLOCKCLOSE                                                                         #matcherSegmentRange

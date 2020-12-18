@@ -121,27 +121,6 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
-        - 'FixedValueLookupOk:1:LookUp[FixedLookup;"1.0"]'
-
-  - matcher:
-      <<: *MATCH_OPTIONS
-      extract:
-        - 'FixedValueLookupDefaultOk:1:LookUp[FixedLookup;"1.0";"Two"]'
-
-  - matcher:
-      <<: *MATCH_OPTIONS
-      extract:
-        - 'FixedValueLookupDefaultBad:1:LookUp[FixedLookup;"Not there";"Two"]'
-
-####
-## This matcher will always cause a fatal error because the lookup of a fixed value failed.
-#  - matcher:
-#      extract:
-#        - 'FixedValueLookupBad:1:LookUp[FixedLookup;"Not there"]'
-
-  - matcher:
-      <<: *MATCH_OPTIONS
-      extract:
         - 'Path:1:agent.(1)product.comments.(2-10)entry.product.name'                          #path
 
   - matcher:
@@ -351,10 +330,6 @@ config:
         CommentWords2:              'One two'
         CommentWords3:              'One two three'
         CommentWords4:              'Unknown'
-
-        FixedValueLookupOk:          'One'
-        FixedValueLookupDefaultOk:   'One'
-        FixedValueLookupDefaultBad:  'Two'
 
   - matcher:
       require:
