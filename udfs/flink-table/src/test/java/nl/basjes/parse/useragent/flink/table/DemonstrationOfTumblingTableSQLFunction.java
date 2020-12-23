@@ -42,7 +42,7 @@ import static org.apache.flink.table.api.Expressions.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DemonstrationOfTumblingTableSQLFunction {
+class DemonstrationOfTumblingTableSQLFunction {
 
     private static final long BASETIME = 1546344000000L; // 2019-01-01 12:00 UTC
     private static final long SECOND   = 1000L;
@@ -96,7 +96,7 @@ public class DemonstrationOfTumblingTableSQLFunction {
     // This "test" takes too long to run in the build.
     @Disabled
     @Test
-    public void runDemonstration() throws Exception {
+    void runDemonstration() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment senv = StreamExecutionEnvironment.getExecutionEnvironment();
         senv.getConfig().setAutoWatermarkInterval(1000);
@@ -151,10 +151,10 @@ public class DemonstrationOfTumblingTableSQLFunction {
             "    )" +
             ")" +
             "GROUP BY TUMBLE(eventTime, INTERVAL '%d' %s), " +
-                "       deviceClass," +
-                "       agentNameVersionMajor," +
-                "       expectedDeviceClass," +
-                "       expectedAgentNameVersionMajor",
+            "       deviceClass," +
+            "       agentNameVersionMajor," +
+            "       expectedDeviceClass," +
+            "       expectedAgentNameVersionMajor",
             windowIntervalCount, windowIntervalScale,
             windowIntervalCount, windowIntervalScale
             );

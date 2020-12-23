@@ -188,7 +188,6 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     }
 
     public String toString() {
-//        return "MatchesList("+maxSize+","+size+"){allElements="+(allElements==null?"<<null>>":("array of "+ allElements.length))+"} " + toStrings().toString() + " ";
         return "MatchesList("+size+") " + toStrings().toString();
     }
 

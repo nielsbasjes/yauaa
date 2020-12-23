@@ -170,7 +170,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
         if (showPassedTests) {
             LOG.info("+===========================================================================================");
-            LOG.info(sb.toString());
+            LOG.info("{}", sb);
             LOG.info("+-------------------------------------------------------------------------------------------");
         }
 
@@ -275,7 +275,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             if (init) {
                 LOG.info(testLogLine);
                 sb.append(agent.toYamlTestCase());
-                LOG.info(sb.toString());
+                LOG.info("{}", sb);
             }
 
             int maxNameLength     = 6; // "Field".length()+1;            NOSONAR: This is not commented code.
@@ -410,7 +410,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 sb.append("#    - 'AgentVersion                        :      1 :' \n");
                 sb.append('\n');
                 sb.append('\n');
-                LOG.info(sb.toString());
+                LOG.info("{}", sb);
             }
 
             sb.setLength(0);

@@ -802,7 +802,7 @@ public class ParseService {
             sb.append("<div class=\"failureBorder\">");
             sb.append("<p class=\"failureContent\">An exception occurred during parsing</p>");
             sb.append("<p class=\"failureContent\">Exception: ").append(e.getClass().getSimpleName()).append("</p>");
-            sb.append("<p class=\"failureContent\">Message: ").append(e.getMessage().replaceAll("\\n", "<br/>")).append("</p>");
+            sb.append("<p class=\"failureContent\">Message: ").append(e.getMessage().replace("\\n", "<br/>")).append("</p>");
             sb.append("</div>");
         } finally {
             long   stop              = System.nanoTime();

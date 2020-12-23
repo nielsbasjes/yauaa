@@ -86,9 +86,6 @@ public class DebugUserAgent extends MutableUserAgent { // NOSONAR: No need to ov
             for (String fieldName : result.getAvailableFieldNamesSorted()) {
                 AgentField field = result.get(fieldName);
 
-//                if (field == null) {
-//                    LOG.error("Should not happen: No such field: {}", fieldName);
-//                } else {
                 if (field.getConfidence() >= 0) {
                     String marker = "";
                     if (highlightNames.contains(fieldName)) {
@@ -100,7 +97,6 @@ public class DebugUserAgent extends MutableUserAgent { // NOSONAR: No need to ov
                     }
                     sb.append(") = ").append(field.getValue()).append(marker).append('\n');
                 }
-//                }
             }
             sb.append("+================\n");
         }

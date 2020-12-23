@@ -28,7 +28,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class AbstractAnalyzerSerializationTest<ANALYZER extends AbstractUserAgentAnalyzerDirect> {
+abstract class AbstractAnalyzerSerializationTest<ANALYZER extends AbstractUserAgentAnalyzerDirect> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractAnalyzerSerializationTest.class);
 

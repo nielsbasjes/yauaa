@@ -562,7 +562,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                 resources.size(),
                 (stopFiles - startFiles) / 1000000,
                 resourceString);
-            LOG.info(msg.toString());
+            LOG.info("{}", msg);
         }
 
         if (resources.isEmpty()) {
@@ -573,7 +573,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
     protected synchronized void finalizeLoadingRules() {
         logVersion();
-//        long fullStart = System.nanoTime();
         flattener = new UserAgentTreeFlattener(this);
 
         if (wantedFieldNames != null) {
@@ -651,23 +650,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                         stopSkipped - startSkipped,
                         configFilename,
                         (stop - start) / 1000000);
-                    LOG.info(msg.toString());
+                    LOG.info("{}", msg);
                 }
             }
         }
-
-//        long fullStop = System.nanoTime();
-//
-//        try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-//            msg.format("Loading %4d matchers, %d lookups, %d lookupsets, %d testcases from %4d files took %5d msec",
-//                allMatchers.size(),
-//                (lookups == null) ? 0 : lookups.size(),
-//                lookupSets.size(),
-//                testCases.size(),
-//                matcherConfigs.size(),
-//                (fullStop - fullStart) / 1000000);
-//            LOG.info(msg.toString());
-//        }
 
         verifyWeAreNotAskingForImpossibleFields();
         if (!delayInitialization) {

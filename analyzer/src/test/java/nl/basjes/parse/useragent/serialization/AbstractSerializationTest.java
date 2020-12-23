@@ -28,7 +28,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class AbstractSerializationTest {
+abstract class AbstractSerializationTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSerializationTest.class);
 

@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DemoTest {
     @Test
-    public void testParser() {
+    void testParser() {
         Demo demo = new Demo();
 
         String userAgent = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +

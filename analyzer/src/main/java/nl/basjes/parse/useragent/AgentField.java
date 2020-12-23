@@ -101,9 +101,6 @@ public interface AgentField extends Serializable {
         }
 
         public long getConfidence() {
-//            if (value == null) {
-//                return -1; // Lie in case the value was wiped.
-//            }
             return confidence;
         }
 
