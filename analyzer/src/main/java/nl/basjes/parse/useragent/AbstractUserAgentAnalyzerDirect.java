@@ -466,6 +466,12 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                 LOG.info("Loading {} rule files using expression: {}", resourceArray.length, resourceString);
             }
             for (Resource resource : resourceArray) {
+                if (!loadTests && isTestRulesOnlyFile(resource.getFilename())) {
+                    if (showLoadMessages) {
+                        LOG.info("- Skipping tests only file {} ({} bytes)", resource.getFilename(), resource.contentLength());
+                    }
+                    continue;
+                }
                 if (!loadingDefaultResources && showLoadMessages) {
                     LOG.info("- Preparing {} ({} bytes)", resource.getFilename(), resource.contentLength());
                 }
@@ -569,6 +575,13 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             throw new InvalidParserConfigurationException("No matchers were loaded at all.");
         }
 
+    }
+
+    public static boolean isTestRulesOnlyFile(String filename) {
+        if (filename == null) {
+            return false;
+        }
+        return (filename.contains("-tests") || filename.contains("-Tests"));
     }
 
     protected synchronized void finalizeLoadingRules() {

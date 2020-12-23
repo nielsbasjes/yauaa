@@ -16,18 +16,6 @@
 #
 config:
 
-- matcher:
-    require:
-    - 'agent.product.(1)comments.entry[1-1]="Linux"'
-    - 'IsNull[agent.product.(1)comments.entry[1-1]="Android"]'
-    - 'IsNull[agent.product.(1)comments.entry[1-1]="Windows"]'
-    extract:
-    - 'DeviceClass                         :        4 :"Desktop"'
-    - 'DeviceName                          :        4 :"Linux Desktop"'
-    - 'OperatingSystemClass                :        3 :"Desktop"'
-    - 'OperatingSystemName                 :        3 :"Linux"'
-    - 'OperatingSystemVersion              :        0 :"??"'
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X10_11_5) AppleWebKit/537.36 (KHTML, like Gecko)Chrome/50.0.2661.102 Safari/537.36'
@@ -663,49 +651,6 @@ config:
       AgentNameVersionMajor                : 'Pinterest for iOS 7'
 
 
-- matcher:
-    variable:
-    - 'NRC                                 :agent.product.(1)name="NRC Digitale Editie, nl.nrc.nrcapp"'
-    require:
-    - '@NRC^.(2)version="iOS"'
-    extract:
-    - 'OperatingSystemName                 :      200 : "iOS"'
-    - 'OperatingSystemVersion              :      200 : @NRC^>.text'
-
-- test:
-    input:
-      user_agent_string: 'iPad (compatible; Smartphone2.0) NRC Digitale Editie, nl.nrc.nrcapp 9.14 (156) / iOS 13.1.2'
-      #    - 'agent.(2)product="NRC Digitale Editie, nl.nrc.nrcapp 9.14 (156) / iOS"'
-      #    - 'agent.(2)product.(1)name="NRC Digitale Editie, nl.nrc.nrcapp"'
-      #    - 'agent.(2)product.(1)version="9.14"'
-      #    - 'agent.(2)product.(1)comments="(156)"'
-      #    - 'agent.(2)product.(1)comments.(1)entry="156"'
-      #    - 'agent.(2)product.(1)comments.(1)entry.(1)text="156"'
-      #    - 'agent.(2)product.(2)version="iOS"'
-      #    - 'agent.(3)text="13.1.2"'
-    expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Apple iPad'
-      DeviceBrand                          : 'Apple'
-      DeviceVersion                        : 'iPad'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '13.1.2'
-      OperatingSystemVersionMajor          : '13'
-      OperatingSystemNameVersion           : 'iOS 13.1.2'
-      OperatingSystemNameVersionMajor      : 'iOS 13'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'iPad'
-      AgentVersion                         : 'compatible'
-      AgentVersionMajor                    : 'compatible'
-      AgentNameVersion                     : 'iPad compatible'
-      AgentNameVersionMajor                : 'iPad compatible'
 
 
 - test:

@@ -111,6 +111,18 @@ config:
     - 'DeviceCpu                           :       15 :LookUp[CPUArchitectures;@Linux.(2)version]'
     - 'OperatingSystemVersion              :       15 :@Linux.(1)version'
 
+- matcher:
+    require:
+      - 'agent.product.(1)comments.entry[1-1]="Linux"'
+      - 'IsNull[agent.product.(1)comments.entry[1-1]="Android"]'
+      - 'IsNull[agent.product.(1)comments.entry[1-1]="Windows"]'
+    extract:
+      - 'DeviceClass                         :        4 :"Desktop"'
+      - 'DeviceName                          :        4 :"Linux Desktop"'
+      - 'OperatingSystemClass                :        3 :"Desktop"'
+      - 'OperatingSystemName                 :        3 :"Linux"'
+      - 'OperatingSystemVersion              :        0 :"??"'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; U; Linux i686; rv:1.7.3) Gecko/20040919 Firefox/0.10'

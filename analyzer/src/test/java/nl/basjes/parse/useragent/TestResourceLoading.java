@@ -27,9 +27,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class TestResourceLoading {
 
@@ -138,4 +140,41 @@ class TestResourceLoading {
         assertTrue(fieldList2.containsAll(extraFields));
     }
 
+    @Test
+    void testAllResourceFilesHaveTheProperName() {
+        for (String ruleFileName: PackagedRules.getRuleFileNames()) {
+            UserAgentAnalyzer analyzer = UserAgentAnalyzer
+                .newBuilder()
+                .dropDefaultResources()
+                .keepTests()
+                // We load a single dummy action otherwise the Analyzer will not be constructed at all
+                // So having 1 matcher means no matchers in the rule file we want to test.
+                .addResources("classpath*:SingleDummyMatcher.yaml")
+                .addResources(ruleFileName)
+                .build();
+
+            long nrOfTestCases = analyzer.getTestCases().size();
+            long nrOfMatchers = analyzer.getAllMatchers().size();
+            long nrOfLookups = analyzer.getLookups().size();
+            long nrOfLookupSets = analyzer.getLookupSets().size();
+
+            if (UserAgentAnalyzer.isTestRulesOnlyFile(ruleFileName)) {
+                assertTrue(nrOfTestCases > 0,
+                    "A tests file MUST have tests: " + ruleFileName);
+                assertEquals(1, nrOfMatchers,
+                    "A tests file may only have tests (this one has " + (nrOfMatchers-1) + " Matchers): " + ruleFileName);
+                assertEquals(0, nrOfLookups,
+                    "A tests file may only have tests (this one has " + nrOfLookups + " Lookups): " + ruleFileName);
+                assertEquals(0, nrOfLookupSets,
+                    "A tests file may only have tests (this one has " + nrOfLookupSets + " LookupSets): " + ruleFileName);
+            } else {
+                assertTrue(nrOfMatchers >= 1 || nrOfLookups >= 0 || nrOfLookupSets >= 0,
+                    "A file must have something (we did not find any matchers and/or lookups):" + ruleFileName);
+
+                if(nrOfTestCases  >= 0 && nrOfMatchers   == 1 && nrOfLookups    == 0 && nrOfLookupSets == 0) {
+                    fail("A file with ONLY tests must be called '-tests':" + ruleFileName);
+                }
+            }
+        }
+    }
 }

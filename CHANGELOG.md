@@ -3,7 +3,7 @@ This is intended as an overview of the major changes
 
 v5.22-SNAPSHOT
 ===
-- ...
+- Files with '-tests' in the directory/filename contain only tests and are only loaded when needed.
 
 v5.21
 ===
