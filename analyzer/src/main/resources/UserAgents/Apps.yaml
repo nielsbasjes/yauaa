@@ -56,6 +56,14 @@ config:
     - 'AgentName                           :       10 :agent.(1)product.name'
     - 'AgentVersion                        :        6 :"??"'
 
+- matcher:
+    require:
+    - 'agent.(1)product.name="Dalvik"'
+    extract:
+    - 'AgentClass                          :       10 :"Mobile App"'
+    - 'AgentName                           :       10 :agent.(2)product.name'
+    - 'AgentVersion                        :       10 :agent.(2)product.version'
+
 - test:
     input:
       user_agent_string: 'bol.com/94 CFNetwork/758.2.8 Darwin/15.0.0'
@@ -2516,12 +2524,12 @@ config:
 
 - matcher:
     variable:
-      - 'NRC                                 :agent.product.(1)name="NRC Digitale Editie, nl.nrc.nrcapp"'
+    - 'NRC                                 :agent.product.(1)name="NRC Digitale Editie, nl.nrc.nrcapp"'
     require:
-      - '@NRC^.(2)version="iOS"'
+    - '@NRC^.(2)version="iOS"'
     extract:
-      - 'OperatingSystemName                 :      200 : "iOS"'
-      - 'OperatingSystemVersion              :      200 : @NRC^>.text'
+    - 'OperatingSystemName                 :      200 : "iOS"'
+    - 'OperatingSystemVersion              :      200 : @NRC^>.text'
 
 - test:
     input:

@@ -138,13 +138,13 @@
       user_agent_string                     : 'aap=noot/1'
     expected:
       MustBeOk                              : 'OK'
-      agent.product                         : 'aap=noot/1'     # 1
-      agent.product.name                    : 'aap=noot'              # 1
+      agent.product                         : 'aap=noot/1'
+      agent.product.name                    : 'aap=noot'
       agent.product.name.keyvalue           : 'aap=noot'
       agent.product.name.keyvalue.key       : 'aap'
       agent.product.name.keyvalue.value     : 'noot'
       agent.product.name.keyvalue.text      : 'noot'
-      agent.product.version                 : '1'              # 1
+      agent.product.version                 : '1'
 
 - test:
     input:
@@ -432,13 +432,13 @@
        user_agent_string                     : 'Root/1.0 (aap=noot/1)'
     expected:
       MustBeOk                              : 'OK'
-      agent.product.comments.entry.product                         : 'aap=noot/1'     # 1
-      agent.product.comments.entry.product.name                    : 'aap=noot'              # 1
+      agent.product.comments.entry.product                         : 'aap=noot/1'
+      agent.product.comments.entry.product.name                    : 'aap=noot'
       agent.product.comments.entry.product.name.keyvalue           : 'aap=noot'
       agent.product.comments.entry.product.name.keyvalue.key       : 'aap'
       agent.product.comments.entry.product.name.keyvalue.value     : 'noot'
       agent.product.comments.entry.product.name.keyvalue.text      : 'noot'
-      agent.product.comments.entry.product.version                 : '1'              # 1
+      agent.product.comments.entry.product.version                 : '1'
 
 - test:
     input:

@@ -629,6 +629,14 @@ config:
     - 'DeviceBrand                         :      500 :"Sony"'
     - 'DeviceName                          :      500 :"PlayStation Portable"'
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="PSP PlayStation Portable"'
+    extract:
+    - 'DeviceClass                         :      500 :"Handheld Game Console"'
+    - 'DeviceBrand                         :      500 :"Sony"'
+    - 'DeviceName                          :      500 :"PlayStation Portable"'
+
 #http://console.maban.co.uk/
 #Sony PSP-Go
 - test:
@@ -730,15 +738,36 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 9'
 
 - matcher:
-    variable:
-    - 'AlexaDevice                         :agent.(1)product.(1)name{"PS3"'
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="PS2"'
+    extract:
+    - 'DeviceClass                         :      105 :"Game Console"'
+    - 'DeviceBrand                         :     2405 :"Sony"'
+    - 'DeviceName                          :     2405 :"Sony PlayStation 2"'
+    - 'OperatingSystemClass                :      100 :"Game Console"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name{"PS3"'
     extract:
     - 'DeviceClass                         :      105 :"Game Console"'
     - 'DeviceBrand                         :     1405 :"Sony"'
     - 'DeviceName                          :      105 :"Sony PlayStation 3"'
-    - 'OperatingSystemClass                :      100 : "Game Console"'
-    - 'OperatingSystemName                 :      100 : "CellOS"'
-    - 'OperatingSystemVersion              :      100 : "??"'
+    - 'OperatingSystemClass                :      100 :"Game Console"'
+    - 'OperatingSystemName                 :      100 :"CellOS"'
+    - 'OperatingSystemVersion              :      100 :"??"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry{"PlayStation 3"'
+    extract:
+    - 'DeviceClass                         :      105 :"Game Console"'
+    - 'DeviceBrand                         :     1405 :"Sony"'
+    - 'DeviceName                          :      105 :"Sony PlayStation 3"'
+    - 'OperatingSystemClass                :      100 :"Game Console"'
+    - 'OperatingSystemName                 :      100 :"CellOS"'
+    - 'OperatingSystemVersion              :      100 :"??"'
 
 
 - test:
@@ -766,3 +795,59 @@ config:
       AgentVersionMajor                    : '4'
       AgentNameVersion                     : 'PS3Application libhttp 4.8.5-000'
       AgentNameVersionMajor                : 'PS3Application libhttp 4'
+
+
+# PlayStation 2
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (PS2; PlayStation BB Navigator 1.0) NetFront/3.0'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 2'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PlayStation BB' # TODO: Is this right?
+      OperatingSystemVersion               : 'Navigator 1.0'
+      OperatingSystemVersionMajor          : 'Navigator 1'
+      OperatingSystemNameVersion           : 'PlayStation BB Navigator 1.0'
+      OperatingSystemNameVersionMajor      : 'PlayStation BB Navigator 1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Netfront'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Netfront 3.0'
+      LayoutEngineNameVersionMajor         : 'Netfront 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netfront'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Netfront 3.0'
+      AgentNameVersionMajor                : 'Netfront 3'
+
+
+# PlayStation 3
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PLAYSTATION 3; 1.00)'
+    expected: # TODO: Improve Agent and LayoutEngine ?
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 3'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'CellOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'CellOS ??'
+      OperatingSystemNameVersionMajor      : 'CellOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'PLAYSTATION'
+      AgentVersion                         : '3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'PLAYSTATION 3'
+      AgentNameVersionMajor                : 'PLAYSTATION 3'

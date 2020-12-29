@@ -86,6 +86,28 @@ config:
 
 - matcher:
     variable:
+    - 'MSIEVersion                         :agent.product.comments.entry.(1-4)product.name="IE"^.version'
+    extract:
+    - 'LayoutEngineClass                   :     2002 :"Browser"'
+    - 'LayoutEngineName                    :     2002 :"Internet Explorer"'
+    - 'LayoutEngineVersion                 :     2002 :@MSIEVersion'
+    - 'AgentClass                          :     2002 :"Browser"'
+    - 'AgentName                           :     2002 :"Internet Explorer"'
+    - 'AgentVersion                        :     2002 :@MSIEVersion'
+
+- matcher:
+    variable:
+    - 'MSIEVersion                         :agent.product.comments.entry.(1-4)product.name="IE"^.version'
+    extract:
+    - 'LayoutEngineClass                   :     2005 :"Browser"'
+    - 'LayoutEngineName                    :     2005 :LookUp[MSIELayoutEngineName;@MSIEVersion[1]]'
+    - 'LayoutEngineVersion                 :     2005 :LookUp[MSIELayoutEngineVersion;@MSIEVersion[1]]'
+    - 'AgentClass                          :     2005 :"Browser"'
+    - 'AgentName                           :     2005 :"Internet Explorer"'
+    - 'AgentVersion                        :     2005 :@MSIEVersion'
+
+- matcher:
+    variable:
     - 'TridentProduct                      :agent.(1-2)product.comments.entry.product.name="Trident"^'
     extract:
     - 'LayoutEngineClass                   :     2006 :"Browser"'

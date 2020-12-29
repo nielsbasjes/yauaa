@@ -85,12 +85,10 @@ public class ParseService {
     private              UserAgentAnalyzer userAgentAnalyzer               = null;
     private              long              initStartMoment;
     private              boolean           userAgentAnalyzerIsAvailable    = false;
-    private              String userAgentAnalyzerFailureMessage = null;
-    private        final String analyzerVersion                 = getVersion();
-    private static final String API_BASE_PATH                   = "/yauaa/v1";
-
-    private static final String            TEXT_XYAML_VALUE = "text/x-yaml";
-
+    private              String            userAgentAnalyzerFailureMessage = null;
+    private        final String            analyzerVersion                 = getVersion();
+    private static final String            API_BASE_PATH                   = "/yauaa/v1";
+    private static final String            TEXT_XYAML_VALUE                = "text/x-yaml";
     private static final String            EXAMPLE_USERAGENT               =
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
@@ -890,8 +888,13 @@ public class ParseService {
         ensureStartedForApis(OutputType.JSON);
         if (userAgentAnalyzerIsAvailable) {
             List<String> result = new ArrayList<>(2048);
-            splitPerFilledLine(userAgentString)
-                .forEach(ua -> result.add(userAgentAnalyzer.parse(ua).toYamlTestCase()));
+            for (String input: splitPerFilledLine(userAgentString)){
+                if (input.startsWith("#")){
+                    result.add(input);
+                } else {
+                    result.add(userAgentAnalyzer.parse(input).toYamlTestCase());
+                }
+            }
             return String.join("\n", result);
         }
         return "";

@@ -18,6 +18,12 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.comments.entry[1]="Smartphone"'
+    extract:
+    - 'DeviceClass                         :       10 :"Phone"'
+
+- matcher:
+    require:
     - 'agent.product.name="Profile"'
     - 'agent.product.name="Configuration"'
     extract:

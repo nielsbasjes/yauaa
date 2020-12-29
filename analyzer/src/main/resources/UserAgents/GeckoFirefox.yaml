@@ -18,9 +18,15 @@ config:
 
 - set:
     name: 'BadGeckoNames'
-    values:
-    - 'anonymized'
-    - 'owasmime'
+    merge:
+    - 'CPUArchitectures'
+    - 'OSPatterns'
+    - 'MobileBrands'
+    - 'MobileBrandPrefixes'
+    - 'BrowserPluginNames'
+    - 'GenericUnwantedNames'
+#    values:
+#    - 'anonymized'
 
 - set:
     name: 'SpecialGeckoNames'

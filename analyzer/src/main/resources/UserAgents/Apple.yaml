@@ -1151,13 +1151,23 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
+
+- set:
+    name: 'NotAutoWalkBrowserNames'
+    values:
+      - 'Mobile'
+      - 'Mobile Safari'
+      - 'Safari'
+      - 'Version'
+
 - matcher:
     variable:
     - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
     extract:
     - 'AgentClass                          :       39 :"Mobile App"'
-    - 'AgentName                           :       39 :@NextProduct.name'
+    - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
     - 'AgentVersion                        :       39 :@NextProduct.version'
+
 
 - test:
     input:

@@ -28,7 +28,7 @@ class TestBasics {
     @Test
     void testCacheSetter() {
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
-        userAgentAnalyzer.loadResources("classpath*:AllFields-tests.yaml");
+        userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
 
         assertEquals(10000, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
 
@@ -54,7 +54,7 @@ class TestBasics {
     @Test
     void testUserAgentMaxLengthSetter() {
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
-        userAgentAnalyzer.loadResources("classpath*:AllFields-tests.yaml");
+        userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
 
         assertEquals(DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
 

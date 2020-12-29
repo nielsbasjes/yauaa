@@ -84,6 +84,8 @@ public final class EvilManualUseragentStringHacks {
             result = replaceString(result, "MSIE9", "MSIE 9");
         }
 
+        result = replaceString(result, "MSOffice", "MS-Office");
+
         result = replaceString(result, "Ant.com Toolbar", "Ant.com_Toolbar");
 
         // Something like Android-4.0.3 is seen as a text instead of a product.

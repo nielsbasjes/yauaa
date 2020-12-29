@@ -16,6 +16,31 @@
 #
 config:
 
+# https://en.wikipedia.org/wiki/Maxthon
+#   Maxthon formerly named MyIE2
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)text="MyIE2"'
+    extract:
+    - 'AgentClass                          :     2015 :"Browser"'
+    - 'AgentName                           :     2015 :"Maxthon"'
+    - 'AgentVersion                        :     2013 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1)comments.entry.(1)text="Maxthon"'
+    extract:
+    - 'AgentClass                          :     2015 :"Browser"'
+    - 'AgentName                           :     2015 :"Maxthon"'
+    - 'AgentVersion                        :     2013 :"<<<null>>>"'
+
+- matcher:
+    extract:
+    - 'AgentClass                          :     2015 :"Browser"'
+    - 'AgentName                           :     2015 :"Maxthon"'
+    - 'AgentVersion                        :     2014 :agent.product.name="MyIE2"^.version'
+
 - matcher:
     extract:
     - 'AgentClass                          :     2015 :"Browser"'

@@ -128,26 +128,47 @@ config:
       AgentLanguageCode                    : 'de'
       AgentSecurity                        : 'Strong security'
 
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Mobile"'
+    - 'DeviceName                          :      112 :agent.(1)product.(1)comments.entry.(1-2)product.name="PalmSource"^.(1)version'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      151 :"Mobile"'
+    - 'OperatingSystemName                 :      151 :"Palm OS"'
+    - 'OperatingSystemVersion              :      151 :"??"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1-2)product.name="PalmSource"'
+    - 'agent.(1)product.(1)comments.entry.(1-2)product.name="Blazer"'
+    extract:
+    - 'LayoutEngineClass                   :     2100 : "Browser"'
+    - 'LayoutEngineName                    :     2100 : "<<<null>>>"'
+    - 'LayoutEngineVersion                 :     2100 : "<<<null>>>"'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; PalmSource/hspr-H102; Blazer/4.0) 16;320x320'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Palm OS PDA'
+      DeviceName                           : 'Palm Hspr-H102'
       DeviceBrand                          : 'Palm'
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'PalmSource'
-      OperatingSystemVersion               : 'hspr-H102'
-      OperatingSystemVersionMajor          : 'hspr'
-      OperatingSystemNameVersion           : 'PalmSource hspr-H102'
-      OperatingSystemNameVersionMajor      : 'PalmSource hspr'
+      OperatingSystemName                  : 'Palm OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Palm OS ??'
+      OperatingSystemNameVersionMajor      : 'Palm OS ??'
       LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Internet Explorer'
-      LayoutEngineVersion                  : '6.0'
-      LayoutEngineVersionMajor             : '6'
-      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
-      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
       AgentClass                           : 'Browser'
       AgentName                            : 'Blazer'
       AgentVersion                         : '4.0'
@@ -659,6 +680,20 @@ config:
       AgentLanguageCode                    : 'pl-pl'
       AgentSecurity                        : 'Strong security'
 
+
+- set:
+    name: 'OSNamesForBrowserMatching'
+    merge:
+    - 'UbuntuOSName'
+    - 'OSPatterns'
+
+- matcher:
+    variable:
+    - 'Browser                             :agent.product.name?OSNamesForBrowserMatching^'
+    extract:
+    - 'AgentVersion                        :     2000 : @Browser.(2)version?!OSNamesForBrowserMatching'
+    - 'AgentName                           :     2000 : @Browser.(1)version?!OSNamesForBrowserMatching'
+
 - test:
     input:
       user_agent_string: 'Mozilla/6.0 (X11; U; Linux x86_64; en-US; rv:2.9.0.3) Gecko/2009022510 FreeBSD/ Sunrise/4.0.1/like Safari'
@@ -682,11 +717,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 2'
       LayoutEngineBuild                    : '2009022510'
       AgentClass                           : 'Browser'
-      AgentName                            : 'FreeBSD'
-      AgentVersion                         : 'Sunrise'
-      AgentVersionMajor                    : 'Sunrise'
-      AgentNameVersion                     : 'FreeBSD Sunrise'
-      AgentNameVersionMajor                : 'FreeBSD Sunrise'
+      AgentName                            : 'Sunrise'
+      AgentVersion                         : '4.0.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Sunrise 4.0.1'
+      AgentNameVersionMajor                : 'Sunrise 4'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'

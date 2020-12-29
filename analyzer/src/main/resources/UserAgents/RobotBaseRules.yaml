@@ -63,6 +63,28 @@ config:
 
 - matcher:
     variable:
+    - 'RobotName                           :IsInLookUpContains[RobotStringsExtra;agent.url]'
+    - 'BrandName                           :ExtractBrandFromUrl[@RobotName]'
+    extract:
+    - 'DeviceClass                         :    11099 :"Robot"'
+    - 'DeviceName                          :   311099 :@BrandName'
+    - 'DeviceBrand                         :   311099 :@BrandName'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11099 :"Cloud"'
+    - 'OperatingSystemName                 :    11099 :"Cloud"'
+    - 'OperatingSystemVersion              :    11099 :"??"'
+    - 'LayoutEngineClass                   :    11099 :"Robot"'
+    - 'LayoutEngineName                    :    11099 :@BrandName'
+    - 'LayoutEngineVersion                 :    11099 :"??"'
+    - 'AgentClass                          :    11099 :"Robot"'
+    - 'AgentName                           :    11099 :@BrandName'
+    - 'AgentVersion                        :    11099 :"??"'
+
+
+- matcher:
+    variable:
     - 'Robot                               :IsInLookUpContains[RobotStrings;agent.product.name]'
     require:
     - '@Robot@~"mobile"'

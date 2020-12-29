@@ -77,6 +77,18 @@ config:
     - 'OperatingSystemName                 :     1000 :"FireOS"'
     - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
 
+- matcher:
+    variable:
+    - 'Kindle                              :agent.product.name="Kindle"'
+    extract:
+    - 'DeviceClass                         :      500 :"eReader"'
+    - 'DeviceName                          :      500 :"Kindle"'
+    - 'DeviceBrand                         :      500 :"Amazon"'
+    - 'DeviceVersion                       :      500 :@Kindle^.version'
+    - 'OperatingSystemClass                :     1000 :"Mobile"'
+    - 'OperatingSystemName                 :     1000 :"FireOS"'
+    - 'OperatingSystemVersion              :     1000 :"<<<null>>>"'
+
 # https://docs.aws.amazon.com/silk/latest/developerguide/user-agent.html
 # ---------------------------
 # User Agent Strings and Detection

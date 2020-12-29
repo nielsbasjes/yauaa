@@ -66,6 +66,7 @@ DeviceClass
 | Tablet                | A mobile device with a rather large screen (common > 7") |
 | Phone                 | A mobile device with a small screen (common < 7") |
 | Watch                 | A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device. |
+| Augmented Reality     | A mobile device with a AR capabilities (like Google Glass) |
 | Virtual Reality       | A mobile device with a VR capabilities |
 | eReader               | Similar to a Tablet yet in most cases with an eInk screen |
 | Set-top box           | A connected device that allows interacting via a TV sized screen |

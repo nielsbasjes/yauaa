@@ -40,6 +40,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepExtractBrandFromUrl;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
@@ -444,6 +445,14 @@ public class WalkList implements Serializable {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNormalizeBrand());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherExtractBrandFromUrl(UserAgentTreeWalkerParser.MatcherExtractBrandFromUrlContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepExtractBrandFromUrl());
             return null; // Void
         }
 

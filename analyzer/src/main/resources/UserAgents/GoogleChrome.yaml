@@ -72,6 +72,7 @@ config:
       "PHX"             : "Phoenix"
       "AlohaBrowser"    : "Aloha Browser"
       "Sleipnir"        : "Sleipnir"
+      "RockMelt"        : "RockMelt"
 
 - lookup:
     name: 'KnownWebviewAppNames'
@@ -104,7 +105,7 @@ config:
     - 'AgentName                           :     2014 :"Chrome"'
     - 'AgentVersion                        :     2014 :agent.product.name="Chrome"^.version'
 
-  # Chrome on iOS is the only Chrome that does not use Blink
+# Chrome on iOS is the only Chrome that does not use Blink
 - matcher:
     extract:
     - 'AgentClass                          :     2014 :"Browser"'

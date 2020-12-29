@@ -66,12 +66,6 @@ config:
 # Specific browser rules
 
 - matcher:
-    extract:
-    - 'AgentClass                          :     2010 :"Browser"'
-    - 'AgentName                           :     2010 :"Crazy Browser"'
-    - 'AgentVersion                        :     2010 :agent.(1)product.(1)comments.entry.(1-2)product.name="Crazy Browser"^.version'
-
-- matcher:
     variable:
     - 'WebKitGTK                           :agent.product.name="WebKitGTK"^'
     extract:
@@ -697,7 +691,7 @@ config:
     - 'ProductV1:@Product.(1)version'
     - 'ProductV2:@Product.(2)version'
     require:
-    - 'agent.product="Profile/MIDP-2.1"'
+    - 'agent.product{"Profile/MIDP"'
     extract:
     - 'LayoutEngineClass                   :       10 :"Browser"'
     - 'LayoutEngineName                    :       10 :@ProductV1'
@@ -3728,6 +3722,24 @@ config:
       AgentNameVersion                     : 'Sleipnir 6.4.6'
       AgentNameVersionMajor                : 'Sleipnir 6'
 
+# Addons/adware/bloatware/spyware class products that put their name in the useragent
+- set:
+    name: 'BrowserPluginNames'
+    values:
+    - 'StumbleUpon'
+    - 'Hotbar'
+    - 'Alexa tool'
+    - 'GoogleToolbar'
+    - 'FunWebProducts'
+    - 'StumbleUpon'
+    - 'RainBird'
+
+- set:
+    name: 'GenericUnwantedNames'
+    values:
+    - 'OWASMIME'
+    - 'anonymized'
+
 
 - set:
     name: 'UnwantedIEPrefixes'
@@ -3736,6 +3748,8 @@ config:
     - 'OSPatterns'
     - 'MobileBrands'
     - 'MobileBrandPrefixes'
+    - 'BrowserPluginNames'
+    - 'GenericUnwantedNames'
     values:
     - 'Mozilla'
     - 'compatible'
@@ -3748,18 +3762,55 @@ config:
     - 'rv:'
     - 'InfoPath'
     - '.NET'
+    - '. NET'
+    - 'OfficeLive'
     - 'Media Center'
     - 'Tablet'
     - 'Touch'
+    - 'CD-ROM'
+    - 'CDROM'
     - 'IEMobile'
-    - 'OWASMIME'
+    - 'iebar'
     - 'BTRS'
     - 'GTB'
     - 'static'
-    - 'anonymized'
     - '{'
     - '@'
     - '#'
+    - 'O2'
+    - 'T0'
+    - 'T1'
+    - 'T2'
+    - 'T3'
+    - 'T4'
+    - 'T5'
+    - 'T6'
+    - 'T7'
+    - 'T8'
+    - 'T9'
+    - 'Q0'
+    - 'Q1'
+    - 'Q2'
+    - 'Q3' # Q312461
+    - 'Q4'
+    - 'Q5'
+    - 'Q6'
+    - 'Q7'
+    - 'Q8'
+    - 'Q9'
+    - 'ESB'
+    - 'SLCC1'
+    - 'SLCC2' # Microsoft-Windows-Security-Licensing-SLCC --> https://stackoverflow.com/questions/49700209/does-anyone-know-what-slcc2-stands-for-in-the-ie-11-useragent-string/49701703
+
+    # Internet Companies (ISP, Download sites, etc.) that put their name in the useragent string but are not browser names.
+    - 'Rogers' # Rogers HI-Speed Internet
+    - 'Yahoo'
+    - 'World Online'
+    - 'CNET'
+    - 'AtHome'
+    - 'ocn'
+    - 'Tucows' # The Ultimate Collection Of Windows Software
+    - 'by ' # Some say "By companyXYZ"
 
 - set:
     name: 'UnwantedIENames'
@@ -3772,6 +3823,7 @@ config:
     - ''  # Don't want an empty name
     - 'X11'
     - 'SV1'
+    - 'SLCC1'
     - 'SLCC2' # Microsoft-Windows-Security-Licensing-SLCC --> https://stackoverflow.com/questions/49700209/does-anyone-know-what-slcc2-stands-for-in-the-ie-11-useragent-string/49701703
 
       # https://stackoverflow.com/questions/5984880/decoding-the-ie9-user-agent
@@ -3781,22 +3833,24 @@ config:
     - 'ENUSMSNIP' # EN_US : Locale (US English); MS: Microsoft; NIP: Network Intrusion Prevention
     - 'LCTE' # The LCTE part is currently still unknown. https://stackoverflow.com/questions/42500881/what-is-lcte-in-user-agent
     - 'WPDesktop'
+    - 'Smartphone'
+    - 'ESB'
+    - 'DigExt' # DigExt is a special mark issued in IE5 "allow offline reading" mode. Although DigExt is not a crawler, it may cause a large number of server visits like a crawler.
 
 - matcher:
     variable:
-    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-    - 'AgentName                           :@Agent.text'
+    - 'AgentName                           :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry}"Browser"]'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
     - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
     extract:
-    - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
-    - 'AgentVersion                        :     2008 : "<<<null>>>"'
+    - 'AgentName                           :     2007 : NormalizeBrand[@AgentName.text]'
+    - 'AgentVersion                        :     2007 : "<<<null>>>"'
 
 - matcher:
     variable:
-    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-    - 'AgentVersion                        :@Agent.product.version'
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product?!UnwantedIENames]'
+    - 'AgentVersion                        :@Agent.version'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
     - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
@@ -3804,7 +3858,7 @@ config:
     - 'IsNull[@AgentVersion.uuid]'
     - 'IsNull[@AgentVersion.keyvalue]'
     extract:
-    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.product.name]'
+    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.name]'
     - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
 
 - matcher:
@@ -3821,8 +3875,8 @@ config:
 
 - matcher:
     variable:
-    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-    - 'AgentVersion                        :@Agent.product.version'
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product?!UnwantedIENames]'
+    - 'AgentVersion                        :@Agent.version'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
     - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
@@ -3831,12 +3885,11 @@ config:
     - 'IsNull[@AgentVersion.uuid]'
     - 'IsNull[@AgentVersion.keyvalue]'
     extract:
-    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.product.name]'
+    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.name]'
     - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
 
 
-
-  # GreenBrowser on Windows 10 (www.morequick.com)
+# GreenBrowser on Windows 10 (www.morequick.com)
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; GreenBrowser)'
@@ -4102,3 +4155,140 @@ config:
       AgentNameVersion                     : 'AnyConnect VPN Agent 3.1.05161'
       AgentNameVersionMajor                : 'AnyConnect VPN Agent 3'
 
+# TODO: Google Glass (~2013-2017)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; Glass 1 Build/IMM76L; XE11) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Augmented Reality'
+      DeviceName                           : 'Google Glass 1'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0.4'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Android 4.0.4'
+      OperatingSystemNameVersionMajor      : 'Android 4'
+      OperatingSystemVersionBuild          : 'IMM76L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 4.0.4; en-us; Glass 1 Build/IMM76L; XE16.11) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30'
+    expected:
+      DeviceClass                          : 'Augmented Reality'
+      DeviceName                           : 'Google Glass 1'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.0.4'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Android 4.0.4'
+      OperatingSystemNameVersionMajor      : 'Android 4'
+      OperatingSystemVersionBuild          : 'IMM76L'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.30'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.30'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :     1001 :"Augmented Reality"'
+    - 'DeviceName                          :      100 :"Google Glass 1"'
+    - 'DeviceBrand                         :      100 :"Google"'
+    - 'OperatingSystemVersionBuild         :       12 :agent.(1)product.(1)comments.entry[1-3]="Glass 1 Build"@[4]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :     1001 :"Augmented Reality"'
+    - 'DeviceName                          :      100 :"Google Glass 1"'
+    - 'DeviceBrand                         :      100 :"Google"'
+    - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-2]="Glass 1"@[3]'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; Glass 1 Build/XRX13B; XE22; 1511057; user; release-keys; 48cad1880fd0f82644ef86f5a7f6535b) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Augmented Reality'
+      DeviceName                           : 'Google Glass 1'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemNameVersionMajor      : 'Android 4'
+      OperatingSystemVersionBuild          : 'XRX13B'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.4.2; Glass 1 Build/XRW85; XE21.3; 1460130; user; release-keys; d4baf10bb6dea9da4c0d249f838b9bfd) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/30.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Augmented Reality'
+      DeviceName                           : 'Google Glass 1'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.2'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Android 4.4.2'
+      OperatingSystemNameVersionMajor      : 'Android 4'
+      OperatingSystemVersionBuild          : 'XRW85'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '30.0'
+      LayoutEngineVersionMajor             : '30'
+      LayoutEngineNameVersion              : 'Blink 30.0'
+      LayoutEngineNameVersionMajor         : 'Blink 30'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '30.0.0.0'
+      AgentVersionMajor                    : '30'
+      AgentNameVersion                     : 'Chrome Webview 30.0.0.0'
+      AgentNameVersionMajor                : 'Chrome Webview 30'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'

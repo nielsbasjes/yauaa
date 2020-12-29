@@ -53,6 +53,13 @@ echo "#"
 echo "config:"
 
 echo "- set:"
+echo "    name: 'UnwantedSecondVersionValues'"
+echo "    merge:"
+echo "    - 'CPUArchitectures'"
+echo "    values:"
+echo "    - 'sun4u'"
+
+echo "- set:"
 echo "    name: 'OSPatterns'"
 echo "    values:"
 grep -F -v '#' "${INPUT}" | grep . | sed 's/ *|/|/g;s/| */|/g' | while read -r line
@@ -83,26 +90,21 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1)comments.entry.(1-2)product.name=\"${ospattern}\"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name=\"${ospattern}\"^.(1)version]'
 
-# Only if the second version field is NOT a type of CPU.
 - matcher:
-    variable:
-    - 'Version                             :agent.(1)product.(1)comments.entry.product.name=\"${ospattern}\"^.(2)version'
-    require:
-    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name=\"${ospattern}\"^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
@@ -118,7 +120,7 @@ echo "
 # One word
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry[1-1]=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry[1-1]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      108 :\"${devclass}\"'
     - 'DeviceName                          :      108 :\"${devname}\"'
@@ -129,7 +131,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry[2-2]=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry[2-2]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      107 :\"${devclass}\"'
     - 'DeviceName                          :      107 :\"${devname}\"'
@@ -145,7 +147,7 @@ echo "
 # Two words
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry[1-2]=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry[1-2]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      109 :\"${devclass}\"'
     - 'DeviceName                          :      109 :\"${devname}\"'
@@ -155,7 +157,7 @@ echo "
     - 'OperatingSystemVersion              :      149 :\"??\"'
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry[2-3]=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry[2-3]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      109 :\"${devclass}\"'
     - 'DeviceName                          :      109 :\"${devname}\"'
@@ -171,7 +173,7 @@ echo "
 # Three words
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry[1-3]=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry[1-3]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      110 :\"${devclass}\"'
     - 'DeviceName                          :      110 :\"${devname}\"'
@@ -182,7 +184,7 @@ echo "
 
 - matcher:
     require:
-    - 'agent.product.(1)comments.entry[2-4]=\"${ospattern}\"'
+    - 'agent.product.(1-2)comments.entry[2-4]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      110 :\"${devclass}\"'
     - 'DeviceName                          :      110 :\"${devname}\"'
@@ -204,19 +206,14 @@ echo "
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
     - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name=\"${ospattern}\"^.(1)version]'
 
-# Only if the second version field is NOT a type of CPU.
 - matcher:
-    variable:
-    - 'Version                             :agent.product.name=\"${ospattern}\"^.(2)version'
-    require:
-    - 'IsNull[LookUp[CPUArchitectures;@Version]]'
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[@Version]'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.product.name=\"${ospattern}\"^.(2)version?!UnwantedSecondVersionValues]'
 
 - matcher:
     require:

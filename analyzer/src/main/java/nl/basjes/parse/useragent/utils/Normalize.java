@@ -106,6 +106,8 @@ public final class Normalize {
     private static final Pattern DEVICE_CLEANUP_PATTERN_3 = Pattern.compile(" +");
     private static final Pattern DEVICE_CLEANUP_PATTERN_4 = Pattern.compile("( -| )+");
 
+    private static final String MOZILLA = "Mozilla";
+
     public static String cleanupDeviceBrandName(String deviceBrand, String deviceName) {
         deviceName = replaceString(deviceName, "'", " ");
         deviceName = replaceString(deviceName, "_", " ");
@@ -137,6 +139,18 @@ public final class Normalize {
             result = replaceString(result, "Iphone", "iPhone");
             result = replaceString(result, "IOS ", "iOS ");
         }
+
+        if (result.length() > MOZILLA.length() && result.endsWith(MOZILLA)) {
+            int newLength = result.length() - MOZILLA.length();
+            if (result.charAt(newLength-1) == '-') {
+                newLength--;
+            }
+            while (result.charAt(newLength-1) == ' ') {
+                newLength--;
+            }
+            result = result.substring(0, newLength);
+        }
+
         return result;
     }
 

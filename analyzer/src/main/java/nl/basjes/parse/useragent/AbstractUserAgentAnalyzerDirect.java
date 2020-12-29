@@ -61,6 +61,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepExtractBrandFromUrl;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
@@ -314,6 +315,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         kryo.register(StepConcatPostfix.class);
         kryo.register(StepConcatPrefix.class);
         kryo.register(StepNormalizeBrand.class);
+        kryo.register(StepExtractBrandFromUrl.class);
         kryo.register(StepReplaceString.class);
         kryo.register(StepSegmentRange.class);
         kryo.register(StepWordRange.class);
@@ -377,6 +379,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     public AbstractUserAgentAnalyzerDirect setShowMatcherStats(boolean newShowMatcherStats) {
         this.showMatcherStats = newShowMatcherStats;
         return this;
+    }
+
+    public boolean getShowMatcherStats() {
+        return showMatcherStats;
     }
 
     public AbstractUserAgentAnalyzerDirect dropTests() {
@@ -1705,8 +1711,9 @@ config:
                 uaa.keepTests();
             }
 
-            optionalResources.forEach(resource -> uaa.loadResources(resource, true, true));
-            resources.forEach(resource -> uaa.loadResources(resource, true, false));
+            boolean showLoading = uaa.getShowMatcherStats();
+            optionalResources.forEach(resource -> uaa.loadResources(resource, showLoading, true));
+            resources.forEach(resource -> uaa.loadResources(resource, showLoading, false));
 
             int yamlRuleCount = 1;
             for (String yamlRule : yamlRules) {
