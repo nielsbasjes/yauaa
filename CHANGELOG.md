@@ -3,19 +3,19 @@ This is intended as an overview of the major changes
 
 v5.22-SNAPSHOT
 ===
-- Files with '-tests' in the directory/filename contain only tests and are only loaded when needed.
-- Added about 960 extra testcases
-- Detect Google Glass 1
-- Extra variants of Japanese locale codes
-- Extra variants of Windows recognized
-- Amazon Kindle improvements
-- PlayStation 2,3,Portable
-- Old Maxthon naming (myIE2)
-- Brands: KDDI, O2, T-Mobile
-- Detection Palm
-- Skip plugins and ISP
-- WebServlet: Yaml output retains # comments from the input
-- ExtractBrandFromUrl function
+- Analyzer:
+  - Files with '-tests' in the directory/filename contain only tests and are only loaded when needed.
+  - ExtractBrandFromUrl function
+- New/improved detections
+  - Added about 960 extra testcases
+  - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable
+  - Extra variants of Japanese locale codes
+  - Extra variants of MS Windows recognized
+  - Old Maxthon naming (myIE2)
+  - Brands: KDDI, O2, T-Mobile
+  - Skip plugins and ISP names
+- WebServlet:
+  - Yaml output retains # comments from the input
 
 v5.21
 ===

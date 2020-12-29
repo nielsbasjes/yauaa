@@ -77,6 +77,7 @@ config:
     - 'UNIX BSD/SYSV system'
     - 'UNIX'
     - 'Fuchsia'
+    - 'ROKU'
 
 
 # =======================================================================
@@ -5067,6 +5068,106 @@ config:
     - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      153 :"Mobile"'
     - 'OperatingSystemName                 :      153 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+
+# =======================================================================
+# ROKU
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      150 :"Embedded"'
+    - 'OperatingSystemName                 :      150 :"Roku OS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="ROKU"^.(1)version]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      150 :"Embedded"'
+    - 'OperatingSystemName                 :      150 :"Roku OS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="ROKU"^.(2)version?!UnwantedSecondVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="ROKU"'
+    extract:
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      151 :"Embedded"'
+    - 'OperatingSystemName                 :      151 :"Roku OS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="ROKU"'
+    extract:
+    - 'DeviceClass                         :      108 :"Set-top box"'
+    - 'DeviceName                          :      108 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      108 :"Roku"'
+    - 'OperatingSystemClass                :      148 :"Embedded"'
+    - 'OperatingSystemName                 :      148 :"Roku OS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="ROKU"'
+    extract:
+    - 'DeviceClass                         :      107 :"Set-top box"'
+    - 'DeviceName                          :      107 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      107 :"Roku"'
+    - 'OperatingSystemClass                :      147 :"Embedded"'
+    - 'OperatingSystemName                 :      147 :"Roku OS"'
+    - 'OperatingSystemVersion              :      148 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      150 :"Embedded"'
+    - 'OperatingSystemName                 :      150 :"Roku OS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="ROKU"^.(1)version]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      150 :"Embedded"'
+    - 'OperatingSystemName                 :      150 :"Roku OS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.product.name="ROKU"^.(2)version?!UnwantedSecondVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="ROKU"'
+    extract:
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      152 :"Embedded"'
+    - 'OperatingSystemName                 :      152 :"Roku OS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="ROKU"'
+    extract:
+    - 'DeviceClass                         :      112 :"Set-top box"'
+    - 'DeviceName                          :      112 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      112 :"Roku"'
+    - 'OperatingSystemClass                :      153 :"Embedded"'
+    - 'OperatingSystemName                 :      153 :"Roku OS"'
     - 'OperatingSystemVersion              :      149 :"??"'
 
 
