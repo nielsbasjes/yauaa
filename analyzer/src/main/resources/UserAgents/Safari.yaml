@@ -19,16 +19,15 @@
 config:
 
 - matcher:
+    variable:
+    - 'AppleWebKitVersion                  :agent.product.name="AppleWebKit"^.version'
     extract:
     - 'LayoutEngineClass                   :       12 :"Browser"'
     - 'LayoutEngineName                    :       12 :"AppleWebKit"'
-    - 'LayoutEngineVersion                 :       12 :agent.product.name="AppleWebKit"^.version'
-
-- matcher:
-    extract:
+    - 'LayoutEngineVersion                 :       12 :@AppleWebKitVersion'
     - 'AgentClass                          :       13 :"Browser"'
     - 'AgentName                           :       13 :"AppleWebKit"'
-    - 'AgentVersion                        :       13 :agent.product.name="AppleWebKit"^.version'
+    - 'AgentVersion                        :       13 :@AppleWebKitVersion'
 
 - matcher:
     variable:
@@ -49,74 +48,51 @@ config:
     - 'AgentName                           :       10 :@Product.name'
     - 'AgentVersion                        :       10 :@Product.(1)version'
 
-- matcher:
-    require:
-    - 'agent.(1)product.name="Mozilla"'
-    - 'agent.(1)product.(1)version="5.0"'
-    - 'IsNull[agent.(2)product.name="AppleWebKit"]'
-    - 'IsNull[agent.(2)product.name="Mobile"]'
-    - 'IsNull[agent.(2)product.name="Version"]'
-    extract:
-    - 'AgentClass                          :       37 :"Browser"'
-    - 'AgentName                           :       37 :agent.(2)product.name'
-    - 'AgentVersion                        :       37 :agent.(2)product.(1)version'
-
-- matcher:
-    require:
-    - 'agent.(1)product.name="Mozilla"'
-    - 'agent.(1)product.(1)version="5.0"'
-    - 'IsNull[agent.(3)product.name="AppleWebKit"]'
-    - 'IsNull[agent.(3)product.name="Mobile"]'
-    - 'IsNull[agent.(3)product.name="Version"]'
-    extract:
-    - 'AgentClass                          :       36 :"Browser"'
-    - 'AgentName                           :       36 :agent.(3)product.name'
-    - 'AgentVersion                        :       36 :agent.(3)product.(1)version'
-
-- matcher:
-    require:
-    - 'agent.(1)product.name="Mozilla"'
-    - 'agent.(1)product.(1)version="5.0"'
-    - 'IsNull[agent.(4)product.name="AppleWebKit"]'
-    - 'IsNull[agent.(4)product.name="Mobile"]'
-    - 'IsNull[agent.(4)product.name="Version"]'
-    extract:
-    - 'AgentClass                          :       35 :"Browser"'
-    - 'AgentName                           :       35 :agent.(4)product.name'
-    - 'AgentVersion                        :       35 :agent.(4)product.(1)version'
-
 - set:
     name: 'NotAutoWalkBrowserNames'
     values:
-      - 'Mobile'
-      - 'Mobile Safari'
-      - 'Safari'
-      - 'Version'
-      - 'Touchpad'
+    - 'AppleWebKit'
+    - 'Mobile'
+    - 'Mobile Safari'
+    - 'Safari'
+    - 'Version'
+    - 'Touchpad'
+    - 'osmeta'
 
 - matcher:
     variable:
-      - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
+    - 'AgentName                           :agent.(2-)product.name?!NotAutoWalkBrowserNames'
+    require:
+    - 'agent.(1)product.name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
     extract:
-      - 'AgentClass                          :       39 :"Mobile App"'
-      - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
-      - 'AgentVersion                        :       39 :@NextProduct.version'
+    - 'AgentClass                          :       37 :"Browser"'
+    - 'AgentName                           :       37 :@AgentName'
+    - 'AgentVersion                        :       37 :@AgentName^.(1)version'
 
 - matcher:
     variable:
-      - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'
+    - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
     extract:
-      - 'AgentClass                          :       39 :"Browser"'
-      - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
-      - 'AgentVersion                        :       39 :@NextProduct.version'
+    - 'AgentClass                          :       39 :"Mobile App"'
+    - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
+    - 'AgentVersion                        :       39 :@NextProduct.version'
 
 - matcher:
     variable:
-      - 'NextProduct                         :agent.(2-5)product.name="Safari"^>'
+    - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'
     extract:
-      - 'AgentClass                          :       39 :"Browser"'
-      - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
-      - 'AgentVersion                        :       39 :@NextProduct.version'
+    - 'AgentClass                          :       39 :"Browser"'
+    - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
+    - 'AgentVersion                        :       39 :@NextProduct.version'
+
+- matcher:
+    variable:
+    - 'NextProduct                         :agent.(2-5)product.name="Safari"^>'
+    extract:
+    - 'AgentClass                          :       39 :"Browser"'
+    - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
+    - 'AgentVersion                        :       39 :@NextProduct.version'
 
 - matcher:
     require:
@@ -128,7 +104,7 @@ config:
 
 - matcher:
     require:
-      - 'agent.product.name="AppleWebKit"'
+    - 'agent.product.name="AppleWebKit"'
     extract:
     - 'AgentClass                          :       20 :"Browser"'
     - 'AgentName                           :       20 :"Safari"'
@@ -190,9 +166,7 @@ config:
     - 'Safari                              :agent.product.name="Mobile Safari"^'
     - 'Agent                               :@Safari>'
     require:
-    - 'IsNull[@Agent.name="Version"]'
-    - 'IsNull[@Agent.name="AppleWebKit"]'
-    - 'IsNull[agent.product.name="osmeta"]' # NASTY
+    - '@Agent.name?!NotAutoWalkBrowserNames'
     - 'agent.product.name="Version"' # Performance trick
     - '@Safari<.name="Version"'
     extract:
@@ -205,9 +179,7 @@ config:
     - 'Safari                              :agent.product.name="Safari"^'
     - 'Agent                               :@Safari>'
     require:
-    - 'IsNull[@Agent.name="Version"]'
-    - 'IsNull[@Agent.name="AppleWebKit"]'
-    - 'IsNull[agent.product.name="osmeta"]'  # NASTY
+    - '@Agent.name?!NotAutoWalkBrowserNames'
     - 'agent.product.name="Version"' # Performance trick
     - '@Safari<.name="Version"'
     extract:
@@ -223,9 +195,7 @@ config:
     - 'Version                             :@Safari<.name="Version"^'
     - 'Agent                               :@Version<'
     require:
-    - 'IsNull[@Agent.name="Version"]'
-    - 'IsNull[@Agent.name="AppleWebKit"]'
-    - 'IsNull[agent.product.name="osmeta"]' # NASTY
+    - '@Agent.name?!NotAutoWalkBrowserNames'
     - 'agent.product.name="Version"' # Performance trick
     extract:
     - 'AgentClass                          :       58 :"Browser"'
@@ -238,9 +208,7 @@ config:
     - 'Version                             :@Safari<.name="Version"^'
     - 'Agent                               :@Version<'
     require:
-    - 'IsNull[@Agent.name="Version"]'
-    - 'IsNull[@Agent.name="AppleWebKit"]'
-    - 'IsNull[agent.product.name="osmeta"]'  # NASTY
+    - '@Agent.name?!NotAutoWalkBrowserNames'
     - 'agent.product.name="Version"' # Performance trick
     extract:
     - 'AgentClass                          :       58 :"Browser"'
