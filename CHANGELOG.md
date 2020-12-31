@@ -14,6 +14,7 @@ v5.22-SNAPSHOT
   - Old Maxthon naming (myIE2)
   - Brands: KDDI, O2, T-Mobile
   - Skip plugins and ISP names
+  - AgentName "Mobile Safari" is now "Safari" (on iOS) or "Stock Android Browser"
 - WebServlet:
   - Yaml output retains # comments from the input
 

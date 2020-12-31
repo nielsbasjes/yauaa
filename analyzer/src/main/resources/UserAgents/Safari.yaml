@@ -85,6 +85,39 @@ config:
     - 'AgentName                           :       35 :agent.(4)product.name'
     - 'AgentVersion                        :       35 :agent.(4)product.(1)version'
 
+- set:
+    name: 'NotAutoWalkBrowserNames'
+    values:
+      - 'Mobile'
+      - 'Mobile Safari'
+      - 'Safari'
+      - 'Version'
+      - 'Touchpad'
+
+- matcher:
+    variable:
+      - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
+    extract:
+      - 'AgentClass                          :       39 :"Mobile App"'
+      - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
+      - 'AgentVersion                        :       39 :@NextProduct.version'
+
+- matcher:
+    variable:
+      - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'
+    extract:
+      - 'AgentClass                          :       39 :"Browser"'
+      - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
+      - 'AgentVersion                        :       39 :@NextProduct.version'
+
+- matcher:
+    variable:
+      - 'NextProduct                         :agent.(2-5)product.name="Safari"^>'
+    extract:
+      - 'AgentClass                          :       39 :"Browser"'
+      - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
+      - 'AgentVersion                        :       39 :@NextProduct.version'
+
 - matcher:
     require:
     - 'agent.product.name="AppleWebKit"'
@@ -94,9 +127,11 @@ config:
     - 'AgentVersion                        :       18 :agent.product.name="Safari"^.version'
 
 - matcher:
+    require:
+      - 'agent.product.name="AppleWebKit"'
     extract:
     - 'AgentClass                          :       20 :"Browser"'
-    - 'AgentName                           :       20 :"Mobile Safari"'
+    - 'AgentName                           :       20 :"Safari"'
     - 'AgentVersion                        :       18 :agent.product.name="Mobile Safari"^.version'
 
 - matcher:
@@ -104,7 +139,7 @@ config:
     - 'agent.product.name="Mobile Safari"'
     extract:
     - 'AgentClass                          :       55 :"Browser"'
-    - 'AgentName                           :       55 :"Mobile Safari"'
+    - 'AgentName                           :       55 :"Safari"'
     - 'AgentVersion                        :       55 :agent.product.name="Version"^.version'
 
 - matcher:

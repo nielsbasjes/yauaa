@@ -1906,11 +1906,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 537.10'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Mobile Safari' #FIXME: Just Safari?
+      AgentName                            : 'Safari'
       AgentVersion                         : '10.1.0.1485'
       AgentVersionMajor                    : '10'
-      AgentNameVersion                     : 'Mobile Safari 10.1.0.1485'
-      AgentNameVersionMajor                : 'Mobile Safari 10'
+      AgentNameVersion                     : 'Safari 10.1.0.1485'
+      AgentNameVersionMajor                : 'Safari 10'
 
 
 - test:
@@ -1933,11 +1933,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 537.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Mobile Safari'
+      AgentName                            : 'Safari'
       AgentVersion                         : '10.0.0.1337'
       AgentVersionMajor                    : '10'
-      AgentNameVersion                     : 'Mobile Safari 10.0.0.1337'
-      AgentNameVersionMajor                : 'Mobile Safari 10'
+      AgentNameVersion                     : 'Safari 10.0.0.1337'
+      AgentNameVersionMajor                : 'Safari 10'
 
 
 - test:
@@ -1960,11 +1960,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 534.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Mobile Safari'
+      AgentName                            : 'Safari'
       AgentVersion                         : '6.0.0.141'
       AgentVersionMajor                    : '6'
-      AgentNameVersion                     : 'Mobile Safari 6.0.0.141'
-      AgentNameVersionMajor                : 'Mobile Safari 6'
+      AgentNameVersion                     : 'Safari 6.0.0.141'
+      AgentNameVersionMajor                : 'Safari 6'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
@@ -1990,11 +1990,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 534.11'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Mobile Safari'
+      AgentName                            : 'Safari'
       AgentVersion                         : '7.0.0.115'
       AgentVersionMajor                    : '7'
-      AgentNameVersion                     : 'Mobile Safari 7.0.0.115'
-      AgentNameVersionMajor                : 'Mobile Safari 7'
+      AgentNameVersion                     : 'Safari 7.0.0.115'
+      AgentNameVersionMajor                : 'Safari 7'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
@@ -4838,7 +4838,7 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 538.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
       AgentClass                           : 'Browser'
-      AgentName                            : 'TV Safari'
+      AgentName                            : 'TV Safari' #FIXME: Just Safari
       AgentVersion                         : '538.1'
       AgentVersionMajor                    : '538'
       AgentNameVersion                     : 'TV Safari 538.1'
@@ -5582,7 +5582,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Tizen 2.0; en-us) AppleWebKit/537.1 (KHTML, like Gecko) Mobile TizenBrowser/2.0'
     expected:
-      DeviceClass                          : 'Desktop'
+      DeviceClass                          : 'Desktop' #FIXME: Phone
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Embedded'
@@ -5598,7 +5598,7 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 537.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Mobile TizenBrowser'
+      AgentName                            : 'Mobile TizenBrowser' #FIXME: Just TizenBrowser
       AgentVersion                         : '2.0'
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Mobile TizenBrowser 2.0'
@@ -7292,7 +7292,7 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 537.42'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
       AgentClass                           : 'Browser'
-      AgentName                            : 'SmartTV Safari' # FIXME: Just Safari?
+      AgentName                            : 'SmartTV Safari' # FIXME: Just Safari
       AgentVersion                         : '537.42'
       AgentVersionMajor                    : '537'
       AgentNameVersion                     : 'SmartTV Safari 537.42'
@@ -7359,7 +7359,7 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaE90-1/07.24.0.3; Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/413 UP.Link/6.2.3.18.0",null);'
+      user_agent_string: 'Mozilla/5.0 (SymbianOS/9.2; U; Series60/3.1 NokiaE90-1/07.24.0.3; Profile/MIDP-2.0 Configuration/CLDC-1.1 ) AppleWebKit/413 (KHTML, like Gecko) Safari/413 UP.Link/6.2.3.18.0'
     expected:
       DeviceClass                          : 'Phone'
       DeviceName                           : 'Nokia Symbian Phone'
@@ -7377,11 +7377,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 413'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 413'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '413'
-      AgentVersionMajor                    : '413'
-      AgentNameVersion                     : 'Safari 413'
-      AgentNameVersionMajor                : 'Safari 413'
+      AgentName                            : 'UP.Link'
+      AgentVersion                         : '6.2.3.18.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'UP.Link 6.2.3.18.0'
+      AgentNameVersionMajor                : 'UP.Link 6'
       AgentSecurity                        : 'Strong security'
 
 
