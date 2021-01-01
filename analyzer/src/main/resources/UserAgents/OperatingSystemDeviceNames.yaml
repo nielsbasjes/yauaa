@@ -65,6 +65,7 @@ config:
     - 'SymbOS'
     - 'PalmSource'
     - 'PalmOS'
+    - 'webOS'
     - 'DragonFly'
     - 'FreeBSD'
     - 'NetBSD'
@@ -3869,6 +3870,106 @@ config:
     - 'DeviceBrand                         :      112 :"Palm"'
     - 'OperatingSystemClass                :      153 :"Mobile"'
     - 'OperatingSystemName                 :      153 :"PalmSource"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+
+# =======================================================================
+# webOS
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"WebOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="webOS"^.(1)version]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"WebOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="webOS"^.(2)version?!UnwantedSecondVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="webOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      151 :"Mobile"'
+    - 'OperatingSystemName                 :      151 :"WebOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="webOS"'
+    extract:
+    - 'DeviceClass                         :      108 :"Phone"'
+    - 'DeviceName                          :      108 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      108 :"Palm"'
+    - 'OperatingSystemClass                :      148 :"Mobile"'
+    - 'OperatingSystemName                 :      148 :"WebOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="webOS"'
+    extract:
+    - 'DeviceClass                         :      107 :"Phone"'
+    - 'DeviceName                          :      107 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      107 :"Palm"'
+    - 'OperatingSystemClass                :      147 :"Mobile"'
+    - 'OperatingSystemName                 :      147 :"WebOS"'
+    - 'OperatingSystemVersion              :      148 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"WebOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="webOS"^.(1)version]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"WebOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.product.name="webOS"^.(2)version?!UnwantedSecondVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="webOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Phone"'
+    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'OperatingSystemClass                :      152 :"Mobile"'
+    - 'OperatingSystemName                 :      152 :"WebOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="webOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
+    - 'OperatingSystemClass                :      153 :"Mobile"'
+    - 'OperatingSystemName                 :      153 :"WebOS"'
     - 'OperatingSystemVersion              :      149 :"??"'
 
 
