@@ -72,6 +72,17 @@ config:
 
 - matcher:
     variable:
+    - 'AgentName                           :agent.(2-)product.name[1]="Mobile"@?!NotAutoWalkBrowserNames'
+    require:
+    - 'agent.(1)product.name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
+    extract:
+    - 'AgentClass                          :       38 :"Browser"'
+    - 'AgentName                           :       38 :@AgentName[2-]'
+    - 'AgentVersion                        :       38 :@AgentName^.(1)version'
+
+- matcher:
+    variable:
     - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
     extract:
     - 'AgentClass                          :       39 :"Mobile App"'

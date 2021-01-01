@@ -8,13 +8,14 @@ v5.22-SNAPSHOT
   - ExtractBrandFromUrl function
 - New/improved detections
   - Added about 960 extra testcases
-  - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable
+  - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen.
   - Extra variants of Japanese locale codes
   - Extra variants of MS Windows recognized
   - Old Maxthon naming (myIE2)
-  - Brands: KDDI, O2, T-Mobile
+  - Brands: KDDI, O2, T-Mobile, MDA
   - Skip plugins and ISP names
   - AgentName "Mobile Safari" is now "Safari" (on iOS) or "Stock Android Browser"
+  - AgentName "Mobile xxx" is now "xxx"
   - Less cases of DeviceClass "Mobile"
 - WebServlet:
   - Yaml output retains # comments from the input
