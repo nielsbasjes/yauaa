@@ -15,6 +15,7 @@ v5.22-SNAPSHOT
   - Brands: KDDI, O2, T-Mobile
   - Skip plugins and ISP names
   - AgentName "Mobile Safari" is now "Safari" (on iOS) or "Stock Android Browser"
+  - Less cases of DeviceClass "Mobile"
 - WebServlet:
   - Yaml output retains # comments from the input
 

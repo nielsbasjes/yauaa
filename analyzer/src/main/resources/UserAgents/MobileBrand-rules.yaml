@@ -353,36 +353,31 @@ config:
 # Single product very deep versioning situation
 - matcher:
     variable:
-    - 'VersionTag                          :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(4)version]'
+    - 'VersionTag                          :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(4-7)version]'
     require:
     - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
     extract:
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
     - 'DeviceName                          :      313 :@VersionTag'
 
+
+# Special case like
 - matcher:
     variable:
-    - 'VersionTag                          :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(5)version]'
+    - 'VersionTag                          :IsInLookUpPrefix[MobileBrandPrefixes;agent.product.(2)version]'
     require:
     - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
     extract:
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
     - 'DeviceName                          :      313 :@VersionTag'
+    - 'DeviceVersion                       :      313 :@VersionTag^.(3)version'
 
 - matcher:
     variable:
-    - 'VersionTag                          :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(6)version]'
+    - 'VersionTag                          :IsInLookUpPrefix[MobileBrands;agent.product.(2)version]'
     require:
     - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
     extract:
-    - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+    - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrands;@VersionTag]'
     - 'DeviceName                          :      313 :@VersionTag'
-
-- matcher:
-    variable:
-    - 'VersionTag                          :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(7)version]'
-    require:
-    - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
-    extract:
-    - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
-    - 'DeviceName                          :      313 :@VersionTag'
+    - 'DeviceVersion                       :      313 :@VersionTag^.(3)version'

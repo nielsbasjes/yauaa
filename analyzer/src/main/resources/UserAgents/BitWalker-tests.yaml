@@ -1119,8 +1119,9 @@ config:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 6.12) Vodafone/1.0/HTC_s710/1.22.172.3'
     expected:
       DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Mobile'  # FIXME: HTC_s710
-      DeviceBrand                          : 'Unknown' # FIXME: HTC
+      DeviceName                           : 'HTC S710'
+      DeviceBrand                          : 'HTC'
+      DeviceVersion                        : '1.22.172.3'
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Windows CE'
@@ -1200,33 +1201,33 @@ config:
       AgentNameVersionMajor                : 'IE Mobile 6'
 
 
-#- test: # TODO: Verify if results are correct
-#    input:
-#      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.6) PPC; MDA Vario/3.0 Profile/MIDP-2.0 Configuration/CLDC-1.1'
-#    expected:
-#      DeviceClass                          : 'Mobile'
-#      DeviceName                           : 'MDA Vario'
-#      DeviceBrand                          : 'Unknown' #FIXME: MDA
-#      DeviceCpuBits                        : '32'
-#      DeviceVersion                        : '3.0'
-#      OperatingSystemClass                 : 'Mobile'
-#      OperatingSystemName                  : 'Windows CE'
-#      OperatingSystemVersion               : 'CE'
-#      OperatingSystemVersionMajor          : 'CE'
-#      OperatingSystemNameVersion           : 'Windows CE'
-#      OperatingSystemNameVersionMajor      : 'Windows CE'
-#      LayoutEngineClass                    : 'Browser'
-#      LayoutEngineName                     : 'Internet Explorer'
-#      LayoutEngineVersion                  : '6.0'
-#      LayoutEngineVersionMajor             : '6'
-#      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
-#      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
-#      AgentClass                           : 'Browser'
-#      AgentName                            : 'IE Mobile'
-#      AgentVersion                         : '7.6'
-#      AgentVersionMajor                    : '7'
-#      AgentNameVersion                     : 'IE Mobile 7.6'
-#      AgentNameVersionMajor                : 'IE Mobile 7'
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 6.0; Windows CE; IEMobile 7.6) PPC; MDA Vario/3.0 Profile/MIDP-2.0 Configuration/CLDC-1.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'MDA Vario'
+      DeviceBrand                          : 'MDA'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : '3.0'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows CE'
+      OperatingSystemVersion               : 'CE'
+      OperatingSystemVersionMajor          : 'CE'
+      OperatingSystemNameVersion           : 'Windows CE'
+      OperatingSystemNameVersionMajor      : 'Windows CE'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'IE Mobile'
+      AgentVersion                         : '7.6'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'IE Mobile 7.6'
+      AgentNameVersionMajor                : 'IE Mobile 7'
 
 
 - test:
@@ -5582,10 +5583,10 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Tizen 2.0; en-us) AppleWebKit/537.1 (KHTML, like Gecko) Mobile TizenBrowser/2.0'
     expected:
-      DeviceClass                          : 'Desktop' #FIXME: Phone
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Tizen'
       OperatingSystemVersion               : '2.0'
       OperatingSystemVersionMajor          : '2'
@@ -7214,7 +7215,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500/S8500NEJE5; U; Bada/1.0; fr-fr) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.0 Mobile WVGA SMM-MMS/1.2.0 NexPlayer/3.0 profile/MIDP-2.1 configuration/CLDC-1.1 OPN-B'
     expected:
-      DeviceClass                          : 'Mobile'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Samsung GT-S8500'
       DeviceBrand                          : 'Samsung'
       DeviceVersion                        : 'S8500NEJE5'
@@ -7245,7 +7246,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (SAMSUNG; SAMSUNG-GT-S8500/S8500XXJL2; U; Bada/1.2; de-de) AppleWebKit/533.1 (KHTML, like Gecko) Dolfin/2.2 Mobile WVGA SMM-MMS/1.2.0 OPN-B'
     expected:
-      DeviceClass                          : 'Mobile'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Samsung GT-S8500'
       DeviceBrand                          : 'Samsung'
       DeviceVersion                        : 'S8500XXJL2'
