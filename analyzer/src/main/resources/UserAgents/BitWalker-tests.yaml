@@ -5579,7 +5579,7 @@ config:
       AgentSecurity                        : 'Strong security'
 
 
-- test: # TODO: Verify if results are correct
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Tizen 2.0; en-us) AppleWebKit/537.1 (KHTML, like Gecko) Mobile TizenBrowser/2.0'
     expected:
@@ -7199,7 +7199,7 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 534.8'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
       AgentClass                           : 'Browser'
-      AgentName                            : 'AppleWebKit'  #FIXME: Safari
+      AgentName                            : 'AppleWebKit'  #Unfixable "Safari" because of parse problem not in parse tree
       AgentVersion                         : '534.8'
       AgentVersionMajor                    : '534'
       AgentNameVersion                     : 'AppleWebKit 534.8'
@@ -7498,19 +7498,20 @@ config:
 
 
 # https://en.wikipedia.org/wiki/WebOS
-- test: # TODO: Verify if results are correct
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (webOS/1.0; U; en-US) AppleWebKit/525.27.1 (KHTML, like Gecko) Version/1.0 Safari/525.27.1 Pre/1.0'
     expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Palm PRE'
+      DeviceBrand                          : 'Palm'
+      DeviceVersion                        : '1.0'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'WebOS 1.0'
+      OperatingSystemNameVersionMajor      : 'WebOS 1'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '525.27.1'
@@ -7518,29 +7519,31 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 525.27.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Pre'
+      AgentName                            : 'Safari'
       AgentVersion                         : '1.0'
       AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Pre 1.0'
-      AgentNameVersionMajor                : 'Pre 1'
+      AgentNameVersion                     : 'Safari 1.0'
+      AgentNameVersionMajor                : 'Safari 1'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
 
-- test: # TODO: Verify if results are correct
+# NOTE: The "Desktop" browser seems strange.
+#       Yet https://en.wikipedia.org/wiki/WebOS#Hardware indicates there were never any desktops with this os.
+- test:
     input:
       user_agent_string: 'Mozilla/5.0 (webOS/1.3; U; en-US) AppleWebKit/525.27.1 (KHTML, like Gecko) Version/1.0 Safari/525.27.1 Desktop/1.0'
     expected:
-      DeviceClass                          : 'Unknown'
+      DeviceClass                          : 'Mobile'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '1.3'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'WebOS 1.3'
+      OperatingSystemNameVersionMajor      : 'WebOS 1'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '525.27.1'

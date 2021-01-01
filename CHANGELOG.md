@@ -8,7 +8,7 @@ v5.22-SNAPSHOT
   - ExtractBrandFromUrl function
 - New/improved detections
   - Added about 960 extra testcases
-  - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen.
+  - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen, WebOS.
   - Extra variants of Japanese locale codes
   - Extra variants of MS Windows recognized
   - Old Maxthon naming (myIE2)

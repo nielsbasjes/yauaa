@@ -50,6 +50,10 @@ config:
 
 - set:
     name: 'NotAutoWalkBrowserNames'
+    merge:
+    - 'MobileBrands'
+#      - 'MobileBrandPrefixes'
+    - 'ExactMatchMobileBrands'
     values:
     - 'AppleWebKit'
     - 'Mobile'

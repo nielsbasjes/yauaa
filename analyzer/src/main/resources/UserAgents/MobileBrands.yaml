@@ -722,6 +722,32 @@ config:
     extract:
     - 'DeviceBrand                         :     3000 :"Wiko"'
 
+- lookup: # DO NOT USE THESE AS PREFIX MATCHING
+    name: 'ExactMatchMobileBrands'
+    map:
+      "Pre"                     : "Palm"
+      "Pixi"                    : "Palm"
+      "Veer"                    : "Palm"
+
+- matcher:
+    variable:
+    - 'Agent                               :agent.product.(1)name?ExactMatchMobileBrands'
+    extract:
+    - 'DeviceBrand                         :     3000 :LookUp[ExactMatchMobileBrands;@Agent]'
+    - 'DeviceName                          :     3000 :@Agent'
+    - 'DeviceVersion                       :     3000 :@Agent^.version'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1)comments.entry.(1)product.(1)name="webos"'
+    extract:
+    - 'DeviceClass                         :        1 : "Mobile"'
+    - 'OperatingSystemClass                :     3000 :"Mobile"'
+    - 'OperatingSystemName                 :     3000 :"WebOS"'
+    - 'OperatingSystemVersion              :     3000 :@OS^.version'
+
+
+
 # Chrome 70+ on Android no longer has the BUILD/... part
 - matcher:
     require:
