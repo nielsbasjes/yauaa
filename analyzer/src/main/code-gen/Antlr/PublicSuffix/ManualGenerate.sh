@@ -21,7 +21,7 @@ OUTPUT="${TARGETDIR}/PublicSuffix.g4.fragment"
 
 if [ ! -f "${INPUT}" ]; then
     cd "${SCRIPTDIR}" || exit 1
-    wget https://publicsuffix.org/list/public_suffix_list.dat
+    curl https://publicsuffix.org/list/public_suffix_list.dat | sed 's@TODO:@TO_DO:@g' > public_suffix_list.dat
 fi
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
