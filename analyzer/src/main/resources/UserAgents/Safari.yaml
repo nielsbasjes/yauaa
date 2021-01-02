@@ -65,15 +65,15 @@ config:
 
 - matcher:
     variable:
-      - 'AgentName                           :agent.(2-)product.name[2]="Safari"@'
+    - 'AgentName                           :agent.(2-)product.name[2]="Safari"@'
     require:
-      - '@AgentName!="Mobile Safari"'
-      - 'agent.(1)product.name="Mozilla"'
-      - 'agent.(1)product.(1)version="5.0"'
+    - '@AgentName!="Mobile Safari"'
+    - 'agent.(1)product.name="Mozilla"'
+    - 'agent.(1)product.(1)version="5.0"'
     extract:
-      - 'AgentClass                          :       36 :"Browser"'
-      - 'AgentName                           :       36 :"Safari"'
-      - 'AgentVersion                        :       36 :@AgentName^.(1)version'
+    - 'AgentClass                          :       36 :"Browser"'
+    - 'AgentName                           :       36 :"Safari"'
+    - 'AgentVersion                        :       36 :@AgentName^.(1)version'
 
 - matcher:
     variable:

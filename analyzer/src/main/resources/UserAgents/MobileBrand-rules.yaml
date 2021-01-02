@@ -232,10 +232,10 @@ config:
 
 - matcher:
     variable:
-      - 'DeviceName                          :IsInLookUp[ExactMatchMobileBrands;agent.(1)product.(1)comments.entry.(1)product.(1)name[1]]'
+    - 'DeviceName                          :IsInLookUp[ExactMatchMobileBrands;agent.(1)product.(1)comments.entry.(1)product.(1)name[1]]'
     extract:
-      - 'DeviceBrand                         :      327 :LookUp[ExactMatchMobileBrands;@DeviceName]'
-      - 'DeviceName                          :      327 :@DeviceName'
+    - 'DeviceBrand                         :      327 :LookUp[ExactMatchMobileBrands;@DeviceName]'
+    - 'DeviceName                          :      327 :@DeviceName'
 
 - matcher:
     variable:
