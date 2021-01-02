@@ -70,7 +70,6 @@ config:
     - 'FreeBSD'
     - 'NetBSD'
     - 'OpenBSD'
-    - 'BSD'
     - 'hpwOS'
     - 'Haiku'
     - 'Intel Haiku'
@@ -85,22 +84,37 @@ config:
 # ASPLinux
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="ASPLinux"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"ASPLinux"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="ASPLinux"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="ASPLinux"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"ASPLinux"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="ASPLinux"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="ASPLinux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"ASPLinux"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -185,22 +199,37 @@ config:
 # CentOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="CentOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"CentOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="CentOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="CentOS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"CentOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="CentOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="CentOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"CentOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -285,22 +314,37 @@ config:
 # Red Hat
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Red Hat"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Red Hat"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Red Hat"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Red Hat"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Red Hat"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Red Hat"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Red Hat"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Red Hat"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -384,22 +428,37 @@ config:
 # Debian
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Debian"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Debian"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Debian"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Debian"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -484,22 +543,37 @@ config:
 # Debian GNU
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian GNU"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Debian"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian GNU"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Debian GNU"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Debian"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian GNU"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Debian GNU"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Debian"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -583,22 +657,37 @@ config:
 # Fedora
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fedora"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Fedora"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fedora"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Fedora"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Fedora"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fedora"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fedora"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Fedora"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -683,22 +772,37 @@ config:
 # FoxOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="FoxOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"FoxOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="FoxOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="FoxOS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"FoxOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="FoxOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="FoxOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"FoxOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -783,22 +887,37 @@ config:
 # Joli OS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Joli OS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Joli OS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Joli OS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Joli OS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Joli OS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Joli OS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Joli OS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Joli OS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -882,22 +1001,37 @@ config:
 # JoliCloud
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="JoliCloud"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Joli Cloud"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="JoliCloud"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="JoliCloud"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Joli Cloud"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="JoliCloud"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="JoliCloud"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Joli Cloud"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -982,22 +1116,37 @@ config:
 # Linpus
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linpus"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linpus"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linpus"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Linpus"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linpus"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linpus"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linpus"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linpus"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1082,22 +1231,37 @@ config:
 # Linspire
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linspire"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linspire"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linspire"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Linspire"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linspire"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linspire"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linspire"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linspire"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1182,22 +1346,37 @@ config:
 # Mandriva Linux
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva Linux"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Mandriva Linux"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva Linux"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Mandriva Linux"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Mandriva Linux"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva Linux"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Mandriva Linux"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1281,22 +1460,37 @@ config:
 # Mandriva
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Mandriva"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Mandriva"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Mandriva"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mandriva"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Mandriva"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1381,22 +1575,37 @@ config:
 # Mint
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mint"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linux Mint"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mint"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Mint"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linux Mint"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mint"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Mint"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux Mint"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1481,22 +1690,37 @@ config:
 # Linux Mint
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linux Mint"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linux Mint"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linux Mint"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Linux Mint"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linux Mint"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linux Mint"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linux Mint"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux Mint"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1580,22 +1804,37 @@ config:
 # Edition Linux Mint
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Edition Linux Mint"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linux Mint"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Edition Linux Mint"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Edition Linux Mint"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Linux Mint"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Edition Linux Mint"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Edition Linux Mint"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux Mint"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1680,22 +1919,37 @@ config:
 # Moblin
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Moblin"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Moblin"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Moblin"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Moblin"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Moblin"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Moblin"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Moblin"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Moblin"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1780,22 +2034,37 @@ config:
 # NaverBot
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="NaverBot"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"NaverBot"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="NaverBot"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="NaverBot"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"NaverBot"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="NaverBot"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="NaverBot"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"NaverBot"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1880,22 +2149,37 @@ config:
 # PCLinuxOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="PCLinuxOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"PCLinuxOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="PCLinuxOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="PCLinuxOS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"PCLinuxOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="PCLinuxOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="PCLinuxOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"PCLinuxOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -1980,22 +2264,37 @@ config:
 # Slackware
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Slackware"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Slackware"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Slackware"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Slackware"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Slackware"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Slackware"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Slackware"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Slackware"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2080,22 +2379,37 @@ config:
 # SUSE
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SUSE"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"SUSE"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SUSE"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="SUSE"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"SUSE"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SUSE"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SUSE"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"SUSE"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2180,22 +2494,37 @@ config:
 # Ubuntu
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ubuntu"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Ubuntu"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ubuntu"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Ubuntu"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Ubuntu"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ubuntu"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ubuntu"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Ubuntu"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2280,22 +2609,37 @@ config:
 # Kubuntu
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Kubuntu"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Kubuntu"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Kubuntu"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Kubuntu"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Kubuntu"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Kubuntu"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Kubuntu"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Kubuntu"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2380,22 +2724,37 @@ config:
 # Xubuntu
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Xubuntu"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Xubuntu"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Xubuntu"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Xubuntu"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Xubuntu"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Xubuntu"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Xubuntu"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Xubuntu"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2480,22 +2839,37 @@ config:
 # Ultimate Edition
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ultimate Edition"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Ultimate Edition"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ultimate Edition"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Ultimate Edition"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Ultimate Edition"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ultimate Edition"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Ultimate Edition"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Ultimate Edition"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2579,22 +2953,37 @@ config:
 # Yoper
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Yoper"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Yoper"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Yoper"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Yoper"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Yoper"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Yoper"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Yoper"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Yoper"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2679,22 +3068,37 @@ config:
 # SugarLabs
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SugarLabs"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"SugarLabs"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SugarLabs"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="SugarLabs"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"SugarLabs"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SugarLabs"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SugarLabs"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"SugarLabs"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2779,22 +3183,37 @@ config:
 # SunOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SunOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"SUN Microsystems Desktop"'
-    - 'DeviceBrand                         :      111 :"Sun Microsystems"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"SUN Microsystems Desktop"'
+    - 'DeviceBrand                         :      112 :"Sun Microsystems"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"SunOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SunOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="SunOS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"SUN Microsystems Desktop"'
     - 'DeviceBrand                         :      111 :"Sun Microsystems"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"SunOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SunOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SunOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"SUN Microsystems Desktop"'
+    - 'DeviceBrand                         :      112 :"Sun Microsystems"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"SunOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2879,22 +3298,37 @@ config:
 # Solaris
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Solaris"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Linux Desktop"'
-    - 'DeviceBrand                         :      111 :"Sun Microsystems"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"Sun Microsystems"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Solaris"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Solaris"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Solaris"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Linux Desktop"'
     - 'DeviceBrand                         :      111 :"Sun Microsystems"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Solaris"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Solaris"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Solaris"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"Sun Microsystems"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Solaris"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -2979,22 +3413,37 @@ config:
 # illumOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="illumOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"OpenSolaris Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OpenSolaris Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"illumOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="illumOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="illumOS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"OpenSolaris Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"illumOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="illumOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="illumOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OpenSolaris Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"illumOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3079,22 +3528,37 @@ config:
 # Raspbian
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Raspbian"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"Raspberry PI"'
-    - 'DeviceBrand                         :      111 :"Raspberry"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Raspberry PI"'
+    - 'DeviceBrand                         :      112 :"Raspberry"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Raspbian"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Raspbian"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Raspbian"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"Raspberry PI"'
     - 'DeviceBrand                         :      111 :"Raspberry"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"Raspbian"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Raspbian"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Raspbian"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Raspberry PI"'
+    - 'DeviceBrand                         :      112 :"Raspberry"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Raspbian"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3179,22 +3643,37 @@ config:
 # MeeGo
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="MeeGo"'
     extract:
-    - 'DeviceClass                         :      111 :"Mobile"'
-    - 'DeviceName                          :      111 :"MeeGo Device"'
-    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"MeeGo Device"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"MeeGo"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="MeeGo"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="MeeGo"'
     extract:
     - 'DeviceClass                         :      111 :"Mobile"'
     - 'DeviceName                          :      111 :"MeeGo Device"'
     - 'DeviceBrand                         :      111 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"MeeGo"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="MeeGo"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="MeeGo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"MeeGo Device"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"MeeGo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3279,22 +3758,37 @@ config:
 # Symbian
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian"'
     extract:
-    - 'DeviceClass                         :      111 :"Phone"'
-    - 'DeviceName                          :      111 :"Symbian Phone"'
-    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"Symbian"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Symbian"'
     extract:
     - 'DeviceClass                         :      111 :"Phone"'
     - 'DeviceName                          :      111 :"Symbian Phone"'
     - 'DeviceBrand                         :      111 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"Symbian"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"Symbian"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3379,22 +3873,37 @@ config:
 # SymbianOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbianOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Phone"'
-    - 'DeviceName                          :      111 :"Symbian Phone"'
-    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"SymbianOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbianOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="SymbianOS"'
     extract:
     - 'DeviceClass                         :      111 :"Phone"'
     - 'DeviceName                          :      111 :"Symbian Phone"'
     - 'DeviceBrand                         :      111 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"SymbianOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbianOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbianOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3479,22 +3988,37 @@ config:
 # Symbian OS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian OS"'
     extract:
-    - 'DeviceClass                         :      111 :"Phone"'
-    - 'DeviceName                          :      111 :"Symbian Phone"'
-    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"SymbianOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian OS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Symbian OS"'
     extract:
     - 'DeviceClass                         :      111 :"Phone"'
     - 'DeviceName                          :      111 :"Symbian Phone"'
     - 'DeviceBrand                         :      111 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"SymbianOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian OS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Symbian OS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3578,22 +4102,37 @@ config:
 # SymbOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Phone"'
-    - 'DeviceName                          :      111 :"Symbian Phone"'
-    - 'DeviceBrand                         :      111 :"Nokia"'
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"SymbianOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="SymbOS"'
     extract:
     - 'DeviceClass                         :      111 :"Phone"'
     - 'DeviceName                          :      111 :"Symbian Phone"'
     - 'DeviceBrand                         :      111 :"Nokia"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"SymbianOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="SymbOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Symbian Phone"'
+    - 'DeviceBrand                         :      112 :"Nokia"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"SymbianOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3678,22 +4217,37 @@ config:
 # PalmSource
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmSource"'
     extract:
-    - 'DeviceClass                         :      111 :"Mobile"'
-    - 'DeviceName                          :      111 :"PalmOS PDA"'
-    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"PalmOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmSource"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="PalmSource"'
     extract:
     - 'DeviceClass                         :      111 :"Mobile"'
     - 'DeviceName                          :      111 :"PalmOS PDA"'
     - 'DeviceBrand                         :      111 :"Palm"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"PalmOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmSource"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmSource"'
+    extract:
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"PalmOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3778,22 +4332,37 @@ config:
 # PalmOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Mobile"'
-    - 'DeviceName                          :      111 :"PalmOS PDA"'
-    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"PalmOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="PalmOS"'
     extract:
     - 'DeviceClass                         :      111 :"Mobile"'
     - 'DeviceName                          :      111 :"PalmOS PDA"'
     - 'DeviceBrand                         :      111 :"Palm"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"PalmOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="PalmOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"PalmOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"PalmOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3878,22 +4447,37 @@ config:
 # webOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="webOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Phone"'
-    - 'DeviceName                          :      111 :"Palm WebOS PDA"'
-    - 'DeviceBrand                         :      111 :"Palm"'
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"WebOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="webOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="webOS"'
     extract:
     - 'DeviceClass                         :      111 :"Phone"'
     - 'DeviceName                          :      111 :"Palm WebOS PDA"'
     - 'DeviceBrand                         :      111 :"Palm"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"WebOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="webOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="webOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Phone"'
+    - 'DeviceName                          :      112 :"Palm WebOS PDA"'
+    - 'DeviceBrand                         :      112 :"Palm"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"WebOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -3978,22 +4562,37 @@ config:
 # DragonFly
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="DragonFly"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"DragonFly BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"DragonFly BSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"DragonFly BSD"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="DragonFly"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="DragonFly"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"DragonFly BSD Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"DragonFly BSD"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="DragonFly"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="DragonFly"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"DragonFly BSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"DragonFly BSD"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4078,22 +4677,37 @@ config:
 # FreeBSD
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="FreeBSD"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"FreeBSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"FreeBSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"FreeBSD"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="FreeBSD"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="FreeBSD"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"FreeBSD Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"FreeBSD"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="FreeBSD"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="FreeBSD"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"FreeBSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"FreeBSD"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4178,22 +4792,37 @@ config:
 # NetBSD
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="NetBSD"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"NetBSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"NetBSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"NetBSD"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="NetBSD"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="NetBSD"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"NetBSD Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"NetBSD"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="NetBSD"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="NetBSD"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"NetBSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"NetBSD"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4278,22 +4907,37 @@ config:
 # OpenBSD
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OpenBSD"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"OpenBSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OpenBSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"OpenBSD"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="OpenBSD"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="OpenBSD"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"OpenBSD Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"OpenBSD"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="OpenBSD"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OpenBSD"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OpenBSD Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OpenBSD"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4375,125 +5019,40 @@ config:
 
 
 # =======================================================================
-# BSD
-
-- matcher:
-    extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      150 :"Desktop"'
-    - 'OperatingSystemName                 :      150 :"BSD"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="BSD"^.(1)version]'
-
-- matcher:
-    extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      150 :"Desktop"'
-    - 'OperatingSystemName                 :      150 :"BSD"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="BSD"^.(2)version?!UnwantedSecondVersionValues]'
-
-# Exact match
-- matcher:
-    require:
-    - 'agent.product.(1-2)comments.entry="BSD"'
-    extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      151 :"Desktop"'
-    - 'OperatingSystemName                 :      151 :"BSD"'
-    - 'OperatingSystemVersion              :      149 :"??"'
-
-
-# One word
-- matcher:
-    require:
-    - 'agent.product.(1-2)comments.entry[1-1]="BSD"'
-    extract:
-    - 'DeviceClass                         :      108 :"Desktop"'
-    - 'DeviceName                          :      108 :"BSD Desktop"'
-    - 'DeviceBrand                         :      108 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      148 :"Desktop"'
-    - 'OperatingSystemName                 :      148 :"BSD"'
-    - 'OperatingSystemVersion              :      149 :"??"'
-
-- matcher:
-    require:
-    - 'agent.product.(1-2)comments.entry[2-2]="BSD"'
-    extract:
-    - 'DeviceClass                         :      107 :"Desktop"'
-    - 'DeviceName                          :      107 :"BSD Desktop"'
-    - 'DeviceBrand                         :      107 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      147 :"Desktop"'
-    - 'OperatingSystemName                 :      147 :"BSD"'
-    - 'OperatingSystemVersion              :      148 :"??"'
-
-
-- matcher:
-    extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      150 :"Desktop"'
-    - 'OperatingSystemName                 :      150 :"BSD"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="BSD"^.(1)version]'
-
-- matcher:
-    extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      150 :"Desktop"'
-    - 'OperatingSystemName                 :      150 :"BSD"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.product.name="BSD"^.(2)version?!UnwantedSecondVersionValues]'
-
-- matcher:
-    require:
-    - 'agent.product.name[-1]="BSD"'
-    extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BSD Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      152 :"Desktop"'
-    - 'OperatingSystemName                 :      152 :"BSD"'
-    - 'OperatingSystemVersion              :      149 :"??"'
-
-- matcher:
-    require:
-    - 'agent.product.name[-2]="BSD"'
-    extract:
-    - 'DeviceClass                         :      112 :"Desktop"'
-    - 'DeviceName                          :      112 :"BSD Desktop"'
-    - 'DeviceBrand                         :      112 :"<<<null>>>"'
-    - 'OperatingSystemClass                :      153 :"Desktop"'
-    - 'OperatingSystemName                 :      153 :"BSD"'
-    - 'OperatingSystemVersion              :      149 :"??"'
-
-
-
-# =======================================================================
 # hpwOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="hpwOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Tablet"'
-    - 'DeviceName                          :      111 :"HP WebOS Tablet"'
-    - 'DeviceBrand                         :      111 :"HP"'
+    - 'DeviceClass                         :      112 :"Tablet"'
+    - 'DeviceName                          :      112 :"HP WebOS Tablet"'
+    - 'DeviceBrand                         :      112 :"HP"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"HP WebOS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="hpwOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="hpwOS"'
     extract:
     - 'DeviceClass                         :      111 :"Tablet"'
     - 'DeviceName                          :      111 :"HP WebOS Tablet"'
     - 'DeviceBrand                         :      111 :"HP"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"HP WebOS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="hpwOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="hpwOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Tablet"'
+    - 'DeviceName                          :      112 :"HP WebOS Tablet"'
+    - 'DeviceBrand                         :      112 :"HP"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"HP WebOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4578,22 +5137,37 @@ config:
 # Haiku
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Haiku"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BeOS/Haiku Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"BeOS/Haiku Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Haiku"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Haiku"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"BeOS/Haiku Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Haiku"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Haiku"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"BeOS/Haiku Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4678,22 +5252,37 @@ config:
 # Intel Haiku
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Intel Haiku"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BeOS/Haiku Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"BeOS/Haiku Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Intel Haiku"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Intel Haiku"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"BeOS/Haiku Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Intel Haiku"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Intel Haiku"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"BeOS/Haiku Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4777,22 +5366,37 @@ config:
 # BeOS
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="BeOS"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"BeOS/Haiku Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"BeOS/Haiku Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="BeOS"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="BeOS"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"BeOS/Haiku Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="BeOS"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="BeOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"BeOS/Haiku Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"BeOS/Haiku"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4877,22 +5481,37 @@ config:
 # UNIX BSD/SYSV system
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX BSD/SYSV system"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"UNIX BSD/SYSV Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"UNIX BSD/SYSV"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX BSD/SYSV system"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="UNIX BSD/SYSV system"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"UNIX BSD/SYSV Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"UNIX BSD/SYSV"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX BSD/SYSV system"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX BSD/SYSV system"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"UNIX BSD/SYSV Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"UNIX BSD/SYSV"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -4977,22 +5596,37 @@ config:
 # UNIX
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX"'
     extract:
-    - 'DeviceClass                         :      111 :"Desktop"'
-    - 'DeviceName                          :      111 :"UNIX Desktop"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"UNIX Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"UNIX"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="UNIX"'
     extract:
     - 'DeviceClass                         :      111 :"Desktop"'
     - 'DeviceName                          :      111 :"UNIX Desktop"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Desktop"'
     - 'OperatingSystemName                 :      150 :"UNIX"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="UNIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"UNIX Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"UNIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -5077,22 +5711,37 @@ config:
 # Fuchsia
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fuchsia"'
     extract:
-    - 'DeviceClass                         :      111 :"Mobile"'
-    - 'DeviceName                          :      111 :"Fuchsia Device"'
-    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"Fuchsia"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fuchsia"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Fuchsia"'
     extract:
     - 'DeviceClass                         :      111 :"Mobile"'
     - 'DeviceName                          :      111 :"Fuchsia Device"'
     - 'DeviceBrand                         :      111 :"<<<null>>>"'
     - 'OperatingSystemClass                :      150 :"Mobile"'
     - 'OperatingSystemName                 :      150 :"Fuchsia"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fuchsia"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Fuchsia"'
+    extract:
+    - 'DeviceClass                         :      112 :"Mobile"'
+    - 'DeviceName                          :      112 :"Fuchsia Device"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Mobile"'
+    - 'OperatingSystemName                 :      150 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
@@ -5177,22 +5826,37 @@ config:
 # ROKU
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="ROKU"'
     extract:
-    - 'DeviceClass                         :      111 :"Set-top box"'
-    - 'DeviceName                          :      111 :"Roku Digital Video"'
-    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'DeviceClass                         :      112 :"Set-top box"'
+    - 'DeviceName                          :      112 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      112 :"Roku"'
     - 'OperatingSystemClass                :      150 :"Embedded"'
     - 'OperatingSystemName                 :      150 :"Roku OS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="ROKU"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="ROKU"'
     extract:
     - 'DeviceClass                         :      111 :"Set-top box"'
     - 'DeviceName                          :      111 :"Roku Digital Video"'
     - 'DeviceBrand                         :      111 :"Roku"'
     - 'OperatingSystemClass                :      150 :"Embedded"'
     - 'OperatingSystemName                 :      150 :"Roku OS"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name="ROKU"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="ROKU"'
+    extract:
+    - 'DeviceClass                         :      112 :"Set-top box"'
+    - 'DeviceName                          :      112 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      112 :"Roku"'
+    - 'OperatingSystemClass                :      150 :"Embedded"'
+    - 'OperatingSystemName                 :      150 :"Roku OS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:

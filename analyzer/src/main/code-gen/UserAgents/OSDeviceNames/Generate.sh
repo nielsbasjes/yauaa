@@ -84,22 +84,37 @@ echo "
 # ${ospattern}
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name=\"${ospattern}\"'
     extract:
-    - 'DeviceClass                         :      111 :\"${devclass}\"'
-    - 'DeviceName                          :      111 :\"${devname}\"'
-    - 'DeviceBrand                         :      111 :\"${devbrand}\"'
+    - 'DeviceClass                         :      112 :\"${devclass}\"'
+    - 'DeviceName                          :      112 :\"${devname}\"'
+    - 'DeviceBrand                         :      112 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name=\"${ospattern}\"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.(1)product.(1-2)comments.entry.(1-2)product.name=\"${ospattern}\"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name=\"${ospattern}\"'
+    extract:
+    - 'DeviceClass                         :      112 :\"${devclass}\"'
+    - 'DeviceName                          :      112 :\"${devname}\"'
+    - 'DeviceBrand                         :      112 :\"${devbrand}\"'
+    - 'OperatingSystemClass                :      150 :\"${osclass}\"'
+    - 'OperatingSystemName                 :      150 :\"${osname}\"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
 
 # Exact match
 - matcher:
