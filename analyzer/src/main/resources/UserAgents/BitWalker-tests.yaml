@@ -1774,33 +1774,33 @@ config:
       AgentNameVersionMajor                : 'Internet Explorer 8'
 
 
-#- test: # TODO: Verify if results are correct
-#    input:
-#      user_agent_string: 'Mozilla/4.76 (compatible; MSIE 6.0; U; Windows 95; PalmSource; PalmOS; WebPro; Tungsten Proxyless 1.1 320x320x16)'
-#    expected:
-#      DeviceClass                          : 'Mobile'
-#      DeviceName                           : 'Palm Tungsten'
-#      DeviceBrand                          : 'Palm'
-#      DeviceCpuBits                        : '32'
-#      OperatingSystemClass                 : 'Mobile'
-#      OperatingSystemName                  : 'Palm OS'
-#      OperatingSystemVersion               : '??'
-#      OperatingSystemVersionMajor          : '??'
-#      OperatingSystemNameVersion           : 'Palm OS ??'
-#      OperatingSystemNameVersionMajor      : 'Palm OS ??'
-#      LayoutEngineClass                    : 'Browser'
-#      LayoutEngineName                     : 'Internet Explorer'
-#      LayoutEngineVersion                  : '6.0'
-#      LayoutEngineVersionMajor             : '6'
-#      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
-#      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
-#      AgentClass                           : 'Browser'
-#      AgentName                            : 'Internet Explorer'
-#      AgentVersion                         : '6.0'
-#      AgentVersionMajor                    : '6'
-#      AgentNameVersion                     : 'Internet Explorer 6.0'
-#      AgentNameVersionMajor                : 'Internet Explorer 6'
-#      AgentSecurity                        : 'Strong security'
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.76 (compatible; MSIE 6.0; U; Windows 95; PalmSource; PalmOS; WebPro; Tungsten Proxyless 1.1 320x320x16)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Palm Tungsten'
+      DeviceBrand                          : 'Palm'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'PalmOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'PalmOS ??'
+      OperatingSystemNameVersionMajor      : 'PalmOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Internet Explorer'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Internet Explorer 6.0'
+      LayoutEngineNameVersionMajor         : 'Internet Explorer 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Internet Explorer 6.0'
+      AgentNameVersionMajor                : 'Internet Explorer 6'
+      AgentSecurity                        : 'Strong security'
 
 
 - test:
@@ -4839,11 +4839,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 538.1'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
       AgentClass                           : 'Browser'
-      AgentName                            : 'TV Safari' #FIXME: Just Safari
+      AgentName                            : 'Safari'
       AgentVersion                         : '538.1'
       AgentVersionMajor                    : '538'
-      AgentNameVersion                     : 'TV Safari 538.1'
-      AgentNameVersionMajor                : 'TV Safari 538'
+      AgentNameVersion                     : 'Safari 538.1'
+      AgentNameVersionMajor                : 'Safari 538'
       AgentSecurity                        : 'Strong security'
 
 
@@ -7293,11 +7293,11 @@ config:
       LayoutEngineNameVersion              : 'AppleWebKit 537.42'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
       AgentClass                           : 'Browser'
-      AgentName                            : 'SmartTV Safari' # FIXME: Just Safari
+      AgentName                            : 'Safari'
       AgentVersion                         : '537.42'
       AgentVersionMajor                    : '537'
-      AgentNameVersion                     : 'SmartTV Safari 537.42'
-      AgentNameVersionMajor                : 'SmartTV Safari 537'
+      AgentNameVersion                     : 'Safari 537.42'
+      AgentNameVersionMajor                : 'Safari 537'
       AgentSecurity                        : 'Strong security'
 
 
@@ -8456,11 +8456,11 @@ config:
       LayoutEngineNameVersionMajor         : 'Gecko 32'
       LayoutEngineBuild                    : '20100101'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Build' #FIXME: Firefox
-      AgentVersion                         : 'ID: 20141001101141'
-      AgentVersionMajor                    : 'ID: 20141001101141'
-      AgentNameVersion                     : 'Build ID: 20141001101141'
-      AgentNameVersionMajor                : 'Build ID: 20141001101141'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '32.0'
+      AgentVersionMajor                    : '32'
+      AgentNameVersion                     : 'Firefox 32.0'
+      AgentNameVersionMajor                : 'Firefox 32'
 
 
 - test:

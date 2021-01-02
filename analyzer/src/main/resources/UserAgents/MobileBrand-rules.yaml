@@ -232,6 +232,13 @@ config:
 
 - matcher:
     variable:
+      - 'DeviceName                          :IsInLookUp[ExactMatchMobileBrands;agent.(1)product.(1)comments.entry.(1)product.(1)name[1]]'
+    extract:
+      - 'DeviceBrand                         :      327 :LookUp[ExactMatchMobileBrands;@DeviceName]'
+      - 'DeviceName                          :      327 :@DeviceName'
+
+- matcher:
+    variable:
     - 'DeviceName                          :IsInLookUpPrefix[MobileBrands;agent.(1)product.(1)comments.entry]'
     require:
     - 'IsNull[@DeviceName~"BUILD"]'
