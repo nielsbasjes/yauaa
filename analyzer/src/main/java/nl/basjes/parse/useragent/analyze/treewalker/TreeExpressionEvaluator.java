@@ -67,6 +67,10 @@ public class TreeExpressionEvaluator implements Serializable {
         walkList = new WalkList(requiredPattern, matcher.getLookups(), matcher.getLookupSets(), verbose);
     }
 
+    public boolean isEmpty() {
+        return walkList.isEmpty();
+    }
+
     public void destroy() {
         walkList.destroy();
     }

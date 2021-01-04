@@ -32,6 +32,7 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
+import nl.basjes.parse.useragent.analyze.MatcherFailIfFoundAction;
 import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
 import nl.basjes.parse.useragent.analyze.MatcherVariableAction;
@@ -283,6 +284,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         kryo.register(MatcherExtractAction.class);
         kryo.register(MatcherVariableAction.class);
         kryo.register(MatcherRequireAction.class);
+        kryo.register(MatcherFailIfFoundAction.class);
         kryo.register(WordRangeVisitor.Range.class);
 
         kryo.register(CalculateAgentEmail.class);

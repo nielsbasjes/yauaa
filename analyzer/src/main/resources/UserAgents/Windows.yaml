@@ -35,7 +35,7 @@ config:
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :        1 :"32"'
+    - 'DeviceCpuBits                       :      100 :LookUpPrefix[WindowsDesktopOSCpuBits;@Product]'
     - 'OperatingSystemClass                :      100 :"Desktop"'
     - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@Product]'
     - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@Product]'
@@ -47,7 +47,7 @@ config:
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :        1 :"32"'
+    - 'DeviceCpuBits                       :      100 :LookUpPrefix[WindowsDesktopOSCpuBits;@Product]'
     - 'OperatingSystemClass                :      100 :"Desktop"'
     - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@Product]'
     - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@Product]'
@@ -66,14 +66,6 @@ config:
     - 'OperatingSystemName                 :      100 :LookUpPrefix[WindowsDesktopOSName;@Product]'
     - 'OperatingSystemVersion              :      100 :LookUpPrefix[WindowsDesktopOSVersion;@Product]'
     - 'OperatingSystemNameVersion          :      100 :LookUpPrefix[WindowsDesktopOSNameVersion;@Product]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;agent.(1-2)product.comments.entry.product]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;agent.(1-2)product.comments.entry.text]'
 
 - matcher:
     variable:
@@ -103,33 +95,28 @@ config:
 
 - matcher:
     variable:
-    - 'Text                                :agent.(1)product.comments.entry.(1-2)text?WindowsDesktopOSName'
+    - 'OS                                :agent.(1)product.comments.entry.(1-2)text?WindowsDesktopOSName'
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :        1 :"32"'
+    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;@OS]'
     - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@Text]'
-    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@Text]'
-    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;@Text]'
+    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@OS]'
+    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@OS]'
+    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;@OS]'
 
 - matcher:
-    extract:
-    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;agent.(1)product.comments.entry.(1-2)text]'
-
-- matcher:
+    variable:
+    - 'OS: agent.product?WindowsDesktopOSName'
     extract:
     - 'DeviceClass                         :      100 :"Desktop"'
     - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :        1 :"32"'
+    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;@OS]'
     - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;agent.product]'
-    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;agent.product]'
-    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;agent.product]'
+    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@OS]'
+    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@OS]'
+    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;@OS]'
 
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;agent.product]'
 
 - matcher:
     extract:
@@ -141,17 +128,17 @@ config:
     - 'OperatingSystemVersion              :        5 :agent.product.name="Windows NT"^.version'
     - 'OperatingSystemNameVersion          :        5 :agent.product.name="Windows NT"^'
 
-- matcher:
-    require:
-    - 'agent.(1-2)product.(1-2)comments.entry.(1)text="mingw32"'
-    extract:
-    - 'DeviceClass                         :        1 :"Desktop"'
-    - 'DeviceName                          :        1 :"Desktop"'
-    - 'DeviceCpuBits                       :        1 :"32"'
-    - 'OperatingSystemClass                :        1 :"Desktop"'
-    - 'OperatingSystemName                 :        1 :"Windows NT"'
-    - 'OperatingSystemVersion              :        1 :"??"'
-    - 'OperatingSystemNameVersion          :        1 :"Windows NT ??"'
+#- matcher:
+#    require:
+#    - 'agent.(1-2)product.(1-2)comments.entry.(1)text="mingw32"'
+#    extract:
+#    - 'DeviceClass                         :        1 :"Desktop"'
+#    - 'DeviceName                          :        1 :"Desktop"'
+#    - 'DeviceCpuBits                       :        1 :"32"'
+#    - 'OperatingSystemClass                :        1 :"Desktop"'
+#    - 'OperatingSystemName                 :        1 :"Windows NT"'
+#    - 'OperatingSystemVersion              :        1 :"??"'
+#    - 'OperatingSystemNameVersion          :        1 :"Windows NT ??"'
 
 - matcher:
     require:

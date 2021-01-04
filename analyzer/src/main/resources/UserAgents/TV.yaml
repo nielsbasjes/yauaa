@@ -1222,12 +1222,12 @@ config:
 
 
 - matcher:
-    require:
-    - 'agent.(1)product.name="Model"'
+    variable:
+    - 'Device: agent.(1)product.name="Model"^'
     extract:
     - 'DeviceClass                         :        1 :"TV"'
-    - 'DeviceBrand                         :        1 :agent.(1)product.(1)version[1]'
-    - 'DeviceName                          :        1 :agent.(1)product.(1)version[2-]'
+    - 'DeviceBrand                         :        1 :@Device.(1)version[1]'
+    - 'DeviceName                          :        1 :@Device.(1)version[2-]'
     - 'AgentClass                          :       10 :"Browser"'
     - 'AgentName                           :       10 :"Unknown"'
     - 'AgentVersion                        :       10 :"??"'

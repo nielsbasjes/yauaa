@@ -89,7 +89,7 @@ public abstract class MatcherAction implements Serializable {
 
     protected Matcher matcher;
     private MatchesList matches;
-    private boolean mustHaveMatches = false;
+    protected boolean mustHaveMatches = false;
 
     boolean mustHaveMatches() {
         return mustHaveMatches;
@@ -174,7 +174,12 @@ public abstract class MatcherAction implements Serializable {
             return 0; // Not interested in any patterns
         }
 
-        mustHaveMatches = evaluator.mustHaveMatches();
+        // If this is a failIfFound we do not need any matches from the hashmap.
+        if (this instanceof MatcherFailIfFoundAction) {
+            mustHaveMatches = false;
+        } else {
+            mustHaveMatches = evaluator.mustHaveMatches();
+        }
 
         int informs = calculateInformPath(this, "agent", requiredPattern);
 
@@ -374,7 +379,7 @@ public abstract class MatcherAction implements Serializable {
             calculateInformPath(action, treeName, ((MatcherBaseContext) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, treeName, tree) ->
             calculateInformPath(action, treeName, ((MatcherPathIsNullContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(IsSyntaxErrorContext.class,       (action, treeName, tree) -> {
+        CALCULATE_INFORM_PATH.put(IsSyntaxErrorContext.class,           (action, treeName, tree) -> {
             action.matcher.informMeAbout(action, SYNTAX_ERROR + "=" + ((IsSyntaxErrorContext) tree).value.getText());
             return 1;
         });

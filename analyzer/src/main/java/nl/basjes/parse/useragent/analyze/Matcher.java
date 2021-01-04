@@ -38,6 +38,7 @@ import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.EXTRACT;
+import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.FAIL_IF_FOUND;
 import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.REQUIRE;
 import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.VARIABLE;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
@@ -108,6 +109,7 @@ public class Matcher implements Serializable {
         public enum Type {
             VARIABLE,
             REQUIRE,
+            FAIL_IF_FOUND,
             EXTRACT
         }
         final Type type;
@@ -166,7 +168,14 @@ public class Matcher implements Serializable {
                     break;
                 case "require":
                     for (String requireConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
-                        configLines.add(new ConfigLine(REQUIRE, null, null, requireConfig));
+                        requireConfig = requireConfig.trim();
+                        if (requireConfig.startsWith("IsNull[")) {
+                            // TODO: Nasty String manipulation code: Cleanup
+                            String failIfFoundConfig = requireConfig.replaceAll("^IsNull\\[", "").replaceAll("]$", "");
+                            configLines.add(new ConfigLine(FAIL_IF_FOUND, null, null, failIfFoundConfig));
+                        } else {
+                            configLines.add(new ConfigLine(REQUIRE, null, null, requireConfig));
+                        }
                     }
                     break;
                 case "extract":
@@ -220,6 +229,9 @@ public class Matcher implements Serializable {
                     break;
                 case REQUIRE:
                     dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
+                    break;
+                case FAIL_IF_FOUND:
+                    dynamicActions.add(new MatcherFailIfFoundAction(configLine.expression, this));
                     break;
                 case EXTRACT:
                     MatcherExtractAction action =
@@ -443,6 +455,9 @@ public class Matcher implements Serializable {
         actionsThatRequireInputAndReceivedInput++;
     }
 
+    protected void failImmediately() {
+        actionsThatRequireInputAndReceivedInput = Long.MIN_VALUE; // So it will never match the expected
+    }
 
     public void setVerboseTemporarily(boolean newVerbose) {
         for (MatcherAction action : dynamicActions) {
@@ -500,6 +515,15 @@ public class Matcher implements Serializable {
         sb.append("    REQUIRE:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherRequireAction) {
+                sb.append("        ").append(action.getMatchExpression()).append('\n');
+                if (action.getMatches() != null) {
+                    sb.append("        -->").append(action.getMatches().toStrings()).append('\n');
+                }
+            }
+        }
+        sb.append("    FAIL_IF_FOUND:\n");
+        for (MatcherAction action : dynamicActions) {
+            if (action instanceof MatcherFailIfFoundAction) {
                 sb.append("        ").append(action.getMatchExpression()).append('\n');
                 if (action.getMatches() != null) {
                     sb.append("        -->").append(action.getMatches().toStrings()).append('\n');

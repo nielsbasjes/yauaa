@@ -179,6 +179,10 @@ public class WalkList implements Serializable {
         lookupSets.clear();
     }
 
+    public boolean isEmpty() {
+        return steps.isEmpty();
+    }
+
     private void linkSteps() {
         Step nextStep = null;
         for (int i = steps.size() - 1; i >= 0; i--) {

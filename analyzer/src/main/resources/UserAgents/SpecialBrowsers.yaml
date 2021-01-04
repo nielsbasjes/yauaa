@@ -3985,12 +3985,12 @@ config:
       AgentNameVersionMajor                : 'Lunascape 6'
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)name="Open AnyConnect VPN Agent"'
+    variable:
+    - 'Agent: agent.(1)product.(1)name="Open AnyConnect VPN Agent"^'
     extract:
     - 'AgentClass                          :      100 : "Special"'
     - 'AgentName                           :      100 : "OpenConnect VPN Agent"'
-    - 'AgentVersion                        :      100 : agent.(1)product.version'
+    - 'AgentVersion                        :      100 : @Agent.version'
 
 # OpenConnect VPN client over https (Ubuntu 20.04) started from commandline
 - test:
@@ -4056,12 +4056,12 @@ config:
 
 
 - matcher:
-    require:
-    - 'agent.(1)product.(1)name[1]="AnyConnect"'
+    variable:
+    - 'Agent: agent.(1)product.(1)name[1]="AnyConnect"'
     extract:
     - 'AgentClass                          :      100 : "Special"'
     - 'AgentName                           :      100 : "AnyConnect VPN Agent"'
-    - 'AgentVersion                        :      100 : agent.(1)product.(1)version'
+    - 'AgentVersion                        :      100 : @Agent^.(1)version'
 
 
 - matcher:

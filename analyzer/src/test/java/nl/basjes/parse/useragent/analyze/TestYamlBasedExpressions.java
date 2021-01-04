@@ -159,4 +159,11 @@ class TestYamlBasedExpressions {
         assertTrue(uaa.runTests(false, true));
     }
 
+    @Test
+    void runFailIfFoundTest() {
+        UserAgentAnalyzerTester uaa = createTester("RequireIsNull.yaml");
+        uaa.setVerbose(true);
+        assertTrue(uaa.runTests(false, true));
+    }
+
 }

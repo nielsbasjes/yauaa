@@ -22,6 +22,10 @@ config:
 # the app will create an default user agent as "AppName/version CFNetwork/version Darwin/version".
 
 - matcher:
+    variable:
+      - 'Agent: agent.(1)product'
+      - 'AgentName: @Agent.(1)name'
+      - 'AgentVersion: @Agent.(1)version'
     require:
     - 'agent.(2)product.name="CFNetwork"'
     extract:
@@ -32,13 +36,15 @@ config:
     - 'OperatingSystemName                 :       10 :"Darwin (iOS)"'
     - 'OperatingSystemVersion              :       10 :agent.(3)product.name="Darwin"^.version'
     - 'LayoutEngineClass                   :       10 :"Mobile App"'
-    - 'LayoutEngineName                    :       10 :agent.(1)product.name'
-    - 'LayoutEngineVersion                 :       10 :agent.(1)product.(1)version'
+    - 'LayoutEngineName                    :       10 :@AgentName'
+    - 'LayoutEngineVersion                 :       10 :@AgentVersion'
     - 'AgentClass                          :       10 :"Mobile App"'
-    - 'AgentName                           :       10 :agent.(1)product.name'
-    - 'AgentVersion                        :       10 :agent.(1)product.(1)version'
+    - 'AgentName                           :       10 :@AgentName'
+    - 'AgentVersion                        :       10 :@AgentVersion'
 
 - matcher:
+    variable:
+      - 'AgentName: agent.(1)product.(1)name'
     require:
     - 'agent.(2)product.name="CFNetwork"'
     - 'agent.(1)product.(1)comments.(1)entry="unknown version"'
@@ -50,10 +56,10 @@ config:
     - 'OperatingSystemName                 :       10 :"Darwin (iOS)"'
     - 'OperatingSystemVersion              :       10 :agent.(3)product.name="Darwin"^.version'
     - 'LayoutEngineClass                   :       10 :"Mobile App"'
-    - 'LayoutEngineName                    :       10 :agent.(1)product.name'
+    - 'LayoutEngineName                    :       10 :@AgentName'
     - 'LayoutEngineVersion                 :        6 :"??"'
     - 'AgentClass                          :       10 :"Mobile App"'
-    - 'AgentName                           :       10 :agent.(1)product.name'
+    - 'AgentName                           :       10 :@AgentName'
     - 'AgentVersion                        :        6 :"??"'
 
 - matcher:

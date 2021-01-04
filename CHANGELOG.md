@@ -7,6 +7,7 @@ v5.22-SNAPSHOT
   - Files with '-tests' in the directory/filename contain only tests and are only loaded when needed.
   - ExtractBrandFromUrl function
   - Added rule analyzer and optimized some of the rules.
+  - Special handling of the "require IsNull" cases to increase performance.
 - New/improved detections
   - Added about 960 extra testcases
   - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen, WebOS.
