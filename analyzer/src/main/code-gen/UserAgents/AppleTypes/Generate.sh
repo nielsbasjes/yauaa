@@ -180,39 +180,4 @@ echo "Generating: ${OUTPUT}"
     fi
   done
 
-  #grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
-  #do
-  #    key=$(echo "${line}" | cut -d'|' -f1)
-  #    deviceClass=$(echo "${line}" | cut -d'|' -f2)
-  #    deviceName=$(echo "${line}" | cut -d'|' -f3)
-  #    deviceVersion=$(echo "${line}" | cut -d'|' -f4-)
-  #echo "
-  #- matcher:
-  #    require:
-  #    - 'agent.product.comments.entry.(1)text=\"${key}\"'
-  #    extract:
-  #    - 'DeviceBrand                         :      110 :\"Apple\"'
-  #    - 'DeviceClass                         :      110 :\"${deviceClass}\"'
-  #    - 'DeviceName                          :      110 :\"${deviceName}\"'
-  #    - 'DeviceVersion                       :      110 :\"${deviceVersion}\"'
-  #
-  #- matcher:
-  #    require:
-  #    - 'agent.product.name=\"${key}\"'
-  #    extract:
-  #    - 'DeviceBrand                         :      111 :\"Apple\"'
-  #    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
-  #    - 'DeviceName                          :      111 :\"${deviceName}\"'
-  #    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
-  #
-  #- matcher:
-  #    require:
-  #    - 'agent.text=\"${key}\"'
-  #    extract:
-  #    - 'DeviceBrand                         :      111 :\"Apple\"'
-  #    - 'DeviceClass                         :      111 :\"${deviceClass}\"'
-  #    - 'DeviceName                          :      111 :\"${deviceName}\"'
-  #    - 'DeviceVersion                       :      111 :\"${deviceVersion}\"'
-  #"
-  #done
 ) | uniq >"${OUTPUT}"

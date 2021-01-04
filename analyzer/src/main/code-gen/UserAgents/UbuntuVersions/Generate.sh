@@ -68,6 +68,7 @@ do
     echo "      \"ubuntu${version}\"    : \"Ubuntu\""
 done
 
+echo ""
 echo "- lookup:"
 echo "    name: 'UbuntuOSVersion'"
 echo "    map:"
