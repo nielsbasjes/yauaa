@@ -32,9 +32,11 @@ import org.slf4j.helpers.MessageFormatter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
@@ -571,6 +573,72 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             allMatches.addAll(matcher.getUsedMatches());
         }
         return allMatches;
+    }
+
+
+    private static class MatcherImpact {
+        String name;
+        long tests;
+        long touched;
+        long enoughInputs;
+        long notUsed;
+
+        @Override
+        public String toString() {
+            return String.format(
+                "%-45s --> touched= %5d (%4.1f%%), enoughInputs = %5d (%4.1f%%), unused = %5d (%4.1f%%) %s",
+                "Rule.("+name+")",
+                touched,      100.0 * ((double)touched/tests),
+                enoughInputs, 100.0 * ((double)enoughInputs/tests),
+                notUsed,      100.0 * ((double)notUsed/tests),
+                touched > 0 && touched == notUsed ? "<-- NEVER USED":"");
+        }
+    }
+
+    public void analyzeMatcherImpactAllTests() {
+        if (getTestCases() == null) {
+            return;
+        }
+        initializeMatchers();
+        DebugUserAgent agent = new DebugUserAgent(getWantedFieldNames());
+        setVerbose(false);
+        agent.setDebug(false);
+
+        Map<String, MatcherImpact> impactOverview = new TreeMap<>();
+        List<MatcherImpact> impactList = new ArrayList<>();
+        getAllMatchers()
+            .stream()
+            .sorted(Comparator.comparing(Matcher::getSourceFileName).thenComparingLong(Matcher::getSourceFileLineNumber))
+            .forEach(matcher -> {
+            MatcherImpact matcherImpact = new MatcherImpact();
+            matcherImpact.name = matcher.getMatcherSourceLocation();
+            impactOverview.put(matcher.getMatcherSourceLocation(), matcherImpact);
+            impactList.add(matcherImpact);
+        });
+
+        for (Map<String, Map<String, String>> test : getTestCases()) {
+            Map<String, String> input = test.get("input");
+            String userAgentString = input.get("user_agent_string");
+
+            agent.setUserAgentString(userAgentString);
+
+            UserAgent parseResult = parse(agent);
+
+            impactOverview.forEach((n, i) -> i.tests++);
+
+            getTouchedMatchers().forEach(m -> {
+                MatcherImpact impact = impactOverview.get(m.getMatcherSourceLocation());
+                impact.touched++;
+                if (m.getActionsThatRequireInput() == m.getActionsThatRequireInputAndReceivedInput()) {
+                    impact.enoughInputs++;
+                    if (m.getUsedMatches().isEmpty()) {
+                        impact.notUsed++;
+                    }
+                }
+            });
+        }
+
+        impactList.forEach(i -> LOG.info("{}", i));
     }
 
     public abstract static class AbstractUserAgentAnalyzerTesterBuilder<UAA extends AbstractUserAgentAnalyzerTester, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>

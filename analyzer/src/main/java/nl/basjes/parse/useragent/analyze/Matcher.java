@@ -60,6 +60,15 @@ public class Matcher implements Serializable {
         return matcherSourceLocation;
     }
 
+    private String sourceFileName;
+    private Integer sourceFileLineNumber;
+    public String getSourceFileName() {
+        return sourceFileName;
+    }
+    public Integer getSourceFileLineNumber() {
+        return sourceFileLineNumber;
+    }
+
     // Used for error reporting: The filename and line number where the config was located.
     private String matcherSourceLocation;
 
@@ -124,7 +133,9 @@ public class Matcher implements Serializable {
         this.dynamicActions = new ArrayList<>();
         this.newValuesUserAgent = new MutableUserAgent(wantedFieldNames);
 
-        matcherSourceLocation = filename + ':' + matcherConfig.getStartMark().getLine();
+        sourceFileName = filename;
+        sourceFileLineNumber = matcherConfig.getStartMark().getLine();
+        matcherSourceLocation = sourceFileName + ':' + sourceFileLineNumber;
 
         verbose = false;
 
@@ -421,6 +432,10 @@ public class Matcher implements Serializable {
 
     public long getActionsThatRequireInput() {
         return actionsThatRequireInput;
+    }
+
+    public long getActionsThatRequireInputAndReceivedInput() {
+        return actionsThatRequireInputAndReceivedInput;
     }
 
     private long actionsThatRequireInputAndReceivedInput = 0;

@@ -176,6 +176,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         return allMatchers;
     }
 
+    protected MatcherList getTouchedMatchers() {
+        return touchedMatchers;
+    }
+
     private final Map<String, Set<MatcherAction>> informMatcherActions = new LinkedHashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
     private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
@@ -733,7 +737,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             matcher.reset();
         }
 
-        touchedMatchers = new MatcherList(16);
+        touchedMatchers = new MatcherList(32);
     }
 
     private transient volatile Set<String> allPossibleFieldNamesCache = null; //NOSONAR: The getter avoids the java:S3077 issues

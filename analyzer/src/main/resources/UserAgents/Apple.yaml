@@ -74,19 +74,6 @@ config:
     - 'OperatingSystemName                 :      141 :"iOS"'
     - 'OperatingSystemVersion              :      141 :"??"'
 
-#- matcher:
-#    variable:
-#      - 'AppleTag                            :agent.(1-5)product.version[-2]?AppleDeviceClass'
-#    extract:
-#      - 'DeviceClass                         :      140 :LookUp[AppleDeviceClass;@AppleTag]'
-#      - 'DeviceBrand                         :      140 :"Apple"'
-#      - 'DeviceName                          :      140 :LookUp[AppleDeviceName;@AppleTag]'
-#      - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
-#      - 'OperatingSystemClass                :      140 :"Mobile"'
-#      - 'OperatingSystemName                 :      140 :"iOS"'
-#      - 'OperatingSystemVersion              :      140 :"??"'
-
-
 - matcher:
     require:
     - 'agent.(1-5)product.(1)comments.entry[-2]="iPhone OS"'
@@ -147,7 +134,7 @@ config:
     variable:
       #    - 'agent.(5)product.(1)version.(1)keyvalue.(1)key="ios"'
       #    - 'agent.(5)product.(1)version.(1)keyvalue.(1)version="iPhone11,8"'
-    - 'AppleTag                            :agent.product.version.keyvalue.key="ios"^.value?AppleDeviceClass'
+    - 'AppleTag                            :agent.product.(1)version.keyvalue.key="ios"^.value?AppleDeviceClass'
     extract:
     - 'DeviceClass                         :      123 :LookUp[AppleDeviceClass;@AppleTag]'
     - 'DeviceBrand                         :      123 :"Apple"'

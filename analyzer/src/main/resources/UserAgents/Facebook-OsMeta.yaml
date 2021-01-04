@@ -362,10 +362,9 @@ config:
       WebviewAppNameVersionMajor           : 'Instagram 16'
 
 
-
 - matcher:
     variable:
-    - 'OSMetaField                         :agent.(1)product.(1)comments.entry[-2]="osmeta like"'
+    - 'OSMetaField                         :agent.(1)product.(1)comments.entry[-2]="osmeta like"[3-]'
     extract:
     - 'DeviceClass                         :        2 :LookUp[AppleDeviceClass;@OSMetaField]'
     - 'DeviceBrand                         :        2 :"Apple"'
@@ -379,7 +378,6 @@ config:
     variable:
     - 'InstagramOS                         :agent.(1-6)product.name="Instagram"^.comments.(1-4)entry.(1-4)product.name="osmeta"^'
     require:
-    - 'agent.(1-4)product.comments.entry.(1)product.name="osmeta"' # Performance optimizer
     - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'
     extract:
     - 'DeviceClass                         :        2 :"Mobile"'

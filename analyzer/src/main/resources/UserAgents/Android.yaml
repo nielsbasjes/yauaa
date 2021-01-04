@@ -19,8 +19,6 @@ config:
 - matcher:
     variable:
     - 'Android                             :agent.(1-2)product.comments.entry.(1-2)product.name[1]="Android"'
-    require:
-    - '@Android'
     extract:
     - 'DeviceClass                         :       50 :"Mobile"'
     - 'DeviceName                          :       10 :"Android Mobile"'
@@ -31,8 +29,6 @@ config:
 - matcher:
     variable:
     - 'Android                             :agent.(1-2)product.comments.entry.(1-2)product.name[1]="Adr"'
-    require:
-    - '@Android'
     extract:
     - 'DeviceClass                         :       50 :"Mobile"'
     - 'DeviceName                          :       10 :"Android Mobile"'
@@ -43,8 +39,6 @@ config:
 - matcher:
     variable:
     - 'Android                             :agent.product.name="Android"'
-    require:
-    - '@Android'
     extract:
     - 'DeviceClass                         :       51 :"Mobile"'
     - 'DeviceName                          :       11 :"Android Mobile"'
@@ -55,8 +49,6 @@ config:
 - matcher:
     variable:
     - 'Android                             :agent.product.name="Adr"'
-    require:
-    - '@Android'
     extract:
     - 'DeviceClass                         :       51 :"Mobile"'
     - 'DeviceName                          :       11 :"Android Mobile"'
@@ -931,15 +923,15 @@ config:
     - 'OperatingSystemVersion              :        1 :"??"'
 
 - matcher:
-    require:
-    - 'agent.(1)product.name="Android-Mail"'
+    variable:
+    - 'AgentName                           :agent.(1)product.name="Android-Mail"'
     extract:
     - 'OperatingSystemClass                :      100 :"Mobile"'
     - 'OperatingSystemName                 :      100 :"Android"'
     - 'OperatingSystemVersion              :      100 :"??"'
     - 'AgentClass                          :      100 :"Special"'
     - 'AgentName                           :      100 :"Android-Mail"'
-    - 'AgentVersion                        :      100 :agent.(1)product.(1)version'
+    - 'AgentVersion                        :      100 :@AgentName^.(1)version'
 
 # Android-Mail --> This is the GMail app on Android
 - test:

@@ -48,7 +48,7 @@ config:
 
 - matcher:
     require:
-    - 'IsNull[agent~"MSIE or Firefox"]'
+    - 'IsNull[agent.product.comments.entry="MSIE or Firefox mutant"]' # Only on Daum robot
     extract:
     - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :  1000000 :"Hacker"'
@@ -172,7 +172,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Shell Shock'
       HackerToolkit                        : 'Unknown'
-
 
 - test:
     input:
@@ -435,7 +434,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Serverside include'
       HackerToolkit                        : 'Nessus'
-
 
 - test:
     input:

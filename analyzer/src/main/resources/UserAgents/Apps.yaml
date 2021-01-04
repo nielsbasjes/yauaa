@@ -1375,14 +1375,6 @@ config:
     - 'AgentName                           :      100 : agent.(1)product.name'
     - 'AgentVersion                        :      100 : agent.(1)product.version'
 
-- matcher:
-    require:
-    - 'IsNull[agent.(1)product.name="Mozilla"]'
-    - 'agent.(3)product.name="EmbeddedBrowser"'
-    extract:
-    - 'AgentClass                          :      100 : "Mobile App"'
-    - 'AgentName                           :      100 : agent.(2)product.name'
-    - 'AgentVersion                        :      100 : agent.(2)product.version'
 
 - matcher:
     variable:

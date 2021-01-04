@@ -123,14 +123,6 @@ config:
     - 'WebviewAppVersion                   :     1000 :@FBAV'
 
 - matcher:
-    require:
-    - 'agent.product.(1-2)comments.entry.(1)product.name="FBAN"'
-    extract:
-    - 'AgentBuild                          :     3000 :agent.product.(1-2)comments.entry.(1)product.name="FBBV"^.version'
-
-- matcher:
-    require:
-    - 'agent.product.(1-2)comments.entry.(1)product.name="FB_IAB"'
     extract:
     - 'AgentBuild                          :     3000 :agent.product.(1-2)comments.entry.(1)product.name="FBBV"^.version'
 

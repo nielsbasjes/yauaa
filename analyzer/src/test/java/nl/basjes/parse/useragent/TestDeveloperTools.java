@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -107,5 +108,17 @@ class TestDeveloperTools {
         assertTrue(ok, "Did not see the expected match.");
     }
 
+    @Disabled
+    @Test
+    void determineMatcherEfficiency(){
+        UserAgentAnalyzerTester userAgentAnalyzer =
+            UserAgentAnalyzerTester
+                .newBuilder()
+                .keepTests()
+                .hideMatcherLoadStats()
+                .build();
+
+        userAgentAnalyzer.analyzeMatcherImpactAllTests();
+    }
 
 }

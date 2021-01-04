@@ -96,7 +96,6 @@ config:
 # Some useragents are broken in the sense that the last entry is just the word 'mobile' instead of "Mobile Safari". We assume these are phones too.
 - matcher:
     require:
-    - 'agent.(1-2)product.(1)comments.entry.(1)product.name="Android"'
     - 'agent.text="Mobile"'
     - 'IsNull[agent.text="Mobile"^>]'
     extract:

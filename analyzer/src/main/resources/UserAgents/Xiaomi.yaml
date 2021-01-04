@@ -587,6 +587,7 @@ config:
     variable:
     - 'DeviceProductName                   :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
     require:
+    - 'agent.(1)product.(1)comments.entry[2]="MIUI"' # Performance trick
     - '@DeviceProductName[2]="MIUI"'
     extract:
     - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
@@ -596,6 +597,7 @@ config:
     variable:
     - 'DeviceProductName                   :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
     require:
+    - 'agent.(1)product.(1)comments.entry[3]="MIUI"' # Performance trick
     - '@DeviceProductName[3]="MIUI"'
     extract:
     - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
@@ -605,6 +607,7 @@ config:
     variable:
     - 'DeviceProductName                   :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
     require:
+    - 'agent.(1)product.(1)comments.entry[4]="MIUI"' # Performance trick
     - '@DeviceProductName[4]="MIUI"'
     extract:
     - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
@@ -614,6 +617,7 @@ config:
     variable:
     - 'DeviceProductName                   :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1)product.(1)comments.entry]'
     require:
+    - 'agent.(1)product.(1)comments.entry[5]="MIUI"' # Performance trick
     - '@DeviceProductName[5]="MIUI"'
     extract:
     - 'DeviceBrand                         :      400 :LookUpPrefix[MobileBrandPrefixes;@DeviceProductName]'
