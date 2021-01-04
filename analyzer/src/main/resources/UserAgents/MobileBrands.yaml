@@ -115,6 +115,8 @@ config:
 
       "Fire "                   : "Amazon"
       "Kindle"                  : "Amazon"
+      "SD"                      : "Amazon"
+      "KF"                      : "Amazon"
 
       "K00"                     : "Asus"
       "K01"                     : "Asus"
@@ -173,6 +175,7 @@ config:
 # Pixel is a special case that conflicts with the Pixel/ tag used by Tencent browsers
 #      "Pixel"                   : "Google"
       "Android SDK"             : "Google"
+      "SDK"                     : "Google"
 
       "Hi 1"                    : "Hisense"
       "Hi 2"                    : "Hisense"
@@ -724,8 +727,6 @@ config:
 
 - lookup: # DO NOT USE THESE AS PREFIX MATCHING
     name: 'ExactMatchMobileBrands'
-    merge:
-    - 'MobileBrands'
     map:
       "Pre"                     : "Palm"
       "Pixi"                    : "Palm"

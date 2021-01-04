@@ -8,6 +8,7 @@ v5.22-SNAPSHOT
   - ExtractBrandFromUrl function
   - Added rule analyzer and optimized some of the rules.
   - Special handling of the "require IsNull" cases to increase performance.
+  - Merging lookups to reduce number of rules.
 - New/improved detections
   - Added about 960 extra testcases
   - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen, WebOS.

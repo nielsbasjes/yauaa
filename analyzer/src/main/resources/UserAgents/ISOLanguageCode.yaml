@@ -22,53 +22,44 @@ config:
 # Match the 2 and 2-2 letter variants:
 - matcher:
     extract:
-    - 'AgentLanguageCode                   :      100 :LookUp[ISOLanguageCodes;agent.(1-20)text]'
-    - 'AgentLanguage                       :      100 :LookUp[ISOLanguageCodesName;agent.(1-20)text]'
+    - 'AgentLanguageCode                   :      100 :LookUp[ISOLanguageCodesAll    ;agent.(1-20)text]'
+    - 'AgentLanguage                       :      100 :LookUp[ISOLanguageCodesNameAll;agent.(1-20)text]'
 - matcher:
     extract:
-    - 'AgentLanguageCode                   :   500005 :LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1-2)text]'
-    - 'AgentLanguage                       :   500005 :LookUp[ISOLanguageCodesName;agent.(1)product.(1)comments.entry.(1-2)text]'
+    - 'AgentLanguageCode                   :   500006 :LookUp[ISOLanguageCodesAll    ;agent.(1)product.(1)comments.entry.(1)text]'
+    - 'AgentLanguage                       :   500006 :LookUp[ISOLanguageCodesNameAll;agent.(1)product.(1)comments.entry.(1)text]'
 
 - matcher:
     extract:
-    - 'AgentLanguageCode                   :   500000 :LookUp[ISOLanguageCodes;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
-    - 'AgentLanguage                       :   500000 :LookUp[ISOLanguageCodesName;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguageCode                   :   500005 :LookUp[ISOLanguageCodesAll    ;agent.(1)product.(1)comments.entry.(2)text]'
+    - 'AgentLanguage                       :   500005 :LookUp[ISOLanguageCodesNameAll;agent.(1)product.(1)comments.entry.(2)text]'
 
 - matcher:
     extract:
-    - 'AgentLanguageCode                   :   500004 :LookUp[ISOLanguageCodes;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
-    - 'AgentLanguage                       :   500004 :LookUp[ISOLanguageCodesName;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguageCode                   :   500000 :LookUp[ISOLanguageCodesAll    ;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguage                       :   500000 :LookUp[ISOLanguageCodesNameAll;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
 
 - matcher:
     extract:
-    - 'AgentLanguageCode                   :   500008 :LookUp[ISOLanguageCodes;agent.product.name="Language"^.version]'
-    - 'AgentLanguage                       :   500008 :LookUp[ISOLanguageCodesName;agent.product.name="Language"^.version]'
-
-# Match the 3 variants:
-- matcher:
-    extract:
-    - 'AgentLanguageCode                   :      100 :LookUp[ISOLanguageCodes3;agent.(1-20)text]'
-    - 'AgentLanguage                       :      100 :LookUp[ISOLanguageCodes3Name;agent.(1-20)text]'
-- matcher:
-    extract:
-    - 'AgentLanguageCode                   :   499905 :LookUp[ISOLanguageCodes3;agent.(1)product.(1)comments.entry.(1-2)text]'
-    - 'AgentLanguage                       :   499905 :LookUp[ISOLanguageCodes3Name;agent.(1)product.(1)comments.entry.(1-2)text]'
+    - 'AgentLanguageCode                   :   500004 :LookUp[ISOLanguageCodesAll    ;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguage                       :   500004 :LookUp[ISOLanguageCodesNameAll;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
 
 - matcher:
     extract:
-    - 'AgentLanguageCode                   :   499900 :LookUp[ISOLanguageCodes3;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
-    - 'AgentLanguage                       :   499900 :LookUp[ISOLanguageCodes3Name;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
+    - 'AgentLanguageCode                   :   500008 :LookUp[ISOLanguageCodesAll    ;agent.product.name="Language"^.version]'
+    - 'AgentLanguage                       :   500008 :LookUp[ISOLanguageCodesNameAll;agent.product.name="Language"^.version]'
 
-- matcher:
-    extract:
-    - 'AgentLanguageCode                   :   499904 :LookUp[ISOLanguageCodes3;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
-    - 'AgentLanguage                       :   499904 :LookUp[ISOLanguageCodes3Name;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
-
-- matcher:
-    extract:
-    - 'AgentLanguageCode                   :   500008 :LookUp[ISOLanguageCodes3;agent.product.name="Language"^.version]'
-    - 'AgentLanguage                       :   500008 :LookUp[ISOLanguageCodes3Name;agent.product.name="Language"^.version]'
-
+# -----------------------------------------------------------------------------
+- lookup:
+    name: 'ISOLanguageCodesAll'
+    merge:
+    - 'ISOLanguageCodes'
+    - 'ISOLanguageCodes3'
+- lookup:
+    name: 'ISOLanguageCodesNameAll'
+    merge:
+    - 'ISOLanguageCodesName'
+    - 'ISOLanguageCodes3Name'
 # -----------------------------------------------------------------------------
 - lookup:
     name: 'ISOLanguageCodes'

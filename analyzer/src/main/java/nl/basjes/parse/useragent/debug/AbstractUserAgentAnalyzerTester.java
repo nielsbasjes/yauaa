@@ -581,17 +581,19 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         long tests;
         long touched;
         long enoughInputs;
-        long notUsed;
+        long used;
 
         @Override
         public String toString() {
             return String.format(
-                "%-45s --> touched= %5d (%4.1f%%), enoughInputs = %5d (%4.1f%%), unused = %5d (%4.1f%%) %s",
-                "Rule.("+name+")",
+                "%-45s --> touched= %5d (%3.0f%%), enoughInputs = %5d (%3.0f%%), used = %5d (%3.0f%%) %s%s%s",
+                "Rule.(" + name + ")",
                 touched,      100.0 * ((double)touched/tests),
-                enoughInputs, 100.0 * ((double)enoughInputs/tests),
-                notUsed,      100.0 * ((double)notUsed/tests),
-                touched > 0 && touched == notUsed ? "<-- NEVER USED":"");
+                enoughInputs, touched      == 0 ? 0.0 : 100.0 * ((double)enoughInputs/touched),
+                used,         enoughInputs == 0 ? 0.0 : 100.0 * ((double) used /enoughInputs),
+                touched      ==  0              ? "~~~"               : "",
+                enoughInputs >   0 && used == 0 ? "<-- NEVER USED "   : "",
+                enoughInputs > 100 && used == 0 ? ">> SEVERE CASE <<" : "");
         }
     }
 
@@ -610,11 +612,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             .stream()
             .sorted(Comparator.comparing(Matcher::getSourceFileName).thenComparingLong(Matcher::getSourceFileLineNumber))
             .forEach(matcher -> {
-            MatcherImpact matcherImpact = new MatcherImpact();
-            matcherImpact.name = matcher.getMatcherSourceLocation();
-            impactOverview.put(matcher.getMatcherSourceLocation(), matcherImpact);
-            impactList.add(matcherImpact);
-        });
+                MatcherImpact matcherImpact = new MatcherImpact();
+                matcherImpact.name = matcher.getMatcherSourceLocation();
+                impactOverview.put(matcher.getMatcherSourceLocation(), matcherImpact);
+                impactList.add(matcherImpact);
+            });
 
         for (Map<String, Map<String, String>> test : getTestCases()) {
             Map<String, String> input = test.get("input");
@@ -631,8 +633,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 impact.touched++;
                 if (m.getActionsThatRequireInput() == m.getActionsThatRequireInputAndReceivedInput()) {
                     impact.enoughInputs++;
-                    if (m.getUsedMatches().isEmpty()) {
-                        impact.notUsed++;
+                    if (!m.getUsedMatches().isEmpty()) {
+                        impact.used++;
                     }
                 }
             });

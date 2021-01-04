@@ -519,38 +519,12 @@ config:
     extract:
     - 'DeviceClass                         :      199 :"Phone"'
     - 'DeviceName                          :      199 :"Windows Phone"'
-    - 'DeviceCpuBits                       :        1 :"32"'
+    - 'DeviceCpuBits                       :      199 :LookUp[WindowsPhoneOSCpuBits;@Product]'
     - 'OperatingSystemClass                :      199 :"Mobile"'
     - 'OperatingSystemName                 :      199 :LookUp[WindowsPhoneOSName;@Product]'
     - 'OperatingSystemVersion              :      199 :LookUp[WindowsPhoneOSVersion;@Product]'
     - 'OperatingSystemNameVersion          :      199 :LookUp[WindowsPhoneOSNameVersion;@Product]'
 
-- matcher:
-    require:
-    - 'agent.(1)product.comments.entry="ARM"'
-    extract:
-    - 'DeviceCpuBits                       :      199 :LookUp[WindowsPhoneOSCpuBits;agent.(1)product.comments.entry.product]'
-
-
-- matcher:
-    variable:
-    - 'Product                             :agent.product?WindowsPhoneOSName'
-    require:
-    - 'agent.(1)product.comments.entry="ARM"'
-    extract:
-    - 'DeviceClass                         :      199 :"Phone"'
-    - 'DeviceName                          :      199 :"Windows Phone"'
-    - 'DeviceCpuBits                       :        1 :"32"'
-    - 'OperatingSystemClass                :      199 :"Mobile"'
-    - 'OperatingSystemName                 :      199 :LookUp[WindowsPhoneOSName;@Product]'
-    - 'OperatingSystemVersion              :      199 :LookUp[WindowsPhoneOSVersion;@Product]'
-    - 'OperatingSystemNameVersion          :      199 :LookUp[WindowsPhoneOSNameVersion;@Product]'
-
-- matcher:
-    require:
-    - 'agent.(1)product.comments.entry="ARM"'
-    extract:
-    - 'DeviceCpuBits                       :      199 :LookUp[WindowsPhoneOSCpuBits;agent.product]'
 
 # Edge case: No version for Windows Phone and possibly without "ARM"
 - matcher:

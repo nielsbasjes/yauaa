@@ -104,20 +104,6 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1-5)product.(1)comments.entry[-2]="iPhone OS"'
-    variable:
-    - 'AppleTag                            :agent.(1-5)product.comments.entry[-2]?AppleDeviceClass'
-    extract:
-    - 'DeviceClass                         :      103 :LookUp[AppleDeviceClass;@AppleTag]'
-    - 'DeviceBrand                         :      103 :"Apple"'
-    - 'DeviceName                          :      103 :LookUp[AppleDeviceName;@AppleTag]'
-    - 'DeviceVersion                       :        3 :LookUp[AppleDeviceVersion;@AppleTag]'
-    - 'OperatingSystemClass                :       11 :"Mobile"'
-    - 'OperatingSystemName                 :       11 :"iOS"'
-    - 'OperatingSystemVersion              :       11 :"??"'
-
-- matcher:
-    require:
     - 'agent.(1-5)product.(1)comments.entry[2-3]="iPhone OS"'
     variable:
     - 'AppleTag                            :agent.(1-5)product.comments.entry[-2]?AppleDeviceClass'
@@ -1537,25 +1523,7 @@ config:
 - matcher:
     variable:
     - 'Device                              :agent.product.name[1]="Apple"'
-    - 'iOS                                 :@Device@[2]="iOS"'
-    extract:
-    - 'OperatingSystemClass                :      150 : "Mobile"'
-    - 'OperatingSystemName                 :      150 : "iOS"'
-    - 'OperatingSystemVersion              :      150 : @iOS^.version'
-
-- matcher:
-    variable:
-    - 'Device                              :agent.product.name[1]="Apple"'
     - 'iOS                                 :@Device@[3]="iOS"'
-    extract:
-    - 'OperatingSystemClass                :      150 : "Mobile"'
-    - 'OperatingSystemName                 :      150 : "iOS"'
-    - 'OperatingSystemVersion              :      150 : @iOS^.version'
-
-- matcher:
-    variable:
-    - 'Device                              :agent.product.name[1]="Apple"'
-    - 'iOS                                 :@Device@[4]="iOS"'
     extract:
     - 'OperatingSystemClass                :      150 : "Mobile"'
     - 'OperatingSystemName                 :      150 : "iOS"'

@@ -28,7 +28,7 @@ config:
 
 - matcher:
     require:
-      - 'IsNull[agent.product.name]'
+      - 'IsNull[agent.(1)product.name]'
     extract:
       - 'Found                      :        2 :"Failed"'
 

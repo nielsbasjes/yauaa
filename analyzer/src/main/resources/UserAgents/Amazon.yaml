@@ -22,27 +22,6 @@ config:
 # https://developer.amazon.com/public/solutions/devices/fire-phone/docs/fire-phone-user-agent-strings
 # https://developer.amazon.com/docs/fire-tablets/ft-user-agent-strings.html
 
-
-- matcher:
-    extract:
-    - 'DeviceClass                         :      500 :"Tablet"'
-    - 'DeviceBrand                         :      500 :"Amazon"'
-    - 'DeviceName                          :      500 :agent.(1)product.(1)comments.entry.(1)product.name[2]="Build"@[1]{"KF"'
-    - 'DeviceCpu                           :      100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :     1000 :"Mobile"'
-    - 'OperatingSystemName                 :     1000 :"FireOS"'
-    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
-
-- matcher:
-    extract:
-    - 'DeviceClass                         :      500 :"Phone"'
-    - 'DeviceBrand                         :      500 :"Amazon"'
-    - 'DeviceName                          :      500 :agent.(1)product.(1)comments.entry.(1)product.name[2]="Build"@[1]{"SD"'
-    - 'DeviceCpu                           :      100 :"<<<null>>>"'
-    - 'OperatingSystemClass                :     1000 :"Mobile"'
-    - 'OperatingSystemName                 :     1000 :"FireOS"'
-    - 'OperatingSystemVersion              :     1000 :agent.(1)product.(1)comments.entry.(1)product.name="Android"^.version'
-
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Amazon"'

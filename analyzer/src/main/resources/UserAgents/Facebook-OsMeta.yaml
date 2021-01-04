@@ -364,18 +364,6 @@ config:
 
 - matcher:
     variable:
-    - 'OSMetaField                         :agent.(1)product.(1)comments.entry[-2]="osmeta like"[3-]'
-    extract:
-    - 'DeviceClass                         :        2 :LookUp[AppleDeviceClass;@OSMetaField]'
-    - 'DeviceBrand                         :        2 :"Apple"'
-    - 'DeviceName                          :        2 :LookUp[AppleDeviceName;@OSMetaField]'
-    - 'DeviceVersion                       :        2 :LookUp[AppleDeviceVersion;@OSMetaField]'
-    - 'OperatingSystemClass                :       20 :"Mobile"'
-    - 'OperatingSystemName                 :       20 :"iOS"'
-    - 'OperatingSystemVersion              :       20 :"??"'
-
-- matcher:
-    variable:
     - 'InstagramOS                         :agent.(1-6)product.name="Instagram"^.comments.(1-4)entry.(1-4)product.name="osmeta"^'
     require:
     - 'agent.(1)product.(1)comments.entry[-2]="osmeta like"'

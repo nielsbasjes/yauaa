@@ -115,6 +115,7 @@ class TestPredefinedBrowsers {
         }
 
         if (duplicates.size() == 0) {
+            LOG.info("No duplicate tests were found.");
             return; // We're done and all is fine.
         }
 

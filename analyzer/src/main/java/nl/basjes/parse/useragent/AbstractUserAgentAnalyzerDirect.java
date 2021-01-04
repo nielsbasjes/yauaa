@@ -197,8 +197,9 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     }
 
     private Map<String, Map<String, String>> lookups = new LinkedHashMap<>(128);
+    private final Map<String, Set<String>> lookupMerge = new LinkedHashMap<>(128); // The names of the lookups that need to be merged
     private final Map<String, Set<String>> lookupSets = new LinkedHashMap<>(128);
-    private final Map<String, Set<String>> lookupSetMerge = new LinkedHashMap<>(128);
+    private final Map<String, Set<String>> lookupSetMerge = new LinkedHashMap<>(128);  // The names of the sets that need to be merged
 
     @Override
     public Map<String, Map<String, String>> getLookups() {
@@ -615,6 +616,21 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         }
 
         if (lookups != null && !lookups.isEmpty()) {
+            if (!lookupMerge.isEmpty()) {
+                lookupMerge.forEach((mapName, allExtraToLoad) -> {
+                    Map<String, String> theMap = lookups.get(mapName);
+                    if (theMap != null) {
+                        allExtraToLoad.forEach(extraToLoad -> {
+                            Map<String, String> extraMap = lookups.get(extraToLoad);
+                            if (extraMap == null) {
+                                throw new InvalidParserConfigurationException("Unable to merge lookup '" + extraToLoad + "' into '" + mapName + "'.");
+                            }
+                            theMap.putAll(extraMap);
+                        });
+                    }
+                });
+            }
+
             // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
             Map<String, Map<String, String>> cleanedLookups = new LinkedHashMap<>(lookups.size());
             for (Map.Entry<String, Map<String, String>> lookupsEntry : lookups.entrySet()) {
@@ -628,8 +644,8 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         }
 
         if (!lookupSetMerge.isEmpty()) {
-            lookupSetMerge.forEach((set, allExtraToLoad) -> {
-                Set<String> theSet = lookupSets.get(set);
+            lookupSetMerge.forEach((setName, allExtraToLoad) -> {
+                Set<String> theSet = lookupSets.get(setName);
                 if (theSet != null) {
                     allExtraToLoad.forEach(extraToLoad -> {
                         Map<String, String> extralookup = lookups.get(extraToLoad);
@@ -640,6 +656,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
                         if (extralookupSet != null) {
                             theSet.addAll(extralookupSet);
                         }
+                        if (extralookup == null && extralookupSet == null) {
+                            throw new InvalidParserConfigurationException("Unable to merge set '" + extraToLoad + "' into '" + setName + "'.");
+                        }
+
                     });
                 }
             });
@@ -880,17 +900,19 @@ config:
 
     private void loadYamlLookup(MappingNode entry, String filename) {
         String name = null;
-        Map<String, String> map = null;
+        Map<String, String> map = new HashMap<>();
+
+        Set<String> merge = new LinkedHashSet<>();
 
         for (NodeTuple tuple : entry.getValue()) {
             switch (getKeyAsString(tuple, filename)) {
                 case "name":
                     name = getValueAsString(tuple, filename);
                     break;
+                case "merge":
+                    merge.addAll(getStringValues(getValueAsSequenceNode(tuple, filename), filename));
+                    break;
                 case "map":
-                    if (map == null) {
-                        map = new HashMap<>();
-                    }
                     List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
                     for (NodeTuple mapping : mappings) {
                         String key = getKeyAsString(mapping, filename);
@@ -909,7 +931,11 @@ config:
             }
         }
 
-        require(name != null && map != null, entry, filename, "Invalid lookup specified");
+        require(name != null && (!map.isEmpty() || !merge.isEmpty()), entry, filename, "Invalid lookup specified");
+
+        if (!merge.isEmpty()) {
+            lookupMerge.put(name, merge);
+        }
 
         lookups.put(name, map);
     }
@@ -938,6 +964,8 @@ config:
                     break;
             }
         }
+
+        require(name != null && (!lookupSet.isEmpty() || !merge.isEmpty()), entry, filename, "Invalid lookup specified");
 
         if (!merge.isEmpty()) {
             lookupSetMerge.put(name, merge);

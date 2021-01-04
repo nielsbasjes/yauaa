@@ -311,3 +311,45 @@ config:
         LookupMapWalk1: "Two"
         LookupMapWalk2: "Three"
         LookupMapWalk3: "333"
+
+
+  - lookup:
+      name: 'FullABC'
+      merge:
+        - 'FullA'
+        - 'FullB'
+        - 'FullC'
+      map:
+        "Lookup/444": "Full Four"
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMerged1: 1: LookUp[FullABC;agent.(1)product.comments.(1)entry.product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMerged2: 1: LookUp[FullABC;agent.(1)product.comments.(2)entry.product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMerged3: 1: LookUp[FullABC;agent.(1)product.comments.(3)entry.product]'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
+        - 'LookupMerged4: 1: LookUp[FullABC;agent.(1)product.comments.(4)entry.product]'
+
+  - test:
+      <<: *TEST_OPTIONS
+      input:
+        name: 'Lookup Fall through match'
+        user_agent_string: 'Mozilla/5.0 (Lookup/111; Lookup/222; Lookup/333; Lookup/444)'
+      expected:
+        LookupMerged1: "Full One"
+        LookupMerged2: "Full Two"
+        LookupMerged3: "Full Three"
+        LookupMerged4: "Full Four"
+
