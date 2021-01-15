@@ -1,0 +1,420 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2020 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+isPathTraversal: &isPathTraversal
+  DeviceClass                          : 'Hacker'
+  DeviceName                           : 'Hacker'
+  DeviceBrand                          : 'Hacker'
+  DeviceVersion                        : 'Hacker'
+  OperatingSystemClass                 : 'Hacker'
+  OperatingSystemName                  : 'Hacker'
+  OperatingSystemVersion               : 'Hacker'
+  OperatingSystemVersionMajor          : 'Hacker'
+  OperatingSystemNameVersion           : 'Hacker'
+  OperatingSystemNameVersionMajor      : 'Hacker'
+  LayoutEngineClass                    : 'Hacker'
+  LayoutEngineName                     : 'Hacker'
+  LayoutEngineVersion                  : 'Hacker'
+  LayoutEngineVersionMajor             : 'Hacker'
+  LayoutEngineNameVersion              : 'Hacker'
+  LayoutEngineNameVersionMajor         : 'Hacker'
+  AgentClass                           : 'Hacker'
+  AgentName                            : 'Hacker'
+  AgentVersion                         : 'Hacker'
+  AgentVersionMajor                    : 'Hacker'
+  AgentNameVersion                     : 'Hacker'
+  AgentNameVersionMajor                : 'Hacker'
+  HackerAttackVector                   : 'Path Traversal'
+  HackerToolkit                        : 'Unknown'
+
+config:
+
+- test:
+    input:
+      user_agent_string: '../../app.js'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../app.js'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../boot.ini'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../boot.ini'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../boot.ini'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../config.js'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../config.js'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../.env'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../.env'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../.env'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../../../../../../../etc/group'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '................/etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '............../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '............/etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '........../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '......../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '....../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '..../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../.../.././../.../.././../.../.././../.../.././../.../.././../.../.././etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../../../../../../../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../../../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../..//../..//../..//../..//../..//../..//../..//../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '/../..//../..//../..//../..//../..//etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '/\\../\\../\\../\\../\\../\\../\\../etc/passwd'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../../../../../../../etc/passwd%00.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '/.././.././.././.././.././.././.././../etc/./passwd%00.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../Gemfile'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../Gemfile'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../Gemfile'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../index.js'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../index.js'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../META-INF/MANIFEST.MF'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../META-INF/MANIFEST.MF'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: './.../.../Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: './../Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36../.'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36/../xyz'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: './.../.../Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: './../Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../package.json'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../package.json'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../../../../../../../proc/version'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../README.md'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../README.md' # .md is the TLD of Moldova --> And readme.md is actually a website that exists.
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Path Traversal'
+      HackerToolkit                        : 'Unknown'
+      AgentInformationUrl                  : 'README.md'
+
+- test:
+    input:
+      user_agent_string: '../../requirements.txt'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../requirements.txt'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../web.config'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../web.config'
+    expected: *isPathTraversal
+
+
+- test:
+    input:
+      user_agent_string: '../../WEB-INF/web.xml'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../WEB-INF/web.xml'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '/../../WEB-INF/web.xml'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '//../....//....//WEB-INF/web.xml'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../WEB-INF/web.xml?.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../WEB-INF/web.xml?.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../WEB-INF/web.xml?.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../WEB-INF/web.xml;x=.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../WEB-INF/web.xml;x=.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../WEB-INF/web.xml;x=.36'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../.../.././../.../.././../.../.././../.../.././../.../.././../.../.././windows/win.ini'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: '../../../../../../../../../../windows/win.ini'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: 'file:///etc/group'
+    expected: *isPathTraversal
+
+- test:
+    input:
+      user_agent_string: 'file:///etc/passwd'
+    expected: *isPathTraversal

