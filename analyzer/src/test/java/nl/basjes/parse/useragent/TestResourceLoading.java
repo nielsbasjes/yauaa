@@ -22,12 +22,29 @@ import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.nodes.MappingNode;
+import org.yaml.snakeyaml.nodes.Node;
+import org.yaml.snakeyaml.nodes.NodeTuple;
+import org.yaml.snakeyaml.nodes.SequenceNode;
+import org.yaml.snakeyaml.reader.UnicodeReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
+import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
+import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
+import static nl.basjes.parse.useragent.utils.YauaaVersion.assertSameVersion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -141,42 +158,78 @@ class TestResourceLoading {
         assertTrue(fieldList2.containsAll(extraFields));
     }
 
-    // Because of the possibility of merging maps and sets from other files
-    // this test will always fail.
-    // FIXME: Make a better test for this.
-    @Disabled
     @Test
-    void testAllResourceFilesHaveTheProperName() {
+    void testAllResourceFilesHaveTheProperName() throws IOException {
         for (String ruleFileName: PackagedRules.getRuleFileNames()) {
-            UserAgentAnalyzer analyzer = UserAgentAnalyzer
-                .newBuilder()
-                .dropDefaultResources()
-                .keepTests()
-                // We load a single dummy action otherwise the Analyzer will not be constructed at all
-                // So having 1 matcher means no matchers in the rule file we want to test.
-                .addResources("classpath*:SingleDummyMatcher.yaml")
-                .addResources(ruleFileName)
-                .build();
+            final LoaderOptions yamlLoaderOptions = new LoaderOptions();
+            yamlLoaderOptions.setMaxAliasesForCollections(100); // We use this many in the hacker/sql injection config.
+            Yaml yaml = new Yaml(yamlLoaderOptions);
 
-            long nrOfTestCases = analyzer.getTestCases().size();
-            long nrOfMatchers = analyzer.getAllMatchers().size();
-            long nrOfLookups = analyzer.getLookups().size();
-            long nrOfLookupSets = analyzer.getLookupSets().size();
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            Resource[] resourceArray = resolver.getResources(ruleFileName);
+            assertEquals(1, resourceArray.length);
+
+            long nrOfTestCases = 0;
+            long nrOfMatchers = 0;
+            long nrOfLookups = 0;
+            long nrOfLookupSets = 0;
+
+            Resource resource = resourceArray[0];
+
+            Node loadedYaml = yaml.compose(new UnicodeReader(resource.getInputStream()));
+            MappingNode rootNode = (MappingNode) loadedYaml;
+
+            NodeTuple configNodeTuple = null;
+            for (NodeTuple tuple : rootNode.getValue()) {
+                String name = getKeyAsString(tuple, ruleFileName);
+                if ("config".equals(name)) {
+                    configNodeTuple = tuple;
+                    break;
+                }
+            }
+
+            SequenceNode configNode = getValueAsSequenceNode(configNodeTuple, ruleFileName);
+            List<Node> configList = configNode.getValue();
+
+            for (Node configEntry : configList) {
+                requireNodeInstanceOf(MappingNode.class, configEntry, ruleFileName, "The entry MUST be a mapping");
+                NodeTuple entry = getExactlyOneNodeTuple((MappingNode) configEntry, ruleFileName);
+                String entryType = getKeyAsString(entry, ruleFileName);
+                switch (entryType) {
+                    case "lookup":
+                        nrOfLookups++;
+                        break;
+                    case "set":
+                        nrOfLookupSets++;
+                        break;
+                    case "matcher":
+                        nrOfMatchers++;
+                        break;
+                    case "test":
+                        nrOfTestCases++;
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             if (UserAgentAnalyzer.isTestRulesOnlyFile(ruleFileName)) {
                 assertTrue(nrOfTestCases > 0,
                     "A tests file MUST have tests: " + ruleFileName);
-                assertEquals(1, nrOfMatchers,
-                    "A tests file may only have tests (this one has " + (nrOfMatchers-1) + " Matchers): " + ruleFileName);
+                assertEquals(0, nrOfMatchers,
+                    "A tests file may only have tests (this one has " + nrOfMatchers + " Matchers): " + ruleFileName);
                 assertEquals(0, nrOfLookups,
                     "A tests file may only have tests (this one has " + nrOfLookups + " Lookups): " + ruleFileName);
                 assertEquals(0, nrOfLookupSets,
                     "A tests file may only have tests (this one has " + nrOfLookupSets + " LookupSets): " + ruleFileName);
             } else {
-                assertTrue(nrOfMatchers >= 1 || nrOfLookups >= 0 || nrOfLookupSets >= 0,
+                assertTrue(nrOfMatchers >= 0 || nrOfLookups >= 0 || nrOfLookupSets >= 0,
                     "A file must have something (we did not find any matchers and/or lookups):" + ruleFileName);
 
-                if(nrOfTestCases  >= 0 && nrOfMatchers   == 1 && nrOfLookups    == 0 && nrOfLookupSets == 0) {
+                if( nrOfTestCases  >= 0 &&
+                    nrOfMatchers   == 0 &&
+                    nrOfLookups    == 0 &&
+                    nrOfLookupSets == 0) {
                     fail("A file with ONLY tests must be called '-tests':" + ruleFileName);
                 }
             }
