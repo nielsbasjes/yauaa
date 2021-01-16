@@ -23,9 +23,9 @@ config:
 
 - matcher:
     variable:
-      - 'Agent: agent.(1)product'
-      - 'AgentName: @Agent.(1)name'
-      - 'AgentVersion: @Agent.(1)version'
+    - 'Agent                               :agent.(1)product'
+    - 'AgentName                           :@Agent.(1)name'
+    - 'AgentVersion                        :@Agent.(1)version'
     require:
     - 'agent.(2)product.name="CFNetwork"'
     extract:
@@ -44,7 +44,7 @@ config:
 
 - matcher:
     variable:
-      - 'AgentName: agent.(1)product.(1)name'
+    - 'AgentName                           :agent.(1)product.(1)name'
     require:
     - 'agent.(2)product.name="CFNetwork"'
     - 'agent.(1)product.(1)comments.(1)entry="unknown version"'

@@ -4013,7 +4013,7 @@ config:
 
 - matcher:
     variable:
-    - 'Agent: agent.(1)product.(1)name="Open AnyConnect VPN Agent"^'
+    - 'Agent                               :agent.(1)product.(1)name="Open AnyConnect VPN Agent"^'
     extract:
     - 'AgentClass                          :      100 : "Special"'
     - 'AgentName                           :      100 : "OpenConnect VPN Agent"'
@@ -4084,7 +4084,7 @@ config:
 
 - matcher:
     variable:
-    - 'Agent: agent.(1)product.(1)name[1]="AnyConnect"'
+    - 'Agent                               :agent.(1)product.(1)name[1]="AnyConnect"'
     extract:
     - 'AgentClass                          :      100 : "Special"'
     - 'AgentName                           :      100 : "AnyConnect VPN Agent"'

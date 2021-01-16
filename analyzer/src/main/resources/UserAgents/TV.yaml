@@ -1207,7 +1207,7 @@ config:
 
 - matcher:
     variable:
-    - 'Device: agent.(1)product.name="Model"^'
+    - 'Device                              :agent.(1)product.name="Model"^'
     extract:
     - 'DeviceClass                         :        1 :"TV"'
     - 'DeviceBrand                         :        1 :@Device.(1)version[1]'
