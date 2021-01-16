@@ -20,7 +20,6 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -36,15 +35,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
-import static nl.basjes.parse.useragent.utils.YauaaVersion.assertSameVersion;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -226,7 +222,7 @@ class TestResourceLoading {
                 assertTrue(nrOfMatchers >= 0 || nrOfLookups >= 0 || nrOfLookupSets >= 0,
                     "A file must have something (we did not find any matchers and/or lookups):" + ruleFileName);
 
-                if( nrOfTestCases  >= 0 &&
+                if (nrOfTestCases  >= 0 &&
                     nrOfMatchers   == 0 &&
                     nrOfLookups    == 0 &&
                     nrOfLookupSets == 0) {
