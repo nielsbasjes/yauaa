@@ -452,7 +452,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
     private Yaml createYaml() {
         final LoaderOptions yamlLoaderOptions = new LoaderOptions();
-        yamlLoaderOptions.setMaxAliasesForCollections(100); // We use this many in the hacker/sql injection config.
+        yamlLoaderOptions.setMaxAliasesForCollections(200); // We use this many in the hacker/sql injection config.
         return new Yaml(yamlLoaderOptions);
     }
 

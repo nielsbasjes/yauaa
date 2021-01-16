@@ -158,7 +158,7 @@ class TestResourceLoading {
     void testAllResourceFilesHaveTheProperName() throws IOException {
         for (String ruleFileName: PackagedRules.getRuleFileNames()) {
             final LoaderOptions yamlLoaderOptions = new LoaderOptions();
-            yamlLoaderOptions.setMaxAliasesForCollections(100); // We use this many in the hacker/sql injection config.
+            yamlLoaderOptions.setMaxAliasesForCollections(200); // We use this many in the hacker/sql injection config.
             Yaml yaml = new Yaml(yamlLoaderOptions);
 
             PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();

