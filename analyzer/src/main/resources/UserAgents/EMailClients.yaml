@@ -37,7 +37,7 @@ config:
     require:
     - 'agent.(1)product.name="Microsoft Office"'
     variable:
-    - 'OfficeAppName                       :agent.(1)product.(1)comments.entry.(1)product.name{"Microsoft "'
+    - 'OfficeAppName                       :agent.(1)product.(1)comments.entry.(1)product.name[1]="Microsoft"@'
     extract:
     - 'DeviceClass                         :        1 : "Desktop"'
     - 'DeviceName                          :        1 : "Desktop"'

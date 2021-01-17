@@ -19,18 +19,20 @@ config:
 - lookup:
     name: 'HackerAttackVectors'
     map:
-      "() {"                  : "Code Injection"
-      "('') {"                : "Code Injection"
-      "$("                    : "Code Injection"
-#      "${"                    : "Code Injection" # Special edge case: Has separate rule
-      "{{"                    : "Code Injection"
-      "}}"                    : "Code Injection"
-      "<script"               : "Code Injection"
-      "javascript:"           : "Code Injection"
       "#exec"                 : "Serverside execute"
       "#include"              : "Serverside include"
       "nslookup"              : "Serverside execute"
       "JDatabaseDriverMysqli" : "Remote exec Joomla"
+
+      "() {"                  : "Code Injection"
+      "('') {"                : "Code Injection"
+      "$("                    : "Code Injection"
+#      "${"                    : "Code Injection" # This one has exceptions --> Has separate rule
+      "{{"                    : "Code Injection"
+      "}}"                    : "Code Injection"
+      "<script"               : "Code Injection"
+      "javascript:"           : "Code Injection"
+
       "chr("                  : "Code Injection"
       "concat("               : "Code Injection"
       "Socket.gethostbyname"  : "Code Injection"
@@ -67,11 +69,24 @@ config:
       "curl "                 : "Code Injection"
       "wget "                 : "Code Injection"
       "bash"                  : "Code Injection"
+
       "path:"                 : "Path Traversal"
       "file:"                 : "Path Traversal"
+      # Unix style paths
       "../"                   : "Path Traversal"
       "/.."                   : "Path Traversal"
       "/./."                  : "Path Traversal"
+      "..%2f"                 : "Path Traversal"
+      "%2e%2e%2f"             : "Path Traversal"
+      "%2e%2e/"               : "Path Traversal"
+      "..%c0%af"              : "Path Traversal" # https://security.stackexchange.com/questions/48879/why-does-directory-traversal-attack-c0af-work
+
+      # Windows style paths
+      "..\\"                  : "Path Traversal"
+      "\\.."                  : "Path Traversal"
+      "..%5c"                 : "Path Traversal"
+      "%2e%2e%5c"             : "Path Traversal"
+      "%2e%2e\\"              : "Path Traversal"
 
 - lookup:
     name: 'HackerToolKits'

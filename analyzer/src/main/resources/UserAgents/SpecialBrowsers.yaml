@@ -688,10 +688,11 @@ config:
 - matcher:
     variable:
     - 'Product                             :agent.product.name="Browser"^'
-    - 'ProductV1:@Product.(1)version'
-    - 'ProductV2:@Product.(2)version'
+    - 'ProductV1                           :@Product.(1)version'
+    - 'ProductV2                           :@Product.(2)version'
+    - 'Profile                             :agent.product.name="Profile"'
     require:
-    - 'agent.product{"Profile/MIDP"'
+    - '@Profile^.(1)version[1]="MIDP"'
     extract:
     - 'LayoutEngineClass                   :       10 :"Browser"'
     - 'LayoutEngineName                    :       10 :@ProductV1'

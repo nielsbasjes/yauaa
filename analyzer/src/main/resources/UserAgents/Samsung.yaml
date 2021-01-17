@@ -41,161 +41,35 @@ config:
 #   GT-Snnn5/GT-Nnnn5/GT-Pnnn5/GT-Innn5/SM-NnnnF/SM-Tnn5/SM-GnnnF – 4G/LTE model
 
 # ---
+- lookup:
+    name: "SamsungTypes"
+    map:
+      "GT-I"          : "Phone"
+      "GT-N"          : "Phone"
+      "GT-S"          : "Phone"
+      "SM-N"          : "Phone"
+      "GT-N5"         : "Tablet"
+      "GT-N8"         : "Tablet"
+      "GT-P"          : "Tablet"
+      "SM-P"          : "Tablet"
+      "SM-T"          : "Tablet"
+      "Samsung GT-I"  : "Phone"
+      "Samsung GT-N"  : "Phone"
+      "Samsung GT-S"  : "Phone"
+      "Samsung SM-N"  : "Phone"
+      "Samsung GT-N5" : "Tablet"
+      "Samsung GT-N8" : "Tablet"
+      "Samsung GT-P"  : "Tablet"
+      "Samsung SM-P"  : "Tablet"
+      "Samsung SM-T"  : "Tablet"
+
 - matcher:
     variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"GT-N"'
+    - 'DeviceTag                           :IsInLookUpPrefix[SamsungTypes;agent.(1-2)product.(1)comments.entry]'
     extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
+    - 'DeviceClass                         :     1010 :LookUpPrefix[SamsungTypes;@DeviceTag]'
     - 'DeviceBrand                         :     1010 :"Samsung"'
     - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-N"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"GT-N8"'
-    extract:
-    - 'DeviceClass                         :     1011 :"Tablet"'
-    - 'DeviceBrand                         :     1011 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-N8"'
-    extract:
-    - 'DeviceClass                         :     1011 :"Tablet"'
-    - 'DeviceBrand                         :     1011 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"GT-N5"'
-    extract:
-    - 'DeviceClass                         :     1011 :"Tablet"'
-    - 'DeviceBrand                         :     1011 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-N5"'
-    extract:
-    - 'DeviceClass                         :     1011 :"Tablet"'
-    - 'DeviceBrand                         :     1011 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"GT-I"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-I"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-
-# ---
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"SM-N"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung SM-N"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-# ---
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"GT-P"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-P"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-# ---
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"SM-T"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung SM-T"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-# ---
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"GT-S"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung GT-S"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Phone"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
-
-# ---
-
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"SM-P"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      102 :@DeviceTag'
-
-- matcher:
-    variable:
-    - 'DeviceTag                           :agent.product.comments.entry{"Samsung SM-P"'
-    extract:
-    - 'DeviceClass                         :     1010 :"Tablet"'
-    - 'DeviceBrand                         :     1010 :"Samsung"'
-    - 'DeviceName                          :      101 :@DeviceTag'
 
 - test:
     input:
