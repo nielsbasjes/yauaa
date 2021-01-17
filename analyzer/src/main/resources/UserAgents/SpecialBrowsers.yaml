@@ -3866,6 +3866,7 @@ config:
     - 'Smartphone'
     - 'ESB'
     - 'DigExt' # DigExt is a special mark issued in IE5 "allow offline reading" mode. Although DigExt is not a crawler, it may cause a large number of server visits like a crawler.
+    - 'Wine64' # Windows emulation environment on Linux
 
 - matcher:
     variable:
@@ -4322,3 +4323,32 @@ config:
       WebviewAppVersion                    : '??'
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Wine64; x64; Trident/7.0; rv:11.0) like Gecko'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '7.0'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'Trident 7.0'
+      LayoutEngineNameVersionMajor         : 'Trident 7'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
+

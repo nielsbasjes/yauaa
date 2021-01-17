@@ -19,23 +19,27 @@ config:
 - lookup:
     name: 'HackerAttackVectors'
     map:
-      "#exec"                 : "Serverside execute"
-      "#include"              : "Serverside include"
-      "nslookup"              : "Serverside execute"
-      "JDatabaseDriverMysqli" : "Remote exec Joomla"
-
+      # Shell scripting
       "() {"                  : "Code Injection"
       "('') {"                : "Code Injection"
       "$("                    : "Code Injection"
 #      "${"                    : "Code Injection" # This one has exceptions --> Has separate rule
       "{{"                    : "Code Injection"
       "}}"                    : "Code Injection"
+      "curl "                 : "Code Injection"
+      "wget "                 : "Code Injection"
+      "bash"                  : "Code Injection"
+      "nslookup"              : "Code Injection"
+
+      # Javascript/frontend scripting
       "<script"               : "Code Injection"
       "javascript:"           : "Code Injection"
+      "<img"                  : "Code Injection"
+      "onerror="              : "Code Injection"
+      "eval("                 : "Code Injection"
+      "atob("                 : "Code Injection"
 
-      "chr("                  : "Code Injection"
-      "concat("               : "Code Injection"
-      "Socket.gethostbyname"  : "Code Injection"
+      # SQL
       "SELECT "               : "Code Injection"
       "SELECT("               : "Code Injection"
       "CASE WHEN"             : "Code Injection"
@@ -49,27 +53,31 @@ config:
       "VARCHAR"               : "Code Injection"
       "RLIKE "                : "Code Injection"
       "1=1"                   : "Code Injection"
+      "PG_SLEEP("             : "Code Injection"
+      "SLEEP("                : "Code Injection"
+
+      # XML
       "<!ENTITY"              : "Code Injection"
       "xmlns"                 : "Code Injection"
+
+      # Python
+      "chr("                  : "Code Injection"
+      "concat("               : "Code Injection"
+      "Socket.gethostbyname"  : "Code Injection"
       "str("                  : "Code Injection"
       "__import__("           : "Code Injection"
       "gethostbyname("        : "Code Injection"
-      "bxss.me"               : "Code Injection"
-      "burpcollaborator.net"  : "Code Injection"
-      "PG_SLEEP("             : "Code Injection"
-      "SLEEP("                : "Code Injection"
       "while("                : "Code Injection"
       "print("                : "Code Injection"
       "typeof"                : "Code Injection"
       "load_file"             : "Code Injection"
-      "<img"                  : "Code Injection"
-      "onerror="              : "Code Injection"
-      "eval("                 : "Code Injection"
-      "atob("                 : "Code Injection"
-      "curl "                 : "Code Injection"
-      "wget "                 : "Code Injection"
-      "bash"                  : "Code Injection"
 
+      # Script retrieval sites
+      "bxss.me"               : "Code Injection"
+      "burp"                  : "Code Injection"
+      "orator.net"            : "Code Injection"
+
+      # Path Traversal
       "path:"                 : "Path Traversal"
       "file:"                 : "Path Traversal"
       # Unix style paths
@@ -79,14 +87,21 @@ config:
       "..%2f"                 : "Path Traversal"
       "%2e%2e%2f"             : "Path Traversal"
       "%2e%2e/"               : "Path Traversal"
-      "..%c0%af"              : "Path Traversal" # https://security.stackexchange.com/questions/48879/why-does-directory-traversal-attack-c0af-work
-
+      # https://security.stackexchange.com/questions/48879/why-does-directory-traversal-attack-c0af-work
+      "%C0%2F"                : "Path Traversal"
+      "%C0%AF"                : "Path Traversal"
       # Windows style paths
       "..\\"                  : "Path Traversal"
       "\\.."                  : "Path Traversal"
       "..%5c"                 : "Path Traversal"
       "%2e%2e%5c"             : "Path Traversal"
       "%2e%2e\\"              : "Path Traversal"
+
+      "#exec"                 : "Serverside execute"
+      "#include"              : "Serverside include"
+
+      # Tool specifics
+      "JDatabaseDriverMysqli" : "Remote exec Joomla"
 
 - lookup:
     name: 'HackerToolKits'

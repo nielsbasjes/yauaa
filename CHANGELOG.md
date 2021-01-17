@@ -13,14 +13,14 @@ v5.22-SNAPSHOT
   - Added > 1000 extra testcases
   - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen, WebOS.
   - Extra variants of Japanese locale codes
-  - Extra variants of MS Windows recognized
+  - Extra variants of MS Windows recognized and Wine64.
   - Old Maxthon naming (myIE2)
   - Brands: KDDI, O2, T-Mobile, MDA
   - Skip plugins and ISP names
   - AgentName "Mobile Safari" is now "Safari" (on iOS) or "Stock Android Browser"
   - AgentName "Mobile xxx" is now "xxx"
   - Less cases of DeviceClass "Mobile"
-  - Hackers: Report "Code Injection" instead of specific language.
+  - Hackers: Report more generic "Code Injection" (specifics are too unreliable).
 - WebServlet:
   - Yaml output retains # comments from the input
 
