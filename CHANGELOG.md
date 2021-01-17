@@ -23,6 +23,10 @@ v5.22-SNAPSHOT
   - Hackers: Report more generic "Code Injection" (specifics are too unreliable).
 - WebServlet:
   - Yaml output retains # comments from the input
+- Updated UDF dependencies
+  - Apache Flink            1.12.1
+  - Apache Beam             2.27.0
+  - Elastic Search/Logstash 7.10.2
 
 v5.21
 ===
