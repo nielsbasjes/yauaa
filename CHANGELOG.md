@@ -27,6 +27,7 @@ v5.22-SNAPSHOT
   - Apache Flink            1.12.1
   - Apache Beam             2.27.0
   - Elastic Search/Logstash 7.10.2
+- New UDF: Beam SQL
 
 v5.21
 ===

@@ -17,6 +17,7 @@
 * [Overview](UDFs.md)
 * [LogParser](UDF-LogParser.md)
 * [Apache Beam](UDF-ApacheBeam.md)
+* [Apache Beam SQL](UDF-ApacheBeamSql.md)
 * [Apache Drill](UDF-ApacheDrill.md)
 * [Apache Flink](UDF-ApacheFlink.md)
 * [Apache Flink (Table/SQL)](UDF-ApacheFlinkTable.md)

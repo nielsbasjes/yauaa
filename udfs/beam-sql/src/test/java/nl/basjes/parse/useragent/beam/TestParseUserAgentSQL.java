@@ -23,6 +23,7 @@ import org.apache.beam.sdk.coders.StringUtf8Coder;
 import org.apache.beam.sdk.extensions.sql.SqlTransform;
 import org.apache.beam.sdk.schemas.Schema;
 import org.apache.beam.sdk.testing.NeedsRunner;
+import org.apache.beam.sdk.testing.PAssert;
 import org.apache.beam.sdk.testing.TestPipeline;
 import org.apache.beam.sdk.testing.ValidatesRunner;
 import org.apache.beam.sdk.transforms.Create;
@@ -31,9 +32,6 @@ import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.Row;
-import org.checkerframework.checker.initialization.qual.Initialized;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.UnknownKeyFor;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -41,7 +39,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Category(ValidatesRunner.class)
@@ -52,36 +52,256 @@ public class TestParseUserAgentSQL implements Serializable {
     @Rule
     public final transient TestPipeline pipeline = TestPipeline.create();
 
+    public static Row listToRow(List<String> strings, Schema schema) {
+        Row.Builder appRowBuilder = Row.withSchema(schema);
+        strings.forEach(appRowBuilder::addValues);
+        return appRowBuilder.build();
+    }
 
     @Test
     @Category(NeedsRunner.class)
-    public void testUserAgentAnalysisSQL() {
+    public void testUserAgentAnalysisSQL() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
         // ============================================================
+
+        String agent1 =
+            "Mozilla/5.0 (X11; Linux x86_64) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Chrome/48.0.2564.82 Safari/537.36";
+        String agent2 =
+            "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) " +
+            "Chrome/53.0.2785.124 Mobile Safari/537.36";
+
         // The base test input
-        // List of Input UserAgent and expected { DeviceClass, AgentNameVersion }
         List<List<String>> useragents = Arrays.asList(
+            Collections.singletonList(agent1),
+            Collections.singletonList(agent2));
+
+        List<List<String>> expectedList = Arrays.asList(
             Arrays.asList(
-                "Mozilla/5.0 (X11; Linux x86_64) " +
-                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                    "Chrome/48.0.2564.82 Safari/537.36",
+                agent1,
+
                 "Desktop",
-                "Chrome 48.0.2564.82"),
+
+                "Chrome 48.0.2564.82",
+
+                "{\"Useragent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/48.0.2564.82 Safari\\/537.36\"," +
+                    "\"DeviceClass\":\"Desktop\"," +
+                    "\"DeviceName\":\"Linux Desktop\"," +
+                    "\"DeviceBrand\":\"Unknown\"," +
+                    "\"DeviceCpu\":\"Intel x86_64\"," +
+                    "\"DeviceCpuBits\":\"64\"," +
+                    "\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"LayoutEngineClass\":\"Browser\"," +
+                    "\"LayoutEngineName\":\"Blink\"," +
+                    "\"LayoutEngineVersion\":\"48.0\"," +
+                    "\"LayoutEngineVersionMajor\":\"48\"," +
+                    "\"LayoutEngineNameVersion\":\"Blink 48.0\"," +
+                    "\"LayoutEngineNameVersionMajor\":\"Blink 48\"," +
+                    "\"AgentClass\":\"Browser\"," +
+                    "\"AgentName\":\"Chrome\"," +
+                    "\"AgentVersion\":\"48.0.2564.82\"," +
+                    "\"AgentVersionMajor\":\"48\"," +
+                    "\"AgentNameVersion\":\"Chrome 48.0.2564.82\"," +
+                    "\"AgentNameVersionMajor\":\"Chrome 48\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"AgentClass\":\"Browser\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"AgentClass\":\"Browser\"," +
+                    "\"AgentName\":\"Chrome\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"AgentClass\":\"Browser\"," +
+                    "\"AgentName\":\"Chrome\"," +
+                    "\"AgentVersion\":\"48.0.2564.82\"}",
+
+                "{\"OperatingSystemClass\":\"Desktop\"," +
+                    "\"OperatingSystemName\":\"Linux\"," +
+                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
+                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"AgentClass\":\"Browser\"," +
+                    "\"AgentName\":\"Chrome\"," +
+                    "\"AgentVersion\":\"48.0.2564.82\"," +
+                    "\"AgentVersionMajor\":\"48\"}"
+                ),
 
             Arrays.asList(
-                "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
-                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                    "Chrome/53.0.2785.124 Mobile Safari/537.36",
-                "Phone",
-                "Chrome 53.0.2785.124")
+                agent2,
+
+               "Phone",
+
+               "Chrome 53.0.2785.124",
+
+               "{\"Useragent\":\"Mozilla\\/5.0 (Linux; Android 7.0; Nexus 6 Build\\/NBD90Z) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/53.0.2785.124 Mobile Safari\\/537.36\"," +
+                   "\"DeviceClass\":\"Phone\"," +
+                   "\"DeviceName\":\"Google Nexus 6\"," +
+                   "\"DeviceBrand\":\"Google\"," +
+                   "\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
+                   "\"OperatingSystemVersionBuild\":\"NBD90Z\"," +
+                   "\"LayoutEngineClass\":\"Browser\"," +
+                   "\"LayoutEngineName\":\"Blink\"," +
+                   "\"LayoutEngineVersion\":\"53.0\"," +
+                   "\"LayoutEngineVersionMajor\":\"53\"," +
+                   "\"LayoutEngineNameVersion\":\"Blink 53.0\"," +
+                   "\"LayoutEngineNameVersionMajor\":\"Blink 53\"," +
+                   "\"AgentClass\":\"Browser\"," +
+                   "\"AgentName\":\"Chrome\"," +
+                   "\"AgentVersion\":\"53.0.2785.124\"," +
+                   "\"AgentVersionMajor\":\"53\"," +
+                   "\"AgentNameVersion\":\"Chrome 53.0.2785.124\"," +
+                   "\"AgentNameVersionMajor\":\"Chrome 53\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
+                   "\"AgentClass\":\"Browser\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
+                   "\"AgentClass\":\"Browser\"," +
+                   "\"AgentName\":\"Chrome\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
+                   "\"AgentClass\":\"Browser\"," +
+                   "\"AgentName\":\"Chrome\"," +
+                   "\"AgentVersion\":\"53.0.2785.124\"}",
+
+               "{\"OperatingSystemClass\":\"Mobile\"," +
+                   "\"OperatingSystemName\":\"Android\"," +
+                   "\"OperatingSystemVersion\":\"7.0\"," +
+                   "\"OperatingSystemVersionMajor\":\"7\"," +
+                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
+                   "\"AgentClass\":\"Browser\"," +
+                   "\"AgentName\":\"Chrome\"," +
+                   "\"AgentVersion\":\"53.0.2785.124\"," +
+                   "\"AgentVersionMajor\":\"53\"}"
+            )
         );
+
+        List<Row> expectedRows = new ArrayList<>(expectedList.size());
+        Schema expectedSchema = Schema
+            .builder()
+            .addStringField("userAgent")
+            .addStringField("deviceClass")
+            .addStringField("agentNameVersion")
+            .addStringField("parsedUserAgentJson0")
+            .addStringField("parsedUserAgentJson1")
+            .addStringField("parsedUserAgentJson2")
+            .addStringField("parsedUserAgentJson3")
+            .addStringField("parsedUserAgentJson4")
+            .addStringField("parsedUserAgentJson5")
+            .addStringField("parsedUserAgentJson6")
+            .addStringField("parsedUserAgentJson7")
+            .addStringField("parsedUserAgentJson8")
+            .addStringField("parsedUserAgentJson9")
+            .addStringField("parsedUserAgentJson10")
+            .build();
+
+        for (List<String> expectedStrings: expectedList) {
+            expectedRows.add(listToRow(expectedStrings, expectedSchema));
+        }
 
         // ============================================================
         // Convert into a PCollection<Row>
         Schema inputSchema = Schema
             .builder()
             .addStringField("userAgent")
-            .addStringField("expectedDeviceClass")
-            .addStringField("expectedAgentNameVersion")
             .build();
 
         PCollection<Row> input = pipeline
@@ -90,18 +310,7 @@ public class TestParseUserAgentSQL implements Serializable {
             .apply(ParDo.of(new DoFn<List<String>, Row>() {
                 @ProcessElement
                 public void processElement(ProcessContext c) {
-                    // Get the current POJO instance
-                    List<String> inputValue = c.element();
-
-                    if (inputValue != null) {
-                        // Create a Row with the appSchema schema
-                        // and values from the current POJO
-                        Row.Builder appRowBuilder = Row.withSchema(inputSchema);
-                        inputValue.forEach(appRowBuilder::addValues);
-                        Row appRow = appRowBuilder.build();
-                        // Output the Row representing the current POJO
-                        c.output(appRow);
-                    }
+                    c.output(listToRow(c.element(), inputSchema));
                 }
             }))
             .setCoder(RowCoder.of(inputSchema));
@@ -109,49 +318,134 @@ public class TestParseUserAgentSQL implements Serializable {
 
         // ============================================================
 
-        // Define a SQL query which calls the UDF
-        String sql =
-            "SELECT" +
-                "  userAgent                                        AS userAgent " +
-                ", expectedDeviceClass                              AS expectedDeviceClass " +
-                ", expectedAgentNameVersion                         AS expectedAgentNameVersion " +
-                ", ParseUserAgent(userAgent)                        AS parsedUserAgent " +
-                ", ParseUserAgent(userAgent)['DeviceClass']         AS deviceClass " +
-                ", ParseUserAgent(userAgent)['AgentNameVersion']    AS agentNameVersion " +
-                "FROM InputStream";
-
         // Create and apply the PTransform representing the query.
         // Register the UDFs used in the query by calling '.registerUdf()' with
         // either a class which implements BeamSqlUdf or with
         // an instance of the SerializableFunction;
         PCollection<Row> result =
-            // This way we give a name to the input stream for use in the SQL
-            PCollectionTuple.of("InputStream", input)
+            PCollectionTuple
+                // This way we give a name to the input stream for use in the SQL
+                .of("InputStream", input)
                 // Apply the SQL with the UDFs we need.
-                .apply("Execute SQL", SqlTransform
-                    .query(sql)
-                    .registerUdf("ParseUserAgent", new ParseUserAgent())
+                .apply("Execute SQL",
+                    SqlTransform
+                    // The SQL query that needs to be applied.
+                    .query(
+                        "SELECT" +
+                        "    userAgent                                            AS userAgent, " +
+                        "    ParseUserAgentField(userAgent, 'DeviceClass')        AS deviceClass, " +
+                        "    ParseUserAgentField(userAgent, 'AgentNameVersion')   AS agentNameVersion, " +
+
+                        "    ParseUserAgentJson(userAgent" +
+                        "                      ) AS parsedUserAgentJson0, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'" +
+                        "                      ) AS parsedUserAgentJson1, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'" +
+                        "                      ) AS parsedUserAgentJson2, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'" +
+                        "                      ) AS parsedUserAgentJson3, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'" +
+                        "                      ) AS parsedUserAgentJson4, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'," +
+                        "                       'OperatingSystemNameVersion'" +
+                        "                      ) AS parsedUserAgentJson5, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'," +
+                        "                       'OperatingSystemNameVersion'," +
+                        "                       'OperatingSystemNameVersionMajor'" +
+                        "                      ) AS parsedUserAgentJson6, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'," +
+                        "                       'OperatingSystemNameVersion'," +
+                        "                       'OperatingSystemNameVersionMajor'," +
+                        "                       'AgentClass'" +
+                        "                      ) AS parsedUserAgentJson7, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'," +
+                        "                       'OperatingSystemNameVersion'," +
+                        "                       'OperatingSystemNameVersionMajor'," +
+                        "                       'AgentClass'," +
+                        "                       'AgentName'" +
+                        "                      ) AS parsedUserAgentJson8, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'," +
+                        "                       'OperatingSystemNameVersion'," +
+                        "                       'OperatingSystemNameVersionMajor'," +
+                        "                       'AgentClass'," +
+                        "                       'AgentName'," +
+                        "                       'AgentVersion'" +
+                        "                      ) AS parsedUserAgentJson9, " +
+
+                        "    ParseUserAgentJson(userAgent," +
+                        "                       'OperatingSystemClass'," +
+                        "                       'OperatingSystemName'," +
+                        "                       'OperatingSystemVersion'," +
+                        "                       'OperatingSystemVersionMajor'," +
+                        "                       'OperatingSystemNameVersion'," +
+                        "                       'OperatingSystemNameVersionMajor'," +
+                        "                       'AgentClass'," +
+                        "                       'AgentName'," +
+                        "                       'AgentVersion'," +
+                        "                       'AgentVersionMajor'" +
+                        "                      ) AS parsedUserAgentJson10 " +
+
+                        "FROM InputStream")
+                    // Register each of the custom functions that must be available
+                    .registerUdf("ParseUserAgentJson",  ParseUserAgentJson.class)
+                    .registerUdf("ParseUserAgentField", ParseUserAgentField.class)
                 );
 
-        result.apply(ParDo.of(new RowPrinter()));
+        // Just to see the output of the query while debugging
+//        result.apply(ParDo.of(new RowPrinter()));
 
-//        // Assert on the results.
-//        PAssert.that(result)
-//            .containsInAnyOrder((Row)null);
-
-        // FIXME: This DOES NOT work at the time of writing.
-        //  waiting for https://issues.apache.org/jira/browse/BEAM-9267
-        //  to be implemented which depends on Calcite 1.22 to be released.
+        // Assert on the results.
+        PAssert.that(result)
+            .containsInAnyOrder(expectedRows);
 
         pipeline.run().waitUntilFinish();
-
     }
 
-    public static class RowPrinter extends DoFn<Row, Row> {
-        @DoFn.ProcessElement
+    public static class RowPrinter extends DoFn<Row, Void> {
+        @SuppressWarnings("unused") // Used via reflection
+        @ProcessElement
         public void processElement(ProcessContext c) {
             final Row row = c.element();
-            LOG.info("ROW: {} --> {}", row, row.getSchema());
+            LOG.info("ROW: {}", row);
         }
     }
 

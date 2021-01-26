@@ -25,6 +25,11 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
 
+//FIXME: This DOES NOT work at the time of writing.
+//       Waiting for:
+//       - https://issues.apache.org/jira/browse/BEAM-9267
+//       - https://issues.apache.org/jira/browse/BEAM-9379
+
 public class ParseUserAgent implements SerializableFunction<String, Map<String, String>> {
     private UserAgentAnalyzer userAgentAnalyzer = null;
 
@@ -37,10 +42,6 @@ public class ParseUserAgent implements SerializableFunction<String, Map<String, 
     public ParseUserAgent(int cacheSize) {
         this.cacheSize = cacheSize;
     }
-
-    // FIXME: This DOES NOT work at the time of writing.
-    //  waiting for https://issues.apache.org/jira/browse/BEAM-9267
-    //  to be implemented which depends on Calcite 1.22 to be released.
 
     @Override
     public Map<String, String> apply(String input) {
