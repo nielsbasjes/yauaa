@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Performance · Yauaa: Yet Another UserAgent Analyzer</title>
+        <title>Apache Beam SQL · Yauaa: Yet Another UserAgent Analyzer</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -73,10 +73,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="README-Commandline.html" />
+    <link rel="next" href="UDF-ApacheDrill.html" />
     
     
-    <link rel="prev" href="README-MemoryUsage.html" />
+    <link rel="prev" href="UDF-ApacheBeam.html" />
     
 
     </head>
@@ -192,7 +192,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.4" data-path="README-Performance.html">
+        <li class="chapter " data-level="2.4" data-path="README-Performance.html">
             
                 <a href="README-Performance.html">
             
@@ -277,7 +277,7 @@
             
         </li>
     
-        <li class="chapter " data-level="3.4" data-path="UDF-ApacheBeamSql.html">
+        <li class="chapter active" data-level="3.4" data-path="UDF-ApacheBeamSql.html">
             
                 <a href="UDF-ApacheBeamSql.html">
             
@@ -591,7 +591,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Performance</a>
+        <a href="." >Apache Beam SQL</a>
     </h1>
 </div>
 
@@ -606,25 +606,71 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="performance">Performance</h1>
-<p>On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
-On average the speed is around 2000 per second or ~0.5ms each.
-A LRU cache is in place that does over 1M per second if they are in the cache.</p>
-<p>Please note that the current system take approx 220MiB of RAM just for the engine (without any caching!!).</p>
-<p>In the canonical usecase of analysing clickstream data you will see a &lt;1ms hit per visitor (or better: per new non-cached useragent)
-and for all the other clicks the values are retrieved from this cache at a speed of &lt; 1 microsecond (i.e. close to 0).</p>
-<p>The graph below gives you some insight of how the performance of Yauaa has progressed over time.</p>
-<p>You can clearly see the increase in the time needed when adding a lot more rules.
-Also the periodic drops in time needed are clearly visible when a performance improvement was found.</p>
-<p>Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (at one point during development the needed time to reached ~ 3ms).
-Followed by a few steps in a rewrite of that part resulting in effectively the fastest versions to date.</p>
-<p>Output from the benchmark ( <a href="https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java" target="_blank">using this code</a> ) on a Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz from version 4.0 onwards:</p>
-<p><div id="curve_chart" style="height: 1000px"></div></p>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="PerformanceGraph.js"></script>
-<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-</script>
+                                <h1 id="user-defined-function-for-apache-beam-sql">User Defined Function for <a href="https://beam.apache.org" target="_blank">Apache Beam SQL</a></h1>
+<h1 id="status--experimental-">STATUS: ... EXPERIMENTAL ...</h1>
+<p>The Beam SQL function is very new.</p>
+<p>There are a few limitations related to the underlying Calcite version used in Beam.
+Only limited testing has been done.</p>
+<h2 id="getting-the-udf">Getting the UDF</h2>
+<p>You can get the prebuilt UDF from <a href="https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-beam-sql/5.21/jar" target="_blank">maven central</a>.</p>
+<p>If you use a maven based project simply add this dependency to your project.</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
+  &lt;artifactId&gt;yauaa-beam-sql&lt;/artifactId&gt;
+  &lt;version&gt;5.21&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h2 id="available-functions">Available functions</h2>
+<p>Assuming the input</p>
+<pre><code>Mozilla\/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
+</code></pre><p>To parse this input value into all possible values and returns the complete result as a single JSon string use this:</p>
+<pre><code>ParseUserAgentJson(userAgent)
+</code></pre><p>to give (single line)</p>
+<pre><code>{&quot;Useragent&quot;:&quot;Mozilla\/5.0 (Linux; Android 7.0; Nexus 6 Build\/NBD90Z) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/53.0.2785.124 Mobile Safari\/537.36&quot;,
+&quot;DeviceClass&quot;:&quot;Phone&quot;,&quot;DeviceName&quot;:&quot;Google Nexus 6&quot;,&quot;DeviceBrand&quot;:&quot;Google&quot;,
+&quot;OperatingSystemClass&quot;:&quot;Mobile&quot;,&quot;OperatingSystemName&quot;:&quot;Android&quot;,&quot;OperatingSystemVersion&quot;:&quot;7.0&quot;,&quot;OperatingSystemVersionMajor&quot;:&quot;7&quot;,&quot;OperatingSystemNameVersion&quot;:&quot;Android 7.0&quot;,&quot;OperatingSystemNameVersionMajor&quot;:&quot;Android 7&quot;,&quot;OperatingSystemVersionBuild&quot;:&quot;NBD90Z&quot;,
+&quot;LayoutEngineClass&quot;:&quot;Browser&quot;,&quot;LayoutEngineName&quot;:&quot;Blink&quot;,&quot;LayoutEngineVersion&quot;:&quot;53.0&quot;,&quot;LayoutEngineVersionMajor&quot;:&quot;53&quot;,&quot;LayoutEngineNameVersion&quot;:&quot;Blink 53.0&quot;,&quot;LayoutEngineNameVersionMajor&quot;:&quot;Blink 53&quot;,
+&quot;AgentClass&quot;:&quot;Browser&quot;,&quot;AgentName&quot;:&quot;Chrome&quot;,&quot;AgentVersion&quot;:&quot;53.0.2785.124&quot;,&quot;AgentVersionMajor&quot;:&quot;53&quot;,&quot;AgentNameVersion&quot;:&quot;Chrome 53.0.2785.124&quot;,&quot;AgentNameVersionMajor&quot;:&quot;Chrome 53&quot;}
+</code></pre><p>To get a JSon with only specific fields you can do (up to 10 fields van be requested this way)</p>
+<pre><code>ParseUserAgentJson(userAgent, &apos;DeviceClass&apos;, &apos;AgentNameVersion&apos;)
+</code></pre><p>to give</p>
+<pre><code>{&quot;DeviceClass&quot;:&quot;Phone&quot;,&quot;AgentNameVersion&quot;:&quot;Chrome 53.0.2785.124&quot;}
+</code></pre><p>To get a single value from the parse result use this one:</p>
+<pre><code>ParseUserAgentField(userAgent, &apos;DeviceClass&apos;)
+</code></pre><p>to give</p>
+<pre><code>Phone
+</code></pre><h2 id="example-usage">Example usage</h2>
+<p>Assume you have a PCollection with your records.</p>
+<pre><code>PCollection&lt;Row&gt; input = ...
+</code></pre><p>You can then put that through an SQL statement to transform it.
+You have to name the input (in this example we call it InputStream),
+and you have to register the UDF classes you want to use with the name you want to have in your SQL statement.</p>
+<pre><code>PCollection&lt;Row&gt; result =
+    // This way we give a name to the input stream for use in the SQL
+    PCollectionTuple.of(&quot;InputStream&quot;, input)
+        // Apply the SQL with the UDFs we need.
+        .apply(&quot;Execute SQL&quot;, SqlTransform
+            .query(&quot;SELECT&quot; +
+                   &quot;    userAgent                                            AS userAgent, &quot; +
+                   &quot;    ParseUserAgentJson(userAgent)                        AS parsedUserAgentJson, &quot; +
+                   &quot;    ParseUserAgentField(userAgent, &apos;DeviceClass&apos;)        AS deviceClass, &quot; +
+                   &quot;    ParseUserAgentField(userAgent, &apos;AgentNameVersion&apos;)   AS agentNameVersion &quot; +
+                   &quot;FROM InputStream&quot;)
+            .registerUdf(&quot;ParseUserAgentJson&quot;,  ParseUserAgentJson.class)
+            .registerUdf(&quot;ParseUserAgentField&quot;, ParseUserAgentField.class)
+        );
+</code></pre><h2 id="limitations--future">Limitations / Future</h2>
+<p>Simply returning a Map of all keys and values is not yet possible because Apache Beam uses an older version of Calcite.</p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/BEAM-9267" target="_blank">https://issues.apache.org/jira/browse/BEAM-9267</a></li>
+<li><a href="https://issues.apache.org/jira/browse/BEAM-9379" target="_blank">https://issues.apache.org/jira/browse/BEAM-9379</a></li>
+<li><a href="https://github.com/apache/beam/pull/12962" target="_blank">https://github.com/apache/beam/pull/12962</a></li>
+</ul>
+<p>The <code>ParseUserAgentJson</code> has a limitation of at most 10 fieldnames because Calcite does not yet support variable arguments for UDFs.</p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/CALCITE-2772" target="_blank">https://issues.apache.org/jira/browse/CALCITE-2772</a></li>
+</ul>
 
                                 
                                 </section>
@@ -652,12 +698,12 @@ google.charts.setOnLoadCallback(drawChart);
 
             
                 
-                <a href="README-MemoryUsage.html" class="navigation navigation-prev " aria-label="Previous page: Memory usage">
+                <a href="UDF-ApacheBeam.html" class="navigation navigation-prev " aria-label="Previous page: Apache Beam">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="README-Commandline.html" class="navigation navigation-next " aria-label="Next page: Commandline">
+                <a href="UDF-ApacheDrill.html" class="navigation navigation-next " aria-label="Next page: Apache Drill">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -668,7 +714,7 @@ google.charts.setOnLoadCallback(drawChart);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Performance","level":"2.4","depth":1,"next":{"title":"Commandline","level":"2.5","depth":1,"path":"README-Commandline.md","ref":"README-Commandline.md","articles":[]},"previous":{"title":"Memory usage","level":"2.3","depth":1,"path":"README-MemoryUsage.md","ref":"README-MemoryUsage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.21"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Performance.md","mtime":"2020-11-28T14:31:33.839Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-27T13:12:42.539Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Beam SQL","level":"3.4","depth":1,"next":{"title":"Apache Drill","level":"3.5","depth":1,"path":"UDF-ApacheDrill.md","ref":"UDF-ApacheDrill.md","articles":[]},"previous":{"title":"Apache Beam","level":"3.3","depth":1,"path":"UDF-ApacheBeam.md","ref":"UDF-ApacheBeam.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.21"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheBeamSql.md","mtime":"2021-01-27T13:12:09.084Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-27T13:12:42.539Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

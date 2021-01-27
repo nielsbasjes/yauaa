@@ -1,5 +1,11 @@
 # User Defined Function for [Apache Beam SQL](https://beam.apache.org)
 
+# STATUS: ... EXPERIMENTAL ...
+The Beam SQL function is very new.
+
+There are a few limitations related to the underlying Calcite version used in Beam.
+Only limited testing has been done.
+
 ## Getting the UDF
 You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-beam-sql/{{ book.YauaaVersion }}/jar).
 
