@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.beam;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.beam.sdk.extensions.sql.BeamSqlUdf;
 
-class BaseParseUserAgentUDF implements BeamSqlUdf {
+abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
     private static transient UserAgentAnalyzer userAgentAnalyzer = null;
 
     protected static UserAgentAnalyzer getInstance() {

@@ -27,10 +27,12 @@ import java.util.stream.Collectors;
 
 public class ParseUserAgentJson extends BaseParseUserAgentUDF {
 
+    // The eval does not support a var args list ( i.e. "String... args" ).
+    // This is a Calcite limitation: https://issues.apache.org/jira/browse/CALCITE-2772
+    // CHECKSTYLE.OFF: ParameterNumber
     @SuppressWarnings("unused") // Used via reflection
-    public static String eval( // NOSONAR java:S107 Methods should not have too many parameters
+    public static String eval(// NOSONAR java:S107 Methods should not have too many parameters
         @Parameter(name = "userAgent") String input,
-        // NOTE: The eval does not seem to support the var args list ( i.e. "String... args" ).
         @Parameter(name = "Field  1", optional = true) String field1,
         @Parameter(name = "Field  2", optional = true) String field2,
         @Parameter(name = "Field  3", optional = true) String field3,
