@@ -101,3 +101,12 @@ config:
     extract:
     - 'DeviceClass                         :      500 :"Phone"'
     - 'OperatingSystemClass                :      500 :"Mobile"'
+
+# Apparently the "Mobile/" flag is an indication it is a mobile device and not a desktop.
+# There is no reliable way to determine if this was a Phone or Tablet.
+- matcher:
+    require:
+    - 'agent.product.name="Mobile"'
+    - 'agent.product.name="Safari"'
+    extract:
+    - 'DeviceClass                         :       99 : "Mobile"'
