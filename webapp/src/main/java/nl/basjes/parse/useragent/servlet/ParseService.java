@@ -204,7 +204,7 @@ public class ParseService {
                 } catch (Exception e) {
                     userAgentAnalyzerFailureMessage =
                         e.getClass().getSimpleName() + "<br/>" +
-                            e.getMessage().replaceAll("\n", "<br/>");
+                            e.getMessage().replace("\n", "<br/>");
                     LOG.error("Fatal error during startup: {}\n" +
                             "=======================================================\n" +
                             "{}\n" +
@@ -758,9 +758,6 @@ public class ParseService {
 
                 sb.append("<hr/>");
                 userAgentString =
-
-
-
                     "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; " +
                         "Niels Ultimate 42 demo phone Build/42 ; " +
                         "https://yauaa.basjes.nl ) " +
