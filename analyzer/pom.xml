@@ -269,6 +269,17 @@
             </configuration>
           </execution>
 
+          <execution>
+            <id>Generate list of testcases</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>./getTestCases.sh</executable>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
 
@@ -351,6 +362,7 @@
             </goals>
             <configuration>
               <file>${basedir}/src/main/code-gen/version/Version.yaml.template</file>
+              <regex>false</regex>
               <outputFile>${basedir}/target/classes/UserAgents/__Version__.yaml</outputFile>
             </configuration>
           </execution>
@@ -363,6 +375,7 @@
             </goals>
             <configuration>
               <file>${basedir}/src/main/code-gen/version/Version.java.template</file>
+              <regex>false</regex>
               <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/Version.java</outputFile>
             </configuration>
           </execution>
@@ -375,7 +388,22 @@
             </goals>
             <configuration>
               <file>${basedir}/src/main/code-gen/UserAgents/PackagedRules.java.template</file>
+              <regex>false</regex>
               <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PackagedRules.java</outputFile>
+            </configuration>
+          </execution>
+
+
+          <execution>
+            <id>Generate Preheat Java</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+            <configuration>
+              <file>${basedir}/src/main/code-gen/UserAgents/PreHeatCases.java.template</file>
+              <regex>false</regex>
+              <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PreHeatCases.java</outputFile>
             </configuration>
           </execution>
 
@@ -420,6 +448,11 @@
               <token>###file-list###</token>
               <valueFile>${basedir}/target/temp-yaml-list.txt</valueFile>
             </replacement>
+            <replacement>
+              <token>###agents-list###</token>
+              <valueFile>${basedir}/target/temp-agents-list.txt</valueFile>
+            </replacement>
+
           </replacements>
         </configuration>
       </plugin>

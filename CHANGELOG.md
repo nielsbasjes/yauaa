@@ -9,6 +9,7 @@ v5.22-SNAPSHOT
   - Added rule analyzer and optimized some of the rules.
   - Special handling of the "require IsNull" cases to increase performance.
   - Merging lookups to reduce number of rules.
+  - For the preHeat the testcases are loaded separately (i.e. reducing the memory usage a bit)
 - New/improved detections
   - Added > 1000 extra testcases
   - Detect Google Glass 1, Amazon Kindle, Palm, Roku, PlayStation 2, PS3, PS Portable, Tizen, WebOS.

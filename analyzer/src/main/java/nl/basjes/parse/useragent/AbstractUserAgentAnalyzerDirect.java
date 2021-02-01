@@ -1321,7 +1321,7 @@ config:
      * @return Number of actually done testcases.
      */
     public long preHeat() {
-        return preHeat(testCases.size(), true);
+        return preHeat(PreHeatCases.USERAGENTS.size(), true);
     }
     /**
      * Runs the number of specified testcases to heat up the JVM.
@@ -1341,8 +1341,8 @@ config:
      * @return Number of actually done testcases.
      */
     public long preHeat(long preheatIterations, boolean log) {
-        if (testCases.isEmpty()) {
-            LOG.warn("NO PREHEAT WAS DONE. Simply because there are no test cases available.");
+        if (PreHeatCases.USERAGENTS.isEmpty()) {
+            LOG.warn("NO PREHEAT WAS DONE. This should never occur.");
             return 0;
         }
         if (preheatIterations <= 0) {
@@ -1359,9 +1359,7 @@ config:
         long remainingIterations = preheatIterations;
         long goodResults = 0;
         while (remainingIterations > 0) {
-            for (Map<String, Map<String, String>> test : testCases) {
-                Map<String, String> input = test.get("input");
-                String userAgentString = input.get("user_agent_string");
+            for (String userAgentString : PreHeatCases.USERAGENTS) {
                 remainingIterations--;
                 // Calculate and use result to guarantee not optimized away.
                 if(!AbstractUserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
@@ -1740,11 +1738,6 @@ config:
             Collections.reverse(fieldCalculators);
             uaa.setFieldCalculators(fieldCalculators);
 
-            boolean mustDropTestsLater = !uaa.willKeepTests();
-            if (preheatIterations != 0) {
-                uaa.keepTests();
-            }
-
             boolean showLoading = uaa.getShowMatcherStats();
             optionalResources.forEach(resource -> uaa.loadResources(resource, showLoading, true));
             resources.forEach(resource -> uaa.loadResources(resource, showLoading, false));
@@ -1761,9 +1754,6 @@ config:
                 if (preheatIterations > 0) {
                     uaa.preHeat(preheatIterations);
                 }
-            }
-            if (mustDropTestsLater) {
-                uaa.dropTests();
             }
             didBuildStep = true;
             return uaa;

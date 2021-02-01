@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
+import nl.basjes.parse.useragent.PreHeatCases;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
@@ -286,8 +287,11 @@ class TestBuilder {
         assertEquals(0, userAgentAnalyzer.preHeat(1000000000L));
 
         userAgentAnalyzer.dropTests();
+
+        // The full testCases from the yaml are NO LONGER used for the preHeat !
+        // Preheat has a separate list with all the test cases (smaller since we do not have the answers there).
         assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
-        assertEquals(0, userAgentAnalyzer.preHeat());
+        assertEquals(PreHeatCases.USERAGENTS.size(), userAgentAnalyzer.preHeat());
     }
 
 }
