@@ -89,14 +89,14 @@ class TestAnnotationSystemAnonymous {
     @Test
     void testImpossibleField() {
         InvalidParserConfigurationException exception =
-            assertThrows(InvalidParserConfigurationException.class, () -> record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("NielsBasjes")
-                public void setImpossibleField(TestRecord testRecord, String value) {
-                    fail("May NEVER call this method");
-                }
-            } .enrich(record));
+            assertThrows(InvalidParserConfigurationException.class, () ->
+                record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("NielsBasjes")
+                    public void setImpossibleField(TestRecord testRecord, String value) {
+                        fail("May NEVER call this method");
+                    }
+                } .enrich(record));
         assertEquals("We cannot provide these fields:[NielsBasjes]", exception.getMessage());
     }
 
@@ -105,15 +105,15 @@ class TestAnnotationSystemAnonymous {
     @Test
     void testWrongReturnType() {
         InvalidParserConfigurationException exception =
-            assertThrows(InvalidParserConfigurationException.class, () -> record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("DeviceClass")
-                public boolean wrongSetter(TestRecord testRecord, Double value) {
-                    fail("May NEVER call this method");
-                    return false;
-                }
-            } .enrich(record));
+            assertThrows(InvalidParserConfigurationException.class, () ->
+                record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("DeviceClass")
+                    public boolean wrongSetter(TestRecord testRecord, Double value) {
+                        fail("May NEVER call this method");
+                        return false;
+                    }
+                } .enrich(record));
         assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
             "[ public void wrongSetter(TestRecord record, String value) ]"));
@@ -124,14 +124,14 @@ class TestAnnotationSystemAnonymous {
     @Test
     void testInaccessibleSetter() {
         InvalidParserConfigurationException exception =
-            assertThrows(InvalidParserConfigurationException.class, () -> record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("DeviceClass")
-                private void inaccessibleSetter(TestRecord testRecord, String value) {
-                    fail("May NEVER call this method");
-                }
-            } .enrich(record));
+            assertThrows(InvalidParserConfigurationException.class, () ->
+                record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("DeviceClass")
+                    private void inaccessibleSetter(TestRecord testRecord, String value) {
+                        fail("May NEVER call this method");
+                    }
+                } .enrich(record));
         assertEquals("Method annotated with YauaaField is not public: inaccessibleSetter", exception.getMessage());
     }
 
@@ -141,14 +141,13 @@ class TestAnnotationSystemAnonymous {
     void testTooManyParameters() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
-            record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("DeviceClass")
-                public void wrongSetter(TestRecord testRecord, String value, String extra) {
-                    fail("May NEVER call this method");
-                }
-            } .enrich(record));
+                record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("DeviceClass")
+                    public void wrongSetter(TestRecord testRecord, String value, String extra) {
+                        fail("May NEVER call this method");
+                    }
+                } .enrich(record));
         assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
             "[ public void wrongSetter(TestRecord record, String value) ]"));
@@ -160,14 +159,13 @@ class TestAnnotationSystemAnonymous {
     void testWrongTypeParameters1() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
-            record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("DeviceClass")
-                public void wrongSetter(String string, String value) {
-                    fail("May NEVER call this method");
-                }
-            } .enrich(record));
+            record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("DeviceClass")
+                    public void wrongSetter(String string, String value) {
+                        fail("May NEVER call this method");
+                    }
+                } .enrich(record));
         assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
             "[ public void wrongSetter(TestRecord record, String value) ]"));
@@ -179,14 +177,13 @@ class TestAnnotationSystemAnonymous {
     void testWrongTypeParameters2() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
-            record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("DeviceClass")
-                public void wrongSetter(TestRecord testRecord, Double value) {
-                    fail("May NEVER call this method");
-                }
-            } .enrich(record));
+            record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("DeviceClass")
+                    public void wrongSetter(TestRecord testRecord, Double value) {
+                        fail("May NEVER call this method");
+                    }
+                } .enrich(record));
         assertTrue(exception.getMessage().contains("the method [wrongSetter] " +
             "has been annotated with YauaaField but it has the wrong method signature. It must look like " +
             "[ public void wrongSetter(TestRecord record, String value) ]"));
@@ -198,13 +195,12 @@ class TestAnnotationSystemAnonymous {
     void testMissingAnnotations() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
-            record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                public void setWasNotAnnotated(TestRecord testRecord, String value) {
-                    fail("May NEVER call this method");
-                }
-            } .enrich(record));
+            record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    public void setWasNotAnnotated(TestRecord testRecord, String value) {
+                        fail("May NEVER call this method");
+                    }
+                } .enrich(record));
         assertEquals("You MUST specify at least 1 field to extract.", exception.getMessage());
     }
 
@@ -214,14 +210,13 @@ class TestAnnotationSystemAnonymous {
     void testSetterFailure() {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
-            record =
-            new MyErrorMapper() {
-                @SuppressWarnings("unused") // Called via the annotation
-                @YauaaField("DeviceClass")
-                public void failingSetter(TestRecord testRecord, String value) {
-                    throw new IllegalStateException("Just testing the error handling");
-                }
-            } .enrich(record));
+            record = new MyErrorMapper() {
+                    @SuppressWarnings("unused") // Called via the annotation
+                    @YauaaField("DeviceClass")
+                    public void failingSetter(TestRecord testRecord, String value) {
+                        throw new IllegalStateException("Just testing the error handling");
+                    }
+                } .enrich(record));
         assertEquals("A problem occurred while calling the requested setter", exception.getMessage());
     }
 
