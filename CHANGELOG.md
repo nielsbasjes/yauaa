@@ -27,7 +27,8 @@ v5.22-SNAPSHOT
 - Updated UDF dependencies
   - Apache Flink            1.12.1
   - Apache Beam             2.27.0
-  - Elastic Search/Logstash 7.10.2
+  - Apache Nifi             1.13.3
+  - Elastic Search/Logstash 7.11.1
 - New UDF: Beam SQL
 
 v5.21
