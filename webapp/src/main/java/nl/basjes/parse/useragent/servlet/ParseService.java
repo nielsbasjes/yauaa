@@ -46,6 +46,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -352,8 +353,13 @@ public class ParseService {
         value = "/",
         produces = MediaType.TEXT_HTML_VALUE
     )
-    public String getHtml(@RequestHeader("User-Agent") String userAgentString) {
-        return doHTML(userAgentString);
+    public String getHtml(@RequestHeader("User-Agent") String userAgentString,
+                          @RequestParam(name = "ua", required = false) String userAgentStringParam) {
+        if (userAgentStringParam == null || userAgentStringParam.isEmpty()) {
+            return doHTML(userAgentString);
+        } else {
+            return doHTML(userAgentStringParam);
+        }
     }
 
     @PostMapping(
