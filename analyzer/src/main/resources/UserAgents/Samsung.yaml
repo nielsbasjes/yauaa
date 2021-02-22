@@ -672,3 +672,41 @@ config:
       AgentNameVersion                     : 'Dalvik 2.1.0'
       AgentNameVersionMajor                : 'Dalvik 2'
       AgentSecurity                        : 'Strong security'
+
+- matcher:
+    extract:
+      - 'DeviceClass                         :       10 :"<<<null>>>"'
+      - 'DeviceName                          :       10 :"Tizen device"'
+      - 'DeviceBrand                         :       10 :"Samsung"'
+      - 'OperatingSystemClass                :      501 :"Embedded"'
+      - 'OperatingSystemName                 :      501 :"Tizen"'
+      - 'OperatingSystemVersion              :      501 :agent.(1)product.(1)comments.entry.(1)product.name="Tizen"^.version'
+      - 'AgentClass                          :       15 :"Browser"'
+      - 'AgentName                           :       15 :"TizenBrowser"'
+      - 'AgentVersion                        :       15 :"<<<null>>>"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Tizen 2.3) AppleWebKit/538.1 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Samsung Tizen Device'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.3'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Tizen 2.3'
+      OperatingSystemNameVersionMajor      : 'Tizen 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'TizenBrowser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'TizenBrowser ??'
+      AgentNameVersionMajor                : 'TizenBrowser ??'

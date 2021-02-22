@@ -348,12 +348,6 @@ config:
       AgentNameVersion                     : 'Safari 5.0'
       AgentNameVersionMajor                : 'Safari 5'
 
-- matcher:
-    extract:
-    - 'OperatingSystemClass                :      501 :"Embedded"'
-    - 'OperatingSystemName                 :      501 :"Tizen"'
-    - 'OperatingSystemVersion              :      501 :agent.(1)product.(1)comments.entry.(1)product.name="Tizen"^.version'
-
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.3) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1'
