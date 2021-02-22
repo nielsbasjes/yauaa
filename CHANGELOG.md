@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v5.22-SNAPSHOT
+v5.23-SNAPSHOT
+===
+- ...
+
+v5.22
 ===
 - Analyzer:
   - Files with '-tests' in the directory/filename contain only tests and are only loaded when needed.
