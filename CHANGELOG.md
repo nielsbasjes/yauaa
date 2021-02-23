@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v5.23-SNAPSHOT
 ===
-- ...
+- Updated UDF dependencies
+    - Apache Beam             2.28.0
 
 v5.22
 ===
