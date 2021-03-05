@@ -3,8 +3,10 @@ This is intended as an overview of the major changes
 
 v5.23-SNAPSHOT
 ===
+- Analyzer
+  - Updated the list of recognized Apple device ids.
 - Updated UDF dependencies
-    - Apache Beam             2.28.0
+  - Apache Beam             2.28.0
 
 v5.22
 ===
