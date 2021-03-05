@@ -1,7 +1,10 @@
 
 This is intended as an overview of the major changes
 
-v5.23-SNAPSHOT
+v5.24-SNAPSHOT
+===
+
+v5.23
 ===
 - Analyzer
   - Updated the list of recognized Apple device ids.
