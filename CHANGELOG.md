@@ -11,6 +11,7 @@ v5.23
   - Fixed "Dell Streak 7"
 - Updated UDF dependencies
   - Apache Beam             2.28.0
+  - Apache Flink            1.12.2
 
 v5.22
 ===
