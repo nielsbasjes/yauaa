@@ -5,6 +5,7 @@ v5.23-SNAPSHOT
 ===
 - Analyzer
   - Updated the list of recognized Apple device ids.
+  - Fixed "Dell Streak 7"
 - Updated UDF dependencies
   - Apache Beam             2.28.0
 

@@ -1569,6 +1569,8 @@ config:
 
 
 - matcher:
+    require:
+    - 'agent.(1-3)product.comments.entry.(1-4)product.name[1]="Desktop"'
     variable:
     - 'Dell                                :agent.(1-3)product.comments.entry.(1-4)product.name[1]="Dell"@'
     extract:
