@@ -2157,3 +2157,43 @@ config:
       AgentLanguage                        : 'Dutch'
       AgentLanguageCode                    : 'nld'
 
+
+
+# Apparently Apple TV devices run a modified version of iOS called tvOS.
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="Apple TV"'
+    extract:
+    - 'DeviceClass                         :     1000 : "Set-top box"'
+    - 'DeviceName                          :     1000 : "Apple TV"'
+    - 'DeviceBrand                         :     1000 : "Apple"'
+    - 'OperatingSystemName                 :     1000 : "tvOS"'
+
+- test:
+    input:
+      user_agent_string: 'AppleCoreMedia/1.0.0.12B466 (Apple TV; U; CPU OS 8_1_3 like Mac OS X; en_us)'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Apple TV'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'tvOS'
+      OperatingSystemVersion               : '8.1.3'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'tvOS 8.1.3'
+      OperatingSystemNameVersionMajor      : 'tvOS 8'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AppleCoreMedia'
+      AgentVersion                         : '1.0.0.12B466'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'AppleCoreMedia 1.0.0.12B466'
+      AgentNameVersionMajor                : 'AppleCoreMedia 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'

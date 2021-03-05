@@ -3,6 +3,10 @@ This is intended as an overview of the major changes
 
 v5.24-SNAPSHOT
 ===
+- Analyzer
+  - Detect Apple TV better
+- Updated UDF dependencies
+  - Apache Flink            1.12.2
 
 v5.23
 ===
@@ -11,7 +15,6 @@ v5.23
   - Fixed "Dell Streak 7"
 - Updated UDF dependencies
   - Apache Beam             2.28.0
-  - Apache Flink            1.12.2
 
 v5.22
 ===
