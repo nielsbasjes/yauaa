@@ -29,6 +29,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -105,96 +106,129 @@ public class TestParseServlet {
         }
     }
 
-    @Test
-    public void testGetHtml() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(TEXT_HTML));
-        headers.set("User-Agent", USERAGENT);
+    // ==========================================================================================
 
+    public ResponseEntity<String> doGET(MediaType mediaType) {
+        return doGET(mediaType, getAnalyzeURI());
+    }
+
+    public ResponseEntity<String> doGET(MediaType mediaType, URI uri) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(mediaType));
+
+        // GET: Use User-Agent header and set a dummy request body
+        headers.set("User-Agent", USERAGENT);
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
 
-        ResponseEntity<String> response = this.restTemplate
-            .exchange(getURI("/"), GET, request, String.class);
+        // Do GET
+        ResponseEntity<String> response = this.restTemplate.exchange(uri, GET, request, String.class);
 
         assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+        return response;
+    }
 
+    public ResponseEntity<String> doPOST(MediaType mediaType) {
+        return doPOST(mediaType, getAnalyzeURI());
+    }
+
+    public ResponseEntity<String> doPOST(MediaType mediaType, URI uri) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(mediaType));
+
+        // POST: NO User-Agent header and use the request body
+        headers.setContentType(TEXT_PLAIN);
+        HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
+
+        // Do POST
+        ResponseEntity<String> response = this.restTemplate.postForEntity(uri, request, String.class);
+
+        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+        return response;
+    }
+
+    // ==========================================================================================
+    // HTML
+
+    private void assertHTML(ResponseEntity<String> response) {
         assertThat(response.getBody()).contains("<td>Name Version</td><td>" + EXPECT_AGENT_NAME_VERSION + "</td>");
+    }
+
+    @Test
+    public void htmlGet() {
+        assertHTML(doGET(TEXT_HTML, getURI("/")));
+    }
+
+    @Test
+    public void htmlPost() {
+        assertHTML(doGET(TEXT_HTML, getURI("/")));
     }
 
     // ==========================================================================================
     // JSON
-
     private final BasicJsonTester json = new BasicJsonTester(getClass());
 
-    @Test
-    public void testGetToJSon() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(APPLICATION_JSON));
-        headers.set("User-Agent", USERAGENT);
-
-        HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
-
-        ResponseEntity<String> response = this.restTemplate.exchange(getAnalyzeURI(), GET, request, String.class);
-
-        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-
+    private void assertJSon(ResponseEntity<String> response) {
         assertThat(json.from(response.getBody()))
             // Uses this expression tool https://github.com/json-path/JsonPath
             .extractingJsonPathStringValue("$[0].AgentNameVersion")
             .isEqualTo(EXPECT_AGENT_NAME_VERSION);
     }
 
+    @Test
+    public void jsonGet() {
+        assertJSon(doGET(APPLICATION_JSON));
+    }
 
     @Test
-    public void testPostToJSon() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(TEXT_PLAIN);
-        headers.setAccept(Collections.singletonList(APPLICATION_JSON));
-
-        HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
-
-        ResponseEntity<String> response = this.restTemplate.postForEntity(getAnalyzeURI(), request, String.class);
-
-        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-
-        assertThat(json.from(response.getBody()))
-            // Uses this expression tool https://github.com/json-path/JsonPath
-            .extractingJsonPathStringValue("$[0].AgentNameVersion")
-            .isEqualTo(EXPECT_AGENT_NAME_VERSION);
+    public void jsonPost() {
+        assertJSon(doPOST(APPLICATION_JSON));
     }
 
     // ==========================================================================================
     // XML
 
-    @Test
-    public void testGetToXML() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(APPLICATION_XML));
-        headers.set("User-Agent", USERAGENT);
-
-        HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
-
-        ResponseEntity<String> response = this.restTemplate.exchange(getAnalyzeURI(), GET, request, String.class);
-
-        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-
+    private void assertXML(ResponseEntity<String> response) {
         assertThat(response.getBody()).contains("<AgentNameVersion>" + EXPECT_AGENT_NAME_VERSION + "</AgentNameVersion>");
     }
 
+    @Test
+    public void xmlGet() {
+        assertXML(doGET(APPLICATION_XML));
+    }
 
     @Test
-    public void testPostToXML() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(TEXT_PLAIN);
-        headers.setAccept(Collections.singletonList(APPLICATION_XML));
+    public void xmlPost() {
+        assertXML(doPOST(APPLICATION_XML));
+    }
 
-        HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
+    // ==========================================================================================
+    // Yaml
 
-        ResponseEntity<String> response = this.restTemplate.postForEntity(getAnalyzeURI(), request, String.class);
+    private void assertYAML(ResponseEntity<String> response) {
+        assertThat(response.getBody()).contains("AgentNameVersion                     : '" + EXPECT_AGENT_NAME_VERSION + "'");
+    }
 
-        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
+    @Test
+    public void yamlGet() {
+        assertYAML(doGET(TEXT_PLAIN));
+    }
 
-        assertThat(response.getBody()).contains("<AgentNameVersion>" + EXPECT_AGENT_NAME_VERSION + "</AgentNameVersion>");
+    @Test
+    public void yamlPost() {
+        assertYAML(doPOST(TEXT_PLAIN));
+    }
+
+    // ==========================================================================================
+    // Status checks
+
+    @Test
+    public void statusRunning() {
+        assertThat(doGET(TEXT_PLAIN, getURI("/running")).getBody()).contains("YES");
+    }
+
+    @Test
+    public void statusAppEngine() {
+        assertThat(doGET(TEXT_PLAIN, getURI("/_ah/health")).getBody()).contains("YES");
     }
 
 }

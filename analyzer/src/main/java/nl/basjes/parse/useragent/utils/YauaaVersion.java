@@ -47,6 +47,7 @@ public final class YauaaVersion {
     }
 
     public abstract static class AbstractVersion {
+        public abstract String getGitCommitId();
         public abstract String getGitCommitIdDescribeShort();
         public abstract String getBuildTimeStamp();
         public abstract String getProjectVersion();
@@ -66,6 +67,7 @@ public final class YauaaVersion {
             }
             AbstractVersion version = (AbstractVersion) o;
             return
+                getGitCommitId()              .equals(version.getGitCommitId()) &&
                 getGitCommitIdDescribeShort() .equals(version.getGitCommitIdDescribeShort()) &&
                 getBuildTimeStamp()           .equals(version.getBuildTimeStamp()) &&
                 getProjectVersion()           .equals(version.getProjectVersion()) &&
@@ -79,6 +81,7 @@ public final class YauaaVersion {
         @Override
         public int hashCode() {
             return Objects.hash(
+                getGitCommitId(),
                 getGitCommitIdDescribeShort(),
                 getBuildTimeStamp(),
                 getProjectVersion(),
@@ -115,21 +118,23 @@ public final class YauaaVersion {
             width = Math.max(width, line.length());
         }
 
+        String padding = padding('-', width);
+
         LOG.info("");
-        LOG.info("/-{}-\\", padding('-', width));
+        LOG.info("/-{}-\\", padding);
         logLine(version, width);
-        LOG.info("+-{}-+", padding('-', width));
+        LOG.info("+-{}-+", padding);
         for (String line : lines) {
             logLine(line, width);
         }
         if (!extraLines.isEmpty()) {
-            LOG.info("+-{}-+", padding('-', width));
+            LOG.info("+-{}-+", padding);
             for (String line : extraLines) {
                 logLine(line, width);
             }
         }
 
-        LOG.info("\\-{}-/", padding('-', width));
+        LOG.info("\\-{}-/", padding);
         LOG.info("");
     }
 
@@ -142,7 +147,9 @@ public final class YauaaVersion {
     }
 
     private static void logLine(String line, int width) {
-        LOG.info("| {}{} |", line, padding(' ', width - line.length()));
+        if (LOG.isInfoEnabled()) {
+            LOG.info("| {}{} |", line, padding(' ', width - line.length()));
+        }
     }
 
     public static String getVersion() {
@@ -162,6 +169,7 @@ public final class YauaaVersion {
     }
 
     private static final class RulesVersion extends AbstractVersion {
+        private String gitCommitId              = "<undefined>";
         private String gitCommitIdDescribeShort = "<undefined>";
         private String buildTimeStamp           = "<undefined>";
         private String projectVersion           = "<undefined>";
@@ -170,6 +178,11 @@ public final class YauaaVersion {
         private String url                      = "<undefined>";
         private String buildJDKVersion          = "<undefined>";
         private String targetJREVersion         = "<undefined>";
+
+        @Override
+        public String getGitCommitId() {
+            return gitCommitId;
+        }
 
         @Override
         public String getGitCommitIdDescribeShort() {
@@ -219,6 +232,9 @@ public final class YauaaVersion {
                 String key = getKeyAsString(entry, filename);
                 String value = getValueAsString(entry, filename);
                 switch (key) {
+                    case "git_commit_id":
+                        gitCommitId = value;
+                        break;
                     case "git_commit_id_describe_short":
                         gitCommitIdDescribeShort = value;
                         break;
@@ -250,6 +266,16 @@ public final class YauaaVersion {
                                 "'git_commit_id_describe_short', 'build_timestamp' and 'project_version'");
                 }
             }
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return super.equals(o);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode();
         }
     }
 

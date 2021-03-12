@@ -27,6 +27,7 @@ public final class Version extends YauaaVersion.AbstractVersion {
         return INSTANCE;
     }
 
+    public static final String GIT_COMMIT_ID                = "@git.commit.id@";
     public static final String GIT_COMMIT_ID_DESCRIBE_SHORT = "@git.commit.id.describe-short@";
     public static final String BUILD_TIME_STAMP             = "@maven.build.timestamp@";
     public static final String PROJECT_VERSION              = "@project.version@";
@@ -36,6 +37,7 @@ public final class Version extends YauaaVersion.AbstractVersion {
     public static final String BUILD_JDK_VERSION            = "@java.version@";
     public static final String TARGET_JRE_VERSION           = "@target.java.version@";
 
+    @Override public String getGitCommitId()              { return GIT_COMMIT_ID;                }
     @Override public String getGitCommitIdDescribeShort() { return GIT_COMMIT_ID_DESCRIBE_SHORT; }
     @Override public String getBuildTimeStamp()           { return BUILD_TIME_STAMP;             }
     @Override public String getProjectVersion()           { return PROJECT_VERSION;              }
