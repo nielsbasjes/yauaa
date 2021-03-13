@@ -65,7 +65,7 @@ public class HumanHtml {
     private static String getMemoryUsage() {
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
-        runtime.gc();
+        runtime.gc(); // NOSONAR: We do gc to get a bit more accurate number of the actually memory usage (java:S1215)
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));

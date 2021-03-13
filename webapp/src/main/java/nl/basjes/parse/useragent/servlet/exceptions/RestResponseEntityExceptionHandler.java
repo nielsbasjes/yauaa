@@ -42,7 +42,13 @@ public class RestResponseEntityExceptionHandler
         final HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Retry-After", "5"); // Retry after 5 seconds.
 
-        YauaaIsBusyStarting yauaaIsBusyStarting = (YauaaIsBusyStarting) ex;
+        YauaaIsBusyStarting yauaaIsBusyStarting;
+
+        if (ex instanceof YauaaIsBusyStarting) {
+            yauaaIsBusyStarting = (YauaaIsBusyStarting) ex;
+        } else {
+            return new ResponseEntity<>("Got unexpected exception: " + ex.getMessage(), httpHeaders, INTERNAL_SERVER_ERROR);
+        }
 
         long timeSinceStart = System.currentTimeMillis() - getInitStartMoment();
         String message;
