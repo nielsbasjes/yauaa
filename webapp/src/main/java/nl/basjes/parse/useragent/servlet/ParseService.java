@@ -41,8 +41,13 @@ public class ParseService {
     private static final Logger LOG = LoggerFactory.getLogger(ParseService.class);
 
     private static ParseService instance;
+
+    private static void setInstance(ParseService newInstance) {
+        instance = newInstance;
+    }
+
     public ParseService() {
-        instance = this;
+        setInstance(this);
     }
 
     private UserAgentAnalyzer  userAgentAnalyzer               = null;
