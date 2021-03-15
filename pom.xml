@@ -140,6 +140,7 @@
     <docker.skip>true</docker.skip>
     <docker-based-tests.skip>true</docker-based-tests.skip>
 
+    <docker-based-package.phase>package</docker-based-package.phase>
   </properties>
 
   <dependencyManagement>
@@ -226,6 +227,18 @@
           <name>env.DOCKER_HOST</name>
         </property>
       </activation>
+    </profile>
+
+    <!-- Some targets require something from the docker hub to complete.                -->
+    <!-- In CI systems pulling from the docker hub randomly fails with                  -->
+    <!--    Unable to pull 'openjdk:8-jdk-alpine' : toomanyrequests:                    -->
+    <!--    You have reached your pull rate limit. You may increase the limit           -->
+    <!--    by authenticating and upgrading: https://www.docker.com/increase-rate-limit -->
+    <profile>
+      <id>disableDockerHubUsages</id>
+      <properties>
+        <docker-based-package.phase>none</docker-based-package.phase>
+      </properties>
     </profile>
 
     <profile>

@@ -7,6 +7,10 @@ v5.24-SNAPSHOT
   - Detect Apple TV better
 - Updated UDF dependencies
   - Apache Flink            1.12.2
+- WebServlet:
+  - Cleaning up the code
+- Build:
+  - Disabling usage of docker hub in CI build to avoid random failures over "You have reached your pull rate limit."
 
 v5.23
 ===
