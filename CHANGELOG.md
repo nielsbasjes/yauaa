@@ -7,6 +7,7 @@ v5.24-SNAPSHOT
   - Detect Apple TV better
 - Updated UDF dependencies
   - Apache Flink            1.12.2
+  - Elastic Search/Logstash 7.11.2
 - WebServlet:
   - Cleaning up the code
 - Build:
