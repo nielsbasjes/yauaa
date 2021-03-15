@@ -33,8 +33,11 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jmh.version>1.26</jmh.version>
+    <jmh.version>1.28</jmh.version>
     <yauaa.version>${project.version}</yauaa.version>
+
+    <!-- FIXME: Remove temporary workaround related to https://github.com/openjdk/jmh/pull/31 -->
+    <extra.lint.flags>,-cast</extra.lint.flags>
 
     <!--
         Name of the benchmark Uber-JAR to generate.
@@ -140,7 +143,6 @@
 
   <build>
     <plugins>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
