@@ -8,6 +8,7 @@ v5.24-SNAPSHOT
 - Updated UDF dependencies
   - Apache Flink            1.12.2
   - Elastic Search/Logstash 7.11.2
+  - Apache Nifi             1.13.1
 - WebServlet:
   - Cleaning up the code
 - Build:
@@ -47,7 +48,7 @@ v5.22
 - Updated UDF dependencies
   - Apache Flink            1.12.1
   - Apache Beam             2.27.0
-  - Apache Nifi             1.13.3
+  - Apache Nifi             1.13.0
   - Elastic Search/Logstash 7.11.1
 - New UDF: Beam SQL
 
