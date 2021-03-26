@@ -47,27 +47,32 @@ class TestBuilder {
         assertEquals("Chrome 53",                parsedAgent.getValue("AgentNameVersionMajor"    )); // Chrome 53
 
         // The fields that are internally needed to build the requested fields
+
+        // Needed for AgentNameVersionMajor
         assertEquals("Chrome",                   parsedAgent.getValue("AgentName"                )); // Chrome
-        assertEquals("53.0.2785.124",            parsedAgent.getValue("AgentVersion"             )); // 53.0.2785.124
         assertEquals("53",                       parsedAgent.getValue("AgentVersionMajor"        )); // 53
 
+        // Needed for AgentVersionMajor
+        assertEquals("53.0.2785.124",            parsedAgent.getValue("AgentVersion"             )); // 53.0.2785.124
+
+        // Needed for AgentName (The brand is used as fallback in edge cases that occurs with spiders)
+        assertEquals("Google",                   parsedAgent.getValue("DeviceBrand"              )); // Google
+
         // The rest must be the default value (i.e. no rules fired)
-// FIXME:
-//        assertTrue(parsedAgent.get("DeviceName"                   ).isDefaultValue()); // Nexus 6
-//        assertTrue(parsedAgent.get("DeviceBrand"                  ).isDefaultValue()); // Google
-//        assertTrue(parsedAgent.get("OperatingSystemClass"         ).isDefaultValue()); // Mobile
-//        assertTrue(parsedAgent.get("OperatingSystemName"          ).isDefaultValue()); // Android
-//        assertTrue(parsedAgent.get("OperatingSystemVersion"       ).isDefaultValue()); // 7.0
-//        assertTrue(parsedAgent.get("OperatingSystemNameVersion"   ).isDefaultValue()); // Android 7.0
-//        assertTrue(parsedAgent.get("OperatingSystemVersionBuild"  ).isDefaultValue()); // NBD90Z
-//        assertTrue(parsedAgent.get("LayoutEngineClass"            ).isDefaultValue()); // Browser
-//        assertTrue(parsedAgent.get("LayoutEngineName"             ).isDefaultValue()); // Blink
-//        assertTrue(parsedAgent.get("LayoutEngineVersion"          ).isDefaultValue()); // 53.0
-//        assertTrue(parsedAgent.get("LayoutEngineVersionMajor"     ).isDefaultValue()); // 53
-//        assertTrue(parsedAgent.get("LayoutEngineNameVersion"      ).isDefaultValue()); // Blink 53.0
-//        assertTrue(parsedAgent.get("LayoutEngineNameVersionMajor" ).isDefaultValue()); // Blink 53
-//        assertTrue(parsedAgent.get("AgentClass"                   ).isDefaultValue()); // Browser
-//        assertTrue(parsedAgent.get("AgentNameVersion"             ).isDefaultValue()); // Chrome 53.0.2785.124
+        assertTrue(parsedAgent.get("DeviceName"                   ).isDefaultValue()); // Nexus 6
+        assertTrue(parsedAgent.get("OperatingSystemClass"         ).isDefaultValue()); // Mobile
+        assertTrue(parsedAgent.get("OperatingSystemName"          ).isDefaultValue()); // Android
+        assertTrue(parsedAgent.get("OperatingSystemVersion"       ).isDefaultValue()); // 7.0
+        assertTrue(parsedAgent.get("OperatingSystemNameVersion"   ).isDefaultValue()); // Android 7.0
+        assertTrue(parsedAgent.get("OperatingSystemVersionBuild"  ).isDefaultValue()); // NBD90Z
+        assertTrue(parsedAgent.get("LayoutEngineClass"            ).isDefaultValue()); // Browser
+        assertTrue(parsedAgent.get("LayoutEngineName"             ).isDefaultValue()); // Blink
+        assertTrue(parsedAgent.get("LayoutEngineVersion"          ).isDefaultValue()); // 53.0
+        assertTrue(parsedAgent.get("LayoutEngineVersionMajor"     ).isDefaultValue()); // 53
+        assertTrue(parsedAgent.get("LayoutEngineNameVersion"      ).isDefaultValue()); // Blink 53.0
+        assertTrue(parsedAgent.get("LayoutEngineNameVersionMajor" ).isDefaultValue()); // Blink 53
+        assertTrue(parsedAgent.get("AgentClass"                   ).isDefaultValue()); // Browser
+        assertTrue(parsedAgent.get("AgentNameVersion"             ).isDefaultValue()); // Chrome 53.0.2785.124
     }
 
     @Test
