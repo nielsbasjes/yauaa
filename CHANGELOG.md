@@ -5,6 +5,7 @@ v5.24-SNAPSHOT
 ===
 - Analyzer
   - Detect Apple TV better
+  - Handle 'no spaces' effects like "WindowsNT6.1" better.
 - Updated UDF dependencies
   - Apache Flink            1.12.2
   - Elastic Search/Logstash 7.11.2
