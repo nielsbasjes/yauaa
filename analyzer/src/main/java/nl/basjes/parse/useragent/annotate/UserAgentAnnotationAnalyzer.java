@@ -20,8 +20,8 @@ package nl.basjes.parse.useragent.annotate;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.GenericTypeResolver;
 
 import java.lang.reflect.InvocationTargetException;
@@ -38,7 +38,7 @@ public class UserAgentAnnotationAnalyzer<T> {
     private UserAgentAnnotationMapper<T> mapper = null;
     private UserAgentAnalyzer userAgentAnalyzer = null;
     private int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
-    private static final Logger LOG = LoggerFactory.getLogger(UserAgentAnnotationAnalyzer.class);
+    private static final Logger LOG = LogManager.getLogger(UserAgentAnnotationAnalyzer.class);
 
     private final Map<String, List<Method>> fieldSetters = new HashMap<>();
 

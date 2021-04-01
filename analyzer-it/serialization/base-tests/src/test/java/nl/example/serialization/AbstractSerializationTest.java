@@ -19,9 +19,8 @@ package nl.example.serialization;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.example.Demo;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractSerializationTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractSerializationTest.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractSerializationTest.class);
 
     abstract byte[] serialize(Demo demo) throws IOException;
 

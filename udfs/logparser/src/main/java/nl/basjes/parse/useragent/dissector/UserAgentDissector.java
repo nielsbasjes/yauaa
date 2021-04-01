@@ -26,8 +26,8 @@ import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -42,7 +42,7 @@ import static nl.basjes.parse.core.Casts.STRING_ONLY;
 
 public class UserAgentDissector extends Dissector {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserAgentDissector.class);
+    private static final Logger LOG = LogManager.getLogger(UserAgentDissector.class);
 
     private transient UserAgentAnalyzerBuilder userAgentAnalyzerBuilder;
     private UserAgentAnalyzer userAgentAnalyzer = null;

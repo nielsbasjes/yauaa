@@ -31,7 +31,7 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern MISSING_SPACE =
         Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
     private static final Pattern MULTIPLE_SPACES =
-        Pattern.compile("(?: {2,})");
+        Pattern.compile(" {2,}");
     private static final Pattern AVOID_BASE64_MATCH =
         Pattern.compile("(android/[0-9]+)(/)", Pattern.CASE_INSENSITIVE);
 

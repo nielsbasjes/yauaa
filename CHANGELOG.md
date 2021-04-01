@@ -1,8 +1,10 @@
 
 This is intended as an overview of the major changes
 
-v5.24-SNAPSHOT
+v6.0-SNAPSHOT
 ===
+- Analyzer
+  - Breaking change: Replace SLF4J with Log4j2
 - New/improved detections
   - Detect Apple TV better
   - Handle 'no spaces' effects like "WindowsNT6.1" better.

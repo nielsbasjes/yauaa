@@ -93,8 +93,8 @@ import nl.basjes.parse.useragent.utils.AntlrUtils;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -109,7 +109,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.Matcher
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 
 public class WalkList implements Serializable {
-    private static final Logger LOG = LoggerFactory.getLogger(WalkList.class);
+    private static final Logger LOG = LogManager.getLogger(WalkList.class);
 
     private final Map<String, Map<String, String>> lookups;
     private final Map<String, Set<String>>         lookupSets;

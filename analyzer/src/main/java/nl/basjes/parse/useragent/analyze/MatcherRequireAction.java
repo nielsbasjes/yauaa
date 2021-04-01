@@ -20,11 +20,11 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MatcherRequireAction extends MatcherAction {
-    private static final Logger LOG = LoggerFactory.getLogger(MatcherRequireAction.class);
+    private static final Logger LOG = LogManager.getLogger(MatcherRequireAction.class);
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatcherRequireAction() {

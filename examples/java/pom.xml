@@ -24,7 +24,7 @@
   <parent>
     <groupId>nl.basjes.parse.useragent</groupId>
     <artifactId>yauaa-example-parent</artifactId>
-    <version>5.24-SNAPSHOT</version>
+    <version>6.0-SNAPSHOT</version>
   </parent>
 
   <packaging>jar</packaging>
@@ -36,20 +36,28 @@
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>${project.version}</version>
+      <version>${yauaa.version}</version>
     </dependency>
 
+    <!-- The default logging implementation for Yauaa -->
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>${slf4j.version}</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
     </dependency>
 
+    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j.version}</version>
-      <scope>test</scope>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <!-- Needed for the included classes from org.springframework:spring-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${log4j2.version}</version>
     </dependency>
 
   </dependencies>

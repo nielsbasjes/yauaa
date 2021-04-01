@@ -23,8 +23,8 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class DebugUserAgent extends MutableUserAgent { // NOSONAR: No need to override equals and hashcode
 
-    private static final Logger LOG = LoggerFactory.getLogger(DebugUserAgent.class);
+    private static final Logger LOG = LogManager.getLogger(DebugUserAgent.class);
 
     private final transient List<Pair<UserAgent, Matcher>> appliedMatcherResults = new ArrayList<>(32);
 

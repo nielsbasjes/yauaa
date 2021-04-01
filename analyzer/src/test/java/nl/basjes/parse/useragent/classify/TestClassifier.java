@@ -103,13 +103,13 @@ class TestClassifier {
 
         userAgent.set(DEVICE_CLASS, deviceClass.getValue(), 1);
         assertEquals(human, isHuman(userAgent),
-            "For the DeviceClass " + deviceClass.toString() + " the isHuman() was incorrect.");
+            "For the DeviceClass " + deviceClass + " the isHuman() was incorrect.");
         assertEquals(mobile, isMobile(userAgent),
-            "For the DeviceClass " + deviceClass.toString() + " the isMobile() was incorrect.");
+            "For the DeviceClass " + deviceClass + " the isMobile() was incorrect.");
         assertEquals(normal, isNormalConsumerDevice(userAgent),
-            "For the DeviceClass " + deviceClass.toString() + " the isNormalConsumerDevice() was incorrect.");
+            "For the DeviceClass " + deviceClass + " the isNormalConsumerDevice() was incorrect.");
         assertEquals(misuse, isDeliberateMisuse(userAgent),
-            "For the DeviceClass " + deviceClass.toString() + " the isDeliberateMisuse() was incorrect.");
+            "For the DeviceClass " + deviceClass + " the isDeliberateMisuse() was incorrect.");
     }
 
 }

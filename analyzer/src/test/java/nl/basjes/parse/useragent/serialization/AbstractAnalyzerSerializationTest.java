@@ -20,9 +20,9 @@ package nl.basjes.parse.useragent.serialization;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.AbstractUserAgentAnalyzerDirectBuilder;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 abstract class AbstractAnalyzerSerializationTest<ANALYZER extends AbstractUserAgentAnalyzerDirect> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractAnalyzerSerializationTest.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractAnalyzerSerializationTest.class);
 
     abstract byte[] serialize(ANALYZER uaa) throws IOException;
 

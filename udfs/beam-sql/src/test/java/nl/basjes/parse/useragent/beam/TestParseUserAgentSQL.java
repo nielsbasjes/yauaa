@@ -32,11 +32,11 @@ import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.Row;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ import java.util.List;
 @Category(ValidatesRunner.class)
 public class TestParseUserAgentSQL implements Serializable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestParseUserAgentSQL.class);
+    private static final Logger LOG = LogManager.getLogger(TestParseUserAgentSQL.class);
 
     @Rule
     public final transient TestPipeline pipeline = TestPipeline.create();

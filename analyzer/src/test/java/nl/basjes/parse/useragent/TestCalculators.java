@@ -22,11 +22,11 @@ import nl.basjes.parse.useragent.calculate.CalculateAgentName;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestCalculators {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestCalculators.class);
+    private static final Logger LOG = LogManager.getLogger(TestCalculators.class);
 
     @Test
     void testFieldAgentNameVersionFallback() {

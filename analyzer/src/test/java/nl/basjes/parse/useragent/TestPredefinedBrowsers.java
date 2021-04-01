@@ -18,9 +18,9 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class TestPredefinedBrowsers {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsers.class);
+    private static final Logger LOG = LogManager.getLogger(TestPredefinedBrowsers.class);
 
     @Test
     void validateAllPredefinedBrowsers() {
@@ -129,6 +129,6 @@ class TestPredefinedBrowsers {
                 sb.append(">Location ").append(++count).append(".(").append(location).append(")\n");
             }
         }
-        fail("Found "+ duplicates.size()+ " testcases multiple times: \n" + sb.toString());
+        fail("Found "+ duplicates.size()+ " testcases multiple times: \n" + sb);
     }
 }

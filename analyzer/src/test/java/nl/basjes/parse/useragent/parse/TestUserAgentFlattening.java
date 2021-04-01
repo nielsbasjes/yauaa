@@ -20,9 +20,9 @@ package nl.basjes.parse.useragent.parse;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.GetAllPathsAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 // CHECKSTYLE.OFF: NoWhitespaceBefore
 class TestUserAgentFlattening {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestUserAgentFlattening.class);
+    private static final Logger LOG = LogManager.getLogger(TestUserAgentFlattening.class);
 
     @Test
     void testFlatteningProduct() {

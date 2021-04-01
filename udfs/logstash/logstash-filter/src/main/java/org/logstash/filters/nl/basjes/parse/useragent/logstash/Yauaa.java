@@ -20,15 +20,15 @@ package org.logstash.filters.nl.basjes.parse.useragent.logstash;
 import co.elastic.logstash.api.Configuration;
 import co.elastic.logstash.api.Context;
 import co.elastic.logstash.api.Event;
+import co.elastic.logstash.api.Filter;
 import co.elastic.logstash.api.FilterMatchListener;
 import co.elastic.logstash.api.LogstashPlugin;
 import co.elastic.logstash.api.PluginConfigSpec;
-import co.elastic.logstash.api.Filter;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ import static nl.basjes.parse.useragent.UserAgent.MutableUserAgent.isSystemField
 @LogstashPlugin(name = "yauaa")
 public class Yauaa implements Filter {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Yauaa.class);
+    private static final Logger LOG = LogManager.getLogger(Yauaa.class);
 
     private final String            id;
     private final UserAgentAnalyzer userAgentAnalyzer;

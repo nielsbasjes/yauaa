@@ -198,7 +198,7 @@ class TestAnnotationSystem {
     // ----------------------------------------------------------------
 
     public static class WrongReturnType extends MyBaseMapper {
-        @SuppressWarnings("unused") // Called via the annotation
+        @SuppressWarnings({"unused", "SameReturnValue"}) // Called via the annotation
         @YauaaField("DeviceClass")
         public boolean nonVoidSetter(TestRecord record, String value) {
             fail("May NEVER call this method");

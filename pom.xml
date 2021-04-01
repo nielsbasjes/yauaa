@@ -25,7 +25,7 @@
   <artifactId>yauaa-parent</artifactId>
   <packaging>pom</packaging>
   <groupId>nl.basjes.parse.useragent</groupId>
-  <version>5.24-SNAPSHOT</version>
+  <version>6.0-SNAPSHOT</version>
 
   <name>Yauaa : </name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
@@ -81,6 +81,8 @@
     <elastic.version>7.12.0</elastic.version>
     <logstash.version>${elastic.version}</logstash.version>
     <elasticsearch.version>${elastic.version}</elasticsearch.version>
+    <!-- This is the log4j2 version used in ES -->
+    <elasticsearch.log4j2.version>2.11.1</elasticsearch.log4j2.version>
 
     <!-- ============================================== -->
 
@@ -88,7 +90,7 @@
     <checkstyle-plugin.version>3.1.1</checkstyle-plugin.version>
     <checkstyle.version>8.41.1</checkstyle.version>
     <spotbugs-maven-plugin.version>4.1.3</spotbugs-maven-plugin.version>
-    <spotbugs.version>4.2.2</spotbugs.version>
+    <spotbugs.version>4.2.3</spotbugs.version>
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.14.1</log4j2.version>
     <kryo4.version>4.0.2</kryo4.version>  <!--  DO NOT UPGRADE: We test with Kryo 4.0.2 to ensure backwards compatibility. -->
@@ -99,7 +101,7 @@
     <hamcrest-core.version>2.2</hamcrest-core.version>
 
     <spring.version>5.3.6</spring.version>
-    <spring-boot.version>2.4.4</spring-boot.version>
+    <spring-boot.version>2.4.5</spring-boot.version>
     <spring-boot-legacy.version>2.1.0.RELEASE</spring-boot-legacy.version>
 
     <springfox-swagger.version>3.0.0</springfox-swagger.version>
@@ -709,7 +711,7 @@
           <dependencies>
             <dependency>
               <groupId>nl.basjes.parse.useragent</groupId>
-              <artifactId>devtools</artifactId>
+              <artifactId>yauaa-devtools</artifactId>
               <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -791,7 +793,7 @@
             </dependency>
             <dependency>
               <groupId>nl.basjes.parse.useragent</groupId>
-              <artifactId>devtools</artifactId>
+              <artifactId>yauaa-devtools</artifactId>
               <version>${project.version}</version>
             </dependency>
           </dependencies>
@@ -818,22 +820,22 @@
           <version>3.0.0</version>
         </plugin>
 
-        <plugin><artifactId>maven-antrun-plugin</artifactId><version>3.0.0</version></plugin>
-        <plugin><artifactId>maven-assembly-plugin</artifactId><version>3.3.0</version></plugin>
-        <plugin><artifactId>maven-clean-plugin</artifactId><version>3.1.0</version></plugin>
-        <plugin><artifactId>maven-compiler-plugin</artifactId><version>3.8.1</version></plugin>
-        <plugin><artifactId>maven-deploy-plugin</artifactId><version>3.0.0-M1</version></plugin>
-        <plugin><artifactId>maven-enforcer-plugin</artifactId><version>3.0.0-M3</version></plugin>
-        <plugin><artifactId>maven-install-plugin</artifactId><version>3.0.0-M1</version></plugin>
-        <plugin><artifactId>maven-jar-plugin</artifactId><version>3.2.0</version></plugin>
-        <plugin><artifactId>maven-javadoc-plugin</artifactId><version>3.2.0</version></plugin>
-        <plugin><artifactId>maven-resources-plugin</artifactId><version>3.2.0</version></plugin>
-        <plugin><artifactId>maven-shade-plugin</artifactId><version>3.2.4</version></plugin>
-        <plugin><artifactId>maven-site-plugin</artifactId><version>3.9.1</version></plugin>
-        <plugin><artifactId>maven-source-plugin</artifactId><version>3.2.1</version></plugin>
-        <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.0.0-M4</version></plugin>
-        <plugin><artifactId>maven-failsafe-plugin</artifactId><version>3.0.0-M4</version></plugin>
-        <plugin><artifactId>maven-war-plugin</artifactId><version>3.3.1</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId><version>3.0.0</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-assembly-plugin</artifactId><version>3.3.0</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>3.1.0</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.8.1</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-deploy-plugin</artifactId><version>3.0.0-M1</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId><version>3.0.0-M3</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-install-plugin</artifactId><version>3.0.0-M1</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>3.2.0</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId><version>3.2.0</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.2.0</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId><version>3.2.4</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-site-plugin</artifactId><version>3.9.1</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-source-plugin</artifactId><version>3.2.1</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.0.0-M4</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-failsafe-plugin</artifactId><version>3.0.0-M4</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-war-plugin</artifactId><version>3.3.1</version></plugin>
 
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -845,7 +847,7 @@
           <dependencies>
             <dependency>
               <groupId>nl.basjes.parse.useragent</groupId>
-              <artifactId>devtools</artifactId>
+              <artifactId>yauaa-devtools</artifactId>
               <version>${project.version}</version>
             </dependency>
           </dependencies>

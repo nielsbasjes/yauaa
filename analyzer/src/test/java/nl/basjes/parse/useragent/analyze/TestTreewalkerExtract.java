@@ -243,7 +243,7 @@ class TestTreewalkerExtract {
 
         // Validate the expected hash entries (i.e. the first part of the path)
         for (String expect : expectedHashEntries) {
-            assertTrue(matcher.receivedValues.contains(expect), "\nMissing:\n" + expect + sb.toString());
+            assertTrue(matcher.receivedValues.contains(expect), "\nMissing:\n" + expect + sb);
         }
         assertEquals(expectedHashEntries.length, matcher.receivedValues.size(), "Found wrong number of entries");
 
@@ -254,7 +254,7 @@ class TestTreewalkerExtract {
         Step step = walkList.getFirstStep();
         for (String walkStep : expectedWalkList) {
             assertNotNull(step, "Missing step:" + walkStep);
-            assertEquals(walkStep, step.toString(), "Wrong step (" + step.toString() + " should be " + walkStep + ")");
+            assertEquals(walkStep, step.toString(), "Wrong step (" + step + " should be " + walkStep + ")");
             step = step.getNextStep();
         }
         assertNull(step);

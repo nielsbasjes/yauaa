@@ -21,8 +21,6 @@ import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,8 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestUseragent {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TestUseragent.class);
 
     @Test
     void testUseragent() {
@@ -160,7 +156,7 @@ class TestUseragent {
         MutableAgentField origNull = new MutableAgentField(null);
         origNull.setValue("One", 1);
         MutableAgentField copyNull = new MutableAgentField("Foo"); // Different default!
-        copyNull.setValue(origNull);
+        assertTrue(copyNull.setValue(origNull));
 
         assertEquals("One", copyNull.getValue());
         assertEquals(1, copyNull.getConfidence());

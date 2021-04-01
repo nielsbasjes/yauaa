@@ -83,9 +83,10 @@ import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
+import nl.basjes.parse.useragent.utils.CheckLoggingDependencies;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -169,7 +170,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     // To keep the bins small the load factor of 0.75 already puts us at the capacity of 1048576
     private static final int INFORM_ACTIONS_HASHMAP_CAPACITY = 1000000;
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractUserAgentAnalyzerDirect.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractUserAgentAnalyzerDirect.class);
     private final ArrayList<Matcher> allMatchers = new ArrayList<>(5000);
     private final ArrayList<Matcher> zeroInputMatchers = new ArrayList<>(100);
 
@@ -375,32 +376,29 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     }
 
     private boolean delayInitialization = true;
-    public void delayInitialization() {
+    void delayInitialization() {
         delayInitialization = true;
     }
 
-    public void immediateInitialization() {
+    void immediateInitialization() {
         delayInitialization = false;
     }
 
-    public AbstractUserAgentAnalyzerDirect setShowMatcherStats(boolean newShowMatcherStats) {
+    void setShowMatcherStats(boolean newShowMatcherStats) {
         this.showMatcherStats = newShowMatcherStats;
-        return this;
     }
 
     public boolean getShowMatcherStats() {
         return showMatcherStats;
     }
 
-    public AbstractUserAgentAnalyzerDirect dropTests() {
+    public void dropTests() {
         loadTests = false;
         testCases.clear();
-        return this;
     }
 
-    public AbstractUserAgentAnalyzerDirect keepTests() {
+    public void keepTests() {
         loadTests = true;
-        return this;
     }
 
     public boolean willKeepTests() {
@@ -577,7 +575,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
         long stopFiles = System.nanoTime();
         try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-            msg.format("- Loaded %2d files in %4d msec using expression: %s",
+            msg.format("- Loaded %2d files in %4d ms using expression: %s",
                 resources.size(),
                 (stopFiles - startFiles) / 1000000,
                 resourceString);
@@ -724,7 +722,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         if (impossibleFields.isEmpty()) {
             return;
         }
-        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields.toString());
+        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields);
     }
 
     private boolean matchersHaveBeenInitialized = false;
@@ -1664,7 +1662,7 @@ config:
             return (B)this;
         }
 
-        protected Set<String> allFieldsForWhichACalculatorExists = new HashSet<>();
+        protected final Set<String> allFieldsForWhichACalculatorExists = new HashSet<>();
 
         private void registerFieldCalculator(FieldCalculator fieldCalculator) {
             String calculatedFieldName = fieldCalculator.getCalculatedFieldName();
@@ -1703,6 +1701,12 @@ config:
         public UAA build() {
             failIfAlreadyBuilt();
             uaa.initTransientFields();
+
+            // Before we initialize we check if the logging has been setup correctly.
+            // Not all useragents trigger the same logging libraries because some
+            // of the logging libraries are only used in specific analysis code.
+            // This is a "fail fast" to ensure any problems happen even before startup.
+            CheckLoggingDependencies.verifyLoggingDependencies();
 
             // In case we only want specific fields we must all these special cases too
             if (uaa.wantedFieldNames != null) {

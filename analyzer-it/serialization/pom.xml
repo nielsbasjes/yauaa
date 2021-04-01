@@ -22,13 +22,55 @@
   <parent>
     <artifactId>yauaa-integration-tests-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <version>5.24-SNAPSHOT</version>
+    <version>6.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
 
-  <artifactId>yauaa-serialization-tests-parent</artifactId>
+  <artifactId>yauaa-integration-tests-serialization-parent</artifactId>
   <name>Yauaa : IT : Serialization : </name>
+
+  <dependencies>
+    <!-- The default logging implementation for Yauaa -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Needed for the included classes from org.springframework:spring-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${log4j2.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <!-- Since these serialization tests do not create any normal jar we disable 'default-jar' -->
+            <id>default-jar</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
   <modules>
     <module>base-tests</module>

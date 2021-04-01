@@ -21,11 +21,11 @@ import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MatcherExtractAction extends MatcherAction {
-    private static final Logger LOG = LoggerFactory.getLogger(MatcherExtractAction.class);
+    private static final Logger LOG = LogManager.getLogger(MatcherExtractAction.class);
 
     private final String attribute;
     private final long confidence;

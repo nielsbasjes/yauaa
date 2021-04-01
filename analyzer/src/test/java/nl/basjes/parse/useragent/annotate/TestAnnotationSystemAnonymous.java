@@ -107,7 +107,7 @@ class TestAnnotationSystemAnonymous {
         InvalidParserConfigurationException exception =
             assertThrows(InvalidParserConfigurationException.class, () ->
                 record = new MyErrorMapper() {
-                    @SuppressWarnings("unused") // Called via the annotation
+                    @SuppressWarnings({"unused", "SameReturnValue"}) // Called via the annotation
                     @YauaaField("DeviceClass")
                     public boolean wrongSetter(TestRecord testRecord, Double value) {
                         fail("May NEVER call this method");

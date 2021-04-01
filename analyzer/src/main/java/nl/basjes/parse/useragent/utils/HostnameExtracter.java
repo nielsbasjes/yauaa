@@ -141,8 +141,8 @@ public final class HostnameExtracter implements Serializable {
 
     private static final List<SitePathExtract> SITE_PATH_EXTRACTS = Arrays.asList(
         // The 0 is array index 0 AFTER the prefix !!!
-        new SitePathExtract("https://github.com/",                   0),
-        new SitePathExtract("https://gitlab.com/",                   0),
+        new SitePathExtract("https://github.com/",                  0),
+        new SitePathExtract("https://gitlab.com/",                  0),
         new SitePathExtract("https://sourceforge.net/projects/",    0)
     );
 
