@@ -84,8 +84,8 @@ import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -169,7 +169,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     // To keep the bins small the load factor of 0.75 already puts us at the capacity of 1048576
     private static final int INFORM_ACTIONS_HASHMAP_CAPACITY = 1000000;
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractUserAgentAnalyzerDirect.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractUserAgentAnalyzerDirect.class);
     private final ArrayList<Matcher> allMatchers = new ArrayList<>(5000);
     private final ArrayList<Matcher> zeroInputMatchers = new ArrayList<>(100);
 
@@ -1703,6 +1703,9 @@ config:
         public UAA build() {
             failIfAlreadyBuilt();
             uaa.initTransientFields();
+
+            // Before we initialize we check if the logging has been setup correctly.
+            CheckLoggingDependencies.verifyLoggingDependencies();
 
             // In case we only want specific fields we must all these special cases too
             if (uaa.wantedFieldNames != null) {

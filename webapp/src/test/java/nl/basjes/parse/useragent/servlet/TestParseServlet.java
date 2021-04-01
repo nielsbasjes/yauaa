@@ -16,11 +16,11 @@
  */
 package nl.basjes.parse.useragent.servlet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.BasicJsonTester;
@@ -48,7 +48,7 @@ import static org.springframework.http.MediaType.TEXT_PLAIN;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestParseServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestParseServlet.class);
+    private static final Logger LOG = LogManager.getLogger(TestParseServlet.class);
 
     @LocalServerPort
     private int port;

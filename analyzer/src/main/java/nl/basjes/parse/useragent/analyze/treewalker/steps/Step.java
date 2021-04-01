@@ -23,15 +23,15 @@ import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public abstract class Step implements Serializable {
-    protected static final Logger LOG = LoggerFactory.getLogger(Step.class);
+    protected static final Logger LOG = LogManager.getLogger(Step.class);
     private int stepNr;
     protected String logprefix = "";
     private Step nextStep;

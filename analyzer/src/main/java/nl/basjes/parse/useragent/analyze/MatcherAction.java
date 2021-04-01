@@ -55,8 +55,8 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -85,7 +85,7 @@ public abstract class MatcherAction implements Serializable {
         return evaluator;
     }
 
-    private static final Logger LOG = LoggerFactory.getLogger(MatcherAction.class);
+    private static final Logger LOG = LogManager.getLogger(MatcherAction.class);
 
     protected Matcher matcher;
     private MatchesList matches;

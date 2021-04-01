@@ -23,8 +23,8 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Test;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -40,7 +40,7 @@ class TestBuilder {
         UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
 
-        LoggerFactory.getLogger(TestBuilder.class).info("{}", parsedAgent.toYamlTestCase(true));
+        LogManager.getLogger(TestBuilder.class).info("{}", parsedAgent.toYamlTestCase(true));
 
         // The requested fields
         assertEquals("Phone",                    parsedAgent.getValue("DeviceClass"              )); // Phone

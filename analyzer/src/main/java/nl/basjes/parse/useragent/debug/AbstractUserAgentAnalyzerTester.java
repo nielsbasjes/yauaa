@@ -26,9 +26,10 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MessageFormatter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.message.MessageFactory;
+import org.apache.logging.log4j.message.ReusableMessageFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +44,7 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
 @DefaultSerializer(AbstractUserAgentAnalyzerTester.KryoSerializer.class)
 public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractUserAgentAnalyzerTester.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractUserAgentAnalyzerTester.class);
 
     /**
      * This is used to configure the provided Kryo instance if Kryo serialization is desired.
@@ -73,10 +74,19 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         long confidence;
     }
 
+    private static MessageFactory messageFactory = new ReusableMessageFactory();
+
+    private static String determineLogMessage(String format, Object... args){
+        if (args == null || args.length == 0) {
+            return format;
+        }
+        return messageFactory.newMessage(format, args).getFormattedMessage();
+    }
+
     private static void logInfo(StringBuilder errorMessageReceiver, String format, Object... args) {
         if (LOG.isInfoEnabled()) {
-            final String message = MessageFormatter.arrayFormat(format, args).getMessage();
-            LOG.info(message, args);
+            final String message = determineLogMessage(format, args);
+            LOG.info(message);
             if (errorMessageReceiver != null) {
                 errorMessageReceiver.append(message).append('\n');
             }
@@ -85,8 +95,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
     private static void logWarn(StringBuilder errorMessageReceiver, String format, Object... args) {
         if (LOG.isWarnEnabled()) {
-            final String message = MessageFormatter.arrayFormat(format, args).getMessage();
-            LOG.warn(message, args);
+            final String message = determineLogMessage(format, args);
+            LOG.warn(message);
             if (errorMessageReceiver != null) {
                 errorMessageReceiver.append(message).append('\n');
             }
@@ -95,8 +105,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
     private static void logError(StringBuilder errorMessageReceiver, String format, Object... args) {
         if (LOG.isErrorEnabled()) {
-            final String message = MessageFormatter.arrayFormat(format, args).getMessage();
-            LOG.error(message, args);
+            final String message = determineLogMessage(format, args);
+            LOG.error(message);
             if (errorMessageReceiver != null) {
                 errorMessageReceiver.append(message).append('\n');
             }

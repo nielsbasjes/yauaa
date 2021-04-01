@@ -18,17 +18,17 @@
 package nl.basjes.parse.useragent.profile;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestMemoryFootprint {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestMemoryFootprint.class);
+    private static final Logger LOG = LogManager.getLogger(TestMemoryFootprint.class);
 
     private static final long MEGABYTE = 1024L * 1024L;
 

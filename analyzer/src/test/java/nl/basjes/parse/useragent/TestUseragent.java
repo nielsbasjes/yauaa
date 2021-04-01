@@ -20,9 +20,9 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestUseragent {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestUseragent.class);
+    private static final Logger LOG = LogManager.getLogger(TestUseragent.class);
 
     @Test
     void testUseragent() {

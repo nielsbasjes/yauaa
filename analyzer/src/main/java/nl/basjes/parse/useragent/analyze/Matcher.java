@@ -20,8 +20,8 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.YamlUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.NodeTuple;
 
@@ -44,7 +44,7 @@ import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.VARIABLE
 import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 
 public class Matcher implements Serializable {
-    private static final Logger LOG = LoggerFactory.getLogger(Matcher.class);
+    private static final Logger LOG = LogManager.getLogger(Matcher.class);
 
     private final Analyzer analyzer;
     private final List<MatcherVariableAction> variableActions;

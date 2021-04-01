@@ -28,8 +28,8 @@ import org.antlr.v4.runtime.Recognizer;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.apache.commons.text.StringEscapeUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -474,7 +474,7 @@ public interface UserAgent extends Serializable {
 
     class MutableUserAgent extends UserAgentBaseListener implements UserAgent, Serializable, DefaultANTLRErrorListener {
 
-        private static final Logger LOG                     = LoggerFactory.getLogger(UserAgent.class);
+        private static final Logger LOG                     = LogManager.getLogger(UserAgent.class);
 
         private static String getDefaultValueForField(String fieldName) {
             if (fieldName.contains("NameVersion")) {

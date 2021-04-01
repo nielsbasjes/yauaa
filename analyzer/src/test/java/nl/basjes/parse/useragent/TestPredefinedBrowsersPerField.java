@@ -18,10 +18,10 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Set;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestPredefinedBrowsersPerField {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestPredefinedBrowsersPerField.class);
+    private static final Logger LOG = LogManager.getLogger(TestPredefinedBrowsersPerField.class);
 
     public static Iterable<String> data() {
         return UserAgentAnalyzer

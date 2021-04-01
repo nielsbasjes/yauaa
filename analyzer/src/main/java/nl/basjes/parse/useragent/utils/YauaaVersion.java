@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.utils;
 
 import nl.basjes.parse.useragent.Version;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.nodes.MappingNode;
 import org.yaml.snakeyaml.nodes.Node;
 import org.yaml.snakeyaml.nodes.NodeTuple;
@@ -41,7 +41,7 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
 
 public final class YauaaVersion {
 
-    private static final Logger LOG = LoggerFactory.getLogger(YauaaVersion.class);
+    private static final Logger LOG = LogManager.getLogger(YauaaVersion.class);
 
     private YauaaVersion() {
     }

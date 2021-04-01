@@ -33,8 +33,8 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValue
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 
@@ -43,7 +43,7 @@ import java.io.Serializable;
  * the expression against the parsed user agent
  */
 public class TreeExpressionEvaluator implements Serializable {
-    private static final Logger LOG = LoggerFactory.getLogger(TreeExpressionEvaluator.class);
+    private static final Logger LOG = LogManager.getLogger(TreeExpressionEvaluator.class);
     private final boolean verbose;
 
     private final String requiredPatternText;

@@ -19,15 +19,15 @@ package nl.basjes.parse.useragent.profile;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestPerformance {
-    private static final Logger LOG = LoggerFactory.getLogger(TestPerformance.class);
+    private static final Logger LOG = LogManager.getLogger(TestPerformance.class);
 
     @Disabled
     @Test

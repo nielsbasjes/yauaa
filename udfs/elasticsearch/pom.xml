@@ -24,7 +24,7 @@
   <parent>
     <artifactId>yauaa-udf-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <version>5.24-SNAPSHOT</version>
+    <version>6.0-SNAPSHOT</version>
   </parent>
   <artifactId>yauaa-elasticsearch</artifactId>
   <packaging>jar</packaging>
@@ -36,6 +36,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- We disable the depencency-convergence check because it is too messy. -->
+<!--    <depencency-convergence.phase>none</depencency-convergence.phase>-->
   </properties>
 
   <dependencies>
@@ -43,14 +46,8 @@
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.elasticsearch</groupId>
-      <artifactId>elasticsearch</artifactId>
-      <version>${elasticsearch.version}</version>
-      <scope>provided</scope>
       <exclusions>
+        <!-- To avoid the "jar hell!" failure when loading in ES. -->
         <exclusion>
           <groupId>org.apache.logging.log4j</groupId>
           <artifactId>log4j-api</artifactId>
@@ -59,32 +56,40 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-api</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.elasticsearch</groupId>
+      <artifactId>elasticsearch</artifactId>
+      <version>${elasticsearch.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>${log4j2.version}</version>
+      <version>${elasticsearch.log4j2.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>test</scope>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${elasticsearch.log4j2.version}</version>
+<!--      <scope>test</scope>-->
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${elasticsearch.log4j2.version}</version>
+<!--      <scope>test</scope>-->
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${elasticsearch.log4j2.version}</version>
+<!--      <version>${log4j2.version}</version>-->
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.junit.vintage</groupId>

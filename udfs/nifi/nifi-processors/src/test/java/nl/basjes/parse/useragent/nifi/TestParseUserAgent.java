@@ -27,8 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static nl.basjes.parse.useragent.nifi.ParseUserAgent.PROPERTY_PREFIX;
 import static nl.basjes.parse.useragent.nifi.ParseUserAgent.ATTRIBUTE_PREFIX;
+import static nl.basjes.parse.useragent.nifi.ParseUserAgent.PROPERTY_PREFIX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // CHECKSTYLE.OFF: ParenPad
