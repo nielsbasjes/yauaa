@@ -8,8 +8,8 @@ v5.24-SNAPSHOT
   - Handle 'no spaces' effects like "WindowsNT6.1" better.
 - Updated UDF dependencies
   - Apache Flink            1.12.2
-  - Elastic Search/Logstash 7.11.2
-  - Apache Nifi             1.13.1
+  - Apache Nifi             1.13.2
+  - Elastic Search/Logstash 7.12.0
 - WebServlet:
   - Cleaning up the code
 - Build:
