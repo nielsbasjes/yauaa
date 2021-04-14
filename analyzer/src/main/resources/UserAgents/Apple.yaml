@@ -1187,43 +1187,43 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)text="Mac"'
+    - 'agent.(1)product.(1)comments.entry[1]="Mac"'
     extract:
-    - 'DeviceClass                         :      100 :"Desktop"'
-    - 'DeviceName                          :      100 :"Mac"'
-    - 'DeviceBrand                         :      100 :"Apple"'
-    - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :"Mac OS"'
-    - 'OperatingSystemVersion              :      100 :"before 10"'
+    - 'DeviceClass                         :      10 :"Desktop"'
+    - 'DeviceName                          :      10 :"Macintosh"'
+    - 'DeviceBrand                         :      10 :"Apple"'
+    - 'OperatingSystemClass                :      10 :"Desktop"'
+    - 'OperatingSystemName                 :      10 :"Mac OS"'
+    - 'OperatingSystemVersion              :      10 :"before 10"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)text="Mac_68K"'
+    - 'agent.(1)product.(1)comments.entry[1]="Mac_68K"'
     extract:
-    - 'DeviceClass                         :      100 :"Desktop"'
-    - 'DeviceName                          :      100 :"Mac"'
-    - 'DeviceBrand                         :      100 :"Apple"'
-    - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :"Mac OS"'
-    - 'OperatingSystemVersion              :      100 :"before 10"'
+    - 'DeviceClass                         :      10 :"Desktop"'
+    - 'DeviceName                          :      10 :"Macintosh"'
+    - 'DeviceBrand                         :      10 :"Apple"'
+    - 'OperatingSystemClass                :      10 :"Desktop"'
+    - 'OperatingSystemName                 :      10 :"Mac OS"'
+    - 'OperatingSystemVersion              :      10 :"before 10"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)text="Mac_PowerPC"'
+    - 'agent.(1)product.(1)comments.entry[1]="Mac_PowerPC"'
     extract:
-    - 'DeviceClass                         :      100 :"Desktop"'
-    - 'DeviceName                          :      100 :"Mac"'
-    - 'DeviceBrand                         :      100 :"Apple"'
-    - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :"Mac OS"'
-    - 'OperatingSystemVersion              :      100 :"before 10"'
+    - 'DeviceClass                         :      10 :"Desktop"'
+    - 'DeviceName                          :      10 :"Macintosh"'
+    - 'DeviceBrand                         :      10 :"Apple"'
+    - 'OperatingSystemClass                :      10 :"Desktop"'
+    - 'OperatingSystemName                 :      10 :"Mac OS"'
+    - 'OperatingSystemVersion              :      10 :"before 10"'
 
 - test:
     input:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.23; Mac_PowerPC)'
     expected:
       DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple MAC'
+      DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'PowerPC'
       DeviceCpuBits                        : '32'
@@ -1252,7 +1252,7 @@ config:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 4.01; AOL 4.0; Mac_68K)'
     expected:
       DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple MAC'
+      DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Motorola 68000'
       DeviceCpuBits                        : '32'
@@ -1281,7 +1281,7 @@ config:
       user_agent_string: 'Mozilla/4.0 (compatible; MSIE 5.0; Mac_PowerPC) Opera 5.12  [en]'
     expected:
       DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple MAC'
+      DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'PowerPC'
       DeviceCpuBits                        : '32'
