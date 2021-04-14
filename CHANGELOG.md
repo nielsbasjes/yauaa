@@ -3,9 +3,10 @@ This is intended as an overview of the major changes
 
 v5.24-SNAPSHOT
 ===
-- Analyzer
+- New/improved detections
   - Detect Apple TV better
   - Handle 'no spaces' effects like "WindowsNT6.1" better.
+  - Added testcase for the real PS5 useragent.
 - Updated UDF dependencies
   - Apache Flink            1.12.2
   - Apache Nifi             1.13.2

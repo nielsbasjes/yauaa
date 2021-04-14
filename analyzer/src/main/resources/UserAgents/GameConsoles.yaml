@@ -338,7 +338,7 @@ config:
       AgentNameVersionMajor                : 'AppleWebKit 537'
 
 
-# FIXME LATER: IMPORTANT This is an educated guess for the PS5 based on the PS3 and PS4 useragents.
+# IMPORTANT This is an educated guess (FROM 2019) for the PS5 based on the PS3 and PS4 useragents.
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (PlayStation 5 2.03) AppleWebKit/537.73 (KHTML, like Gecko)'
@@ -365,6 +365,33 @@ config:
       AgentNameVersion                     : 'AppleWebKit 537.73'
       AgentNameVersionMajor                : 'AppleWebKit 537'
 
+
+# The real PS5 useragent
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayStation; PlayStation 5/2.50) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 5'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PlayStation 5'
+      OperatingSystemVersion               : '2.50'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'PlayStation 5 2.50'
+      OperatingSystemNameVersionMajor      : 'PlayStation 5 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '13.0'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'Safari 13.0'
+      AgentNameVersionMajor                : 'Safari 13'
 
 
 - test:
