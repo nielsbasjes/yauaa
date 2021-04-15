@@ -366,7 +366,7 @@ config:
       AgentNameVersionMajor                : 'AppleWebKit 537'
 
 
-# The real PS5 useragent
+# The real PS5 useragent (2021-04-12)
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (PlayStation; PlayStation 5/2.50) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15'
@@ -392,6 +392,34 @@ config:
       AgentVersionMajor                    : '13'
       AgentNameVersion                     : 'Safari 13.0'
       AgentNameVersionMajor                : 'Safari 13'
+
+# PlayStation 5 after the system update of 2021-04-14
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (PlayStation; PlayStation 5/3.00) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 5'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'PS5 OS'
+      OperatingSystemVersion               : '3.00'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'PS5 OS 3.00'
+      OperatingSystemNameVersionMajor      : 'PS5 OS 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '14.0'
+      AgentVersionMajor                    : '14'
+      AgentNameVersion                     : 'Safari 14.0'
+      AgentNameVersionMajor                : 'Safari 14'
+
 
 
 - test:
