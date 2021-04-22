@@ -83,6 +83,7 @@ import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
+import nl.basjes.parse.useragent.utils.CheckLoggingDependencies;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1705,6 +1706,9 @@ config:
             uaa.initTransientFields();
 
             // Before we initialize we check if the logging has been setup correctly.
+            // Not all useragents trigger the same logging libraries because some
+            // of the logging libraries are only used in specific analysis code.
+            // This is a "fail fast" to ensure any problems happen even before startup.
             CheckLoggingDependencies.verifyLoggingDependencies();
 
             // In case we only want specific fields we must all these special cases too

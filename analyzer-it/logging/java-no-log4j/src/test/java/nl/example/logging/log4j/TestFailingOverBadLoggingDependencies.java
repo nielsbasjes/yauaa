@@ -17,23 +17,12 @@
 
 package nl.example.logging.log4j;
 
-import nl.basjes.parse.useragent.CheckLoggingDependencies;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestFailingOverBadLoggingDependencies {
-    @Test
-    void failOverMissingLoggingCheck() {
-        Exception exception =
-            assertThrows(CheckLoggingDependencies.InvalidLoggingDependencyException.class,
-                CheckLoggingDependencies::verifyLoggingDependencies);
-
-        assertEquals("Failed loading Log4J2 (Not present)", exception.getMessage());
-    }
-
     @Test
     void failOverMissingLoggingUsage() {
         // Since Log4j is used immediately in the UserAgentAnalyzerDirect class this

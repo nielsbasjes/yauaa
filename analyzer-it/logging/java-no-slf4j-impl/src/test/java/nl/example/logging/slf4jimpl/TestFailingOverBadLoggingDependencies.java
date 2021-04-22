@@ -17,23 +17,14 @@
 
 package nl.example.logging.slf4jimpl;
 
-import nl.basjes.parse.useragent.CheckLoggingDependencies;
-import nl.basjes.parse.useragent.CheckLoggingDependencies.InvalidLoggingDependencyException;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestFailingOverBadLoggingDependencies {
     // If the actual implementation for SLF4J is missing this has the effect that a NOPLogger is used.
     // This scenario should not trigger a full failure as logging is considered to be optional.
-    @Test
-    void failOverMissingLoggingCheck() {
-        assertDoesNotThrow(CheckLoggingDependencies::verifyLoggingDependencies);
-    }
-
     @Test
     void failOverMissingLoggingUsage() {
         assertDoesNotThrow(() -> UserAgentAnalyzerDirect.newBuilder().delayInitialization().build());

@@ -17,23 +17,14 @@
 
 package nl.example.logging.slf4j;
 
-import nl.basjes.parse.useragent.CheckLoggingDependencies;
-import nl.basjes.parse.useragent.CheckLoggingDependencies.InvalidLoggingDependencyException;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
+import nl.basjes.parse.useragent.utils.CheckLoggingDependencies.InvalidLoggingDependencyException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestFailingOverBadLoggingDependencies {
-    @Test
-    void failOverMissingLoggingCheck() {
-        Exception exception =
-            assertThrows(InvalidLoggingDependencyException.class,
-                CheckLoggingDependencies::verifyLoggingDependencies);
-        assertEquals("Failed testing SLF4J (Not present)", exception.getMessage());
-    }
-
     @Test
     void failOverMissingLoggingUsage() {
         Exception exception =

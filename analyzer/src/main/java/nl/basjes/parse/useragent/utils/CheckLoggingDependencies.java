@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent;
+package nl.basjes.parse.useragent.utils;
 
 public class CheckLoggingDependencies {
 
