@@ -74,13 +74,13 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         long confidence;
     }
 
-    private static final MessageFactory messageFactory = new ReusableMessageFactory();
+    private static final MessageFactory MESSAGE_FACTORY = new ReusableMessageFactory();
 
     private static String determineLogMessage(String format, Object... args){
         if (args == null || args.length == 0) {
             return format;
         }
-        return messageFactory.newMessage(format, args).getFormattedMessage();
+        return MESSAGE_FACTORY.newMessage(format, args).getFormattedMessage();
     }
 
     private static void logInfo(StringBuilder errorMessageReceiver, String format, Object... args) {
