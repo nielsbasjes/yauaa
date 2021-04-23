@@ -30,6 +30,17 @@
   <artifactId>yauaa-udf-drill-parent</artifactId>
   <name>Yauaa : UDF : Apache Drill : </name>
 
+  <!-- Needed to allow downloading the dependencies when using maven 3.8.1-->
+  <!-- Could not transfer artifact org.kohsuke:libpam4j:pom:1.8-rev2 from/to maven-default-http-blocker (http://0.0.0.0/): -->
+  <!--   Blocked mirror for repositories: [mapr-releases (http://repository.mapr.com/maven/, default, releases)]-->
+  <repositories>
+    <repository>
+      <id>mapr</id>
+      <name>Mapr</name>
+      <url>https://repository.mapr.com/maven/</url>
+    </repository>
+  </repositories>
+
   <modules>
     <module>function</module>
     <module>tests</module>
