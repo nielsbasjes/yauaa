@@ -33,7 +33,7 @@ ENV JAVA_HOME /usr/lib/jvm/java
 
 # --------------------------------
 # Install Maven
-ENV MAVEN_VERSION=3.6.3
+ENV MAVEN_VERSION=3.8.1
 RUN mkdir -p /usr/local/apache-maven
 RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
