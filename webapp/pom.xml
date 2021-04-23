@@ -40,6 +40,13 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -52,10 +59,6 @@
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.logging.log4j</groupId>
-          <artifactId>log4j-to-slf4j</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.yaml</groupId>
@@ -120,7 +123,7 @@
     </dependency>
 
     <!-- ================================================================================================ -->
-    <!-- These 4 dependencies are excluded by all UDFs because of dependency/shading/ relocating problems -->
+    <!-- These 3 dependencies are excluded by all UDFs because of dependency/shading/ relocating problems -->
     <!-- But they do need them for the compilation and testing ... -->
     <!-- Documentation of the used shading construct: https://yauaa.basjes.nl/NOTES-shading-dependencies.html -->
     <dependency>
@@ -139,6 +142,12 @@
         <exclusion>
           <groupId>org.yaml</groupId>
           <artifactId>snakeyaml</artifactId>
+        </exclusion>
+
+        <!-- Excluded because of dependency convergence -->
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -160,27 +169,6 @@
       <version>${snakeyaml.version}</version>
     </dependency>
     <!-- ================================================================================================ -->
-
-    <!-- The default logging implementation for Yauaa -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
-
-    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
-
-    <!-- Needed for the included classes from org.springframework:spring-core -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-jcl</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.junit.vintage</groupId>
