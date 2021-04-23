@@ -35,12 +35,10 @@ class TestDeveloperTools {
     void validateErrorSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
-            .hideMatcherLoadStats()
+            .showMatcherLoadStats()
             .delayInitialization()
-            .dropTests()
+            .keepTests()
             .build();
-        uaa.setShowMatcherStats(true);
-        uaa.keepTests();
         uaa.loadResources("classpath*:**/CheckErrorOutput.yaml");
         assertFalse(uaa.runTests(false, true)); // This test must return an error state
     }
@@ -50,11 +48,9 @@ class TestDeveloperTools {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .delayInitialization()
-            .hideMatcherLoadStats()
-            .dropTests()
+            .showMatcherLoadStats()
+            .keepTests()
             .build();
-        uaa.setShowMatcherStats(true);
-        uaa.keepTests();
         uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml");
         assertTrue(uaa.runTests(false, true));
 

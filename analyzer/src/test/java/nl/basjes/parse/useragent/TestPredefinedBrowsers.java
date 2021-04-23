@@ -129,6 +129,6 @@ class TestPredefinedBrowsers {
                 sb.append(">Location ").append(++count).append(".(").append(location).append(")\n");
             }
         }
-        fail("Found "+ duplicates.size()+ " testcases multiple times: \n" + sb.toString());
+        fail("Found "+ duplicates.size()+ " testcases multiple times: \n" + sb);
     }
 }

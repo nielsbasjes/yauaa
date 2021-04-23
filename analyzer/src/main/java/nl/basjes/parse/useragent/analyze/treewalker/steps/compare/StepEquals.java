@@ -30,7 +30,6 @@ public class StepEquals extends Step {
         desiredValue = null;
     }
 
-
     public StepEquals(String desiredValue) {
         this.desiredValue = desiredValue.toLowerCase();
     }

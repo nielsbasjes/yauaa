@@ -376,32 +376,29 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     }
 
     private boolean delayInitialization = true;
-    public void delayInitialization() {
+    void delayInitialization() {
         delayInitialization = true;
     }
 
-    public void immediateInitialization() {
+    void immediateInitialization() {
         delayInitialization = false;
     }
 
-    public AbstractUserAgentAnalyzerDirect setShowMatcherStats(boolean newShowMatcherStats) {
+    void setShowMatcherStats(boolean newShowMatcherStats) {
         this.showMatcherStats = newShowMatcherStats;
-        return this;
     }
 
     public boolean getShowMatcherStats() {
         return showMatcherStats;
     }
 
-    public AbstractUserAgentAnalyzerDirect dropTests() {
+    public void dropTests() {
         loadTests = false;
         testCases.clear();
-        return this;
     }
 
-    public AbstractUserAgentAnalyzerDirect keepTests() {
+    public void keepTests() {
         loadTests = true;
-        return this;
     }
 
     public boolean willKeepTests() {
@@ -578,7 +575,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
 
         long stopFiles = System.nanoTime();
         try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-            msg.format("- Loaded %2d files in %4d msec using expression: %s",
+            msg.format("- Loaded %2d files in %4d ms using expression: %s",
                 resources.size(),
                 (stopFiles - startFiles) / 1000000,
                 resourceString);
@@ -725,7 +722,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         if (impossibleFields.isEmpty()) {
             return;
         }
-        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields.toString());
+        throw new InvalidParserConfigurationException("We cannot provide these fields:" + impossibleFields);
     }
 
     private boolean matchersHaveBeenInitialized = false;
@@ -1665,7 +1662,7 @@ config:
             return (B)this;
         }
 
-        protected Set<String> allFieldsForWhichACalculatorExists = new HashSet<>();
+        protected final Set<String> allFieldsForWhichACalculatorExists = new HashSet<>();
 
         private void registerFieldCalculator(FieldCalculator fieldCalculator) {
             String calculatedFieldName = fieldCalculator.getCalculatedFieldName();

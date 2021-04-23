@@ -533,14 +533,14 @@ public class Matcher implements Serializable {
         sb.append("    EXTRACT:\n");
         for (MatcherAction action : dynamicActions) {
             if (action instanceof MatcherExtractAction) {
-                sb.append("        ").append(action.toString()).append('\n');
+                sb.append("        ").append(action).append('\n');
                 if (action.getMatches() != null) {
                     sb.append("        -->").append(action.getMatches()).append('\n');
                 }
             }
         }
         for (MatcherAction action : fixedStringActions) {
-            sb.append("        ").append(action.toString()).append('\n');
+            sb.append("        ").append(action).append('\n');
         }
         return sb.toString();
     }

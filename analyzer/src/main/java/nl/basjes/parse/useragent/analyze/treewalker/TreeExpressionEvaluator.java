@@ -126,6 +126,7 @@ public class TreeExpressionEvaluator implements Serializable {
             }
 
 
+            @SuppressWarnings("SameReturnValue")
             private String visitLookupsFailOnFixedString(ParseTree matcherTree) {
                 String value = visit(matcherTree);
                 if (value == null) {

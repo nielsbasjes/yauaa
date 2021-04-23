@@ -188,7 +188,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     }
 
     public String toString() {
-        return "MatchesList("+size+") " + toStrings().toString();
+        return "MatchesList("+size+") " + toStrings();
     }
 
 // ============================================================

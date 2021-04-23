@@ -74,7 +74,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         long confidence;
     }
 
-    private static MessageFactory messageFactory = new ReusableMessageFactory();
+    private static final MessageFactory messageFactory = new ReusableMessageFactory();
 
     private static String determineLogMessage(String format, Object... args){
         if (args == null || args.length == 0) {
@@ -634,7 +634,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             agent.setUserAgentString(userAgentString);
 
-            UserAgent parseResult = parse(agent);
+            parse(agent);
 
             impactOverview.forEach((n, i) -> i.tests++);
 
