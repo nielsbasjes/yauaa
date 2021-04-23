@@ -1,38 +1,45 @@
+### -----------------------------------------
 ### Is it running?
 GET http://localhost:8080/running
 
+### -----------------------------------------
 ###  Is it running?
 GET http://localhost:8080/_ah/health
 
+### -----------------------------------------
 ### Analyze and retrieve as JSON
 POST http://localhost:8080/yauaa/v1/analyze/json
 Content-Type: text/plain
 
 Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36
 
+### -----------------------------------------
 ### Analyze and retrieve as XML
 POST http://localhost:8080/yauaa/v1/analyze/xml
 Content-Type: text/plain
 
 Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36
 
-
+### -----------------------------------------
 ### Analyze and retrieve as YAML
 POST http://localhost:8080/yauaa/v1/analyze/yaml
 Content-Type: text/plain
 
 Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36
 
+### -----------------------------------------
 ### Run preheat
 GET http://localhost:8080/yauaa/v1/preheat
 
+### -----------------------------------------
 ### Run all tests
 GET http://localhost:8080/yauaa/v1/runtests
 
 
 
 
-
+### -----------------------------------------
+###
 ### Yet Another UserAgent Analyzer
 ### Copyright (C) 2013-2021 Niels Basjes
 ###
@@ -47,3 +54,5 @@ GET http://localhost:8080/yauaa/v1/runtests
 ### WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ### See the License for the specific language governing permissions and
 ### limitations under the License.
+###
+### -----------------------------------------
