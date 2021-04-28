@@ -21,6 +21,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class StepNextN extends Step {
 
     private final int steps;
@@ -64,7 +67,7 @@ public class StepNextN extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         ParseTree nextTree = next(tree);
         if (nextTree == null) {
             return null;

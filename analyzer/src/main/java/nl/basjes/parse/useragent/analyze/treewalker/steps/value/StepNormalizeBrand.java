@@ -22,14 +22,14 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.utils.Normalize;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class StepNormalizeBrand extends Step {
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
-        if (actualValue == null) {
-            return null;
-        }
         String filteredValue = Normalize.brand(actualValue);
         return walkNextStep(tree, filteredValue);
     }

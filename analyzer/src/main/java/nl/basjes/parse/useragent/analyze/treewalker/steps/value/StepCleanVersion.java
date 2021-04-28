@@ -21,19 +21,21 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 
 public class StepCleanVersion extends Step {
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
-        if (actualValue != null) {
-            // Sanitize the provided value
-            actualValue = replaceString(actualValue, "_", ".");
-            actualValue = replaceString(actualValue, "/", " ");
-            actualValue = replaceString(actualValue, ", ", ".");
-        }
+
+        // Sanitize the provided value
+        actualValue = replaceString(actualValue, "_", ".");
+        actualValue = replaceString(actualValue, "/", " ");
+        actualValue = replaceString(actualValue, ", ", ".");
 
         return walkNextStep(tree, actualValue);
     }

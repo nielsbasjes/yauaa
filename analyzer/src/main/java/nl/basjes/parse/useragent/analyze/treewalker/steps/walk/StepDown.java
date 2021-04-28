@@ -29,6 +29,8 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgen
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Iterator;
 
 @DefaultSerializer(StepDown.KryoSerializer.class)
@@ -84,15 +86,13 @@ public class StepDown extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
-        if (tree != null) {
-            Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
-            while (children.hasNext()) {
-                ParseTree  child       = children.next();
-                WalkResult childResult = walkNextStep(child, null);
-                if (childResult != null) {
-                    return childResult;
-                }
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+        Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
+        while (children.hasNext()) {
+            ParseTree  child       = children.next();
+            WalkResult childResult = walkNextStep(child, null);
+            if (childResult != null) {
+                return childResult;
             }
         }
         return null;

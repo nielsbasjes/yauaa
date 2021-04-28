@@ -21,6 +21,8 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Map;
 
@@ -57,14 +59,10 @@ public class StepLookup extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        String result = null;
-
-        if (actualValue != null) {
-            result = lookup.get(actualValue.toLowerCase());
-        }
+        String result = lookup.get(actualValue.toLowerCase());
 
         if (result == null) {
             if (defaultValue == null) {

@@ -26,6 +26,9 @@ import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class StepWordRange extends Step {
 
     private final int firstWord;
@@ -43,15 +46,11 @@ public class StepWordRange extends Step {
     }
 
     @Override
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
-        if (actualValue == null) {
-            return null;
-        }
 
         String filteredValue;
-        if (tree !=null &&
-            tree.getChildCount() == 1 &&
+        if (tree.getChildCount() == 1 &&
             (
               tree.getChild(0) instanceof SingleVersionContext ||
               tree.getChild(0) instanceof SingleVersionWithCommasContext)) {
