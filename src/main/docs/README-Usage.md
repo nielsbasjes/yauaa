@@ -34,16 +34,16 @@ and in your application you can use it as simple as this
 Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
 If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.
 
-Note that not all fields are available after every parse. So be prepared to receive a 'null' if you extract a specific name.
+Note that not all fields are available after every parse. So be prepared to receive a 'null' or "Unknown" if you extract a specific name.
 
 # Logging dependencies
 The Yauaa engine uses Log4j2 as the primary logging framework; yet some of the transitive dependencies
-of this project use a different logging framework.
+of this project use different logging frameworks.
 
-To minimize the complexity of the dependency handling I have chosen to simply not include ANY logging framework and only have
-a vague requirement on the Log4j2-api version.
+To minimize the complexity of the dependency handling I have chosen to simply not include ANY logging framework and
+expect the consuming system to provide what ever fits best.
 
-So in the end to use this you must provide either and implementation or a bridge for:
+So in the end to use this you must provide either an implementation or a bridge for:
 - Apache Log4j2
 - Apache (Jakarta) Commons logging (like org.apache.commons.logging.LogFactory) aka JCL.
 - Simple Logging Facade for Java (SLF4J)
@@ -71,6 +71,11 @@ In case you are using Apache Log4j2 you should have these dependencies in additi
       <artifactId>log4j-jcl</artifactId>
       <version>${log4j2.version}</version>
     </dependency>
+
+NOTE: Some of those logging frameworks are only used in specific analysis situations (like robots with a url).
+To avoid failing only when such an event occurs a `fail fast` construct has been added:
+At the moment of creating the UserAgentAnalyzer (i.e. during the `.build()`) a temporary instance all of these Logging
+frameworks are created. If one of them is not present it will immediately throw an `InvalidLoggingDependencyException` (=`RuntimeException`).
 
 # Serialization
 If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and
