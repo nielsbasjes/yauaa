@@ -54,7 +54,7 @@
     <flink.scala.version>2.12</flink.scala.version>
 
     <!-- Apache Beam -->
-    <beam.version>2.28.0</beam.version>
+    <beam.version>2.29.0</beam.version>
     <hamcrest-all.version>1.3</hamcrest-all.version>
 
     <!-- Apache Drill -->
@@ -78,7 +78,7 @@
     <logparser.version>5.7</logparser.version>
 
     <!-- Elastic tools -->
-    <elastic.version>7.12.0</elastic.version>
+    <elastic.version>7.12.1</elastic.version>
     <logstash.version>${elastic.version}</logstash.version>
     <elasticsearch.version>${elastic.version}</elasticsearch.version>
     <!-- This is the log4j2 version used in ES -->
@@ -87,9 +87,9 @@
     <!-- ============================================== -->
 
     <depencency-convergence.phase>validate</depencency-convergence.phase>
-    <checkstyle-plugin.version>3.1.1</checkstyle-plugin.version>
-    <checkstyle.version>8.41.1</checkstyle.version>
-    <spotbugs-maven-plugin.version>4.1.3</spotbugs-maven-plugin.version>
+    <checkstyle-plugin.version>3.1.2</checkstyle-plugin.version>
+    <checkstyle.version>8.42</checkstyle.version>
+    <spotbugs-maven-plugin.version>4.2.3</spotbugs-maven-plugin.version>
     <spotbugs.version>4.2.3</spotbugs.version>
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.14.1</log4j2.version>
@@ -133,7 +133,7 @@
     <!-- Disabled for now because it gives problems quite often while downloading the CVE databases. -->
     <dependency-check.skip>true</dependency-check.skip>
 
-    <git-commit-id-plugin.version>4.0.2</git-commit-id-plugin.version>
+    <git-commit-id-plugin.version>4.0.4</git-commit-id-plugin.version>
     <version.copyright>Copyright (C) 2013-2021 Niels Basjes</version.copyright>
     <version.license>License Apache 2.0</version.license>
     <version.url>${project.url}</version.url>
@@ -684,7 +684,7 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
-        <version>6.0.2</version>
+        <version>6.1.5</version>
         <executions>
           <execution>
             <phase>validate</phase>
@@ -811,7 +811,7 @@
         <plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.7.0.1746</version>
+          <version>3.8.0.2131</version>
         </plugin>
 
         <plugin>
