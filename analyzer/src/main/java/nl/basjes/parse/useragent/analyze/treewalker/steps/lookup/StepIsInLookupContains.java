@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 
 public class StepIsInLookupContains extends Step {
@@ -45,7 +46,7 @@ public class StepIsInLookupContains extends Step {
     @Override
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
-        String compareInput = actualValue.toLowerCase();
+        String compareInput = actualValue.toLowerCase(Locale.ROOT);
         for (String key : lookupKeys) {
             if (compareInput.contains(key)) {
                 return walkNextStep(tree, actualValue);

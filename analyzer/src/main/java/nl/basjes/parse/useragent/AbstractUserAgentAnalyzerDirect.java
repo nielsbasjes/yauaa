@@ -634,7 +634,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             for (Map.Entry<String, Map<String, String>> lookupsEntry : lookups.entrySet()) {
                 Map<String, String> cleanedLookup = new LinkedHashMap<>(lookupsEntry.getValue().size());
                 for (Map.Entry<String, String> entry : lookupsEntry.getValue().entrySet()) {
-                    cleanedLookup.put(entry.getKey().toLowerCase(), entry.getValue());
+                    cleanedLookup.put(entry.getKey().toLowerCase(Locale.ROOT), entry.getValue());
                 }
                 cleanedLookups.put(lookupsEntry.getKey(), cleanedLookup);
             }
@@ -955,7 +955,7 @@ config:
                 case "values":
                     SequenceNode node = getValueAsSequenceNode(tuple, filename);
                     for (String value: getStringValues(node, filename)) {
-                        lookupSet.add(value.toLowerCase(Locale.ENGLISH));
+                        lookupSet.add(value.toLowerCase(Locale.ROOT));
                     }
                     break;
                 default:
@@ -1083,7 +1083,7 @@ config:
     }
 
     public void informMeAbout(MatcherAction matcherAction, String keyPattern) {
-        String hashKey = keyPattern.toLowerCase();
+        String hashKey = keyPattern.toLowerCase(Locale.ROOT);
         Set<MatcherAction> analyzerSet = informMatcherActions
             .computeIfAbsent(hashKey, k -> new LinkedHashSet<>());
         analyzerSet.add(matcherAction);
@@ -1291,7 +1291,7 @@ config:
     }
 
     private void inform(String match, String key, String value, ParseTree ctx) {
-        Set<MatcherAction> relevantActions = informMatcherActions.get(match.toLowerCase(Locale.ENGLISH));
+        Set<MatcherAction> relevantActions = informMatcherActions.get(match.toLowerCase(Locale.ROOT));
         if (verbose) {
             if (relevantActions == null) {
                 LOG.info("--- Have (0): {}", match);

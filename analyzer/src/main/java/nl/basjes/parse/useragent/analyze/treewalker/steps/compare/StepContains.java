@@ -23,6 +23,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Locale;
 
 public class StepContains extends Step {
 
@@ -34,14 +35,14 @@ public class StepContains extends Step {
     }
 
     public StepContains(String desiredValue) {
-        this.desiredValue = desiredValue.toLowerCase();
+        this.desiredValue = desiredValue.toLowerCase(Locale.ROOT);
     }
 
     @Override
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue.toLowerCase().contains(desiredValue)) {
+        if (actualValue.toLowerCase(Locale.ROOT).contains(desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

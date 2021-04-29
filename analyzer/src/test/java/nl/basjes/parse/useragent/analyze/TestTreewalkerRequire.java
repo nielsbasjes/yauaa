@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -327,7 +328,7 @@ class TestTreewalkerRequire {
             if (matchValue.length() > MAX_PREFIX_HASH_MATCH) {
                 expectedWalkList = new String[]{
                     "IsNull()",
-                    "StartsWith("+matchValue.toLowerCase()+")",
+                    "StartsWith("+matchValue.toLowerCase(Locale.ROOT)+")",
 //                    "Lookup(@TridentVersions ; default=DefaultValue)",
                 };
             } else {
@@ -360,7 +361,7 @@ class TestTreewalkerRequire {
             if (matchValue.length() > MAX_PREFIX_HASH_MATCH) {
                 expectedWalkList = new String[]{
                     "IsNull()",
-                    "StartsWith("+matchValue.toLowerCase()+")",
+                    "StartsWith("+matchValue.toLowerCase(Locale.ROOT)+")",
                     "Lookup(@TridentVersions ; default=null)",
                 };
             } else {

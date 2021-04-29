@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 
 public class StepLookupContains extends Step {
@@ -49,7 +50,7 @@ public class StepLookupContains extends Step {
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        actualValue = actualValue.toLowerCase();
+        actualValue = actualValue.toLowerCase(Locale.ROOT);
         for (Map.Entry<String, String> entry: lookup.entrySet()) {
             if (actualValue.contains(entry.getKey())) {
                 return walkNextStep(tree, entry.getValue());

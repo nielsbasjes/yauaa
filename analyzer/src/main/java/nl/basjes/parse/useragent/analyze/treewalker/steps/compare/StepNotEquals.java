@@ -23,6 +23,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Locale;
 
 public class StepNotEquals extends Step {
 
@@ -34,7 +35,7 @@ public class StepNotEquals extends Step {
     }
 
     public StepNotEquals(String desiredValue) {
-        this.desiredValue = desiredValue.toLowerCase();
+        this.desiredValue = desiredValue.toLowerCase(Locale.ROOT);
     }
 
     @Override

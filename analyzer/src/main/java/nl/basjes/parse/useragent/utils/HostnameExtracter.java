@@ -168,7 +168,7 @@ public final class HostnameExtracter implements Serializable {
         if (hostname == null) {
             return null;
         }
-        hostname = hostname.toLowerCase(Locale.ENGLISH);
+        hostname = hostname.toLowerCase(Locale.ROOT);
         if (blackList.contains(hostname)) {
             return null;
         }

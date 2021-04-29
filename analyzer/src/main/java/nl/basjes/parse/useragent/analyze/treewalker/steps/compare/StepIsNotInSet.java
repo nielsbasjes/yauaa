@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Set;
 
 public class StepIsNotInSet extends Step {
@@ -46,7 +47,7 @@ public class StepIsNotInSet extends Step {
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (!list.contains(actualValue.toLowerCase())) {
+        if (!list.contains(actualValue.toLowerCase(Locale.ROOT))) {
             return walkNextStep(tree, actualValue);
         }
         return null;
