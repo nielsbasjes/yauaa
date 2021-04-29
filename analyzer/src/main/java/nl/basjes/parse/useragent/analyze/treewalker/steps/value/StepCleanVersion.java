@@ -32,11 +32,12 @@ public class StepCleanVersion extends Step {
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        // Sanitize the provided value
-        actualValue = replaceString(actualValue, "_", ".");
-        actualValue = replaceString(actualValue, "/", " ");
-        actualValue = replaceString(actualValue, ", ", ".");
-
+        if (actualValue != null) {
+            // Sanitize the provided value
+            actualValue = replaceString(actualValue, "_", ".");
+            actualValue = replaceString(actualValue, "/", " ");
+            actualValue = replaceString(actualValue, ", ", ".");
+        }
         return walkNextStep(tree, actualValue);
     }
 

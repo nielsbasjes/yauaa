@@ -96,6 +96,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -219,7 +221,7 @@ public class WalkList implements Serializable {
         return ((long)steps.size()) - (lastRelevantStepIndex + 1);
     }
 
-    public WalkResult walk(ParseTree tree, String value) {
+    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         if (steps.isEmpty()) {
             return new WalkResult(tree, value);
         }

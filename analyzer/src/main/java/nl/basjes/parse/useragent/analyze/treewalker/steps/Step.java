@@ -48,7 +48,7 @@ public abstract class Step implements Serializable {
         nextStep = null;
     }
 
-    public final void setNextStep(int newStepNr, @Nonnull Step newNextStep) {
+    public final void setNextStep(int newStepNr, Step newNextStep) {
         this.stepNr = newStepNr;
         this.nextStep = newNextStep;
         StringBuilder sb = new StringBuilder();
@@ -100,7 +100,7 @@ public abstract class Step implements Serializable {
             || tree instanceof TerminalNode;
     }
 
-    protected @Nonnull String getActualValue(@Nonnull ParseTree tree, @Nullable String value) {
+    protected String getActualValue(@Nonnull ParseTree tree, @Nullable String value) {
         if (value == null) {
             return getSourceText((ParserRuleContext)tree);
         }

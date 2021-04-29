@@ -20,9 +20,17 @@ package nl.basjes.parse.useragent.utils;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public final class AntlrUtils {
     private AntlrUtils() {}
+
+    public static final ParseTree NULL_PARSE_TREE = new ParserRuleContext() {
+        @Override
+        public String getText() {
+            return null;
+        }
+    };
 
     public static String getSourceText(ParserRuleContext ctx){
         if (ctx == null) {

@@ -75,6 +75,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEnd
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepStartsWithValueContext;
+import static nl.basjes.parse.useragent.utils.AntlrUtils.NULL_PARSE_TREE;
 
 public abstract class MatcherAction implements Serializable {
 
@@ -350,7 +351,7 @@ public abstract class MatcherAction implements Serializable {
         }
 
         if (isValidWithoutMatches()) {
-            WalkResult matchedValue = evaluator.evaluate(null, null, null);
+            WalkResult matchedValue = evaluator.evaluate(NULL_PARSE_TREE, null, null);
             if (matchedValue != null) {
                 inform(null, matchedValue);
             }

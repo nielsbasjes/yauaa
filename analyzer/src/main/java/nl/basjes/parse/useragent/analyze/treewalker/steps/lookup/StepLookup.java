@@ -63,7 +63,10 @@ public class StepLookup extends Step {
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        String result = lookup.get(actualValue.toLowerCase(Locale.ROOT));
+        String result = null;
+        if (actualValue != null) {
+            result = lookup.get(actualValue.toLowerCase(Locale.ROOT));
+        }
 
         if (result == null) {
             if (defaultValue == null) {
