@@ -34,7 +34,7 @@ public class StepEquals extends Step {
     }
 
     public StepEquals(String desiredValue) {
-        this.desiredValue = desiredValue.toLowerCase();
+        this.desiredValue = desiredValue;
     }
 
     @Override

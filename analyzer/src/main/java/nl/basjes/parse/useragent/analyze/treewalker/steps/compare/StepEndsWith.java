@@ -24,6 +24,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static org.springframework.util.StringUtils.endsWithIgnoreCase;
+
 public class StepEndsWith extends Step {
 
     private final String desiredValue;
@@ -34,14 +36,14 @@ public class StepEndsWith extends Step {
     }
 
     public StepEndsWith(String desiredValue) {
-        this.desiredValue = desiredValue.toLowerCase();
+        this.desiredValue = desiredValue;
     }
 
     @Override
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (actualValue.toLowerCase().endsWith(desiredValue)) {
+        if (endsWithIgnoreCase(actualValue, desiredValue)) {
             return walkNextStep(tree, actualValue);
         }
         return null;

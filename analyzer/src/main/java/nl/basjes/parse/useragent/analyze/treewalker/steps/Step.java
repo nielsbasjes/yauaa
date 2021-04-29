@@ -48,7 +48,7 @@ public abstract class Step implements Serializable {
         nextStep = null;
     }
 
-    public final void setNextStep(int newStepNr, Step newNextStep) {
+    public final void setNextStep(int newStepNr, @Nonnull Step newNextStep) {
         this.stepNr = newStepNr;
         this.nextStep = newNextStep;
         StringBuilder sb = new StringBuilder();
