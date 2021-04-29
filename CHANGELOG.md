@@ -12,7 +12,7 @@ v6.0-SNAPSHOT
   - Added missing locale en-jp
   - Improve classification of very old Apple Macintosh systems.
 - Updated UDF dependencies
-  - Apache Flink            1.12.2
+  - Apache Flink            1.13.0
   - Apache Beam             2.29.0
   - Apache Nifi             1.13.2
   - Elastic Search/Logstash 7.12.1
