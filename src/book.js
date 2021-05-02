@@ -27,16 +27,16 @@ module.exports = {
 
     // Use the "official" theme
     // plugins: ['theme-official@2.1.1', '-sharing', '-fontsettings', 'sitemap'],
-    plugins: ['sitemap'],
+    // plugins: ['sitemap'],
 
     variables: {
         version: pkg.version,
         YauaaVersion: "5.23"
     },
 
-    pluginsConfig: {
-        sitemap: {
-            hostname: 'https://yauaa.basjes.nl'
-        }
-    }
+    // pluginsConfig: {
+    //     sitemap: {
+    //         hostname: 'https://yauaa.basjes.nl'
+    //     }
+    // }
 };
