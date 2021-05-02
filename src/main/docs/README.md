@@ -14,10 +14,9 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 HIGH Profile release notes:
 ===========================
-Version 5.18
+Version 6.0
 ---
-- Correctly classify the elements in the Google Chrome (and Chromium based MS Edge) User-Agent string that are incorrect when the ["Freeze User-Agent request header" flag](chrome://flags/#freeze-user-agent) is enabled.
-- New UDF for [Elastic Search](UDF-ElasticSearch.md). I have done limited (local single node) testing. Please report anything you find so I can fix it.
+- Fully replaced SLF4J with Log4J2; since this is a breaking change the next version will be 6.0
 
 Blog post
 =========
