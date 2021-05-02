@@ -607,107 +607,60 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="commandline-tool">Commandline tool</h1>
-<h2 id="warning">Warning</h2>
-<p>This commandline tool is unfinished and has some problems reading files and such.</p>
-<p>So at this time: <strong>BETA</strong> quality.</p>
-<h2 id="getting-the-commandline-tool">Getting the commandline tool</h2>
-<p>You can get the prebuild jar from maven central.
-If you use a maven based project simply add this dependency</p>
-<pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
-  &lt;artifactId&gt;yauaa-commandline&lt;/artifactId&gt;
-  &lt;version&gt;5.23&lt;/version&gt;
-&lt;/dependency&gt;
+<h2 id="deprecated">Deprecated</h2>
+<p>With version 6.0 the commandline tool was removed.</p>
+<p>Primary reason is that it was not getting any attention,
+and it did not perform well (mainly due to the relatively big startup overhead).</p>
+<p>So if you have the need to use Yauaa from a commandline perspective the easiest way to do this is by starting
+the docker based webservlet locally (and leave it running &quot;for a long time&quot;) and use something like curl
+to get the information you are looking for.</p>
+<h2 id="example-usage">Example usage</h2>
+<h1 id="initial-startup">Initial startup</h1>
+<p>Simply start the webservlet using docker and run it in the background (takes a few seconds):</p>
+<pre><code>docker pull nielsbasjes/yauaa:5.23
+docker run --detach -p8080:8080 nielsbasjes/yauaa:5.23
 </code></pre>
 
-<h2 id="building">Building</h2>
-<p>Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:</p>
-<pre><code>mvn clean package
-</code></pre><h2 id="example-usage">Example usage</h2>
-<h1 id="getting-commandline-help">Getting commandline help</h1>
-<pre><code>$ java -jar yauaa-commandline-*.jar
-
-/------------------------------------------------------------\
-| Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
-+------------------------------------------------------------+
-| For more information: https://github.com/nielsbasjes/yauaa |
-| Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0  |
-\------------------------------------------------------------/
-
-Errors: No input specified.
-
-Usage: java jar &lt;jar containing this class&gt; &lt;options&gt;
- -bad             : Output only cases that have a problem (default: false)
- -cache N         : The number of elements that can be cached (LRU). (default:
-                    10000)
- -csv             : Output in csv format (default: false)
- -debug           : Set to enable debugging. (default: false)
- -fields STRING[] : A list of the desired fieldnames (use &apos;Useragent&apos; if you
-                    want the input value aswell)
- -fullFlatten     : Set to flatten each parsed agent string. (default: false)
- -in VAL          : Location of input file
- -json            : Output in json format (default: false)
- -matchedFlatten  : Set to get the flattened values that were relevant for the
-                    Matchers. (default: false)
- -ua VAL          : A single useragent string
- -yaml            : Output in yaml testcase format (default: false)
-</code></pre><p>You will get the processing result via stdout and some informational stuff via stderr.</p>
 <h1 id="doing-a-single-value">Doing a single value</h1>
-<p>Note that this is relatively slow because the full 2-3 seconds of startup overhead is incurred each time you start this.</p>
 <pre><code>AGENT=&quot;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&quot;
 
-java -jar yauaa-commandline-*.jar -yaml -ua &quot;${AGENT}&quot; &gt; results.yaml
-
-java -jar yauaa-commandline-*.jar -json -ua &quot;${AGENT}&quot; &gt; results.json
+curl -X POST \
+    -H &quot;Content-Type: text/plain&quot; \
+    http://localhost:8080/yauaa/v1/analyze/yaml \
+    --data-binary &quot;${AGENT}&quot;
+</code></pre><p>Which outputs this:</p>
+<pre><code>- test:
+    input:
+      user_agent_string: &apos;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&apos;
+    expected:
+      DeviceClass                          : &apos;Phone&apos;
+      DeviceName                           : &apos;Google Nexus 6&apos;
+      DeviceBrand                          : &apos;Google&apos;
+      OperatingSystemClass                 : &apos;Mobile&apos;
+      OperatingSystemName                  : &apos;Android&apos;
+      OperatingSystemVersion               : &apos;7.0&apos;
+      OperatingSystemVersionMajor          : &apos;7&apos;
+      OperatingSystemNameVersion           : &apos;Android 7.0&apos;
+      OperatingSystemNameVersionMajor      : &apos;Android 7&apos;
+      OperatingSystemVersionBuild          : &apos;NBD90Z&apos;
+      LayoutEngineClass                    : &apos;Browser&apos;
+      LayoutEngineName                     : &apos;Blink&apos;
+      LayoutEngineVersion                  : &apos;53.0&apos;
+      LayoutEngineVersionMajor             : &apos;53&apos;
+      LayoutEngineNameVersion              : &apos;Blink 53.0&apos;
+      LayoutEngineNameVersionMajor         : &apos;Blink 53&apos;
+      AgentClass                           : &apos;Browser&apos;
+      AgentName                            : &apos;Chrome&apos;
+      AgentVersion                         : &apos;53.0.2785.124&apos;
+      AgentVersionMajor                    : &apos;53&apos;
+      AgentNameVersion                     : &apos;Chrome 53.0.2785.124&apos;
+      AgentNameVersionMajor                : &apos;Chrome 53&apos;
 </code></pre><h1 id="doing-a-large-number-of-values">Doing a large number of values</h1>
-<p>For streaming a file in it is recommended to use stdin like this</p>
-<pre><code>cat useragents.txt | java -jar yauaa-commandline-*.jar -json -in - &gt; results.json
-</code></pre><p>Running in this mode will also show some statistics via stderr.</p>
-<pre><code>/------------------------------------------------------------\
-| Yauaa 2.0-SNAPSHOT (v1.4-63 @ 2017-08-05T07:22:55Z)        |
-+------------------------------------------------------------+
-| For more information: https://github.com/nielsbasjes/yauaa |
-| Copyright (C) 2013-2019 Niels Basjes - License Apache 2.0  |
-\------------------------------------------------------------/
-
-Loading from: &quot;classpath*:UserAgents/**/*.yaml&quot;
-Loaded 56 files
-Building all matchers
-Building 2314 (dropped    0) matchers from   52 files took  3278 msec resulted in   243070 hashmap entries
-Analyzer stats
-Lookups      : 24
-Matchers     : 2314 (total:2314 ; dropped: 0)
-Hashmap size : 243070
-Ranges map size : 5441
-Testcases    : 771
-Lines =     1000 (Ambiguities:    75 ; SyntaxErrors:     0) Analyze speed =   357/sec.
-Lines =     2000 (Ambiguities:    66 ; SyntaxErrors:     0) Analyze speed =   472/sec.
-Lines =     3000 (Ambiguities:    60 ; SyntaxErrors:     0) Analyze speed =   838/sec.
-Lines =     4000 (Ambiguities:    54 ; SyntaxErrors:     0) Analyze speed =   973/sec.
-Lines =     5000 (Ambiguities:    60 ; SyntaxErrors:     1) Analyze speed =   995/sec.
-Lines =     6000 (Ambiguities:    55 ; SyntaxErrors:     0) Analyze speed =  1153/sec.
-Lines =     7000 (Ambiguities:    56 ; SyntaxErrors:     0) Analyze speed =  1071/sec.
-Lines =     8000 (Ambiguities:    70 ; SyntaxErrors:     1) Analyze speed =  1015/sec.
-Lines =     9000 (Ambiguities:    70 ; SyntaxErrors:     0) Analyze speed =  1053/sec.
-Lines =    10000 (Ambiguities:    74 ; SyntaxErrors:     0) Analyze speed =  1202/sec.
-Lines =    11000 (Ambiguities:    42 ; SyntaxErrors:     0) Analyze speed =  1247/sec.
-Lines =    12000 (Ambiguities:    68 ; SyntaxErrors:     0) Analyze speed =  1204/sec.
-Lines =    13000 (Ambiguities:    37 ; SyntaxErrors:     0) Analyze speed =  1223/sec.
-Lines =    14000 (Ambiguities:    66 ; SyntaxErrors:     0) Analyze speed =  1164/sec.
-Lines =    15000 (Ambiguities:    43 ; SyntaxErrors:     0) Analyze speed =  1224/sec.
--------------------------------------------------------------
-Performance: 15402 in 17 sec --&gt; 897/sec
--------------------------------------------------------------
-Parse results of 15402 lines
-Parsed without error:    15400 (= 99.99%)
-Parsed with    error:        2 (=  0.01%)
-Fully matched       :     2642 (= 17.15%)
--------------------------------------------------------------
-Parse results of 996935 hits
-Parsed without error:   996917 (=100.00%)
-Parsed with    error:       18 (=  0.00%)
-Fully matched       :   248862 (= 24.96%)
--------------------------------------------------------------
+<p>You can upload a file with useragents to the rest interface (there is a size limitation for this).</p>
+<pre><code>curl -X POST \
+    -H &quot;Content-Type: text/plain&quot; \
+    http://localhost:8080/yauaa/v1/analyze/yaml \
+    --data-binary &quot;@useragents.txt&quot;
 </code></pre>
                                 
                                 </section>
@@ -751,7 +704,7 @@ Fully matched       :   248862 (= 24.96%)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Commandline","level":"2.5","depth":1,"next":{"title":"WebServlet","level":"2.6","depth":1,"path":"README-WebServlet.md","ref":"README-WebServlet.md","articles":[]},"previous":{"title":"Performance","level":"2.4","depth":1,"path":"README-Performance.md","ref":"README-Performance.md","articles":[]},"dir":"ltr"},"config":{"plugins":["sitemap"],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"sitemap":{"hostname":"https://yauaa.basjes.nl"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.23"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Commandline.md","mtime":"2020-11-04T12:01:28.513Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-05T11:04:22.933Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Commandline","level":"2.5","depth":1,"next":{"title":"WebServlet","level":"2.6","depth":1,"path":"README-WebServlet.md","ref":"README-WebServlet.md","articles":[]},"previous":{"title":"Performance","level":"2.4","depth":1,"path":"README-Performance.md","ref":"README-Performance.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"5.23"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"README-Commandline.md","mtime":"2021-05-02T08:00:33.777Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-05-02T12:52:09.017Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
