@@ -17,6 +17,7 @@ HIGH Profile release notes:
 Version 6.0
 ---
 - Fully replaced SLF4J with Log4J2; since this is a breaking change the next version will be 6.0
+- Dropping the native commandline version. Using the webservlet locally with curl is a lot faster.
 
 Blog post
 =========
