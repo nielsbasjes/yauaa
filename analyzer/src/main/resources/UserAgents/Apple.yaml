@@ -179,21 +179,46 @@ config:
     - 'DeviceClass                         :       19 :"Desktop"'
     - 'DeviceBrand                         :       19 :"Apple"'
     - 'DeviceName                          :       19 :"Apple Macintosh"'
+    - 'DeviceCpuBits                       :       19 : "32"'
     - 'OperatingSystemClass                :       19 :"Desktop"'
     - 'OperatingSystemName                 :       19 :"Mac OS X"'
     - 'OperatingSystemVersion              :       19 :"10.?"'
 
 - matcher:
+    variable:
+    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.(1)text[2-4]="Mac OS X"'
+    - 'MacOSXVersion                       :@MacOSX@[5-]'
     require:
-    - 'agent.(1-5)product.(1)comments.entry.(1)text[2-4]="Mac OS X"'
-    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    - 'IsNull[@MacOSX@="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       19 :"Desktop"'
     - 'DeviceBrand                         :       19 :"Apple"'
     - 'DeviceName                          :       19 :"Apple Macintosh"'
+    - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
     - 'OperatingSystemClass                :       19 :"Desktop"'
     - 'OperatingSystemName                 :       19 :"Mac OS X"'
     - 'OperatingSystemVersion              :       19 :"10.?"'
+
+- lookup:
+    name: 'MacOSXVersionCPUBits'
+    map:
+      "10_0_" : "32"
+      "10_1_" : "32"
+      "10_2" : "32"
+      "10_3" : "32"
+      "10_4" : "32"
+      "10_5" : "32"
+      "10_6" : "32"
+      "10_7" : "32"
+      "10.0." : "32"
+      "10.1." : "32"
+      "10.2" : "32"
+      "10.3" : "32"
+      "10.4" : "32"
+      "10.5" : "32"
+      "10.6" : "32"
+      "10.7" : "32"
+      "Mach" : "32"
 
 - matcher:
     variable:
@@ -205,20 +230,55 @@ config:
     - 'DeviceClass                         :       19 :"Desktop"'
     - 'DeviceBrand                         :       19 :"Apple"'
     - 'DeviceName                          :       19 :"Apple Macintosh"'
+    - 'DeviceCpuBits                       :       19 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSVersion;"64"]'
     - 'OperatingSystemClass                :       19 :"Desktop"'
     - 'OperatingSystemName                 :       19 :"Mac OS X"'
     - 'OperatingSystemVersion              :       18 :"10.?"'
 
 - matcher:
+    variable:
+      - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name="OS X"'
+      - 'MacOSXVersion                       : @MacOSX^.version'
+    require:
+      - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    extract:
+      - 'DeviceClass                         :       20 :"Desktop"'
+      - 'DeviceBrand                         :       20 :"Apple"'
+      - 'DeviceName                          :       20 :"Apple Macintosh"'
+      - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
+      - 'OperatingSystemClass                :       20 :"Desktop"'
+      - 'OperatingSystemName                 :       20 :"Mac OS X"'
+      - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
+
+- matcher:
+    variable:
+      - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name="Mac OS X"'
+      - 'MacOSXVersion                       : @MacOSX^.version'
+    require:
+      - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    extract:
+      - 'DeviceClass                         :       20 :"Desktop"'
+      - 'DeviceBrand                         :       20 :"Apple"'
+      - 'DeviceName                          :       20 :"Apple Macintosh"'
+      - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
+      - 'OperatingSystemClass                :       20 :"Desktop"'
+      - 'OperatingSystemName                 :       20 :"Mac OS X"'
+      - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
+
+- matcher:
+    variable:
+    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name[2-4]="Mac OS X"'
+    - 'MacOSXVersion                       : @MacOSX^.version'
     require:
     - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
     - 'DeviceClass                         :       20 :"Desktop"'
     - 'DeviceBrand                         :       20 :"Apple"'
     - 'DeviceName                          :       20 :"Apple Macintosh"'
+    - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
     - 'OperatingSystemClass                :       20 :"Desktop"'
     - 'OperatingSystemName                 :       20 :"Mac OS X"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.product.name[2-4]="Mac OS X"^.version]'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
 
 - matcher:
     require:
@@ -399,6 +459,7 @@ config:
     - 'DeviceClass                         :       10 :"Desktop"'
     - 'DeviceBrand                         :       10 :"Apple"'
     - 'DeviceName                          :       10 :"Macintosh"'
+    - 'DeviceCpuBits                       :       10 : "32"'
     - 'OperatingSystemClass                :        1 :"Desktop"'
     - 'OperatingSystemName                 :        1 :"Mac OS"'
     - 'OperatingSystemVersion              :        1 :"??"'
@@ -962,7 +1023,7 @@ config:
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
-      DeviceCpuBits                        : '32'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Mac OS X'
       OperatingSystemVersion               : '10.10.2'
@@ -1074,6 +1135,7 @@ config:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Mac OS X'
       OperatingSystemVersion               : '10.9.3'
@@ -1189,34 +1251,34 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry[1]="Mac"'
     extract:
-    - 'DeviceClass                         :      10 :"Desktop"'
-    - 'DeviceName                          :      10 :"Macintosh"'
-    - 'DeviceBrand                         :      10 :"Apple"'
-    - 'OperatingSystemClass                :      10 :"Desktop"'
-    - 'OperatingSystemName                 :      10 :"Mac OS"'
-    - 'OperatingSystemVersion              :      10 :"before 10"'
+    - 'DeviceClass                         :       10 :"Desktop"'
+    - 'DeviceName                          :       10 :"Macintosh"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'OperatingSystemClass                :       10 :"Desktop"'
+    - 'OperatingSystemName                 :       10 :"Mac OS"'
+    - 'OperatingSystemVersion              :       10 :"before 10"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry[1]="Mac_68K"'
     extract:
-    - 'DeviceClass                         :      10 :"Desktop"'
-    - 'DeviceName                          :      10 :"Macintosh"'
-    - 'DeviceBrand                         :      10 :"Apple"'
-    - 'OperatingSystemClass                :      10 :"Desktop"'
-    - 'OperatingSystemName                 :      10 :"Mac OS"'
-    - 'OperatingSystemVersion              :      10 :"before 10"'
+    - 'DeviceClass                         :       10 :"Desktop"'
+    - 'DeviceName                          :       10 :"Macintosh"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'OperatingSystemClass                :       10 :"Desktop"'
+    - 'OperatingSystemName                 :       10 :"Mac OS"'
+    - 'OperatingSystemVersion              :       10 :"before 10"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.entry[1]="Mac_PowerPC"'
     extract:
-    - 'DeviceClass                         :      10 :"Desktop"'
-    - 'DeviceName                          :      10 :"Macintosh"'
-    - 'DeviceBrand                         :      10 :"Apple"'
-    - 'OperatingSystemClass                :      10 :"Desktop"'
-    - 'OperatingSystemName                 :      10 :"Mac OS"'
-    - 'OperatingSystemVersion              :      10 :"before 10"'
+    - 'DeviceClass                         :       10 :"Desktop"'
+    - 'DeviceName                          :       10 :"Macintosh"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'OperatingSystemClass                :       10 :"Desktop"'
+    - 'OperatingSystemName                 :       10 :"Mac OS"'
+    - 'OperatingSystemVersion              :       10 :"before 10"'
 
 - test:
     input:

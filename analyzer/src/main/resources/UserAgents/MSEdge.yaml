@@ -993,8 +993,6 @@ config:
       AgentNameVersionMajor                : 'Edge 76'
 
 
-# https://www.microsoftedgeinsider.com/en-us/download/
-# Useragent from the canary version of 2019-05-24 on Windows 10
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3800.0 Safari/537.36 Edg/76.0.168.0'
@@ -1003,7 +1001,7 @@ config:
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
-      DeviceCpuBits                        : '32'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Mac OS X'
       OperatingSystemVersion               : '10.14.5'
@@ -1082,3 +1080,32 @@ config:
       AgentVersionMajor                    : '88'
       AgentNameVersion                     : 'Edge 88.0.702.0'
       AgentNameVersionMajor                : 'Edge 88'
+
+# Edge on Mac
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 Edg/90.0.818.51'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.15.7'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '90.0'
+      LayoutEngineVersionMajor             : '90'
+      LayoutEngineNameVersion              : 'Blink 90.0'
+      LayoutEngineNameVersionMajor         : 'Blink 90'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '90.0.818.51'
+      AgentVersionMajor                    : '90'
+      AgentNameVersion                     : 'Edge 90.0.818.51'
+      AgentNameVersionMajor                : 'Edge 90'

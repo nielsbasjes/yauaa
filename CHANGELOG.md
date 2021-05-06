@@ -11,6 +11,7 @@ v6.0-SNAPSHOT
   - Added testcase for the real PS5 useragent.
   - Added missing locale en-jp
   - Improve classification of very old Apple Macintosh systems.
+  - MacOS X > 10.8 is only 64 bit
 - Updated UDF dependencies
   - Apache Flink            1.13.0
   - Apache Beam             2.29.0
