@@ -43,6 +43,7 @@ config:
       'exal'                         : 'exal|exal'
       'Facebot Twitterbot'           : 'Facebook|Facebot Twitterbot'
       'GnowitNewsbot'                : 'Gnowit|Gnowit Newsbot'
+      'gocrawl'                      : 'GoCrawl|GoCrawl'
       'Guzzle'                       : 'Guzzle|Guzzle Http'
       'GuzzleHttp'                   : 'Guzzle|Guzzle Http'
       'heritrix'                     : 'heritrix|heritrix'
@@ -9831,4 +9832,114 @@ config:
       AgentInformationUrl                  : 'http://yandex.com/bots'
 
 
+# Used by discord to get a preview of a shared website.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Discordapp Discordbot'
+      DeviceBrand                          : 'Discordapp'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Discordbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Discordbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Discordbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Discordbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Discordbot 2.0'
+      AgentNameVersionMajor                : 'Discordbot 2'
+      AgentInformationUrl                  : 'https://discordapp.com'
+
+
+# https://github.com/PuerkitoBio/gocrawl
+# gocrawl is a polite, slim and concurrent web crawler written in Go.
+- test:
+    input:
+      user_agent_string: 'Googlebot (gocrawl v0.4)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Gocrawl'
+      DeviceBrand                          : 'Gocrawl'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'gocrawl'
+      LayoutEngineVersion                  : 'v0.4'
+      LayoutEngineVersionMajor             : 'v0'
+      LayoutEngineNameVersion              : 'gocrawl v0.4'
+      LayoutEngineNameVersionMajor         : 'gocrawl v0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Gocrawl'
+      AgentVersion                         : 'v0.4'
+      AgentVersionMajor                    : 'v0'
+      AgentNameVersion                     : 'Gocrawl v0.4'
+      AgentNameVersionMajor                : 'Gocrawl v0'
+
+- test:
+    input:
+      user_agent_string: 'IonCrawl (https://www.ionos.de/terms-gtc/faq-crawler-en/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Ionos Ioncrawl'
+      DeviceBrand                          : 'Ionos'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'IonCrawl'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'IonCrawl ??'
+      LayoutEngineNameVersionMajor         : 'IonCrawl ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'IonCrawl'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'IonCrawl ??'
+      AgentNameVersionMajor                : 'IonCrawl ??'
+      AgentInformationUrl                  : 'https://www.ionos.de/terms-gtc/faq-crawler-en/'
+
+- test:
+    input:
+      user_agent_string: 'MixnodeCache/1.8(+https://cache.mixnode.com/)'
+    expected:
+      DeviceClass                          : 'Robot'                          #
+      DeviceName                           : 'Mixnode Robot'                  #
+      DeviceBrand                          : 'Mixnode'                        #
+      OperatingSystemClass                 : 'Cloud'                          #
+      OperatingSystemName                  : 'Cloud'                          #
+      OperatingSystemVersion               : '??'                             #
+      OperatingSystemVersionMajor          : '??'                             #
+      OperatingSystemNameVersion           : 'Cloud ??'                       #
+      OperatingSystemNameVersionMajor      : 'Cloud ??'                       #
+      LayoutEngineClass                    : 'Unknown'                        #
+      LayoutEngineName                     : 'Unknown'                        #
+      LayoutEngineVersion                  : '??'                             #
+      LayoutEngineVersionMajor             : '??'                             #
+      LayoutEngineNameVersion              : 'Unknown ??'                     #
+      LayoutEngineNameVersionMajor         : 'Unknown ??'                     #
+      AgentClass                           : 'Special'                        #
+      AgentName                            : 'MixnodeCache'                   #
+      AgentVersion                         : '1.8'                            #
+      AgentVersionMajor                    : '1'                              #
+      AgentNameVersion                     : 'MixnodeCache 1.8'               #
+      AgentNameVersionMajor                : 'MixnodeCache 1'                 #
+      AgentInformationUrl                  : 'https://cache.mixnode.com/'     #
 
