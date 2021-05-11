@@ -35,9 +35,9 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestUserAgentAnalysisMapperInline {
+class TestUserAgentAnalysisMapperInline {
     @Test
-    public void testInlineDefinitionDataSet() throws Exception {
+    void testInlineDefinitionDataSet() throws Exception {
         ExecutionEnvironment environment = LocalEnvironment.getExecutionEnvironment();
 
         DataSet<TestRecord> resultDataSet = environment
@@ -100,7 +100,7 @@ public class TestUserAgentAnalysisMapperInline {
     }
 
     @Test
-    public void testInlineDefinitionDataStream() throws Exception {
+    void testInlineDefinitionDataStream() throws Exception {
         StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
 
         DataStream<TestRecord> resultDataStream = environment

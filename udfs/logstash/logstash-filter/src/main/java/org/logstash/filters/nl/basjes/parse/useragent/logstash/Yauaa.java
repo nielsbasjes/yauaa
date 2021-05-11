@@ -58,6 +58,7 @@ public class Yauaa implements Filter {
     private final String              sourceField;
     private       Map<String, String> outputFields;
 
+    @SuppressWarnings("unused") // The constructor MUST have this parameter list
     public Yauaa(String id, Configuration config, Context context) {
         this.id = id;
         // constructors should validate configuration options

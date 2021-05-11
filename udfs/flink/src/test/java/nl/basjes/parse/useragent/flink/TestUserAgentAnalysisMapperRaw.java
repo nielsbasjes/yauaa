@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestUserAgentAnalysisMapperRaw {
+class TestUserAgentAnalysisMapperRaw {
     public static class TestMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
         public String getUserAgentString(TestRecord record) {
@@ -45,7 +45,7 @@ public class TestUserAgentAnalysisMapperRaw {
     }
 
     @Test
-    public void testUserAgentParser() {
+    void testUserAgentParser() {
         TestMapper mapper = new TestMapper();
 
         mapper.open(null);
@@ -80,7 +80,7 @@ public class TestUserAgentAnalysisMapperRaw {
     }
 
     @Test
-    public void testImpossibleField() {
+    void testImpossibleField() {
         TestImpossibleFieldMapper mapper = new TestImpossibleFieldMapper();
         assertThrows(InvalidParserConfigurationException.class, () ->
             mapper.open(null));

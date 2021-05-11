@@ -131,7 +131,7 @@ public class ParseUserAgent extends AbstractProcessor {
             extractFieldNames.clear();
 
             for (PropertyDescriptor propertyDescriptor: supportedPropertyDescriptors) {
-                if (context.getProperty(propertyDescriptor).asBoolean()) {
+                if (Boolean.TRUE.equals(context.getProperty(propertyDescriptor).asBoolean())) {
                     String name = propertyDescriptor.getName();
                     if (name.startsWith(PROPERTY_PREFIX)) { // Should always pass
                         String fieldName = name.substring(PROPERTY_PREFIX.length());

@@ -23,7 +23,6 @@ import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import org.apache.logging.log4j.LogManager;
@@ -58,7 +57,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         AbstractUserAgentAnalyzer.configureKryo(kryo);
     }
 
-    public static class KryoSerializer extends UserAgentAnalyzerDirect.KryoSerializer {
+    public static class KryoSerializer extends AbstractUserAgentAnalyzerDirect.KryoSerializer {
         public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }

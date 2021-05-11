@@ -29,10 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestParseUserAgent {
+class TestParseUserAgent {
 
     @Test
-    public void testBasic() throws HiveException {
+    void testBasic() throws HiveException {
         // This is an edge case where the webview fields are calulcated AND wiped again.
         String userAgent = "Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) " +
             "Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0";
@@ -63,7 +63,7 @@ public class TestParseUserAgent {
     }
 
     @Test
-    public void testExplain() {
+    void testExplain() {
         ParseUserAgent parseUserAgent = new ParseUserAgent();
         assertTrue(parseUserAgent.getDisplayString(null).contains("UserAgent"), "Wrong explanation");
     }

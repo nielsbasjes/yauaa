@@ -22,7 +22,7 @@ import com.esotericsoftware.kryo.Kryo;
 
 import java.io.Serializable;
 
-@DefaultSerializer(UserAgentAnalyzer.KryoSerializer.class)
+@DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
 public final class UserAgentAnalyzer extends AbstractUserAgentAnalyzer implements Serializable {
 
     public static UserAgentAnalyzerBuilder newBuilder() {

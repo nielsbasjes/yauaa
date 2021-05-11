@@ -40,7 +40,7 @@ import static org.apache.flink.table.api.Expressions.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestTableFunction {
+class TestTableFunction {
 
     public static DataStreamSource<Tuple3<String, String, String>> getTestAgentStream(StreamExecutionEnvironment env) {
         // Useragent, Expected DeviceClass, Expected AgentNameVersionMajor
@@ -66,7 +66,7 @@ public class TestTableFunction {
     }
 
     @Test
-    public void testFunctionExtractDirect() throws Exception {
+    void testFunctionExtractDirect() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -119,7 +119,7 @@ public class TestTableFunction {
     }
 
     @Test
-    public void testMapFunctionExtractInSQLSubSelect() throws Exception {
+    void testMapFunctionExtractInSQLSubSelect() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -177,7 +177,7 @@ public class TestTableFunction {
     }
 
     @Test
-    public void testMapFunctionReturnMap() throws Exception {
+    void testMapFunctionReturnMap() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -245,27 +245,27 @@ public class TestTableFunction {
     }
 
     @Test
-    public void testMapFunctionList() {
+    void testMapFunctionList() {
         verifyFunction(new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor")));
     }
 
     @Test
-    public void testMapFunctionListNoCache() {
+    void testMapFunctionListNoCache() {
         verifyFunction(new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor")));
     }
 
     @Test
-    public void testMapFunctionArray() {
+    void testMapFunctionArray() {
         verifyFunction(new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
     }
 
     @Test
-    public void testMapFunctionArrayNoCache() {
+    void testMapFunctionArrayNoCache() {
         verifyFunction(new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor"));
     }
 
     @Test
-    public void testMapFunctionAskNothingGetAll() {
+    void testMapFunctionAskNothingGetAll() {
         AnalyzeUseragentFunction function = new AnalyzeUseragentFunction();
         function.open(null);
         final Map<String, String> result = function.eval(USERAGENT);

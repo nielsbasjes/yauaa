@@ -28,13 +28,13 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RunBenchmarks {
+class RunBenchmarks {
 
     private static final Logger LOG = LogManager.getLogger(RunBenchmarks.class);
     private UserAgentAnalyzer uaa;
 
     @Test
-    public void runBenchmarks() {
+    void runBenchmarks() {
 
         uaa = UserAgentAnalyzer
             .newBuilder()

@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // CHECKSTYLE.OFF: ParenPad
-public class TestCounter {
+class TestCounter {
 
     private static final String  BAD_COUNT         = "Bad count";
     private static final String  BAD_MIN           = "Bad value for Min";
@@ -50,7 +50,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testEmptyCounter() {
+    void testEmptyCounter() {
         final Counter c1 = new Counter();
 
         assertEquals(0,          c1.getN(),                   BAD_COUNT    );
@@ -77,7 +77,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterBasics() {
+    void testCounterBasics() {
         final Counter c1 = new Counter();
         assertEquals(   0,        c1.getN(),                   BAD_COUNT    );
 
@@ -118,7 +118,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterToString() {
+    void testCounterToString() {
         final Counter c1 = new Counter();
         c1.increment(1);
         c1.increment(2);
@@ -130,7 +130,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMerging() {
+    void testCounterMerging() {
         final Counter c1 = new Counter();
         c1.increment(1);
         c1.increment(2);
@@ -215,7 +215,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergingLeft() {
+    void testCounterMergingLeft() {
         final Counter c1 = new Counter();
         c1.increment(1);
         c1.increment(2);
@@ -234,7 +234,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergingRight() {
+    void testCounterMergingRight() {
         final Counter c1 = new Counter();
         c1.increment(0);
         c1.increment(10);
@@ -253,7 +253,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergeAddAdd() {
+    void testCounterMergeAddAdd() {
         final Counter c1 = new Counter();
         c1.increment(1);
         c1.increment(2);
@@ -272,7 +272,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergeMerge() {
+    void testCounterMergeMerge() {
         final Counter c1 = new Counter();
         c1.increment(0);
         c1.increment(10);
@@ -294,7 +294,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergeAddMergeAdd() {
+    void testCounterMergeAddMergeAdd() {
         final Counter c1 = new Counter();
 
         final Counter c2 = new Counter();
@@ -316,7 +316,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergeAddMergeAddMergeAdd() {
+    void testCounterMergeAddMergeAddMergeAdd() {
         final Counter c1 = new Counter();
 
         final Counter c2 = new Counter();
@@ -344,7 +344,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergeAddMergeAddMergeAddAsBytes() {
+    void testCounterMergeAddMergeAddMergeAddAsBytes() {
         final Counter c1 = new Counter();
 
         final Counter c2 = new Counter();
@@ -372,7 +372,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergingEmptyRight() {
+    void testCounterMergingEmptyRight() {
         final Counter c1 = new Counter();
         c1.increment(1);
         c1.increment(2);
@@ -391,7 +391,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergingEmptyLeft() {
+    void testCounterMergingEmptyLeft() {
         final Counter c1 = new Counter();
 
         final Counter c2 = new Counter();
@@ -410,7 +410,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergingUp() {
+    void testCounterMergingUp() {
         final Counter c = new Counter();
 
         c.increment(0);
@@ -426,7 +426,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterMergingDown() {
+    void testCounterMergingDown() {
         final Counter c = new Counter();
 
         c.increment(20);
@@ -442,7 +442,7 @@ public class TestCounter {
     // ------------------------------------------
 
     @Test
-    public void testCounterSerialization() {
+    void testCounterSerialization() {
         byte[] serializedBytes = REFERENCE_COUNTER.toBytes();
         Counter deserialized = new Counter(serializedBytes);
         assertTrue(counterIsSameAsReferenceCounter(deserialized), BAD);
@@ -451,7 +451,7 @@ public class TestCounter {
     // ------------------------------------------
 //
 //    @Test
-//    public void testCounterWritability() throws IOException {
+//    void testCounterWritability() throws IOException {
 //        byte[] bytes = TestWritableInterface.serialize(REFERENCE_COUNTER);
 //        Counter deserialized = TestWritableInterface.asWritable(bytes, Counter.class);
 //        assertTrue(BAD, counterIsSameAsReferenceCounter(deserialized));

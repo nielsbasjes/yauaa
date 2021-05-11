@@ -199,15 +199,18 @@ public final class YauaaVersion {
             return projectVersion;
         }
 
-        @Override public String getCopyright() {
+        @Override
+        public String getCopyright() {
             return copyright;
         }
 
-        @Override public String getLicense() {
+        @Override
+        public String getLicense() {
             return license;
         }
 
-        @Override public String getUrl() {
+        @Override
+        public String getUrl() {
             return url;
         }
 

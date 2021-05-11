@@ -26,12 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class TestKryoSerializationRegistered {
 
     @Test
-    void cycleWithTestBefore() throws IOException, ClassNotFoundException {
+    void cycleWithTestBefore() {
         assertDoesNotThrow(() -> new SerializeWithKryoRegistered().cycleWithTestBefore());
     }
 
     @Test
-    void cycleWithoutTestBefore() throws IOException, ClassNotFoundException {
+    void cycleWithoutTestBefore() {
         assertDoesNotThrow(() -> new SerializeWithKryoRegistered().cycleWithoutTestBefore());
     }
 }

@@ -35,7 +35,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestUserAgentAnalysisMapperClass {
+class TestUserAgentAnalysisMapperClass {
 
     public static class MyUserAgentAnalysisMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
@@ -57,7 +57,7 @@ public class TestUserAgentAnalysisMapperClass {
     }
 
     @Test
-    public void testClassDefinitionDataSet() throws Exception {
+    void testClassDefinitionDataSet() throws Exception {
         ExecutionEnvironment environment = LocalEnvironment.getExecutionEnvironment();
 
         DataSet<TestRecord> resultDataSet = environment
@@ -103,7 +103,7 @@ public class TestUserAgentAnalysisMapperClass {
     }
 
     @Test
-    public void testClassDefinitionDataStream() throws Exception {
+    void testClassDefinitionDataStream() throws Exception {
         StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
 
         DataStream<TestRecord> resultDataStream = environment

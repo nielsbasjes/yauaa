@@ -29,12 +29,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestParseUserAgentBadInput {
+class TestParseUserAgentBadInput {
 
     private final ParseUserAgent parseUserAgent = new ParseUserAgent();
 
     @Test
-    public void testBadInputType() {
+    void testBadInputType() {
         Exception exception = assertThrows(UDFArgumentException.class, () ->
             parseUserAgent
             .initialize(new ObjectInspector[]{
@@ -45,7 +45,7 @@ public class TestParseUserAgentBadInput {
     }
 
     @Test
-    public void testBadInputCount() {
+    void testBadInputCount() {
         Exception exception = assertThrows(UDFArgumentException.class, () ->
             parseUserAgent
                 .initialize(new ObjectInspector[]{
@@ -57,7 +57,7 @@ public class TestParseUserAgentBadInput {
 
 
     @Test
-    public void testBadInputNull() throws HiveException {
+    void testBadInputNull() throws HiveException {
         parseUserAgent
             .initialize(new ObjectInspector[]{
                 PrimitiveObjectInspectorFactory.javaStringObjectInspector
