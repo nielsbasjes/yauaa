@@ -826,7 +826,35 @@ config:
       AgentNameVersionMajor                : 'Linkqualityaag ??'
       AgentInformationUrl                  : 'http://code.google.com/appengine'
 
-#AppEngine-Google; (+http://code.google.com/appengine; appid: s~loa10167767606076078)
+- test:
+    input:
+      user_agent_string: 'AppEngine-Google; (+http://code.google.com/appengine; appid: s~snapchat-proxy)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Snapchat-Proxy'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Snapchat-Proxy ??'
+      AgentNameVersionMajor                : 'Snapchat-Proxy ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
+
+  #AppEngine-Google; (+http://code.google.com/appengine; appid: s~loa10167767606076078)
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~magicscrollreader234)
 #AppEngine-Google; (+http://code.google.com/appengine; appid: s~misterhac)
 
@@ -1670,3 +1698,31 @@ config:
       AgentNameVersion                     : 'Google Search by image ??'
       AgentNameVersionMajor                : 'Google Search by image ??'
 
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Google-Safety; +http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Nexus 5X'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      OperatingSystemVersionBuild          : 'MMB29P'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '41.0'
+      LayoutEngineVersionMajor             : '41'
+      LayoutEngineNameVersion              : 'Blink 41.0'
+      LayoutEngineNameVersionMajor         : 'Blink 41'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '41.0.2272.96'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Chrome 41.0.2272.96'
+      AgentNameVersionMajor                : 'Chrome 41'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'

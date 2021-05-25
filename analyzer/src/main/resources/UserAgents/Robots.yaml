@@ -46,6 +46,7 @@ config:
       'gocrawl'                      : 'GoCrawl|GoCrawl'
       'Guzzle'                       : 'Guzzle|Guzzle Http'
       'GuzzleHttp'                   : 'Guzzle|Guzzle Http'
+      'Hackney'                      : 'Hackney|Hackney'
       'heritrix'                     : 'heritrix|heritrix'
       'Kapow Technologies RoboSuite' : 'Kapow|Kapow Technologies RoboSuite'
       'Keeper'                       : 'Keeper|Keeper'
@@ -9943,3 +9944,85 @@ config:
       AgentNameVersionMajor                : 'MixnodeCache 1'                 #
       AgentInformationUrl                  : 'https://cache.mixnode.com/'     #
 
+  # https://github.com/benoitc/hackney
+  # hackney is an HTTP client library for Erlang.
+- test:
+    input:
+      user_agent_string: 'hackney/1.6.6, Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hackney'
+      DeviceBrand                          : 'Hackney'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'hackney'
+      LayoutEngineVersion                  : '1.6.6'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'hackney 1.6.6'
+      LayoutEngineNameVersionMajor         : 'hackney 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Hackney'
+      AgentVersion                         : '1.6.6'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Hackney 1.6.6'
+      AgentNameVersionMajor                : 'Hackney 1'
+
+
+
+- test:
+    input:
+      user_agent_string: 'hackney/1.6.6, Mozilla/5.0 (Windows NT 6.1; WOW64; rv:29.0) Gecko/20100101 Firefox/29.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hackney'
+      DeviceBrand                          : 'Hackney'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'hackney'
+      LayoutEngineVersion                  : '1.6.6'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'hackney 1.6.6'
+      LayoutEngineNameVersionMajor         : 'hackney 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Hackney'
+      AgentVersion                         : '1.6.6'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Hackney 1.6.6'
+      AgentNameVersionMajor                : 'Hackney 1'
+
+
+- test:
+    input:
+      user_agent_string: 'hackney/1.6.6, Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hackney'
+      DeviceBrand                          : 'Hackney'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'hackney'
+      LayoutEngineVersion                  : '1.6.6'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'hackney 1.6.6'
+      LayoutEngineNameVersionMajor         : 'hackney 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Hackney'
+      AgentVersion                         : '1.6.6'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Hackney 1.6.6'
+      AgentNameVersionMajor                : 'Hackney 1'

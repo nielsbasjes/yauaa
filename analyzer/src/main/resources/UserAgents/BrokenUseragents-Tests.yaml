@@ -3023,3 +3023,32 @@ config:
       AgentVersionMajor                    : '14'
       AgentNameVersion                     : 'Safari 14.0.2'
       AgentNameVersionMajor                : 'Safari 14'
+
+# Clearly manipulated
+- test:
+    input:
+      user_agent_string: 'Mozilla/1.0 (Windows NT 4.0, Windows NT 5.0, Windows NT 5.1, Windows NT 6.0, Windows NT 6.1, Windows NT 6.2, Windows NT 10.0) AppleWebKit (KHTML, like Gecko) Safari/1 Chrome/1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Windows NT 4.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Mozilla 1.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Chrome 1'
+      AgentNameVersionMajor                : 'Chrome 1'
+

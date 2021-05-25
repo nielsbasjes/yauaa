@@ -1874,6 +1874,63 @@ config:
       AgentNameVersion                     : 'IBrowse 2.3'
       AgentNameVersionMajor                : 'IBrowse 2'
 
+- test:
+    input:
+      user_agent_string: 'Amiga-AWeb/3.4.167SE'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown' #FIXME: Amiga ?
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Amiga-AWeb'
+      AgentVersion                         : '3.4.167SE'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Amiga-AWeb 3.4.167SE'
+      AgentNameVersionMajor                : 'Amiga-AWeb 3'
+
+
+- test:
+    input:
+      user_agent_string: 'AmigaVoyager/3.4.4 (MorphOS/PPC native)'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown' #FIXME: Amiga ?
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'PowerPC'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'AmigaVoyager'
+      AgentVersion                         : '3.4.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'AmigaVoyager 3.4.4'
+      AgentNameVersionMajor                : 'AmigaVoyager 3'
+
+
+
 
 # NetSurf 3.2 (26th August 2014) on Ubuntu 16.4
 - test:
