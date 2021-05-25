@@ -40,10 +40,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.servlet.ParseService.getInitStartMoment;
 import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzer;
 import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzerFailureMessage;
 import static nl.basjes.parse.useragent.servlet.ParseService.userAgentAnalyzerIsAvailable;
+import static nl.basjes.parse.useragent.servlet.api.DetermineUserAgentTags.getTags;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
@@ -124,6 +126,12 @@ public class HumanHtml {
                     sb.append("<h2 class=\"title\">The UserAgent</h2>");
                     sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
                     sb.append("<h2 class=\"title\">The analysis result</h2>");
+
+                    List<String> tags = getTags(userAgent);
+                    sb.append("<p class=\"tags\">")
+                        .append("DeviceClass : ").append(userAgent.getValue(DEVICE_CLASS)).append("<br/>")
+                        .append(String.join(" - ", tags)).append("</p>");
+
                     sb.append("<table id=\"result\">");
                     sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
 

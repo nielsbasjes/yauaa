@@ -19,6 +19,7 @@ v6.0-SNAPSHOT
   - Elastic Search/Logstash 7.12.1
 - WebServlet:
   - Cleaning up the code
+  - Also show the classifications based upon the DeviceClass
 - Build:
   - Disabling usage of docker hub in CI build to avoid random failures over "You have reached your pull rate limit."
 
