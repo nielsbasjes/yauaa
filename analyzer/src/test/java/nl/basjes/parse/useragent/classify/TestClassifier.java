@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.classify;
 
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
@@ -39,11 +40,13 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNKNOWN;
 import static nl.basjes.parse.useragent.classify.DeviceClass.VIRTUAL_REALITY;
 import static nl.basjes.parse.useragent.classify.DeviceClass.WATCH;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.getDeviceClass;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class TestClassifier {
 
@@ -71,7 +74,7 @@ class TestClassifier {
     private void verifyEnum(String deviceClass) {
         MutableUserAgent userAgent = new MutableUserAgent();
         userAgent.set(DEVICE_CLASS, deviceClass, 1);
-        assertEquals(deviceClass, UserAgentClassifier.getDeviceClass(userAgent).getValue());
+        assertEquals(deviceClass, getDeviceClass(userAgent).getValue());
     }
 
 
@@ -110,6 +113,23 @@ class TestClassifier {
             "For the DeviceClass " + deviceClass + " the isNormalConsumerDevice() was incorrect.");
         assertEquals(misuse, isDeliberateMisuse(userAgent),
             "For the DeviceClass " + deviceClass + " the isDeliberateMisuse() was incorrect.");
+    }
+
+    // Check https://github.com/nielsbasjes/yauaa/issues/236
+    @Test
+    void testLimitedFields() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer.newBuilder().withCache(10000)
+            .hideMatcherLoadStats()
+            .withField("AgentName")
+            .withField("AgentVersion")
+            .withField("LayoutEngineName")
+            .withField("LayoutEngineVersion")
+            .withField("OperatingSystemName")
+            .build();
+
+        String useragent = "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Google-Safety; +http://www.google.com/bot.html)";
+        assertEquals(ROBOT, getDeviceClass(uaa.parse(useragent)));
+        assertFalse(isHuman(uaa.parse(useragent)));
     }
 
 }
