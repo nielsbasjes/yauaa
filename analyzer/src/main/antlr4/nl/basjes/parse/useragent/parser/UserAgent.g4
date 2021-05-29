@@ -226,17 +226,19 @@ UNASSIGNEDVARIABLE
     ;
 
 GIBBERISH
-    : '@'(~[ ;])*
+    : '@'(~[ ;)])*(~[-+_0-9a-zA-Z. ;)])+(~[ ;)])*
     ;
+
+ATSIGN : '@' ;
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
-    : (~[0-9+;{}()\\/ \t:=[\]",])*[0-9]+([,][0-9]+)?(~[+;{}()\\/ \t:=[\]",])*
+    : (~[@0-9+;{}()\\/ \t:=[\]",])*[0-9]+([,][0-9]+)?(~[@+;{}()\\/ \t:=[\]",])*
     | UNASSIGNEDVARIABLE
     ;
 
 fragment WORDLetter
-    : (~[0-9+;,{}()\\/ \t:=[\]"-])             // Normal letters
+    : (~[@0-9+;,{}()\\/ \t:=[\]"-])            // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
     | SPECIALVERSIONWORDS
     ;
@@ -305,23 +307,23 @@ And then there are messy edge cases like "foo 1.0 rv:23 (bar)"
 */
 product
     : productName   (                                   productVersion )+
-                    (  COLON? (SLASH+|MINUS) EQUALS?    (productVersionWithCommas|productVersionSingleWord) COMMA? )*
-                    (  SLASH? (SEMICOLON|MINUS)?        commentBlock
-                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
+                    (  COLON? (SLASH+|MINUS|ATSIGN) EQUALS?      (productVersionWithCommas|productVersionSingleWord) COMMA? )*
+                    (  (SLASH|ATSIGN)? (SEMICOLON|MINUS)?        commentBlock
+                       ( (SLASH|ATSIGN)+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
                     (SLASH EOF)?
 
-    | productName   (  SLASH? (SEMICOLON|MINUS)?        commentBlock
-                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
+    | productName   (  (SLASH|ATSIGN)? (SEMICOLON|MINUS)?        commentBlock
+                       ( (SLASH|ATSIGN)+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
                     (SLASH EOF)?
 
-    | productName   (  COLON? (SLASH+|MINUS) productVersionWords
-                        ( SLASH* productVersionWithCommas COMMA?)*
-                        SLASH? (SEMICOLON|MINUS)?       commentBlock ?    )+
+    | productName   (  COLON? (SLASH+|MINUS|ATSIGN) productVersionWords
+                        ( (SLASH|ATSIGN)* productVersionWithCommas COMMA?)*
+                        (SLASH|ATSIGN)? (SEMICOLON|MINUS)?       commentBlock ?    )+
                     (SLASH EOF)?
 
-    | productName   (  COLON? (SLASH+|MINUS) EQUALS?    (productVersionWithCommas|productVersionSingleWord) COMMA?)+
-                    (  SLASH? (SEMICOLON|MINUS)?        commentBlock
-                       ( SLASH+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
+    | productName   (  COLON? (SLASH+|MINUS|ATSIGN) EQUALS?      (productVersionWithCommas|productVersionSingleWord) COMMA?)+
+                    (  (SLASH|ATSIGN)? (SEMICOLON|MINUS)?        commentBlock
+                       ( (SLASH|ATSIGN)+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
                     (SLASH EOF)?
 
     | productName   (SLASH EOF)
@@ -329,21 +331,21 @@ product
 
 commentProduct
     : productName   (                       productVersionWithCommas )+
-                    (   SLASH+  EQUALS?     (productVersionWithCommas|productVersionSingleWord) COMMA?)*
-                    (   SLASH?  MINUS?      commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
+                    (   (SLASH|ATSIGN)+  EQUALS?     (productVersionWithCommas|productVersionSingleWord) COMMA?)*
+                    (   (SLASH|ATSIGN)?  MINUS?      commentBlock
+                        ( (SLASH|ATSIGN)+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
 
-    | productName   (   SLASH? MINUS?       commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
+    | productName   (   (SLASH|ATSIGN)? MINUS?       commentBlock
+                        ( (SLASH|ATSIGN)+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
 
-    | productName   (   COLON? (SLASH+|MINUS) productVersionWords
-                        ( SLASH* productVersionWithCommas COMMA?)*            )+
+    | productName   (   COLON? (SLASH+|MINUS|ATSIGN) productVersionWords
+                        ( (SLASH|ATSIGN)* productVersionWithCommas COMMA?)*            )+
                     (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
+                        ( (SLASH|ATSIGN)+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
 
-    | productName   (   (SLASH+|MINUS)  EQUALS?     (productVersionWithCommas) COMMA?)+
+    | productName   (   (SLASH+|MINUS|ATSIGN)  EQUALS?     (productVersionWithCommas) COMMA?)+
                     (   MINUS?              commentBlock
-                        ( SLASH+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
+                        ( (SLASH|ATSIGN)+  EQUALS?   (productVersionWithCommas|productVersionSingleWord) COMMA?)* )*
     ;
 
 productVersionWords
@@ -530,7 +532,7 @@ emptyWord
 
 multipleWords
     : (MINUS* WORD)+ MINUS*
-    | GIBBERISH
+    | WORD* GIBBERISH WORD*
     | MINUS
     ;
 
