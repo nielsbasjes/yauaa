@@ -27,6 +27,9 @@ addons:
   sonarcloud:
     organization: "nielsbasjes-github"
 
+install:
+  - mvn install -PdisableDockerHubUsages -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
 script:
   - mvn test -PdisableDockerHubUsages -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
 
