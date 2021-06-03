@@ -248,6 +248,7 @@
         </configuration>
       </plugin>
 
+      <!-- Documentation: https://dmp.fabric8.io/ -->
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
@@ -264,6 +265,21 @@
                   <tag>latest</tag>
                   <tag>${project.version}</tag>
                 </tags>
+
+                <labels>
+                  <name>yauaa</name>
+                  <org.opencontainers.image.created>${maven.build.timestamp}</org.opencontainers.image.created>
+                  <org.opencontainers.image.authors>Niels Basjes</org.opencontainers.image.authors>
+                  <org.opencontainers.image.url>https://yauaa.basjes.nl</org.opencontainers.image.url>
+                  <org.opencontainers.image.documentation>https://yauaa.basjes.nl</org.opencontainers.image.documentation>
+                  <org.opencontainers.image.source>https://github.com/nielsbasjes/yauaa</org.opencontainers.image.source>
+                  <org.opencontainers.image.version>${project.version}</org.opencontainers.image.version>
+                  <org.opencontainers.image.revision>${git.commit.id}</org.opencontainers.image.revision>
+                  <org.opencontainers.image.vendor>Niels Basjes</org.opencontainers.image.vendor>
+                  <org.opencontainers.image.licenses>Apache-2.0</org.opencontainers.image.licenses>
+                  <org.opencontainers.image.title>Yauaa: Yet Another UserAgent Analyzer</org.opencontainers.image.title>
+                  <org.opencontainers.image.description>This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.</org.opencontainers.image.description>
+                </labels>
                 <assembly>
                   <name>${project.build.finalName}.war</name>
                   <targetDir>/</targetDir>
