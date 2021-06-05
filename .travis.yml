@@ -28,6 +28,10 @@ addons:
     organization: "nielsbasjes-github"
 
 install:
+  # Travis fails if the output is too large.
+  # This happens when you clean the cache and it wants to download all dependencies again.
+  # So download all dependencies and trash the logging before running the build.
+  - mvn dependency:resolve -fn -PdisableDockerHubUsages -DskipTests=true -Dmaven.javadoc.skip=true -B -V > dependency.log
   - mvn install -PdisableDockerHubUsages -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
