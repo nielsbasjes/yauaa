@@ -1,5 +1,14 @@
 {
   "extends": [
     "config:base"
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "kryo4.version",
+        "elasticsearch.log4j2.version"
+      ],
+      "rangeStrategy": "pin"
+    }
   ]
 }
