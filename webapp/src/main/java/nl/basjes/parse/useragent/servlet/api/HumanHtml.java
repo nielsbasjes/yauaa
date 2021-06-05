@@ -179,20 +179,6 @@ public class HumanHtml {
                     .append("</textarea>");
                 sb.append("<input class=\"testButton\" type=\"submit\" value=\"Analyze\">");
                 sb.append("</form>");
-                sb.append("<br/>");
-
-                sb.append("<hr/>");
-                userAgentString =
-                    "Mozilla/5.0 (Linux; Android 7.8.9; nl-nl ; " +
-                        "Niels Ultimate 42 demo phone Build/42 ; " +
-                        "https://yauaa.basjes.nl ) " +
-                        "AppleWebKit/8.4.7.2 (KHTML, like Gecko) " +
-                        "Yet another browser/3.1415926 Mobile Safari/6.6.6";
-                sb.append("<form class=\"logobar tryexample\" action=\"\" method=\"post\">");
-                sb.append("<input type=\"hidden\" id=\"demouseragent\" name=\"useragent\" " +
-                    "value=\"").append(escapeHtml4(userAgentString)).append("\">");
-                sb.append("<input class=\"demoButton\" type=\"submit\" value=\"Try this demonstration UserAgent\">");
-                sb.append("</form>");
 
                 sb.append("<hr/>");
             } else {
