@@ -2,15 +2,19 @@
   "extends": [
     "config:base"
   ],
-  "packageRules": [
+  "packageRules": [{
+      "description": "Disable major updates for kryo4",
+      "matchPackageNames": ["com.esotericsoftware:kryo"],
+      "matchCurrentVersion": "[4.0.0,5.0.0)",
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
     {
-      "packageRules": [{
-        "description": "Disable major updates for kryo4",
-        "matchPackageNames": ["com.esotericsoftware:kryo"],
-        "matchCurrentVersion": "[4.0.0,5.0.0)",
-        "matchUpdateTypes": ["major"],
-        "enabled": false
-      }]
+      "description": "Disable automatic updates for log4j for ElasticSearch",
+      "group": "elasticsearch.log4j2.version",
+      "groupName": "The Log4J version used by ElasticSearch",
+      "matchUpdateTypes": ["major", "minor", "patch", "pin"],
+      "enabled": false
     },
     {
       "groupSlug": "all",
