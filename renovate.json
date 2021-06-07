@@ -4,11 +4,13 @@
   ],
   "packageRules": [
     {
-      "matchDepTypes": [
-        "kryo4.version",
-        "elasticsearch.log4j2.version"
-      ],
-      "rangeStrategy": "pin"
+      "packageRules": [{
+        "description": "Disable major updates for kryo4",
+        "matchPackageNames": ["com.esotericsoftware:kryo"],
+        "matchCurrentVersion": "[4.0.0,5.0.0)",
+        "matchUpdateTypes": ["major"],
+        "enabled": false
+      }]
     },
     {
       "groupSlug": "all",
