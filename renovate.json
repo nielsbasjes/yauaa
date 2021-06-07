@@ -12,14 +12,13 @@
     {
       "description": "Disable automatic updates for log4j for ElasticSearch",
       "matchPackageNames": ["org.apache.logging.log4j:.*"],
-      "matchCurrentVersion": "2.11.1",
-      "groupSlug": "elasticsearch.log4j2.version",
-      "groupName": "The Log4J version used by ElasticSearch",
+      "matchCurrentVersion": "[2.11.1]",
+      "matchUpdateTypes": ["major", "minor", "patch", "pin"],
       "enabled": false
     },
     {
       "groupSlug": "all",
-      "packagePatterns": ["*"],
+      "matchPackagePatterns": ["*"],
       "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/",
       "groupName": "all dependencies"
     }
