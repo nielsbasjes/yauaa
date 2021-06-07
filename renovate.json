@@ -9,6 +9,12 @@
         "elasticsearch.log4j2.version"
       ],
       "rangeStrategy": "pin"
+    },
+    {
+      "groupSlug": "all",
+      "packagePatterns": ["*"],
+      "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/",
+      "groupName": "all dependencies"
     }
   ]
 }
