@@ -2,7 +2,12 @@
   "extends": [
     "config:base"
   ],
-  "packageRules": [{
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/"
+    },
+    {
       "description": "Disable major updates for kryo4",
       "matchPackageNames": ["com.esotericsoftware:kryo"],
       "matchCurrentVersion": "[4.0.0,5.0.0)",
@@ -12,14 +17,36 @@
     {
       "description": "Disable automatic updates for log4j for ElasticSearch",
       "groupName": "elasticsearch.log4j2.version",
+      "matchPackagePrefixes": ["org.apache.logging.log4j"],
+      "matchCurrentVersion": "[2.11.1]",
       "matchUpdateTypes": ["major", "minor", "patch", "pin"],
       "enabled": false
     },
     {
-      "groupSlug": "all",
-      "matchPackagePatterns": ["*"],
-      "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/",
-      "groupName": "all dependencies"
+      "matchPackagePrefixes": [
+        "org.apache.maven.plugins",
+        "org.codehaus.mojo",
+        "org.sonarsource.scanner.maven",
+        "com.github.spotbugs",
+        "com.google.code.maven-replacer-plugin",
+        "io.fabric8",
+        "pl.project13.maven"
+      ],
+      "groupSlug": "plugins",
+      "groupName": "build plugin dependencies"
+    },
+    {
+      "excludePackagePrefixes": [
+        "org.apache.maven.plugins",
+        "org.codehaus.mojo",
+        "org.sonarsource.scanner.maven",
+        "com.github.spotbugs",
+        "com.google.code.maven-replacer-plugin",
+        "io.fabric8",
+        "pl.project13.maven"
+      ],
+      "groupSlug": "other",
+      "groupName": "other dependencies"
     }
   ]
 }
