@@ -15,8 +15,9 @@ v6.0-SNAPSHOT
   - Improved handling of the '@' character.
 - Updated UDF dependencies
   - Apache Flink            1.13.0
-  - Apache Beam             2.29.0
+  - Apache Beam             2.30.0
   - Apache Nifi             1.13.2
+  - Apache Drill            1.19.0
   - Elastic Search/Logstash 7.12.1
 - WebServlet:
   - Cleaning up the code
