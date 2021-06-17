@@ -1,6 +1,6 @@
 Yauaa: Yet Another UserAgent Analyzer
 ========================================
-[![Travis Build status](https://api.travis-ci.com/nielsbasjes/yauaa.png?branch=master)](https://travis-ci.com/nielsbasjes/yauaa)
+[![Github actions Build status](https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa)](https://github.com/nielsbasjes/yauaa/actions)
 [![Coverage Status](https://coveralls.io/repos/github/nielsbasjes/yauaa/badge.svg?branch=master)](https://coveralls.io/github/nielsbasjes/yauaa?branch=master)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=nielsbasjes_yauaa&metric=alert_status)](https://sonarcloud.io/dashboard?id=nielsbasjes_yauaa)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
