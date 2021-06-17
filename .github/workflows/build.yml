@@ -37,6 +37,12 @@ jobs:
     - name: Checkout sourcecode
       uses: actions/checkout@v2
 
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@v1.1.2
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.6
+
     - name: Cache Local Maven Repository
       uses: actions/cache@v2
       with:
@@ -52,4 +58,4 @@ jobs:
         distribution: 'adopt'
 
     - name: Build Yauaa
-      run: mvn test -PdisableDockerHubUsages
+      run: mvn test -PdisableDockerHubUsages -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
