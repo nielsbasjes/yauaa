@@ -52,7 +52,8 @@ jobs:
         distribution: 'adopt'
 
     - name: Build Yauaa
-      run: mvn clean package -PdisableDockerHubUsages -DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+      run: mvn clean package -PdisableDockerHubUsages
+      #-DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
 
     - name: Run Coveralls
       uses: coverallsapp/github-action@v1.1.2
