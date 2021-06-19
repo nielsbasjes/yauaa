@@ -60,20 +60,9 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
-#    - name: Run Coveralls
-#      uses: coverallsapp/github-action@v1.1.2
-#      with:
-#        github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
-
-  sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
+    - name: Sonar
+      run: mvn -DEnableReportPlugins sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+      #-DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+      env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
