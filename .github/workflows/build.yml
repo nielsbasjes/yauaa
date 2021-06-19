@@ -60,9 +60,9 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
-    - name: Sonar
-      run: mvn -DEnableReportPlugins sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
-      #-DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
-      env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#    - name: Sonar
+#      run: mvn -DEnableReportPlugins sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+#      #-DEnableReportPlugins coveralls:report sonar:sonar -Dsonar.projectKey=nielsbasjes_yauaa
+#      env:
+##          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
