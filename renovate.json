@@ -4,6 +4,7 @@
   ],
   "packageRules": [
     {
+      "description": "Disable special versions",
       "matchPackagePatterns": ["*"],
       "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/"
     },
@@ -15,12 +16,23 @@
       "enabled": false
     },
     {
-      "description": "Disable automatic updates for log4j for ElasticSearch",
+      "description": "Disable automatic updates for log4j for ElasticSearch (avoid jar-hell)",
       "groupName": "elasticsearch.log4j2.version",
       "matchPackagePrefixes": ["org.apache.logging.log4j"],
       "matchCurrentVersion": "[2.11.1]",
       "matchUpdateTypes": ["major", "minor", "patch", "pin"],
       "enabled": false
+    },
+    {
+      "matchPackagePrefixes": [
+        "org.apache.logging",
+        "org.slf4j"
+      ],
+      "groupSlug": "logging",
+      "groupName": "logging",
+      "labels": [
+        "logging"
+      ]
     },
     {
       "matchPackagePrefixes": [
@@ -30,23 +42,85 @@
         "com.github.spotbugs",
         "com.google.code.maven-replacer-plugin",
         "io.fabric8",
-        "pl.project13.maven"
+        "pl.project13.maven",
+        "com.alexecollins.maven.plugin",
+        "org.jetbrains.kotlin",
+        "net.alchim31.maven"
       ],
-      "groupSlug": "plugins",
-      "groupName": "build plugin dependencies"
+      "groupSlug": "maven_build_plugins",
+      "groupName": "maven build plugins",
+      "labels": [
+        "maven-build-plugins"
+      ]
     },
     {
-      "excludePackagePrefixes": [
-        "org.apache.maven.plugins",
-        "org.codehaus.mojo",
-        "org.sonarsource.scanner.maven",
-        "com.github.spotbugs",
-        "com.google.code.maven-replacer-plugin",
-        "io.fabric8",
-        "pl.project13.maven"
+      "matchPackagePrefixes": [
+        "com.google"
       ],
-      "groupSlug": "other",
-      "groupName": "other dependencies"
+      "groupSlug": "google",
+      "groupName": "google",
+      "labels": [
+        "google"
+      ]
+    },
+    {
+      "description": "Disallow Cloudera/Hortonworks/Spring/... internal versions",
+      "matchPackagePrefixes": ["org.apache."],
+      "allowedVersions": "/^[0-9]{1,3}\\.[0-9]{1,3}(?:\\.[0-9]{1,3})?(?:-M[0-9]{1,3})?$/"
+    },
+    {
+      "matchPackagePrefixes": [
+        "commons-",
+        "org.apache.commons"
+      ],
+      "groupSlug": "commons",
+      "groupName": "Apache Commons",
+      "labels": [
+        "apache-commons"
+      ],
+      "allowedVersions": "/^[0-9]{1,3}\\.[0-9]{1,3}(?:\\.[0-9]{1,3})?(?:-M[0-9]{1,3})?$/"
+    },
+    {
+      "matchPackagePrefixes": [
+        "org.springframework",
+        "io.springfox"
+      ],
+      "groupSlug": "spring",
+      "groupName": "Spring Framework",
+      "labels": [
+        "spring"
+      ]
+    },
+    {
+      "matchPackagePrefixes": [
+        "io.quarkus"
+      ],
+      "groupSlug": "quarkus",
+      "groupName": "Quarkus",
+      "labels": [
+        "quarkus"
+      ]
+    },
+    {
+      "matchPackagePrefixes": [
+        "org.junit",
+        "org.scalatest",
+        "org.hamcrest",
+        "org.owasp",
+        "org.pitest",
+        "org.jacoco",
+        "org.sonarsource",
+        "com.github.spotbugs",
+        "org.eluder.coveralls",
+        "org.apache.rat",
+        "net.sourceforge.cobertura",
+        "com.puppycrawl.tools"
+      ],
+      "groupSlug": "testing",
+      "groupName": "Testing and Code Quality",
+      "labels": [
+        "testing"
+      ]
     }
   ]
 }
