@@ -5157,3 +5157,537 @@ config:
       AgentNameVersion                     : 'Dalvik 2.1.0'
       AgentNameVersionMajor                : 'Dalvik 2'
       AgentSecurity                        : 'Strong security'
+
+# https://github.com/nielsbasjes/yauaa/issues/268
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; HarmonyOS; ANA-AN00; HMSCore 5.3.0.312) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 HuaweiBrowser/11.1.1.302 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ANA-AN00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'HarmonyOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'HarmonyOS ??'
+      OperatingSystemNameVersionMajor      : 'HarmonyOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.1.1.302'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.1.1.302'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+# Fake Huawei that does not include valid product code (now 'Something')
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1; Something Build/HUAWEIEML-L29; nl-nl) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei Something'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'HUAWEIEML-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome Webview 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome Webview 65'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+#  Huawei P30 Pro
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.90 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'                   #
+      DeviceName                           : 'Huawei VOG-L29'          #
+      DeviceBrand                          : 'Huawei'                  #
+      OperatingSystemClass                 : 'Mobile'                  #
+      OperatingSystemName                  : 'Android'                 #
+      OperatingSystemVersion               : '9'                       #
+      OperatingSystemVersionMajor          : '9'                       #
+      OperatingSystemNameVersion           : 'Android 9'               #
+      OperatingSystemNameVersionMajor      : 'Android 9'               #
+      LayoutEngineClass                    : 'Browser'                 #
+      LayoutEngineName                     : 'Blink'                   #
+      LayoutEngineVersion                  : '73.0'                    #
+      LayoutEngineVersionMajor             : '73'                      #
+      LayoutEngineNameVersion              : 'Blink 73.0'              #
+      LayoutEngineNameVersionMajor         : 'Blink 73'                #
+      AgentClass                           : 'Browser'                 #
+      AgentName                            : 'Chrome'                  #
+      AgentVersion                         : '73.0.3683.90'            #
+      AgentVersionMajor                    : '73'                      #
+      AgentNameVersion                     : 'Chrome 73.0.3683.90'     #
+      AgentNameVersionMajor                : 'Chrome 73'               #
+
+# Huawei P30
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; ELE-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.90 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ELE-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '73.0'
+      LayoutEngineVersionMajor             : '73'
+      LayoutEngineNameVersion              : 'Blink 73.0'
+      LayoutEngineNameVersionMajor         : 'Blink 73'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '73.0.3683.90'
+      AgentVersionMajor                    : '73'
+      AgentNameVersion                     : 'Chrome 73.0.3683.90'
+      AgentNameVersionMajor                : 'Chrome 73'
+
+#  Huawei P20 Pro
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1; CLT-L29 Build/HUAWEICLT-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CLT-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'HUAWEICLT-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome 65'
+
+# Huawei P20
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1; EML-L29 Build/HUAWEIEML-L29; nl-nl) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/65.0.3325.109 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei EML-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'HUAWEIEML-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '65.0'
+      LayoutEngineVersionMajor             : '65'
+      LayoutEngineNameVersion              : 'Blink 65.0'
+      LayoutEngineNameVersionMajor         : 'Blink 65'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '65.0.3325.109'
+      AgentVersionMajor                    : '65'
+      AgentNameVersion                     : 'Chrome Webview 65.0.3325.109'
+      AgentNameVersionMajor                : 'Chrome Webview 65'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+  #  Huawei Mate 20 Pro.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; LYA-AL00 Build/HUAWEILYA-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei LYA-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'HUAWEILYA-AL00'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '67.0'
+      LayoutEngineVersionMajor             : '67'
+      LayoutEngineNameVersion              : 'Blink 67.0'
+      LayoutEngineNameVersionMajor         : 'Blink 67'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '67.0.3396.87'
+      AgentVersionMajor                    : '67'
+      AgentNameVersion                     : 'Chrome 67.0.3396.87'
+      AgentNameVersionMajor                : 'Chrome 67'
+
+#  Huawei Mate 20 X
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; EVR-L29 Build/HUAWEIEVR-L29; xx-xx) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei EVR-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'HUAWEIEVR-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '70.0.3538.110'
+      AgentVersionMajor                    : '70'
+      AgentNameVersion                     : 'Chrome Webview 70.0.3538.110'
+      AgentNameVersionMajor                : 'Chrome Webview 70'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+#  Huawei Mate 10 Pro
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.0; BLA-L29 Build/HUAWEIBLA-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3236.6 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei BLA-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'HUAWEIBLA-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '63.0'
+      LayoutEngineVersionMajor             : '63'
+      LayoutEngineNameVersion              : 'Blink 63.0'
+      LayoutEngineNameVersionMajor         : 'Blink 63'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '63.0.3236.6'
+      AgentVersionMajor                    : '63'
+      AgentNameVersion                     : 'Chrome 63.0.3236.6'
+      AgentNameVersionMajor                : 'Chrome 63'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; MED-LX9; HMSCore 5.1.1.303) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.6.305 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei MED-LX9'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.0.6.305'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.0.6.305'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; HarmonyOS; TAS-AL00; HMSCore 5.3.0.312) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 HuaweiBrowser/11.1.1.302 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei TAS-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'HarmonyOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'HarmonyOS ??'
+      OperatingSystemNameVersionMajor      : 'HarmonyOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.1.1.302'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.1.1.302'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; HarmonyOS; NOH-AN01; HMSCore 5.3.0.312) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 HuaweiBrowser/11.1.2.301 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei NOH-AN01'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'HarmonyOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'HarmonyOS ??'
+      OperatingSystemNameVersionMajor      : 'HarmonyOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.1.2.301'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.1.2.301'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; ELE-L29 Build/HUAWEIELE-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 HuaweiBrowser/9.1.0.304 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ELE-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'HUAWEIELE-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '63.0'
+      LayoutEngineVersionMajor             : '63'
+      LayoutEngineNameVersion              : 'Blink 63.0'
+      LayoutEngineNameVersionMajor         : 'Blink 63'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '9.1.0.304'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'HuaweiBrowser 9.1.0.304'
+      AgentNameVersionMajor                : 'HuaweiBrowser 9'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; VOG-L29 Build/HUAWEIVOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 HuaweiBrowser/9.1.0.309 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei VOG-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'HUAWEIVOG-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '63.0'
+      LayoutEngineVersionMajor             : '63'
+      LayoutEngineNameVersion              : 'Blink 63.0'
+      LayoutEngineNameVersionMajor         : 'Blink 63'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '9.1.0.309'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'HuaweiBrowser 9.1.0.309'
+      AgentNameVersionMajor                : 'HuaweiBrowser 9'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; JAT-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.64 HuaweiBrowser/10.0.3.311 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei JAT-AL00'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '70.0'
+      LayoutEngineVersionMajor             : '70'
+      LayoutEngineNameVersion              : 'Blink 70.0'
+      LayoutEngineNameVersionMajor         : 'Blink 70'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '10.0.3.311'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'HuaweiBrowser 10.0.3.311'
+      AgentNameVersionMajor                : 'HuaweiBrowser 10'
+
+
+# Fame Huawei to check if the HMSCore rule works to find the name of the device
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; HarmonyOS; Something; HMSCore 5.3.0.312) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 HuaweiBrowser/11.1.2.301 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei Something'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'HarmonyOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'HarmonyOS ??'
+      OperatingSystemNameVersionMajor      : 'HarmonyOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.1.2.301'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.1.2.301'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+
+# Edge case: Samsung with a Huawei Browser
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; SM-N986B; GMSCore 20.50.14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.4.300 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-N986B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.0.4.300'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.0.4.300'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+# The device name deviates from the common pattern: 4 letters instead of 3
+# Huawei Honor tab 5
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; JDN2-W09HN; HMSCore 5.0.5.300; GMSCore 7.8.99) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.3.304 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei JDN2-W09HN'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HuaweiBrowser'
+      AgentVersion                         : '11.0.3.304'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'HuaweiBrowser 11.0.3.304'
+      AgentNameVersionMajor                : 'HuaweiBrowser 11'
+
+# Edge case: Xiaomi M2011K2C with a Huawei Browser and all the other Huawei tools (smells faked)
+- test:
+     input:
+       user_agent_string: 'Mozilla/5.0 (Linux; Android 11; M2011K2C; HMSCore 5.1.1.303; GMSCore 20.45.16) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.4.302 Mobile Safari/537.36'
+     expected:
+       DeviceClass                          : 'Phone'
+       DeviceName                           : 'Xiaomi M2011K2C'
+       DeviceBrand                          : 'Xiaomi'
+       OperatingSystemClass                 : 'Mobile'
+       OperatingSystemName                  : 'Android'
+       OperatingSystemVersion               : '11'
+       OperatingSystemVersionMajor          : '11'
+       OperatingSystemNameVersion           : 'Android 11'
+       OperatingSystemNameVersionMajor      : 'Android 11'
+       LayoutEngineClass                    : 'Browser'
+       LayoutEngineName                     : 'Blink'
+       LayoutEngineVersion                  : '83.0'
+       LayoutEngineVersionMajor             : '83'
+       LayoutEngineNameVersion              : 'Blink 83.0'
+       LayoutEngineNameVersionMajor         : 'Blink 83'
+       AgentClass                           : 'Browser'
+       AgentName                            : 'HuaweiBrowser'
+       AgentVersion                         : '11.0.4.302'
+       AgentVersionMajor                    : '11'
+       AgentNameVersion                     : 'HuaweiBrowser 11.0.4.302'
+       AgentNameVersionMajor                : 'HuaweiBrowser 11'

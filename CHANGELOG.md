@@ -13,6 +13,7 @@ v6.0-SNAPSHOT
   - Improve classification of very old Apple Macintosh systems.
   - MacOS X >= 10.8 is only 64 bit
   - Improved handling of the '@' character.
+  - Huawei: HarmonyOS/HMSCore/new devices/...
 - Updated UDF dependencies
   - Apache Flink            1.13.0
   - Apache Beam             2.30.0
