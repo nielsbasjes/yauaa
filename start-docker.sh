@@ -139,6 +139,9 @@ COMMAND=( "$@" )
 if [ $# -eq 0 ];
 then
   COMMAND=( "bash" "-i" )
+  DOCKER_INTERACTIVE="-i -t"
+else
+  DOCKER_INTERACTIVE="-i"
 fi
 
 # man docker-run
@@ -150,7 +153,7 @@ fi
 # Since Docker 1.7 was release 5 years ago we only support 1.7 and newer.
 V_OPTS=:z
 
-docker run --rm=true -i -t                                      \
+docker run --rm=true ${DOCKER_INTERACTIVE}                      \
        -u "${USER_NAME}"                                        \
        -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}${V_OPTS:-}" \
        -v "${HOME}/.m2:/home/${USER_NAME}/.m2${V_OPTS:-}" \
