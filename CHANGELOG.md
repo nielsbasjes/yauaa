@@ -15,11 +15,11 @@ v6.0-SNAPSHOT
   - Improved handling of the '@' character.
   - Huawei: HarmonyOS/HMSCore/new devices/...
 - Updated UDF dependencies
-  - Apache Flink            1.13.0
+  - Apache Flink            1.13.1
   - Apache Beam             2.30.0
   - Apache Nifi             1.13.2
   - Apache Drill            1.19.0
-  - Elastic Search/Logstash 7.12.1
+  - Elastic Search/Logstash 7.13.0
 - WebServlet:
   - Cleaning up the code
   - Also show the classifications based upon the DeviceClass
