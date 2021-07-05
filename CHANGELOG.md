@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.0-SNAPSHOT
+v6.1-SNAPSHOT
+===
+- ...
+
+v6.0
 ===
 - Analyzer
   - Breaking change: Replace SLF4J with Log4j2
