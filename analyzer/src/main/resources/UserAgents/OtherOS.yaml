@@ -18,6 +18,40 @@
 
 config:
 
+- lookup:
+    name: 'SpecialOSTags'
+    map:
+      # https://en.wikipedia.org/wiki/Glass_OS
+      "XE4"                     : "Augmented Reality|Glass OS|4"
+      "XE5"                     : "Augmented Reality|Glass OS|5"
+      "XE6"                     : "Augmented Reality|Glass OS|6"
+      "XE7"                     : "Augmented Reality|Glass OS|7"
+      "XE8"                     : "Augmented Reality|Glass OS|8"
+      "XE9"                     : "Augmented Reality|Glass OS|9"
+      "XE10"                    : "Augmented Reality|Glass OS|10"
+      "XE11"                    : "Augmented Reality|Glass OS|11"
+      "XE12"                    : "Augmented Reality|Glass OS|12"
+      "XE13"                    : "Augmented Reality|Glass OS|13"
+      "XE14"                    : "Augmented Reality|Glass OS|14"
+      "XE15"                    : "Augmented Reality|Glass OS|15"
+      "XE16"                    : "Augmented Reality|Glass OS|16"
+      "XE17"                    : "Augmented Reality|Glass OS|17"
+      "XE18"                    : "Augmented Reality|Glass OS|18"
+      "XE19"                    : "Augmented Reality|Glass OS|19"
+      "XE20"                    : "Augmented Reality|Glass OS|20"
+      "XE21"                    : "Augmented Reality|Glass OS|21"
+      "XE22"                    : "Augmented Reality|Glass OS|22"
+      "XE23"                    : "Augmented Reality|Glass OS|23"
+      "XE24"                    : "Augmented Reality|Glass OS|24"
+
+- matcher:
+    variable:
+      - 'OSMatch               :LookUp[SpecialOSTags;agent.product.comments.entry]'
+    extract:
+      - 'OperatingSystemClass  :   1001:@OSMatch[[1]]'
+      - 'OperatingSystemName   :   1001:@OSMatch[[2]]'
+      - 'OperatingSystemVersion:   1001:@OSMatch[[3]]'
+
 #  - matcher:
 #      extract:
 #        - 'DeviceClass           :   10:"Desktop"'

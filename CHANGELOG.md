@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.1-SNAPSHOT
 ===
-- ...
+- New/improved detections
+  - Google Glass OS
 
 v6.0
 ===
