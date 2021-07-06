@@ -5,6 +5,7 @@ v6.1-SNAPSHOT
 ===
 - New/improved detections
   - Google Glass OS
+  - Language flags in specific special places
 
 v6.0
 ===

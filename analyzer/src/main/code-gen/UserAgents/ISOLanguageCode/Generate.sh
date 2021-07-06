@@ -18,13 +18,13 @@ TARGETDIR=$(cd "${SCRIPTDIR}/../../../resources/UserAgents" || exit 1; pwd)
 
 INPUT1="${SCRIPTDIR}/ISOLanguageCodes.csv"
 INPUT2="${SCRIPTDIR}/iso-639-3.tab"
-INPUT3="${SCRIPTDIR}/unwanted-language-codes.txt"
+UNWANTED="${SCRIPTDIR}/unwanted-language-codes.txt"
 OUTPUT="${TARGETDIR}/ISOLanguageCode.yaml"
 
 [ "$1" = "--force" ] && rm "${OUTPUT}"
 
 if [ "Generate.sh" -ot "${OUTPUT}" ]; then
-    if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] && [ "${INPUT3}" -ot "${OUTPUT}" ] ; then
+    if [ "${INPUT1}" -ot "${OUTPUT}" ] && [ "${INPUT2}" -ot "${OUTPUT}" ] && [ "${UNWANTED}" -ot "${OUTPUT}" ] ; then
         echo "Up to date: ${OUTPUT}";
         exit;
     fi
@@ -89,6 +89,18 @@ echo ""
 
 echo "- matcher:"
 echo "    extract:"
+echo "    - 'AgentLanguageCode                   :   500004 :LookUp[ISOLanguageFullCodes    ;agent.(2-8)product.(1)comments.(1-5)entry.(1)product.(1)name]'"
+echo "    - 'AgentLanguage                       :   500004 :LookUp[ISOLanguageFullCodesName;agent.(2-8)product.(1)comments.(1-5)entry.(1)product.(1)name]'"
+echo ""
+
+echo "- matcher:"
+echo "    extract:"
+echo "    - 'AgentLanguageCode                   :   500004 :LookUp[ISOLanguageFullCodes    ;agent.(1-2)product.(1)comments.(1-5)entry.(1)product.(1)name]'"
+echo "    - 'AgentLanguage                       :   500004 :LookUp[ISOLanguageFullCodesName;agent.(1-2)product.(1)comments.(1-5)entry.(1)product.(1)name]'"
+echo ""
+
+echo "- matcher:"
+echo "    extract:"
 echo "    - 'AgentLanguageCode                   :   500008 :LookUp[ISOLanguageCodesAll    ;agent.product.name=\"Language\"^.version]'"
 echo "    - 'AgentLanguage                       :   500008 :LookUp[ISOLanguageCodesNameAll;agent.product.name=\"Language\"^.version]'"
 echo ""
@@ -105,6 +117,28 @@ echo "    name: 'ISOLanguageCodesNameAll'"
 echo "    merge:"
 echo "    - 'ISOLanguageCodesName'"
 echo "    - 'ISOLanguageCodes3Name'"
+
+echo "# -----------------------------------------------------------------------------"
+
+echo "- lookup:"
+echo "    name: 'ISOLanguageFullCodes'"
+echo "    map:"
+grep -F -v '#' "${INPUT1}" | grep -F -- '-' | while read -r line
+do
+    CODE=$(echo "${line}" | cut -d' ' -f1)
+    echo "      \"${CODE}\" : \"${CODE}\""
+done
+
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageFullCodesName'"
+echo "    map:"
+grep -F -v '#' "${INPUT1}" | grep -F -- '-' | while read -r line
+do
+    CODE=$(echo "${line}" | cut -d' ' -f1)
+    NAME=$(echo "${line}" | cut -d' ' -f2-)
+    echo "      \"${CODE}\" : \"${NAME}\""
+done
 
 echo "# -----------------------------------------------------------------------------"
 
@@ -140,7 +174,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes3'"
 echo "    map:"
-grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read -r line
+cat "${INPUT2}" | while read -r line
 do
     CODE=$(echo "${line}" | cut -d'	' -f1)
     echo "      \"${CODE}\" : \"${CODE}\""
@@ -150,7 +184,7 @@ echo "# ------------------------------------------------------------------------
 echo "- lookup:"
 echo "    name: 'ISOLanguageCodes3Name'"
 echo "    map:"
-grep -v -f unwanted-language-codes.txt "${INPUT2}" | while read -r line
+cat "${INPUT2}" | while read -r line
 do
     CODE=$(echo "${line}" | cut -d'	' -f1)
     NAME=$(echo "${line}" | cut -d'	' -f7)
@@ -158,4 +192,5 @@ do
 done
 echo "# -----------------------------------------------------------------------------"
 
-) >"${OUTPUT}"
+) | grep -F -v -f "${UNWANTED}" >"${OUTPUT}"
+
