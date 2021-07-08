@@ -6,6 +6,8 @@ v6.1-SNAPSHOT
 - New/improved detections
   - Google Glass OS
   - Language flags in specific special places
+- Updated UDF dependencies
+  - Apache Beam             2.31.0
 
 v6.0
 ===
