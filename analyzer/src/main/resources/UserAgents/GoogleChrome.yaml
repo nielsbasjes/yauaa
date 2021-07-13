@@ -2835,3 +2835,33 @@ config:
       AgentVersionMajor                    : '86'
       AgentNameVersion                     : 'Chrome 86.0.4240.99'
       AgentNameVersionMajor                : 'Chrome 86'
+
+
+# Vivaldi 4.0 on Linux is IDENTICAL to Chrome 91 on Linux
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '91.0'
+      LayoutEngineVersionMajor             : '91'
+      LayoutEngineNameVersion              : 'Blink 91.0'
+      LayoutEngineNameVersionMajor         : 'Blink 91'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '91.0.4472.114'
+      AgentVersionMajor                    : '91'
+      AgentNameVersion                     : 'Chrome 91.0.4472.114'
+      AgentNameVersionMajor                : 'Chrome 91'
