@@ -10,6 +10,7 @@ v6.1-SNAPSHOT
   - Language flags in specific special places
 - Updated UDF dependencies
   - Apache Beam             2.31.0
+  - Apache Nifi             1.14.0
 
 v6.0
 ===

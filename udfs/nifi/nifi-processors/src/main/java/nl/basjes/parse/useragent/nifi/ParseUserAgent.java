@@ -164,7 +164,7 @@ public class ParseUserAgent extends AbstractProcessor {
             }
             session.transfer(flowFile, SUCCESS);
         }
-        session.commit();
+        session.commitAsync();
     }
 
 }
