@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v6.1-SNAPSHOT
 ===
+- Build:
+  - Only support JDK 11+ due to plugins dropping java 8 support. Build target remains JRE 8.
 - New/improved detections
   - Google Glass OS
   - Language flags in specific special places

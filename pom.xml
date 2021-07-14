@@ -446,76 +446,73 @@
       </properties>
     </profile>
 
-    <profile>
-      <id>Build with JDK 8</id>
-      <activation>
-        <jdk>1.8</jdk>
-      </activation>
-      <properties>
-        <!-- Sonar is no longer supported on Java 8                                -->
-        <!-- https://sonarcloud.io/documentation/user-guide/move-analysis-java-11/ -->
-        <sonar.skip>true</sonar.skip>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <compilerVersion>${target.java.version}</compilerVersion>
-              <source>${target.java.version}</source>
-              <target>${target.java.version}</target>
-              <compilerArgs>
-                <!-- Enable almost all warnings.-->
-                <!-- Ignore 'classfile' to allow leaving Kryo out. -->
-                <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
-                <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
-                <arg>-Xlint:all,-classfile,-processing,-serial</arg>
-                <arg>-Werror</arg>
-              </compilerArgs>
-              <showWarnings>true</showWarnings>
-              <showDeprecation>true</showDeprecation>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>Build with JDK 11+</id>
-      <activation>
-        <jdk>[1.11,)</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <release>${target.java.release}</release>
-              <compilerArgs>
-                <!-- Enable almost all warnings.-->
-                <!-- Ignore 'classfile' to allow leaving Kryo out. -->
-                <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
-                <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
-                <arg>-Xlint:all,-classfile,-processing,-serial</arg>
-                <arg>-Werror</arg>
-                <arg>-implicit:class</arg>
-              </compilerArgs>
-              <showWarnings>true</showWarnings>
-              <showDeprecation>true</showDeprecation>
-            </configuration>
-          </plugin>
-
-        </plugins>
-      </build>
-    </profile>
-
   </profiles>
 
   <build>
     <defaultGoal>clean package</defaultGoal>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>Check build environment requirements</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[11,)</version>
+                  <message>Although the target JVM is JRE 8, the build MUST be done with JDK 11 or higher.</message>
+                </requireJavaVersion>
+                <requireMavenVersion>
+                  <version>[${maven.minimal.version},)</version>
+                  <message>You must use Maven version ${maven.minimal.version} or newer to build this project.</message>
+                  <!-- Reasons for this need:                            -->
+                  <!-- https://issues.apache.org/jira/browse/MDEPLOY-221 -->
+                  <!-- https://issues.apache.org/jira/browse/MNG-6581    -->
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>dependency-convergence</id>
+            <phase>${depencency-convergence.phase}</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <dependencyConvergence/>
+              </rules>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <release>${target.java.release}</release>
+          <compilerArgs>
+            <!-- Enable almost all warnings.-->
+            <!-- Ignore 'classfile' to allow leaving Kryo out. -->
+            <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
+            <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
+            <arg>-Xlint:all,-classfile,-processing,-serial</arg>
+            <arg>-Werror</arg>
+            <arg>-implicit:class</arg>
+          </compilerArgs>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -548,44 +545,6 @@
         <configuration>
           <dateFormat>yyyy-MM-dd '@' HH:mm:ss z</dateFormat>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[${maven.minimal.version},)</version>
-                  <message>You must use Maven version ${maven.minimal.version} or newer to build this project.</message>
-                  <!-- Reasons for this need:                            -->
-                  <!-- https://issues.apache.org/jira/browse/MDEPLOY-221 -->
-                  <!-- https://issues.apache.org/jira/browse/MNG-6581    -->
-                </requireMavenVersion>
-              </rules>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>dependency-convergence</id>
-            <phase>${depencency-convergence.phase}</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <dependencyConvergence/>
-              </rules>
-            </configuration>
-          </execution>
-
-        </executions>
       </plugin>
 
       <plugin>
