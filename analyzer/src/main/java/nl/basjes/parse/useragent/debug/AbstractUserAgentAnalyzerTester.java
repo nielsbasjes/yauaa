@@ -25,6 +25,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
+import nl.basjes.parse.useragent.config.TestCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.message.MessageFactory;
@@ -153,8 +154,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         String filenameHeader = "Test number and source";
         int filenameHeaderLength = filenameHeader.length();
         int maxFilenameLength = filenameHeaderLength;
-        for (Map<String, Map<String, String>> test : analyzer.getTestCases()) {
-            Map<String, String> metaData = test.get("metaData");
+        for (TestCase test : analyzer.getTestCases()) {
+            Map<String, String> metaData = test.getMetadata();
             String filename = metaData.get("filename");
             maxFilenameLength = Math.max(maxFilenameLength, filename.length());
         }
@@ -187,16 +188,14 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
         boolean allPass = true;
         int testcount = 0;
-        for (Map<String, Map<String, String>> test : analyzer.getTestCases()) {
+        for (TestCase test : analyzer.getTestCases()) {
             testcount++;
-            Map<String, String> input = test.get("input");
-            Map<String, String> expected = test.get("expected");
+            String testName = test.getTestName();
+            String userAgentString = test.getUserAgent();
+            Map<String, String> expected = test.getExpected();
 
-            List<String> options = null;
-            if (test.containsKey("options")) {
-                options = new ArrayList<>(test.get("options").keySet());
-            }
-            Map<String, String> metaData = test.get("metaData");
+            List<String> options = test.getOptions();
+            Map<String, String> metaData = test.getMetadata();
             String filename = metaData.get("filename");
             String linenumber = metaData.get("fileline");
 
@@ -213,10 +212,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             }
             if (expected == null || expected.size() == 0) {
                 init = true;
+                expected = null;
             }
-
-            String testName = input.get("name");
-            String userAgentString = input.get("user_agent_string");
 
             if (testName == null) {
                 if (userAgentString.length() > 300) {
@@ -627,9 +624,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 impactList.add(matcherImpact);
             });
 
-        for (Map<String, Map<String, String>> test : getTestCases()) {
-            Map<String, String> input = test.get("input");
-            String userAgentString = input.get("user_agent_string");
+        for (TestCase test : getTestCases()) {
+            String userAgentString = test.getUserAgent();
 
             agent.setUserAgentString(userAgentString);
 

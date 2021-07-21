@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
+import nl.basjes.parse.useragent.config.TestCase;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.PrintStream;
@@ -77,7 +78,7 @@ public class FlattenPrinter implements Analyzer {
     }
 
     @Override
-    public List<Map<String, Map<String, String>>> getTestCases() {
+    public List<TestCase> getTestCases() {
         // Never called
         return Collections.emptyList();
     }

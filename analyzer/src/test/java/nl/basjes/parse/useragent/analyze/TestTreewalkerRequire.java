@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
+import nl.basjes.parse.useragent.config.TestCase;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
 
@@ -464,7 +465,7 @@ class TestTreewalkerRequire {
         }
 
         @Override
-        public List<Map<String, Map<String, String>>> getTestCases() {
+        public List<TestCase> getTestCases() {
             // Never called
             return Collections.emptyList();
         }

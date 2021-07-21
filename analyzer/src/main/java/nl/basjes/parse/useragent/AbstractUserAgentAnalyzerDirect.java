@@ -22,57 +22,15 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
-import nl.basjes.collections.prefixmap.StringPrefixMap;
-import nl.basjes.parse.useragent.AgentField.ImmutableAgentField;
-import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
-import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
-import nl.basjes.parse.useragent.analyze.MatcherFailIfFoundAction;
 import nl.basjes.parse.useragent.analyze.MatcherList;
-import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
-import nl.basjes.parse.useragent.analyze.MatcherVariableAction;
-import nl.basjes.parse.useragent.analyze.MatchesList;
 import nl.basjes.parse.useragent.analyze.UselessMatcherException;
-import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
-import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepContains;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepDefaultIfNull;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEndsWith;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNotInSet;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsNotInLookupPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepBackToFull;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepCleanVersion;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepExtractBrandFromUrl;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepWordRange;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepDown;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNext;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
-import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.calculate.CalculateAgentClass;
 import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
 import nl.basjes.parse.useragent.calculate.CalculateAgentName;
@@ -82,29 +40,22 @@ import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.config.AnalyzerConfig;
+import nl.basjes.parse.useragent.config.ConfigLoader;
+import nl.basjes.parse.useragent.config.MatcherConfig;
+import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
 import nl.basjes.parse.useragent.utils.CheckLoggingDependencies;
+import nl.basjes.parse.useragent.utils.KryoConfig;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.yaml.snakeyaml.LoaderOptions;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.nodes.MappingNode;
-import org.yaml.snakeyaml.nodes.Node;
-import org.yaml.snakeyaml.nodes.NodeTuple;
-import org.yaml.snakeyaml.nodes.SequenceNode;
-import org.yaml.snakeyaml.reader.UnicodeReader;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -113,11 +64,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
@@ -150,19 +98,11 @@ import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getExactlyOneNodeTuple;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getStringValues;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsMappingNode;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsString;
-import static nl.basjes.parse.useragent.utils.YamlUtils.require;
-import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
-import static nl.basjes.parse.useragent.utils.YauaaVersion.assertSameVersion;
+import static nl.basjes.parse.useragent.config.ConfigLoader.DEFAULT_RESOURCES;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
 @DefaultSerializer(AbstractUserAgentAnalyzerDirect.KryoSerializer.class)
-public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Serializable {
+public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, AnalyzerPreHeater, Serializable {
 
     // We set this to 1000000 always.
     // Why?
@@ -183,24 +123,20 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     }
 
     private final Map<String, Set<MatcherAction>> informMatcherActions = new LinkedHashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
-    private transient Map<String, List<MappingNode>> matcherConfigs = new HashMap<>();
 
     private boolean showMatcherStats = false;
-    private boolean doingOnlyASingleTest = false;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
 
-    private final ArrayList<Map<String, Map<String, String>>> testCases = new ArrayList<>(2048);
+    private List<TestCase> testCases = new ArrayList<>();
 
-    public List<Map<String, Map<String, String>>> getTestCases() {
+    public List<TestCase> getTestCases() {
         return testCases;
     }
 
-    private Map<String, Map<String, String>> lookups = new LinkedHashMap<>(128);
-    private final Map<String, Set<String>> lookupMerge = new LinkedHashMap<>(128); // The names of the lookups that need to be merged
-    private final Map<String, Set<String>> lookupSets = new LinkedHashMap<>(128);
-    private final Map<String, Set<String>> lookupSetMerge = new LinkedHashMap<>(128);  // The names of the sets that need to be merged
+    private Map<String, Map<String, String>> lookups;
+    private Map<String, Set<String>> lookupSets;
 
     @Override
     public Map<String, Map<String, String>> getLookups() {
@@ -218,13 +154,23 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
     private int userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
     private boolean loadTests = false;
 
-    private static final String DEFAULT_RESOURCES = "classpath*:UserAgents/**/*.yaml";
+    private AnalyzerConfig config = null;
+
+    void addAnalyzerConfig(AnalyzerConfig analyzerConfig) {
+        if (config == null) {
+            config = analyzerConfig;
+        } else {
+            config.merge(analyzerConfig);
+        }
+        testCases = config.getTestCases();
+        lookups = config.getLookups();
+        lookupSets = config.getLookupSets();
+    }
 
     /*
      * Initialize the transient default values
      */
     void initTransientFields() {
-        matcherConfigs = new HashMap<>(64);
         touchedMatchers = new MatcherList(32);
     }
 
@@ -239,102 +185,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
      * This is used to configure the provided Kryo instance if Kryo serialization is desired.
      * The expected type here is Object because otherwise the Kryo library becomes
      * a mandatory dependency on any project that uses Yauaa.
-     * @param kryoInstance The instance of com.esotericsoftware.kryo.Kryo that needs to be configured.
+     * @param kryo The instance of com.esotericsoftware.kryo.Kryo that needs to be configured.
      */
-    public static void configureKryo(Object kryoInstance) {
-        Kryo kryo = (Kryo) kryoInstance;
-        // Since kryo 5.0.0-RC3 the default is to not use references.
-        // With Yauaa you will go into a StackOverflow if you do not support references in Kryo because of
-        // circulair references in the data structures.
-        // See https://github.com/EsotericSoftware/kryo/issues/617
-        //     https://github.com/EsotericSoftware/kryo/issues/789
-        kryo.setReferences(true);
-
-        // Let Kryo output a lot of debug information
-//        Log.DEBUG();
-//        kryo.setRegistrationRequired(true);
-//        kryo.setWarnUnregisteredClasses(true);
-
-        // Register the Java classes we need
-        kryo.register(Collections.emptySet().getClass());
-        kryo.register(Collections.emptyList().getClass());
-        kryo.register(Collections.emptyMap().getClass());
-
-        kryo.register(ArrayList.class);
-
-        kryo.register(LinkedHashSet.class);
-        kryo.register(LinkedHashMap.class);
-        kryo.register(HashSet.class);
-        kryo.register(HashMap.class);
-        kryo.register(TreeSet.class);
-        kryo.register(TreeMap.class);
-
-        // This class
-        kryo.register(AbstractUserAgentAnalyzerDirect.class);
-
-        // All classes we have under this.
-        kryo.register(Analyzer.class);
-        kryo.register(ImmutableUserAgent.class);
-        kryo.register(ImmutableAgentField.class);
-        kryo.register(MutableUserAgent.class);
-        kryo.register(MutableAgentField.class);
-
-        kryo.register(Matcher.class);
-        kryo.register(MatcherAction.class);
-        kryo.register(MatcherList.class);
-        kryo.register(MatchesList.class);
-        kryo.register(MatcherExtractAction.class);
-        kryo.register(MatcherVariableAction.class);
-        kryo.register(MatcherRequireAction.class);
-        kryo.register(MatcherFailIfFoundAction.class);
-        kryo.register(WordRangeVisitor.Range.class);
-
-        kryo.register(CalculateAgentEmail.class);
-        kryo.register(CalculateAgentName.class);
-        kryo.register(CalculateAgentClass.class);
-        kryo.register(CalculateDeviceBrand.class);
-        kryo.register(CalculateDeviceName.class);
-        kryo.register(CalculateNetworkType.class);
-        kryo.register(ConcatNONDuplicatedCalculator.class);
-        kryo.register(FieldCalculator.class);
-        kryo.register(MajorVersionCalculator.class);
-
-        kryo.register(UserAgentTreeFlattener.class);
-        kryo.register(TreeExpressionEvaluator.class);
-        kryo.register(WalkList.class);
-        kryo.register(StepContains.class);
-        kryo.register(StepDefaultIfNull.class);
-        kryo.register(StepEndsWith.class);
-        kryo.register(StepEquals.class);
-        kryo.register(StepIsInSet.class);
-        kryo.register(StepIsNotInSet.class);
-        kryo.register(StepIsNull.class);
-        kryo.register(StepNotEquals.class);
-        kryo.register(StepStartsWith.class);
-        kryo.register(StepIsInLookupContains.class);
-        kryo.register(StepIsInLookupPrefix.class);
-        kryo.register(StepIsNotInLookupPrefix.class);
-        kryo.register(StepLookup.class);
-        kryo.register(StepLookupContains.class);
-        kryo.register(StepLookupPrefix.class);
-        kryo.register(StepBackToFull.class);
-        kryo.register(StepCleanVersion.class);
-        kryo.register(StepConcat.class);
-        kryo.register(StepConcatPostfix.class);
-        kryo.register(StepConcatPrefix.class);
-        kryo.register(StepNormalizeBrand.class);
-        kryo.register(StepExtractBrandFromUrl.class);
-        kryo.register(StepReplaceString.class);
-        kryo.register(StepSegmentRange.class);
-        kryo.register(StepWordRange.class);
-        kryo.register(StepDown.class);
-        kryo.register(StepNext.class);
-        kryo.register(StepNextN.class);
-        kryo.register(StepPrev.class);
-        kryo.register(StepPrevN.class);
-        kryo.register(StepUp.class);
-
-        StringPrefixMap.configureKryo(kryo);
+    public static void configureKryo(Object kryo) {
+        KryoConfig.configureKryo((Kryo) kryo);
     }
 
     public static class KryoSerializer extends FieldSerializer<AbstractUserAgentAnalyzerDirect> {
@@ -428,30 +282,30 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         zeroInputMatchers.trimToSize();
 
         informMatcherActions.clear();
-        matcherConfigs.clear();
+
+        config = null;
 
         if (wantedFieldNames != null) {
             wantedFieldNames.clear();
         }
 
-        testCases.clear();
-        testCases.trimToSize();
-
-        lookups.clear();
-        lookupSets.clear();
+        testCases = Collections.emptyList();
+        lookups = Collections.emptyMap();
+        lookupSets = Collections.emptyMap();
         flattener.clear();
+
+        invalidateCaches();
+    }
+
+    private void invalidateCaches(){
+        allPossibleFieldNamesCache=null;
+        allPossibleFieldNamesSortedCache=null;
     }
 
     // --------------------------------------------
 
     public void loadResources(String resourceString) {
-        loadResources(resourceString, true, false);
-    }
-
-    private Yaml createYaml() {
-        final LoaderOptions yamlLoaderOptions = new LoaderOptions();
-        yamlLoaderOptions.setMaxAliasesForCollections(200); // We use this many in the hacker/sql injection config.
-        return new Yaml(yamlLoaderOptions);
+        loadResources(resourceString, showMatcherStats, false);
     }
 
     public void loadResources(String resourceString, boolean showLoadMessages, boolean optionalResources) {
@@ -459,143 +313,16 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             throw new IllegalStateException("Refusing to load additional resources after the datastructures have been initialized.");
         }
 
-        // Because we are loading additional resources these caches must be invalidated
-        allPossibleFieldNamesCache = null;
-        allPossibleFieldNamesSortedCache = null;
+        AnalyzerConfig extraConfig = new ConfigLoader(showLoadMessages)
+            .addResource(resourceString, optionalResources)
+            .load();
 
-        long startFiles = System.nanoTime();
-
-        Yaml yaml = createYaml();
-
-        final boolean loadingDefaultResources = DEFAULT_RESOURCES.equals(resourceString);
-
-        Map<String, Resource> resources = new TreeMap<>();
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        try {
-            Resource[] resourceArray = resolver.getResources(resourceString);
-            if (!loadingDefaultResources && showLoadMessages) {
-                LOG.info("Loading {} rule files using expression: {}", resourceArray.length, resourceString);
-            }
-            for (Resource resource : resourceArray) {
-                if (!loadTests && isTestRulesOnlyFile(resource.getFilename())) {
-                    if (showLoadMessages) {
-                        LOG.info("- Skipping tests only file {} ({} bytes)", resource.getFilename(), resource.contentLength());
-                    }
-                    continue;
-                }
-                if (!loadingDefaultResources && showLoadMessages) {
-                    LOG.info("- Preparing {} ({} bytes)", resource.getFilename(), resource.contentLength());
-                }
-                resources.put(resource.getFilename(), resource);
-            }
-        } catch (IOException e) {
-            if (optionalResources) {
-                LOG.error("The specified (optional) resource string is invalid: {}", resourceString);
-                return;
-            } else {
-                throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
-            }
-        }
-        doingOnlyASingleTest = false;
-        int maxFilenameLength = 0;
-
-        // When using a framework like Quarkus loading resources can fail in mysterious ways.
-        // Just trying to open a stream for one of the resources is enough to see if we can continue.
-        if (!resources.isEmpty()) {
-            Resource resource = resources.entrySet().iterator().next().getValue();
-            try (InputStream ignored = resource.getInputStream()) {
-                // Just seeing if opening this stream triggers an error.
-                // Having a useless statement that references the 'ignored' to avoid checkstyle and compilation warnings.
-                LOG.debug("Opening the resource worked. {}", ignored);
-            } catch (IOException e) {
-                LOG.error("Cannot load the resources (usually classloading problem).");
-                LOG.error("- Resource   : {}", resource);
-                LOG.error("- Filename   : {}", resource.getFilename());
-                LOG.error("- Description: {}", resource.getDescription());
-                if (loadingDefaultResources) {
-                    LOG.warn("Falling back to the built in list of resources");
-                    resources.clear();
-                } else {
-                    LOG.error("FATAL: Unable to load the specified resources for {}", resourceString);
-                    throw new InvalidParserConfigurationException("Error reading resources (" + resourceString + "): " + e.getMessage(), e);
-                }
-            }
-        }
-
-        if (resources.isEmpty()) {
-            if (optionalResources) {
-                LOG.warn("NO optional resources were loaded from expression: {}", resourceString);
-            } else {
-                LOG.error("NO config files were found matching this expression: {}", resourceString);
-
-                if (loadingDefaultResources) {
-                    LOG.warn("Unable to load the default resources, usually caused by classloader problems.");
-                    LOG.warn("Retrying with built in list.");
-                    PackagedRules.getRuleFileNames().forEach(s -> loadResources(s, false, false));
-                } else {
-                    LOG.warn("If you are using wildcards in your expression then try explicitly naming all yamls files explicitly.");
-                    throw new InvalidParserConfigurationException("There were no resources found for the expression: " + resourceString);
-                }
-            }
-            return;
-        }
-
-        // We need to determine if we are trying to load the yaml files TWICE.
-        // This can happen if the library is loaded twice (perhaps even two different versions).
-        Set<String> resourceBasenames = resources
-            .keySet().stream()
-            .map(k -> k.replaceAll("^.*/", ""))
-            .collect(Collectors.toSet());
-
-        Set<String> alreadyLoadedResourceBasenames = matcherConfigs
-            .keySet().stream()
-            .map(k -> k.replaceAll("^.*/", ""))
-            .collect(Collectors.toSet());
-
-        alreadyLoadedResourceBasenames.retainAll(resourceBasenames);
-        if (!alreadyLoadedResourceBasenames.isEmpty()) {
-            LOG.error("Trying to load these {} resources for the second time: {}",
-                alreadyLoadedResourceBasenames.size(), alreadyLoadedResourceBasenames);
-            throw new InvalidParserConfigurationException("Trying to load " + alreadyLoadedResourceBasenames.size() +
-                " resources for the second time");
-        }
-
-        for (Map.Entry<String, Resource> resourceEntry : resources.entrySet()) {
-            try {
-                Resource resource = resourceEntry.getValue();
-                String filename = resource.getFilename();
-                if (filename != null) {
-                    maxFilenameLength = Math.max(maxFilenameLength, filename.length());
-                    loadYaml(yaml, resource.getInputStream(), filename);
-                }
-            } catch (IOException e) {
-                throw new InvalidParserConfigurationException("Error reading resources: " + e.getMessage(), e);
-            }
-        }
-
-        long stopFiles = System.nanoTime();
-        try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-            msg.format("- Loaded %2d files in %4d ms using expression: %s",
-                resources.size(),
-                (stopFiles - startFiles) / 1000000,
-                resourceString);
-            LOG.info("{}", msg);
-        }
-
-        if (resources.isEmpty()) {
-            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
-        }
-
+        addAnalyzerConfig(extraConfig);
+        invalidateCaches();
+        finalizeLoadingRules();
     }
 
-    public static boolean isTestRulesOnlyFile(String filename) {
-        if (filename == null) {
-            return false;
-        }
-        return (filename.contains("-tests") || filename.contains("-Tests"));
-    }
-
-    protected synchronized void finalizeLoadingRules() {
+    protected void finalizeLoadingRules() {
         logVersion();
         flattener = new UserAgentTreeFlattener(this);
 
@@ -609,92 +336,19 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
             LOG.info("Building all matchers for all possible fields.");
         }
 
+        Map<String, MatcherConfig> matcherConfigs = config.getMatcherConfigs();
+
         if (matcherConfigs.isEmpty()) {
             throw new InvalidParserConfigurationException("No matchers were loaded at all.");
         }
 
-        if (lookups != null && !lookups.isEmpty()) {
-            if (!lookupMerge.isEmpty()) {
-                lookupMerge.forEach((mapName, allExtraToLoad) -> {
-                    Map<String, String> theMap = lookups.get(mapName);
-                    if (theMap != null) {
-                        allExtraToLoad.forEach(extraToLoad -> {
-                            Map<String, String> extraMap = lookups.get(extraToLoad);
-                            if (extraMap == null) {
-                                throw new InvalidParserConfigurationException("Unable to merge lookup '" + extraToLoad + "' into '" + mapName + "'.");
-                            }
-                            theMap.putAll(extraMap);
-                        });
-                    }
-                });
-            }
-
-            // All compares are done in a case insensitive way. So we lowercase ALL keys of the lookups beforehand.
-            Map<String, Map<String, String>> cleanedLookups = new LinkedHashMap<>(lookups.size());
-            for (Map.Entry<String, Map<String, String>> lookupsEntry : lookups.entrySet()) {
-                Map<String, String> cleanedLookup = new LinkedHashMap<>(lookupsEntry.getValue().size());
-                for (Map.Entry<String, String> entry : lookupsEntry.getValue().entrySet()) {
-                    cleanedLookup.put(entry.getKey().toLowerCase(Locale.ROOT), entry.getValue());
-                }
-                cleanedLookups.put(lookupsEntry.getKey(), cleanedLookup);
-            }
-            lookups = cleanedLookups;
-        }
-
-        if (!lookupSetMerge.isEmpty()) {
-            lookupSetMerge.forEach((setName, allExtraToLoad) -> {
-                Set<String> theSet = lookupSets.get(setName);
-                if (theSet != null) {
-                    allExtraToLoad.forEach(extraToLoad -> {
-                        Map<String, String> extralookup = lookups.get(extraToLoad);
-                        if (extralookup != null) {
-                            theSet.addAll(extralookup.keySet());
-                        }
-                        Set<String> extralookupSet = lookupSets.get(extraToLoad);
-                        if (extralookupSet != null) {
-                            theSet.addAll(extralookupSet);
-                        }
-                        if (extralookup == null && extralookupSet == null) {
-                            throw new InvalidParserConfigurationException("Unable to merge set '" + extraToLoad + "' into '" + setName + "'.");
-                        }
-
-                    });
-                }
-            });
-        }
-
         allMatchers.clear();
-        for (Map.Entry<String, List<MappingNode>> matcherConfigEntry : matcherConfigs.entrySet()) {
-            int skippedMatchers = 0;
-            String configFilename = matcherConfigEntry.getKey();
-            List<MappingNode> matcherConfig = matcherConfigEntry.getValue();
-            if (matcherConfig == null) {
-                continue; // No matchers in this file (probably only lookups and/or tests)
-            }
-
-            long start = System.nanoTime();
-            int startSkipped = skippedMatchers;
-            for (MappingNode map : matcherConfig) {
-                try {
-                    allMatchers.add(new Matcher(this, wantedFieldNames, map, configFilename));
-                } catch (UselessMatcherException ume) {
-                    skippedMatchers++;
-                }
-            }
-            long stop = System.nanoTime();
-            int stopSkipped = skippedMatchers;
-
-            if (showMatcherStats) {
-                try(Formatter msg = new Formatter(Locale.ENGLISH)) {
-                    String format = "Loading %4d (dropped %4d) matchers from " +
-                        "%-20s took %5d msec";
-                    msg.format(format,
-                        matcherConfig.size() - (stopSkipped - startSkipped),
-                        stopSkipped - startSkipped,
-                        configFilename,
-                        (stop - start) / 1000000);
-                    LOG.info("{}", msg);
-                }
+        for (Map.Entry<String, MatcherConfig> matcherConfigEntry : matcherConfigs.entrySet()) {
+            MatcherConfig matcherConfig = matcherConfigEntry.getValue();
+            try {
+                allMatchers.add(new Matcher(this, wantedFieldNames, matcherConfig));
+            } catch (UselessMatcherException ume) {
+//                skippedMatchers++;
             }
         }
 
@@ -704,7 +358,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         }
     }
 
-    protected void verifyWeAreNotAskingForImpossibleFields() {
+    private void verifyWeAreNotAskingForImpossibleFields() {
         if (wantedFieldNames == null) {
             return; // Nothing to check
         }
@@ -797,255 +451,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Seria
         return allPossibleFieldNamesSortedCache;
     }
 
-/*
-Example of the structure of the yaml file:
-----------------------------
-config:
-  - lookup:
-    name: 'lookupname'
-    map:
-        "From1" : "To1"
-        "From2" : "To2"
-        "From3" : "To3"
-  - matcher:
-      options:
-        - 'verbose'
-        - 'init'
-      require:
-        - 'Require pattern'
-        - 'Require pattern'
-      extract:
-        - 'Extract pattern'
-        - 'Extract pattern'
-  - test:
-      input:
-        user_agent_string: 'Useragent'
-      expected:
-        FieldName     : 'ExpectedValue'
-        FieldName     : 'ExpectedValue'
-        FieldName     : 'ExpectedValue'
-----------------------------
-*/
-
-    void loadYaml(String yamlString, String filename) {
-        loadYaml(createYaml(), new ByteArrayInputStream(yamlString.getBytes(UTF_8)), filename);
-    }
-
-    private synchronized void loadYaml(Yaml yaml, InputStream yamlStream, String filename) {
-        Node loadedYaml;
-        try {
-            loadedYaml = yaml.compose(new UnicodeReader(yamlStream));
-        } catch (Exception e) {
-            throw new InvalidParserConfigurationException("Parse error in the file " + filename + ": " + e.getMessage(), e);
-        }
-
-        if (loadedYaml == null) {
-            LOG.warn("The file {} is empty", filename);
-            return;
-        }
-
-        // Get and check top level config
-        requireNodeInstanceOf(MappingNode.class, loadedYaml, filename, "File must be a Map");
-
-        MappingNode rootNode = (MappingNode) loadedYaml;
-
-        NodeTuple configNodeTuple = null;
-        for (NodeTuple tuple : rootNode.getValue()) {
-            String name = getKeyAsString(tuple, filename);
-            if ("config".equals(name)) {
-                configNodeTuple = tuple;
-                break;
-            }
-            if ("version".equals(name)) {
-                // Check the version information from the Yaml files
-                assertSameVersion(tuple, filename);
-                return;
-            }
-        }
-
-        require(configNodeTuple != null, loadedYaml, filename, "The top level entry MUST be 'config'.");
-
-        SequenceNode configNode = getValueAsSequenceNode(configNodeTuple, filename);
-        List<Node> configList = configNode.getValue();
-
-        for (Node configEntry : configList) {
-            requireNodeInstanceOf(MappingNode.class, configEntry, filename, "The entry MUST be a mapping");
-            NodeTuple entry = getExactlyOneNodeTuple((MappingNode) configEntry, filename);
-            MappingNode actualEntry = getValueAsMappingNode(entry, filename);
-            String entryType = getKeyAsString(entry, filename);
-            switch (entryType) {
-                case "lookup":
-                    loadYamlLookup(actualEntry, filename);
-                    break;
-                case "set":
-                    loadYamlLookupSets(actualEntry, filename);
-                    break;
-                case "matcher":
-                    loadYamlMatcher(actualEntry, filename);
-                    break;
-                case "test":
-                    if (loadTests) {
-                        loadYamlTestcase(actualEntry, filename);
-                    }
-                    break;
-                default:
-                    throw new InvalidParserConfigurationException(
-                        "Yaml config.(" + filename + ":" + actualEntry.getStartMark().getLine() + "): " +
-                            "Found unexpected config entry: " + entryType + ", allowed are 'lookup', 'set', 'matcher' and 'test'");
-            }
-        }
-    }
-
-    private void loadYamlLookup(MappingNode entry, String filename) {
-        String name = null;
-        Map<String, String> map = new HashMap<>();
-
-        Set<String> merge = new LinkedHashSet<>();
-
-        for (NodeTuple tuple : entry.getValue()) {
-            switch (getKeyAsString(tuple, filename)) {
-                case "name":
-                    name = getValueAsString(tuple, filename);
-                    break;
-                case "merge":
-                    merge.addAll(getStringValues(getValueAsSequenceNode(tuple, filename), filename));
-                    break;
-                case "map":
-                    List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
-                    for (NodeTuple mapping : mappings) {
-                        String key = getKeyAsString(mapping, filename);
-                        String value = getValueAsString(mapping, filename);
-
-                        if (map.containsKey(key)) {
-                            throw new InvalidParserConfigurationException(
-                                "In the lookup \"" + name + "\" the key \"" + key + "\" appears multiple times.");
-                        }
-
-                        map.put(key, value);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        require(name != null && (!map.isEmpty() || !merge.isEmpty()), entry, filename, "Invalid lookup specified");
-
-        if (!merge.isEmpty()) {
-            lookupMerge.put(name, merge);
-        }
-
-        lookups.put(name, map);
-    }
-
-    private void loadYamlLookupSets(MappingNode entry, String filename) {
-        String name = null;
-        Set<String> lookupSet = new LinkedHashSet<>();
-
-        Set<String> merge = new LinkedHashSet<>();
-
-        for (NodeTuple tuple : entry.getValue()) {
-            switch (getKeyAsString(tuple, filename)) {
-                case "name":
-                    name = getValueAsString(tuple, filename);
-                    break;
-                case "merge":
-                    merge.addAll(getStringValues(getValueAsSequenceNode(tuple, filename), filename));
-                    break;
-                case "values":
-                    SequenceNode node = getValueAsSequenceNode(tuple, filename);
-                    for (String value: getStringValues(node, filename)) {
-                        lookupSet.add(value.toLowerCase(Locale.ROOT));
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        require(name != null && (!lookupSet.isEmpty() || !merge.isEmpty()), entry, filename, "Invalid lookup specified");
-
-        if (!merge.isEmpty()) {
-            lookupSetMerge.put(name, merge);
-        }
-
-        lookupSets.put(name, lookupSet);
-    }
-
-    private void loadYamlMatcher(MappingNode entry, String filename) {
-        List<MappingNode> matcherConfigList = matcherConfigs
-            .computeIfAbsent(filename, k -> new ArrayList<>(32));
-        matcherConfigList.add(entry);
-    }
-
-    private void loadYamlTestcase(MappingNode entry, String filename) {
-        if (!doingOnlyASingleTest) {
-            Map<String, String> metaData = new HashMap<>();
-            metaData.put("filename", filename);
-            metaData.put("fileline", String.valueOf(entry.getStartMark().getLine()));
-
-            Map<String, String> input = null;
-            List<String> options = null;
-            Map<String, String> expected = new LinkedHashMap<>();
-            for (NodeTuple tuple : entry.getValue()) {
-                String name = getKeyAsString(tuple, filename);
-                switch (name) {
-                    case "options":
-                        options = getStringValues(tuple.getValueNode(), filename);
-                        if (options.contains("only")) {
-                            doingOnlyASingleTest = true;
-                            testCases.clear();
-                        }
-                        break;
-                    case "input":
-                        for (NodeTuple inputTuple : getValueAsMappingNode(tuple, filename).getValue()) {
-                            String inputName = getKeyAsString(inputTuple, filename);
-                            if ("user_agent_string".equals(inputName)) {
-                                String inputString = getValueAsString(inputTuple, filename);
-                                input = new HashMap<>();
-                                input.put(inputName, inputString);
-                            }
-                        }
-                        break;
-                    case "expected":
-                        List<NodeTuple> mappings = getValueAsMappingNode(tuple, filename).getValue();
-                        for (NodeTuple mapping : mappings) {
-                            String key = getKeyAsString(mapping, filename);
-                            String value = getValueAsString(mapping, filename);
-                            expected.put(key, value);
-                        }
-                        break;
-                    default:
-                        // Ignore
-                        break;
-                }
-            }
-
-            require(input != null, entry, filename, "Test is missing input");
-
-            if (expected.isEmpty()) {
-                doingOnlyASingleTest = true;
-                testCases.clear();
-            }
-
-            Map<String, Map<String, String>> testCase = new LinkedHashMap<>();
-
-            testCase.put("input", input);
-            if (!expected.isEmpty()) {
-                testCase.put("expected", expected);
-            }
-            if (options != null) {
-                Map<String, String> optionsMap = new LinkedHashMap<>(options.size());
-                for (String option: options) {
-                    optionsMap.put(option, option);
-                }
-                testCase.put("options", optionsMap);
-            }
-            testCase.put("metaData", metaData);
-            testCases.add(testCase);
-        }
-
-    }
 
     // These are the actual subrange we need for the paths.
     private final Map<String, Set<Range>> informMatcherActionRanges = new HashMap<>(10000);
@@ -1158,6 +563,7 @@ config:
      * @param userAgentString The User-Agent String that is to be parsed and analyzed
      * @return An ImmutableUserAgent record that holds all of the results.
      */
+    @Override
     public ImmutableUserAgent parse(String userAgentString) {
         MutableUserAgent userAgent = new MutableUserAgent(userAgentString, wantedFieldNames);
         return parse(userAgent);
@@ -1313,67 +719,6 @@ config:
         }
     }
 
-
-    /**
-     * Runs all testcases once to heat up the JVM.
-     * @return Number of actually done testcases.
-     */
-    public long preHeat() {
-        return preHeat(PreHeatCases.USERAGENTS.size(), true);
-    }
-    /**
-     * Runs the number of specified testcases to heat up the JVM.
-     * @param preheatIterations Number of desired tests to run.
-     * @return Number of actually done testcases.
-     */
-    public long preHeat(long preheatIterations) {
-        return preHeat(preheatIterations, true);
-    }
-
-    private static final long MAX_PRE_HEAT_ITERATIONS = 1_000_000L;
-
-    /**
-     * Runs the number of specified testcases to heat up the JVM.
-     * @param preheatIterations Number of desired tests to run.
-     * @param log Enable logging?
-     * @return Number of actually done testcases.
-     */
-    public long preHeat(long preheatIterations, boolean log) {
-        if (PreHeatCases.USERAGENTS.isEmpty()) {
-            LOG.warn("NO PREHEAT WAS DONE. This should never occur.");
-            return 0;
-        }
-        if (preheatIterations <= 0) {
-            LOG.warn("NO PREHEAT WAS DONE. Simply because you asked for {} to run.", preheatIterations);
-            return 0;
-        }
-        if (preheatIterations > MAX_PRE_HEAT_ITERATIONS) {
-            LOG.warn("NO PREHEAT WAS DONE. Simply because you asked for too many ({} > {}) to run.", preheatIterations, MAX_PRE_HEAT_ITERATIONS);
-            return 0;
-        }
-        if (log) {
-            LOG.info("Preheating JVM by running {} testcases.", preheatIterations);
-        }
-        long remainingIterations = preheatIterations;
-        long goodResults = 0;
-        while (remainingIterations > 0) {
-            for (String userAgentString : PreHeatCases.USERAGENTS) {
-                remainingIterations--;
-                // Calculate and use result to guarantee not optimized away.
-                if(!AbstractUserAgentAnalyzerDirect.this.parse(userAgentString).hasSyntaxError()) {
-                    goodResults++;
-                }
-                if (remainingIterations <= 0) {
-                    break;
-                }
-            }
-        }
-        if (log) {
-            LOG.info("Preheating JVM completed. ({} of {} were proper results)", goodResults, preheatIterations);
-        }
-        return preheatIterations;
-    }
-
     // ===============================================================================================================
 
     public static class GetAllPathsAnalyzer implements Analyzer {
@@ -1437,7 +782,7 @@ config:
         }
 
         @Override
-        public List<Map<String, Map<String, String>>> getTestCases() {
+        public List<TestCase> getTestCases() {
             return Collections.emptyList();
         }
     }
@@ -1743,13 +1088,23 @@ config:
             uaa.setFieldCalculators(fieldCalculators);
 
             boolean showLoading = uaa.getShowMatcherStats();
-            optionalResources.forEach(resource -> uaa.loadResources(resource, showLoading, true));
-            resources.forEach(resource -> uaa.loadResources(resource, showLoading, false));
+
+            ConfigLoader configLoader = new ConfigLoader(showLoading)
+                .addResource(resources, false)
+                .addResource(optionalResources, true);
+
+            if (uaa.willKeepTests()) {
+                configLoader.keepTests();
+            } else {
+                configLoader.dropTests();
+            }
 
             int yamlRuleCount = 1;
             for (String yamlRule : yamlRules) {
-                uaa.loadYaml(yamlRule, "Manually Inserted Rules " + yamlRuleCount++);
+                configLoader.addYaml(yamlRule, "Manually Inserted Rules " + yamlRuleCount++);
             }
+
+            uaa.addAnalyzerConfig(configLoader.load());
 
             uaa.finalizeLoadingRules();
             if (preheatIterations < 0) {
@@ -1771,7 +1126,7 @@ config:
             "\n, zeroInputMatchers=" + zeroInputMatchers +
             "\n, informMatcherActions=" + informMatcherActions +
             "\n, showMatcherStats=" + showMatcherStats +
-            "\n, doingOnlyASingleTest=" + doingOnlyASingleTest +
+//            "\n, doingOnlyASingleTest=" + doingOnlyASingleTest +
             "\n, wantedFieldNames=" + wantedFieldNames +
             "\n, testCases=" + testCases +
             "\n, lookups=" + lookups +
