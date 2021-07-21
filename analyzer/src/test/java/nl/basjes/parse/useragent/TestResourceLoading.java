@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.config.ConfigLoader;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
 import org.junit.jupiter.api.Test;
@@ -116,12 +117,12 @@ class TestResourceLoading {
             .addResources("classpath*:AllSteps.yaml")
             .build();
 
-        uaa.finalizeLoadingRules();
+//        uaa.finalizeLoadingRules();
         Set<String> fieldSet1 = uaa.getAllPossibleFieldNames();
 
         uaa.loadResources("CompanyInternalUserAgents.yaml");
 
-        uaa.finalizeLoadingRules();
+//        uaa.finalizeLoadingRules();
         Set<String> fieldSet2 = uaa.getAllPossibleFieldNames();
 
         List<String> extraFields = new ArrayList<>();
@@ -209,7 +210,7 @@ class TestResourceLoading {
                 }
             }
 
-            if (UserAgentAnalyzer.isTestRulesOnlyFile(ruleFileName)) {
+            if (ConfigLoader.isTestRulesOnlyFile(ruleFileName)) {
                 assertTrue(nrOfTestCases > 0,
                     "A tests file MUST have tests: " + ruleFileName);
                 assertEquals(0, nrOfMatchers,

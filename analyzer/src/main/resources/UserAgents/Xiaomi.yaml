@@ -17,14 +17,15 @@
 config:
 
 - matcher:
-    require:
-    - 'agent.product.version="MiuiBrowser"'
+    variable:
+    - 'MiuiBrowser:agent.product.version="MiuiBrowser"'
+    - 'Version:@MiuiBrowser>'
     extract:
     - 'AgentName                           :     3000 :"MiuiBrowser"'
     - 'AgentClass                          :     3000 :"Browser"'
-    - 'AgentVersion                        :     3000 :agent.product.version>'
+    - 'AgentVersion                        :     3000 :@Version'
     - 'WebviewAppName                      :     3000 :"XiaoMi MiuiBrowser"'
-    - 'WebviewAppVersion                   :     3000 :agent.product.version>'
+    - 'WebviewAppVersion                   :     3000 :@Version'
 
 
 - test:

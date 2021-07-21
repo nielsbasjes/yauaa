@@ -19,11 +19,10 @@ package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import nl.basjes.parse.useragent.utils.YamlUtils;
+import nl.basjes.parse.useragent.config.MatcherConfig;
+import nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.yaml.snakeyaml.nodes.MappingNode;
-import org.yaml.snakeyaml.nodes.NodeTuple;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,11 +36,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
-import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.EXTRACT;
-import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.FAIL_IF_FOUND;
-import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.REQUIRE;
-import static nl.basjes.parse.useragent.analyze.Matcher.ConfigLine.Type.VARIABLE;
-import static nl.basjes.parse.useragent.utils.YamlUtils.getKeyAsString;
 
 public class Matcher implements Serializable {
     private static final Logger LOG = LogManager.getLogger(Matcher.class);
@@ -105,110 +99,67 @@ public class Matcher implements Serializable {
         return analyzer.getLookupSets();
     }
 
-    static class ConfigLine {
-        public enum Type {
-            VARIABLE,
-            REQUIRE,
-            FAIL_IF_FOUND,
-            EXTRACT
-        }
-        final Type type;
-        final String attribute;
-        final Long confidence;
-        final String expression;
-
-        ConfigLine(Type type, String attribute, Long confidence, String expression) {
-            this.type = type;
-            this.attribute = attribute;
-            this.confidence = confidence;
-            this.expression = expression;
-        }
-    }
-
     public Matcher(Analyzer analyzer,
                    Collection<String> wantedFieldNames,
-                   MappingNode matcherConfig,
-                   String filename) throws UselessMatcherException {
+                   MatcherConfig matcherConfig) throws UselessMatcherException {
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
         this.dynamicActions = new ArrayList<>();
         this.newValuesUserAgent = new MutableUserAgent(wantedFieldNames);
 
-        sourceFileName = filename;
-        sourceFileLineNumber = matcherConfig.getStartMark().getLine();
+        sourceFileName = matcherConfig.getMatcherSourceFilename();
+        sourceFileLineNumber = matcherConfig.getMatcherSourceLineNumber();
         matcherSourceLocation = sourceFileName + ':' + sourceFileLineNumber;
 
         verbose = false;
+        List<String> options = matcherConfig.getOptions();
+        if (options != null && options.contains("verbose")) {
+            verbose = true;
+        }
 
         boolean hasActiveExtractConfigs = false;
         boolean hasDefinedExtractConfigs = false;
 
-        // List of 'attribute', 'confidence', 'expression'
-        List<ConfigLine> configLines = new ArrayList<>(16);
-        for (NodeTuple nodeTuple: matcherConfig.getValue()) {
-            String name = getKeyAsString(nodeTuple, matcherSourceLocation);
-            switch (name) {
-                case "options":
-                    List<String> options = YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation);
-                    verbose = options.contains("verbose");
-                    break;
-                case "variable":
-                    for (String variableConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
-                        String[] configParts = variableConfig.split(":", 2);
-
-                        if (configParts.length != 2) {
-                            throw new InvalidParserConfigurationException("Invalid variable config line: " + variableConfig);
-                        }
-                        String variableName = configParts[0].trim();
-                        String config = configParts[1].trim();
-
-                        configLines.add(new ConfigLine(VARIABLE, variableName, null, config));
-                    }
-                    break;
-                case "require":
-                    for (String requireConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
-                        requireConfig = requireConfig.trim();
-                        if (requireConfig.startsWith("IsNull[")) {
-                            // TODO: Nasty String manipulation code: Cleanup
-                            String failIfFoundConfig = requireConfig.replaceAll("^IsNull\\[", "").replaceAll("]$", "");
-                            configLines.add(new ConfigLine(FAIL_IF_FOUND, null, null, failIfFoundConfig));
-                        } else {
-                            configLines.add(new ConfigLine(REQUIRE, null, null, requireConfig));
-                        }
-                    }
-                    break;
-                case "extract":
-                    for (String extractConfig : YamlUtils.getStringValues(nodeTuple.getValueNode(), matcherSourceLocation)) {
-                        String[] configParts = extractConfig.split(":", 3);
-
-                        if (configParts.length != 3) {
-                            throw new InvalidParserConfigurationException("Invalid extract config line: " + extractConfig);
-                        }
-                        String attribute = configParts[0].trim();
-                        Long confidence = Long.parseLong(configParts[1].trim());
-                        String config = configParts[2].trim();
-
-                        hasDefinedExtractConfigs = true;
-                        // If we have a restriction on the wanted fields we check if this one is needed at all
-                        if (wantedFieldNames == null || wantedFieldNames.contains(attribute)) {
-                            configLines.add(new ConfigLine(EXTRACT, attribute, confidence, config));
-                            hasActiveExtractConfigs = true;
-                        } else {
-                            configLines.add(new ConfigLine(REQUIRE, null, null, config));
-                        }
-                    }
-                    break;
-                default:
-                    // Ignore
-            }
-        }
-
-        permanentVerbose = verbose;
-
         if (verbose) {
             LOG.info("---------------------------");
             LOG.info("- MATCHER -");
+        }
+
+        for (ConfigLine configLine : matcherConfig.getConfigLines()) {
+            if (verbose) {
+                LOG.info("{}: {}", configLine.getType(), configLine.getExpression());
+            }
+            switch (configLine.getType()) {
+                case VARIABLE:
+                    variableActions.add(new MatcherVariableAction(configLine.getAttribute(), configLine.getExpression(), this));
+                    break;
+                case REQUIRE:
+                    dynamicActions.add(new MatcherRequireAction(configLine.getExpression(), this));
+                    break;
+                case FAIL_IF_FOUND:
+                    dynamicActions.add(new MatcherFailIfFoundAction(configLine.getExpression(), this));
+                    break;
+                case EXTRACT:
+                    hasDefinedExtractConfigs = true;
+                    // If we have a restriction on the wanted fields we check if this one is needed at all
+                    if (wantedFieldNames == null || wantedFieldNames.contains(configLine.getAttribute())) {
+                        MatcherExtractAction action =
+                            new MatcherExtractAction(configLine.getAttribute(), configLine.getConfidence(), configLine.getExpression(), this);
+                        dynamicActions.add(action);
+
+                        // Make sure the field actually exists
+                        newValuesUserAgent.set(configLine.getAttribute(), "Dummy", -9999);
+                        action.setResultAgentField((AgentField.MutableAgentField) newValuesUserAgent.get(configLine.getAttribute()));
+
+                        hasActiveExtractConfigs = true;
+                    } else {
+                        dynamicActions.add(new MatcherRequireAction(configLine.getExpression(), this));
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         if (!hasDefinedExtractConfigs) {
@@ -217,34 +168,6 @@ public class Matcher implements Serializable {
 
         if (!hasActiveExtractConfigs) {
             throw new UselessMatcherException("Does not extract any wanted fields" + matcherSourceLocation);
-        }
-
-        for (ConfigLine configLine : configLines) {
-            if (verbose) {
-                LOG.info("{}: {}", configLine.type, configLine.expression);
-            }
-            switch (configLine.type) {
-                case VARIABLE:
-                    variableActions.add(new MatcherVariableAction(configLine.attribute, configLine.expression, this));
-                    break;
-                case REQUIRE:
-                    dynamicActions.add(new MatcherRequireAction(configLine.expression, this));
-                    break;
-                case FAIL_IF_FOUND:
-                    dynamicActions.add(new MatcherFailIfFoundAction(configLine.expression, this));
-                    break;
-                case EXTRACT:
-                    MatcherExtractAction action =
-                        new MatcherExtractAction(configLine.attribute, configLine.confidence, configLine.expression, this);
-                    dynamicActions.add(action);
-
-                    // Make sure the field actually exists
-                    newValuesUserAgent.set(configLine.attribute, "Dummy", -9999);
-                    action.setResultAgentField((AgentField.MutableAgentField) newValuesUserAgent.get(configLine.attribute));
-                    break;
-                default:
-                    break;
-            }
         }
 
     }

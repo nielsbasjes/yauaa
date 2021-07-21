@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+import static nl.basjes.parse.useragent.config.ConfigLoader.DEFAULT_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -247,7 +248,7 @@ class TestBuilder {
 
         uaa.initializeMatchers();
         assertThrows(IllegalStateException.class, () ->
-            uaa.loadResources("Cannot load resources after initialization")
+            uaa.loadResources(DEFAULT_RESOURCES)
         );
     }
 

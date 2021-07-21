@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -99,9 +100,9 @@ class TestPredefinedBrowsers {
 
         Map<String, List<String>> allTestInputs = new HashMap<>(2000);
         Set<String> duplicates = new HashSet<>();
-        for (Map<String, Map<String, String>> testCase: uaa.getTestCases()) {
-            String input = testCase.get("input").get("user_agent_string");
-            String location = testCase.get("metaData").get("filename") + ":" + testCase.get("metaData").get("fileline");
+        for (TestCase testCase: uaa.getTestCases()) {
+            String input = testCase.getUserAgent();
+            String location = testCase.getMetadata().get("filename") + ":" + testCase.getMetadata().get("fileline");
             List<String> locations = allTestInputs.get(input);
             if (locations == null) {
                 locations = new ArrayList<>();
