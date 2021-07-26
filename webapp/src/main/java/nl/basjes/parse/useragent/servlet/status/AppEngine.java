@@ -17,6 +17,11 @@
 
 package nl.basjes.parse.useragent.servlet.status;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
+@Tag(name = "System status")
 @RestController
 public class AppEngine {
 
@@ -33,6 +39,20 @@ public class AppEngine {
      *
      * @return Returns a non empty message body.
      */
+    @Operation(
+        summary = "Is the analyzer engine running?",
+        description = "The old style AppEngine status endpoint."
+    )
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "The analyzer is running",
+        content = @Content(examples = @ExampleObject("YES"))
+    )
+    @ApiResponse(
+        responseCode = "500", // HttpStatus.INTERNAL_SERVER_ERROR,
+        description = "The analyzer is starting up",
+        content = @Content(examples = @ExampleObject())
+    )
     @GetMapping(
         path = "/_ah/health",
         produces = TEXT_PLAIN_VALUE

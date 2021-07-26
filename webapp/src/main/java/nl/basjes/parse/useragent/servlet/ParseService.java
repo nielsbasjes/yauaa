@@ -17,9 +17,7 @@
 
 package nl.basjes.parse.useragent.servlet;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.Info;
-import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaIsBusyStarting;
@@ -32,8 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Api(tags = "Yauaa")
-@SwaggerDefinition(info = @Info(title = "Yauaa - Yet Another UserAgent Analyzer.", description = "Useragent parsing service", version = "1.0"))
+@Tag(name = "Yauaa", description = "Analyzing the useragents")
 @SpringBootApplication
 @RestController
 public class ParseService {

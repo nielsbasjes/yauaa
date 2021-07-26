@@ -26,11 +26,17 @@ public final class Constants {
 
     public static final String GIT_REPO_URL = "https://github.com/nielsbasjes/yauaa/tree/" + Version.GIT_COMMIT_ID;
 
-    public static final String            TEXT_XYAML_VALUE                = "text/x-yaml";
+    public static final String TEXT_XYAML_VALUE       = "text/x-yaml";
 
-    public static final String            EXAMPLE_USERAGENT               =
+    public static final String EXAMPLE_USERAGENT      =
         "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
+
+    public static final String EXAMPLE_USERAGENT_2    =
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36";
+
+    public static final String EXAMPLE_TWO_USERAGENTS = EXAMPLE_USERAGENT + '\n' + EXAMPLE_USERAGENT_2;
+
 
     public static final String EXAMPLE_JSON = "[ {\n" +
         "  \"Useragent\": \"Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36\",\n" +

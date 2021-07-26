@@ -17,7 +17,8 @@
 
 package nl.basjes.parse.useragent.servlet.api;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.Version;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
@@ -51,8 +52,7 @@ import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 
-@Api(tags = "Yauaa")
-//@RequestMapping(value = "/")
+@Tag(name = "Yauaa", description = "Analyzing the useragents")
 @RestController
 public class HumanHtml {
 
@@ -75,6 +75,7 @@ public class HumanHtml {
 
     // =============== HTML (Human usable) OUTPUT ===============
 
+    @Hidden
     @GetMapping(
         value = "/",
         produces = MediaType.TEXT_HTML_VALUE
@@ -88,6 +89,7 @@ public class HumanHtml {
         }
     }
 
+    @Hidden
     @PostMapping(
         value = "/",
         consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
@@ -240,7 +242,7 @@ public class HumanHtml {
         addBugReportButton(sb, userAgents.get(0));
         sb.append("</p>");
         sb.append("<p class=\"logobar swagger\">A simple Swagger based API has been created for testing purposes: " +
-            "<a href=\"/swagger-ui/\">Swagger UI</a></p>");
+            "<a href=\"/swagger-ui.html\">Swagger UI</a></p>");
 
         sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
             "https://github.com/nielsbasjes/yauaa</a></p>");

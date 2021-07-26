@@ -33,8 +33,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +59,7 @@ public class TestParseServlet {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private int attemptsRemaining = 20;
+    private int attemptsRemaining = 50;
 
     @Before
     public void ensureServiceHasStarted() throws InterruptedException {
@@ -113,11 +116,17 @@ public class TestParseServlet {
     }
 
     public ResponseEntity<String> doGET(MediaType mediaType, URI uri) {
+        return doGET(mediaType, uri, true);
+    }
+
+    public ResponseEntity<String> doGET(MediaType mediaType, URI uri, boolean withHeader) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(mediaType));
 
         // GET: Use User-Agent header and set a dummy request body
-        headers.set("User-Agent", USERAGENT);
+        if (withHeader) {
+            headers.set("User-Agent", USERAGENT);
+        }
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
 
         // Do GET
@@ -156,6 +165,11 @@ public class TestParseServlet {
     @Test
     public void htmlGet() {
         assertHTML(doGET(TEXT_HTML, getURI("/")));
+    }
+
+    @Test
+    public void htmlGetQueryParam() throws UnsupportedEncodingException {
+        assertHTML(doGET(TEXT_HTML, getURI("/?ua="+URLEncoder.encode(USERAGENT, StandardCharsets.UTF_8.toString())), false));
     }
 
     @Test
@@ -229,6 +243,19 @@ public class TestParseServlet {
     @Test
     public void statusAppEngine() {
         assertThat(doGET(TEXT_PLAIN, getURI("/_ah/health")).getBody()).contains("YES");
+    }
+
+    // ==========================================================================================
+    // Status checks
+
+    @Test
+    public void preheat() {
+        assertThat(doGET(APPLICATION_JSON, getURI("/yauaa/v1/preheat")).getBody()).contains("\"Ran tests\"");
+    }
+
+    @Test
+    public void runtests() {
+        assertThat(doGET(TEXT_PLAIN, getURI("/yauaa/v1/runtests")).getBody()).contains("All tests passed");
     }
 
 }

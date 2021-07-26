@@ -4,13 +4,13 @@ This is intended as an overview of the major changes
 v6.1-SNAPSHOT
 ===
 - Build:
-  - Only support JDK 11+ due to plugins dropping java 8 support.
-    - Build target remains JRE 8 because of systems like Apache Hive : https://issues.apache.org/jira/browse/HIVE-22415 .
-  - Basic initial support for being used in Java 9+ module based project.
+  - Only support JDK 11+ due to plugins dropping java 8 support. Build target remains JRE 8.
 - New/improved detections
   - Google Glass OS
   - Language flags in specific special places
   - Microsoft Word
+- Webservlet:
+  - Switch from SpringFox to SpringDoc
 - Updated UDF dependencies
   - Apache Flink            1.13.2
   - Apache Beam             2.32.0

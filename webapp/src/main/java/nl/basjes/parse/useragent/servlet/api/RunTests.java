@@ -17,12 +17,11 @@
 
 package nl.basjes.parse.useragent.servlet.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.Example;
-import io.swagger.annotations.ExampleProperty;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.servlet.ParseService;
@@ -31,33 +30,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static nl.basjes.parse.useragent.AnalyzerPreHeater.LOG;
 import static nl.basjes.parse.useragent.debug.AbstractUserAgentAnalyzerTester.runTests;
 import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
-@Api(tags = "Yauaa")
+@Tag(name = "Performance", description = "Heating up the JVM and checking the analyzer configuration")
 @RequestMapping(value = "/yauaa/v1")
 @RestController
 public class RunTests {
-    @ApiOperation(
-        value = "Fire all available test cases against the analyzer to heat up the JVM"
+    @Operation(
+        description = "Fire all available test cases against the analyzer to heat up the JVM"
     )
-    @ApiResponses({
-        @ApiResponse(
-            code = 200, // HttpStatus.OK
-            message = "The number of reported tests were done to preheat the engine",
-            examples = @Example(
-                value = {
-                    @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = "{\n" +
-                        "  \"status\": \"Ran tests\",\n" +
-                        "  \"testsDone\": 2337,\n" +
-                        "  \"timeInMs\": 3123\n" +
-                        "}"),
-                }
-            )
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "The number of reported tests were done to preheat the engine",
+        content = @Content(
+                    mediaType = APPLICATION_JSON_VALUE,
+                    examples = @ExampleObject("{\n" +
+                    "  \"status\": \"Ran tests\",\n" +
+                    "  \"testsDone\": 2337,\n" +
+                    "  \"timeInMs\": 3123\n" +
+                    "}")
         )
-    })
+    )
     @GetMapping(
         value = "/preheat",
         produces = APPLICATION_JSON_VALUE
@@ -80,38 +77,32 @@ public class RunTests {
 
     // ===========================================
 
-    @ApiOperation(
-        value = "Fire all available test cases against the analyzer and return 200 if all tests were good"
+    @Operation(
+        description = "Fire all available test cases against the analyzer and return 200 if all tests were good"
     )
-    @ApiResponses({
-        @ApiResponse(
-            code = 200, // HttpStatus.OK
-            message = "All tests were good",
-            examples = @Example(
-                value = {
-                    @ExampleProperty(
-                        mediaType = TEXT_PLAIN_VALUE,
-                        value = "All tests passed"),
-                }
-            )
-        ),
-        @ApiResponse(
-            code = 500, // HttpStatus.INTERNAL_SERVER_ERROR
-            message = "A test failed",
-            examples = @Example(
-                value = {
-                    @ExampleProperty(
-                        mediaType = TEXT_PLAIN_VALUE,
-                        value = "Extensive text describing what went wrong in the test that failed"),
-                }
-            )
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "All tests were good",
+        content = @Content(
+            mediaType = TEXT_PLAIN_VALUE,
+            examples = @ExampleObject("All tests passed")
         )
-    })
+    )
+    @ApiResponse(
+        responseCode = "400", // HttpStatus.INTERNAL_SERVER_ERROR
+        description = "A test failed",
+        content = @Content(
+            mediaType = TEXT_PLAIN_VALUE,
+            examples = @ExampleObject("Extensive text describing what went wrong in the test that failed")
+        )
+    )
     @GetMapping(
         value = "/runtests",
         produces = TEXT_PLAIN_VALUE
     )
     public String getRunTests() {
+        // FIXME: See if we can do this without creating a new instance.
+        LOG.warn("Creating new instance of the analyzer to run the tests.");
         UserAgentAnalyzerTester tester = UserAgentAnalyzerTester.newBuilder()
             .hideMatcherLoadStats()
             .addOptionalResources("file:UserAgents*/*.yaml")

@@ -17,13 +17,13 @@
 
 package nl.basjes.parse.useragent.servlet.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.Example;
-import io.swagger.annotations.ExampleProperty;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
@@ -41,6 +41,7 @@ import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApi
 import static nl.basjes.parse.useragent.servlet.ParseService.userAgentAnalyzerIsAvailable;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_JSON;
+import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_TWO_USERAGENTS;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_USERAGENT;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_XML;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_YAML;
@@ -49,72 +50,133 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
-@Api(tags = "Yauaa")
+@Tag(name = "Yauaa", description = "Analyzing the useragents")
 @RequestMapping(value = "/yauaa/v1")
 @RestController
 public class ApiJsonOutput {
 
-    @ApiOperation(
-        value = "Analyze the provided User-Agent",
-        notes = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
-                "a different User-Agent: https://github.com/swagger-api/swagger-ui/issues/5035</b>"
+    // -------------------------------------------------
+    // GET /analyze + accept --> Json
+
+    @Operation(
+        summary = "Analyze the provided User-Agent",
+        description = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+            "a different User-Agent: <a href=\"https://github.com/swagger-api/swagger-ui/issues/5035\">swagger-ui issue 5035</a></b>"
     )
-    @ApiResponses({
-        @ApiResponse(
-            code = 200, // HttpStatus.OK
-            message = "The agent was successfully analyzed",
-            examples = @Example({
-                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE, value = EXAMPLE_JSON),
-                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,  value = EXAMPLE_XML),
-                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,       value = EXAMPLE_YAML),
-                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,       value = EXAMPLE_YAML)
-            })
-        )
-    })
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "The agent was successfully analyzed",
+        content = {
+            @Content(mediaType = APPLICATION_JSON_VALUE, examples = @ExampleObject(EXAMPLE_JSON)),
+            @Content(mediaType = APPLICATION_XML_VALUE,  examples = @ExampleObject(EXAMPLE_XML)),
+            @Content(mediaType = TEXT_XYAML_VALUE,       examples = @ExampleObject(EXAMPLE_YAML)),
+            @Content(mediaType = TEXT_PLAIN_VALUE,       examples = @ExampleObject(EXAMPLE_YAML))
+        }
+    )
     @GetMapping(
-        value = { "/analyze", "/analyze/json" },
+        value ="/analyze",
         produces = APPLICATION_JSON_VALUE
     )
-    public String handleGET(
-        @ApiParam(
-            value = "The standard browser request header User-Agent is used as the input that is to be analyzed.",
+    public String handleGETAnalyze(
+        @Parameter(
+            name = "User-Agent",
+            description = "The standard browser request header User-Agent is used as the input that is to be analyzed.",
             example = EXAMPLE_USERAGENT
         )
-        @RequestHeader("User-Agent")
-        String userAgentString
+        @RequestHeader("User-Agent") String userAgentString
     ) {
         return createOutput(userAgentString);
     }
 
     // -------------------------------------------------
+    // GET /analyze/json --> Json
 
-    @ApiOperation(
-        value = "Analyze the provided User-Agent"
+    @Operation(
+        summary = "Analyze the provided User-Agent",
+        description = "<b>Trying this in swagger does not work in Chrome as Chrome does not allow setting " +
+            "a different User-Agent: <a href=\"https://github.com/swagger-api/swagger-ui/issues/5035\">swagger-ui issue 5035</a></b>"
+    )
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "The agent was successfully analyzed",
+        content = {
+            @Content(mediaType = APPLICATION_JSON_VALUE, examples = @ExampleObject(EXAMPLE_JSON))
+        }
+    )
+    @GetMapping(
+        value = "/analyze/json",
+        produces = APPLICATION_JSON_VALUE
+    )
+    public String handleGETAnalyzeJson(
+        @Parameter(
+            name = "User-Agent",
+            description = "The standard browser request header User-Agent is used as the input that is to be analyzed.",
+            example = EXAMPLE_USERAGENT
+        )
+        @RequestHeader("User-Agent") String userAgentString
+    ) {
+        return createOutput(userAgentString);
+    }
+
+    // -------------------------------------------------
+    // POST /analyze + accept --> Json
+
+    @Operation(
+        summary = "Analyze the provided User-Agent"
     )
     @PostMapping(
-        value = { "/analyze", "/analyze/json" },
+        value ="/analyze",
         consumes = TEXT_PLAIN_VALUE,
         produces = APPLICATION_JSON_VALUE
     )
-    @ApiResponses({
-        @ApiResponse(
-            code = 200, // HttpStatus.OK
-            message = "The agent was successfully analyzed",
-            examples = @Example({
-                @ExampleProperty(mediaType = APPLICATION_JSON_VALUE,    value = EXAMPLE_JSON),
-                @ExampleProperty(mediaType = APPLICATION_XML_VALUE,     value = EXAMPLE_XML),
-                @ExampleProperty(mediaType = TEXT_XYAML_VALUE,          value = EXAMPLE_YAML),
-                @ExampleProperty(mediaType = TEXT_PLAIN_VALUE,          value = EXAMPLE_YAML)
-            })
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "The agent was successfully analyzed",
+        content = {
+            @Content(mediaType = APPLICATION_JSON_VALUE,    examples = @ExampleObject(EXAMPLE_JSON)),
+            @Content(mediaType = APPLICATION_XML_VALUE,     examples = @ExampleObject(EXAMPLE_XML)),
+            @Content(mediaType = TEXT_XYAML_VALUE,          examples = @ExampleObject(EXAMPLE_YAML)),
+            @Content(mediaType = TEXT_PLAIN_VALUE,          examples = @ExampleObject(EXAMPLE_YAML))
+        }
+    )
+    public String handlePOSTAnalyze(
+        @Parameter(
+            name = "Request body",
+            schema = @Schema(
+                type = "A newline separated list of useragent strings",
+                description = "The entire POSTed value is used as the input that is to be analyzed.",
+                example = EXAMPLE_TWO_USERAGENTS)
         )
-    })
-    public String handlePOST(
-        @ApiParam(
-            name ="Request body",
-            type = "Map",
-            defaultValue = EXAMPLE_USERAGENT,
-            value = "The entire POSTed value is used as the input that is to be analyzed.",
-            examples = @Example(@ExampleProperty(mediaType = TEXT_PLAIN_VALUE, value = EXAMPLE_USERAGENT))
+        @RequestBody String userAgentString
+    ) {
+        return createOutput(userAgentString);
+    }
+
+    // -------------------------------------------------
+    // POST /analyze/json --> Json
+
+    @Operation(
+        summary = "Analyze the provided User-Agent"
+    )
+    @PostMapping(
+        value = "/analyze/json",
+        consumes = TEXT_PLAIN_VALUE,
+        produces = APPLICATION_JSON_VALUE
+    )
+    @ApiResponse(
+        responseCode = "200", // HttpStatus.OK
+        description = "The agent was successfully analyzed",
+        content = {
+            @Content(mediaType = APPLICATION_JSON_VALUE,    examples = @ExampleObject(EXAMPLE_JSON))
+        }
+    )
+    public String handlePOSTAnalyzeJson(
+        @Parameter(
+            name = "Request body",
+            schema = @Schema(
+                type = "A newline separated list of useragent strings",
+                description = "The entire POSTed value is used as the input that is to be analyzed.",
+                example = EXAMPLE_TWO_USERAGENTS)
         )
         @RequestBody String userAgentString
     ) {
