@@ -584,6 +584,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
     private static class MatcherImpact {
         String name;
+        long neededInputs;
         long tests;
         long touched;
         long enoughInputs;
@@ -592,9 +593,10 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         @Override
         public String toString() {
             return String.format(
-                "%-45s --> touched= %5d (%3.0f%%), enoughInputs = %5d (%3.0f%%), used = %5d (%3.0f%%) %s%s%s",
+                "%-45s --> touched= %5d (%3.0f%%), neededInputs = %2d, enoughInputs = %5d (%3.0f%%), used = %5d (%3.0f%%) %s%s%s",
                 "Rule.(" + name + ")",
                 touched,      100.0 * ((double)touched/tests),
+                neededInputs,
                 enoughInputs, touched      == 0 ? 0.0 : 100.0 * ((double)enoughInputs/touched),
                 used,         enoughInputs == 0 ? 0.0 : 100.0 * ((double) used /enoughInputs),
                 touched      ==  0              ? "~~~"               : "",
@@ -619,6 +621,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             .sorted(Comparator.comparing(Matcher::getSourceFileName).thenComparingLong(Matcher::getSourceFileLineNumber))
             .forEach(matcher -> {
                 MatcherImpact matcherImpact = new MatcherImpact();
+                matcherImpact.neededInputs = matcher.getActionsThatRequireInput();
                 matcherImpact.name = matcher.getMatcherSourceLocation();
                 impactOverview.put(matcher.getMatcherSourceLocation(), matcherImpact);
                 impactList.add(matcherImpact);
@@ -645,7 +648,9 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             });
         }
 
-        impactList.forEach(i -> LOG.info("{}", i));
+        impactList
+//            .stream().filter(mi -> mi.neededInputs > 2)
+            .forEach(i -> LOG.info("{}", i));
     }
 
     public abstract static class AbstractUserAgentAnalyzerTesterBuilder<UAA extends AbstractUserAgentAnalyzerTester, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>
