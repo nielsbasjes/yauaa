@@ -174,9 +174,7 @@ public class Yauaa implements Filter {
         for (String field: allFieldNames) {
             if (!isSystemField(field)) {
                 errorMessage.append("           \"").append(field).append("\"");
-                for (int i = field.length(); i < maxNameLength; i++) {
-                    errorMessage.append(' ');
-                }
+                errorMessage.append(" ".repeat(Math.max(0, maxNameLength - field.length())));
                 errorMessage.append("  => \"userAgent").append(field).append("\"\n");
             }
         }

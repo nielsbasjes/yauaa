@@ -24,7 +24,7 @@ public class TestRecord implements Serializable {
     String deviceClass;
     String agentNameVersion;
 
-    String shouldRemainNull = null;
+    final String shouldRemainNull = null;
 
     public TestRecord(String useragent) {
         this.useragent = useragent;

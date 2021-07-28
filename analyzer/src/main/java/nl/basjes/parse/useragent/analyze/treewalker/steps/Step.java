@@ -51,11 +51,7 @@ public abstract class Step implements Serializable {
     public final void setNextStep(int newStepNr, Step newNextStep) {
         this.stepNr = newStepNr;
         this.nextStep = newNextStep;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < newStepNr + 1; i++) {
-            sb.append("-->");
-        }
-        logprefix = sb.toString();
+        logprefix = "-->".repeat(Math.max(0, newStepNr + 1));
     }
 
     protected final WalkResult walkNextStep(@Nonnull ParseTree tree, @Nullable String value) {

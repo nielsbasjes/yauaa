@@ -165,9 +165,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         StringBuilder sb = new StringBuilder(1024);
 
         sb.append("| ").append(filenameHeader);
-        for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(maxFilenameLength - filenameHeaderLength));
 
         sb.append(" |S|AA|MF|");
         if (measureSpeed) {
@@ -227,9 +225,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             sb.append("|").append(String.format("%5d", testcount))
               .append(".(").append(filename).append(':').append(linenumber).append(')');
-            for (int i = filename.length()+linenumber.length()+7; i < maxFilenameLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(Math.max(0, maxFilenameLength - (filename.length() + linenumber.length() + 7))));
 
             agent.setUserAgentString(userAgentString);
 
@@ -423,17 +419,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             sb.setLength(0);
             sb.append("+--------+-");
-            for (int i = 0; i < maxNameLength; i++) {
-                sb.append('-');
-            }
+            sb.append("-".repeat(maxNameLength));
             sb.append("-+-");
-            for (int i = 0; i < maxActualLength; i++) {
-                sb.append('-');
-            }
+            sb.append("-".repeat(maxActualLength));
             sb.append("-+---------+------------+-");
-            for (int i = 0; i < maxExpectedLength; i++) {
-                sb.append('-');
-            }
+            sb.append("-".repeat(maxExpectedLength));
             sb.append("-+");
 
             String separator = sb.toString();
@@ -441,17 +431,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             sb.setLength(0);
             sb.append("| Result | Field ");
-            for (int i = 6; i < maxNameLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(maxNameLength - 6));
             sb.append(" | Actual ");
-            for (int i = 7; i < maxActualLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(maxActualLength - 7));
             sb.append(" | Default | Confidence | Expected ");
-            for (int i = 9; i < maxExpectedLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(maxExpectedLength - 9));
             sb.append(" |");
 
             logInfo(errorMessageReceiver, sb.toString());
@@ -476,15 +460,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                     }
                 }
                 sb.append(result.field);
-                for (int i = result.field.length(); i < maxNameLength; i++) {
-                    sb.append(' ');
-                }
+                sb.append(" ".repeat(Math.max(0, maxNameLength - result.field.length())));
                 sb.append(" | ");
                 sb.append(result.actual);
 
-                for (int i = result.actual.length(); i < maxActualLength; i++) {
-                    sb.append(' ');
-                }
+                sb.append(" ".repeat(Math.max(0, maxActualLength - result.actual.length())));
 
                 if (result.isDefault) {
                     sb.append(" | Default | ");
@@ -495,16 +475,12 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 sb.append(" | ");
 
                 if (result.pass) {
-                    for (int i = 0; i < maxExpectedLength; i++) {
-                        sb.append(' ');
-                    }
+                    sb.append(" ".repeat(maxExpectedLength));
                     sb.append(" |");
                     logInfo(errorMessageReceiver, sb.toString());
                 } else {
                     sb.append(result.expected);
-                    for (int i = result.expected.length(); i < maxExpectedLength; i++) {
-                        sb.append(' ');
-                    }
+                    sb.append(" ".repeat(Math.max(0, maxExpectedLength - result.expected.length())));
                     sb.append(" |");
                     if (result.warn) {
                         logWarn(errorMessageReceiver, sb.toString());

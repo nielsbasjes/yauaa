@@ -89,10 +89,7 @@ public class ParseUserAgent extends AbstractProcessor {
                     .getAllPossibleFieldNamesSorted());
             }
         }
-        final Set<Relationship> relationshipsSet = new HashSet<>();
-        relationshipsSet.add(SUCCESS);
-        relationshipsSet.add(MISSING);
-        this.relationships = Collections.unmodifiableSet(relationshipsSet);
+        this.relationships = Set.of(SUCCESS, MISSING);
 
         for (String fieldName: ALL_FIELD_NAMES) {
             PropertyDescriptor propertyDescriptor = new PropertyDescriptor.Builder()

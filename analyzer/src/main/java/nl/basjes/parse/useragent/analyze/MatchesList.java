@@ -145,7 +145,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     @Nonnull
     @Override
     public Iterator<Match> iterator() {
-        return new Iterator<Match>() {
+        return new Iterator<>() {
             int offset = 0;
 
             @Override

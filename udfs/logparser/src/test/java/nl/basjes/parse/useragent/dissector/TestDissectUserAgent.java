@@ -258,7 +258,7 @@ class TestDissectUserAgent {
      * This is to verify this bug no longer happens.
      */
     public static class NoDuplicatesRecord {
-        Set<String> gotValuesFor = new HashSet<>();
+        final Set<String> gotValuesFor = new HashSet<>();
         @SuppressWarnings("unused") // Used via reflection
         public void setValue(String name, String ignored) {
             assertFalse(gotValuesFor.contains(name), "Setter was called for a second time for " + name);
