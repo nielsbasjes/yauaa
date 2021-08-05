@@ -70,23 +70,22 @@ import java.util.List;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
     private final Analyzer               analyzer;
-
-    private static final String AGENT    = "agent";
-    private static final String PRODUCT  = "product";
-    private static final String NAME     = "name";
-    private static final String VERSION  = "version";
-    private static final String COMMENTS = "comments";
-    private static final String KEYVALUE = "keyvalue";
-    private static final String KEY      = "key";
-    private static final String TEXT     = "text";
-    private static final String URL      = "url";
-    private static final String UUID     = "uuid";
-    private static final String EMAIL    = "email";
-    private static final String BASE64   = "base64";
 
     enum PathType {
         CHILD,
@@ -200,7 +199,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
      */
     private MutableUserAgent parseIntoCleanUserAgent(MutableUserAgent userAgent) {
         if (userAgent.getUserAgentString() == null) {
-            userAgent.set(SYNTAX_ERROR, "true", 1);
+            userAgent.set(UserAgent.SYNTAX_ERROR, "true", 1);
             return userAgent; // Cannot parse this
         }
 
@@ -210,7 +209,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         // Walk the tree an inform the calling analyzer about all the nodes found
         state = new ParseTreeProperty<>();
 
-        State rootState = new State(AGENT);
+        State rootState = new State(AGENT.name());
         rootState.calculatePath(PathType.CHILD, false);
         state.put(userAgentContext, rootState);
 
@@ -234,6 +233,14 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         return inform(ctx, ctx, name, value, false);
     }
 
+    private String inform(ParseTree ctx, AgentPathFragment path) {
+        return inform(ctx, path.name(), getSourceText((ParserRuleContext)ctx));
+    }
+
+    private String inform(ParseTree ctx, AgentPathFragment name, String value) {
+        return inform(ctx, ctx, name.name(), value, false);
+    }
+
     private String inform(ParseTree ctx, String name, String value, boolean fakeChild) {
         return inform(ctx, ctx, name, value, fakeChild);
     }
@@ -249,10 +256,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
             PathType childType;
             switch (name) {
-                case COMMENTS:
+                case "comments":
                     childType = PathType.COMMENT;
                     break;
-                case VERSION:
+                case "version":
                     childType = PathType.VERSION;
                     break;
                 default:
@@ -398,19 +405,19 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @Override
     public void enterCommentEntry(CommentEntryContext ctx) {
-        informSubstrings(ctx, "entry");
+        informSubstrings(ctx, AgentPathFragment.ENTRY);
     }
 
-    private void informSubstrings(ParserRuleContext ctx, String name) {
+    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name) {
         informSubstrings(ctx, name, false);
     }
 
-    private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild) {
-        informSubstrings(ctx, name, fakeChild, WordSplitter.getInstance());
+    private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name, boolean fakeChild) {
+        informSubstrings(ctx, name.name(), fakeChild, WordSplitter.getInstance());
     }
 
     private void informSubVersions(ParserRuleContext ctx) {
-        informSubstrings(ctx, VERSION, false, VersionSplitter.getInstance());
+        informSubstrings(ctx, VERSION.name(), false, VersionSplitter.getInstance());
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild, Splitter splitter) {

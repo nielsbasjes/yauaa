@@ -76,7 +76,6 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableCo
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepBackToFullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepIsInSetContext;
@@ -111,6 +110,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 
@@ -542,10 +542,75 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitStepDown(StepDownContext ctx) {
-            add(new StepDown(ctx.numberRange(), ctx.name.getText()));
+        public Void visitStepDownAgent(UserAgentTreeWalkerParser.StepDownAgentContext ctx) {
+            add(new StepDown(ctx.numberRange(), AGENT));
             visitNext(ctx.nextStep);
             return null; // Void
+        }
+
+        @Override
+        public Void visitStepDownProduct(UserAgentTreeWalkerParser.StepDownProductContext ctx) {
+            return super.visitStepDownProduct(ctx);
+        }
+
+        @Override
+        public Void visitStepDownName(UserAgentTreeWalkerParser.StepDownNameContext ctx) {
+            return super.visitStepDownName(ctx);
+        }
+
+        @Override
+        public Void visitStepDownVersion(UserAgentTreeWalkerParser.StepDownVersionContext ctx) {
+            return super.visitStepDownVersion(ctx);
+        }
+
+        @Override
+        public Void visitStepDownComments(UserAgentTreeWalkerParser.StepDownCommentsContext ctx) {
+            return super.visitStepDownComments(ctx);
+        }
+
+        @Override
+        public Void visitStepDownEntry(UserAgentTreeWalkerParser.StepDownEntryContext ctx) {
+            return super.visitStepDownEntry(ctx);
+        }
+
+        @Override
+        public Void visitStepDownText(UserAgentTreeWalkerParser.StepDownTextContext ctx) {
+            return super.visitStepDownText(ctx);
+        }
+
+        @Override
+        public Void visitStepDownUrl(UserAgentTreeWalkerParser.StepDownUrlContext ctx) {
+            return super.visitStepDownUrl(ctx);
+        }
+
+        @Override
+        public Void visitStepDownEmail(UserAgentTreeWalkerParser.StepDownEmailContext ctx) {
+            return super.visitStepDownEmail(ctx);
+        }
+
+        @Override
+        public Void visitStepDownBase64(UserAgentTreeWalkerParser.StepDownBase64Context ctx) {
+            return super.visitStepDownBase64(ctx);
+        }
+
+        @Override
+        public Void visitStepDownUuid(UserAgentTreeWalkerParser.StepDownUuidContext ctx) {
+            return super.visitStepDownUuid(ctx);
+        }
+
+        @Override
+        public Void visitStepDownKeyvalue(UserAgentTreeWalkerParser.StepDownKeyvalueContext ctx) {
+            return super.visitStepDownKeyvalue(ctx);
+        }
+
+        @Override
+        public Void visitStepDownKey(UserAgentTreeWalkerParser.StepDownKeyContext ctx) {
+            return super.visitStepDownKey(ctx);
+        }
+
+        @Override
+        public Void visitStepDownValue(UserAgentTreeWalkerParser.StepDownValueContext ctx) {
+            return super.visitStepDownValue(ctx);
         }
 
         @Override

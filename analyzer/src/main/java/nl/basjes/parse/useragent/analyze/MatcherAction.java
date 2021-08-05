@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerLexer;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
@@ -46,6 +47,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRan
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotContainsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyvalueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
@@ -72,7 +74,19 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.Matcher
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathFixedValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownAgentContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownBase64Context;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownCommentsContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEmailContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEntryContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownNameContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownProductContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownTextContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUrlContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUuidContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownValueContext;
+import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownVersionContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEndsWithValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepEqualsValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
@@ -337,6 +351,7 @@ public abstract class MatcherAction implements Serializable {
 
     /**
      * Called after all nodes have been notified.
+     *
      * @return true if the obtainResult result was valid. False will fail the entire matcher this belongs to.
      */
     public abstract boolean obtainResult();
@@ -372,6 +387,7 @@ public abstract class MatcherAction implements Serializable {
     private interface CalculateInformPathFunction {
         /**
          * Applies this function to the given arguments.
+         *
          * @param action The applicable action.
          * @param treeName The name of the current tree.
          * @param tree The actual location in the parseTree
@@ -451,29 +467,146 @@ public abstract class MatcherAction implements Serializable {
             calculateInformPath(action, treeName, ((PathWalkContext) tree).nextStep));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(StepDownContext.class,                (action, treeName, tree) -> {
-            StepDownContext thisTree = ((StepDownContext)tree);
+        CALCULATE_INFORM_PATH.put(StepDownAgentContext.class, (action, treeName, tree) -> {
+            StepDownAgentContext thisTree = ((StepDownAgentContext) tree);
             int informs = 0;
             for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + thisTree.name.getText(), thisTree.nextStep);
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.AGENT, thisTree.nextStep);
             }
             return informs;
         });
 
-        CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class,         (action, treeName, tree) -> {
-            StepEqualsValueContext thisTree = ((StepEqualsValueContext)tree);
+        CALCULATE_INFORM_PATH.put(StepDownProductContext.class, (action, treeName, tree) -> {
+            StepDownProductContext thisTree = ((StepDownProductContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.PRODUCT, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownNameContext.class, (action, treeName, tree) -> {
+            StepDownNameContext thisTree = ((StepDownNameContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.NAME, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownVersionContext.class, (action, treeName, tree) -> {
+            StepDownVersionContext thisTree = ((StepDownVersionContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.VERSION, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownCommentsContext.class, (action, treeName, tree) -> {
+            StepDownCommentsContext thisTree = ((StepDownCommentsContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.COMMENTS, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownEntryContext.class, (action, treeName, tree) -> {
+            StepDownEntryContext thisTree = ((StepDownEntryContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.ENTRY, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownTextContext.class, (action, treeName, tree) -> {
+            StepDownTextContext thisTree = ((StepDownTextContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.TEXT, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownUrlContext.class, (action, treeName, tree) -> {
+            StepDownUrlContext thisTree = ((StepDownUrlContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.URL, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownEmailContext.class, (action, treeName, tree) -> {
+            StepDownEmailContext thisTree = ((StepDownEmailContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.EMAIL, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownBase64Context.class, (action, treeName, tree) -> {
+            StepDownBase64Context thisTree = ((StepDownBase64Context) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.BASE64, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownUuidContext.class, (action, treeName, tree) -> {
+            StepDownUuidContext thisTree = ((StepDownUuidContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.UUID, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownKeyvalueContext.class, (action, treeName, tree) -> {
+            StepDownKeyvalueContext thisTree = ((StepDownKeyvalueContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.KEYVALUE, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownKeyContext.class, (action, treeName, tree) -> {
+            StepDownKeyContext thisTree = ((StepDownKeyContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.KEY, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepDownValueContext.class, (action, treeName, tree) -> {
+            StepDownValueContext thisTree = ((StepDownValueContext) tree);
+            int informs = 0;
+            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
+                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.VALUE, thisTree.nextStep);
+            }
+            return informs;
+        });
+
+        CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class, (action, treeName, tree) -> {
+            StepEqualsValueContext thisTree = ((StepEqualsValueContext) tree);
             action.matcher.informMeAbout(action, treeName + "=\"" + thisTree.value.getText() + "\"");
             return 1;
         });
 
-        CALCULATE_INFORM_PATH.put(StepStartsWithValueContext.class,     (action, treeName, tree) -> {
-            StepStartsWithValueContext thisTree = ((StepStartsWithValueContext)tree);
+        CALCULATE_INFORM_PATH.put(StepStartsWithValueContext.class, (action, treeName, tree) -> {
+            StepStartsWithValueContext thisTree = ((StepStartsWithValueContext) tree);
             action.matcher.informMeAboutPrefix(action, treeName, thisTree.value.getText());
             return 1;
         });
 
-        CALCULATE_INFORM_PATH.put(StepWordRangeContext.class,           (action, treeName, tree) -> {
-            StepWordRangeContext thisTree = ((StepWordRangeContext)tree);
+        CALCULATE_INFORM_PATH.put(StepWordRangeContext.class, (action, treeName, tree) -> {
+            StepWordRangeContext thisTree = ((StepWordRangeContext) tree);
             Range range = WordRangeVisitor.getRange(thisTree.wordRange());
             action.matcher.lookingForRange(treeName, range);
             return calculateInformPath(action, treeName + range, thisTree.nextStep);

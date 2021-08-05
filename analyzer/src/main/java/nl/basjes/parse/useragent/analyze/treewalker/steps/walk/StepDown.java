@@ -26,6 +26,7 @@ import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown.UserAgentGetChildrenVisitor;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -74,12 +75,12 @@ public class StepDown extends Step {
         name = null;
     }
 
-    public StepDown(NumberRangeContext numberRange, String name) {
-        this(NumberRangeVisitor.getList(numberRange), name);
+    public StepDown(NumberRangeContext numberRange, AgentPathFragment pathFragment) {
+        this(NumberRangeVisitor.getList(numberRange), pathFragment);
     }
 
-    public StepDown(NumberRangeList numberRange, String name) {
-        this.name = name;
+    public StepDown(NumberRangeList numberRange, AgentPathFragment pathFragment) {
+        this.name = pathFragment.name();
         this.start = numberRange.getStart();
         this.end = numberRange.getEnd();
         setDefaultFieldValues();
