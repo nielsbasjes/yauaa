@@ -9,6 +9,7 @@ v6.1-SNAPSHOT
   - Google Glass OS
   - Language flags in specific special places
 - Updated UDF dependencies
+  - Apache Flink            1.13.2
   - Apache Beam             2.31.0
   - Apache Nifi             1.14.0
 
