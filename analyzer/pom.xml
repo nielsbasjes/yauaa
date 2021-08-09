@@ -74,6 +74,12 @@
       <groupId>nl.basjes.collections</groupId>
       <artifactId>prefixmap</artifactId>
       <version>2.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.esotericsoftware</groupId>
+          <artifactId>kryo</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- The default logging implementation for Yauaa -->
@@ -104,7 +110,7 @@
       <groupId>com.esotericsoftware</groupId>
       <artifactId>kryo</artifactId>
       <version>${kryo5.version}</version>
-      <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
 
     <dependency>
