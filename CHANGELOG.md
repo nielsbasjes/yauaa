@@ -11,7 +11,7 @@ v6.1-SNAPSHOT
   - Language flags in specific special places
 - Updated UDF dependencies
   - Apache Flink            1.13.2
-  - Apache Beam             2.31.0
+  - Apache Beam             2.32.0
   - Apache Nifi             1.14.0
 
 v6.0
