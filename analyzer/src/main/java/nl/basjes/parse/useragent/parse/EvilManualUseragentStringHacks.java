@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.parse;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
@@ -145,8 +145,8 @@ public final class EvilManualUseragentStringHacks {
                  result.contains("%2F") ||
                  result.contains("%28"))) {
             try {
-                result = URLDecoder.decode(result, StandardCharsets.UTF_8);
-            } catch (IllegalArgumentException e) {
+                result = URLDecoder.decode(result, "UTF-8");
+            } catch (UnsupportedEncodingException | IllegalArgumentException e) {
                 // UnsupportedEncodingException: Can't happen because the UTF-8 is hardcoded here.
                 // IllegalArgumentException: Probably bad % encoding in there somewhere.
                 // Ignore and continue.

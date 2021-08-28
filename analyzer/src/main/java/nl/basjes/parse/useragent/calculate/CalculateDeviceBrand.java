@@ -42,10 +42,17 @@ public class CalculateDeviceBrand extends FieldCalculator {
         if (deviceBrand.isDefaultValue()) {
             // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
             String newDeviceBrand = determineDeviceBrand(userAgent);
-            userAgent.setForced(
-                DEVICE_BRAND,
-                newDeviceBrand == null ? NULL_VALUE : newDeviceBrand,
-                0);
+            if (newDeviceBrand != null) {
+                userAgent.setForced(
+                    DEVICE_BRAND,
+                    newDeviceBrand,
+                    0);
+            } else {
+                userAgent.setForced(
+                    DEVICE_BRAND,
+                    NULL_VALUE,
+                    0);
+            }
         } else {
             userAgent.setForced(
                 DEVICE_BRAND,

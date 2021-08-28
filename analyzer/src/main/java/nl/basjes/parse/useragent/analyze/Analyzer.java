@@ -35,7 +35,7 @@ public interface Analyzer extends Serializable {
      */
     default ImmutableUserAgent parse(String userAgentString){
         return null;
-    }
+    };
 
     void inform(String path, String value, ParseTree ctx);
 

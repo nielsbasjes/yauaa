@@ -109,7 +109,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
     @Nonnull
     @Override
     public Iterator<Matcher> iterator() {
-        return new Iterator<>() {
+        return new Iterator<Matcher>() {
             int offset = 0;
 
             @Override

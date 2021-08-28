@@ -38,6 +38,8 @@ import org.apache.nifi.processor.exception.ProcessException;
 import org.apache.nifi.processor.util.StandardValidators;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -87,7 +89,10 @@ public class ParseUserAgent extends AbstractProcessor {
                     .getAllPossibleFieldNamesSorted());
             }
         }
-        this.relationships = Set.of(SUCCESS, MISSING);
+        final Set<Relationship> relationshipsSet = new HashSet<>();
+        relationshipsSet.add(SUCCESS);
+        relationshipsSet.add(MISSING);
+        this.relationships = Collections.unmodifiableSet(relationshipsSet);
 
         for (String fieldName: ALL_FIELD_NAMES) {
             PropertyDescriptor propertyDescriptor = new PropertyDescriptor.Builder()

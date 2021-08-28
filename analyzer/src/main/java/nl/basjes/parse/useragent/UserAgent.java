@@ -135,7 +135,7 @@ public interface UserAgent extends Serializable {
     String UNKNOWN_VERSION                      = "??";
     String UNKNOWN_NAME_VERSION                 = "Unknown ??";
 
-    List<String> STANDARD_FIELDS = List.of(
+    List<String> STANDARD_FIELDS = Collections.unmodifiableList(Arrays.asList(
         DEVICE_CLASS,
         DEVICE_BRAND,
         DEVICE_NAME,
@@ -157,11 +157,11 @@ public interface UserAgent extends Serializable {
         AGENT_VERSION_MAJOR,
         AGENT_NAME_VERSION,
         AGENT_NAME_VERSION_MAJOR
-    );
+    ));
 
     // We manually sort the list of fields to ensure the output is consistent.
     // Any unspecified fieldnames will be appended to the end.
-    List<String> PRE_SORTED_FIELDS_LIST = List.of(
+    List<String> PRE_SORTED_FIELDS_LIST = Collections.unmodifiableList(Arrays.asList(
         DEVICE_CLASS,
         DEVICE_NAME,
         DEVICE_BRAND,
@@ -228,7 +228,7 @@ public interface UserAgent extends Serializable {
         IE_COMPATIBILITY_NAME_VERSION_MAJOR,
 
         SYNTAX_ERROR
-    );
+    ));
 
     default String escapeYaml(String input) {
         if (input == null) {
@@ -270,7 +270,9 @@ public interface UserAgent extends Serializable {
         for (String fieldName : fieldNames) {
             AgentField field = get(fieldName);
             sb.append("      ").append(fieldName);
-            sb.append(" ".repeat(Math.max(0, maxNameLength + 6 - fieldName.length())));
+            for (int l = fieldName.length(); l < maxNameLength + 6; l++) {
+                sb.append(' ');
+            }
             String value = escapeYaml(field.getValue());
             sb.append(": '").append(value).append('\'');
 
@@ -423,7 +425,9 @@ public interface UserAgent extends Serializable {
                 AgentField field = get(fieldName);
                 if (field != null) {
                     sb.append("    ").append(fieldName);
-                    sb.append(" ".repeat(Math.max(0, maxLength + 2 - fieldName.length())));
+                    for (int l = fieldName.length(); l < maxLength + 2; l++) {
+                        sb.append(' ');
+                    }
                     sb.append(": '").append(escapeYaml(field.getValue())).append('\'');
                     sb.append('\n');
                 }

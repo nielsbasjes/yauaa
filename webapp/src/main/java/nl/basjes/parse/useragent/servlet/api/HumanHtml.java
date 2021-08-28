@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -212,7 +212,7 @@ public class HumanHtml {
     private void stillStartingUp(StringBuilder sb) {
         long   now        = System.currentTimeMillis();
         long   millisBusy = now - getInitStartMoment();
-        String timeString = String.format("%3.1f", ((double) millisBusy / 1000.0));
+        String timeString = String.format("%3.1f", millisBusy / 1000.0);
 
         String userAgentAnalyzerFailureMessage = getUserAgentAnalyzerFailureMessage();
         if (userAgentAnalyzerFailureMessage == null) {
@@ -324,17 +324,21 @@ public class HumanHtml {
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
         // https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=bar
 
-        StringBuilder reportUrl = new StringBuilder("https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
+        try {
+            StringBuilder reportUrl = new StringBuilder("https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
 
-        String report = "I found a problem with this useragent.\n" +
-            "[Please update the output below to match what you expect it should be]\n" +
-            "\n```\n" +
-            userAgent.toYamlTestCase().replaceAll(" +:", "  :") +
-            "\n```\n";
+            String report = "I found a problem with this useragent.\n" +
+                "[Please update the output below to match what you expect it should be]\n" +
+                "\n```\n" +
+                userAgent.toYamlTestCase().replaceAll(" +:", "  :") +
+                "\n```\n";
 
-        reportUrl.append(URLEncoder.encode(report, StandardCharsets.UTF_8));
-        String githubUrl = "https://github.com/login?return_to=" + URLEncoder.encode(reportUrl.toString(), StandardCharsets.UTF_8);
-        sb.append("If you find a problem with this result then please report a bug here: " +
-            "<a href=\"").append(githubUrl).append("\">Yauaa issue report</a>");
+            reportUrl.append(URLEncoder.encode(report, "UTF-8"));
+            String githubUrl = "https://github.com/login?return_to=" + URLEncoder.encode(reportUrl.toString(), "UTF-8");
+            sb.append("If you find a problem with this result then please report a bug here: " +
+                "<a href=\"").append(githubUrl).append("\">Yauaa issue report</a>");
+        } catch (UnsupportedEncodingException e) {
+            // Never happens.
+        }
     }
 }

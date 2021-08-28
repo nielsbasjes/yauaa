@@ -139,7 +139,11 @@ public final class YauaaVersion {
     }
 
     private static String padding(char letter, int count) {
-        return String.valueOf(letter).repeat(Math.max(0, count));
+        StringBuilder sb = new StringBuilder(128);
+        for (int i = 0; i < count; i++) {
+            sb.append(letter);
+        }
+        return sb.toString();
     }
 
     private static void logLine(String line, int width) {

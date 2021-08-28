@@ -114,7 +114,7 @@ public class ConfigLoader {
 
     private boolean keepTests = true;
 
-    final boolean showLoading;
+    boolean showLoading;
 
     // ------------------------------------------
 
