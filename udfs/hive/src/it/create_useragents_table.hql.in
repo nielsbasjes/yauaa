@@ -1,0 +1,50 @@
+--
+-- Copyright (C) 2018-2021 Niels Basjes
+--
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+-- https://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+--
+
+-- Create the database
+create database if not exists testdb;
+use testdb;
+
+-- Create the table with the test record
+drop table clickLogs;
+
+create table if not exists clickLogs (
+  useragent string
+);
+
+describe clickLogs;
+
+insert into clickLogs
+values ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36');
+
+select * from clickLogs;
+
+-- Make the function available
+ADD JAR hdfs:///udf/@JARNAME@;
+
+DROP     FUNCTION IF EXISTS parseuseragent;
+CREATE   FUNCTION ParseUserAgent AS 'nl.basjes.parse.useragent.hive.ParseUserAgent';
+DESCRIBE FUNCTION EXTENDED ParseUserAgent;
+
+-- Run query from documentation 1
+
+SELECT ParseUserAgent(useragent).DeviceClass,
+       ParseUserAgent(useragent).OperatingsystemNameVersion,
+       ParseUserAgent(useragent).AgentNameVersionMajor
+FROM   clickLogs;
+
+-- Run query from documentation 2
+SELECT ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
