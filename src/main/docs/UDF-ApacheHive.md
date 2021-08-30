@@ -81,7 +81,7 @@ Verify if it has been installed
 
 Basic test it works (trimmed the output here)
 
-    > SELECT ParseUserAgent('Mozil la/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+    > SELECT ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
     +----------------------------------------------------+
     |                        _c0                         |
     +----------------------------------------------------+

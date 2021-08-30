@@ -32,11 +32,30 @@ values ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) 
 
 select * from clickLogs;
 
--- Make the function available
-ADD JAR hdfs:///udf/@JARNAME@;
 
-DROP     FUNCTION IF EXISTS parseuseragent;
-CREATE   FUNCTION ParseUserAgent AS 'nl.basjes.parse.useragent.hive.ParseUserAgent';
+
+-- Make the function available as a temporary function
+ADD JAR hdfs:///udf/@JARNAME@;
+DROP     FUNCTION IF EXISTS ParseUserAgentTmp;
+CREATE   FUNCTION ParseUserAgentTmp AS 'nl.basjes.parse.useragent.hive.ParseUserAgent';
+DESCRIBE FUNCTION EXTENDED ParseUserAgentTmp;
+
+-- Run query from documentation 1
+
+SELECT ParseUserAgentTmp(useragent).DeviceClass,
+       ParseUserAgentTmp(useragent).OperatingsystemNameVersion,
+       ParseUserAgentTmp(useragent).AgentNameVersionMajor
+FROM   clickLogs;
+
+-- Run query from documentation 2
+SELECT ParseUserAgentTmp('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+
+
+
+
+-- Make the function available as a permanent function
+DROP     FUNCTION IF EXISTS ParseUserAgent;
+CREATE   FUNCTION ParseUserAgent AS 'nl.basjes.parse.useragent.hive.ParseUserAgent' USING JAR 'hdfs:///udf/@JARNAME@';
 DESCRIBE FUNCTION EXTENDED ParseUserAgent;
 
 -- Run query from documentation 1

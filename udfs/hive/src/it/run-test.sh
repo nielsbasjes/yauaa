@@ -35,5 +35,10 @@ docker exec -t -i hive-server bash  hdfs dfs -ls '/udf/'
 sed "s/@JARNAME@/${JARNAME}/g" create_useragents_table.hql.in > create_useragents_table.hql
 docker exec -t -i hive-server hive -f '/useragents/create_useragents_table.hql'
 
+# Allow for manual commands
+echo "Console to try manually. First do 'use testdb;' !!"
+echo "When you close this the test setup will be destroyed!!"
+docker exec -t -i hive-server hive
+
 # Shut it all down again.
 docker-compose down
