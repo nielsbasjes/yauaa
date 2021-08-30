@@ -40,6 +40,14 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+
+      <!-- This module deliberately has no tests. -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <failIfNoTests>false</failIfNoTests>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

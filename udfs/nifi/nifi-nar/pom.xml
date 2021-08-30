@@ -81,6 +81,14 @@
         <version>${nifi-nar-maven-plugin.version}</version>
         <extensions>true</extensions>
       </plugin>
+
+      <!-- This module just packages pre tested code into a nar file. -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <failIfNoTests>false</failIfNoTests>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 

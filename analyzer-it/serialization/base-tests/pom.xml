@@ -69,6 +69,14 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- This module has no tests in itself. -->
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <failIfNoTests>false</failIfNoTests>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
