@@ -33,6 +33,10 @@
 
   <url>https://yauaa.basjes.nl</url>
 
+  <properties>
+    <Automatic-Module-Name>nl.basjes.parse.useragent</Automatic-Module-Name>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.antlr</groupId>
@@ -136,6 +140,19 @@
             <exclude>UserAgents/**/*.tab</exclude>
             <exclude>UserAgents/**/*.md</exclude>
           </excludes>
+          <archive>
+            <manifestEntries>
+              <Specification-Title>Yauaa: Yet Another UserAgent Analyzer</Specification-Title>
+              <Specification-Version>${project.version}</Specification-Version>
+              <Specification-Vendor>Niels Basjes</Specification-Vendor>
+              <Implementation-Title>Yauaa: Yet Another UserAgent Analyzer</Implementation-Title>
+              <Implementation-Version>${project.version}</Implementation-Version>
+              <Implementation-Vendor>Niels Basjes</Implementation-Vendor>
+              <Implementation-Vendor-Id>nl.basjes</Implementation-Vendor-Id>
+              <Automatic-Module-Name>${Automatic-Module-Name}</Automatic-Module-Name>
+              <url>${project.url}</url>
+            </manifestEntries>
+          </archive>
         </configuration>
       </plugin>
 
@@ -152,8 +169,9 @@
           <createDependencyReducedPom>true</createDependencyReducedPom>
           <filters>
             <filter>
-              <artifact>*:*</artifact>
+              <artifact>org.antlr:antlr4-runtime</artifact>
               <excludes>
+                <exclude>META-INF/services/**</exclude>
                 <exclude>META-INF/MANIFEST.MF</exclude>
               </excludes>
             </filter>
@@ -161,6 +179,14 @@
               <artifact>org.springframework:spring-core</artifact>
               <excludes>
                 <exclude>META-INF/services/**</exclude>
+                <exclude>META-INF/MANIFEST.MF</exclude>
+              </excludes>
+            </filter>
+            <filter>
+              <artifact>org.yaml:snakeyaml</artifact>
+              <excludes>
+                <exclude>META-INF/services/**</exclude>
+                <exclude>META-INF/MANIFEST.MF</exclude>
               </excludes>
             </filter>
           </filters>
@@ -507,6 +533,37 @@
         </executions>
       </plugin>
 
+      <!-- Always run integration tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <failIfNoProjects>true</failIfNoProjects>
+          <!--          <debug>true</debug>-->
+          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <pomIncludes>
+            <pomInclude>*/pom.xml</pomInclude>
+          </pomIncludes>
+          <postBuildHookScript>verify</postBuildHookScript>
+          <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+          <settingsFile>./src/it/settings.xml</settingsFile>
+          <goals>
+            <goal>clean</goal>
+            <goal>test</goal>
+          </goals>
+        </configuration>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>install</goal>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
       <!--Configuration for periodic mutation testing.-->
       <plugin>
