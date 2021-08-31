@@ -14,56 +14,88 @@
 -- limitations under the License.
 --
 
--- Create the database
+!echo "==========================================================================";
+!echo "Create the database testdb";
 create database if not exists testdb;
 use testdb;
 
--- Create the table with the test record
+!echo "=-------------------------------------------------------------------------";
+!echo "Create the table clickLogs with the test record";
 drop table clickLogs;
 
+!echo "=-------------------------------------------------------------------------";
 create table if not exists clickLogs (
   useragent string
 );
 
+!echo "=-------------------------------------------------------------------------";
 describe clickLogs;
 
+!echo "=-------------------------------------------------------------------------";
 insert into clickLogs
 values ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36');
 
+!echo "=-------------------------------------------------------------------------";
 select * from clickLogs;
 
 
-
--- Make the function available as a temporary function
+!echo "==========================================================================";
+!echo "Make the function available as a temporary function";
 ADD JAR hdfs:///udf/@JARNAME@;
 DROP     FUNCTION IF EXISTS ParseUserAgentTmp;
 CREATE   FUNCTION ParseUserAgentTmp AS 'nl.basjes.parse.useragent.hive.ParseUserAgent';
 DESCRIBE FUNCTION EXTENDED ParseUserAgentTmp;
 
--- Run query from documentation 1
-
+!echo "=-------------------------------------------------------------------------";
+!echo "[1] Run query using table";
 SELECT ParseUserAgentTmp(useragent).DeviceClass,
        ParseUserAgentTmp(useragent).OperatingsystemNameVersion,
        ParseUserAgentTmp(useragent).AgentNameVersionMajor
 FROM   clickLogs;
 
--- Run query from documentation 2
+!echo "=-------------------------------------------------------------------------";
+!echo "[2] Run query using direct value";
 SELECT ParseUserAgentTmp('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
 
 
-
-
--- Make the function available as a permanent function
+!echo "==========================================================================";
+!echo "Make the function available as a permanent function";
 DROP     FUNCTION IF EXISTS ParseUserAgent;
 CREATE   FUNCTION ParseUserAgent AS 'nl.basjes.parse.useragent.hive.ParseUserAgent' USING JAR 'hdfs:///udf/@JARNAME@';
 DESCRIBE FUNCTION EXTENDED ParseUserAgent;
 
--- Run query from documentation 1
-
+!echo "=-------------------------------------------------------------------------";
+!echo "[1] Run query using table";
 SELECT ParseUserAgent(useragent).DeviceClass,
        ParseUserAgent(useragent).OperatingsystemNameVersion,
        ParseUserAgent(useragent).AgentNameVersionMajor
 FROM   clickLogs;
 
--- Run query from documentation 2
+!echo "=-------------------------------------------------------------------------";
+!echo "[2] Run query using direct value";
 SELECT ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+!echo "==========================================================================";
+
+--
+-- This only works on released versions.
+--
+-- !echo "==========================================================================";
+-- !echo "Make the function available as a externally loaded permanent function";
+-- DROP     FUNCTION IF EXISTS ParseUserAgent;
+-- CREATE FUNCTION ParseUserAgent
+-- AS 'nl.basjes.parse.useragent.hive.ParseUserAgent'
+-- USING JAR 'ivy://nl.basjes.parse.useragent:yauaa-hive:6.0?classifier=udf';
+-- DESCRIBE FUNCTION EXTENDED ParseUserAgent;
+--
+-- !echo "=-------------------------------------------------------------------------";
+-- !echo "[1] Run query using table";
+-- SELECT ParseUserAgent(useragent).DeviceClass,
+--        ParseUserAgent(useragent).OperatingsystemNameVersion,
+--        ParseUserAgent(useragent).AgentNameVersionMajor
+-- FROM   clickLogs GROUP BY useragent;
+--
+-- !echo "=-------------------------------------------------------------------------";
+-- !echo "[2] Run query using direct value";
+-- SELECT ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+-- !echo "==========================================================================";
+--

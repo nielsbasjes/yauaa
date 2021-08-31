@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 #
 # Copyright (C) 2018-2021 Niels Basjes
 #
@@ -27,18 +27,25 @@ sleep 5s
 JARNAME=$( cd ../../target/ ;  ls yauaa-hive-*-udf.jar )
 
 # Store the jar file in HDFS
+echo "==========================================="
+echo "Installing Yauaa UDF on HDFS"
 docker exec -t -i hive-server bash  hdfs dfs -mkdir '/udf/'
 docker exec -t -i hive-server bash  hdfs dfs -put "/udf-target/${JARNAME}" '/udf/'
 docker exec -t -i hive-server bash  hdfs dfs -ls '/udf/'
 
 # Run the test Hive script
+echo "==========================================="
+echo "Running tests"
 sed "s/@JARNAME@/${JARNAME}/g" create_useragents_table.hql.in > create_useragents_table.hql
 docker exec -t -i hive-server hive -f '/useragents/create_useragents_table.hql'
 
 # Allow for manual commands
+echo "==========================================="
 echo "Console to try manually. First do 'use testdb;' !!"
 echo "When you close this the test setup will be destroyed!!"
 docker exec -t -i hive-server hive
 
 # Shut it all down again.
+echo "==========================================="
+echo "Shutting down the test setup"
 docker-compose down
