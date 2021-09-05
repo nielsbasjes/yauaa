@@ -46,11 +46,11 @@ config:
 
 - matcher:
     variable:
-      - 'OSMatch               :LookUp[SpecialOSTags;agent.product.comments.entry]'
+    - 'OSMatch                             :LookUp[SpecialOSTags;agent.product.comments.entry]'
     extract:
-      - 'OperatingSystemClass  :   1001:@OSMatch[[1]]'
-      - 'OperatingSystemName   :   1001:@OSMatch[[2]]'
-      - 'OperatingSystemVersion:   1001:@OSMatch[[3]]'
+    - 'OperatingSystemClass                :     1001 :@OSMatch[[1]]'
+    - 'OperatingSystemName                 :     1001 :@OSMatch[[2]]'
+    - 'OperatingSystemVersion              :     1001 :@OSMatch[[3]]'
 
 #  - matcher:
 #      extract:

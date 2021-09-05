@@ -770,41 +770,41 @@ config:
     # https://consumer.huawei.com/en/support/content/en-us00794738/
     # https://www.huaweicentral.com/hms-core/
     require:
-      - 'agent.(1)product.(1)comments.entry.product.name="HMSCore"'
+    - 'agent.(1)product.(1)comments.entry.product.name="HMSCore"'
     extract:
-      - 'DeviceBrand                         :     325 :"Huawei"'
+    - 'DeviceBrand                         :      325 :"Huawei"'
 
 - matcher:
     # HMSCore = "Huawei Mobile Services"
     # https://consumer.huawei.com/en/support/content/en-us00794738/
     # https://www.huaweicentral.com/hms-core/
     variable:
-      - 'HMSCore:agent.(1)product.(1)comments.entry.product.name="HMSCore"^^'
-      - 'Name:@HMSCore<'
+    - 'HMSCore                             :agent.(1)product.(1)comments.entry.product.name="HMSCore"^^'
+    - 'Name                                :@HMSCore<'
     extract:
-      - 'DeviceBrand                         :     325 :"Huawei"'
-      - 'DeviceName                          :     325 :@Name!="Android"'
+    - 'DeviceBrand                         :      325 :"Huawei"'
+    - 'DeviceName                          :      325 :@Name!="Android"'
 
 # HarmonyOS: https://www.harmonyos.com/en/home
 - matcher:
     require:
-      - 'agent.(1-4)product.comments.entry="HarmonyOS"'
+    - 'agent.(1-4)product.comments.entry="HarmonyOS"'
     extract:
-      - 'DeviceClass                         :       1 : "Mobile"'
-      - 'DeviceBrand                         :    1000 : "Huawei"'
-      - 'OperatingSystemClass                :    1000 : "Mobile"'
-      - 'OperatingSystemName                 :    1000 : "HarmonyOS"'
-      - 'OperatingSystemVersion              :    1000 : "??"'
+    - 'DeviceClass                         :        1 : "Mobile"'
+    - 'DeviceBrand                         :     1000 : "Huawei"'
+    - 'OperatingSystemClass                :     1000 : "Mobile"'
+    - 'OperatingSystemName                 :     1000 : "HarmonyOS"'
+    - 'OperatingSystemVersion              :     1000 : "??"'
 
 - matcher:
     variable:
-      - 'HarmonyOS:agent.(1-4)product.comments.entry.product.name="HarmonyOS"'
+    - 'HarmonyOS                           :agent.(1-4)product.comments.entry.product.name="HarmonyOS"'
     extract:
-      - 'DeviceClass                         :        1 : "Mobile"'
-      - 'DeviceBrand                         :     1000 : "Huawei"'
-      - 'OperatingSystemClass                :     1000 : "Mobile"'
-      - 'OperatingSystemName                 :     1000 : "HarmonyOS"'
-      - 'OperatingSystemVersion              :     1000 : @HarmonyOS^.version'
+    - 'DeviceClass                         :        1 : "Mobile"'
+    - 'DeviceBrand                         :     1000 : "Huawei"'
+    - 'OperatingSystemClass                :     1000 : "Mobile"'
+    - 'OperatingSystemName                 :     1000 : "HarmonyOS"'
+    - 'OperatingSystemVersion              :     1000 : @HarmonyOS^.version'
 
 
   # ========================================================================

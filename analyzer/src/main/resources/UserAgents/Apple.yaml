@@ -237,38 +237,38 @@ config:
 
 - matcher:
     variable:
-      - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name="OS X"'
-      - 'MacOSXVersion                       : @MacOSX^.version'
+    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name="OS X"'
+    - 'MacOSXVersion                       :@MacOSX^.version'
     require:
-      - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
-      - 'DeviceClass                         :       20 :"Desktop"'
-      - 'DeviceBrand                         :       20 :"Apple"'
-      - 'DeviceName                          :       20 :"Apple Macintosh"'
-      - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
-      - 'OperatingSystemClass                :       20 :"Desktop"'
-      - 'OperatingSystemName                 :       20 :"Mac OS X"'
-      - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
+    - 'DeviceClass                         :       20 :"Desktop"'
+    - 'DeviceBrand                         :       20 :"Apple"'
+    - 'DeviceName                          :       20 :"Apple Macintosh"'
+    - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
+    - 'OperatingSystemClass                :       20 :"Desktop"'
+    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
 
 - matcher:
     variable:
-      - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name="Mac OS X"'
-      - 'MacOSXVersion                       : @MacOSX^.version'
+    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name="Mac OS X"'
+    - 'MacOSXVersion                       :@MacOSX^.version'
     require:
-      - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
+    - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
-      - 'DeviceClass                         :       20 :"Desktop"'
-      - 'DeviceBrand                         :       20 :"Apple"'
-      - 'DeviceName                          :       20 :"Apple Macintosh"'
-      - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
-      - 'OperatingSystemClass                :       20 :"Desktop"'
-      - 'OperatingSystemName                 :       20 :"Mac OS X"'
-      - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
+    - 'DeviceClass                         :       20 :"Desktop"'
+    - 'DeviceBrand                         :       20 :"Apple"'
+    - 'DeviceName                          :       20 :"Apple Macintosh"'
+    - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
+    - 'OperatingSystemClass                :       20 :"Desktop"'
+    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
 
 - matcher:
     variable:
     - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name[2-4]="Mac OS X"'
-    - 'MacOSXVersion                       : @MacOSX^.version'
+    - 'MacOSXVersion                       :@MacOSX^.version'
     require:
     - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
     extract:
