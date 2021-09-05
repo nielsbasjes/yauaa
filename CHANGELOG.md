@@ -10,6 +10,7 @@ v6.1-SNAPSHOT
 - New/improved detections
   - Google Glass OS
   - Language flags in specific special places
+  - Microsoft Word
 - Updated UDF dependencies
   - Apache Flink            1.13.2
   - Apache Beam             2.32.0

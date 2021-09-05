@@ -342,6 +342,51 @@ config:
       AgentNameVersionMajor                : 'Microsoft Word 15'
 
 
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry="MS-Office rmj"'
+    extract:
+    - 'DeviceClass                         :        1 : "Desktop"'
+    - 'DeviceName                          :        1 : "Desktop"'
+    - 'OperatingSystemClass                :        1 : "Desktop"'
+    - 'LayoutEngineClass                   :       10 : "<<<null>>>"'
+    - 'LayoutEngineName                    :       10 : "<<<null>>>"'
+    - 'LayoutEngineVersion                 :       10 : "??"'
+    - 'AgentClass                          :       10 : "Special"'
+    - 'AgentName                           :       10 : "Microsoft Word"'
+    - 'AgentVersion                        :       10 : "??"'
+
+# https://github.com/nielsbasjes/yauaa/issues/301
+# Apparently this is send by MS Word 16.
+# Because this contains no indications about the version and/or the system it runs on the result
+# remains vague at best.
+- test:
+    input:
+      user_agent_string: 'Mozilla/4.0 (compatible; ms-office; MSOffice rmj)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Microsoft Word'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Microsoft Word ??'
+      AgentNameVersionMajor                : 'Microsoft Word ??'
+
+
 - test:
     input:
       user_agent_string: 'Microsoft Office/16.0 (Microsoft Outlook 16.0.10827; Pro)'
