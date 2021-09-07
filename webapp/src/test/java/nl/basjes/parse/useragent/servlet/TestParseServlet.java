@@ -69,20 +69,27 @@ public class TestParseServlet {
 
         HttpEntity<String> request = new HttpEntity<>("Are we there yet?", headers);
 
-        HttpStatus statusCode = null;
         LOG.info("Is running?");
 
-        while (statusCode != HttpStatus.OK) {
-            if (statusCode != null) {
-                LOG.info("No, not yet running (last code = {}).", statusCode);
-                if (--attemptsRemaining == 0) {
-                    throw new IllegalStateException("Unable to initialize the parser.");
-                }
+        boolean live = false;
+        boolean ready = false;
 
-            }
+        while (!live || !ready) {
             Thread.sleep(100); // NOSONAR java:S2925 Sleeping in a while loop is safe!
-            ResponseEntity<String> response = this.restTemplate.exchange(getAliveURI(), GET, request, String.class);
-            statusCode = response.getStatusCode();
+            live = this.restTemplate.exchange(getLiveURI(), GET, request, String.class).getStatusCode() == HttpStatus.OK;
+            if (live) {
+                ready = this.restTemplate.exchange(getReadyURI(), GET, request, String.class).getStatusCode() == HttpStatus.OK;
+                if (ready) {
+                    LOG.info("Status: alive and ready for processing");
+                } else {
+                    LOG.info("Status: alive and NOT ready for processing");
+                }
+            } else {
+                LOG.info("Status: Dead");
+            }
+            if (--attemptsRemaining == 0) {
+                throw new IllegalStateException("Unable to initialize the parser.");
+            }
         }
         LOG.info("Yes, it is running!");
     }
@@ -93,8 +100,11 @@ public class TestParseServlet {
 
     private static final String EXPECT_AGENT_NAME_VERSION = "Chrome 78.0.3904.97";
 
-    private URI getAliveURI() {
-        return getURI("/running");
+    private URI getLiveURI() {
+        return getURI("/liveness");
+    }
+    private URI getReadyURI() {
+        return getURI("/readiness");
     }
 
     private URI getAnalyzeURI() {
@@ -234,6 +244,15 @@ public class TestParseServlet {
 
     // ==========================================================================================
     // Status checks
+    @Test
+    public void statusLive() {
+        assertThat(doGET(TEXT_PLAIN, getURI("/liveness")).getBody()).contains("YES");
+    }
+
+    @Test
+    public void statusReady() {
+        assertThat(doGET(TEXT_PLAIN, getURI("/readiness")).getBody()).contains("YES");
+    }
 
     @Test
     public void statusRunning() {
