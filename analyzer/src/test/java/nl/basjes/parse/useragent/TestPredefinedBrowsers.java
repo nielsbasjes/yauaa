@@ -31,13 +31,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class TestPredefinedBrowsers {
 
-    private static final Logger LOG = LogManager.getLogger(TestPredefinedBrowsers.class);
+    private static final Logger LOG = LogManager.getFormatterLogger(TestPredefinedBrowsers.class);
 
     @Test
     void validateAllPredefinedBrowsers() {
@@ -93,6 +94,31 @@ class TestPredefinedBrowsers {
         fields.add("OperatingSystemVersionBuild");
         validateAllPredefinedBrowsersMultipleFields(fields);
     }
+
+    @Test
+    void validateAllPredefinedBrowsersViaTestCase() {
+        UserAgentAnalyzerTester uaa;
+        uaa = UserAgentAnalyzerTester.newBuilder().immediateInitialization().build();
+        LOG.info("==============================================================");
+        LOG.info("Validating when getting all fields");
+        LOG.info("--------------------------------------------------------------");
+
+        List<TestCase> testCases = uaa.getTestCases();
+        long start = System.nanoTime();
+        assertEquals(0, testCases.stream().filter(testCase -> !testCase.verify(uaa)).count());
+        long stop = System.nanoTime();
+
+        LOG.info("All %d tests passed in %dms (average %4.3fms per testcase).",
+            testCases.size(), (stop-start)/1_000_000, ((stop-start)/1_000_000D/testCases.size()));
+
+        LOG.info("--------------------------------------------------------------");
+        LOG.info("Running all tests again which should return the cached values");
+        assertEquals(0, testCases.stream().filter(testCase -> !testCase.verify(uaa)).count());
+
+        // Only here for ensuring the code being tested with "all fields".
+        uaa.destroy();
+    }
+
 
     @Test
     void makeSureWeDoNotHaveDuplicateTests() {

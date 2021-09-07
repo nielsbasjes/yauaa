@@ -17,12 +17,19 @@
 
 package nl.basjes.parse.useragent.config;
 
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.analyze.Analyzer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 
 public class TestCase implements Serializable {
     private final String userAgent;
@@ -79,6 +86,28 @@ public class TestCase implements Serializable {
 
     public void expect(String key, String value) {
         this.expected.put(key, value);
+    }
+
+    public boolean verify(Analyzer analyzer) {
+        UserAgent result = analyzer.parse(userAgent);
+
+        TreeSet<String> combinedKeys = new TreeSet<>();
+        combinedKeys.addAll(expected.keySet());
+        combinedKeys.addAll(result.toMap().keySet());
+        combinedKeys.remove(USERAGENT_FIELDNAME); // Remove the input "field" from the result set.
+        combinedKeys.remove(SYNTAX_ERROR);
+
+        for (String key : combinedKeys) {
+            String expectedValue = expected.get(key);
+            if (expectedValue == null) {
+                return false;
+            }
+            String actualValue = result.getValue(key);
+            if (!expectedValue.equals(actualValue)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

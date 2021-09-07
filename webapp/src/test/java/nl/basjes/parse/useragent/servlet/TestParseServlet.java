@@ -274,7 +274,7 @@ public class TestParseServlet {
 
     @Test
     public void runtests() {
-        assertThat(doGET(TEXT_PLAIN, getURI("/yauaa/v1/runtests")).getBody()).contains("All tests passed");
+        assertThat(doGET(TEXT_PLAIN, getURI("/yauaa/v1/runtests")).getBody()).contains("tests passed");
     }
 
 }

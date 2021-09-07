@@ -23,15 +23,16 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaTestsFailed;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static nl.basjes.parse.useragent.AnalyzerPreHeater.LOG;
-import static nl.basjes.parse.useragent.debug.AbstractUserAgentAnalyzerTester.runTests;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
@@ -85,11 +86,11 @@ public class RunTests {
         description = "All tests were good",
         content = @Content(
             mediaType = TEXT_PLAIN_VALUE,
-            examples = @ExampleObject("All tests passed")
+            examples = @ExampleObject("All 3866 tests passed in 2994ms (average 0.775ms per testcase).")
         )
     )
     @ApiResponse(
-        responseCode = "400", // HttpStatus.INTERNAL_SERVER_ERROR
+        responseCode = "500", // HttpStatus.INTERNAL_SERVER_ERROR
         description = "A test failed",
         content = @Content(
             mediaType = TEXT_PLAIN_VALUE,
@@ -101,20 +102,22 @@ public class RunTests {
         produces = TEXT_PLAIN_VALUE
     )
     public String getRunTests() {
-        // FIXME: See if we can do this without creating a new instance.
-        LOG.warn("Creating new instance of the analyzer to run the tests.");
-        UserAgentAnalyzerTester tester = UserAgentAnalyzerTester.newBuilder()
-            .hideMatcherLoadStats()
-            .addOptionalResources("file:UserAgents*/*.yaml")
-            .immediateInitialization()
-            .keepTests()
-            .build();
-        StringBuilder errorMessage = new StringBuilder();
-        boolean ok = runTests(tester, false, true, null, false, false, errorMessage);
-        if (ok) {
-            return "All tests passed";
+        UserAgentAnalyzer userAgentAnalyzer = ParseService.getUserAgentAnalyzer();
+        List<TestCase> testCases = userAgentAnalyzer.getTestCases();
+
+        long start = System.nanoTime();
+        List<TestCase> failedTests = testCases
+            .stream()
+            .filter(testCase -> !testCase.verify(userAgentAnalyzer))
+            .collect(Collectors.toList());
+        long stop = System.nanoTime();
+
+        if (failedTests.isEmpty()) {
+            return String.format("All %d tests passed in %dms (average %4.3fms per testcase).",
+                testCases.size(), (stop-start)/1_000_000, ((stop-start)/1_000_000D/testCases.size()));
         }
-        throw new YauaaTestsFailed(errorMessage.toString());
+        throw new YauaaTestsFailed("There were " + failedTests.size() + " failed tests " +
+            "(~"+ ((100.0D*failedTests.size()) / testCases.size()) +"%)");
     }
 
     // ===========================================
