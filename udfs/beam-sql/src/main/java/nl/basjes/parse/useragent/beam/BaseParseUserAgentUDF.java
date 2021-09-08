@@ -28,6 +28,7 @@ abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
             userAgentAnalyzer = UserAgentAnalyzer
                 .newBuilder()
                 .immediateInitialization()
+                .dropTests()
                 .build();
         }
         return userAgentAnalyzer;
