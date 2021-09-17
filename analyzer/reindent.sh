@@ -18,6 +18,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 sed -i "
+s@ - \+'@ - '@g
 s@^  *\([\"a-zA-Z_]\)@      \1@
 s@^  *config:@config:@
 s@^  *\(- '\)@    \1@

@@ -25,8 +25,8 @@ config:
 # Default in case there is a very bare set of comments.
 - matcher:
     require:
-    -  'agent.(1)product.comments.entry.(1-2)text="X11"'
-    -  'IsNull[agent.(1)product.(1)comments.(2)entry]'
+    - 'agent.(1)product.comments.entry.(1-2)text="X11"'
+    - 'IsNull[agent.(1)product.(1)comments.(2)entry]'
     extract:
     - 'DeviceClass                         :        1 :"Desktop"'
     - 'DeviceName                          :        1 :"Linux Desktop"'
@@ -35,7 +35,7 @@ config:
 
 - matcher:
     require:
-    -  'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
     extract:
     - 'DeviceClass                         :        5 :"Desktop"'
     - 'DeviceName                          :        5 :"Linux Desktop"'
@@ -46,7 +46,7 @@ config:
 # Some say something like "Linux i686 on x86_64". In this case the 'on' variant is the one we want.
 - matcher:
     require:
-      -  'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
     extract:
     - 'DeviceClass                         :        5 :"Desktop"'
     - 'DeviceName                          :        5 :"Linux Desktop"'
@@ -56,7 +56,7 @@ config:
 
 - matcher:
     require:
-    -  'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
     extract:
     - 'DeviceClass                         :        5 :"Desktop"'
     - 'DeviceName                          :        5 :"Linux Desktop"'
@@ -66,7 +66,7 @@ config:
 
 - matcher:
     require:
-    -  'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
     extract:
     - 'DeviceClass                         :        5 :"Desktop"'
     - 'DeviceName                          :        5 :"Linux Desktop"'
