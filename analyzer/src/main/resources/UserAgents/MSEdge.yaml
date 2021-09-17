@@ -133,7 +133,7 @@ config:
     - 'LayoutEngineVersion                 :     2015 :@EdgeHtmlVersionFirstWord'
     - 'AgentClass                          :     2016 :"Browser"'
     - 'AgentName                           :     2016 :"Edge"'
-    - 'AgentVersion                        :     2016 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersionFirstWord;"??"]'
+    - 'AgentVersion                        :     2016 :LookUp[EdgeHtmlVersionToEdgeVersion;@EdgeHtmlVersionFirstWord;"<<<null>>>"]'
 
 - matcher:
     variable:
@@ -830,7 +830,7 @@ config:
     - 'AgentName                           :    10000 :"Edge Webview"'
     - 'AgentVersion                        :     2500 :agent.(1)product.(1)comments.entry.(1-4)product.name="MSAppHost"^.version'
     - 'WebviewAppName                      :        0 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :        0 :"??"'
+    - 'WebviewAppVersion                   :        0 :"<<<null>>>"'
 
 - matcher:
     require:
@@ -840,7 +840,7 @@ config:
     - 'AgentName                           :    10000 :"Edge Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="MSAppHost"^.version'
     - 'WebviewAppName                      :        0 :"Unknown Webview App"'
-    - 'WebviewAppVersion                   :        0 :"??"'
+    - 'WebviewAppVersion                   :        0 :"<<<null>>>"'
 
 - test:
     input:

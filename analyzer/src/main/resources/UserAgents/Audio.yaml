@@ -68,7 +68,7 @@ config:
     - 'DeviceName                          :     1110 :@Device'
     - 'OperatingSystemClass                :     1501 :"Desktop"'
     - 'OperatingSystemName                 :     1501 :"Windows"'
-    - 'OperatingSystemVersion              :     1501 :"??"'
+    - 'OperatingSystemVersion              :     1501 :"<<<null>>>"'
 
 # Spotify Win64
 - matcher:
@@ -81,7 +81,7 @@ config:
     - 'DeviceName                          :     1110 :@Device'
     - 'OperatingSystemClass                :     1501 :"Desktop"'
     - 'OperatingSystemName                 :     1501 :"Windows"'
-    - 'OperatingSystemVersion              :     1501 :"??"'
+    - 'OperatingSystemVersion              :     1501 :"<<<null>>>"'
 
 # Spotify Android
 - matcher:
@@ -95,7 +95,7 @@ config:
     - 'DeviceBrand                         :     1400 : LookUpPrefix[MobileBrandPrefixes;@Device;"<<<null>>>"]'
     - 'OperatingSystemClass                :     1501 :"Mobile"'
     - 'OperatingSystemName                 :     1501 :"Android"'
-    - 'OperatingSystemVersion              :     1501 :LookUp[AndroidAPIToVersionMap;@System^.version;"??"]'
+    - 'OperatingSystemVersion              :     1501 :LookUp[AndroidAPIToVersionMap;@System^.version;"<<<null>>>"]'
     - 'LayoutEngineClass                   :       11 : "<<<null>>>"'
     - 'LayoutEngineName                    :       11 : "<<<null>>>"'
     - 'AgentClass                          :      100 :"Special"'
@@ -265,7 +265,7 @@ config:
     - 'DeviceVersion                       :      105 :@EchoDevice^.version'
     - 'OperatingSystemClass                :       10 : "Mobile"'
     - 'OperatingSystemName                 :       10 : "FireOS"'
-    - 'OperatingSystemVersion              :       10 : "??"'
+    - 'OperatingSystemVersion              :       10 : "<<<null>>>"'
     - 'AgentClass                          :      106 :"Voice"'
 
 - matcher:
@@ -372,7 +372,7 @@ config:
     - 'DeviceBrand                         :     1400 : "Sonos"'
     - 'OperatingSystemClass                :     1501 :"Embedded"'
     - 'OperatingSystemName                 :     1501 :"Linux"'
-    - 'OperatingSystemVersion              :     1501 :"??"'
+    - 'OperatingSystemVersion              :     1501 :"<<<null>>>"'
     - 'AgentClass                          :      100 :"Special"'
     - 'AgentName                           :      100 :"Sonos"'
     - 'AgentVersion                        :      100 :@Sonos^.version'

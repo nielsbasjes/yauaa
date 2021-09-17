@@ -93,7 +93,7 @@ config:
     - 'DeviceName                          :        5 :"Linux Desktop"'
     - 'OperatingSystemClass                :        5 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        1 :"??"'
+    - 'OperatingSystemVersion              :        1 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -101,7 +101,7 @@ config:
     require:
     - 'IsNull[LookUp[CPUArchitectures;@LinuxVersion]]'
     extract:
-#        - 'DeviceCpu             :   1:"??"'
+#        - 'DeviceCpu             :   1:"<<<null>>>"'
     - 'OperatingSystemVersion              :        5 :@LinuxVersion'
 
 - matcher:
@@ -121,7 +121,7 @@ config:
     - 'DeviceName                          :        4 :"Linux Desktop"'
     - 'OperatingSystemClass                :        3 :"Desktop"'
     - 'OperatingSystemName                 :        3 :"Linux"'
-    - 'OperatingSystemVersion              :        0 :"??"'
+    - 'OperatingSystemVersion              :        0 :"<<<null>>>"'
 
 - matcher:
     require:
@@ -131,7 +131,7 @@ config:
     - 'DeviceName                          :     3004 :"Linux Desktop"'
     - 'OperatingSystemClass                :     3003 :"Desktop"'
     - 'OperatingSystemName                 :     3003 :"Linux"'
-    - 'OperatingSystemVersion              :     3000 :"??"'
+    - 'OperatingSystemVersion              :     3000 :"<<<null>>>"'
 
 - test:
     input:
@@ -948,7 +948,7 @@ config:
 #        - 'DeviceName            :   5:"Linux Desktop"'
 #        - 'OperatingSystemClass  :   100:"Desktop"'
 #        - 'OperatingSystemName   :   100:"Fedora Linux"'
-#        - 'OperatingSystemVersion:   100:"??"'
+#        - 'OperatingSystemVersion:   100:"<<<null>>>"'
 #
 #  - matcher:
 #      extract:

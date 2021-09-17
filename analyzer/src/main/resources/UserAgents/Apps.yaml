@@ -57,10 +57,10 @@ config:
     - 'OperatingSystemVersion              :       10 :agent.(3)product.name="Darwin"^.version'
     - 'LayoutEngineClass                   :       10 :"Mobile App"'
     - 'LayoutEngineName                    :       10 :@AgentName'
-    - 'LayoutEngineVersion                 :        6 :"??"'
+    - 'LayoutEngineVersion                 :        6 :"<<<null>>>"'
     - 'AgentClass                          :       10 :"Mobile App"'
     - 'AgentName                           :       10 :@AgentName'
-    - 'AgentVersion                        :        6 :"??"'
+    - 'AgentVersion                        :        6 :"<<<null>>>"'
 
 - matcher:
     require:
@@ -1315,7 +1315,7 @@ config:
     extract:
     - 'AgentClass                          :      100 :"Mobile App"'
     - 'AgentName                           :      100 : Concat["EmbeddedBrowser ";@Product.name]'
-    - 'AgentVersion                        :      100 : "??"'
+    - 'AgentVersion                        :      100 : "<<<null>>>"'
 
 
 - test:
@@ -1524,7 +1524,7 @@ config:
     extract:
     - 'AgentClass                          :      100 : "Mobile App"'
     - 'AgentName                           :      100 : "ntvmobil"'
-    - 'AgentVersion                        :      100 : "??"'
+    - 'AgentVersion                        :      100 : "<<<null>>>"'
 
 
   ## Really special with json part.
