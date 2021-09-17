@@ -23,12 +23,28 @@ import java.util.Objects;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 
 public interface AgentField extends Serializable {
+
+    /**
+     * What is the value we have for this field?
+     * If we do not know you'll get the default value that has been defined (which may be null).
+     */
     String getValue();
 
+    /**
+     * @return How certain are we about this value?
+     * <0 : We are uncertain.
+     * 0>= : The higher the more confident.
+     */
     long getConfidence();
 
+    /**
+     * @return Is the value you are getting the default (i.e. we do not know what this is)?
+     */
     boolean isDefaultValue();
 
+    /**
+     * @return The default value for this field in case we do not know what this is.
+     */
     String getDefaultValue();
 
     default boolean afEquals(Object o) {
@@ -110,13 +126,7 @@ public interface AgentField extends Serializable {
 
         public boolean setValue(String newValue, long newConfidence) {
             if (newConfidence > this.confidence) {
-                this.confidence = newConfidence;
-
-                if (NULL_VALUE.equals(newValue)) {
-                    this.value = null;
-                } else {
-                    this.value = newValue;
-                }
+                setValueForced(newValue, newConfidence);
                 return true;
             }
             return false;
@@ -132,6 +142,7 @@ public interface AgentField extends Serializable {
             }
         }
 
+        @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
         @Override
         public boolean equals(Object o) {
             return afEquals(o);
@@ -188,6 +199,7 @@ public interface AgentField extends Serializable {
             return defaultValue;
         }
 
+        @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
         @Override
         public boolean equals(Object o) {
             return afEquals(o);

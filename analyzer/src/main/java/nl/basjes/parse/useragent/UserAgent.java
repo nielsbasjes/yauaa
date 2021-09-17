@@ -548,6 +548,7 @@ public interface UserAgent extends Serializable {
             this.debug = newDebug;
         }
 
+        @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
         @Override
         public boolean equals(Object o) {
             return uaEquals(o);
@@ -844,6 +845,7 @@ public interface UserAgent extends Serializable {
             return availableFieldNamesSorted;
         }
 
+        @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
         @Override
         public boolean equals(Object o) {
             return uaEquals(o);
