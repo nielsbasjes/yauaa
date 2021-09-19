@@ -497,28 +497,25 @@ For the sake of demo if I simply put this testcase in the yaml file
 
 This would also show as test output:
 
-    INFO  UserAgentAnalyzerTester:320 - +--------+------------------------------+-------------+------------+------------+
-    INFO  UserAgentAnalyzerTester:337 - | Result | Field                        | Actual      | Confidence | Expected   |
-    INFO  UserAgentAnalyzerTester:339 - +--------+------------------------------+-------------+------------+------------+
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | DeviceClass                  | Unknown     |         -1 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | DeviceName                   | Unknown     |         -1 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemClass         | Unknown     |         -1 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemName          | Unknown     |         -1 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemVersion       | ??          |         -1 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineClass            | Browser     |          3 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineName             | Mozilla     |          3 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineVersion          | 5.0         |          3 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineVersionMajor     | 5           |          3 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineNameVersion      | Mozilla 5.0 |          3 | <<absent>> |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineNameVersionMajor | Mozilla 5   |          3 | <<absent>> |
-    INFO  UserAgentAnalyzerTester:371 - |        | AgentClass                   | Browser     |         10 |            |
-    INFO  UserAgentAnalyzerTester:371 - |        | AgentName                    | Foo         |         10 |            |
-    INFO  UserAgentAnalyzerTester:371 - |        | AgentVersion                 | 3.1         |         10 |            |
-    INFO  UserAgentAnalyzerTester:371 - |        | AgentVersionMajor            | 3           |         10 |            |
-    INFO  UserAgentAnalyzerTester:371 - |        | AgentNameVersion             | Foo 3.1     |         10 |            |
-    INFO  UserAgentAnalyzerTester:371 - |        | AgentNameVersionMajor        | Foo 3       |         10 |            |
-    ERROR UserAgentAnalyzerTester:381 - | -FAIL- | MinorFooVersion              | <<<null>>>  |          0 | 1          |
-    INFO  UserAgentAnalyzerTester:386 - +--------+------------------------------+-------------+------------+------------+
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: | Result | Field                        | Actual      | Default | Confidence | Expected   |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineClass            | Browser     |         |          3 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineName             | Mozilla     |         |          3 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineVersion          | 5.0         |         |          3 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineVersionMajor     | 5           |         |          3 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineNameVersion      | Mozilla 5.0 |         |          3 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineNameVersionMajor | Mozilla 5   |         |          3 | <<absent>> |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentClass                   | Browser     |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentName                    | Foo         |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentVersion                 | 3.1         |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentVersionMajor            | 3           |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentNameVersion             | Foo 3.1     |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentNameVersionMajor        | Foo 3       |         |         10 |            |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | AgentLanguage                | Bavarian    |         |     500006 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | AgentLanguageCode            | bar         |         |     500006 | <<absent>> |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | MinorFooVersion              | ??          | Default |         -1 | 1          |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
 
 As you can see the system will fail on missing fields, unexpected fields and wrong values.
 
@@ -538,6 +535,21 @@ then the test will fail with messages like this:
 
 Note that these do not need to be the 'winning' value.
 The existence of the ambiguity is enough to fail.
+
+The Known, the Unknown and the faker
+======================
+In most cases an `extract` will put a value (`Mozilla`) into a field with a confidence.
+
+In addition to this normal case there are two additional cases that need to be covered:
+1) We use the special value `<<<null>>>` if we do not know the value (i.e. the end result should say `Unknown` or `??`) and we do want the post processing to try and fill the field with an alternative.
+   - This is then labeled as Default.
+   - Example: We do not know the DeviceBrand and as a fall back the hostname in the URL (if any) is used.
+
+
+2) We simply use something like `Unknown` or `??` if we do not know the value (i.e. the end result should say `Unknown` or `??`) and we are sure we do NOT want any post processing to try and find something better.
+   - This is then labeled as __not__ Default.
+   - Example: We do not know the DeviceBrand because it matched the pattern of a GoogleBot immitator and we do not want to see `Google` as the brand.
+
 
 Wiping values
 =============
