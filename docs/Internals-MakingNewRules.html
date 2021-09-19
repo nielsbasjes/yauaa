@@ -1296,28 +1296,25 @@ For the sake of demo if I simply put this testcase in the yaml file</p>
       AgentNameVersionMajor                : &apos;Foo 3&apos;
       MinorFooVersion                      : &apos;1&apos;
 </code></pre><p>This would also show as test output:</p>
-<pre><code>INFO  UserAgentAnalyzerTester:320 - +--------+------------------------------+-------------+------------+------------+
-INFO  UserAgentAnalyzerTester:337 - | Result | Field                        | Actual      | Confidence | Expected   |
-INFO  UserAgentAnalyzerTester:339 - +--------+------------------------------+-------------+------------+------------+
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | DeviceClass                  | Unknown     |         -1 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | DeviceName                   | Unknown     |         -1 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemClass         | Unknown     |         -1 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemName          | Unknown     |         -1 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | OperatingSystemVersion       | ??          |         -1 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineClass            | Browser     |          3 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineName             | Mozilla     |          3 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineVersion          | 5.0         |          3 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineVersionMajor     | 5           |          3 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineNameVersion      | Mozilla 5.0 |          3 | &lt;&lt;absent&gt;&gt; |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | LayoutEngineNameVersionMajor | Mozilla 5   |          3 | &lt;&lt;absent&gt;&gt; |
-INFO  UserAgentAnalyzerTester:371 - |        | AgentClass                   | Browser     |         10 |            |
-INFO  UserAgentAnalyzerTester:371 - |        | AgentName                    | Foo         |         10 |            |
-INFO  UserAgentAnalyzerTester:371 - |        | AgentVersion                 | 3.1         |         10 |            |
-INFO  UserAgentAnalyzerTester:371 - |        | AgentVersionMajor            | 3           |         10 |            |
-INFO  UserAgentAnalyzerTester:371 - |        | AgentNameVersion             | Foo 3.1     |         10 |            |
-INFO  UserAgentAnalyzerTester:371 - |        | AgentNameVersionMajor        | Foo 3       |         10 |            |
-ERROR UserAgentAnalyzerTester:381 - | -FAIL- | MinorFooVersion              | &lt;&lt;&lt;null&gt;&gt;&gt;  |          0 | 1          |
-INFO  UserAgentAnalyzerTester:386 - +--------+------------------------------+-------------+------------+------------+
+<pre><code>[INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: | Result | Field                        | Actual      | Default | Confidence | Expected   |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineClass            | Browser     |         |          3 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineName             | Mozilla     |         |          3 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineVersion          | 5.0         |         |          3 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineVersionMajor     | 5           |         |          3 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineNameVersion      | Mozilla 5.0 |         |          3 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineNameVersionMajor | Mozilla 5   |         |          3 | &lt;&lt;absent&gt;&gt; |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentClass                   | Browser     |         |         10 |            |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentName                    | Foo         |         |         10 |            |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentVersion                 | 3.1         |         |         10 |            |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentVersionMajor            | 3           |         |         10 |            |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentNameVersion             | Foo 3.1     |         |         10 |            |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentNameVersionMajor        | Foo 3       |         |         10 |            |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | AgentLanguage                | Bavarian    |         |     500006 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | AgentLanguageCode            | bar         |         |     500006 | &lt;&lt;absent&gt;&gt; |
+[ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | MinorFooVersion              | ??          | Default |         -1 | 1          |
+[INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
 </code></pre><p>As you can see the system will fail on missing fields, unexpected fields and wrong values.</p>
 <p>If you create rules that in one of the test cases produce for the same field different values with the same confidence
 then the test will fail with messages like this:</p>
@@ -1333,6 +1330,19 @@ then the test will fail with messages like this:</p>
  - Found different value for &quot;OperatingSystemVersion&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;??&quot;
 </code></pre><p>Note that these do not need to be the &apos;winning&apos; value.
 The existence of the ambiguity is enough to fail.</p>
+<h1 id="the-known-the-unknown-and-the-faker">The Known, the Unknown and the faker</h1>
+<p>In most cases an <code>extract</code> will put a value (<code>Mozilla</code>) into a field with a confidence.</p>
+<p>In addition to this normal case there are two additional cases that need to be covered:
+1) We use the special value <code>&lt;&lt;&lt;null&gt;&gt;&gt;</code> if we do not know the value (i.e. the end result should say <code>Unknown</code> or <code>??</code>) and we do want the post processing to try and fill the field with an alternative.</p>
+<ul>
+<li>This is then labeled as Default.</li>
+<li>Example: We do not know the DeviceBrand and as a fall back the hostname in the URL (if any) is used.</li>
+</ul>
+<p>2) We simply use something like <code>Unknown</code> or <code>??</code> if we do not know the value (i.e. the end result should say <code>Unknown</code> or <code>??</code>) and we are sure we do NOT want any post processing to try and find something better.</p>
+<ul>
+<li>This is then labeled as <strong>not</strong> Default.</li>
+<li>Example: We do not know the DeviceBrand because it matched the pattern of a GoogleBot immitator and we do not want to see <code>Google</code> as the brand.</li>
+</ul>
 <h1 id="wiping-values">Wiping values</h1>
 <p>In some cases a previously defined value needs to be erased with a higher confidence.
 To achieve this simply set the value to <code>&lt;&lt;&lt;null&gt;&gt;&gt;</code></p>
@@ -1438,7 +1448,7 @@ extract:
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Shading Java dependencies","level":"4.3","depth":1,"path":"NOTES-shading-dependencies.md","ref":"NOTES-shading-dependencies.md","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"6.0"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2021-04-21T09:43:32.723Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-05T12:57:41.548Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Making new rules","level":"4.2","depth":1,"next":{"title":"Shading Java dependencies","level":"4.3","depth":1,"path":"NOTES-shading-dependencies.md","ref":"NOTES-shading-dependencies.md","articles":[]},"previous":{"title":"Base design idea","level":"4.1","depth":1,"path":"Internals-BaseDesign.md","ref":"Internals-BaseDesign.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"6.0"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"Internals-MakingNewRules.md","mtime":"2021-09-19T08:33:28.643Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-09-19T08:34:53.316Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -622,6 +622,21 @@ Only limited testing has been done.</p>
 </code></pre>
 
 <h2 id="available-functions">Available functions</h2>
+<h3 id="getting-a-single-value">Getting a single value</h3>
+<p>To get a single value from the parse result use this one:</p>
+<pre><code>ParseUserAgentField(userAgent, &apos;DeviceClass&apos;)  AS deviceClassField
+</code></pre><p>to give</p>
+<pre><code>Phone
+</code></pre><h3 id="getting-several-values-as-a-map-requires-apache-beam-2340-or-newer">Getting several values as a Map (requires Apache Beam 2.34.0 or newer)</h3>
+<p>You can ask for a all fields and return the full map with all of them in there.</p>
+<pre><code>ParseUserAgent(userAgent)                                    AS allFields
+</code></pre><p>If you need multiple fields but not all of them you can speed up the analysis by only asking for those specific fields:</p>
+<pre><code>ParseUserAgent(userAgent, &apos;DeviceClass&apos;, &apos;AgentNameVersion&apos;) AS someFields
+</code></pre><p>With such a map you can then extract the field you really need with SQL syntax similar to this:</p>
+<pre><code>ParseUserAgent(userAgent, &apos;DeviceClass&apos;)[&apos;DeviceClass&apos;]      AS deviceClass
+
+ParseUserAgent(userAgent)[&apos;AgentNameVersion&apos;]                AS agentNameVersion
+</code></pre><h3 id="getting-several-values-as-json">Getting several values as JSon</h3>
 <p>Assuming the input</p>
 <pre><code>Mozilla\/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
 </code></pre><p>To parse this input value into all possible values and returns the complete result as a single JSon string use this:</p>
@@ -636,10 +651,6 @@ Only limited testing has been done.</p>
 <pre><code>ParseUserAgentJson(userAgent, &apos;DeviceClass&apos;, &apos;AgentNameVersion&apos;)
 </code></pre><p>to give</p>
 <pre><code>{&quot;DeviceClass&quot;:&quot;Phone&quot;,&quot;AgentNameVersion&quot;:&quot;Chrome 53.0.2785.124&quot;}
-</code></pre><p>To get a single value from the parse result use this one:</p>
-<pre><code>ParseUserAgentField(userAgent, &apos;DeviceClass&apos;)
-</code></pre><p>to give</p>
-<pre><code>Phone
 </code></pre><h2 id="example-usage">Example usage</h2>
 <p>Assume you have a PCollection with your records.</p>
 <pre><code>PCollection&lt;Row&gt; input = ...
@@ -647,27 +658,32 @@ Only limited testing has been done.</p>
 You have to name the input (in this example we call it InputStream),
 and you have to register the UDF classes you want to use with the name you want to have in your SQL statement.</p>
 <pre><code>PCollection&lt;Row&gt; result =
-    // This way we give a name to the input stream for use in the SQL
-    PCollectionTuple.of(&quot;InputStream&quot;, input)
-        // Apply the SQL with the UDFs we need.
-        .apply(&quot;Execute SQL&quot;, SqlTransform
-            .query(&quot;SELECT&quot; +
-                   &quot;    userAgent                                            AS userAgent, &quot; +
-                   &quot;    ParseUserAgentJson(userAgent)                        AS parsedUserAgentJson, &quot; +
-                   &quot;    ParseUserAgentField(userAgent, &apos;DeviceClass&apos;)        AS deviceClass, &quot; +
-                   &quot;    ParseUserAgentField(userAgent, &apos;AgentNameVersion&apos;)   AS agentNameVersion &quot; +
-                   &quot;FROM InputStream&quot;)
-            .registerUdf(&quot;ParseUserAgentJson&quot;,  ParseUserAgentJson.class)
-            .registerUdf(&quot;ParseUserAgentField&quot;, ParseUserAgentField.class)
-        );
+  // This way we give a name to the input stream for use in the SQL
+  PCollectionTuple.of(&quot;InputStream&quot;, input)
+    // Apply the SQL with the UDFs we need.
+    .apply(&quot;Execute SQL&quot;, SqlTransform
+      .query(
+        &quot;SELECT&quot; +
+        &quot;    userAgent                                                     AS userAgent, &quot; +
+        &quot;    ParseUserAgent(userAgent, &apos;DeviceClass&apos;, &apos;AgentNameVersion&apos;)  AS parsedUserAgentMap, &quot; +
+        &quot;    ParseUserAgentJson(userAgent)                                 AS parsedUserAgentJson, &quot; +
+        &quot;    ParseUserAgentField(userAgent, &apos;DeviceClass&apos;)                 AS deviceClass, &quot; +
+        &quot;    ParseUserAgentField(userAgent, &apos;AgentNameVersion&apos;)            AS agentNameVersion &quot; +
+        &quot;FROM InputStream&quot;)
+      .registerUdf(&quot;ParseUserAgent&quot;,      ParseUserAgent.class)
+      .registerUdf(&quot;ParseUserAgentJson&quot;,  ParseUserAgentJson.class)
+      .registerUdf(&quot;ParseUserAgentField&quot;, ParseUserAgentField.class)
+    );
 </code></pre><h2 id="limitations--future">Limitations / Future</h2>
-<p>Simply returning a Map of all keys and values is not yet possible because Apache Beam uses an older version of Calcite.</p>
+<p>Simply returning a Map of all keys and values is not yet possible because Apache Beam uses an older version of Calcite.
+This will be fixed with Apache Beam version 2.34.0.</p>
+<p>See also:</p>
 <ul>
 <li><a href="https://issues.apache.org/jira/browse/BEAM-9267" target="_blank">https://issues.apache.org/jira/browse/BEAM-9267</a></li>
 <li><a href="https://issues.apache.org/jira/browse/BEAM-9379" target="_blank">https://issues.apache.org/jira/browse/BEAM-9379</a></li>
 <li><a href="https://github.com/apache/beam/pull/12962" target="_blank">https://github.com/apache/beam/pull/12962</a></li>
 </ul>
-<p>The <code>ParseUserAgentJson</code> has a limitation of at most 10 fieldnames because Calcite does not yet support variable arguments for UDFs.</p>
+<p>The <code>ParseUserAgent</code> and <code>ParseUserAgentJson</code> have a limitation of at most 10 fieldnames because Calcite does not yet support variable arguments for UDFs.</p>
 <ul>
 <li><a href="https://issues.apache.org/jira/browse/CALCITE-2772" target="_blank">https://issues.apache.org/jira/browse/CALCITE-2772</a></li>
 </ul>
@@ -714,7 +730,7 @@ and you have to register the UDF classes you want to use with the name you want 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Apache Beam SQL","level":"3.4","depth":1,"next":{"title":"Apache Drill","level":"3.5","depth":1,"path":"UDF-ApacheDrill.md","ref":"UDF-ApacheDrill.md","articles":[]},"previous":{"title":"Apache Beam","level":"3.3","depth":1,"path":"UDF-ApacheBeam.md","ref":"UDF-ApacheBeam.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"6.0"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheBeamSql.md","mtime":"2021-05-02T08:00:33.781Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-05T12:57:41.548Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Apache Beam SQL","level":"3.4","depth":1,"next":{"title":"Apache Drill","level":"3.5","depth":1,"path":"UDF-ApacheDrill.md","ref":"UDF-ApacheDrill.md","articles":[]},"previous":{"title":"Apache Beam","level":"3.3","depth":1,"path":"UDF-ApacheBeam.md","ref":"UDF-ApacheBeam.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./main/docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"version":"3.2.3","YauaaVersion":"6.0"},"title":"Yauaa: Yet Another UserAgent Analyzer","gitbook":"3.2.3"},"file":{"path":"UDF-ApacheBeamSql.md","mtime":"2021-09-08T14:09:49.512Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-09-19T08:34:53.316Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
