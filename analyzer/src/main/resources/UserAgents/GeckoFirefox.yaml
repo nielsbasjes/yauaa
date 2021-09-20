@@ -1123,3 +1123,34 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'Ghostery 3.0'
       AgentNameVersionMajor                : 'Ghostery 3'
+
+
+# Testcase mentioned in https://github.com/nielsbasjes/yauaa/issues/312
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:62.0) Gecko/20100101 Firefox/62.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Ubuntu ??'
+      OperatingSystemNameVersionMajor      : 'Ubuntu ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '62.0'
+      LayoutEngineVersionMajor             : '62'
+      LayoutEngineNameVersion              : 'Gecko 62.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 62'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '62.0'
+      AgentVersionMajor                    : '62'
+      AgentNameVersion                     : 'Firefox 62.0'
+      AgentNameVersionMajor                : 'Firefox 62'
