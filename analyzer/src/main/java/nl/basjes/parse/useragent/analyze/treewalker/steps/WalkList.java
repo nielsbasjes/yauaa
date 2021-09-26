@@ -111,6 +111,19 @@ import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
 import static nl.basjes.parse.useragent.parse.AgentPathFragment.AGENT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.BASE64;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.COMMENTS;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.EMAIL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.ENTRY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEY;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.KEYVALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.NAME;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.PRODUCT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.TEXT;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.URL;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.UUID;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VALUE;
+import static nl.basjes.parse.useragent.parse.AgentPathFragment.VERSION;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 
@@ -550,67 +563,93 @@ public class WalkList implements Serializable {
 
         @Override
         public Void visitStepDownProduct(UserAgentTreeWalkerParser.StepDownProductContext ctx) {
-            return super.visitStepDownProduct(ctx);
+            add(new StepDown(ctx.numberRange(), PRODUCT));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownName(UserAgentTreeWalkerParser.StepDownNameContext ctx) {
-            return super.visitStepDownName(ctx);
+            add(new StepDown(ctx.numberRange(), NAME));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownVersion(UserAgentTreeWalkerParser.StepDownVersionContext ctx) {
-            return super.visitStepDownVersion(ctx);
+            add(new StepDown(ctx.numberRange(), VERSION));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownComments(UserAgentTreeWalkerParser.StepDownCommentsContext ctx) {
-            return super.visitStepDownComments(ctx);
+            add(new StepDown(ctx.numberRange(), COMMENTS));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownEntry(UserAgentTreeWalkerParser.StepDownEntryContext ctx) {
-            return super.visitStepDownEntry(ctx);
+            add(new StepDown(ctx.numberRange(), ENTRY));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownText(UserAgentTreeWalkerParser.StepDownTextContext ctx) {
-            return super.visitStepDownText(ctx);
+            add(new StepDown(ctx.numberRange(), TEXT));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownUrl(UserAgentTreeWalkerParser.StepDownUrlContext ctx) {
-            return super.visitStepDownUrl(ctx);
+            add(new StepDown(ctx.numberRange(), URL));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownEmail(UserAgentTreeWalkerParser.StepDownEmailContext ctx) {
-            return super.visitStepDownEmail(ctx);
+            add(new StepDown(ctx.numberRange(), EMAIL));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownBase64(UserAgentTreeWalkerParser.StepDownBase64Context ctx) {
-            return super.visitStepDownBase64(ctx);
+            add(new StepDown(ctx.numberRange(), BASE64));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownUuid(UserAgentTreeWalkerParser.StepDownUuidContext ctx) {
-            return super.visitStepDownUuid(ctx);
+            add(new StepDown(ctx.numberRange(), UUID));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownKeyvalue(UserAgentTreeWalkerParser.StepDownKeyvalueContext ctx) {
-            return super.visitStepDownKeyvalue(ctx);
+            add(new StepDown(ctx.numberRange(), KEYVALUE));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownKey(UserAgentTreeWalkerParser.StepDownKeyContext ctx) {
-            return super.visitStepDownKey(ctx);
+            add(new StepDown(ctx.numberRange(), KEY));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override
         public Void visitStepDownValue(UserAgentTreeWalkerParser.StepDownValueContext ctx) {
-            return super.visitStepDownValue(ctx);
+            add(new StepDown(ctx.numberRange(), VALUE));
+            visitNext(ctx.nextStep);
+            return null; // Void
         }
 
         @Override

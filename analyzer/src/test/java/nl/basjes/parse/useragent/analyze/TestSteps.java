@@ -51,7 +51,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepNextN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
-import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;

@@ -80,7 +80,7 @@ public class StepDown extends Step {
     }
 
     public StepDown(NumberRangeList numberRange, AgentPathFragment pathFragment) {
-        this.name = pathFragment.name();
+        this.name = pathFragment.getPathName();
         this.start = numberRange.getStart();
         this.end = numberRange.getEnd();
         setDefaultFieldValues();

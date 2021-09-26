@@ -209,7 +209,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
         // Walk the tree an inform the calling analyzer about all the nodes found
         state = new ParseTreeProperty<>();
 
-        State rootState = new State(AGENT.name());
+        State rootState = new State(AGENT.getPathName());
         rootState.calculatePath(PathType.CHILD, false);
         state.put(userAgentContext, rootState);
 
@@ -234,11 +234,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private String inform(ParseTree ctx, AgentPathFragment path) {
-        return inform(ctx, path.name(), getSourceText((ParserRuleContext)ctx));
+        return inform(ctx, path.getPathName(), getSourceText((ParserRuleContext)ctx));
     }
 
     private String inform(ParseTree ctx, AgentPathFragment name, String value) {
-        return inform(ctx, ctx, name.name(), value, false);
+        return inform(ctx, ctx, name.getPathName(), value, false);
     }
 
     private String inform(ParseTree ctx, String name, String value, boolean fakeChild) {
@@ -413,11 +413,11 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
     }
 
     private void informSubstrings(ParserRuleContext ctx, AgentPathFragment name, boolean fakeChild) {
-        informSubstrings(ctx, name.name(), fakeChild, WordSplitter.getInstance());
+        informSubstrings(ctx, name.getPathName(), fakeChild, WordSplitter.getInstance());
     }
 
     private void informSubVersions(ParserRuleContext ctx) {
-        informSubstrings(ctx, VERSION.name(), false, VersionSplitter.getInstance());
+        informSubstrings(ctx, VERSION.getPathName(), false, VersionSplitter.getInstance());
     }
 
     private void informSubstrings(ParserRuleContext ctx, String name, boolean fakeChild, Splitter splitter) {

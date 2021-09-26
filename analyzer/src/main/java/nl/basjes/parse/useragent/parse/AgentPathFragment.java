@@ -43,20 +43,24 @@ public enum AgentPathFragment {
 //    // Syntax Error
 //    SYNTAX_ERROR("__SyntaxError__");
 
-    private final String name;
+    private final String pathName;
 
     AgentPathFragment(String s) {
-        name = s;
+        pathName = s;
     }
 
-    public boolean equals(String otherName) {
-        // (otherName == null) check is not needed because name.equals(null) returns false
-        return name.equals(otherName);
+//    public boolean equals(String otherName) {
+//        // (otherName == null) check is not needed because name.equals(null) returns false
+//        return pathName.equals(otherName);
+//    }
+
+    public String getPathName() {
+        return pathName;
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.pathName;
     }
 
 }

@@ -18,6 +18,19 @@
 package nl.basjes.parse.useragent.analyze;
 
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownAgentContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownNameContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownVersionContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownCommentsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEntryContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownProductContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownEmailContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownKeyvalueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownTextContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUrlContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownUuidContext;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.HashMap;
@@ -30,34 +43,33 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberR
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeSingleValueContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToOpenEndContext;
-import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepDownContext;
 
 public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
 
     private static final Integer DEFAULT_MIN = 1;
     private static final Integer DEFAULT_MAX = 10;
 
-    private static final Map<String, Integer> MAX_RANGE = new HashMap<>();
+    private static final Map<Class<? extends ParserRuleContext>, Integer> MAX_RANGE = new HashMap<>();
 
     static {
         // Hardcoded maximum values because of the parsing rules
-        MAX_RANGE.put("agent",                1);
-        MAX_RANGE.put("name",                 1);
-        MAX_RANGE.put("key",                  1);
+        MAX_RANGE.put(StepDownAgentContext.class,                1);
+        MAX_RANGE.put(StepDownNameContext.class,                 1);
+        MAX_RANGE.put(StepDownKeyContext.class,                  1);
 
         // Did statistics on over 200K real useragents from 2015.
         // These are the maximum values from that test set (+ a little margin)
-        MAX_RANGE.put("value",                2); // Max was 2
-        MAX_RANGE.put("version",              4); // Max was 4
-        MAX_RANGE.put("comments",             2); // Max was 2
-        MAX_RANGE.put("entry",               20); // Max was much higher
-        MAX_RANGE.put("product",             10); // Max was much higher
+        MAX_RANGE.put(StepDownValueContext.class,                2); // Max was 2
+        MAX_RANGE.put(StepDownVersionContext.class,              4); // Max was 4
+        MAX_RANGE.put(StepDownCommentsContext.class,             2); // Max was 2
+        MAX_RANGE.put(StepDownEntryContext.class,               20); // Max was much higher
+        MAX_RANGE.put(StepDownProductContext.class,             10); // Max was much higher
 
-        MAX_RANGE.put("email",                2);
-        MAX_RANGE.put("keyvalue",             3);
-        MAX_RANGE.put("text",                 8);
-        MAX_RANGE.put("url",                  2);
-        MAX_RANGE.put("uuid",                 2);
+        MAX_RANGE.put(StepDownEmailContext.class,                2);
+        MAX_RANGE.put(StepDownKeyvalueContext.class,             3);
+        MAX_RANGE.put(StepDownTextContext.class,                 8);
+        MAX_RANGE.put(StepDownUrlContext.class,                  2);
+        MAX_RANGE.put(StepDownUuidContext.class,                 2);
     }
 
     private NumberRangeVisitor() {
@@ -65,8 +77,7 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
 
     private static Integer getMaxRange(NumberRangeContext ctx) {
         ParserRuleContext parent = ctx.getParent();
-        String name = ((StepDownContext) parent).name.getText();
-        Integer maxRange = MAX_RANGE.get(name);
+        Integer maxRange = MAX_RANGE.get(parent.getClass());
         if (maxRange == null) {
             return DEFAULT_MAX;
         }
