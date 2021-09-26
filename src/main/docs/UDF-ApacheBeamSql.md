@@ -99,13 +99,5 @@ and you have to register the UDF classes you want to use with the name you want 
         );
 
 ## Limitations / Future
-Simply returning a Map of all keys and values is not yet possible because Apache Beam uses an older version of Calcite.
-This will be fixed with Apache Beam version 2.34.0.
-
-See also:
-- https://issues.apache.org/jira/browse/BEAM-9267
-- https://issues.apache.org/jira/browse/BEAM-9379
-- https://github.com/apache/beam/pull/12962
-
 The `ParseUserAgent` and `ParseUserAgentJson` have a limitation of at most 10 fieldnames because Calcite does not yet support variable arguments for UDFs.
 - https://issues.apache.org/jira/browse/CALCITE-2772
