@@ -30,7 +30,7 @@ to give
 
     Phone
 
-### Getting several values as a Map (requires Apache Beam 2.34.0 or newer)
+### Getting several values as a Map (requires Apache Beam 2.30.0 or newer)
 You can ask for a all fields and return the full map with all of them in there.
 
     ParseUserAgent(userAgent)                                    AS allFields

@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Category(ValidatesRunner.class)
 public class TestParseUserAgentSQL implements Serializable {
@@ -308,9 +309,10 @@ public class TestParseUserAgentSQL implements Serializable {
             .apply(Create.of(useragents))
             .setCoder(ListCoder.of(StringUtf8Coder.of()))
             .apply(ParDo.of(new DoFn<List<String>, Row>() {
+                @SuppressWarnings("unused") // Called via the annotation
                 @ProcessElement
                 public void processElement(ProcessContext c) {
-                    c.output(listToRow(c.element(), inputSchema));
+                    c.output(listToRow(Objects.requireNonNull(c.element()), inputSchema));
                 }
             }))
             .setCoder(RowCoder.of(inputSchema));
@@ -431,7 +433,7 @@ public class TestParseUserAgentSQL implements Serializable {
                 );
 
         // Just to see the output of the query while debugging
-//        result.apply(ParDo.of(new RowPrinter()));
+        result.apply(ParDo.of(new RowPrinter()));
 
         // Assert on the results.
         PAssert.that(result)
@@ -441,7 +443,7 @@ public class TestParseUserAgentSQL implements Serializable {
     }
 
     public static class RowPrinter extends DoFn<Row, Void> {
-        @SuppressWarnings("unused") // Used via reflection
+        @SuppressWarnings("unused") // Called via the annotation
         @ProcessElement
         public void processElement(ProcessContext c) {
             final Row row = c.element();

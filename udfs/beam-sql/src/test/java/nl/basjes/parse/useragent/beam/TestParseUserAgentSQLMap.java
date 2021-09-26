@@ -32,7 +32,6 @@ import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.Row;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -47,7 +46,6 @@ import java.util.TreeMap;
 
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 
-@Ignore("This test will fail on Beam before 2.34.0 because of a needed fix.")
 @Category(ValidatesRunner.class)
 public class TestParseUserAgentSQLMap implements Serializable {
 
@@ -236,7 +234,7 @@ public class TestParseUserAgentSQLMap implements Serializable {
     }
 
     public static class RowPrinter extends DoFn<Row, Void> {
-        @SuppressWarnings("unused") // Used via reflection
+        @SuppressWarnings("unused") // Called via the annotation
         @ProcessElement
         public void processElement(ProcessContext c) {
             final Row row = c.element();

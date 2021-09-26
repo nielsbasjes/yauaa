@@ -24,6 +24,9 @@ abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
     private static transient UserAgentAnalyzer userAgentAnalyzer = null;
 
     protected static UserAgentAnalyzer getInstance() {
+        // NOTE: We currently do NOT make an instance with only the wanted fields.
+        //       We only know the required parameters the moment the call is done.
+        //       At that point it is too late to create an optimized instance.
         if (userAgentAnalyzer == null) {
             userAgentAnalyzer = UserAgentAnalyzer
                 .newBuilder()
