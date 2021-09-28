@@ -44,6 +44,8 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherReplace
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherSegmentRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotContainsValueContext;
@@ -469,128 +471,72 @@ public abstract class MatcherAction implements Serializable {
         // -------------
         CALCULATE_INFORM_PATH.put(StepDownAgentContext.class, (action, treeName, tree) -> {
             StepDownAgentContext thisTree = ((StepDownAgentContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.AGENT, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.AGENT, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownProductContext.class, (action, treeName, tree) -> {
             StepDownProductContext thisTree = ((StepDownProductContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.PRODUCT, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.PRODUCT, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownNameContext.class, (action, treeName, tree) -> {
             StepDownNameContext thisTree = ((StepDownNameContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.NAME, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.NAME, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownVersionContext.class, (action, treeName, tree) -> {
             StepDownVersionContext thisTree = ((StepDownVersionContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.VERSION, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.VERSION, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownCommentsContext.class, (action, treeName, tree) -> {
             StepDownCommentsContext thisTree = ((StepDownCommentsContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.COMMENTS, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.COMMENTS, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownEntryContext.class, (action, treeName, tree) -> {
             StepDownEntryContext thisTree = ((StepDownEntryContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.ENTRY, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.ENTRY, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownTextContext.class, (action, treeName, tree) -> {
             StepDownTextContext thisTree = ((StepDownTextContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.TEXT, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.TEXT, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownUrlContext.class, (action, treeName, tree) -> {
             StepDownUrlContext thisTree = ((StepDownUrlContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.URL, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.URL, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownEmailContext.class, (action, treeName, tree) -> {
             StepDownEmailContext thisTree = ((StepDownEmailContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.EMAIL, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.EMAIL, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownBase64Context.class, (action, treeName, tree) -> {
             StepDownBase64Context thisTree = ((StepDownBase64Context) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.BASE64, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.BASE64, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownUuidContext.class, (action, treeName, tree) -> {
             StepDownUuidContext thisTree = ((StepDownUuidContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.UUID, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.UUID, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownKeyvalueContext.class, (action, treeName, tree) -> {
             StepDownKeyvalueContext thisTree = ((StepDownKeyvalueContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.KEYVALUE, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.KEYVALUE, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownKeyContext.class, (action, treeName, tree) -> {
             StepDownKeyContext thisTree = ((StepDownKeyContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.KEY, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.KEY, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepDownValueContext.class, (action, treeName, tree) -> {
             StepDownValueContext thisTree = ((StepDownValueContext) tree);
-            int informs = 0;
-            for (int number : NUMBER_RANGE_VISITOR.visit(thisTree.numberRange())) {
-                informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + AgentPathFragment.VALUE, thisTree.nextStep);
-            }
-            return informs;
+            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.VALUE, thisTree.nextStep);
         });
 
         CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class, (action, treeName, tree) -> {
@@ -611,6 +557,14 @@ public abstract class MatcherAction implements Serializable {
             action.matcher.lookingForRange(treeName, range);
             return calculateInformPath(action, treeName + range, thisTree.nextStep);
         });
+    }
+
+    private static int calculateInformDownPath(MatcherAction action, String treeName, NumberRangeContext numberRangeContext, AgentPathFragment agent, PathContext nextStep) {
+        int informs = 0;
+        for (int number : NUMBER_RANGE_VISITOR.visit(numberRangeContext)) {
+            informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + agent, nextStep);
+        }
+        return informs;
     }
 
     private static int calculateInformPath(MatcherAction action, String treeName, ParserRuleContext tree) {
