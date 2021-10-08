@@ -13,7 +13,7 @@ v6.1-SNAPSHOT
   - Switch from SpringFox to SpringDoc
 - Updated UDF dependencies
   - Apache Flink            1.13.2
-  - Apache Beam             2.32.0
+  - Apache Beam             2.33.0
   - Apache Nifi             1.14.0
 
 v6.0
