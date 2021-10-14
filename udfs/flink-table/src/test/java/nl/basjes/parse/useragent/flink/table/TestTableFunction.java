@@ -18,12 +18,11 @@
 package nl.basjes.parse.useragent.flink.table;
 
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple3;
-import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.table.api.Schema;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
@@ -34,9 +33,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.flink.api.common.typeinfo.Types.MAP;
-import static org.apache.flink.api.common.typeinfo.Types.STRING;
-import static org.apache.flink.table.api.Expressions.$;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -65,6 +61,15 @@ class TestTableFunction {
         return env.fromCollection(data);
     }
 
+    public static Schema getTestAgentStreamSchema() {
+        return Schema
+            .newBuilder()
+            .columnByExpression("useragent", "f0")
+            .columnByExpression("expectedDeviceClass", "f1")
+            .columnByExpression("expectedAgentNameVersionMajor", "f2")
+            .build();
+    }
+
     @Test
     void testFunctionExtractDirect() throws Exception {
         // The base execution environment
@@ -74,10 +79,10 @@ class TestTableFunction {
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
         // The demo input stream
-        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        DataStream<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
 
         // Give the stream a Table Name and name the fields
-        tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
+        tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
 
         // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -94,8 +99,7 @@ class TestTableFunction {
 
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
-        TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING, STRING, STRING);
-        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+        DataStream<Row> resultSet = tableEnv.toDataStream(resultTable);
 
         resultSet.map((MapFunction<Row, String>) row -> {
             Object useragent                      = row.getField(0);
@@ -127,10 +131,10 @@ class TestTableFunction {
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
         // The demo input stream
-        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        DataStream<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
 
         // Give the stream a Table Name and name the fields
-        tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
+        tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
 
         // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -152,8 +156,7 @@ class TestTableFunction {
 
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
-        TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING, STRING, STRING);
-        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+        DataStream<Row> resultSet = tableEnv.toDataStream(resultTable);
 
         resultSet.map((MapFunction<Row, String>) row -> {
             Object useragent                      = row.getField(0);
@@ -188,7 +191,7 @@ class TestTableFunction {
         DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
 
         // Give the stream a Table Name and name the fields
-        tableEnv.createTemporaryView("AgentStream", inputStream, $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
+        tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
 
         // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -203,8 +206,7 @@ class TestTableFunction {
 
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
-        TypeInformation<Row> tupleType = new RowTypeInfo(STRING, MAP(STRING, STRING), STRING, STRING);
-        DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+        DataStream<Row> resultSet = tableEnv.toDataStream(resultTable);
 
         resultSet.map((MapFunction<Row, String>) row -> {
             Object useragent                     = row.getField(0);

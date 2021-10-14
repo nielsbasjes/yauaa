@@ -20,12 +20,11 @@ package nl.basjes.parse.useragent.flink.table;
 import org.apache.flink.api.common.eventtime.SerializableTimestampAssigner;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple4;
-import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
+import org.apache.flink.table.api.Schema;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
@@ -33,19 +32,20 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import static org.apache.flink.api.common.typeinfo.Types.LONG;
-import static org.apache.flink.api.common.typeinfo.Types.SQL_TIMESTAMP;
-import static org.apache.flink.api.common.typeinfo.Types.STRING;
+import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static org.apache.flink.table.api.Expressions.$;
+import static org.apache.flink.table.api.Expressions.lit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DemonstrationOfTumblingTableSQLFunction {
 
-    private static final long BASETIME = 1546344000000L; // 2019-01-01 12:00 UTC
-    private static final long SECOND   = 1000L;
+    private static final long BASETIME = Instant.from(ISO_OFFSET_DATE_TIME.parse("2021-01-01T12:00:00+00:00")).getEpochSecond();
+    private static final long SECOND   = 1L;
     private static final long MINUTE   = 60 * SECOND;
 
     // ============================================================================================================
@@ -78,8 +78,8 @@ class DemonstrationOfTumblingTableSQLFunction {
                     "WeChat 6"));
 
                 minutes++;
-                wait(200);
-                if (minutes > 120) {
+                Thread.sleep(20);
+                if (minutes > 30) {
                     running = false;
                 }
             }
@@ -94,7 +94,7 @@ class DemonstrationOfTumblingTableSQLFunction {
     // ============================================================================================================
 
     // This "test" takes too long to run in the build.
-    @Disabled
+//    @Disabled
     @Test
     void runDemonstration() throws Exception {
         // The base execution environment
@@ -118,7 +118,14 @@ class DemonstrationOfTumblingTableSQLFunction {
 
         // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream,
-            $("eventTime").rowtime(), $("useragent"), $("expectedDeviceClass"), $("expectedAgentNameVersionMajor"));
+            Schema
+                .newBuilder()
+                .columnByExpression("eventTime", "TO_TIMESTAMP(FROM_UNIXTIME(f0))")
+                .columnByExpression("useragent", "f1")
+                .columnByExpression("expectedDeviceClass", "f2")
+                .columnByExpression("expectedAgentNameVersionMajor", "f3")
+                .watermark("eventTime", $("eventTime").minus(lit(5).seconds()))
+                .build());
 
         // Register the function
         tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
@@ -129,6 +136,7 @@ class DemonstrationOfTumblingTableSQLFunction {
         String sqlQuery = String.format(
             "SELECT" +
             "   TUMBLE_START(eventTime, INTERVAL '%d' %s) AS wStart," +
+            "   useragent, " +
             "   deviceClass," +
             "   agentNameVersionMajor," +
             "   expectedDeviceClass," +
@@ -137,6 +145,7 @@ class DemonstrationOfTumblingTableSQLFunction {
             "FROM ( "+
             "    SELECT " +
             "       eventTime, " +
+            "       useragent, " +
             "       parsedUserAgent['DeviceClass'          ]  AS deviceClass," +
             "       parsedUserAgent['AgentNameVersionMajor']  AS agentNameVersionMajor," +
             "       expectedDeviceClass," +
@@ -144,6 +153,7 @@ class DemonstrationOfTumblingTableSQLFunction {
             "    FROM ( "+
             "        SELECT " +
             "           eventTime, " +
+            "           useragent, " +
             "           ParseUserAgent(useragent) AS parsedUserAgent," +
             "           expectedDeviceClass," +
             "           expectedAgentNameVersionMajor" +
@@ -151,6 +161,7 @@ class DemonstrationOfTumblingTableSQLFunction {
             "    )" +
             ")" +
             "GROUP BY TUMBLE(eventTime, INTERVAL '%d' %s), " +
+            "       useragent, " +
             "       deviceClass," +
             "       agentNameVersionMajor," +
             "       expectedDeviceClass," +
@@ -160,23 +171,28 @@ class DemonstrationOfTumblingTableSQLFunction {
             );
         Table resultTable = tableEnv.sqlQuery(sqlQuery);
 
-        TypeInformation<Row> tupleType = new RowTypeInfo(SQL_TIMESTAMP, STRING, STRING, STRING, STRING, LONG);
-        DataStream<Row>      resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+//        TypeInformation<Row> tupleType = new RowTypeInfo(SQL_TIMESTAMP, STRING, STRING, STRING, STRING, STRING, LONG);
+//        DataStream<Row>      resultSet = tableEnv.toAppendStream(resultTable, tupleType);
 
+        DataStream<Row>      resultSet = tableEnv.toDataStream(resultTable);
         resultSet.print();
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            Object useragent                      = row.getField(0);
-            Object deviceClass                    = row.getField(1);
-            Object agentNameVersionMajor          = row.getField(2);
-            Object expectedDeviceClass            = row.getField(3);
-            Object expectedAgentNameVersionMajor  = row.getField(4);
+            Object wStart                         = row.getField(0);
+            Object useragent                      = row.getField(1);
+            Object deviceClass                    = row.getField(2);
+            Object agentNameVersionMajor          = row.getField(3);
+            Object expectedDeviceClass            = row.getField(4);
+            Object expectedAgentNameVersionMajor  = row.getField(5);
+            Object count                          = row.getField(6);
 
+            assertTrue(wStart                        instanceof LocalDateTime);
             assertTrue(useragent                     instanceof String);
             assertTrue(deviceClass                   instanceof String);
             assertTrue(agentNameVersionMajor         instanceof String);
             assertTrue(expectedDeviceClass           instanceof String);
             assertTrue(expectedAgentNameVersionMajor instanceof String);
+            assertTrue(count                         instanceof Long);
 
             assertEquals(
                 expectedDeviceClass,

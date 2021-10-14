@@ -12,7 +12,7 @@ v6.1-SNAPSHOT
 - Webservlet:
   - Switch from SpringFox to SpringDoc
 - Updated UDF dependencies
-  - Apache Flink            1.13.2
+  - Apache Flink            1.14.0
   - Apache Beam             2.33.0
   - Apache Nifi             1.14.0
 
