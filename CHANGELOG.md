@@ -9,6 +9,7 @@ v6.1-SNAPSHOT
   - Google Glass OS
   - Language flags in specific special places
   - Microsoft Word
+  - Google Chrome reduced/frozen useragent.
 - Webservlet:
   - Switch from SpringFox to SpringDoc
 - Updated UDF dependencies
