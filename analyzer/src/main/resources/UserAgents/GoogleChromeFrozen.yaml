@@ -136,21 +136,77 @@ config:
 #
 # }  // namespace frozen_user_agent_strings
 
+# The list of major Chrome versions where "Windows" in the frozen context really meant "Desktop".
+# Based upon the Chromium sources and related tags
+# https://github.com/chromium/chromium/blob/master/content/public/common/user_agent.h
+
+# Introduced:
+#  commit ac24e578a3694c8f4c6c35ee3b7a8d046d686e67
+#  CommitDate: Tue Apr 30 19:47:02 2019 +0000
+#     Add feature to freeze user agent string
+#  $ git name-rev --tags --name-only ac24e578a3694c8f4c6c35ee3b7a8d046d686e67
+#  76.0.3783.0~468
+
+# Removed:
+#  commit cf2393773c33440f01f45693944aa18c1510c2e7
+#  CommitDate: Tue May 25 16:35:41 2021 +0000
+#    Update frozen UA strings.
+#  $ git name-rev --tags --name-only cf2393773c33440f01f45693944aa18c1510c2e7
+#  93.0.4523.0~207
+
+- set:
+    name: 'ChromeFrozenMajorVersionsToWindows'
+    values:
+    - '76'
+    - '77'
+    - '78'
+    - '79'
+    - '80'
+    - '81'
+    - '82'
+    - '83'
+    - '84'
+    - '85'
+    - '86'
+    - '87'
+    - '88'
+    - '89'
+    - '90'
+    - '91'
+    - '92'
+    # The first few tags of Chrome 93 still had the bad one, but most did not.
+    # Between the first '93' and the fix was 1 day difference.
 
 # Desktop Chrome/Edge: If the frozen agent is detected the Operating system is nonsense
 - matcher:
     variable:
-    - 'Chrome                              :agent.(3)product.name="Chrome"^'
-    - 'ChromeVersion                       :@Chrome.version'
+    - 'ChromeVersion                       :agent.(3)product.version'
+    - 'ChromeMajorVersion                  :@ChromeVersion[1]'
     require:
+    - 'agent.(3)product.name="Chrome"'
+    - '@ChromeMajorVersion?ChromeFrozenMajorVersionsToWindows'
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - '@ChromeVersion}".0.0.0"'
     extract:
     - 'OperatingSystemName                 :      200 : "<<<null>>>"'
     - 'OperatingSystemVersion              :      200 : "<<<null>>>"'
-    - 'AgentVersion                        :     3000 : @ChromeVersion[1]'
+    - 'AgentVersion                        :     3000 : @ChromeMajorVersion'
 
-# Android: If the frozen agent is detected the Operating system Version is nonsense
+- matcher:
+    variable:
+    - 'ChromeVersion                       :agent.(3)product.version'
+    - 'ChromeMajorVersion                  :@ChromeVersion[1]'
+    require:
+    - 'agent.(3)product.name="Chrome"'
+    - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    - '@ChromeVersion}".0.0.0"'
+    extract:
+    # IF NOT A MIX VERSION, WE DO NOT OVERRIDE THE OS NAME
+    - 'AgentVersion                        :     3000 : @ChromeMajorVersion'
+
+
+  # Android: If the frozen agent is detected the Operating system Version is nonsense
 - matcher:
     require:
     - 'agent.(1)product="Mozilla/5.0 (Linux; Android 9; Unspecified Device)"'
@@ -653,3 +709,417 @@ config:
       AgentNameVersion                     : 'Chrome 83.0.4103.101'
       AgentNameVersionMajor                : 'Chrome 83'
 
+# ===============================================================
+# 2021-10-21 https://www.chromium.org/updates/ua-reduction
+# Reduced User Agent String Reference
+# ---------------------------------------------------------------
+
+# Unified Format
+# The unified format that covers all platforms post-UA Reduction looks like so:
+#  Mozilla/5.0 (<unifiedPlatform>) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<majorVersion>.0.0.0 <deviceCompat> Safari/537.36
+
+# Desktop
+#  Mozilla/5.0 (<unifiedPlatform>) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<majorVersion>.0.0.0 Safari/537.36
+
+# Mobile and Tablet
+#  Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<majorVersion>.0.0.0 <deviceCompat> Safari/537.36
+
+# <deviceCompat> -> “Mobile” / “” (empty string, used by Tablets and Desktop)
+# <unifiedPlatform>
+#The possible desktop values* are:
+#       Windows NT 10.0; Win64; x64
+#       Macintosh; Intel Mac OS X 10_15_7
+#       X11; Linux x86_64
+#       X11; CrOS x86_64
+#
+#The possible mobile values* are:
+#       Linux; Android 10; K
+#
+#
+#*Note that these strings are literal values; they will not update even if a user is on an updated operating system or device.
+
+# ---------------------------------------------------------------------
+# From: https://github.com/chromium/chromium/blob/95.0.4608.0/content/public/common/user_agent.h
+
+#  const char kDesktop[] =
+#       "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, "
+#       "like Gecko) Chrome/%s.0.0.0 Safari/537.36";
+#  const char kAndroid[] =
+#         "Mozilla/5.0 (%s) "
+#         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 %s"
+#         "Safari/537.36";
+#  const char kUnifiedPlatformAndroid[] = "Linux; Android 10; K";
+#  const char kUnifiedPlatformCrOS[]    = "X11; CrOS x86_64";
+#  const char kUnifiedPlatformLinux[]   = "X11; Linux x86_64";
+#  const char kUnifiedPlatformMacOS[]   = "Macintosh; Intel Mac OS X 10_15_7";
+#  const char kUnifiedPlatformWindows[] = "Windows NT 10.0; Win64; x64";
+# ---------------------------------------------------------------------
+
+
+# In Phase 4 we change the <minorVersion> token to “0.0.0”.
+# In Phase 5 we change the <platform> and <oscpu> tokens from their platform-defined values to the relevant <unifiedPlatform> token value (which will never change).
+# In Phase 6, we change the <deviceModel> token to “K” and change the <androidVersion> token to a static “10” string.
+
+- lookup:
+    name: 'ChromeReducedUnifiedPlatform'
+    map:
+      # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'           : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT'
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'     : 'Desktop|Macintosh|Apple|Desktop|Mac OS X'
+      'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Desktop|<<<null>>>|Linux'
+      'Mozilla/5.0 (X11; CrOS x86_64)'                      : 'Desktop|Chromebook|<<<null>>>|Chrome OS'
+      'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|<<<null>>>|<<<null>>>|Mobile|Android'
+
+- set:
+    name: 'ChromeReducedDeviceCompat'
+    values:
+    - 'Safari'
+    - 'Mobile Safari'
+
+- matcher:
+    variable:
+    - 'UnifiedPlatform                     :LookUp[ChromeReducedUnifiedPlatform;agent.(1)product]'
+    - 'ChromeVersion                       :agent.(3)product.version'
+    - 'ChromeMajorVersion                  :@ChromeVersion[1]'
+    require:
+    - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
+    - 'agent.(3)product.name="Chrome"'
+    - '@ChromeVersion}".0.0.0"'
+    - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
+    - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
+    - 'IsNull[agent.(5)product]'
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    extract:
+    - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
+    - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
+    - 'DeviceBrand                         :   400001 :@UnifiedPlatform[[3]]'
+    - 'OperatingSystemClass                :   400001 :@UnifiedPlatform[[4]]'
+    - 'OperatingSystemName                 :   400001 :@UnifiedPlatform[[5]]'
+    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
+
+# ============================================
+# Desktop (user on Windows 8.1, for example)
+
+# Phase 3 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.1234.56 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93.0.1234.56'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93.0.1234.56'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 4 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 5 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 6 UA
+# (No changes for Desktop UAs from Phase 5)
+
+# ============================================
+# Mobile (user on Samsung Galaxy, for example)
+
+# Phase 3 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-A205U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.1234.56 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A205U'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93.0.1234.56'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93.0.1234.56'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 4 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-A205U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A205U'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 5 UA
+# (No changes for Mobile UAs in Phase 5)
+
+# Phase 6 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# ============================================
+# Tablet (user on Samsung Galaxy, for example)
+
+# Phase 3 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-T810) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.1234.56 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T810'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93.0.1234.56'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93.0.1234.56'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 4 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 9; SM-T810) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T810'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# Phase 5 UA
+# (No changes for Tablet UAs in Phase 5)
+
+# Phase 6 UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93.0'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Chrome 93'
+      AgentNameVersionMajor                : 'Chrome 93'
+
+# =============================================================================
+# Ubuntu, Chrome 94, Normal
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '94.0'
+      LayoutEngineVersionMajor             : '94'
+      LayoutEngineNameVersion              : 'Blink 94.0'
+      LayoutEngineNameVersionMajor         : 'Blink 94'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '94.0.4606.81'
+      AgentVersionMajor                    : '94'
+      AgentNameVersion                     : 'Chrome 94.0.4606.81'
+      AgentNameVersionMajor                : 'Chrome 94'
+
+
+# Ubuntu, Chrome 94, FROZEN
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '94.0'
+      LayoutEngineVersionMajor             : '94'
+      LayoutEngineNameVersion              : 'Blink 94.0'
+      LayoutEngineNameVersionMajor         : 'Blink 94'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '94'
+      AgentVersionMajor                    : '94'
+      AgentNameVersion                     : 'Chrome 94'
+      AgentNameVersionMajor                : 'Chrome 94'
