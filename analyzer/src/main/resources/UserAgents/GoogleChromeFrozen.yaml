@@ -1123,3 +1123,34 @@ config:
       AgentVersionMajor                    : '94'
       AgentNameVersion                     : 'Chrome 94'
       AgentNameVersionMajor                : 'Chrome 94'
+
+# Linux (Ubuntu), Edge 95, Normal
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36 Edg/95.0.1020.30'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'Intel x86_64'
+      OperatingSystemVersionMajor          : 'Intel x86'
+      OperatingSystemNameVersion           : 'Linux Intel x86_64'
+      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '95.0'
+      LayoutEngineVersionMajor             : '95'
+      LayoutEngineNameVersion              : 'Blink 95.0'
+      LayoutEngineNameVersionMajor         : 'Blink 95'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '95.0.1020.30'
+      AgentVersionMajor                    : '95'
+      AgentNameVersion                     : 'Edge 95.0.1020.30'
+      AgentNameVersionMajor                : 'Edge 95'
+
+# TODO: Apparently Edge 94 and 95 (tried Windows and Linux) does NOT have this Freeze/Reduce option anymore ?!?!
