@@ -793,7 +793,6 @@ config:
     - '@ChromeVersion}".0.0.0"'
     - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
     - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
-    - 'IsNull[agent.(5)product]'
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     extract:
     - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
@@ -1159,4 +1158,33 @@ config:
       AgentNameVersion                     : 'Edge 95.0.1020.30'
       AgentNameVersionMajor                : 'Edge 95'
 
-# TODO: Apparently Edge 94 and 95 (tried Windows and Linux) does NOT have this Freeze/Reduce option anymore ?!?!
+# NOTE: TODO: Apparently Edge 94 and 95 (tried one Windows, Linux and Android) does NOT have this Freeze/Reduce option anymore ?!?!
+# This next one is an educated guess.
+# __GUESSED__ Windows 10, Edge FROZEN
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36 Edg/93.0.0.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '93'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Blink 93'
+      LayoutEngineNameVersionMajor         : 'Blink 93'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '93'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Edge 93'
+      AgentNameVersionMajor                : 'Edge 93'
