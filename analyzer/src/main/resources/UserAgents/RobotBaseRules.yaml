@@ -181,7 +181,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name]'
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name]'
     - 'RobotVersion                        :@RobotName^.version'
     require:
     - 'IsNull[@RobotName[1]="cubot"]'
@@ -206,7 +206,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name]'
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name]'
     - 'RobotVersion                        :@RobotName^.version'
     require:
     - 'IsNull[@RobotName[1]="cubot"]'
@@ -232,7 +232,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-4)product.(1-2)comments.entry.(1-4)product.(1)name]'
+    - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name]'
     require:
     - 'IsNull[@RobotName[1]="cubot"]'
     - 'agent.product.name="Mobile Safari"'
