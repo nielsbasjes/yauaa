@@ -10080,9 +10080,54 @@ config:
       AgentNameVersionMajor                : 'RenovateBot 25'
       AgentInformationUrl                  : 'https://github.com/renovatebot/renovate'
 
-#- test:
-#    input:
-#      user_agent_string: 'NetSystemsResearch studies the availability of various services across the internet. Our website is netsystemsresearch.com'
+# Handle a __very__ @!@$^%$& company.
+- matcher:
+    require:
+    - 'agent.(1)product.name[1]="NetSystemsResearch"'
+    extract:
+     - 'DeviceClass                  : 1000000        : "Robot"'
+     - 'DeviceName                   : 1000000        : "NetSystemsResearch"'
+     - 'DeviceBrand                  : 1000000        : "NetSystemsResearch"'
+     - 'OperatingSystemClass         : 1000000        : "Cloud"'
+     - 'OperatingSystemName          : 1000000        : "Cloud"'
+     - 'OperatingSystemVersion       : 1000000        : "<<<null>>>"'
+     - 'LayoutEngineClass            : 1000000        : "Robot"'
+     - 'LayoutEngineName             : 1000000        : "NetSystemsResearch"'
+     - 'LayoutEngineVersion          : 1000000        : "<<<null>>>"'
+     - 'AgentClass                   : 1000000        : "Robot"'
+     - 'AgentName                    : 1000000        : "NetSystemsResearch"'
+     - 'AgentVersion                 : 1000000        : "<<<null>>>"'
+
+
+# Yet another company who makes a total mess of things
+- test:
+    input:
+      user_agent_string: 'NetSystemsResearch studies the availability of various services across the internet. Our website is netsystemsresearch.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'NetsystemsResearch'
+      DeviceBrand                          : 'NetsystemsResearch'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'NetSystemsResearch'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'NetSystemsResearch ??'
+      LayoutEngineNameVersionMajor         : 'NetSystemsResearch ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'NetSystemsResearch'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'NetSystemsResearch ??'
+      AgentNameVersionMajor                : 'NetSystemsResearch ??'
+      AgentInformationUrl                  : 'netsystemsresearch.com'
+
+
 
 - test:
     input:
@@ -10091,7 +10136,6 @@ config:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Similartech Smtbot'
       DeviceBrand                          : 'Similartech'
-#      DeviceFirmwareVersion                : '10A5376e'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
