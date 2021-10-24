@@ -9859,6 +9859,35 @@ config:
       AgentInformationUrl                  : 'https://discordapp.com'
 
 
+  # Used by Slack to get a preview of a shared website.
+- test:
+    input:
+      user_agent_string: 'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Slack BOT-LinkExpanding'
+      DeviceBrand                          : 'Slack'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Slackbot-LinkExpanding'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Slackbot-LinkExpanding 1.0'
+      LayoutEngineNameVersionMajor         : 'Slackbot-LinkExpanding 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Slackbot-LinkExpanding'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Slackbot-LinkExpanding 1.0'
+      AgentNameVersionMajor                : 'Slackbot-LinkExpanding 1'
+      AgentInformationUrl                  : 'https://api.slack.com/robots'
+
+
 # https://github.com/PuerkitoBio/gocrawl
 # gocrawl is a polite, slim and concurrent web crawler written in Go.
 - test:
