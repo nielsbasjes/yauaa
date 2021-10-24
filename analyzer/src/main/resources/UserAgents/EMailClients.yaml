@@ -1614,6 +1614,35 @@ config:
       AgentNameVersionMajor                : 'SkypeUriPreview Preview 0'
 
 
+# This is really the default useragent for a library used by robots.
+- test:
+    input:
+      user_agent_string: 'Iframely/1.3.1 (+https://iframely.com/docs/about)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Iframely Robot'
+      DeviceBrand                          : 'Iframely'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Iframely'
+      AgentVersion                         : '1.3.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Iframely 1.3.1'
+      AgentNameVersionMajor                : 'Iframely 1'
+      AgentInformationUrl                  : 'https://iframely.com/docs/about'
+
+
 - matcher:
     require:
     - 'agent.(1-3)product.comments.entry.(1-4)product.name[1]="Desktop"'

@@ -2197,3 +2197,37 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+
+# The browser of a Philips TV in a Hotel I was in.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.Driver7.22 , _TV_MT9288/202.003.116.011 (Philips, PFS6805, wireless)  CE-HTML/1.0 NETTV/4.6.0.3 SignOn/2.0 SmartTvA/5.0.0 WH1.0 en'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips PFS6805'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : '202.003.116.011'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'ARMv7l'
+      OperatingSystemVersionMajor          : 'ARMv7l'
+      OperatingSystemNameVersion           : 'Linux ARMv7l'
+      OperatingSystemNameVersionMajor      : 'Linux ARMv7l'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '49.0'
+      LayoutEngineVersionMajor             : '49'
+      LayoutEngineNameVersion              : 'Blink 49.0'
+      LayoutEngineNameVersionMajor         : 'Blink 49'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '36.0.2128.0'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor                : 'Opera 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wireless'
