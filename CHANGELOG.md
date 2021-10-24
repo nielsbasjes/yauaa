@@ -11,7 +11,7 @@ v6.1-SNAPSHOT
   - Microsoft Word
   - Google Chrome reduced/frozen useragent.
 - Webservlet:
-  - Switch from SpringFox to SpringDoc
+  - Switch from SpringFox to SpringDoc.
 - Updated UDF dependencies
   - Apache Flink            1.14.0
   - Apache Beam             2.33.0

@@ -21,6 +21,7 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
 import nl.basjes.parse.useragent.Version;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,7 @@ public class OpenAPIConfig {
     @Bean
     public OpenAPI yauaaOpenAPI() {
         return new OpenAPI()
+            .addServersItem(new Server().url("/"))
             .info(new Info()
                 .title("Yauaa - Yet Another UserAgent Analyzer")
                 .description(
