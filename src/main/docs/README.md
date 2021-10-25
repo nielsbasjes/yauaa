@@ -14,6 +14,11 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 HIGH Profile release notes:
 ===========================
+Version 6.1
+---
+- Support for the new `reduced` User-Agent as is being implemented in Google Chrome/Chromium.
+- Improved User Defined Function for Apache Beam SQL.
+
 Version 6.0
 ---
 - Fully replaced SLF4J with Log4J2; since this is a breaking change the next version will be 6.0

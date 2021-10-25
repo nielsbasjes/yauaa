@@ -1,11 +1,5 @@
 # User Defined Function for [Apache Beam SQL](https://beam.apache.org)
 
-# STATUS: ... EXPERIMENTAL ...
-The Beam SQL function is very new.
-
-There are a few limitations related to the underlying Calcite version used in Beam.
-Only limited testing has been done.
-
 ## Getting the UDF
 You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-beam-sql/{{ book.YauaaVersion }}/jar).
 
@@ -99,5 +93,5 @@ and you have to register the UDF classes you want to use with the name you want 
         );
 
 ## Limitations / Future
-The `ParseUserAgent` and `ParseUserAgentJson` have a limitation of at most 10 fieldnames because Calcite does not yet support variable arguments for UDFs.
+The `ParseUserAgent` and `ParseUserAgentJson` have a limitation of at most 10 fieldnames because Calcite does not yet support variable arguments for UDFs. If you need more than 10 fields you currently need to get `all` fields and then extract the fields you need from there.
 - https://issues.apache.org/jira/browse/CALCITE-2772
