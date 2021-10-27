@@ -11,6 +11,7 @@ v6.1-SNAPSHOT
   - Microsoft Word
   - Google Chrome reduced/frozen useragent.
   - Tesla car based browsers
+  - DuckDuckGo variants
 - Webservlet:
   - Switch from SpringFox to SpringDoc.
 - Updated UDF dependencies

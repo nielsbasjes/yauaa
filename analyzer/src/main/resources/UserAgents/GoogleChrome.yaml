@@ -396,6 +396,29 @@ config:
     - 'WebviewAppName                      :        9 :NormalizeBrand[@WebViewAppName]'
     - 'WebviewAppVersion                   :        9 :@WebViewApp.version'
 
+# Sometimes we get variants where parts are swapped around like this:
+#     Mobile DuckDuckGo/5 Safari/537.36
+# instead of
+#     Mobile Safari/537.36 DuckDuckGo/5
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>'
+    - 'WebViewAppName                      :@WebViewApp.name'
+    require:
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName[1]="Mobile"'
+    - 'agent.product.name="Version"'
+    extract:
+    - 'DeviceClass                         :     3500 :"Phone"'
+    - 'AgentClass                          :     3500 :"Browser Webview"'
+    - 'AgentName                           :     3500 :"Chrome Webview"'
+    - 'AgentVersion                        :     3500 :@Chrome.version'
+    - 'WebviewAppName                      :       10 :NormalizeBrand[@WebViewAppName[2-]]'
+    - 'WebviewAppVersion                   :       10 :@WebViewApp.version'
+
+
 - matcher:
     variable:
     - 'Chrome                              :agent.product.name="Chrome"^'
