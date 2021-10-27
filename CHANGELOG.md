@@ -10,6 +10,7 @@ v6.1-SNAPSHOT
   - Language flags in specific special places
   - Microsoft Word
   - Google Chrome reduced/frozen useragent.
+  - Tesla car based browsers
 - Webservlet:
   - Switch from SpringFox to SpringDoc.
 - Updated UDF dependencies

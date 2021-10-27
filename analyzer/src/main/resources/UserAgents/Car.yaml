@@ -1,0 +1,192 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2021 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+- matcher:
+    variable:
+    - 'Tesla                               :agent.product.name="Tesla"^'
+    extract:
+    - 'DeviceClass                         :      210 :"Car"'
+    - 'DeviceBrand                         :      210 :"Tesla"'
+    - 'DeviceName                          :      210 :"Tesla"'
+    - 'DeviceVersion                       :      500 :@Tesla.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="QtCarBrowser Safari"'
+    extract:
+    - 'DeviceClass                         :      210 :"Car"'
+    - 'DeviceBrand                         :      210 :"Tesla"'
+    - 'DeviceName                          :      210 :"Tesla"'
+    - 'AgentName                           :      210 :"Tesla Browser"'
+    - 'AgentVersion                        :      210 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name="Tesla QtCarBrowser Safari"'
+    extract:
+    - 'DeviceClass                         :      210 :"Car"'
+    - 'DeviceBrand                         :      210 :"Tesla"'
+    - 'DeviceName                          :      210 :"Tesla"'
+    - 'AgentName                           :      210 :"Tesla Browser"'
+    - 'AgentVersion                        :      210 :"<<<null>>>"'
+
+
+  # Testcases for car based browsers
+
+  # https://forums.tesla.com/discussion/32394/tesla-model-s-web-browser-capabilities
+# Model S (3/13/13, v?.?)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; U; Linux; C) AppleWebKit/533.3 (KHTML, like Gecko) QtCarBrowser Safari/533.3'
+    expected:
+      DeviceClass                          : 'Car'
+      DeviceName                           : 'Tesla'
+      DeviceBrand                          : 'Tesla'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.3'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.3'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tesla Browser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Tesla Browser ??'
+      AgentNameVersionMajor                : 'Tesla Browser ??'
+      AgentSecurity                        : 'Strong security'
+
+# Model S (4/8/14, v5.9)
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux) AppleWebKit/534.34 (KHTML, like Gecko) QtCarBrowser Safari/534.34'
+    expected:
+      DeviceClass                          : 'Car'
+      DeviceName                           : 'Tesla'
+      DeviceBrand                          : 'Tesla'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.34'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.34'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tesla Browser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Tesla Browser ??'
+      AgentNameVersionMajor                : 'Tesla Browser ??'
+
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; GNU/Linux) AppleWebKit/601.1 (KHTML, like Gecko) Tesla QtCarBrowser Safari/601.1'
+    expected:
+      DeviceClass                          : 'Car'
+      DeviceName                           : 'Tesla'
+      DeviceBrand                          : 'Tesla'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Tesla Browser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Tesla Browser ??'
+      AgentNameVersionMajor                : 'Tesla Browser ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; GNU/Linux) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/79.0.3945.130 Chrome/79.0.3945.130 Safari/537.36 Tesla/2020.12.11.2-3ec2d07f7ee5'
+    expected:
+      DeviceClass                          : 'Car'
+      DeviceName                           : 'Tesla'
+      DeviceBrand                          : 'Tesla'
+      DeviceVersion                        : '2020.12.11.2-3ec2d07f7ee5'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '79.0'
+      LayoutEngineVersionMajor             : '79'
+      LayoutEngineNameVersion              : 'Blink 79.0'
+      LayoutEngineNameVersionMajor         : 'Blink 79'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '79.0.3945.130'
+      AgentVersionMajor                    : '79'
+      AgentNameVersion                     : 'Chromium 79.0.3945.130'
+      AgentNameVersionMajor                : 'Chromium 79'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; GNU/Linux) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/79.0.3945.130 Chrome/79.0.3945.130 Safari/537.36 Tesla/2020.48.30-040912887bad'
+    expected:
+      DeviceClass                          : 'Car'
+      DeviceName                           : 'Tesla'
+      DeviceBrand                          : 'Tesla'
+      DeviceVersion                        : '2020.48.30-040912887bad'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '79.0'
+      LayoutEngineVersionMajor             : '79'
+      LayoutEngineNameVersion              : 'Blink 79.0'
+      LayoutEngineNameVersionMajor         : 'Blink 79'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '79.0.3945.130'
+      AgentVersionMajor                    : '79'
+      AgentNameVersion                     : 'Chromium 79.0.3945.130'
+      AgentNameVersionMajor                : 'Chromium 79'
+
+
+
+

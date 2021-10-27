@@ -74,6 +74,7 @@ DeviceClass
 | Game Console          | 'Fixed' game systems like the PlayStation and XBox |
 | Handheld Game Console | 'Mobile' game systems like the 3DS |
 | Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home. |
+| Car                   | A Car based browser as found in for example the Tesla vehicles |
 | Robot                 | Robots that visit the site |
 | Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor |
 | Robot Imitator        | Robots that visit the site pretending they are robots like google, but they are not. Note that in most cases they ARE Robots. |

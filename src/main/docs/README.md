@@ -18,6 +18,7 @@ Version 6.1
 ---
 - Support for the new `reduced` User-Agent as is being implemented in Google Chrome/Chromium.
 - Improved User Defined Function for Apache Beam SQL.
+- Detect the first car based browsers. DeviceClass = Car
 
 Version 6.0
 ---

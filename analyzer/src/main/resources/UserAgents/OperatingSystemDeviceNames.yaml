@@ -34,6 +34,7 @@ config:
     - 'Debian GNU'
     - 'Fedora'
     - 'FoxOS'
+    - 'GNU/Linux'
     - 'Joli OS'
     - 'JoliCloud'
     - 'Linpus'
@@ -879,6 +880,121 @@ config:
     - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      153 :"Desktop"'
     - 'OperatingSystemName                 :      153 :"FoxOS"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+
+# =======================================================================
+# GNU/Linux
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"Linux"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Linux Desktop"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"Linux"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Linux Desktop"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"Linux"'
+    - 'OperatingSystemVersion              :      148 :"??"'
+
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name="GNU/Linux"^.(1)version]'
+
+- matcher:
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Linux"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.product.name="GNU/Linux"^.(2)version?!UnwantedSecondVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"Linux"'
+    - 'OperatingSystemVersion              :      149 :"??"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="GNU/Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"Linux"'
     - 'OperatingSystemVersion              :      149 :"??"'
 
 
