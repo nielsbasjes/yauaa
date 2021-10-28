@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.1-SNAPSHOT
+v6.2-SNAPSHOT
+===
+- ...
+
+v6.1
 ===
 - Build:
   - Only support JDK 11+ due to plugins dropping java 8 support. Build target remains JRE 8.
