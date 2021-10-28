@@ -18,18 +18,29 @@
 package nl.basjes.parse.useragent.utils;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.Version;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.utils.YauaaVersion.AbstractVersion;
 import org.junit.jupiter.api.Test;
 
+import static nl.basjes.parse.useragent.Version.BUILD_JDK_VERSION;
+import static nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
+import static nl.basjes.parse.useragent.Version.COPYRIGHT;
+import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID;
+import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID_DESCRIBE_SHORT;
+import static nl.basjes.parse.useragent.Version.LICENSE;
+import static nl.basjes.parse.useragent.Version.PROJECT_VERSION;
+import static nl.basjes.parse.useragent.Version.TARGET_JRE_VERSION;
+import static nl.basjes.parse.useragent.Version.URL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestVersionCollisionChecks {
+
     @Test
     void testBadVersion(){
-
         InvalidParserConfigurationException exception =
-
             assertThrows(InvalidParserConfigurationException.class, () ->
                 UserAgentAnalyzer
             .newBuilder()
@@ -50,7 +61,6 @@ class TestVersionCollisionChecks {
             .delayInitialization()
             .build());
         assertTrue(exception.getMessage().contains("The value should be a string but it is a sequence"));
-
     }
 
     @Test
@@ -62,7 +72,6 @@ class TestVersionCollisionChecks {
             .addResources("classpath*:Versions/DifferentVersion.yaml")
             .build());
         assertTrue(exception.getMessage().contains("Two different Yauaa versions have been loaded:"));
-
     }
 
     @Test
@@ -75,6 +84,44 @@ class TestVersionCollisionChecks {
             .build());
         assertTrue(exception.getMessage().startsWith("Trying to load "));
         assertTrue(exception.getMessage().endsWith(" resources for the second time"));
+    }
+
+    @Test
+    void testBasics() {
+        Version version1 = Version.getInstance();
+        AbstractVersion version2 = new AbstractVersion() {
+            @Override public String getGitCommitId() {
+                return GIT_COMMIT_ID;
+            }
+            @Override public String getGitCommitIdDescribeShort() {
+                return GIT_COMMIT_ID_DESCRIBE_SHORT;
+            }
+            @Override public String getBuildTimeStamp() {
+                return BUILD_TIME_STAMP;
+            }
+            @Override public String getProjectVersion() {
+                return PROJECT_VERSION;
+            }
+            @Override public String getCopyright() {
+                return COPYRIGHT;
+            }
+            @Override public String getLicense() {
+                return LICENSE;
+            }
+            @Override public String getUrl() {
+                return URL;
+            }
+            @Override public String getBuildJDKVersion() {
+                return BUILD_JDK_VERSION;
+            }
+            @Override public String getTargetJREVersion() {
+                return TARGET_JRE_VERSION;
+            }
+        };
+
+        assertEquals(version1, version2);
+        assertEquals(version1.hashCode(), version2.hashCode());
+        assertEquals(version2.toString(), version2.toString());
     }
 
 }
