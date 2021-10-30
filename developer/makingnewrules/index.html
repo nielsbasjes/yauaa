@@ -1,0 +1,1147 @@
+<!doctype html><html lang=en class="js csstransforms3d">
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=generator content="Hugo 0.88.1">
+<meta name=description content="This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.">
+<meta name=author content="Niels Basjes">
+<link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png>
+<link rel=manifest href=/favicon/manifest.json>
+<link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#2d89ef">
+<meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
+<meta name=theme-color content="#ffffff">
+<title>Making new rules | Yauaa - Yet Another UserAgent Analyzer</title>
+<link href=/css/nucleus.css?1635623113 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635623113 rel=stylesheet>
+<link href=/css/hybrid.css?1635623113 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635623113 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635623113 rel=stylesheet>
+<link href=/css/auto-complete.css?1635623113 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635623113 rel=stylesheet>
+<link href=/css/theme.css?1635623113 rel=stylesheet>
+<link href=/css/tabs.css?1635623113 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635623113 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635623113 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635623113></script>
+<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
+</head>
+<body data-url=/developer/makingnewrules/>
+<nav id=sidebar>
+<div id=header-wrapper>
+<div id=header>
+<a id=logo href=/>
+<p class=logo-bar>Yauaa</p>
+</a>
+</div>
+<div class=searchbox>
+<label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span>
+</div>
+<script type=text/javascript src=/js/lunr.min.js?1635623113></script>
+<script type=text/javascript src=/js/auto-complete.js?1635623113></script>
+<script type=text/javascript>var baseurl="/"</script>
+<script type=text/javascript src=/js/search.js?1635623113></script>
+</div>
+<section id=homelinks>
+<ul>
+<li>
+<a class=padding href=/><i class="fas fa-home"></i> Yauaa</a>
+</li>
+</ul>
+</section>
+<div class=highlightable>
+<ul class=topics>
+<li data-nav-id=/expect/ title="What to expect" class=dd-item>
+<a href=/expect/>
+What to expect
+</a>
+<ul>
+<li data-nav-id=/expect/fieldvalues/ title="Field values" class=dd-item>
+<a href=/expect/fieldvalues/>
+Field values
+</a>
+</li>
+<li data-nav-id=/expect/performance/ title=Performance class=dd-item>
+<a href=/expect/performance/>
+Performance
+</a>
+</li>
+<li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item>
+<a href=/expect/tryit/>
+Try it!
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/using/ title="Using the analyzer" class=dd-item>
+<a href=/using/>
+Using Yauaa
+</a>
+<ul>
+<li data-nav-id=/using/memoryusage/ title="Memory usage" class=dd-item>
+<a href=/using/memoryusage/>
+Memory usage
+</a>
+</li>
+<li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item>
+<a href=/using/webservlet/>
+Webservlet
+</a>
+</li>
+<li data-nav-id=/using/limitations/ title=Limitations class=dd-item>
+<a href=/using/limitations/>
+Limitations
+</a>
+</li>
+<li data-nav-id=/using/license/ title=Licence class=dd-item>
+<a href=/using/license/>
+Licence
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
+<a href=/udf/>
+User Defined Functions
+</a>
+<ul>
+<li data-nav-id=/udf/apache-beam/ title="Apache Beam" class=dd-item>
+<a href=/udf/apache-beam/>
+Apache Beam
+</a>
+</li>
+<li data-nav-id=/udf/apache-beam-sql/ title="Apache Beam SQL" class=dd-item>
+<a href=/udf/apache-beam-sql/>
+Apache Beam SQL
+</a>
+</li>
+<li data-nav-id=/udf/apache-drill/ title="Apache Drill" class=dd-item>
+<a href=/udf/apache-drill/>
+Apache Drill
+</a>
+</li>
+<li data-nav-id=/udf/apache-flink/ title="Apache Flink" class=dd-item>
+<a href=/udf/apache-flink/>
+Apache Flink
+</a>
+</li>
+<li data-nav-id=/udf/apache-flink-table/ title="Apache Flink Table/SQL" class=dd-item>
+<a href=/udf/apache-flink-table/>
+Apache Flink Table/SQL
+</a>
+</li>
+<li data-nav-id=/udf/apache-hive/ title="Apache Hive" class=dd-item>
+<a href=/udf/apache-hive/>
+Apache Hive
+</a>
+</li>
+<li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class=dd-item>
+<a href=/udf/apache-nifi/>
+Apache Nifi
+</a>
+</li>
+<li data-nav-id=/udf/apache-pig/ title="Apache Pig" class=dd-item>
+<a href=/udf/apache-pig/>
+Apache Pig
+</a>
+</li>
+<li data-nav-id=/udf/commandline/ title="Commandline usage" class=dd-item>
+<a href=/udf/commandline/>
+Commandline usage
+</a>
+</li>
+<li data-nav-id=/udf/elastic-logstash/ title="Elastic LogStash" class=dd-item>
+<a href=/udf/elastic-logstash/>
+Elastic LogStash
+</a>
+</li>
+<li data-nav-id=/udf/elastic-search/ title="Elastic Search" class=dd-item>
+<a href=/udf/elastic-search/>
+Elastic Search
+</a>
+</li>
+<li data-nav-id=/udf/logparser/ title=LogParser class=dd-item>
+<a href=/udf/logparser/>
+LogParser
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/developer/ title=Development class="dd-item
+parent">
+<a href=/developer/>
+Development
+</a>
+<ul>
+<li data-nav-id=/developer/building/ title="Building from source" class=dd-item>
+<a href=/developer/building/>
+Building from source
+</a>
+</li>
+<li data-nav-id=/developer/basedesign/ title="Base Design" class=dd-item>
+<a href=/developer/basedesign/>
+Base Design
+</a>
+</li>
+<li data-nav-id=/developer/makingnewrules/ title="Making new rules" class="dd-item active">
+<a href=/developer/makingnewrules/>
+Making new rules
+</a>
+</li>
+<li data-nav-id=/developer/shadingdependencies/ title="Shading dependencies" class=dd-item>
+<a href=/developer/shadingdependencies/>
+Shading dependencies
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/other/ title=Other class=dd-item>
+<a href=/other/>
+Other
+</a>
+<ul>
+<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
+<a href=/other/relatedprojects/>
+Related projects
+</a>
+</li>
+<li data-nav-id=/other/article/ title=Blogpost class=dd-item>
+<a href=/other/article/>
+Blogpost
+</a>
+</li>
+</ul>
+</li>
+</ul>
+<section id=shortcuts>
+<h3>More</h3>
+<ul>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa><i class="fab fa-github"></i> Github repo</a>
+</li>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa/actions><img alt="Github actions Build status" src=https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa></a>
+</li>
+<li>
+<a class=padding href=https://app.codecov.io/gh/nielsbasjes/yauaa><img alt="Coverage Status" src=https://img.shields.io/codecov/c/github/nielsbasjes/yauaa></a>
+</li>
+<li>
+<a class=padding href=https://www.apache.org/licenses/LICENSE-2.0.html><img alt=License src=https://img.shields.io/:license-apache-blue.svg></a>
+</li>
+<li>
+<a class=padding href=https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22><img alt="Maven Central" src=https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg></a>
+</li>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa/stargazers><img alt="GitHub stars" src="https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars"></a>
+</li>
+<li>
+<a class=padding href=https://hub.docker.com/r/nielsbasjes/yauaa><img alt="Docker Hub" src=https://img.shields.io/docker/pulls/nielsbasjes/yauaa></a>
+</li>
+<li>
+<a class=padding href=https://www.paypal.me/nielsbasjes><img alt="If this project has business value for you then dont hesitate to support me with a small donation." src=https://img.shields.io/badge/Donations-via%20Paypal-blue.svg></a>
+</li>
+</ul>
+</section>
+<section id=footer>
+<p>&copy;2013-2021 by <a href=https://niels.basjes.nl>Niels Basjes</a></p>
+</section>
+</div>
+</nav>
+<section id=body>
+<div id=overlay></div>
+<div class="padding highlightable">
+<div>
+<div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/docs/developer/MakingNewRules.md target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
+<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
+<span id=sidebar-toggle-span>
+<a href=# id=sidebar-toggle data-sidebar-toggle>
+<i class="fas fa-bars"></i>
+</a>
+</span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/developer/>Development</a> > Making new rules
+</span>
+</div>
+<div class=progress>
+<div class=wrapper>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#detecting-new-useragent-patterns>Detecting new useragent patterns</a></li>
+<li><a href=#base-problem-they-all-lie>Base problem: They all lie</a></li>
+<li><a href=#solution-overview>Solution overview</a></li>
+<li><a href=#the-anatomy-of-a-matcher>The anatomy of a matcher</a></li>
+<li><a href=#where-the-rules-are-located>Where the rules are located</a></li>
+<li><a href=#useragent-parse-tree-model>Useragent parse tree model</a></li>
+<li><a href=#flattened-form-of-the-tree>Flattened form of the tree</a></li>
+<li><a href=#walking-around-the-tree>Walking around the tree</a></li>
+<li><a href=#chaining-operators>Chaining operators</a></li>
+<li><a href=#creating-a-new-rule>Creating a new rule</a></li>
+<li><a href=#the-known-the-unknown-and-the-faker>The Known, the Unknown and the faker</a></li>
+<li><a href=#wiping-values>Wiping values</a></li>
+<li><a href=#performance-considerations>Performance considerations</a></li>
+<li><a href=#variables>Variables</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<div id=head-tags>
+</div>
+<div id=body-inner>
+<h1>
+Making new rules
+</h1>
+<h2 id=detecting-new-useragent-patterns>Detecting new useragent patterns</h2>
+<p>When you find a useragent for which one or more of the fields are wrong there is the need to change the patterns and rules
+that are used by this system for classifying these attributes.
+In order to write rules this first described how the system works and what tools have been created to make writing new rules easier.</p>
+<h2 id=base-problem-they-all-lie>Base problem: They all lie</h2>
+<p>When looking at useragents it is clear that almost all of them include the name of predecessors/competitors
+with which they are supposed to be compatible with.</p>
+<p>So in general there is a ranking in the patterns; some are more true than others.</p>
+<h2 id=solution-overview>Solution overview</h2>
+<p>The way this system solves all of this is by employing several steps:</p>
+<ol>
+<li>The user agent string is parsed into a tree using Antlr4.</li>
+<li>This tree is matched against a set of &ldquo;Matchers&rdquo;
+A matcher is
+<ul>
+<li>a set of patterns that must be present in the tree</li>
+<li>a set of field/value combinations with a &lsquo;weight&rsquo;
+the value can be either a fixed value or a part of the tree.</li>
+</ul>
+</li>
+<li>For all matchers where ALL required patterns were present the
+field/value/weight results are all combined. For fields where
+multiple values were present the value with the highest weight &lsquo;wins&rsquo;</li>
+</ol>
+<p>All matchers are with tests placed in yaml files in the UserAgents directory.
+Because of the system with the weights the order of the matchers is not
+checked or guaranteed in any way. So if the two matchers may set the same
+field to a different value then better make sure they have different weights.</p>
+<h2 id=the-anatomy-of-a-matcher>The anatomy of a matcher</h2>
+<p>A matcher consists of 3 parts
+require
+extract
+options</p>
+<p>The &ldquo;require&rdquo; part holds the patterns that must all result in a non-null value. The IsNull operator is intended to check that a specific value actually IS null.
+The &ldquo;extract&rdquo; part is to send either a fixed string or an extracted pattern into a field with a certain numerical confidence.</p>
+<p>There are a few possible option flags:</p>
+<p>init This means the init output for this matcher must be shown. This is the same effect when running it without any extract values
+verbose This means that a LOT of debug output will be shown in the output.
+only This means that ONLY this test must be run. No others.</p>
+<p>Only IFF all require AND all extract patterns yielded a non-null value then will all of the extracted values be added to the end result.
+In general a field will receive a value from multiple matchers; the value with the highest confidence value will be in the output.</p>
+<p>The overall structure is this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>config</span>:
+- <span style=color:#f92672>lookup</span>:
+    <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;lookupname&#39;</span>
+    <span style=color:#f92672>map</span>:
+      <span style=color:#e6db74>&#34;From1&#34;</span> : <span style=color:#e6db74>&#34;To1&#34;</span>
+      <span style=color:#e6db74>&#34;From2&#34;</span> : <span style=color:#e6db74>&#34;To2&#34;</span>
+      <span style=color:#e6db74>&#34;From3&#34;</span> : <span style=color:#e6db74>&#34;To3&#34;</span>
+
+- <span style=color:#f92672>set</span>:
+    <span style=color:#f92672>name</span>: <span style=color:#e6db74>&#39;setname&#39;</span>
+    <span style=color:#f92672>merge</span>:
+    - <span style=color:#e6db74>&#39;nameOtherSet&#39;</span>
+    - <span style=color:#e6db74>&#39;nameOtherLookup&#39;</span>
+    <span style=color:#f92672>values</span>:
+    - <span style=color:#e6db74>&#39;foo&#39;</span>
+    - <span style=color:#e6db74>&#39;bar&#39;</span>
+
+- <span style=color:#f92672>matcher</span>:
+    <span style=color:#f92672>options</span>:
+    - <span style=color:#e6db74>&#39;verbose&#39;</span>
+    <span style=color:#f92672>variable</span>:
+    - <span style=color:#f92672>&#39;VariableName </span>: <span style=color:#ae81ff>Extract pattern&#39;</span>
+    - <span style=color:#f92672>&#39;VariableName </span>: <span style=color:#ae81ff>Extract pattern&#39;</span>
+    <span style=color:#f92672>require</span>:
+    - <span style=color:#e6db74>&#39;Require pattern&#39;</span>
+    - <span style=color:#e6db74>&#39;Require pattern&#39;</span>
+    <span style=color:#f92672>extract</span>:
+    - <span style=color:#f92672>&#39;FieldName : Confidence </span>: <span style=color:#ae81ff>Extract pattern&#39;</span>
+    - <span style=color:#f92672>&#39;FieldName : Confidence </span>: <span style=color:#ae81ff>Extract pattern&#39;</span>
+
+- <span style=color:#f92672>test</span>:
+    <span style=color:#f92672>options</span>:
+    - <span style=color:#e6db74>&#39;verbose&#39;</span>
+    - <span style=color:#e6db74>&#39;init&#39;</span>
+    <span style=color:#f92672>input</span>:
+      <span style=color:#f92672>user_agent_string</span>: <span style=color:#e6db74>&#39;Useragent&#39;</span>
+    <span style=color:#f92672>expected</span>:
+      <span style=color:#f92672>FieldName1     </span>: <span style=color:#e6db74>&#39;ExpectedValue1&#39;</span>
+      <span style=color:#f92672>FieldName2     </span>: <span style=color:#e6db74>&#39;ExpectedValue2&#39;</span>
+      <span style=color:#f92672>FieldName3     </span>: <span style=color:#e6db74>&#39;ExpectedValue3&#39;</span>
+</code></pre></div><p>A require pattern must simply yield a non-null value.
+The IsNull operator only makes sense in the context of a require as with this you can check that a pattern may not exist.</p>
+<p>For example to do checks like &ldquo;The last product in the list must be named foo&rdquo; you can write this</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>matcher</span>:
+    <span style=color:#f92672>require</span>:
+    - <span style=color:#e6db74>&#39;IsNull[agent.product.name=&#34;foo&#34;^&gt;]&#39;</span>
+</code></pre></div><p>An extract pattern is either a fixed string &ldquo;foo&rdquo; or a path expression as explained later in this document.</p>
+<h2 id=where-the-rules-are-located>Where the rules are located</h2>
+<p>Under the main resources there is a folder called <em>UserAgents</em> .
+In the folder a collection of yaml files are located.
+Each of those files contains matchers, lookups, tests or any combination of them
+in any order. This means that in many cases you&rsquo;ll find a relevant test case close
+to the rules.</p>
+<h2 id=useragent-parse-tree-model>Useragent parse tree model</h2>
+<p>According to RFC-2616 a useragent consists of set of products. Each with an (optional) version and an (optional) comment block.</p>
+<p><a href=https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.8>https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.8</a>
+<a href=https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43>https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43</a></p>
+<p>After much analysis the model that this parser uses it as follows:</p>
+<p>The whole string (the &lsquo;agent&rsquo;) is mostly cut into &lsquo;product&rsquo; and &lsquo;text&rsquo; parts.
+Each child node in the tree is numbered (1,2,3,&mldr;) within the context of the parent.
+A product has zero or more &lsquo;version&rsquo; fields and zero or more &lsquo;comments&rsquo; fields.
+Each comments' has one or more &lsquo;entry&rsquo;:
+In a comment block like this &lsquo;foo/1.0 (one; two three; four)&rsquo; we will have 3 entries (they are ; separated).</p>
+<p>From there the system recurses down within limitations.</p>
+<h2 id=flattened-form-of-the-tree>Flattened form of the tree</h2>
+<p>If we take this useragent as an example the tree is flattened into a set of &lsquo;breadcrumb&rsquo; type paths.</p>
+<p>I put some spaces in various places so you can see what happens with those (in most places they are trimmed):</p>
+<pre tabindex=0><code>foo/1.0 ( one  ; two three; four  ) bar/2.0 (five;six seven)
+</code></pre><p>will result in these paths (with their textual value)</p>
+<pre tabindex=0><code>agent=&quot;foo/1.0 ( one  ; two three; four  ) bar/2.0 (five;six seven)&quot;
+agent.(1)product=&quot;foo/1.0 ( one  ; two three; four  )&quot;
+agent.(1)product[1-1]=&quot;foo&quot;
+agent.(1)product[1-2]=&quot;foo/1&quot;
+agent.(1)product[2-2]=&quot;1&quot;
+agent.(1)product[1-3]=&quot;foo/1.0&quot;
+agent.(1)product[3-3]=&quot;0&quot;
+agent.(1)product.(1)name=&quot;foo&quot;
+agent.(1)product.(1)name[1-1]=&quot;foo&quot;
+agent.(1)product.(1)version=&quot;1.0&quot;
+agent.(1)product.(1)version[1-1]=&quot;1&quot;
+agent.(1)product.(1)version[1-2]=&quot;1.0&quot;
+agent.(1)product.(1)version[2-2]=&quot;0&quot;
+agent.(1)product.(1)comments=&quot;( one  ; two three; four  )&quot;
+agent.(1)product.(1)comments.(1)entry=&quot;one&quot;
+agent.(1)product.(1)comments.(1)entry[1-1]=&quot;one&quot;
+agent.(1)product.(1)comments.(1)entry.(1)text=&quot;one&quot;
+agent.(1)product.(1)comments.(1)entry.(1)text[1-1]=&quot;one&quot;
+agent.(1)product.(1)comments.(2)entry=&quot;two three&quot;
+agent.(1)product.(1)comments.(2)entry[1-1]=&quot;two&quot;
+agent.(1)product.(1)comments.(2)entry[1-2]=&quot;two three&quot;
+agent.(1)product.(1)comments.(2)entry[2-2]=&quot;three&quot;
+agent.(1)product.(1)comments.(2)entry.(1)text=&quot;two three&quot;
+agent.(1)product.(1)comments.(2)entry.(1)text[1-1]=&quot;two&quot;
+agent.(1)product.(1)comments.(2)entry.(1)text[1-2]=&quot;two three&quot;
+agent.(1)product.(1)comments.(2)entry.(1)text[2-2]=&quot;three&quot;
+agent.(1)product.(1)comments.(3)entry=&quot;four&quot;
+agent.(1)product.(1)comments.(3)entry[1-1]=&quot;four&quot;
+agent.(1)product.(1)comments.(3)entry.(1)text=&quot;four&quot;
+agent.(1)product.(1)comments.(3)entry.(1)text[1-1]=&quot;four&quot;
+agent.(2)product=&quot;bar/2.0 (five;six seven)&quot;
+agent.(2)product[1-1]=&quot;bar&quot;
+agent.(2)product[1-2]=&quot;bar/2&quot;
+agent.(2)product[2-2]=&quot;2&quot;
+agent.(2)product[1-3]=&quot;bar/2.0&quot;
+agent.(2)product[3-3]=&quot;0&quot;
+agent.(2)product.(1)name=&quot;bar&quot;
+agent.(2)product.(1)name[1-1]=&quot;bar&quot;
+agent.(2)product.(1)version=&quot;2.0&quot;
+agent.(2)product.(1)version[1-1]=&quot;2&quot;
+agent.(2)product.(1)version[1-2]=&quot;2.0&quot;
+agent.(2)product.(1)version[2-2]=&quot;0&quot;
+agent.(2)product.(1)comments=&quot;(five;six seven)&quot;
+agent.(2)product.(1)comments.(1)entry=&quot;five&quot;
+agent.(2)product.(1)comments.(1)entry[1-1]=&quot;five&quot;
+agent.(2)product.(1)comments.(1)entry.(1)text=&quot;five&quot;
+agent.(2)product.(1)comments.(1)entry.(1)text[1-1]=&quot;five&quot;
+agent.(2)product.(1)comments.(2)entry=&quot;six seven&quot;
+agent.(2)product.(1)comments.(2)entry[1-1]=&quot;six&quot;
+agent.(2)product.(1)comments.(2)entry[1-2]=&quot;six seven&quot;
+agent.(2)product.(1)comments.(2)entry[2-2]=&quot;seven&quot;
+agent.(2)product.(1)comments.(2)entry.(1)text=&quot;six seven&quot;
+agent.(2)product.(1)comments.(2)entry.(1)text[1-1]=&quot;six&quot;
+agent.(2)product.(1)comments.(2)entry.(1)text[1-2]=&quot;six seven&quot;
+agent.(2)product.(1)comments.(2)entry.(1)text[2-2]=&quot;seven&quot;
+</code></pre><p>As you can see there are a few special operators that allow comparing and extracting specific words.</p>
+<h2 id=walking-around-the-tree>Walking around the tree</h2>
+<p>In many cases we want to get the version of the product with a specific name.
+This means we should look to the product with that name and from there go &lsquo;up&rsquo; to the product and from there select the &lsquo;version&rsquo;.</p>
+<p>For this purpose a special language has been created that allows walking through a tree from the point where a match was found and do additional
+compare and string manipulation actions to obtain the value we are looking for.</p>
+<p>This language also supports lookups (hashmaps) that do a case INsensitive lookup.</p>
+<p>Note that for finding a matching pattern the system will recurse through the parse tree from left to right.
+The FIRST matching pattern is used for the end result.</p>
+<p>For demonstrating the operators I&rsquo;m using this user agent to explain the effects:</p>
+<pre tabindex=0><code>foo faa/1.0 2.3 (one; two three four) bar baz/2.0 3.0 (five; six seven)
+</code></pre><p>Available operators:</p>
+<p>Walking around the tree</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Operation</th>
+<th style=text-align:left>Symbol</th>
+<th style=text-align:left>Example</th>
+<th style=text-align:left>Result value (if applicable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>Up to parent</td>
+<td style=text-align:left>^</td>
+<td style=text-align:left>agent.(1)product.name^</td>
+<td style=text-align:left>agent.(1)product</td>
+</tr>
+<tr>
+<td style=text-align:left>Next Sibling</td>
+<td style=text-align:left>></td>
+<td style=text-align:left>agent.(1)product></td>
+<td style=text-align:left>agent.(2)product</td>
+</tr>
+<tr>
+<td style=text-align:left>Previous Sibling</td>
+<td style=text-align:left>&lt;</td>
+<td style=text-align:left>agent.(2)product&lt;</td>
+<td style=text-align:left>agent.(1)product</td>
+</tr>
+<tr>
+<td style=text-align:left>Down to child</td>
+<td style=text-align:left>.name</td>
+<td style=text-align:left>agent.(1)product.version</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Down to specific child</td>
+<td style=text-align:left>.(2)version</td>
+<td style=text-align:left>agent.(1)product.(2)version</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Down to specific child range</td>
+<td style=text-align:left>.(2-3)version</td>
+<td style=text-align:left>agent.(1)product.(2-3)version</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Down to specific child range</td>
+<td style=text-align:left>.(2-)version</td>
+<td style=text-align:left>agent.(1)product.(2-)version</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Down to specific child range</td>
+<td style=text-align:left>.(-5)version</td>
+<td style=text-align:left>agent.(1)product.(-5)version</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Comparing values in the tree</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Operation</th>
+<th style=text-align:left>Symbol</th>
+<th style=text-align:left>Example</th>
+<th style=text-align:left>Result value (if applicable)</th>
+<th style=text-align:left>Explain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>Equals</td>
+<td style=text-align:left>=</td>
+<td style=text-align:left>agent.(1)product.version=&ldquo;2.3&rdquo;</td>
+<td style=text-align:left>agent.(1)product.(2)version</td>
+<td style=text-align:left>The second version is &ldquo;2.3&rdquo;</td>
+</tr>
+<tr>
+<td style=text-align:left>Not equals</td>
+<td style=text-align:left>!=</td>
+<td style=text-align:left>agent.(1)product.version!=&ldquo;1.0&rdquo;</td>
+<td style=text-align:left>agent.(1)product.(2)version</td>
+<td style=text-align:left>The second version is the first one when backtracking that is not &ldquo;1.0&rdquo;</td>
+</tr>
+<tr>
+<td style=text-align:left>Contains</td>
+<td style=text-align:left>~</td>
+<td style=text-align:left>agent.product.name~&ldquo;ar&rdquo;</td>
+<td style=text-align:left>agent.(2)product.(1)name=&ldquo;bar baz&rdquo;</td>
+<td style=text-align:left>The first product name when backtracking that contains &ldquo;ar&rdquo;</td>
+</tr>
+<tr>
+<td style=text-align:left>Starts with</td>
+<td style=text-align:left>{</td>
+<td style=text-align:left>agent.product.name{&ldquo;b&rdquo;</td>
+<td style=text-align:left>agent.(2)product.(1)name=&ldquo;bar baz&rdquo;</td>
+<td style=text-align:left>The first product name when backtracking that starts with &ldquo;b&rdquo;</td>
+</tr>
+<tr>
+<td style=text-align:left>Ends with</td>
+<td style=text-align:left>}</td>
+<td style=text-align:left>agent.product.name}&ldquo;z&rdquo;</td>
+<td style=text-align:left>agent.(2)product.(1)name=&ldquo;bar baz&rdquo;</td>
+<td style=text-align:left>The first product name when backtracking that ends with &ldquo;z&rdquo;</td>
+</tr>
+<tr>
+<td style=text-align:left>(Key)set contains</td>
+<td style=text-align:left>?</td>
+<td style=text-align:left>agent.product.name?mySetOfValues</td>
+<td style=text-align:left>agent.(3)product.(1)name</td>
+<td style=text-align:left>The name of the third product was present in the defined set of values. This set may be a &ldquo;set&rdquo; or a &ldquo;lookup&rdquo; in the last case only the keys of this lookup will be evaluated</td>
+</tr>
+<tr>
+<td style=text-align:left>(Key)set does NOT contain</td>
+<td style=text-align:left>?!</td>
+<td style=text-align:left>agent.product.name?!mySetOfValues</td>
+<td style=text-align:left>agent.(3)product.(1)name</td>
+<td style=text-align:left>The name of the third product was NOT present in the defined set of values. This set may be a &ldquo;set&rdquo; or a &ldquo;lookup&rdquo; in the last case only the keys of this lookup will be evaluated</td>
+</tr>
+</tbody>
+</table>
+<p>Extracting substrings</p>
+<p>Note this fact <em>agent.(1)product.(1)comments.(2)entry.(1)text=&ldquo;one two three four five&rdquo;</em></p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Operation</th>
+<th style=text-align:left>Symbol</th>
+<th style=text-align:left>Example</th>
+<th style=text-align:left>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>First N Words</td>
+<td style=text-align:left>[-N]</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry.(1)text[-3]</td>
+<td style=text-align:left>one two three</td>
+</tr>
+<tr>
+<td style=text-align:left>Single Word at position N</td>
+<td style=text-align:left>[N]</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry.(1)text[3]</td>
+<td style=text-align:left>three</td>
+</tr>
+<tr>
+<td style=text-align:left>A range of words N-M</td>
+<td style=text-align:left>[N-M]</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry.(1)text[2-4]</td>
+<td style=text-align:left>two three four</td>
+</tr>
+<tr>
+<td style=text-align:left>All words to the end starting at N</td>
+<td style=text-align:left>[N-]</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry.(1)text[3-]</td>
+<td style=text-align:left>three four five</td>
+</tr>
+<tr>
+<td style=text-align:left>Back to full value</td>
+<td style=text-align:left>@</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry.(1)text[2]=&ldquo;three&rdquo; agent.(1)product.(1)comments.(2)entry.(1)text[2]=&ldquo;three&rdquo;@</td>
+<td style=text-align:left>three one two three four five</td>
+</tr>
+</tbody>
+</table>
+<p>Special operations</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:left>Operation</th>
+<th style=text-align:left>Symbol</th>
+<th style=text-align:left>Example</th>
+<th style=text-align:left>Result value (if applicable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>Check if the expresssion resulted in a null &lsquo;no match&rsquo; value.</td>
+<td style=text-align:left>IsNull[expression]</td>
+<td style=text-align:left>IsNull[agent.(1)product.(3)name]</td>
+<td style=text-align:left>true</td>
+</tr>
+<tr>
+<td style=text-align:left>Return the result or the provided default value in case the expression was a null &lsquo;no match&rsquo; value.</td>
+<td style=text-align:left>DefaultIfNull[expression;defaultvalue]</td>
+<td style=text-align:left>DefaultIfNull[agent.(1)product.(3)name;&ldquo;Something&rdquo;]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Cleanup the version from an _ separated to a . separated string</td>
+<td style=text-align:left>CleanVersion[expression]</td>
+<td style=text-align:left>CleanVersion[&ldquo;1_2_3&rdquo;]</td>
+<td style=text-align:left>1.2.3</td>
+</tr>
+<tr>
+<td style=text-align:left>Replace every occurrence of a String with another String (fixed text and case sensitive!)</td>
+<td style=text-align:left>ReplaceString[expression;search;replace]</td>
+<td style=text-align:left>ReplaceString[&ldquo;onefoofootwo&rdquo;;&ldquo;foo&rdquo;;&ldquo;bar&rdquo;]</td>
+<td style=text-align:left>onebarbartwo</td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table</td>
+<td style=text-align:left>LookUp[lookupname;expression]</td>
+<td style=text-align:left>LookUp[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table (with fallback in case no match)</td>
+<td style=text-align:left>LookUp[lookupname;expression;defaultvalue]</td>
+<td style=text-align:left>LookUp[OSNames;agent.product.entry.text;&ldquo;Unknown&rdquo;]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table and return the original value if a matching prefix is present.</td>
+<td style=text-align:left>IsInLookUp[lookupname;expression]</td>
+<td style=text-align:left>IsInLookUp[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the lookupname in the lookup table that the value contains</td>
+<td style=text-align:left>LookUpContains[lookupname;expression]</td>
+<td style=text-align:left>LookUpContains[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the lookupname in the lookup table that the value contains (with fallback in case no match)</td>
+<td style=text-align:left>LookUpContains[lookupname;expression;defaultvalue]</td>
+<td style=text-align:left>LookUpContains[OSNames;agent.product.entry.text;&ldquo;Unknown&rdquo;]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present.</td>
+<td style=text-align:left>IsInLookUpContains[lookupname;expression]</td>
+<td style=text-align:left>IsInLookUpContains[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value.</td>
+<td style=text-align:left>LookUpPrefix[lookupname;expression]</td>
+<td style=text-align:left>LookUpPrefix[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match).</td>
+<td style=text-align:left>LookUpPrefix[lookupname;expression;defaultvalue]</td>
+<td style=text-align:left>LookUpPrefix[OSNames;agent.product.entry.text;&ldquo;Unknown&rdquo;]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table and return the value if there is NO matching prefix of the key.</td>
+<td style=text-align:left>LookUpIsNotInPrefix[lookupname;expression]</td>
+<td style=text-align:left>LookUpIsNotInPrefix[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>LookUp the value against a lookup table and return the original value if a matching prefix is present.</td>
+<td style=text-align:left>IsInLookUpPrefix[lookupname;expression]</td>
+<td style=text-align:left>IsInLookUpPrefix[OSNames;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Put a fixed string before an expression</td>
+<td style=text-align:left>Concat[value;expression]</td>
+<td style=text-align:left>Concat[&ldquo;Something&rdquo;;agent.product.entry.text]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Put a fixed string after an expression</td>
+<td style=text-align:left>Concat[expression;value]</td>
+<td style=text-align:left>Concat[agent.product.entry.text;&ldquo;Something&rdquo;]</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:left>Surround the expression with both a prefix and a postfix</td>
+<td style=text-align:left>Concat[value;expression;value]</td>
+<td style=text-align:left>Concat[&ldquo;Something&rdquo;;agent.product.entry.text;&ldquo;Something&rdquo;]</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id=chaining-operators>Chaining operators</h2>
+<p>An extensive example of walking around to get the right value.</p>
+<pre tabindex=0><code>foo faa/1.0/2.3 (one; two three four) bar baz/2.0/3.0 (five; six seven)
+</code></pre><table>
+<thead>
+<tr>
+<th style=text-align:left>Expression</th>
+<th style=text-align:left>Current path</th>
+<th style=text-align:left>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;</td>
+<td style=text-align:left>agent.(2)product.(1)comments.(2)entry.(1)text[2]</td>
+<td style=text-align:left>seven</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^</td>
+<td style=text-align:left>agent.(2)product.(1)comments.(2)entry</td>
+<td style=text-align:left>six seven</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^</td>
+<td style=text-align:left>agent.(2)product.(1)comments</td>
+<td style=text-align:left>(five; six seven)</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^</td>
+<td style=text-align:left>agent.(2)product</td>
+<td style=text-align:left>bar baz/2.0/3.0 (five; six seven)</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;</td>
+<td style=text-align:left>agent.(1)product</td>
+<td style=text-align:left>foo faa/1.0/2.3 (one; two three four)</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name</td>
+<td style=text-align:left>agent.(1)product.(1)name</td>
+<td style=text-align:left>foo faa</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;</td>
+<td style=text-align:left>agent.(1)product.(1)name</td>
+<td style=text-align:left>foo faa</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;^</td>
+<td style=text-align:left>agent.(1)product</td>
+<td style=text-align:left>foo faa/1.0/2.3 (one; two three four)</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;^.comments</td>
+<td style=text-align:left>agent.(1)product.(1)comments</td>
+<td style=text-align:left>(one; two three four)</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;^.comments.entry</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(1)entry</td>
+<td style=text-align:left>one</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;^.comments.entry.text[2]=&ldquo;three&rdquo;</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry[2]</td>
+<td style=text-align:left>three</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;^.comments.entry.text[2]=&ldquo;three&rdquo;@</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry</td>
+<td style=text-align:left>two three four</td>
+</tr>
+<tr>
+<td style=text-align:left>agent.product.(1)comments.entry.(1)text[2]=&ldquo;seven&rdquo;^^^&lt;.name=&ldquo;foo faa&rdquo;^.comments.entry.text[2]=&ldquo;three&rdquo;@[1]</td>
+<td style=text-align:left>agent.(1)product.(1)comments.(2)entry[1]</td>
+<td style=text-align:left>two</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the first possible match is returned.
+If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.</p>
+<p>I created a test that shows all of the debug output of this example: <a href=https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java>unit test</a> and <a href=https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/resources/DocumentationExample.yaml>yaml file</a></p>
+<p>This can also be run from the commandline using:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mvn -Dtest<span style=color:#f92672>=</span>DocumentationExample -DfailIfNoTests<span style=color:#f92672>=</span>false test
+</code></pre></div><h2 id=creating-a-new-rule>Creating a new rule</h2>
+<p>Assume we got this useragent</p>
+<pre tabindex=0><code>Mozilla/5.0 (compatible; Foo/3.1; Bar)
+</code></pre><p>and let&rsquo;s just assume we want to set a field called MinorFooVersion if
+the minor version of Foo is 1</p>
+<p>To start we put the agent as a new test in one of the yaml files.
+If we choose to create a new file make sure is starts with &ldquo;config:&rdquo;</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>test</span>:
+    <span style=color:#f92672>input</span>:
+      <span style=color:#f92672>user_agent_string</span>: <span style=color:#e6db74>&#39;Mozilla/5.0 (compatible; Foo/3.1; Bar)&#39;</span>
+</code></pre></div><p>Now we run the unit test &ldquo;TestPredefinedBrowsers&rdquo;.
+On a normal computer this will take only about 1-5 seconds.</p>
+<p>The output contains all the field values for this useragent in the exact form of a unit test.</p>
+<p>So once you are happy with the result you can simply copy and past this into the yaml file.</p>
+<p>In this case is looks something like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>test</span>:
+<span style=color:#75715e>#    options:</span>
+<span style=color:#75715e>#    - &#39;verbose&#39;</span>
+<span style=color:#75715e>#    - &#39;init&#39;</span>
+<span style=color:#75715e>#    - &#39;only&#39;</span>
+    <span style=color:#f92672>input</span>:
+      <span style=color:#f92672>user_agent_string</span>: <span style=color:#e6db74>&#39;Mozilla/5.0 (compatible; Foo/3.1; Bar)&#39;</span>
+    <span style=color:#f92672>expected</span>:
+      <span style=color:#f92672>DeviceClass                          </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>DeviceName                           </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>OperatingSystemClass                 </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>OperatingSystemName                  </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>OperatingSystemVersion               </span>: <span style=color:#e6db74>&#39;??&#39;</span>
+      <span style=color:#f92672>LayoutEngineClass                    </span>: <span style=color:#e6db74>&#39;Browser&#39;</span>
+      <span style=color:#f92672>LayoutEngineName                     </span>: <span style=color:#e6db74>&#39;Mozilla&#39;</span>
+      <span style=color:#f92672>LayoutEngineVersion                  </span>: <span style=color:#e6db74>&#39;5.0&#39;</span>
+      <span style=color:#f92672>LayoutEngineVersionMajor             </span>: <span style=color:#e6db74>&#39;5&#39;</span>
+      <span style=color:#f92672>LayoutEngineNameVersion              </span>: <span style=color:#e6db74>&#39;Mozilla 5.0&#39;</span>
+      <span style=color:#f92672>LayoutEngineNameVersionMajor         </span>: <span style=color:#e6db74>&#39;Mozilla 5&#39;</span>
+      <span style=color:#f92672>AgentClass                           </span>: <span style=color:#e6db74>&#39;Browser&#39;</span>
+      <span style=color:#f92672>AgentName                            </span>: <span style=color:#e6db74>&#39;Foo&#39;</span>
+      <span style=color:#f92672>AgentVersion                         </span>: <span style=color:#e6db74>&#39;3.1&#39;</span>
+      <span style=color:#f92672>AgentVersionMajor                    </span>: <span style=color:#e6db74>&#39;3&#39;</span>
+      <span style=color:#f92672>AgentNameVersion                     </span>: <span style=color:#e6db74>&#39;Foo 3.1&#39;</span>
+      <span style=color:#f92672>AgentNameVersionMajor                </span>: <span style=color:#e6db74>&#39;Foo 3&#39;</span>
+</code></pre></div><p>The output also contains all hard checked paths in the tree in the rough form
+of a matcher.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>matcher</span>:
+<span style=color:#75715e>#    options:</span>
+<span style=color:#75715e>#    - &#39;verbose&#39;</span>
+    <span style=color:#f92672>require</span>:
+<span style=color:#75715e>#    - &#39;__SyntaxError__=&#34;false&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent=&#34;Mozilla/5.0 (compatible; Foo/3.1; Bar)&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product=&#34;Mozilla/5.0 (compatible; Foo/3.1; Bar)&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product[1-1]=&#34;Mozilla&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product[1-2]=&#34;Mozilla/5&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product[2-2]=&#34;5&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product[1-3]=&#34;Mozilla/5.0&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product[3-3]=&#34;0&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)name=&#34;Mozilla&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)name[1-1]=&#34;Mozilla&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)version=&#34;5.0&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)version[1-1]=&#34;5&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)version[1-2]=&#34;5.0&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)version[2-2]=&#34;0&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments=&#34;(compatible; Foo/3.1; Bar)&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(1)entry=&#34;compatible&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(1)entry[1-1]=&#34;compatible&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(1)entry.(1)text=&#34;compatible&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(1)entry.(1)text[1-1]=&#34;compatible&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry=&#34;Foo/3.1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry[1-1]=&#34;Foo&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry[1-2]=&#34;Foo/3&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry[2-2]=&#34;3&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry[1-3]=&#34;Foo/3.1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry[3-3]=&#34;1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product=&#34;Foo/3.1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product[1-1]=&#34;Foo&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product[1-2]=&#34;Foo/3&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product[2-2]=&#34;3&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product[1-3]=&#34;Foo/3.1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product[3-3]=&#34;1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product.(1)name=&#34;Foo&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product.(1)name[1-1]=&#34;Foo&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product.(1)version=&#34;3.1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product.(1)version[1-1]=&#34;3&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product.(1)version[1-2]=&#34;3.1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(2)entry.(1)product.(1)version[2-2]=&#34;1&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(3)entry=&#34;Bar&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(3)entry[1-1]=&#34;Bar&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(3)entry.(1)text=&#34;Bar&#34;&#39;</span>
+<span style=color:#75715e>#    - &#39;agent.(1)product.(1)comments.(3)entry.(1)text[1-1]=&#34;Bar&#34;&#39;</span>
+    <span style=color:#f92672>extract</span>:
+<span style=color:#75715e>#    - &#39;DeviceClass           :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;DeviceBrand           :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;DeviceName            :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;OperatingSystemClass  :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;OperatingSystemName   :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;OperatingSystemVersion:   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;LayoutEngineClass     :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;LayoutEngineName      :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;LayoutEngineVersion   :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;AgentClass            :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;AgentName             :   1:&#39;</span>
+<span style=color:#75715e>#    - &#39;AgentVersion          :   1:&#39;</span>
+</code></pre></div><p>In our case we are only interested in the second digit of the version of the product named &ldquo;Foo&rdquo;</p>
+<p>So we copy this and make it like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>matcher</span>:
+    <span style=color:#f92672>extract</span>:
+    - <span style=color:#f92672>&#39;MinorFooVersion </span>:   <span style=color:#ae81ff>1</span>:<span style=color:#ae81ff>agent.(1)product.(1)comments.entry.(1)product.(1)name=&#34;Foo&#34;^.version[2]&#39;</span>
+</code></pre></div><p>What this does is that in the first product, in the first set of comments there is at any position an entry
+that contains as the first element a product who&rsquo;s name is &ldquo;Foo&rdquo; that we go up in the tree and then down
+to the version of that product and then take the second word.</p>
+<p>Now if we run the unit test again we will see this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>test</span>:
+<span style=color:#75715e>#    options:</span>
+<span style=color:#75715e>#    - &#39;verbose&#39;</span>
+<span style=color:#75715e>#    - &#39;init&#39;</span>
+<span style=color:#75715e>#    - &#39;only&#39;</span>
+    <span style=color:#f92672>input</span>:
+      <span style=color:#f92672>user_agent_string</span>: <span style=color:#e6db74>&#39;Mozilla/5.0 (compatible; Foo/3.1; Bar)&#39;</span>
+    <span style=color:#f92672>expected</span>:
+      <span style=color:#f92672>DeviceClass                          </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>DeviceName                           </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>OperatingSystemClass                 </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>OperatingSystemName                  </span>: <span style=color:#e6db74>&#39;Unknown&#39;</span>
+      <span style=color:#f92672>OperatingSystemVersion               </span>: <span style=color:#e6db74>&#39;??&#39;</span>
+      <span style=color:#f92672>LayoutEngineClass                    </span>: <span style=color:#e6db74>&#39;Browser&#39;</span>
+      <span style=color:#f92672>LayoutEngineName                     </span>: <span style=color:#e6db74>&#39;Mozilla&#39;</span>
+      <span style=color:#f92672>LayoutEngineVersion                  </span>: <span style=color:#e6db74>&#39;5.0&#39;</span>
+      <span style=color:#f92672>LayoutEngineVersionMajor             </span>: <span style=color:#e6db74>&#39;5&#39;</span>
+      <span style=color:#f92672>LayoutEngineNameVersion              </span>: <span style=color:#e6db74>&#39;Mozilla 5.0&#39;</span>
+      <span style=color:#f92672>LayoutEngineNameVersionMajor         </span>: <span style=color:#e6db74>&#39;Mozilla 5&#39;</span>
+      <span style=color:#f92672>AgentClass                           </span>: <span style=color:#e6db74>&#39;Browser&#39;</span>
+      <span style=color:#f92672>AgentName                            </span>: <span style=color:#e6db74>&#39;Foo&#39;</span>
+      <span style=color:#f92672>AgentVersion                         </span>: <span style=color:#e6db74>&#39;3.1&#39;</span>
+      <span style=color:#f92672>AgentVersionMajor                    </span>: <span style=color:#e6db74>&#39;3&#39;</span>
+      <span style=color:#f92672>AgentNameVersion                     </span>: <span style=color:#e6db74>&#39;Foo 3.1&#39;</span>
+      <span style=color:#f92672>AgentNameVersionMajor                </span>: <span style=color:#e6db74>&#39;Foo 3&#39;</span>
+      <span style=color:#f92672>MinorFooVersion                      </span>: <span style=color:#e6db74>&#39;1&#39;</span>
+</code></pre></div><p>As you can see this clearly shows that a new field has been added with the value we wanted.</p>
+<p>If you want to change or add more rules then simply iterate over the steps until you have the
+end result you think is good.
+Then simply copy the end &lsquo;test&rsquo; into the yaml file and save.</p>
+<p>If you are detecting a new field or a new value for an existing field
+then be aware that this may also apply to tests that are already present
+in the system. For all tests to pass these must be updated also.</p>
+<p>You can choose to use this in a more &ldquo;Test Driven Development&rdquo; model also.
+Simply run the unit test, copy the &lsquo;raw testcase&rsquo; into the yaml file and
+edit the values to what they should be and work from there.</p>
+<p>If you run it this way your will get a &lsquo;failed test&rsquo; which yields a bit
+of extra output.
+For the sake of demo if I simply put this testcase in the yaml file</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>test</span>:
+    <span style=color:#f92672>input</span>:
+      <span style=color:#f92672>user_agent_string</span>: <span style=color:#e6db74>&#39;Mozilla/5.0 (compatible; Foo/3.1; Bar)&#39;</span>
+    <span style=color:#f92672>expected</span>:
+      <span style=color:#f92672>AgentClass                           </span>: <span style=color:#e6db74>&#39;Browser&#39;</span>
+      <span style=color:#f92672>AgentName                            </span>: <span style=color:#e6db74>&#39;Foo&#39;</span>
+      <span style=color:#f92672>AgentVersion                         </span>: <span style=color:#e6db74>&#39;3.1&#39;</span>
+      <span style=color:#f92672>AgentVersionMajor                    </span>: <span style=color:#e6db74>&#39;3&#39;</span>
+      <span style=color:#f92672>AgentNameVersion                     </span>: <span style=color:#e6db74>&#39;Foo 3.1&#39;</span>
+      <span style=color:#f92672>AgentNameVersionMajor                </span>: <span style=color:#e6db74>&#39;Foo 3&#39;</span>
+      <span style=color:#f92672>MinorFooVersion                      </span>: <span style=color:#e6db74>&#39;1&#39;</span>
+</code></pre></div><p>This would also show as test output:</p>
+<pre tabindex=0><code>    [INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: | Result | Field                        | Actual      | Default | Confidence | Expected   |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineClass            | Browser     |         |          3 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineName             | Mozilla     |         |          3 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineVersion          | 5.0         |         |          3 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineVersionMajor     | 5           |         |          3 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineNameVersion      | Mozilla 5.0 |         |          3 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | LayoutEngineNameVersionMajor | Mozilla 5   |         |          3 | &lt;&lt;absent&gt;&gt; |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentClass                   | Browser     |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentName                    | Foo         |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentVersion                 | 3.1         |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentVersionMajor            | 3           |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentNameVersion             | Foo 3.1     |         |         10 |            |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: |        | AgentNameVersionMajor        | Foo 3       |         |         10 |            |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | AgentLanguage                | Bavarian    |         |     500006 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | AgentLanguageCode            | bar         |         |     500006 | &lt;&lt;absent&gt;&gt; |
+    [ERROR] AbstractUserAgentAnalyzerTester         :  109: | -FAIL- | MinorFooVersion              | ??          | Default |         -1 | 1          |
+    [INFO ] AbstractUserAgentAnalyzerTester         :   89: +--------+------------------------------+-------------+---------+------------+------------+
+</code></pre><p>As you can see the system will fail on missing fields, unexpected fields and wrong values.</p>
+<p>If you create rules that in one of the test cases produce for the same field different values with the same confidence
+then the test will fail with messages like this:</p>
+<pre tabindex=0><code>- ***********************************************************
+- ***        REALLY IMPORTANT ERRORS IN THE RULESET       ***
+- *** YOU MUST CHANGE THE CONFIDENCE LEVELS OF YOUR RULES ***
+- ***********************************************************
+- Found different value for &quot;OperatingSystemName&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;BlackBerry&quot;
+- Found different value for &quot;OperatingSystemName&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;BlackBerry&quot;
+- Found different value for &quot;OperatingSystemName&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;BlackBerry&quot;
+- Found different value for &quot;OperatingSystemVersion&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;??&quot;
+- Found different value for &quot;OperatingSystemVersion&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;??&quot;
+- Found different value for &quot;OperatingSystemVersion&quot; with SAME confidence 10: &quot;RIM OS&quot; and &quot;??&quot;
+</code></pre><p>Note that these do not need to be the &lsquo;winning&rsquo; value.
+The existence of the ambiguity is enough to fail.</p>
+<h2 id=the-known-the-unknown-and-the-faker>The Known, the Unknown and the faker</h2>
+<p>In most cases an <code>extract</code> will put a value (<code>Mozilla</code>) into a field with a confidence.</p>
+<p>In addition to this normal case there are two additional cases that need to be covered:</p>
+<ol>
+<li>
+<p>We use the special value <code>&lt;&lt;&lt;null>>></code> if we do not know the value (i.e. the end result should say <code>Unknown</code> or <code>??</code>) and we do want the post processing to try and fill the field with an alternative.</p>
+<ul>
+<li>This is then labeled as Default.</li>
+<li>Example: We do not know the DeviceBrand and as a fall back the hostname in the URL (if any) is used.</li>
+</ul>
+</li>
+<li>
+<p>We simply use something like <code>Unknown</code> or <code>??</code> if we do not know the value (i.e. the end result should say <code>Unknown</code> or <code>??</code>) and we are sure we do NOT want any post processing to try and find something better.</p>
+<ul>
+<li>This is then labeled as <strong>not</strong> Default.</li>
+<li>Example: We do not know the DeviceBrand because it matched the pattern of a GoogleBot immitator and we do not want to see <code>Google</code> as the brand.</li>
+</ul>
+</li>
+</ol>
+<h2 id=wiping-values>Wiping values</h2>
+<p>In some cases a previously defined value needs to be erased with a higher confidence.
+To achieve this simply set the value to <code>&lt;&lt;&lt;null>>></code></p>
+<p>In addition there is a way to set all variables to a certain value by setting the special value <code>__Set_ALL_Fields__</code></p>
+<p>Because the ordering is defined by the confidence numbers you must make sure the confidence of the new values are
+at least 1 higher than the confidence of the <code>__Set_ALL_Fields__</code>.</p>
+<p>Both of these can be combined into</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>extract</span>:
+- <span style=color:#f92672>&#39;__Set_ALL_Fields__    </span>:   <span style=color:#ae81ff>99</span>:<span style=color:#e6db74>&#34;&lt;&lt;&lt;null&gt;&gt;&gt;&#34;</span><span style=color:#ae81ff>&#39;</span>
+</code></pre></div><p>Note that ALL fields with a confidence below 99 will be wiped. So the field values you set in this matcher
+must all be 1 higher than this or it will wipe itself too.</p>
+<h2 id=performance-considerations>Performance considerations</h2>
+<p>Note that in order to optimize the performance the paths that lead directly to a point in the tree are placed in a
+hashmap for very fast lookup.</p>
+<p>Only if all &lsquo;direct paths&rsquo; in a matcher are found only then the walking of those rules is attempted.</p>
+<p>So one of the rules looks like this</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>matcher</span>:
+    <span style=color:#f92672>require</span>:
+    - <span style=color:#e6db74>&#39;agent.product.(1)name=&#34;Chrome&#34;&#39;</span>
+    - <span style=color:#e6db74>&#39;LookUp[ChromeLayoutEngineName;agent.product.(1)name=&#34;Chrome&#34;^.version[1]]&#39;</span>
+    - <span style=color:#e6db74>&#39;agent.product.(1)name=&#34;AppleWebKit&#34;^.version[1]=&#34;537&#34;&#39;</span>
+    - <span style=color:#e6db74>&#39;agent.product.(1)version[1]=&#34;537&#34;&#39;</span> <span style=color:#75715e># This is a matching speedup trick</span>
+    <span style=color:#f92672>extract</span>:
+    - <span style=color:#f92672>&#39;LayoutEngineClass     </span>:   <span style=color:#ae81ff>1000</span>:<span style=color:#e6db74>&#34;Browser&#34;</span><span style=color:#e6db74>&#39;
+</span><span style=color:#e6db74>    - &#39;</span><span style=color:#f92672>LayoutEngineName      </span>:   <span style=color:#ae81ff>1000</span>:<span style=color:#e6db74>&#34;AppleWebKit&#34;</span><span style=color:#e6db74>&#39;
+</span><span style=color:#e6db74>    - &#39;</span><span style=color:#f92672>LayoutEngineVersion   </span>:   <span style=color:#ae81ff>1000</span>:<span style=color:#ae81ff>agent.product.(1)name=&#34;AppleWebKit&#34;^.version&#39;</span>
+</code></pre></div><p>The agent.product.(1)version[1]=&ldquo;537&rdquo; is found immediately while walking through the parsed tree.
+So if this one is not present then the other check &ldquo;Is the version of AppleWebKit equals to 537&rdquo;
+and the lookup are not even attempted. These kinds of tricks will speedup parsing.</p>
+<h2 id=variables>Variables</h2>
+<p>There is the option of predefining a value which is then usable by all rules in a matcher.</p>
+<p>A variable is simply a named point in the tree that is found only once and the reused as-is by the other rules within the same matcher.
+A variable is also always in essence a &lsquo;require&rsquo;, it must be present for the matcher as a whole to continue.
+You can only reference a variable by name in a later variable. This is because they are evaluated in the order
+in which they appear in the definition in the file.
+The variable name follows a similar pattern as variable names in languages like Java: <code>[a-zA-Z][a-zA-Z0-9]+</code>
+When referencing a variable (by means of @name) in an expression you must see it as a point in the tree that happens to have a name.</p>
+<p>This looks like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>- <span style=color:#f92672>matcher</span>:
+    <span style=color:#f92672>variable</span>:
+    - <span style=color:#f92672>&#39;Chrome </span>: <span style=color:#ae81ff>agent.product.(1)name=&#34;Chrome&#34;&#39;</span>
+    - <span style=color:#f92672>&#39;AppleWebKitVersion </span>: <span style=color:#ae81ff>agent.product.(1)name=&#34;AppleWebKit&#34;^.version&#39;</span>
+    <span style=color:#f92672>require</span>:
+    - <span style=color:#e6db74>&#39;LookUp[ChromeLayoutEngineName;@Chrome^.version[1]]&#39;</span>
+    - <span style=color:#e6db74>&#39;@AppleWebKitVersion[1]=&#34;537&#34;&#39;</span>
+    - <span style=color:#e6db74>&#39;agent.product.(1)version[1]=&#34;537&#34;&#39;</span> <span style=color:#75715e># This is a matching speedup trick</span>
+    <span style=color:#f92672>extract</span>:
+    - <span style=color:#f92672>&#39;LayoutEngineClass     </span>:   <span style=color:#ae81ff>1000</span>:<span style=color:#e6db74>&#34;Browser&#34;</span><span style=color:#e6db74>&#39;
+</span><span style=color:#e6db74>    - &#39;</span><span style=color:#f92672>LayoutEngineName      </span>:   <span style=color:#ae81ff>1000</span>:<span style=color:#e6db74>&#34;AppleWebKit&#34;</span><span style=color:#e6db74>&#39;
+</span><span style=color:#e6db74>    - &#39;</span><span style=color:#f92672>LayoutEngineVersion   </span>:   <span style=color:#ae81ff>1000</span>:@<span style=color:#ae81ff>AppleWebKitVersion&#39;</span>
+</code></pre></div><p>Note that the backtracking stops when the variable finds its first match.
+So when defined like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>extract</span>:
+- <span style=color:#f92672>&#39;Something: 1</span>: <span style=color:#ae81ff>agent.product.(1)name=&#34;AppleWebKit&#34;^.version&#39;</span>
+</code></pre></div><p>it may find after backtracking that the 5th product matches</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#ae81ff>agent.(5)product.(1)version</span>
+</code></pre></div><p>Yet when defined like this</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>variable</span>:
+- <span style=color:#f92672>&#39;productname</span>: <span style=color:#ae81ff>agent.product.(1)name&#39;</span>
+<span style=color:#f92672>extract</span>:
+- <span style=color:#f92672>&#39;Something: 1</span>: @<span style=color:#ae81ff>productname=&#34;AppleWebKit&#34;^.version&#39;</span>
+</code></pre></div><p>it will stay at the first product and never find the 5th product at all.</p>
+<footer class=footline>
+</footer>
+</div>
+</div>
+<div id=navigation>
+</div>
+</section>
+<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
+<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
+</div>
+<script src=/js/clipboard.min.js?1635623113></script>
+<script src=/js/perfect-scrollbar.min.js?1635623113></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635623113></script>
+<script src=/js/jquery.sticky.js?1635623113></script>
+<script src=/js/featherlight.min.js?1635623113></script>
+<script src=/js/highlight.pack.js?1635623113></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1635623113></script>
+<script src=/js/learn.js?1635623113></script>
+<script src=/js/hugo-learn.js?1635623113></script>
+</body>
+</html>

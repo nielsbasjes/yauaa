@@ -1,0 +1,368 @@
+<!doctype html><html lang=en class="js csstransforms3d">
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=generator content="Hugo 0.88.1">
+<meta name=description content="This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.">
+<meta name=author content="Niels Basjes">
+<link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png>
+<link rel=manifest href=/favicon/manifest.json>
+<link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#2d89ef">
+<meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
+<meta name=theme-color content="#ffffff">
+<title>Elastic LogStash | Yauaa - Yet Another UserAgent Analyzer</title>
+<link href=/css/nucleus.css?1635623113 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635623113 rel=stylesheet>
+<link href=/css/hybrid.css?1635623113 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635623113 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635623113 rel=stylesheet>
+<link href=/css/auto-complete.css?1635623113 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635623113 rel=stylesheet>
+<link href=/css/theme.css?1635623113 rel=stylesheet>
+<link href=/css/tabs.css?1635623113 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635623113 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635623113 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635623113></script>
+<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
+</head>
+<body data-url=/udf/elastic-logstash/>
+<nav id=sidebar>
+<div id=header-wrapper>
+<div id=header>
+<a id=logo href=/>
+<p class=logo-bar>Yauaa</p>
+</a>
+</div>
+<div class=searchbox>
+<label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span>
+</div>
+<script type=text/javascript src=/js/lunr.min.js?1635623113></script>
+<script type=text/javascript src=/js/auto-complete.js?1635623113></script>
+<script type=text/javascript>var baseurl="/"</script>
+<script type=text/javascript src=/js/search.js?1635623113></script>
+</div>
+<section id=homelinks>
+<ul>
+<li>
+<a class=padding href=/><i class="fas fa-home"></i> Yauaa</a>
+</li>
+</ul>
+</section>
+<div class=highlightable>
+<ul class=topics>
+<li data-nav-id=/expect/ title="What to expect" class=dd-item>
+<a href=/expect/>
+What to expect
+</a>
+<ul>
+<li data-nav-id=/expect/fieldvalues/ title="Field values" class=dd-item>
+<a href=/expect/fieldvalues/>
+Field values
+</a>
+</li>
+<li data-nav-id=/expect/performance/ title=Performance class=dd-item>
+<a href=/expect/performance/>
+Performance
+</a>
+</li>
+<li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item>
+<a href=/expect/tryit/>
+Try it!
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/using/ title="Using the analyzer" class=dd-item>
+<a href=/using/>
+Using Yauaa
+</a>
+<ul>
+<li data-nav-id=/using/memoryusage/ title="Memory usage" class=dd-item>
+<a href=/using/memoryusage/>
+Memory usage
+</a>
+</li>
+<li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item>
+<a href=/using/webservlet/>
+Webservlet
+</a>
+</li>
+<li data-nav-id=/using/limitations/ title=Limitations class=dd-item>
+<a href=/using/limitations/>
+Limitations
+</a>
+</li>
+<li data-nav-id=/using/license/ title=Licence class=dd-item>
+<a href=/using/license/>
+Licence
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/udf/ title="User Defined Functions" class="dd-item
+parent">
+<a href=/udf/>
+User Defined Functions
+</a>
+<ul>
+<li data-nav-id=/udf/apache-beam/ title="Apache Beam" class=dd-item>
+<a href=/udf/apache-beam/>
+Apache Beam
+</a>
+</li>
+<li data-nav-id=/udf/apache-beam-sql/ title="Apache Beam SQL" class=dd-item>
+<a href=/udf/apache-beam-sql/>
+Apache Beam SQL
+</a>
+</li>
+<li data-nav-id=/udf/apache-drill/ title="Apache Drill" class=dd-item>
+<a href=/udf/apache-drill/>
+Apache Drill
+</a>
+</li>
+<li data-nav-id=/udf/apache-flink/ title="Apache Flink" class=dd-item>
+<a href=/udf/apache-flink/>
+Apache Flink
+</a>
+</li>
+<li data-nav-id=/udf/apache-flink-table/ title="Apache Flink Table/SQL" class=dd-item>
+<a href=/udf/apache-flink-table/>
+Apache Flink Table/SQL
+</a>
+</li>
+<li data-nav-id=/udf/apache-hive/ title="Apache Hive" class=dd-item>
+<a href=/udf/apache-hive/>
+Apache Hive
+</a>
+</li>
+<li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class=dd-item>
+<a href=/udf/apache-nifi/>
+Apache Nifi
+</a>
+</li>
+<li data-nav-id=/udf/apache-pig/ title="Apache Pig" class=dd-item>
+<a href=/udf/apache-pig/>
+Apache Pig
+</a>
+</li>
+<li data-nav-id=/udf/commandline/ title="Commandline usage" class=dd-item>
+<a href=/udf/commandline/>
+Commandline usage
+</a>
+</li>
+<li data-nav-id=/udf/elastic-logstash/ title="Elastic LogStash" class="dd-item active">
+<a href=/udf/elastic-logstash/>
+Elastic LogStash
+</a>
+</li>
+<li data-nav-id=/udf/elastic-search/ title="Elastic Search" class=dd-item>
+<a href=/udf/elastic-search/>
+Elastic Search
+</a>
+</li>
+<li data-nav-id=/udf/logparser/ title=LogParser class=dd-item>
+<a href=/udf/logparser/>
+LogParser
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/developer/ title=Development class=dd-item>
+<a href=/developer/>
+Development
+</a>
+<ul>
+<li data-nav-id=/developer/building/ title="Building from source" class=dd-item>
+<a href=/developer/building/>
+Building from source
+</a>
+</li>
+<li data-nav-id=/developer/basedesign/ title="Base Design" class=dd-item>
+<a href=/developer/basedesign/>
+Base Design
+</a>
+</li>
+<li data-nav-id=/developer/makingnewrules/ title="Making new rules" class=dd-item>
+<a href=/developer/makingnewrules/>
+Making new rules
+</a>
+</li>
+<li data-nav-id=/developer/shadingdependencies/ title="Shading dependencies" class=dd-item>
+<a href=/developer/shadingdependencies/>
+Shading dependencies
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/other/ title=Other class=dd-item>
+<a href=/other/>
+Other
+</a>
+<ul>
+<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
+<a href=/other/relatedprojects/>
+Related projects
+</a>
+</li>
+<li data-nav-id=/other/article/ title=Blogpost class=dd-item>
+<a href=/other/article/>
+Blogpost
+</a>
+</li>
+</ul>
+</li>
+</ul>
+<section id=shortcuts>
+<h3>More</h3>
+<ul>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa><i class="fab fa-github"></i> Github repo</a>
+</li>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa/actions><img alt="Github actions Build status" src=https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa></a>
+</li>
+<li>
+<a class=padding href=https://app.codecov.io/gh/nielsbasjes/yauaa><img alt="Coverage Status" src=https://img.shields.io/codecov/c/github/nielsbasjes/yauaa></a>
+</li>
+<li>
+<a class=padding href=https://www.apache.org/licenses/LICENSE-2.0.html><img alt=License src=https://img.shields.io/:license-apache-blue.svg></a>
+</li>
+<li>
+<a class=padding href=https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22><img alt="Maven Central" src=https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg></a>
+</li>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa/stargazers><img alt="GitHub stars" src="https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars"></a>
+</li>
+<li>
+<a class=padding href=https://hub.docker.com/r/nielsbasjes/yauaa><img alt="Docker Hub" src=https://img.shields.io/docker/pulls/nielsbasjes/yauaa></a>
+</li>
+<li>
+<a class=padding href=https://www.paypal.me/nielsbasjes><img alt="If this project has business value for you then dont hesitate to support me with a small donation." src=https://img.shields.io/badge/Donations-via%20Paypal-blue.svg></a>
+</li>
+</ul>
+</section>
+<section id=footer>
+<p>&copy;2013-2021 by <a href=https://niels.basjes.nl>Niels Basjes</a></p>
+</section>
+</div>
+</nav>
+<section id=body>
+<div id=overlay></div>
+<div class="padding highlightable">
+<div>
+<div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/docs/udf/Elastic-Logstash.md target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
+<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
+<span id=sidebar-toggle-span>
+<a href=# id=sidebar-toggle data-sidebar-toggle>
+<i class="fas fa-bars"></i>
+</a>
+</span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/udf/>User Defined Functions</a> > Elastic LogStash
+</span>
+</div>
+<div class=progress>
+<div class=wrapper>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#getting-the-udf>Getting the UDF</a></li>
+</ul>
+<ul>
+<li><a href=#installing-the-filter>Installing the filter</a></li>
+<li><a href=#example-usage>Example usage</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<div id=head-tags>
+</div>
+<div id=body-inner>
+<h1>
+Elastic LogStash
+</h1>
+<h1 id=user-defined-function-filter-plugin-for-elastic-logstashhttpswwwelasticcoguideenlogstashcurrentfilter-pluginshtml>User Defined Function (Filter plugin) for <a href=https://www.elastic.co/guide/en/logstash/current/filter-plugins.html>Elastic Logstash</a></h1>
+<h1 id=status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</h1>
+<p>The logstash UDF java api is still experimental.</p>
+<p>See for more information:</p>
+<ul>
+<li><a href=https://github.com/logstash-plugins/logstash-filter-java_filter_example>https://github.com/logstash-plugins/logstash-filter-java_filter_example</a></li>
+<li><a href=https://github.com/elastic/logstash/issues/9215>https://github.com/elastic/logstash/issues/9215</a></li>
+</ul>
+<h2 id=getting-the-udf>Getting the UDF</h2>
+<p>You can get the prebuilt filter from <a href=https://github.com/nielsbasjes/yauaa/releases/download/v6.1/logstash-filter-yauaa-6.1.gem>the github releases page</a>.</p>
+<h1 id=building-has-side-effects->Building has side effects !</h1>
+<p>Because at this time none of the required dependencies are in maven central this build does something rarely seen:</p>
+<p>It downloads the entire logstash distribution, extracts the logstash-core.jar and installs it locally for maven
+to use as dependency.</p>
+<p>So your local maven repo will get a jar injected that is not normally available via Maven central or something similar.</p>
+<p>See these for more details:</p>
+<ul>
+<li><a href=https://github.com/nielsbasjes/yauaa/issues/146>https://github.com/nielsbasjes/yauaa/issues/146</a></li>
+<li><a href=https://github.com/elastic/logstash/issues/11002>https://github.com/elastic/logstash/issues/11002</a></li>
+</ul>
+<h2 id=installing-the-filter>Installing the filter</h2>
+<p>You only need to install it into your logstash once per installation</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>logstash-plugin remove logstash-filter-yauaa
+logstash-plugin install ./udfs/logstash/target/logstash-filter-yauaa-6.1.gem
+</code></pre></div><h2 id=example-usage>Example usage</h2>
+<p>You need to specify</p>
+<ol>
+<li>The source field</li>
+<li>For each Yauaa field you need the logstash field in which it needs to be placed.</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#960050;background-color:#1e0010>filter</span> {
+  <span style=color:#960050;background-color:#1e0010>yauaa</span> <span style=color:#960050;background-color:#1e0010>{</span>
+    <span style=color:#960050;background-color:#1e0010>source</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#f92672>&#34;message&#34;</span>
+    <span style=color:#960050;background-color:#1e0010>fields</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> {
+       <span style=color:#960050;background-color:#1e0010>DeviceClass</span>      <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#f92672>&#34;DevCls&#34;</span>
+       <span style=color:#960050;background-color:#1e0010>AgentNameVersion</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;AgntNmVrsn&#34;</span>
+    }
+  }
+<span style=color:#960050;background-color:#1e0010>}</span>
+</code></pre></div><p>When running this example I get output like this that has the new fields &ldquo;DevCls&rdquo; and &ldquo;AgntNmVrsn&rdquo;:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+    <span style=color:#f92672>&#34;@timestamp&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#ae81ff>2019-02-13</span><span style=color:#960050;background-color:#1e0010>T</span><span style=color:#ae81ff>10</span>:<span style=color:#ae81ff>42</span>:<span style=color:#ae81ff>57.491</span><span style=color:#960050;background-color:#1e0010>Z</span>,
+       <span style=color:#f92672>&#34;message&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36&#34;</span>,
+      <span style=color:#f92672>&#34;@version&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;1&#34;</span>,
+          <span style=color:#f92672>&#34;host&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;niels-laptop&#34;</span>,
+    <span style=color:#f92672>&#34;AgntNmVrsn&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;Chrome 48.0.2564.82&#34;</span>,
+        <span style=color:#f92672>&#34;DevCls&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;Desktop&#34;</span>,
+          <span style=color:#f92672>&#34;path&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;/tmp/useragent.txt&#34;</span>
+}
+</code></pre></div>
+<footer class=footline>
+</footer>
+</div>
+</div>
+<div id=navigation>
+</div>
+</section>
+<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
+<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
+</div>
+<script src=/js/clipboard.min.js?1635623113></script>
+<script src=/js/perfect-scrollbar.min.js?1635623113></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635623113></script>
+<script src=/js/jquery.sticky.js?1635623113></script>
+<script src=/js/featherlight.min.js?1635623113></script>
+<script src=/js/highlight.pack.js?1635623113></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1635623113></script>
+<script src=/js/learn.js?1635623113></script>
+<script src=/js/hugo-learn.js?1635623113></script>
+</body>
+</html>

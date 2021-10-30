@@ -1,0 +1,382 @@
+<!doctype html><html lang=en class="js csstransforms3d">
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=generator content="Hugo 0.88.1">
+<meta name=description content="This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.">
+<meta name=author content="Niels Basjes">
+<link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png>
+<link rel=manifest href=/favicon/manifest.json>
+<link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#2d89ef">
+<meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
+<meta name=theme-color content="#ffffff">
+<title>Base Design | Yauaa - Yet Another UserAgent Analyzer</title>
+<link href=/css/nucleus.css?1635623113 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635623113 rel=stylesheet>
+<link href=/css/hybrid.css?1635623113 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635623113 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635623113 rel=stylesheet>
+<link href=/css/auto-complete.css?1635623113 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635623113 rel=stylesheet>
+<link href=/css/theme.css?1635623113 rel=stylesheet>
+<link href=/css/tabs.css?1635623113 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635623113 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635623113 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635623113></script>
+<style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
+</head>
+<body data-url=/developer/basedesign/>
+<nav id=sidebar>
+<div id=header-wrapper>
+<div id=header>
+<a id=logo href=/>
+<p class=logo-bar>Yauaa</p>
+</a>
+</div>
+<div class=searchbox>
+<label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span>
+</div>
+<script type=text/javascript src=/js/lunr.min.js?1635623113></script>
+<script type=text/javascript src=/js/auto-complete.js?1635623113></script>
+<script type=text/javascript>var baseurl="/"</script>
+<script type=text/javascript src=/js/search.js?1635623113></script>
+</div>
+<section id=homelinks>
+<ul>
+<li>
+<a class=padding href=/><i class="fas fa-home"></i> Yauaa</a>
+</li>
+</ul>
+</section>
+<div class=highlightable>
+<ul class=topics>
+<li data-nav-id=/expect/ title="What to expect" class=dd-item>
+<a href=/expect/>
+What to expect
+</a>
+<ul>
+<li data-nav-id=/expect/fieldvalues/ title="Field values" class=dd-item>
+<a href=/expect/fieldvalues/>
+Field values
+</a>
+</li>
+<li data-nav-id=/expect/performance/ title=Performance class=dd-item>
+<a href=/expect/performance/>
+Performance
+</a>
+</li>
+<li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item>
+<a href=/expect/tryit/>
+Try it!
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/using/ title="Using the analyzer" class=dd-item>
+<a href=/using/>
+Using Yauaa
+</a>
+<ul>
+<li data-nav-id=/using/memoryusage/ title="Memory usage" class=dd-item>
+<a href=/using/memoryusage/>
+Memory usage
+</a>
+</li>
+<li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item>
+<a href=/using/webservlet/>
+Webservlet
+</a>
+</li>
+<li data-nav-id=/using/limitations/ title=Limitations class=dd-item>
+<a href=/using/limitations/>
+Limitations
+</a>
+</li>
+<li data-nav-id=/using/license/ title=Licence class=dd-item>
+<a href=/using/license/>
+Licence
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
+<a href=/udf/>
+User Defined Functions
+</a>
+<ul>
+<li data-nav-id=/udf/apache-beam/ title="Apache Beam" class=dd-item>
+<a href=/udf/apache-beam/>
+Apache Beam
+</a>
+</li>
+<li data-nav-id=/udf/apache-beam-sql/ title="Apache Beam SQL" class=dd-item>
+<a href=/udf/apache-beam-sql/>
+Apache Beam SQL
+</a>
+</li>
+<li data-nav-id=/udf/apache-drill/ title="Apache Drill" class=dd-item>
+<a href=/udf/apache-drill/>
+Apache Drill
+</a>
+</li>
+<li data-nav-id=/udf/apache-flink/ title="Apache Flink" class=dd-item>
+<a href=/udf/apache-flink/>
+Apache Flink
+</a>
+</li>
+<li data-nav-id=/udf/apache-flink-table/ title="Apache Flink Table/SQL" class=dd-item>
+<a href=/udf/apache-flink-table/>
+Apache Flink Table/SQL
+</a>
+</li>
+<li data-nav-id=/udf/apache-hive/ title="Apache Hive" class=dd-item>
+<a href=/udf/apache-hive/>
+Apache Hive
+</a>
+</li>
+<li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class=dd-item>
+<a href=/udf/apache-nifi/>
+Apache Nifi
+</a>
+</li>
+<li data-nav-id=/udf/apache-pig/ title="Apache Pig" class=dd-item>
+<a href=/udf/apache-pig/>
+Apache Pig
+</a>
+</li>
+<li data-nav-id=/udf/commandline/ title="Commandline usage" class=dd-item>
+<a href=/udf/commandline/>
+Commandline usage
+</a>
+</li>
+<li data-nav-id=/udf/elastic-logstash/ title="Elastic LogStash" class=dd-item>
+<a href=/udf/elastic-logstash/>
+Elastic LogStash
+</a>
+</li>
+<li data-nav-id=/udf/elastic-search/ title="Elastic Search" class=dd-item>
+<a href=/udf/elastic-search/>
+Elastic Search
+</a>
+</li>
+<li data-nav-id=/udf/logparser/ title=LogParser class=dd-item>
+<a href=/udf/logparser/>
+LogParser
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/developer/ title=Development class="dd-item
+parent">
+<a href=/developer/>
+Development
+</a>
+<ul>
+<li data-nav-id=/developer/building/ title="Building from source" class=dd-item>
+<a href=/developer/building/>
+Building from source
+</a>
+</li>
+<li data-nav-id=/developer/basedesign/ title="Base Design" class="dd-item active">
+<a href=/developer/basedesign/>
+Base Design
+</a>
+</li>
+<li data-nav-id=/developer/makingnewrules/ title="Making new rules" class=dd-item>
+<a href=/developer/makingnewrules/>
+Making new rules
+</a>
+</li>
+<li data-nav-id=/developer/shadingdependencies/ title="Shading dependencies" class=dd-item>
+<a href=/developer/shadingdependencies/>
+Shading dependencies
+</a>
+</li>
+</ul>
+</li>
+<li data-nav-id=/other/ title=Other class=dd-item>
+<a href=/other/>
+Other
+</a>
+<ul>
+<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
+<a href=/other/relatedprojects/>
+Related projects
+</a>
+</li>
+<li data-nav-id=/other/article/ title=Blogpost class=dd-item>
+<a href=/other/article/>
+Blogpost
+</a>
+</li>
+</ul>
+</li>
+</ul>
+<section id=shortcuts>
+<h3>More</h3>
+<ul>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa><i class="fab fa-github"></i> Github repo</a>
+</li>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa/actions><img alt="Github actions Build status" src=https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa></a>
+</li>
+<li>
+<a class=padding href=https://app.codecov.io/gh/nielsbasjes/yauaa><img alt="Coverage Status" src=https://img.shields.io/codecov/c/github/nielsbasjes/yauaa></a>
+</li>
+<li>
+<a class=padding href=https://www.apache.org/licenses/LICENSE-2.0.html><img alt=License src=https://img.shields.io/:license-apache-blue.svg></a>
+</li>
+<li>
+<a class=padding href=https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22><img alt="Maven Central" src=https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg></a>
+</li>
+<li>
+<a class=padding href=https://github.com/nielsbasjes/yauaa/stargazers><img alt="GitHub stars" src="https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars"></a>
+</li>
+<li>
+<a class=padding href=https://hub.docker.com/r/nielsbasjes/yauaa><img alt="Docker Hub" src=https://img.shields.io/docker/pulls/nielsbasjes/yauaa></a>
+</li>
+<li>
+<a class=padding href=https://www.paypal.me/nielsbasjes><img alt="If this project has business value for you then dont hesitate to support me with a small donation." src=https://img.shields.io/badge/Donations-via%20Paypal-blue.svg></a>
+</li>
+</ul>
+</section>
+<section id=footer>
+<p>&copy;2013-2021 by <a href=https://niels.basjes.nl>Niels Basjes</a></p>
+</section>
+</div>
+</nav>
+<section id=body>
+<div id=overlay></div>
+<div class="padding highlightable">
+<div>
+<div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/docs/developer/BaseDesign.md target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
+<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
+<span id=sidebar-toggle-span>
+<a href=# id=sidebar-toggle data-sidebar-toggle>
+<i class="fas fa-bars"></i>
+</a>
+</span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links>
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/developer/>Development</a> > Base Design
+</span>
+</div>
+<div class=progress>
+<div class=wrapper>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#parsing-useragents>Parsing Useragents</a></li>
+<li><a href=#how-many-other-analyzers-work>How many other analyzers work</a></li>
+<li><a href=#core-design-idea>Core design idea</a></li>
+<li><a href=#high-level-implementation-overview>High level implementation overview</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<div id=head-tags>
+</div>
+<div id=body-inner>
+<h1>
+Base Design
+</h1>
+<h2 id=parsing-useragents>Parsing Useragents</h2>
+<p>Parsing useragents is considered by many to be a ridiculously hard problem.
+The main problems are:</p>
+<ul>
+<li>Although there seems to be a specification, many do not follow it.</li>
+<li>Useragents LIE that they are their competing predecessor with an extra flag.</li>
+</ul>
+<p>The pattern the &lsquo;normal&rsquo; browser builders are following is that they all LIE about the ancestor they are trying to improve upon.</p>
+<p>The reason this system (historically) works is because a lot of website builders do a very simple check to see if they can use a specific feature.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>useragent</span>.<span style=color:#a6e22e>contains</span>(<span style=color:#e6db74>&#34;Chrome&#34;</span>)) {
+   <span style=color:#75715e>// Use the chrome feature we need.
+</span><span style=color:#75715e></span>}
+</code></pre></div><p>Some may improve on this an actually check the (major) version that follows.</p>
+<p>A good example of this is the Edge browser:</p>
+<pre tabindex=0><code>Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10136
+</code></pre><p>It says it:</p>
+<ul>
+<li>is Mozilla/5.0</li>
+<li>uses AppleWebKit/537.36</li>
+<li>for &ldquo;compatibility&rdquo; the AppleWebKit lie about being &ldquo;KHTML&rdquo; and that it is similar to &ldquo;Gecko&rdquo; are also copied</li>
+<li>is Chrome 42</li>
+<li>is Safari 537</li>
+<li>is Edge 12</li>
+</ul>
+<p>So any website looking for the word it triggers upon will find it and enable the right features.</p>
+<p>In 2014 an RFC for HTTP was released (<a href=https://tools.ietf.org/html/rfc7231#section-5.5.3>RFC 7231 section 5.5.3</a>) which now explitly states:</p>
+<pre><code>... implementations are encouraged not to use the product
+tokens of other implementations in order to declare compatibility
+with them, as this circumvents the purpose of the field.
+</code></pre>
+<p>&mldr; encouraged &mldr;</p>
+<h2 id=how-many-other-analyzers-work>How many other analyzers work</h2>
+<p>When looking at most implementations of analysing the useragents I see that most implementations are based around lists of regular expressions.
+These are (in the systems I have seen) executed in a specific order to find the first one that matches.</p>
+<p>In this solution direction the order in which things occur determines if the patterns match or not.</p>
+<p>Regular expressions are notoriously hard to write and debug and (unless you make them really complex) the order in which parts of the pattern occur is fixed.</p>
+<h2 id=core-design-idea>Core design idea</h2>
+<p>I wanted to see if a completely different approach would work: Can we actually parse these things into a tree and work from there.</p>
+<p>The parser (ANTLR4 based) will be able to parse a lot of the agents but not all.
+Tests have shown that it will parse >99% of all useragents on a large website which is more than 99.99% of the traffic.</p>
+<p>Now the ones that it is not able to parse are the ones that have been set manually to a invalid value.
+So if that happens we assume you are a hacker.
+In all other cases we have matchers that are triggered if a specific value is found by the parser.
+Such a matcher then tells this class is has found a match for a certain attribute with a certain confidence level (0-10000000).
+In the end the matcher that has found a match with the highest confidence for a value &lsquo;wins&rsquo;.</p>
+<h2 id=high-level-implementation-overview>High level implementation overview</h2>
+<p>The main concept of this useragent parser is that we have two things:</p>
+<ol>
+<li>A Parser (ANTLR4) that converts the useragent into a nice tree through which we can walk along.</li>
+<li>A collection of matchers.</li>
+</ol>
+<ul>
+<li>A matcher triggers if a set of patterns is present in the tree.</li>
+<li>Each pattern is detected by a &ldquo;matcher action&rdquo; that triggers and can fill a single attribute.
+If a matcher triggers a set of attributes get set with a value and a confidence level</li>
+<li>All results from all triggered matchers (and actions) are combined and for each individual attribute the &lsquo;highest value&rsquo; wins.</li>
+</ul>
+<p>As a performance optimization we walk along the parsed tree once and fire everything we find into a precomputed hashmap that
+points to all the applicable matcher actions. As a consequence</p>
+<ul>
+<li>the matching is relatively fast even though the number of matchers already runs into the few hundreds.</li>
+<li>the startup is &ldquo;slow&rdquo;</li>
+<li>the memory footprint is pretty big due to the number of matchers, the size of the hashmap and the cache of the parsed useragents.</li>
+</ul>
+<p>A much more in depth explanation can be found in the documentation on <a href=/developer/makingnewrules/>how to create new rules</a></p>
+<footer class=footline>
+</footer>
+</div>
+</div>
+<div id=navigation>
+</div>
+</section>
+<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
+<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
+</div>
+<script src=/js/clipboard.min.js?1635623113></script>
+<script src=/js/perfect-scrollbar.min.js?1635623113></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635623113></script>
+<script src=/js/jquery.sticky.js?1635623113></script>
+<script src=/js/featherlight.min.js?1635623113></script>
+<script src=/js/highlight.pack.js?1635623113></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script src=/js/modernizr.custom-3.6.0.js?1635623113></script>
+<script src=/js/learn.js?1635623113></script>
+<script src=/js/hugo-learn.js?1635623113></script>
+</body>
+</html>
