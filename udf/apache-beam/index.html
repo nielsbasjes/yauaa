@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Apache Beam | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1635629537 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1635629537 rel=stylesheet>
-<link href=/css/hybrid.css?1635629537 rel=stylesheet>
-<link href=/css/featherlight.min.css?1635629537 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1635629537 rel=stylesheet>
-<link href=/css/auto-complete.css?1635629537 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1635629537 rel=stylesheet>
-<link href=/css/theme.css?1635629537 rel=stylesheet>
-<link href=/css/tabs.css?1635629537 rel=stylesheet>
-<link href=/css/hugo-theme.css?1635629537 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1635629537 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1635629537></script>
+<link href=/css/nucleus.css?1635631859 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635631859 rel=stylesheet>
+<link href=/css/hybrid.css?1635631859 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635631859 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635631859 rel=stylesheet>
+<link href=/css/auto-complete.css?1635631859 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635631859 rel=stylesheet>
+<link href=/css/theme.css?1635631859 rel=stylesheet>
+<link href=/css/tabs.css?1635631859 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635631859 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635631859 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635631859></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 </head>
 <body data-url=/udf/apache-beam/>
@@ -41,10 +41,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1635629537></script>
-<script type=text/javascript src=/js/auto-complete.js?1635629537></script>
+<script type=text/javascript src=/js/lunr.min.js?1635631859></script>
+<script type=text/javascript src=/js/auto-complete.js?1635631859></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1635629537></script>
+<script type=text/javascript src=/js/search.js?1635631859></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -314,24 +314,24 @@ In most cases I see (clickstream data) these records (In this example this class
 </ol>
 <p>Note that the name of the two setters is not important, the system looks at the annotation.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#f92672>.</span><span style=color:#a6e22e>apply</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;Extract Elements from Useragent&#34;</span><span style=color:#f92672>,</span>
-    ParDo<span style=color:#f92672>.</span><span style=color:#a6e22e>of</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> UserAgentAnalysisDoFn<span style=color:#f92672>&lt;</span>TestRecord<span style=color:#f92672>&gt;(</span>15000<span style=color:#f92672>)</span> <span style=color:#f92672>{</span> <span style=color:#75715e>// Setting the cacheSize
-</span><span style=color:#75715e></span>        <span style=color:#a6e22e>@Override</span>
-        <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getUserAgentString</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-            <span style=color:#66d9ef>return</span> record<span style=color:#f92672>.</span><span style=color:#a6e22e>useragent</span><span style=color:#f92672>;</span>
-        <span style=color:#f92672>}</span>
+  ParDo<span style=color:#f92672>.</span><span style=color:#a6e22e>of</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> UserAgentAnalysisDoFn<span style=color:#f92672>&lt;</span>TestRecord<span style=color:#f92672>&gt;(</span>15000<span style=color:#f92672>)</span> <span style=color:#f92672>{</span> <span style=color:#75715e>// Setting the cacheSize
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@Override</span>
+    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getUserAgentString</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+      <span style=color:#66d9ef>return</span> record<span style=color:#f92672>.</span><span style=color:#a6e22e>useragent</span><span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
 
-        <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
-</span><span style=color:#75715e></span>        <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;DeviceClass&#34;</span><span style=color:#f92672>)</span>
-        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setDC</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-            record<span style=color:#f92672>.</span><span style=color:#a6e22e>deviceClass</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
-        <span style=color:#f92672>}</span>
+    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;DeviceClass&#34;</span><span style=color:#f92672>)</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setDC</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+      record<span style=color:#f92672>.</span><span style=color:#a6e22e>deviceClass</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
 
-        <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
-</span><span style=color:#75715e></span>        <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;AgentNameVersion&#34;</span><span style=color:#f92672>)</span>
-        <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setANV</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-            record<span style=color:#f92672>.</span><span style=color:#a6e22e>agentNameVersion</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
-        <span style=color:#f92672>}</span>
-    <span style=color:#f92672>}));</span>
+    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;AgentNameVersion&#34;</span><span style=color:#f92672>)</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setANV</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+      record<span style=color:#f92672>.</span><span style=color:#a6e22e>agentNameVersion</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
+  <span style=color:#f92672>}));</span>
 </code></pre></div><h2 id=immutable-instances-in-apache-beam>Immutable instances in Apache Beam</h2>
 <p>Apache Beam requires a DoFn to never modify the provided instance and to always return a new instance that is then passed to the next processing step.
 To handle this in a generic way UserAgentAnalysisDoFn has a &ldquo;clone&rdquo; method that does this by means of doing a round trip through serialization. If you can do a more efficient way for your specific class then please override the clone method.</p>
@@ -341,26 +341,26 @@ To handle this in a generic way UserAgentAnalysisDoFn has a &ldquo;clone&rdquo; 
 There are situations in which this will fail (amongst others the SecurityManager can block this). If you run into such a scenario then simply &lsquo;not&rsquo; define it inline as an anonymous class and define it as a named (public) class instead.</p>
 <p>So the earlier example will look something like this:</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyUserAgentAnalysisDoFn</span> <span style=color:#66d9ef>extends</span> UserAgentAnalysisDoFn<span style=color:#f92672>&lt;</span>TestRecord<span style=color:#f92672>&gt;</span> <span style=color:#f92672>{</span>
-    <span style=color:#a6e22e>@Override</span>
-    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getUserAgentString</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-        <span style=color:#66d9ef>return</span> record<span style=color:#f92672>.</span><span style=color:#a6e22e>useragent</span><span style=color:#f92672>;</span>
-    <span style=color:#f92672>}</span>
+  <span style=color:#a6e22e>@Override</span>
+  <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getUserAgentString</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>return</span> record<span style=color:#f92672>.</span><span style=color:#a6e22e>useragent</span><span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
 
-    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
-</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;DeviceClass&#34;</span><span style=color:#f92672>)</span>
-    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setDC</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-        record<span style=color:#f92672>.</span><span style=color:#a6e22e>deviceClass</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
-    <span style=color:#f92672>}</span>
+  <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>  <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;DeviceClass&#34;</span><span style=color:#f92672>)</span>
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setDC</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    record<span style=color:#f92672>.</span><span style=color:#a6e22e>deviceClass</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
 
-    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
-</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;AgentNameVersion&#34;</span><span style=color:#f92672>)</span>
-    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setANV</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
-        record<span style=color:#f92672>.</span><span style=color:#a6e22e>agentNameVersion</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
-    <span style=color:#f92672>}</span>
+  <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>  <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;AgentNameVersion&#34;</span><span style=color:#f92672>)</span>
+  <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setANV</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+    record<span style=color:#f92672>.</span><span style=color:#a6e22e>agentNameVersion</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+  <span style=color:#f92672>}</span>
 <span style=color:#f92672>}</span>
 </code></pre></div><p>and then in the topology simply do this</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#f92672>.</span><span style=color:#a6e22e>apply</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;Extract Elements from Useragent&#34;</span><span style=color:#f92672>,</span>
-    ParDo<span style=color:#f92672>.</span><span style=color:#a6e22e>of</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> MyUserAgentAnalysisDoFn<span style=color:#f92672>()));</span>
+  ParDo<span style=color:#f92672>.</span><span style=color:#a6e22e>of</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> MyUserAgentAnalysisDoFn<span style=color:#f92672>()));</span>
 </code></pre></div>
 <footer class=footline>
 </footer>
@@ -372,15 +372,15 @@ There are situations in which this will fail (amongst others the SecurityManager
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1635629537></script>
-<script src=/js/jquery.sticky.js?1635629537></script>
-<script src=/js/featherlight.min.js?1635629537></script>
-<script src=/js/highlight.pack.js?1635629537></script>
+<script src=/js/clipboard.min.js?1635631859></script>
+<script src=/js/perfect-scrollbar.min.js?1635631859></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635631859></script>
+<script src=/js/jquery.sticky.js?1635631859></script>
+<script src=/js/featherlight.min.js?1635631859></script>
+<script src=/js/highlight.pack.js?1635631859></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1635629537></script>
-<script src=/js/learn.js?1635629537></script>
-<script src=/js/hugo-learn.js?1635629537></script>
+<script src=/js/modernizr.custom-3.6.0.js?1635631859></script>
+<script src=/js/learn.js?1635631859></script>
+<script src=/js/hugo-learn.js?1635631859></script>
 </body>
 </html>

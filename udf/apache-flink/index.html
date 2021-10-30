@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Apache Flink | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1635629537 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1635629537 rel=stylesheet>
-<link href=/css/hybrid.css?1635629537 rel=stylesheet>
-<link href=/css/featherlight.min.css?1635629537 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1635629537 rel=stylesheet>
-<link href=/css/auto-complete.css?1635629537 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1635629537 rel=stylesheet>
-<link href=/css/theme.css?1635629537 rel=stylesheet>
-<link href=/css/tabs.css?1635629537 rel=stylesheet>
-<link href=/css/hugo-theme.css?1635629537 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1635629537 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1635629537></script>
+<link href=/css/nucleus.css?1635631859 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635631859 rel=stylesheet>
+<link href=/css/hybrid.css?1635631859 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635631859 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635631859 rel=stylesheet>
+<link href=/css/auto-complete.css?1635631859 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635631859 rel=stylesheet>
+<link href=/css/theme.css?1635631859 rel=stylesheet>
+<link href=/css/tabs.css?1635631859 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635631859 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635631859 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635631859></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 </head>
 <body data-url=/udf/apache-flink/>
@@ -41,10 +41,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1635629537></script>
-<script type=text/javascript src=/js/auto-complete.js?1635629537></script>
+<script type=text/javascript src=/js/lunr.min.js?1635631859></script>
+<script type=text/javascript src=/js/auto-complete.js?1635631859></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1635629537></script>
+<script type=text/javascript src=/js/search.js?1635631859></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -298,12 +298,12 @@ Apache Flink
 <h2 id=getting-the-udf>Getting the UDF</h2>
 <p>You can get the prebuilt UDF from <a href=https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-flink/6.1/jar>maven central</a>.</p>
 <p>If you use a maven based project simply add this dependency to your project.</p>
-<pre tabindex=0><code>xml&lt;dependency&gt;
-  &lt;groupId&gt;nl.basjes.parse.useragent&lt;/groupId&gt;
-  &lt;artifactId&gt;yauaa-flink&lt;/artifactId&gt;
-  &lt;version&gt;6.1&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><h2 id=example-usage>Example usage</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;dependency&gt;</span>
+  <span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
+  <span style=color:#f92672>&lt;artifactId&gt;</span>yauaa-flink<span style=color:#f92672>&lt;/artifactId&gt;</span>
+  <span style=color:#f92672>&lt;version&gt;</span>6.1<span style=color:#f92672>&lt;/version&gt;</span>
+<span style=color:#f92672>&lt;/dependency&gt;</span>
+</code></pre></div><h2 id=example-usage>Example usage</h2>
 <p>Assume you have a DataSet or DataStream with your records.
 In most cases I see (clickstream data) these records (In this example this class is called &ldquo;TestRecord&rdquo;) contain the useragent string in a field and the parsed results must be added to these fields.</p>
 <p>Now you must do two things:</p>
@@ -312,52 +312,50 @@ In most cases I see (clickstream data) these records (In this example this class
 <li>Add an instance of the (abstract) UserAgentAnalysisMapper mapper and implement the functions as shown in the example below. Use the Field annotation to get the setter for the requested fields.</li>
 </ul>
 <p>Note that the name of the two setters is not important, the system looks at the annotation.</p>
-<pre><code>.map(new UserAgentAnalysisMapper&lt;TestRecord&gt;(15000) { // Setting the cacheSize
-    @Override
-    public String getUserAgentString(TestRecord record) {
-        return record.useragent;
-    }
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#f92672>.</span><span style=color:#a6e22e>map</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> UserAgentAnalysisMapper<span style=color:#f92672>&lt;</span>TestRecord<span style=color:#f92672>&gt;(</span>15000<span style=color:#f92672>)</span> <span style=color:#f92672>{</span> <span style=color:#75715e>// Setting the cacheSize
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@Override</span>
+    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getUserAgentString</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>return</span> record<span style=color:#f92672>.</span><span style=color:#a6e22e>useragent</span><span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
 
-    @SuppressWarnings(&quot;unused&quot;) // Called via the annotation
-    @YauaaField(&quot;DeviceClass&quot;)
-    public void setDC(TestRecord record, String value) {
-        record.deviceClass = value;
-    }
+    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;DeviceClass&#34;</span><span style=color:#f92672>)</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setDC</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        record<span style=color:#f92672>.</span><span style=color:#a6e22e>deviceClass</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
 
-    @SuppressWarnings(&quot;unused&quot;) // Called via the annotation
-    @YauaaField(&quot;AgentNameVersion&quot;)
-    public void setANV(TestRecord record, String value) {
-        record.agentNameVersion = value;
-    }
-})
-</code></pre>
-<h2 id=notes-on-defining-it-as-an-anonymous-class>NOTES on defining it as an anonymous class</h2>
+    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;AgentNameVersion&#34;</span><span style=color:#f92672>)</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setANV</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        record<span style=color:#f92672>.</span><span style=color:#a6e22e>agentNameVersion</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
+<span style=color:#f92672>})</span>
+</code></pre></div><h2 id=notes-on-defining-it-as-an-anonymous-class>NOTES on defining it as an anonymous class</h2>
 <p>An anonymous inner class in Java is <a href=https://stackoverflow.com/questions/319765/accessing-inner-anonymous-class-members>by default private</a>.</p>
 <p>If you define it as an anonymous inner class as shown above then the system will try to make this class to become public by means of the method .setAccessible(true).
 There are situations in which this will fail (amongst others the SecurityManager can block this). If you run into such a scenario then simply &lsquo;not&rsquo; define it inline as an anonymous class and define it as a named (public) class instead.</p>
 <p>So the earlier example will look something like this:</p>
-<pre><code>public class MyUserAgentAnalysisMapper extends UserAgentAnalysisMapper&lt;TestRecord&gt; {
-    @Override
-    public String getUserAgentString(TestRecord record) {
-        return record.useragent;
-    }
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MyUserAgentAnalysisMapper</span> <span style=color:#66d9ef>extends</span> UserAgentAnalysisMapper<span style=color:#f92672>&lt;</span>TestRecord<span style=color:#f92672>&gt;</span> <span style=color:#f92672>{</span>
+    <span style=color:#a6e22e>@Override</span>
+    <span style=color:#66d9ef>public</span> String <span style=color:#a6e22e>getUserAgentString</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        <span style=color:#66d9ef>return</span> record<span style=color:#f92672>.</span><span style=color:#a6e22e>useragent</span><span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
 
-    @SuppressWarnings(&quot;unused&quot;) // Called via the annotation
-    @YauaaField(&quot;DeviceClass&quot;)
-    public void setDC(TestRecord record, String value) {
-        record.deviceClass = value;
-    }
+    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;DeviceClass&#34;</span><span style=color:#f92672>)</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setDC</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        record<span style=color:#f92672>.</span><span style=color:#a6e22e>deviceClass</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
 
-    @SuppressWarnings(&quot;unused&quot;) // Called via the annotation
-    @YauaaField(&quot;AgentNameVersion&quot;)
-    public void setANV(TestRecord record, String value) {
-        record.agentNameVersion = value;
-    }
-}
-</code></pre>
-<p>and then in the topology simply do this</p>
-<pre><code>.map(new MyUserAgentAnalysisMapper())
-</code></pre>
+    <span style=color:#a6e22e>@SuppressWarnings</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;unused&#34;</span><span style=color:#f92672>)</span> <span style=color:#75715e>// Called via the annotation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>@YauaaField</span><span style=color:#f92672>(</span><span style=color:#e6db74>&#34;AgentNameVersion&#34;</span><span style=color:#f92672>)</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>setANV</span><span style=color:#f92672>(</span>TestRecord record<span style=color:#f92672>,</span> String value<span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+        record<span style=color:#f92672>.</span><span style=color:#a6e22e>agentNameVersion</span> <span style=color:#f92672>=</span> value<span style=color:#f92672>;</span>
+    <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><p>and then in the topology simply do this</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-java data-lang=java><span style=color:#f92672>.</span><span style=color:#a6e22e>map</span><span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> MyUserAgentAnalysisMapper<span style=color:#f92672>())</span>
+</code></pre></div>
 <footer class=footline>
 </footer>
 </div>
@@ -368,15 +366,15 @@ There are situations in which this will fail (amongst others the SecurityManager
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1635629537></script>
-<script src=/js/jquery.sticky.js?1635629537></script>
-<script src=/js/featherlight.min.js?1635629537></script>
-<script src=/js/highlight.pack.js?1635629537></script>
+<script src=/js/clipboard.min.js?1635631859></script>
+<script src=/js/perfect-scrollbar.min.js?1635631859></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635631859></script>
+<script src=/js/jquery.sticky.js?1635631859></script>
+<script src=/js/featherlight.min.js?1635631859></script>
+<script src=/js/highlight.pack.js?1635631859></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1635629537></script>
-<script src=/js/learn.js?1635629537></script>
-<script src=/js/hugo-learn.js?1635629537></script>
+<script src=/js/modernizr.custom-3.6.0.js?1635631859></script>
+<script src=/js/learn.js?1635631859></script>
+<script src=/js/hugo-learn.js?1635631859></script>
 </body>
 </html>

@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Elastic LogStash | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1635629537 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1635629537 rel=stylesheet>
-<link href=/css/hybrid.css?1635629537 rel=stylesheet>
-<link href=/css/featherlight.min.css?1635629537 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1635629537 rel=stylesheet>
-<link href=/css/auto-complete.css?1635629537 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1635629537 rel=stylesheet>
-<link href=/css/theme.css?1635629537 rel=stylesheet>
-<link href=/css/tabs.css?1635629537 rel=stylesheet>
-<link href=/css/hugo-theme.css?1635629537 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1635629537 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1635629537></script>
+<link href=/css/nucleus.css?1635631859 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635631859 rel=stylesheet>
+<link href=/css/hybrid.css?1635631859 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635631859 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635631859 rel=stylesheet>
+<link href=/css/auto-complete.css?1635631859 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635631859 rel=stylesheet>
+<link href=/css/theme.css?1635631859 rel=stylesheet>
+<link href=/css/tabs.css?1635631859 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635631859 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635631859 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635631859></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 </head>
 <body data-url=/udf/elastic-logstash/>
@@ -41,10 +41,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1635629537></script>
-<script type=text/javascript src=/js/auto-complete.js?1635629537></script>
+<script type=text/javascript src=/js/lunr.min.js?1635631859></script>
+<script type=text/javascript src=/js/auto-complete.js?1635631859></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1635629537></script>
+<script type=text/javascript src=/js/search.js?1635631859></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -277,9 +277,10 @@ Related projects
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</a></li>
 <li><a href=#getting-the-udf>Getting the UDF</a></li>
-</ul>
-<ul>
+<li><a href=#building-has-side-effects->Building has side effects !</a></li>
 <li><a href=#installing-the-filter>Installing the filter</a></li>
 <li><a href=#example-usage>Example usage</a></li>
 </ul>
@@ -294,8 +295,9 @@ Related projects
 <h1>
 Elastic LogStash
 </h1>
-<h1 id=user-defined-function-filter-plugin-for-elastic-logstashhttpswwwelasticcoguideenlogstashcurrentfilter-pluginshtml>User Defined Function (Filter plugin) for <a href=https://www.elastic.co/guide/en/logstash/current/filter-plugins.html>Elastic Logstash</a></h1>
-<h1 id=status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</h1>
+<h2 id=introduction>Introduction</h2>
+<p>User Defined Function (Filter plugin) for <a href=https://www.elastic.co/guide/en/logstash/current/filter-plugins.html>Elastic Logstash</a></p>
+<h2 id=status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</h2>
 <p>The logstash UDF java api is still experimental.</p>
 <p>See for more information:</p>
 <ul>
@@ -304,7 +306,7 @@ Elastic LogStash
 </ul>
 <h2 id=getting-the-udf>Getting the UDF</h2>
 <p>You can get the prebuilt filter from <a href=https://github.com/nielsbasjes/yauaa/releases/download/v6.1/logstash-filter-yauaa-6.1.gem>the github releases page</a>.</p>
-<h1 id=building-has-side-effects->Building has side effects !</h1>
+<h2 id=building-has-side-effects->Building has side effects !</h2>
 <p>Because at this time none of the required dependencies are in maven central this build does something rarely seen:</p>
 <p>It downloads the entire logstash distribution, extracts the logstash-core.jar and installs it locally for maven
 to use as dependency.</p>
@@ -324,26 +326,26 @@ logstash-plugin install ./udfs/logstash/target/logstash-filter-yauaa-6.1.gem
 <li>The source field</li>
 <li>For each Yauaa field you need the logstash field in which it needs to be placed.</li>
 </ol>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#960050;background-color:#1e0010>filter</span> {
-  <span style=color:#960050;background-color:#1e0010>yauaa</span> <span style=color:#960050;background-color:#1e0010>{</span>
-    <span style=color:#960050;background-color:#1e0010>source</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#f92672>&#34;message&#34;</span>
-    <span style=color:#960050;background-color:#1e0010>fields</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> {
-       <span style=color:#960050;background-color:#1e0010>DeviceClass</span>      <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#f92672>&#34;DevCls&#34;</span>
-       <span style=color:#960050;background-color:#1e0010>AgentNameVersion</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;AgntNmVrsn&#34;</span>
+<pre tabindex=0><code>filter {
+  yauaa {
+    source =&gt; &quot;message&quot;
+    fields =&gt; {
+       DeviceClass      =&gt; &quot;DevCls&quot;
+       AgentNameVersion =&gt; &quot;AgntNmVrsn&quot;
     }
   }
-<span style=color:#960050;background-color:#1e0010>}</span>
-</code></pre></div><p>When running this example I get output like this that has the new fields &ldquo;DevCls&rdquo; and &ldquo;AgntNmVrsn&rdquo;:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;@timestamp&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#ae81ff>2019-02-13</span><span style=color:#960050;background-color:#1e0010>T</span><span style=color:#ae81ff>10</span>:<span style=color:#ae81ff>42</span>:<span style=color:#ae81ff>57.491</span><span style=color:#960050;background-color:#1e0010>Z</span>,
-       <span style=color:#f92672>&#34;message&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36&#34;</span>,
-      <span style=color:#f92672>&#34;@version&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;1&#34;</span>,
-          <span style=color:#f92672>&#34;host&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;niels-laptop&#34;</span>,
-    <span style=color:#f92672>&#34;AgntNmVrsn&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;Chrome 48.0.2564.82&#34;</span>,
-        <span style=color:#f92672>&#34;DevCls&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;Desktop&#34;</span>,
-          <span style=color:#f92672>&#34;path&#34;</span> <span style=color:#960050;background-color:#1e0010>=&gt;</span> <span style=color:#e6db74>&#34;/tmp/useragent.txt&#34;</span>
 }
-</code></pre></div>
+</code></pre><p>When running this example I get output like this that has the new fields &ldquo;DevCls&rdquo; and &ldquo;AgntNmVrsn&rdquo;:</p>
+<pre tabindex=0><code>{
+    &quot;@timestamp&quot; =&gt; 2019-02-13T10:42:57.491Z,
+       &quot;message&quot; =&gt; &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36&quot;,
+      &quot;@version&quot; =&gt; &quot;1&quot;,
+          &quot;host&quot; =&gt; &quot;niels-laptop&quot;,
+    &quot;AgntNmVrsn&quot; =&gt; &quot;Chrome 48.0.2564.82&quot;,
+        &quot;DevCls&quot; =&gt; &quot;Desktop&quot;,
+          &quot;path&quot; =&gt; &quot;/tmp/useragent.txt&quot;
+}
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
@@ -354,15 +356,15 @@ logstash-plugin install ./udfs/logstash/target/logstash-filter-yauaa-6.1.gem
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1635629537></script>
-<script src=/js/jquery.sticky.js?1635629537></script>
-<script src=/js/featherlight.min.js?1635629537></script>
-<script src=/js/highlight.pack.js?1635629537></script>
+<script src=/js/clipboard.min.js?1635631859></script>
+<script src=/js/perfect-scrollbar.min.js?1635631859></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635631859></script>
+<script src=/js/jquery.sticky.js?1635631859></script>
+<script src=/js/featherlight.min.js?1635631859></script>
+<script src=/js/highlight.pack.js?1635631859></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1635629537></script>
-<script src=/js/learn.js?1635629537></script>
-<script src=/js/hugo-learn.js?1635629537></script>
+<script src=/js/modernizr.custom-3.6.0.js?1635631859></script>
+<script src=/js/learn.js?1635631859></script>
+<script src=/js/hugo-learn.js?1635631859></script>
 </body>
 </html>

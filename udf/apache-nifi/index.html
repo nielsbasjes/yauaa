@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Apache Nifi | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1635629537 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1635629537 rel=stylesheet>
-<link href=/css/hybrid.css?1635629537 rel=stylesheet>
-<link href=/css/featherlight.min.css?1635629537 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1635629537 rel=stylesheet>
-<link href=/css/auto-complete.css?1635629537 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1635629537 rel=stylesheet>
-<link href=/css/theme.css?1635629537 rel=stylesheet>
-<link href=/css/tabs.css?1635629537 rel=stylesheet>
-<link href=/css/hugo-theme.css?1635629537 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1635629537 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1635629537></script>
+<link href=/css/nucleus.css?1635631860 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635631860 rel=stylesheet>
+<link href=/css/hybrid.css?1635631860 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635631860 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635631860 rel=stylesheet>
+<link href=/css/auto-complete.css?1635631860 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635631860 rel=stylesheet>
+<link href=/css/theme.css?1635631860 rel=stylesheet>
+<link href=/css/tabs.css?1635631860 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635631860 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635631860 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635631860></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 </head>
 <body data-url=/udf/apache-nifi/>
@@ -41,10 +41,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1635629537></script>
-<script type=text/javascript src=/js/auto-complete.js?1635629537></script>
+<script type=text/javascript src=/js/lunr.min.js?1635631860></script>
+<script type=text/javascript src=/js/auto-complete.js?1635631860></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1635629537></script>
+<script type=text/javascript src=/js/search.js?1635631860></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -140,7 +140,9 @@ Apache Flink Table/SQL
 Apache Hive
 </a>
 </li>
-<li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class="dd-item active">
+<li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class="dd-item
+parent
+active">
 <a href=/udf/apache-nifi/>
 Apache Nifi
 </a>
@@ -257,7 +259,7 @@ Related projects
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/udf/Apache-Nifi.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/udf/Apache-Nifi/_index.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -281,6 +283,7 @@ Related projects
 <li><a href=#introduction-1>Introduction</a></li>
 <li><a href=#getting-the-processor>Getting the Processor</a></li>
 <li><a href=#installation>Installation</a></li>
+<li><a href=#usage-and-examples>Usage and examples</a></li>
 </ul>
 </nav>
 </div>
@@ -301,7 +304,7 @@ Apache Nifi
 <p>You can get the prebuilt NAR file from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-nifi/6.1/yauaa-nifi-6.1.nar">maven central</a>.</p>
 <p>If you use a maven based project simply add this dependency</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;dependency&gt;</span>
-<span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
+  <span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
   <span style=color:#f92672>&lt;artifactId&gt;</span>yauaa-nifi<span style=color:#f92672>&lt;/artifactId&gt;</span>
   <span style=color:#f92672>&lt;type&gt;</span>nar<span style=color:#f92672>&lt;/type&gt;</span>
   <span style=color:#f92672>&lt;version&gt;</span>6.1<span style=color:#f92672>&lt;/version&gt;</span>
@@ -312,15 +315,15 @@ Apache Nifi
 </code></pre>
 <p>Make sure you replace <code>&lt;nifi-path></code> with your actual path to your nifi installation.
 After you have added this nar file you will find the ParseUserAgent processor in the list.</p>
-<p><img src=UDF-ApacheNifi-Add-Processor.png alt="Add Processor dialog"></p>
-<h1 id=usage-and-examples>Usage and examples</h1>
+<p><img src=ApacheNifi-Add-Processor.png alt="Add Processor dialog"></p>
+<h2 id=usage-and-examples>Usage and examples</h2>
 <ol>
 <li>
 <p>First you make sure that the FLowFile going into this processor has the attribute &ldquo;UseragentString&rdquo; that contains the string to be analyzed.</p>
 </li>
 <li>
 <p>In the configuration enable the fields you need for analysis. By default none have been selected.
-<img src=UDF-ApacheNifi-Configure-Processor.png alt="Configure Processor dialog"></p>
+<img src=ApacheNifi-Configure-Processor.png alt="Configure Processor dialog"></p>
 </li>
 <li>
 <p>The output FlowFile will now have additional attributes for all of the selected attributes that are named
@@ -342,15 +345,15 @@ Key: 'Useragent.OperatingSystemNameVersion'
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.min.js?1635629537></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1635629537></script>
-<script src=/js/jquery.sticky.js?1635629537></script>
-<script src=/js/featherlight.min.js?1635629537></script>
-<script src=/js/highlight.pack.js?1635629537></script>
+<script src=/js/clipboard.min.js?1635631860></script>
+<script src=/js/perfect-scrollbar.min.js?1635631860></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635631860></script>
+<script src=/js/jquery.sticky.js?1635631860></script>
+<script src=/js/featherlight.min.js?1635631860></script>
+<script src=/js/highlight.pack.js?1635631860></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1635629537></script>
-<script src=/js/learn.js?1635629537></script>
-<script src=/js/hugo-learn.js?1635629537></script>
+<script src=/js/modernizr.custom-3.6.0.js?1635631860></script>
+<script src=/js/learn.js?1635631860></script>
+<script src=/js/hugo-learn.js?1635631860></script>
 </body>
 </html>
