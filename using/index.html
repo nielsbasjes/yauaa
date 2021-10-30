@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Using the analyzer | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1635623572 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1635623572 rel=stylesheet>
-<link href=/css/hybrid.css?1635623572 rel=stylesheet>
-<link href=/css/featherlight.min.css?1635623572 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1635623572 rel=stylesheet>
-<link href=/css/auto-complete.css?1635623572 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1635623572 rel=stylesheet>
-<link href=/css/theme.css?1635623572 rel=stylesheet>
-<link href=/css/tabs.css?1635623572 rel=stylesheet>
-<link href=/css/hugo-theme.css?1635623572 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1635623572 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1635623572></script>
+<link href=/css/nucleus.css?1635629537 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1635629537 rel=stylesheet>
+<link href=/css/hybrid.css?1635629537 rel=stylesheet>
+<link href=/css/featherlight.min.css?1635629537 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1635629537 rel=stylesheet>
+<link href=/css/auto-complete.css?1635629537 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1635629537 rel=stylesheet>
+<link href=/css/theme.css?1635629537 rel=stylesheet>
+<link href=/css/tabs.css?1635629537 rel=stylesheet>
+<link href=/css/hugo-theme.css?1635629537 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1635629537 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1635629537></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}</style>
 </head>
 <body data-url=/using/>
@@ -41,10 +41,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1635623572></script>
-<script type=text/javascript src=/js/auto-complete.js?1635623572></script>
+<script type=text/javascript src=/js/lunr.min.js?1635629537></script>
+<script type=text/javascript src=/js/auto-complete.js?1635629537></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1635623572></script>
+<script type=text/javascript src=/js/search.js?1635629537></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -205,14 +205,14 @@ Shading dependencies
 Other
 </a>
 <ul>
-<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
-<a href=/other/relatedprojects/>
-Related projects
-</a>
-</li>
 <li data-nav-id=/other/article/ title=Blogpost class=dd-item>
 <a href=/other/article/>
 Blogpost
+</a>
+</li>
+<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
+<a href=/other/relatedprojects/>
+Related projects
 </a>
 </li>
 </ul>
@@ -258,7 +258,7 @@ Blogpost
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/docs/using/_index.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/using/_index.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -269,16 +269,39 @@ Blogpost
 <i class="fas fa-bars"></i>
 </a>
 </span>
+<span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
 <a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > Using the analyzer
 </span>
+</div>
+<div class=progress>
+<div class=wrapper>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#using-the-analyzer>Using the analyzer</a></li>
+<li><a href=#using-in-java-applications>Using in Java applications</a></li>
+<li><a href=#logging-dependencies>Logging dependencies</a></li>
+<li><a href=#serialization>Serialization</a></li>
+<li><a href=#avoid-using-it-as-a-static-member>Avoid using it as a static member</a></li>
+<li><a href=#cache-size-setting>Cache size setting</a></li>
+<li><a href=#limiting-to-only-certain-fields>Limiting to only certain fields</a></li>
+<li><a href=#building-your-project-with--xlintall>Building your project with -Xlint:all</a></li>
+<li><a href=#important-this-library-is-single-threaded->IMPORTANT: This library is single threaded !</a></li>
+<li><a href=#eclipse-users>Eclipse users</a></li>
+<li><a href=#scala-usage>Scala usage</a></li>
+<li><a href=#snapshots>Snapshots</a></li>
+</ul>
+</nav>
+</div>
 </div>
 </div>
 </div>
 <div id=head-tags>
 </div>
-<div id=chapter>
 <div id=body-inner>
+<h1>
+Using the analyzer
+</h1>
 <h2 id=using-the-analyzer>Using the analyzer</h2>
 <p>To use this analyzer you can use it either directly in your Java based applications or use one of
 the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, &mldr;) as described <a href=../udf/>here</a>.</p>
@@ -435,22 +458,21 @@ If you want to use such a version then the repository can be configured in your 
 </footer>
 </div>
 </div>
-</div>
 <div id=navigation>
 </div>
 </section>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1635623572></script>
-<script src=/js/perfect-scrollbar.min.js?1635623572></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1635623572></script>
-<script src=/js/jquery.sticky.js?1635623572></script>
-<script src=/js/featherlight.min.js?1635623572></script>
-<script src=/js/highlight.pack.js?1635623572></script>
+<script src=/js/clipboard.min.js?1635629537></script>
+<script src=/js/perfect-scrollbar.min.js?1635629537></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1635629537></script>
+<script src=/js/jquery.sticky.js?1635629537></script>
+<script src=/js/featherlight.min.js?1635629537></script>
+<script src=/js/highlight.pack.js?1635629537></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1635623572></script>
-<script src=/js/learn.js?1635623572></script>
-<script src=/js/hugo-learn.js?1635623572></script>
+<script src=/js/modernizr.custom-3.6.0.js?1635629537></script>
+<script src=/js/learn.js?1635629537></script>
+<script src=/js/hugo-learn.js?1635629537></script>
 </body>
 </html>
