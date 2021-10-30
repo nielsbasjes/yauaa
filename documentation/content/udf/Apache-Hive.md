@@ -14,7 +14,7 @@ If you use a maven based project simply add this dependency
 
 ```xml
 <dependency>
-<groupId>nl.basjes.parse.useragent</groupId>
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-hive</artifactId>
   <classifier>udf</classifier>
   <version>{{%YauaaVersion%}}</version>

@@ -15,7 +15,7 @@ The reason this system (historically) works is because a lot of website builders
 
 ```javascript
 if (useragent.contains("Chrome")) {
-   // Use the chrome feature we need.
+    // Use the chrome feature we need.
 }
 ```
 

@@ -30,24 +30,24 @@ Note that the name of the two setters is not important, the system looks at the 
 
 ```java
 .apply("Extract Elements from Useragent",
-    ParDo.of(new UserAgentAnalysisDoFn<TestRecord>(15000) { // Setting the cacheSize
-        @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
-        }
+  ParDo.of(new UserAgentAnalysisDoFn<TestRecord>(15000) { // Setting the cacheSize
+    @Override
+    public String getUserAgentString(TestRecord record) {
+      return record.useragent;
+    }
 
-        @SuppressWarnings("unused") // Called via the annotation
-        @YauaaField("DeviceClass")
-        public void setDC(TestRecord record, String value) {
-            record.deviceClass = value;
-        }
+    @SuppressWarnings("unused") // Called via the annotation
+    @YauaaField("DeviceClass")
+    public void setDC(TestRecord record, String value) {
+      record.deviceClass = value;
+    }
 
-        @SuppressWarnings("unused") // Called via the annotation
-        @YauaaField("AgentNameVersion")
-        public void setANV(TestRecord record, String value) {
-            record.agentNameVersion = value;
-        }
-    }));
+    @SuppressWarnings("unused") // Called via the annotation
+    @YauaaField("AgentNameVersion")
+    public void setANV(TestRecord record, String value) {
+      record.agentNameVersion = value;
+    }
+  }));
 ```
 
 ## Immutable instances in Apache Beam
@@ -64,27 +64,27 @@ So the earlier example will look something like this:
 
 ```java
 public class MyUserAgentAnalysisDoFn extends UserAgentAnalysisDoFn<TestRecord> {
-    @Override
-    public String getUserAgentString(TestRecord record) {
-        return record.useragent;
-    }
+  @Override
+  public String getUserAgentString(TestRecord record) {
+    return record.useragent;
+  }
 
-    @SuppressWarnings("unused") // Called via the annotation
-    @YauaaField("DeviceClass")
-    public void setDC(TestRecord record, String value) {
-        record.deviceClass = value;
-    }
+  @SuppressWarnings("unused") // Called via the annotation
+  @YauaaField("DeviceClass")
+  public void setDC(TestRecord record, String value) {
+    record.deviceClass = value;
+  }
 
-    @SuppressWarnings("unused") // Called via the annotation
-    @YauaaField("AgentNameVersion")
-    public void setANV(TestRecord record, String value) {
-        record.agentNameVersion = value;
-    }
+  @SuppressWarnings("unused") // Called via the annotation
+  @YauaaField("AgentNameVersion")
+  public void setANV(TestRecord record, String value) {
+    record.agentNameVersion = value;
+  }
 }
 ```
 and then in the topology simply do this
 
 ```java
 .apply("Extract Elements from Useragent",
-    ParDo.of(new MyUserAgentAnalysisDoFn()));
+  ParDo.of(new MyUserAgentAnalysisDoFn()));
 ```

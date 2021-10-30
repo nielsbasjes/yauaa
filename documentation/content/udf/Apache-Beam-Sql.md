@@ -48,7 +48,7 @@ With such a map you can then extract the field you really need with SQL syntax s
 
 Assuming the input
 
-    Mozilla\/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
+    Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36
 
 To parse this input value into all possible values and returns the complete result as a single JSon string use this:
 

@@ -1,9 +1,10 @@
 +++
 title = "Elastic LogStash"
 +++
-# User Defined Function (Filter plugin) for [Elastic Logstash](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html)
+## Introduction
+User Defined Function (Filter plugin) for [Elastic Logstash](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html)
 
-# STATUS: ... EXPERIMENTAL ...
+## STATUS: ... EXPERIMENTAL ...
 The logstash UDF java api is still experimental.
 
 See for more information:
@@ -13,7 +14,7 @@ See for more information:
 ## Getting the UDF
 You can get the prebuilt filter from [the github releases page](https://github.com/nielsbasjes/yauaa/releases/download/v{{%YauaaVersion%}}/logstash-filter-yauaa-{{%YauaaVersion%}}.gem).
 
-# Building has side effects !
+## Building has side effects !
 Because at this time none of the required dependencies are in maven central this build does something rarely seen:
 
 It downloads the entire logstash distribution, extracts the logstash-core.jar and installs it locally for maven
@@ -40,7 +41,7 @@ You need to specify
 1. The source field
 2. For each Yauaa field you need the logstash field in which it needs to be placed.
 
-```json
+```
 filter {
   yauaa {
     source => "message"
@@ -53,7 +54,7 @@ filter {
 ```
 
 When running this example I get output like this that has the new fields "DevCls" and "AgntNmVrsn":
-```json
+```
 {
     "@timestamp" => 2019-02-13T10:42:57.491Z,
        "message" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36",

@@ -11,7 +11,7 @@ If you use a maven based project simply add this dependency
 
 ```xml
 <dependency>
-<groupId>nl.basjes.parse.useragent</groupId>
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-logparser</artifactId>
   <classifier>udf</classifier>
   <version>{{%YauaaVersion%}}</version>
@@ -20,6 +20,7 @@ If you use a maven based project simply add this dependency
 
 
 ## Example usage
+
     -- Import the UDF jar file so this script can use it
     REGISTER *.jar;
 

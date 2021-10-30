@@ -9,8 +9,8 @@ You can get the prebuilt UDF from [maven central](https://search.maven.org/artif
 
 If you use a maven based project simply add this dependency to your project.
 
-```
-xml<dependency>
+```xml
+<dependency>
   <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-flink</artifactId>
   <version>{{%YauaaVersion%}}</version>
@@ -28,24 +28,26 @@ Now you must do two things:
 
 Note that the name of the two setters is not important, the system looks at the annotation.
 
-    .map(new UserAgentAnalysisMapper<TestRecord>(15000) { // Setting the cacheSize
-        @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
-        }
+```java
+.map(new UserAgentAnalysisMapper<TestRecord>(15000) { // Setting the cacheSize
+    @Override
+    public String getUserAgentString(TestRecord record) {
+        return record.useragent;
+    }
 
-        @SuppressWarnings("unused") // Called via the annotation
-        @YauaaField("DeviceClass")
-        public void setDC(TestRecord record, String value) {
-            record.deviceClass = value;
-        }
+    @SuppressWarnings("unused") // Called via the annotation
+    @YauaaField("DeviceClass")
+    public void setDC(TestRecord record, String value) {
+        record.deviceClass = value;
+    }
 
-        @SuppressWarnings("unused") // Called via the annotation
-        @YauaaField("AgentNameVersion")
-        public void setANV(TestRecord record, String value) {
-            record.agentNameVersion = value;
-        }
-    })
+    @SuppressWarnings("unused") // Called via the annotation
+    @YauaaField("AgentNameVersion")
+    public void setANV(TestRecord record, String value) {
+        record.agentNameVersion = value;
+    }
+})
+```
 
 ## NOTES on defining it as an anonymous class
 An anonymous inner class in Java is [by default private](https://stackoverflow.com/questions/319765/accessing-inner-anonymous-class-members).
@@ -55,25 +57,29 @@ There are situations in which this will fail (amongst others the SecurityManager
 
 So the earlier example will look something like this:
 
-    public class MyUserAgentAnalysisMapper extends UserAgentAnalysisMapper<TestRecord> {
-        @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
-        }
-
-        @SuppressWarnings("unused") // Called via the annotation
-        @YauaaField("DeviceClass")
-        public void setDC(TestRecord record, String value) {
-            record.deviceClass = value;
-        }
-
-        @SuppressWarnings("unused") // Called via the annotation
-        @YauaaField("AgentNameVersion")
-        public void setANV(TestRecord record, String value) {
-            record.agentNameVersion = value;
-        }
+```java
+public class MyUserAgentAnalysisMapper extends UserAgentAnalysisMapper<TestRecord> {
+    @Override
+    public String getUserAgentString(TestRecord record) {
+        return record.useragent;
     }
+
+    @SuppressWarnings("unused") // Called via the annotation
+    @YauaaField("DeviceClass")
+    public void setDC(TestRecord record, String value) {
+        record.deviceClass = value;
+    }
+
+    @SuppressWarnings("unused") // Called via the annotation
+    @YauaaField("AgentNameVersion")
+    public void setANV(TestRecord record, String value) {
+        record.agentNameVersion = value;
+    }
+}
+```
 
 and then in the topology simply do this
 
-    .map(new MyUserAgentAnalysisMapper())
+```java
+.map(new MyUserAgentAnalysisMapper())
+```

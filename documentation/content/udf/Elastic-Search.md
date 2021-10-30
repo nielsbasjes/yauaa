@@ -1,7 +1,8 @@
 +++
 title = "Elastic Search"
 +++
-## User Defined Function (ingest processor) for [Elastic Search](https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html)
+## Introduction
+User Defined Function (ingest processor) for [Elastic Search](https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html)
 
 ## STATUS: ... EXPERIMENTAL ...
 The ElasticSearch ingest plugin is very new.
@@ -146,7 +147,7 @@ results in
         "found": true
     }
 
-# NOTES for developers
+## NOTES for developers
 
 The ElasticSearch testing tools are quick to complain about jar classloading issues: "jar hell".
 

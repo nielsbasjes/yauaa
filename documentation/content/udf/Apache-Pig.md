@@ -11,7 +11,7 @@ If you use a maven based project simply add this dependency
 
 ```xml
 <dependency>
-<groupId>nl.basjes.parse.useragent</groupId>
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-pig</artifactId>
   <classifier>udf</classifier>
   <version>{{%YauaaVersion%}}</version>
@@ -19,30 +19,33 @@ If you use a maven based project simply add this dependency
 ```
 
 ## Example usage
-    -- Import the UDF jar file so this script can use it
-    REGISTER ../target/*-udf.jar;
 
-    ------------------------------------------------------------------------
-    -- Define a more readable name for the UDF and pass optional parameters
-    -- First parameter is ALWAYS the cache size (as a text string!)
-    -- The parameters after that are the requested fields.
-    ----------
-    -- If you simply want 'everything'
-    -- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
-    ----------
-    -- If you just want to set the cache
-    -- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent('10000');
-    ----------
-    -- If you want to set the cache and only retrieve the specified fields
-    DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent('10000', 'DeviceClass', 'DeviceBrand' );
+```pig
+-- Import the UDF jar file so this script can use it
+REGISTER ../target/*-udf.jar;
 
-    rawData =
-        LOAD 'testcases.txt'
-        USING PigStorage()
-        AS  ( useragent: chararray );
+------------------------------------------------------------------------
+-- Define a more readable name for the UDF and pass optional parameters
+-- First parameter is ALWAYS the cache size (as a text string!)
+-- The parameters after that are the requested fields.
+----------
+-- If you simply want 'everything'
+-- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent;
+----------
+-- If you just want to set the cache
+-- DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent('10000');
+----------
+-- If you want to set the cache and only retrieve the specified fields
+DEFINE ParseUserAgent  nl.basjes.parse.useragent.pig.ParseUserAgent('10000', 'DeviceClass', 'DeviceBrand' );
 
-    UaData =
-        FOREACH  rawData
-        GENERATE useragent,
-                 -- Do NOT specify a type for this field as the UDF provides the definitions
-                 ParseUserAgent(useragent) AS parsedAgent;
+rawData =
+    LOAD 'testcases.txt'
+    USING PigStorage()
+    AS  ( useragent: chararray );
+
+UaData =
+    FOREACH  rawData
+    GENERATE useragent,
+             -- Do NOT specify a type for this field as the UDF provides the definitions
+             ParseUserAgent(useragent) AS parsedAgent;
+```

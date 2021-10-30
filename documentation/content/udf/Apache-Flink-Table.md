@@ -11,7 +11,7 @@ If you use a maven based project simply add this dependency to your project.
 
 ```xml
 <dependency>
-<groupId>nl.basjes.parse.useragent</groupId>
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-flink-table</artifactId>
   <version>{{%YauaaVersion%}}</version>
 </dependency>
@@ -40,6 +40,7 @@ In most cases I see (clickstream data) these records contain the useragent strin
 ```java
 // Give the stream a Table Name
 tableEnv.registerDataStream("AgentStream", inputStream, "timestamp, url, useragent");
+```
 
 Now you must do four things:
 
@@ -49,41 +50,44 @@ Now you must do four things:
 * Run the query
 
 
-    // Register the function with all the desired fieldnames and optionally the size of the cache
-    tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction(15000, "DeviceClass", "AgentNameVersionMajor"));
+```java
+// Register the function with all the desired fieldnames and optionally the size of the cache
+tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction(15000, "DeviceClass", "AgentNameVersionMajor"));
 
-    // Define the query.
-    String sqlQuery =
-        "SELECT useragent,"+
-        "       ParseUserAgent(useragent)   as parsedUseragent" +
-        "FROM AgentStream";
+// Define the query.
+String sqlQuery =
+    "SELECT useragent,"+
+    "       ParseUserAgent(useragent)   as parsedUseragent" +
+    "FROM AgentStream";
 
-    Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
-    // A String and the Map with all results
-    TypeInformation<Row> tupleType = new RowTypeInfo(STRING, MAP(STRING, STRING));
-    DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+// A String and the Map with all results
+TypeInformation<Row> tupleType = new RowTypeInfo(STRING, MAP(STRING, STRING));
+DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+```
 
 or something like this
 
-    // Register the function with all the desired fieldnames and optionally the size of the cache
-    tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction(15000, "DeviceClass", "AgentNameVersionMajor"));
+```java
+// Register the function with all the desired fieldnames and optionally the size of the cache
+tableEnv.registerFunction("ParseUserAgent", new AnalyzeUseragentFunction(15000, "DeviceClass", "AgentNameVersionMajor"));
 
-    // Define the query.
-    String sqlQuery =
-        "SELECT useragent,"+
-        "       parsedUseragent['DeviceClass']              AS deviceClass," +
-        "       parsedUseragent['AgentNameVersionMajor']    AS agentNameVersionMajor " +
-        "FROM ( " +
-        "   SELECT useragent," +
-        "          ParseUserAgent(useragent) AS parsedUseragent" +
-        "   FROM   AgentStream " +
-        ")";
+// Define the query.
+String sqlQuery =
+    "SELECT useragent,"+
+    "       parsedUseragent['DeviceClass']              AS deviceClass," +
+    "       parsedUseragent['AgentNameVersionMajor']    AS agentNameVersionMajor " +
+    "FROM ( " +
+    "   SELECT useragent," +
+    "          ParseUserAgent(useragent) AS parsedUseragent" +
+    "   FROM   AgentStream " +
+    ")";
 
-    Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
-    // 3 Strings
-    TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING);
-    DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
-
+// 3 Strings
+TypeInformation<Row> tupleType = new RowTypeInfo(STRING, STRING, STRING);
+DataStream<Row> resultSet = tableEnv.toAppendStream(resultTable, tupleType);
+```
 
