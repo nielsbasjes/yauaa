@@ -1,7 +1,6 @@
 +++
 title = "Related projects"
-chapter = true
-weight = 110
+weight = 20
 +++
 
 [Stefano Balzarotti](https://github.com/OrbintSoft) is putting a lot of effort into porting Yauaa to run in .NET standard.

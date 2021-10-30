@@ -1,7 +1,6 @@
 +++
 title = "Using the analyzer"
 weight = 20
-chapter = true
 linkTitle = "Using Yauaa"
 +++
 ## Using the analyzer

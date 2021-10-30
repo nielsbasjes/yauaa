@@ -1,6 +1,5 @@
 +++
 title = "User Defined Functions"
-chapter = true
 weight = 30
 +++
 Several external computation systems support the concept of a User Defined Function (UDF).
