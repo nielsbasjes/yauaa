@@ -1,0 +1,97 @@
+baseURL = '/'
+languageCode = 'en-us'
+title = 'Yauaa - Yet Another UserAgent Analyzer'
+
+
+# Change the default theme to be use when building the site with Hugo
+theme = "hugo-theme-learn"
+
+# For search functionality
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+[params]
+  # Prefix URL to edit current page. Will display an "Edit this page" button on top right hand corner of every page.
+  # Useful to give opportunity to people to create merge request for your doc.
+  # See the config.toml file from this documentation site to have an example.
+  editURL = "https://github.com/nielsbasjes/yauaa/tree/master/docs/"
+  # Author of the site, will be used in meta information
+  author = "Niels Basjes"
+  # Description of the site, will be used in meta information
+  description = "This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible."
+  # Shows a checkmark for visited pages on the menu
+  showVisitedLinks = false
+  # Disable search function. It will hide search bar
+  disableSearch = false
+  # Javascript and CSS cache are automatically busted when new version of site is generated.
+  # Set this to true to disable this behavior (some proxies don't handle well this optimization)
+  disableAssetsBusting = false
+  # Set this to true to disable copy-to-clipboard button for inline code.
+  disableInlineCopyToClipBoard = false
+  # A title for shortcuts in menu is set by default. Set this to true to disable it.
+  disableShortcutsTitle = false
+  # If set to false, a Home button will appear below the search bar on the menu.
+  # It is redirecting to the landing page of the current language if specified. (Default is "/")
+#  disableLandingPageButton = true
+  # When using mulitlingual website, disable the switch language button.
+  disableLanguageSwitchingButton = true
+  # Hide breadcrumbs in the header and only show the current page title
+  disableBreadcrumb = false
+  # If set to true, prevents Hugo from including the mermaid module if not needed (will reduce load times and traffic)
+  disableMermaid = true
+  # Specifies the remote location of the mermaid js
+  customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
+  # Hide Next and Previous page buttons normally displayed full height beside content
+  disableNextPrev = true
+  # Order sections in menu by "weight" or "title". Default to "weight"
+  ordersectionsby = "weight"
+  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  themeVariant = "yauaa"
+  # Provide a list of custom css files to load relative from the `static/` folder in the site root.
+#  custom_css = ["css/foo.css", "css/bar.css"]
+  # Change the title separator. Default to "::".
+  titleSeparator = " | "
+
+  landingPageURL = "/"
+  landingPageName = "<i class='fas fa-home'></i> Yauaa"
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-github'></i> Github repo"
+url = "https://github.com/nielsbasjes/yauaa"
+weight = 10
+
+[[menu.shortcuts]]
+name = '<img alt="Github actions Build status" src="https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa"/>'
+url = "https://github.com/nielsbasjes/yauaa/actions"
+weight = 20
+
+[[menu.shortcuts]]
+name = '<img alt="Coverage Status" src="https://img.shields.io/codecov/c/github/nielsbasjes/yauaa"/>'
+url = "https://app.codecov.io/gh/nielsbasjes/yauaa"
+weight = 30
+
+[[menu.shortcuts]]
+name = '<img alt="License" src="https://img.shields.io/:license-apache-blue.svg"/>'
+url = "https://www.apache.org/licenses/LICENSE-2.0.html"
+weight = 40
+
+[[menu.shortcuts]]
+name = '<img alt="Maven Central" src="https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg"/>'
+url = "https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22"
+weight = 50
+
+[[menu.shortcuts]]
+name = '<img alt="GitHub stars" src="https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars"/>'
+url = "https://github.com/nielsbasjes/yauaa/stargazers"
+weight = 60
+
+[[menu.shortcuts]]
+name = '<img alt="Docker Hub" src="https://img.shields.io/docker/pulls/nielsbasjes/yauaa"/>'
+url = "https://hub.docker.com/r/nielsbasjes/yauaa"
+weight = 70
+
+[[menu.shortcuts]]
+name = '<img alt="If this project has business value for you then dont hesitate to support me with a small donation." src="https://img.shields.io/badge/Donations-via%20Paypal-blue.svg "/>'
+url = "https://www.paypal.me/nielsbasjes"
+weight = 80
+
