@@ -17,13 +17,16 @@
 #
 
 (
+echo '<p><div id="curve_chart" style="height: 1000px"></div></p>'
+echo '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>'
+echo '<script>'
 echo "google.charts.load('current', {'packages':['corechart']});"
 echo "google.charts.setOnLoadCallback(drawChart);"
 
 echo "function drawChart() {"
 echo "    var data = google.visualization.arrayToDataTable(["
 
-echo -n "['Version'"
+echo -n "    ['Version'"
 ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
 while read -r BenchMarkName ;
 do
@@ -35,7 +38,7 @@ echo "],"
 ls results/quick-speed-test-*txt | sort --version-sort | while read -r FileName ;
 do
     VERSION=$(echo "${FileName}" | sed 's@^.*quick-speed-test-\(.*\).txt$@\1@g' )
-    echo -n "['v${VERSION}'"
+    echo -n "    ['v${VERSION}'"
     ls results/quick-speed-test-*.txt | sort --version-sort | head -1 | xargs grep '| Test |' | cut -d'|' -f3 | sed 's/^ //g;s/ +$//' | \
     while read -r BenchMarkName ;
     do
@@ -58,7 +61,11 @@ echo "    var chart = new google.visualization.LineChart(document.getElementById
 
 echo "    chart.draw(data, options);"
 echo "}"
+echo "google.charts.load('current', {'packages':['corechart']});"
+echo "google.charts.setOnLoadCallback(drawChart);"
+echo "</script>"
 
-) > ../src/main/docs/PerformanceGraph.js
 
-echo "Wrote ../src/main/docs/PerformanceGraph.js"
+) > ../documentation/layouts/shortcodes/PerformanceGraph.html
+
+echo "Wrote ../documentation/layouts/shortcodes/PerformanceGraph.html"

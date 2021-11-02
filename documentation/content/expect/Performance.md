@@ -21,4 +21,4 @@ Followed by a few steps in a rewrite of that part resulting in effectively the f
 
 Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/master/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java) ) on a Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz from version 4.0 onwards:
 
-{{< performancegraph >}}
+{{< PerformanceGraph >}}
