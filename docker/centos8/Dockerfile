@@ -68,10 +68,10 @@ RUN cd /usr/local/bin && \
 RUN yum install -y ruby
 
 # --------------------------------
-# Install node.js, npm and gitbook
-RUN yum install -y nodejs npm
-RUN npm install --global gitbook-cli \
-        && gitbook fetch 3.2.3
+# Install Hugo
+RUN cd /usr/local/bin && \
+     wget https://github.com/gohugoio/hugo/releases/download/v0.89.0/hugo_0.89.0_Linux-64bit.tar.gz && \
+     tar xzf hugo_*.tar.gz
 
 # --------------------------------
 # Add a welcome message and environment checks.
@@ -81,5 +81,4 @@ RUN chmod 755 /scripts/*.sh
 
 # --------------------------------
 # For serving the documentation site
-EXPOSE 40000
-EXPOSE 35729
+EXPOSE 1313

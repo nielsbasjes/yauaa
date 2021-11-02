@@ -160,8 +160,7 @@ docker run --rm=true ${DOCKER_INTERACTIVE}                      \
        -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg${V_OPTS:-}" \
        ${DOCKER_SOCKET_MOUNT}                                   \
        -w "/home/${USER}/${PROJECTNAME}"                        \
-       -p 4000:4000                                             \
-       -p 35729:35729                                           \
+       -p 1313:1313                                             \
        --name "${CONTAINER_NAME}"                               \
        "${PROJECTNAME}-${OS}-${USER_NAME}"                      \
        "${COMMAND[@]}"
