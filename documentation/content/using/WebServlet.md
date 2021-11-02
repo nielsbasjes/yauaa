@@ -96,15 +96,15 @@ spec:
         - containerPort: 8080
           name: yauaa
           protocol: TCP
-        readinessProbe:
+        livenessProbe:
           httpGet:
-            path: /running
+            path: /liveness
             port: yauaa
           initialDelaySeconds: 2
           periodSeconds: 3
-        livenessProbe:
+        readinessProbe:
           httpGet:
-            path: /running
+            path: /readiness
             port: yauaa
           initialDelaySeconds: 10
           periodSeconds: 10
@@ -220,15 +220,15 @@ spec:
         - containerPort: 8080
           name: yauaa
           protocol: TCP
-        readinessProbe:
+        livenessProbe:
           httpGet:
-            path: /running
+            path: /liveness
             port: yauaa
           initialDelaySeconds: 2
           periodSeconds: 3
-        livenessProbe:
+        readinessProbe:
           httpGet:
-            path: /running
+            path: /readiness
             port: yauaa
           initialDelaySeconds: 10
           periodSeconds: 10
