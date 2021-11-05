@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.2-SNAPSHOT
 ===
-- ...
+- New/improved detections
+  - Handle webconference plugins in IE
 
 v6.1
 ===
