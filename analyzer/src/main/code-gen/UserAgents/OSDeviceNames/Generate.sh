@@ -53,7 +53,7 @@ echo "#"
 echo "config:"
 
 echo "- set:"
-echo "    name: 'UnwantedSecondVersionValues'"
+echo "    name: 'UnwantedVersionValues'"
 echo "    merge:"
 echo "    - 'CPUArchitectures'"
 echo "    values:"
@@ -92,7 +92,7 @@ echo "
     - 'DeviceBrand                         :      112 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
 
 - matcher:
     variable:
@@ -103,7 +103,7 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
 
 - matcher:
     variable:
@@ -114,7 +114,7 @@ echo "
     - 'DeviceBrand                         :      112 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
 
 # Exact match
 - matcher:
@@ -126,7 +126,7 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      151 :\"${osclass}\"'
     - 'OperatingSystemName                 :      151 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 "
 
 case ${ospatternWords} in
@@ -142,7 +142,7 @@ echo "
     - 'DeviceBrand                         :      108 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      148 :\"${osclass}\"'
     - 'OperatingSystemName                 :      148 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 
 - matcher:
     require:
@@ -153,7 +153,7 @@ echo "
     - 'DeviceBrand                         :      107 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      147 :\"${osclass}\"'
     - 'OperatingSystemName                 :      147 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      148 :\"??\"'
+    - 'OperatingSystemVersion              :      148 :\"<<<null>>>\"'
 "
 ;;
 
@@ -169,7 +169,7 @@ echo "
     - 'DeviceBrand                         :      109 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      149 :\"${osclass}\"'
     - 'OperatingSystemName                 :      149 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 - matcher:
     require:
     - 'agent.product.(1-2)comments.entry[2-3]=\"${ospattern}\"'
@@ -179,7 +179,7 @@ echo "
     - 'DeviceBrand                         :      109 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      149 :\"${osclass}\"'
     - 'OperatingSystemName                 :      149 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 "
 ;;
 
@@ -195,7 +195,7 @@ echo "
     - 'DeviceBrand                         :      110 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 
 - matcher:
     require:
@@ -206,29 +206,33 @@ echo "
     - 'DeviceBrand                         :      110 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 "
 ;;
 esac
 
 echo "
 - matcher:
+    variable:
+    - 'OS                                  :agent.product.name=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[agent.product.name=\"${ospattern}\"^.(1)version]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
 
 - matcher:
+    variable:
+    - 'OS                                  :agent.product.name=\"${ospattern}\"
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[agent.product.name=\"${ospattern}\"^.(2)version?!UnwantedSecondVersionValues]'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
 
 - matcher:
     require:
@@ -239,7 +243,7 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      152 :\"${osclass}\"'
     - 'OperatingSystemName                 :      152 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 
 - matcher:
     require:
@@ -250,7 +254,7 @@ echo "
     - 'DeviceBrand                         :      112 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      153 :\"${osclass}\"'
     - 'OperatingSystemName                 :      153 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      149 :\"??\"'
+    - 'OperatingSystemVersion              :      149 :\"<<<null>>>\"'
 
 "
 done

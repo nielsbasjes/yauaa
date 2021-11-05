@@ -41,18 +41,7 @@ config:
     - 'DeviceName                          :        5 :"Linux Desktop"'
     - 'OperatingSystemClass                :        5 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        6 :LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.(1-2)product.name="Linux"^.version]'
-
-# Some say something like "Linux i686 on x86_64". In this case the 'on' variant is the one we want.
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
-    extract:
-    - 'DeviceClass                         :        5 :"Desktop"'
-    - 'DeviceName                          :        5 :"Linux Desktop"'
-    - 'OperatingSystemClass                :        5 :"Desktop"'
-    - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        7 :LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.(1-2)product.name="Linux"^>.name="on"^.version]'
+    - 'OperatingSystemVersion              :        4 :agent.(1-2)product.(1)comments.entry.(1-2)product.name="Linux"^.version?!UnwantedVersionValues'
 
 - matcher:
     require:
@@ -62,27 +51,7 @@ config:
     - 'DeviceName                          :        5 :"Linux Desktop"'
     - 'OperatingSystemClass                :        5 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        6 :LookUp[CPUArchitectures;agent.(1-2)product.(1)comments.entry.(1)text[1]="Linux"@[2]]'
-
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
-    extract:
-    - 'DeviceClass                         :        5 :"Desktop"'
-    - 'DeviceName                          :        5 :"Linux Desktop"'
-    - 'OperatingSystemClass                :        5 :"Desktop"'
-    - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        4 :agent.(1-2)product.(1)comments.entry.(1-2)product.name="Linux"^.version'
-
-- matcher:
-    require:
-    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
-    extract:
-    - 'DeviceClass                         :        5 :"Desktop"'
-    - 'DeviceName                          :        5 :"Linux Desktop"'
-    - 'OperatingSystemClass                :        5 :"Desktop"'
-    - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        3 :agent.product.name="Linux"^.version'
+    - 'OperatingSystemVersion              :        3 :agent.product.name="Linux"^.version?!UnwantedVersionValues'
 
 - matcher:
     require:
@@ -97,7 +66,7 @@ config:
 
 - matcher:
     variable:
-    - 'LinuxVersion                        :agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version'
+    - 'LinuxVersion                        :agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version?!UnwantedVersionValues'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@LinuxVersion]]'
     extract:
@@ -109,7 +78,7 @@ config:
     - 'Linux                               :agent.(1-2)product.(1)comments.entry.product.name="Linux"^'
     extract:
     - 'DeviceCpu                           :       15 :LookUp[CPUArchitectures;@Linux.(2)version]'
-    - 'OperatingSystemVersion              :       15 :@Linux.(1)version'
+    - 'OperatingSystemVersion              :       15 :@Linux.(1)version?!UnwantedVersionValues'
 
 - matcher:
     require:
@@ -121,7 +90,7 @@ config:
     - 'DeviceName                          :        4 :"Linux Desktop"'
     - 'OperatingSystemClass                :        3 :"Desktop"'
     - 'OperatingSystemName                 :        3 :"Linux"'
-    - 'OperatingSystemVersion              :        0 :"<<<null>>>"'
+    - 'OperatingSystemVersion              :        3 :"<<<null>>>"'
 
 - matcher:
     require:
@@ -144,11 +113,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'Intel i686'
-      OperatingSystemVersionMajor          : 'Intel i686'
-
-      OperatingSystemNameVersion           : 'Linux Intel i686'
-      OperatingSystemNameVersionMajor      : 'Linux Intel i686'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '1.7.3'
@@ -206,10 +174,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'PowerPC'
-      OperatingSystemVersionMajor          : 'PowerPC'
-      OperatingSystemNameVersion           : 'Linux PowerPC'
-      OperatingSystemNameVersionMajor      : 'Linux PowerPC'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Presto'
       LayoutEngineVersion                  : '1'
@@ -236,10 +204,10 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'Intel x86_64'
-      OperatingSystemVersionMajor          : 'Intel x86'
-      OperatingSystemNameVersion           : 'Linux Intel x86_64'
-      OperatingSystemNameVersionMajor      : 'Linux Intel x86'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Presto'
       LayoutEngineVersion                  : '1'
@@ -293,10 +261,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'ARMv5tel'
-      OperatingSystemVersionMajor          : 'ARMv5tel'
-      OperatingSystemNameVersion           : 'Linux ARMv5tel'
-      OperatingSystemNameVersionMajor      : 'Linux ARMv5tel'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Presto'
       LayoutEngineVersion                  : '1'
@@ -500,10 +468,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'OpenBSD'
-      OperatingSystemVersion               : 'i386'
-      OperatingSystemVersionMajor          : 'i386'
-      OperatingSystemNameVersion           : 'OpenBSD i386'
-      OperatingSystemNameVersionMajor      : 'OpenBSD i386'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'OpenBSD ??'
+      OperatingSystemNameVersionMajor      : 'OpenBSD ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '34.0'
@@ -529,10 +497,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'NetBSD'
-      OperatingSystemVersion               : 'i386'
-      OperatingSystemVersionMajor          : 'i386'
-      OperatingSystemNameVersion           : 'NetBSD i386'
-      OperatingSystemNameVersionMajor      : 'NetBSD i386'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'NetBSD ??'
+      OperatingSystemNameVersionMajor      : 'NetBSD ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '17.0'
@@ -597,10 +565,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'DragonFly BSD'
-      OperatingSystemVersion               : 'i386'
-      OperatingSystemVersionMajor          : 'i386'
-      OperatingSystemNameVersion           : 'DragonFly BSD i386'
-      OperatingSystemNameVersionMajor      : 'DragonFly BSD i386'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'DragonFly BSD ??'
+      OperatingSystemNameVersionMajor      : 'DragonFly BSD ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '1.9.1'
@@ -752,11 +720,10 @@ config:
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Linux'
-      OperatingSystemVersion               : 'Intel i686'
-      OperatingSystemVersionMajor          : 'Intel i686'
-
-      OperatingSystemNameVersion           : 'Linux Intel i686'
-      OperatingSystemNameVersionMajor      : 'Linux Intel i686'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Mozilla'
       LayoutEngineVersion                  : '5.0'
