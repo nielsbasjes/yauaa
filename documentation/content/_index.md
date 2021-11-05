@@ -10,6 +10,11 @@ Works with Java, Scala, Kotlin and provides ready for use UDFs for several proce
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
 ## HIGH Profile release notes:
+
+### Version 6.2 (Unreleased)
+===
+- The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
+
 ### Version 6.1
 ---
 - Support for the new `reduced` User-Agent as is being implemented in Google Chrome/Chromium.
