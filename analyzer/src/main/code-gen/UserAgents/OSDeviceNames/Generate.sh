@@ -225,7 +225,7 @@ echo "
 
 - matcher:
     variable:
-    - 'OS                                  :agent.product.name=\"${ospattern}\"
+    - 'OS                                  :agent.product.name=\"${ospattern}\"'
     extract:
     - 'DeviceClass                         :      111 :\"${devclass}\"'
     - 'DeviceName                          :      111 :\"${devname}\"'
