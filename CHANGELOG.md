@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v6.2-SNAPSHOT
 ===
+- Analyzer
+  - The toMap incorrectly filtered out "default" values you asked for.
 - New/improved detections
   - Handle webconference plugins in IE
   - Detect MorphOS

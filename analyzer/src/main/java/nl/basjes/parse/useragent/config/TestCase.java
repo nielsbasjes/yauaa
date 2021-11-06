@@ -100,11 +100,15 @@ public class TestCase implements Serializable {
         for (String key : combinedKeys) {
             String expectedValue = expected.get(key);
             if (expectedValue == null) {
-                return false;
-            }
-            String actualValue = result.getValue(key);
-            if (!expectedValue.equals(actualValue)) {
-                return false;
+                // If we do not expect anything it is ok to get a Default value.
+                if (!result.get(key).isDefaultValue()) {
+                    return false;
+                }
+            } else {
+                String actualValue = result.getValue(key);
+                if (!expectedValue.equals(actualValue)) {
+                    return false;
+                }
             }
         }
         return true;

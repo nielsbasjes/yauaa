@@ -325,9 +325,6 @@ public interface UserAgent extends Serializable {
                 result.put(USERAGENT_FIELDNAME, getUserAgentString());
             } else {
                 AgentField field = get(fieldName);
-                if (field.isDefaultValue()) {
-                    continue;
-                }
                 result.put(fieldName, field.getValue());
             }
         }

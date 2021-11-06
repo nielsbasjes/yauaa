@@ -14,6 +14,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ### Version 6.2 (Unreleased)
 ===
 - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
+- The toMap incorrectly filtered out "default" values you asked for (which caused trouble in UDFs).
 
 ### Version 6.1
 ---
