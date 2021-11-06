@@ -9,6 +9,7 @@ v6.2-SNAPSHOT
   - Handle webconference plugins in IE
   - Detect MorphOS
   - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??) .
+  - Dalvik is not a browser
 
 v6.1
 ===

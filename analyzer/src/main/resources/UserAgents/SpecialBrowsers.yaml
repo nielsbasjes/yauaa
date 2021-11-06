@@ -23,6 +23,13 @@ config:
     values:
     - 'IntelliJ IDEA'
 
+- set:
+    name: 'UnwantedSpecials'
+    values:
+    - 'Mozilla'
+    - 'FakeYauaaProduct'
+    - 'Dalvik'
+
 - matcher:
     require:
     - 'agent.(1)text?NamedSpecials'
@@ -33,32 +40,28 @@ config:
     - 'AgentVersion                        :     1500 :"<<<null>>>"'
 
 - matcher:
-    require:
-    - 'IsNull[agent.(1)product.name="Mozilla"]'
-    - 'IsNull[agent.(1)product.name="FakeYauaaProduct"]'
+    variable:
+    - 'AgentName                           :agent.(1)product.name?!UnwantedSpecials'
     extract:
     - 'AgentClass                          :        5 :"Special"'
-    - 'AgentName                           :        5 :agent.(1)product.name'
+    - 'AgentName                           :        5 :@AgentName'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1)product.name="Mozilla"]'
-    - 'IsNull[agent.(1)product.name="FakeYauaaProduct"]'
+    - 'agent.(1)product.name?!UnwantedSpecials'
     extract:
     - 'AgentClass                          :        6 :"Special"'
     - 'AgentName                           :        6 :agent.(1)product.url'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1)product.name="Mozilla"]'
-    - 'IsNull[agent.(1)product.name="FakeYauaaProduct"]'
+    - 'agent.(1)product.name?!UnwantedSpecials'
     extract:
     - 'AgentVersion                        :        5 :agent.(1)product.(1)comments.(1)entry.(1)text'
 
 - matcher:
     require:
-    - 'IsNull[agent.(1)product.name="Mozilla"]'
-    - 'IsNull[agent.(1)product.name="FakeYauaaProduct"]'
+    - 'agent.(1)product.name?!UnwantedSpecials'
     extract:
     - 'AgentVersion                        :        6 :agent.(1)product.version'
 
