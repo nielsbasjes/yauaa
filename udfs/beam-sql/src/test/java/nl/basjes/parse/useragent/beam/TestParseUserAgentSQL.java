@@ -94,10 +94,10 @@ public class TestParseUserAgentSQL implements Serializable {
                     "\"DeviceCpuBits\":\"64\"," +
                     "\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
                     "\"LayoutEngineClass\":\"Browser\"," +
                     "\"LayoutEngineName\":\"Blink\"," +
                     "\"LayoutEngineVersion\":\"48.0\"," +
@@ -118,59 +118,59 @@ public class TestParseUserAgentSQL implements Serializable {
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"}",
+                    "\"OperatingSystemVersion\":\"??\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"}",
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"}",
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"}",
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
                     "\"AgentClass\":\"Browser\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
                     "\"AgentClass\":\"Browser\"," +
                     "\"AgentName\":\"Chrome\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
                     "\"AgentClass\":\"Browser\"," +
                     "\"AgentName\":\"Chrome\"," +
                     "\"AgentVersion\":\"48.0.2564.82\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"Intel x86_64\"," +
-                    "\"OperatingSystemVersionMajor\":\"Intel x86\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux Intel x86_64\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux Intel x86\"," +
+                    "\"OperatingSystemVersion\":\"??\"," +
+                    "\"OperatingSystemVersionMajor\":\"??\"," +
+                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
                     "\"AgentClass\":\"Browser\"," +
                     "\"AgentName\":\"Chrome\"," +
                     "\"AgentVersion\":\"48.0.2564.82\"," +

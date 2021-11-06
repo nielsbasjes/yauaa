@@ -48,7 +48,7 @@ class TestDissectUserAgent {
             .expect("STRING:device_cpu",               "Intel x86_64")
             .expect("STRING:operating_system_class",   "Desktop")
             .expect("STRING:operating_system_name",    "Linux")
-            .expect("STRING:operating_system_version", "Intel x86_64")
+            .expect("STRING:operating_system_version", "??")
             .expect("STRING:layout_engine_class",      "Browser")
             .expect("STRING:layout_engine_name",       "Blink")
             .expect("STRING:layout_engine_version",    "48.0")

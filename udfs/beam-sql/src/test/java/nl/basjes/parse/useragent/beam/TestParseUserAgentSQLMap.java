@@ -75,14 +75,15 @@ public class TestParseUserAgentSQLMap implements Serializable {
 
         agent1ParsedAllFields.put("DeviceClass",                      "Desktop");
         agent1ParsedAllFields.put("DeviceName",                       "Linux Desktop");
+        agent1ParsedAllFields.put("DeviceBrand",                      "Unknown");
         agent1ParsedAllFields.put("DeviceCpu",                        "Intel x86_64");
         agent1ParsedAllFields.put("DeviceCpuBits",                    "64");
         agent1ParsedAllFields.put("OperatingSystemClass",             "Desktop");
         agent1ParsedAllFields.put("OperatingSystemName",              "Linux");
-        agent1ParsedAllFields.put("OperatingSystemVersion",           "Intel x86_64");
-        agent1ParsedAllFields.put("OperatingSystemVersionMajor",      "Intel x86");
-        agent1ParsedAllFields.put("OperatingSystemNameVersion",       "Linux Intel x86_64");
-        agent1ParsedAllFields.put("OperatingSystemNameVersionMajor",  "Linux Intel x86");
+        agent1ParsedAllFields.put("OperatingSystemVersion",           "??");
+        agent1ParsedAllFields.put("OperatingSystemVersionMajor",      "??");
+        agent1ParsedAllFields.put("OperatingSystemNameVersion",       "Linux ??");
+        agent1ParsedAllFields.put("OperatingSystemNameVersionMajor",  "Linux ??");
         agent1ParsedAllFields.put("LayoutEngineClass",                "Browser");
         agent1ParsedAllFields.put("LayoutEngineName",                 "Blink");
         agent1ParsedAllFields.put("LayoutEngineVersion",              "48.0");

@@ -64,7 +64,7 @@ import java.util.List;
         "+---------------+-----------------------------+------------------------+\n" +
         "| Phone         | Android 6.0                 | Chrome 46              |\n" +
         "| Tablet        | Android 5.1                 | Chrome 40              |\n" +
-        "| Desktop       | Linux Intel x86_64          | Chrome 59              |\n" +
+        "| Desktop       | Linux ??                    | Chrome 59              |\n" +
         "| Game Console  | Windows 10.0                | Edge 13                |\n" +
         "+---------------+-----------------------------+------------------------+\n")
 public class ParseUserAgent extends GenericUDF {

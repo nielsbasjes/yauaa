@@ -111,7 +111,7 @@ class TestParseUserAgent {
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceName",                       "Linux Desktop"       );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemClass",             "Desktop"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemName",              "Linux"               );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemVersion",           "Intel x86_64"        );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemVersion",           "??"                  );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "LayoutEngineClass",                "Browser"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "LayoutEngineName",                 "Blink"               );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "LayoutEngineVersion",              "48.0"                );
@@ -182,7 +182,7 @@ class TestParseUserAgent {
         MockFlowFile result = results.get(0);
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceClass",            "Desktop"      );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemName",    "Linux"        );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemVersion", "Intel x86_64" );
+        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "OperatingSystemVersion", "??"           );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "AgentClass",             "Browser"      );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "AgentName",              "Chrome"       );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "AgentNameVersionMajor",  "Chrome 48"    );

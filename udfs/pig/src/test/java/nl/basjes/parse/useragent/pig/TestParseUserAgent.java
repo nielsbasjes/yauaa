@@ -72,10 +72,11 @@ class TestParseUserAgent {
         Schema schema  = storageData.getSchema("parsedAgents").getField(0).schema;
 
         checkResult(data, schema, "DeviceClass",                      "Desktop"               );
+        checkResult(data, schema, "DeviceBrand",                      "Unknown"               );
         checkResult(data, schema, "DeviceName",                       "Linux Desktop"         );
         checkResult(data, schema, "OperatingSystemClass",             "Desktop"               );
         checkResult(data, schema, "OperatingSystemName",              "Linux"                 );
-        checkResult(data, schema, "OperatingSystemVersion",           "Intel x86_64"          );
+        checkResult(data, schema, "OperatingSystemVersion",           "??"                    );
         checkResult(data, schema, "LayoutEngineClass",                "Browser"               );
         checkResult(data, schema, "LayoutEngineName",                 "Blink"                 );
         checkResult(data, schema, "LayoutEngineVersion",              "48.0"                  );

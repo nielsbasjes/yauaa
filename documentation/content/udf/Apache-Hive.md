@@ -82,7 +82,7 @@ Verify if it has been installed
     | +---------------+-----------------------------+------------------------+  |
     | | Phone         | Android 6.0                 | Chrome 46              |  |
     | | Tablet        | Android 5.1                 | Chrome 40              |  |
-    | | Desktop       | Linux Intel x86_64          | Chrome 59              |  |
+    | | Desktop       | Linux ??                    | Chrome 59              |  |
     | | Game Console  | Windows 10.0                | Edge 13                |  |
     | +---------------+-----------------------------+------------------------+  |
     |                                                                           |
@@ -125,6 +125,6 @@ Usage example:
     +---------------+-----------------------------+------------+------------------------+
     | Phone         | Android 6.0                 | Chrome     | Chrome 46              |
     | Tablet        | Android 5.1                 | Chrome     | Chrome 40              |
-    | Desktop       | Linux Intel x86_64          | Chrome     | Chrome 59              |
+    | Desktop       | Linux ??                    | Chrome     | Chrome 59              |
     | Game Console  | Windows 10.0                | Edge       | Edge 13                |
     +---------------+-----------------------------+------------+------------------------+
