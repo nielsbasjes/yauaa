@@ -1454,7 +1454,8 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.name[1-1]="Samsung"'
+    - 'agent.(1)product.name[1]="Samsung"'
+    - 'agent.(1)product.name[2]!="agent"'
     - 'IsNull[agent.(2)product]'
     - 'IsNull[agent.(2)text]'
     extract:

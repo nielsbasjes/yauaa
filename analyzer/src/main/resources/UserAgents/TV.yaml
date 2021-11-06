@@ -2296,6 +2296,7 @@ config:
       AgentNameVersion                     : 'Chrome 38.0.2125.122'
       AgentNameVersionMajor                : 'Chrome 38'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 Safari/537.36 DMOST/1.0.1 (; LGE; webOSTV; WEBOS3.8.0 05.80.35; W3_m16p;)'
@@ -2331,6 +2332,7 @@ config:
     - 'IsNull[@DeviceName{"WEBOS"]'
     extract:
     - 'DeviceName                          :      500 : @DeviceName'
+
 
 - test:
     input:
@@ -2385,9 +2387,32 @@ config:
       AgentNameVersion                     : 'Safari 538.1'
       AgentNameVersionMajor                : 'Safari 538'
 
-#- test:
-#    input:
-#      user_agent_string: 'samsung-agent/1.1'
+- test:
+    input:
+      user_agent_string: 'samsung-agent/1.1'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Samsung Agent'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Samsung-Agent'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Samsung-Agent 1.1'
+      AgentNameVersionMajor                : 'Samsung-Agent 1'
+
 
 - matcher:
     require:
