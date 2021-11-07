@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.2-SNAPSHOT
+v6.3-SNAPSHOT
+===
+...
+
+v6.2
 ===
 - Analyzer
   - The toMap incorrectly filtered out "default" values you asked for.
@@ -10,6 +14,8 @@ v6.2-SNAPSHOT
   - Detect MorphOS
   - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??) .
   - Dalvik is not a browser
+- UDFs
+  - New UDF for Snowflake
 
 v6.1
 ===
