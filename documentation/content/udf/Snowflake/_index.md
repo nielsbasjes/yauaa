@@ -16,7 +16,7 @@ See for more information:
 - https://docs.snowflake.com/en/developer-guide/udf/java/udf-java.html
 
 ## Installation and usage
-1. Download the UDF and put it in the right directory so Snowflake can load it.
+1. Download the UDF jar to the local file system and upload into a Snowflake internal or external stage.
 
    You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-snowflake/{{%YauaaVersion%}}/jar).
 
@@ -25,7 +25,7 @@ See for more information:
 create or replace function parse_useragent(useragent VARCHAR)
 returns object
 language java
-imports = ('@~/yauaa-snowflake-{{%YauaaVersion%}}-udf.jar')
+imports = ('@cs_stage/yauaa-snowflake-{{%YauaaVersion%}}-udf.jar')
 handler='nl.basjes.parse.useragent.snowflake.ParseUserAgent.parse';
 ```
 
