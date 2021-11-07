@@ -13,7 +13,7 @@
 <meta name=msapplication-TileColor content="#2d89ef">
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
-<title>Related projects | Yauaa - Yet Another UserAgent Analyzer</title>
+<title>Snowflake | Yauaa - Yet Another UserAgent Analyzer</title>
 <link href=/css/nucleus.css?1636316615 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1636316615 rel=stylesheet>
 <link href=/css/hybrid.css?1636316615 rel=stylesheet>
@@ -29,7 +29,7 @@
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
 <script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
 </head>
-<body data-url=/other/relatedprojects/>
+<body data-url=/udf/snowflake/>
 <nav id=sidebar>
 <div id=header-wrapper>
 <div id=header>
@@ -105,7 +105,8 @@ Licence
 </li>
 </ul>
 </li>
-<li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
+<li data-nav-id=/udf/ title="User Defined Functions" class="dd-item
+parent">
 <a href=/udf/>
 User Defined Functions
 </a>
@@ -170,7 +171,9 @@ Elastic Search
 LogParser
 </a>
 </li>
-<li data-nav-id=/udf/snowflake/ title=Snowflake class=dd-item>
+<li data-nav-id=/udf/snowflake/ title=Snowflake class="dd-item
+parent
+active">
 <a href=/udf/snowflake/>
 Snowflake
 </a>
@@ -209,8 +212,7 @@ Shading dependencies
 </li>
 </ul>
 </li>
-<li data-nav-id=/other/ title=Other class="dd-item
-parent">
+<li data-nav-id=/other/ title=Other class=dd-item>
 <a href=/other/>
 Other
 </a>
@@ -220,7 +222,7 @@ Other
 Blogpost
 </a>
 </li>
-<li data-nav-id=/other/relatedprojects/ title="Related projects" class="dd-item active">
+<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
 <a href=/other/relatedprojects/>
 Related projects
 </a>
@@ -274,7 +276,7 @@ Related projects
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/other/RelatedProjects.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/udf/Snowflake/_index.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -287,14 +289,16 @@ Related projects
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/other/>Other</a> > Related projects
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/udf/>User Defined Functions</a> > Snowflake
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#net-port>.NET port</a></li>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</a></li>
+<li><a href=#installation-and-usage>Installation and usage</a></li>
 </ul>
 </nav>
 </div>
@@ -305,12 +309,41 @@ Related projects
 </div>
 <div id=body-inner>
 <h1>
-Related projects
+Snowflake
 </h1>
-<h2 id=net-port>.NET port</h2>
-<p><a href=https://github.com/OrbintSoft>Stefano Balzarotti</a> is putting a lot of effort into porting Yauaa to run in .NET standard.</p>
-<p>You can track his efforts here on GitHub: <a href=https://github.com/OrbintSoft/yauaa.netstandard>Yauaa .NET standard</a> and
-download his releases via <a href=https://www.nuget.org/packages/OrbintSoft.Yauaa.NetStandard>Nuget</a>.</p>
+<h2 id=introduction>Introduction</h2>
+<p>User Defined Function for <a href=https://snowflake.com>Snowflake</a>.</p>
+<h2 id=status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</h2>
+<p>The Snowflake UDF is very experimental for two reasons:</p>
+<ul>
+<li>Snowflake has marked (last checked on 2021-11-07) <a href=https://docs.snowflake.com/en/developer-guide/udf/java/udf-java.html>Java based UDFs</a> as a <a href=https://docs.snowflake.com/en/release-notes/preview-features.html>Preview Feature</a>.</li>
+<li>I do not have Snowflake so I do not have any way of testing this other than getting feedback from you.</li>
+</ul>
+<p>Thanks to <a href=https://github.com/lambrosetti>Luke Ambrosetti</a> for helping out here!</p>
+<p>See for more information:</p>
+<ul>
+<li><a href=https://docs.snowflake.com/en/developer-guide/udf/java/udf-java.html>https://docs.snowflake.com/en/developer-guide/udf/java/udf-java.html</a></li>
+</ul>
+<h2 id=installation-and-usage>Installation and usage</h2>
+<ol>
+<li>
+<p>Download the UDF and put it in the right directory so Snowflake can load it.</p>
+<p>You can get the prebuilt UDF from <a href=https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-snowflake/6.1/jar>maven central</a>.</p>
+</li>
+<li>
+<p>Register the function in Snowflake with something like this:</p>
+</li>
+</ol>
+<pre tabindex=0><code>create or replace function parse_useragent(useragent VARCHAR)
+returns object
+language java
+imports = ('@~/yauaa-snowflake-6.1-udf.jar')
+handler='nl.basjes.parse.useragent.snowflake.ParseUserAgent.parse';
+</code></pre><ol start=3>
+<li>And from there you can use it as a function in your SQL statements</li>
+</ol>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>select</span> parse_useragent(<span style=color:#e6db74>&#39;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&#39;</span>) <span style=color:#66d9ef>as</span> ua_obj, ua_obj:AgentClass::string <span style=color:#66d9ef>as</span> agent_class;
+</code></pre></div><p><img src=Snowflake.png alt="Using Yauaa in Snowflake"></p>
 <footer class=footline>
 </footer>
 </div>
