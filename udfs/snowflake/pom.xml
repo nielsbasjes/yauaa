@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<!--
+  ~ Yet Another UserAgent Analyzer
+  ~ Copyright (C) 2013-2021 Niels Basjes
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>yauaa-udf-parent</artifactId>
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <version>6.2-SNAPSHOT</version>
+  </parent>
+  <artifactId>yauaa-snowflake</artifactId>
+
+  <name>Yauaa : UDF : Snowflake</name>
+  <description>A parsing and analyzing library to get information from a useragent string.</description>
+
+  <url>https://yauaa.basjes.nl</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+    </dependency>
+
+    <!-- The default logging implementation for Yauaa -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>make-super-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/udf.xml</descriptor>
+              </descriptors>
+              <archive>
+                <addMavenDescriptor>true</addMavenDescriptor>
+                <manifestEntries>
+                  <Class-Path>/</Class-Path>
+                </manifestEntries>
+              </archive>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>com.alexecollins.maven.plugin</groupId>
+        <artifactId>script-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <id>Verify jar contents to ensure the shading of dependencies went right</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+
+            <configuration>
+              <language>beanshell</language>
+              <script>
+                import java.io.*;
+                import java.util.jar.*;
+                import java.util.Arrays;
+                import org.codehaus.plexus.util.*;
+
+                System.out.println("Verifying if the shading went correctly");
+
+                String[] libraryWanted = {
+                  "nl/basjes/parse/useragent/utils/YauaaVersion.class",
+                  "org/slf4j/LoggerFactory.class",
+                  "nl/basjes/shaded/org/antlr/v4/runtime/Parser.class",
+                  "nl/basjes/shaded/org/springframework/core/io/support/PathMatchingResourcePatternResolver.class",
+                  "nl/basjes/parse/useragent/snowflake/ParseUserAgent.class",
+                };
+
+                String[] libraryUnwanted = {
+                  "org/antlr/v4/runtime/Parser.class",
+                  "org/springframework/core/io/support/PathMatchingResourcePatternResolver.class",
+                };
+
+                JarFile libraryJarFile = new JarFile( new File( "${project.basedir}/target", "yauaa-snowflake-${project.version}-udf.jar" ) );
+
+                for ( String path : libraryWanted ) {
+                  if ( libraryJarFile.getEntry( path ) == null ) {
+                    throw new IllegalStateException( "Library: wanted path is missing: " + path );
+                  }
+                }
+
+                for ( String path : libraryUnwanted ) {
+                  if ( libraryJarFile.getEntry( path ) != null ) {
+                    throw new IllegalStateException( "Library: unwanted path is present: " + path );
+                  }
+                }
+              </script>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache-extras.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <version>2.0b6</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Niels Basjes</name>
+      <email>niels@basjes.nl</email>
+      <roles>
+        <role>Architect</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Amsterdam</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/nielsbasjes/yauaa</url>
+    <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
+    <developerConnection>scm:git:.</developerConnection>
+  </scm>
+
+</project>

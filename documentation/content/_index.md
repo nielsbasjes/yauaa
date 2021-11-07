@@ -9,29 +9,30 @@ Works with Java, Scala, Kotlin and provides ready for use UDFs for several proce
 
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
+---
 ## HIGH Profile release notes:
 
 ### Version 6.2 (Unreleased)
-===
 - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
 - The toMap incorrectly filtered out "default" values you asked for (which caused trouble in UDFs).
+- A new (experimental) [UDF]({{< relref "Snowflake" >}}) for [Snowflake](https://snowflake.com).
 
 ### Version 6.1
----
 - Support for the new `reduced` User-Agent as it is being implemented in Google Chrome/Chromium.
 - Improved User Defined Function for Apache Beam SQL.
 - Detect the first car based browsers. DeviceClass = Car
 
 ### Version 6.0
----
 - Fully replaced SLF4J with Log4J2; since this is a breaking change the next version will be 6.0
 - Dropping the native commandline version. Using the webservlet locally with curl is a lot faster.
 
+---
 ## Donations
 If this project has business value for you then don't hesitate to support me with a small donation.
 
 [![Donations via PayPal](https://img.shields.io/badge/Donations-via%20Paypal-blue.svg)](https://www.paypal.me/nielsbasjes)
 
+---
 ## License
 
     Yet Another UserAgent Analyzer
