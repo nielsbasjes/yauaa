@@ -13,7 +13,7 @@
 <meta name=msapplication-TileColor content="#2d89ef">
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
-<title>Memory usage | Yauaa - Yet Another UserAgent Analyzer</title>
+<title>Snowplow | Yauaa - Yet Another UserAgent Analyzer</title>
 <link href=/css/nucleus.css?1636280795 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1636280795 rel=stylesheet>
 <link href=/css/hybrid.css?1636280795 rel=stylesheet>
@@ -29,7 +29,7 @@
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
 <script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
 </head>
-<body data-url=/using/memoryusage/>
+<body data-url=/udf/snowplow/>
 <nav id=sidebar>
 <div id=header-wrapper>
 <div id=header>
@@ -78,13 +78,12 @@ Try it!
 </li>
 </ul>
 </li>
-<li data-nav-id=/using/ title="Using the analyzer" class="dd-item
-parent">
+<li data-nav-id=/using/ title="Using the analyzer" class=dd-item>
 <a href=/using/>
 Using Yauaa
 </a>
 <ul>
-<li data-nav-id=/using/memoryusage/ title="Memory usage" class="dd-item active">
+<li data-nav-id=/using/memoryusage/ title="Memory usage" class=dd-item>
 <a href=/using/memoryusage/>
 Memory usage
 </a>
@@ -106,7 +105,8 @@ Licence
 </li>
 </ul>
 </li>
-<li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
+<li data-nav-id=/udf/ title="User Defined Functions" class="dd-item
+parent">
 <a href=/udf/>
 User Defined Functions
 </a>
@@ -171,7 +171,7 @@ Elastic Search
 LogParser
 </a>
 </li>
-<li data-nav-id=/udf/snowplow/ title=Snowplow class=dd-item>
+<li data-nav-id=/udf/snowplow/ title=Snowplow class="dd-item active">
 <a href=/udf/snowplow/>
 Snowplow
 </a>
@@ -269,7 +269,7 @@ Related projects
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/using/MemoryUsage.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/udf/Snowplow.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -282,12 +282,16 @@ Related projects
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/using/>Using the analyzer</a> > Memory usage
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/udf/>User Defined Functions</a> > Snowplow
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
-<nav id=TableOfContents></nav>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#introduction>Introduction</a></li>
+</ul>
+</nav>
 </div>
 </div>
 </div>
@@ -296,263 +300,12 @@ Related projects
 </div>
 <div id=body-inner>
 <h1>
-Memory usage
+Snowplow
 </h1>
-<p>The system relies heavily on HashMaps to quickly find the rules that need to be fired.</p>
-<p>Some fields only require a handful of rules where others have a lot of them.
-This means that it depends on the fields that have been requested how many rules are kept in the system and
-thus how much memory is used to store the rules in.
-To get an idea of the relative memory impact of the rules needed for a specific field.</p>
-<p>This table was constructed by running all testcases against the engine where we only request 1 field.
-Then after forcing a GC in the JVM we retrieve the memory footprint.
-The DeviceClass field is always extracted and as such can be seen as the baseline against not having
-this engine running at all.</p>
-<p>Because most rules determine several fields there is a lot of overlap in the rules used.
-If you keep all rules we see that version 5.6 uses about 37 MiB of memory for all rules
-on top of the rules for the DeviceClass (which is always extracted).</p>
-<p>Extracting everything will currently have a memory impact (without caching!) of about 114 MiB</p>
-<table>
-<thead>
-<tr>
-<th style=text-align:left>Field</th>
-<th style=text-align:right>Relative Memory usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:left>DeviceClass <em>(required)</em></td>
-<td style=text-align:right>90.8 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>DeviceName</td>
-<td style=text-align:right>10.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>DeviceBrand</td>
-<td style=text-align:right>9.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>DeviceCpu</td>
-<td style=text-align:right>0.7 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>DeviceCpuBits</td>
-<td style=text-align:right>0.5 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>DeviceFirmwareVersion</td>
-<td style=text-align:right>1.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>DeviceVersion</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemClass</td>
-<td style=text-align:right>1.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemName</td>
-<td style=text-align:right>1.3 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemVersion</td>
-<td style=text-align:right>1.3 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemVersionMajor</td>
-<td style=text-align:right>1.5 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemNameVersion</td>
-<td style=text-align:right>2.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemNameVersionMajor</td>
-<td style=text-align:right>2.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>OperatingSystemVersionBuild</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineClass</td>
-<td style=text-align:right>2.8 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineName</td>
-<td style=text-align:right>2.8 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineVersion</td>
-<td style=text-align:right>2.8 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineVersionMajor</td>
-<td style=text-align:right>3.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineNameVersion</td>
-<td style=text-align:right>3.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineNameVersionMajor</td>
-<td style=text-align:right>3.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>LayoutEngineBuild</td>
-<td style=text-align:right>0.6 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentClass</td>
-<td style=text-align:right>5.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentName</td>
-<td style=text-align:right>5.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentVersion</td>
-<td style=text-align:right>5.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentVersionMajor</td>
-<td style=text-align:right>5.3 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentNameVersion</td>
-<td style=text-align:right>5.7 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentNameVersionMajor</td>
-<td style=text-align:right>5.8 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentBuild</td>
-<td style=text-align:right>0.5 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentLanguage</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentLanguageCode</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentInformationEmail</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentInformationUrl</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentSecurity</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>AgentUuid</td>
-<td style=text-align:right>0.3 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>WebviewAppName</td>
-<td style=text-align:right>1.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>WebviewAppVersion</td>
-<td style=text-align:right>1.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>WebviewAppVersionMajor</td>
-<td style=text-align:right>1.0 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>WebviewAppNameVersionMajor</td>
-<td style=text-align:right>1.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookCarrier</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookDeviceClass</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookDeviceName</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookDeviceVersion</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookFBOP</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookFBSS</td>
-<td style=text-align:right>0.5 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookOperatingSystemName</td>
-<td style=text-align:right>0.5 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>FacebookOperatingSystemVersion</td>
-<td style=text-align:right>0.5 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>Anonymized</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>HackerAttackVector</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>HackerToolkit</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>KoboAffiliate</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>KoboPlatformId</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>IECompatibilityVersion</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>IECompatibilityVersionMajor</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>IECompatibilityNameVersion</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>IECompatibilityNameVersionMajor</td>
-<td style=text-align:right>0.4 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>Carrier</td>
-<td style=text-align:right>0.2 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>GSAInstallationID</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-<tr>
-<td style=text-align:left>NetworkType</td>
-<td style=text-align:right>0.1 MiB</td>
-</tr>
-</tbody>
-</table>
+<h2 id=introduction>Introduction</h2>
+<p>If you are a user of the Snowplow Analytics system and would like to use Yauaa in your analysis you are in luck.</p>
+<p>The people at Snowplow have included Yauaa as a readily available feature in their system.</p>
+<p>The official documentation: <a href=https://docs.snowplowanalytics.com/docs/enriching-your-data/available-enrichments/yauaa-enrichment/>Snowplow Yauaa Enrichment</a></p>
 <footer class=footline>
 </footer>
 </div>
