@@ -12,7 +12,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-### Version 6.2 (Unreleased)
+### Version 6.2
 - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
 - The toMap incorrectly filtered out "default" values you asked for (which caused trouble in UDFs).
 - A new (experimental) [UDF]({{< relref "Snowflake" >}}) for [Snowflake](https://snowflake.com).
