@@ -32,7 +32,7 @@ because all versions and in many places also the names of the used components ar
 | Value | Meaning |
 | --- | --- |
 | Desktop               | The device is assessed as a Desktop/Laptop class device |
-| Anonymized            | In some cases the useragent has been altered by anonimization software |
+| Anonymized            | In some cases the useragent has been altered by anonymization software |
 | Unknown               | We really don't know, these are usually useragents that look normal yet contain almost no information about the device |
 | Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch |
 | Tablet                | A mobile device with a rather large screen (common > 7") |

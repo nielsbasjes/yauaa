@@ -4,7 +4,7 @@ title = "Apache Drill"
 ## Introduction
 This is UDF for [Apache Drill](https://drill.apache.org).
 This function was originally created by [Charles S. Givre](https://github.com/cgivre) and was imported into
-the main Yauaa project to ensure users would have a prebuilt and up to date version available.
+the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.
 
 This function is now also packaged as part of Apache Drill itself: [documentation](https://github.com/apache/drill/tree/master/contrib/udfs#user-agent-functions).
 

@@ -144,7 +144,7 @@ So we exclude these 4 shaded dependencies in all modules in this project so they
 
 ## Problem 4: No such classfile ...
 Which gives rise to a new problem: When building/developing these modules the code will complain about missing dependencies.
-The dependencies have been shaded, relocated and excluded ... which means that any code looking for the 'orginal'
+The dependencies have been shaded, relocated and excluded ... which means that any code looking for the 'original'
 class name will find it to be missing.
 
 ## Solution 4: Include as 'provided'

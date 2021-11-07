@@ -38,7 +38,7 @@ It says it:
 
 So any website looking for the word it triggers upon will find it and enable the right features.
 
-In 2014 an RFC for HTTP was released ([RFC 7231 section 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3)) which now explitly states:
+In 2014 an RFC for HTTP was released ([RFC 7231 section 5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3)) which now explicitly states:
 
     ... implementations are encouraged not to use the product
     tokens of other implementations in order to declare compatibility
@@ -60,7 +60,7 @@ I wanted to see if a completely different approach would work: Can we actually p
 The parser (ANTLR4 based) will be able to parse a lot of the agents but not all.
 Tests have shown that it will parse >99% of all useragents on a large website which is more than 99.99% of the traffic.
 
-Now the ones that it is not able to parse are the ones that have been set manually to a invalid value.
+Now the ones that it is not able to parse are the ones that have been set manually to an invalid value.
 So if that happens we assume you are a hacker.
 In all other cases we have matchers that are triggered if a specific value is found by the parser.
 Such a matcher then tells this class is has found a match for a certain attribute with a certain confidence level (0-10000000).

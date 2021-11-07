@@ -11,7 +11,7 @@ If you use a maven based project simply add this dependency to your project.
 
 ```xml
 <dependency>
-  <groupId>nl.basjes.parse.useragent<groupId>
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-beam</artifactId>
   <version>{{%YauaaVersion%}}</version>
 </dependency>

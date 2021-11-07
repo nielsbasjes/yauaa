@@ -184,7 +184,7 @@ data:
 ```
 
 Then the deployment must turn this config map into a volume and mount it in the pods.
-Note that the folder under which is is mounted must be a the root level and the name must start with "UserAgent".
+Note that the folder under which it is mounted must be at the root level and the name must start with "UserAgent".
 
 So the deployment becomes something like this
 

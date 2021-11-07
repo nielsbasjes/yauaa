@@ -24,7 +24,7 @@ As you can see this browser assumes it is only installed on Samsung devices so t
 In this case you will see this being reported as a "Samsung Nexus 6", which is obviously wrong.
 
 ## Device Name and Device Brand
-The detection of the brand and name of the device are the most britle and unreliable part of the output.
+The detection of the brand and name of the device are the most brittle and unreliable part of the output.
 
 There are a few reasons for this:
 
@@ -41,4 +41,4 @@ So as a consequence I have chosen to limit this detection to
 1. Special cases (like robots)
 1. The "most used brands" as good as possible.
 
-**WARNING**: The detection of DeviceBrand will therefor never be complete and accurate.
+**WARNING**: The detection of DeviceBrand will therefore never be complete and accurate.

@@ -34,7 +34,7 @@ ParseUserAgent(<useragent>)
 This returns a `Map<String, String>` with all the requested values in one go.
 
 ## Example usage (Java)
-Assume you have a either a BatchTableEnvironment or a StreamTableEnvironment in which you have defined your records as a table.
+Assume you have either a BatchTableEnvironment or a StreamTableEnvironment in which you have defined your records as a table.
 In most cases I see (clickstream data) these records contain the useragent string in a column.
 
 ```java

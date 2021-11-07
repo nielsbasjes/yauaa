@@ -151,7 +151,7 @@ If your project does not use Kryo and you have this warning then there are sever
 
 ## IMPORTANT: This library is single threaded !
 Because the internal analyzer code is not reentrant the main method has been synchronized on the instance.
-So from the prespective of you the application developer this library is thread safe.
+So from the perspective of you the application developer this library is thread safe.
 
 If you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared synchronized instance.
 

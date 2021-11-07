@@ -12,7 +12,7 @@ See for more information:
 - https://github.com/elastic/logstash/issues/9215
 
 ## Getting the UDF
-You can get the prebuilt filter from [the github releases page](https://github.com/nielsbasjes/yauaa/releases/download/v{{%YauaaVersion%}}/logstash-filter-yauaa-{{%YauaaVersion%}}.gem).
+You can get the prebuilt filter from [the GitHub releases page](https://github.com/nielsbasjes/yauaa/releases/download/v{{%YauaaVersion%}}/logstash-filter-yauaa-{{%YauaaVersion%}}.gem).
 
 ## Building has side effects !
 Because at this time none of the required dependencies are in maven central this build does something rarely seen:
