@@ -12,6 +12,9 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 6.3 (Unreleased)
+- Handle the frozen Mac OS X version ([always 10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225)) since Chrome 90.
+
 ### Version 6.2
 - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
 - The toMap incorrectly filtered out "default" values you asked for (which caused trouble in UDFs).
