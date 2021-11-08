@@ -6,6 +6,8 @@ v6.3-SNAPSHOT
 - New/improved detections
   - Since Chrome 90 the version of MacOS is already frozen for everyone.
   - Since Firefox 87 the version of MacOS is already frozen for everyone.
+- Updated UDF dependencies
+  - Apache Nifi             1.15.0
 
 v6.2
 ===
