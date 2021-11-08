@@ -212,13 +212,60 @@ config:
     - 'AgentVersion                        :     3000 : @ChromeMajorVersion'
 
 
-  # Android: If the frozen agent is detected the Operating system Version is nonsense
+# Android: If the frozen agent is detected the Operating system Version is nonsense
 - matcher:
     require:
     - 'agent.(1)product="Mozilla/5.0 (Linux; Android 9; Unspecified Device)"'
     extract:
     - 'OperatingSystemVersion              :     1000 : "<<<null>>>"'
 
+# https://www.chromium.org/updates/ua-reduction
+# Quote: Also note that the macOS platform version was already capped to 10_15_7 in Chrome 90 for site compatibility reasons.
+# https://bugs.chromium.org/p/chromium/issues/detail?id=1175225
+# So between 90 and the completion of the rollout we must override the MacOs version with 'Unknown'.
+# So that starts with 90 and the rollout to desktop is now indicated for 107, so we do 90 - 119.
+- set:
+    name: 'ChromeFrozenMacOsVersion'
+    values:
+      - '90'
+      - '91'
+      - '92'
+      - '93'
+      - '94'
+      - '95'
+      - '96'
+      - '97'
+      - '98'
+      - '99'
+      - '100'
+      - '101'
+      - '102'
+      - '103'
+      - '104'
+      - '105'
+      - '106'
+      - '107'
+      - '108'
+      - '109'
+      - '110'
+      - '111'
+      - '112'
+      - '113'
+      - '114'
+      - '115'
+      - '116'
+      - '117'
+      - '118'
+      - '119'
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)comments="(Macintosh; Intel Mac OS X 10_15_7)"'
+      - 'agent.(3)product.name="Chrome"'
+      - 'agent.(3)product.version[1]?ChromeFrozenMacOsVersion'
+    extract:
+      - 'OperatingSystemName                 :      500 : "Mac OS X"'
+      - 'OperatingSystemVersion              :      500 : "<<<null>>>"'
 
 # ======================================
 # Chrome 83 on Windows 10
@@ -1188,3 +1235,91 @@ config:
       AgentVersionMajor                    : '93'
       AgentNameVersion                     : 'Edge 93'
       AgentNameVersionMajor                : 'Edge 93'
+
+
+# Test case 10_15_7 before 90: should report version 10.15.7.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.15.7'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '86.0'
+      LayoutEngineVersionMajor             : '86'
+      LayoutEngineNameVersion              : 'Blink 86.0'
+      LayoutEngineNameVersionMajor         : 'Blink 86'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '86.0.4240.111'
+      AgentVersionMajor                    : '86'
+      AgentNameVersion                     : 'Chrome 86.0.4240.111'
+      AgentNameVersionMajor                : 'Chrome 86'
+
+# Normal MacOs Chrome 95 --> MacOS version is frozen : should report unknown version
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS X ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS X ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '95.0'
+      LayoutEngineVersionMajor             : '95'
+      LayoutEngineNameVersion              : 'Blink 95.0'
+      LayoutEngineNameVersionMajor         : 'Blink 95'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '95.0.4638.69'
+      AgentVersionMajor                    : '95'
+      AgentNameVersion                     : 'Chrome 95.0.4638.69'
+      AgentNameVersionMajor                : 'Chrome 95'
+
+# Reduced MacOs Chrome 95
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS X ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS X ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '95'
+      LayoutEngineVersionMajor             : '95'
+      LayoutEngineNameVersion              : 'Blink 95'
+      LayoutEngineNameVersionMajor         : 'Blink 95'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '95'
+      AgentVersionMajor                    : '95'
+      AgentNameVersion                     : 'Chrome 95'
+      AgentNameVersionMajor                : 'Chrome 95'

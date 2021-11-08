@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.3-SNAPSHOT
 ===
-...
+- New/improved detections
+  - Since Chrome 90 the version of MacOS is already frozen for everyone.
 
 v6.2
 ===
