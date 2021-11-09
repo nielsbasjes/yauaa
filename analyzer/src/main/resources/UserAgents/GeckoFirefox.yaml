@@ -1273,3 +1273,232 @@ config:
       AgentVersionMajor                    : '62'
       AgentNameVersion                     : 'Firefox 62.0'
       AgentNameVersionMajor                : 'Firefox 62'
+
+
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh
+# Quote:
+#    Starting in Firefox 87, Firefox caps the reported Mac OS X version number to 10.15,
+#    so macOS 11.0 Big Sur and later will be reported as "10.15" in the User-Agent string.
+#    Mac OS X version           Gecko user agent string
+#    Mac OS X on x86, x86_64,
+#             or aarch64        Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:10.0) Gecko/20100101 Firefox/10.0
+#    Mac OS X on PowerPC        Mozilla/5.0 (Macintosh; PPC Mac OS X x.y; rv:10.0) Gecko/20100101 Firefox/10.0
+- set:
+    name: 'FirefoxNormalMacOsVersion'
+    values:
+      - '20'
+      - '21'
+      - '22'
+      - '23'
+      - '24'
+      - '25'
+      - '26'
+      - '27'
+      - '28'
+      - '29'
+      - '30'
+      - '31'
+      - '32'
+      - '33'
+      - '34'
+      - '35'
+      - '36'
+      - '37'
+      - '38'
+      - '39'
+      - '40'
+      - '41'
+      - '42'
+      - '43'
+      - '44'
+      - '45'
+      - '46'
+      - '47'
+      - '48'
+      - '49'
+      - '50'
+      - '51'
+      - '52'
+      - '53'
+      - '54'
+      - '55'
+      - '56'
+      - '57'
+      - '58'
+      - '59'
+      - '60'
+      - '61'
+      - '62'
+      - '63'
+      - '64'
+      - '65'
+      - '66'
+      - '67'
+      - '68'
+      - '69'
+      - '70'
+      - '71'
+      - '72'
+      - '73'
+      - '74'
+      - '75'
+      - '76'
+      - '77'
+      - '78'
+      - '79'
+      - '80'
+      - '81'
+      - '82'
+      - '83'
+      - '84'
+      - '85'
+      - '86'
+      - '87'
+      - '88'
+      - '89'
+
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)comments.(1)entry="Macintosh"'
+      - 'agent.(1)product.(1)comments.(2)entry="Intel Mac OS X 10.15"'
+      - 'agent.(3)product.name="Firefox"'
+      - 'agent.(3)product.version[1]?!FirefoxNormalMacOsVersion'
+    extract:
+      - 'OperatingSystemName                 :      500 : "Mac OS X"'
+      - 'OperatingSystemVersion              :      500 : "<<<null>>>"'
+
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)comments.(1)entry="Macintosh"'
+      - 'agent.(1)product.(1)comments.(2)entry="PPC Mac OS X 10.15"'
+      - 'agent.(3)product.name="Firefox"'
+      - 'agent.(3)product.version[1]?!FirefoxNormalMacOsVersion'
+    extract:
+      - 'OperatingSystemName                 :      500 : "Mac OS X"'
+      - 'OperatingSystemVersion              :      500 : "<<<null>>>"'
+
+
+# Example of the Mac OS X version being frozen.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Mac OS X ??'
+      OperatingSystemNameVersionMajor      : 'Mac OS X ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '94.0'
+      LayoutEngineVersionMajor             : '94'
+      LayoutEngineNameVersion              : 'Gecko 94.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 94'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '94.0'
+      AgentVersionMajor                    : '94'
+      AgentNameVersion                     : 'Firefox 94.0'
+      AgentNameVersionMajor                : 'Firefox 94'
+
+
+# Normal example from before 87.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:84.0) Gecko/20100101 Firefox/84.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.15'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.15'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '84.0'
+      LayoutEngineVersionMajor             : '84'
+      LayoutEngineNameVersion              : 'Gecko 84.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 84'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '84.0'
+      AgentVersionMajor                    : '84'
+      AgentNameVersion                     : 'Firefox 84.0'
+      AgentNameVersionMajor                : 'Firefox 84'
+
+# Unexpected production example: Firefox >87 with something other than 10.15.
+# I assume this is accurate.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:93.0) Gecko/20100101 Firefox/93.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '10.14'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Mac OS X 10.14'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Gecko 93.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 93'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '93.0'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Firefox 93.0'
+      AgentNameVersionMajor                : 'Firefox 93'
+
+# Unexpected production example: Firefox >87 with something other than 10.15.
+# I assume this is accurate.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_11; rv:93.0) Gecko/20110101 Firefox/93.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemVersion               : '11.11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Mac OS X 11.11'
+      OperatingSystemNameVersionMajor      : 'Mac OS X 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '93.0'
+      LayoutEngineVersionMajor             : '93'
+      LayoutEngineNameVersion              : 'Gecko 93.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 93'
+      LayoutEngineBuild                    : '20110101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '93.0'
+      AgentVersionMajor                    : '93'
+      AgentNameVersion                     : 'Firefox 93.0'
+      AgentNameVersionMajor                : 'Firefox 93'

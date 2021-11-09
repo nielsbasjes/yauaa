@@ -13,7 +13,9 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ## HIGH Profile release notes:
 
 ### Version 6.3 (Unreleased)
-- Handle the frozen Mac OS X version ([always 10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225)) since Chrome 90.
+- Report frozen (=manipulated) Mac OS X versions as `??`:
+  - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
+  - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
 
 ### Version 6.2
 - The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
