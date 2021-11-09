@@ -20,8 +20,8 @@ sed -i "s@<yauaa.version>[0-9.]*</yauaa.version>@<yauaa.version>${RELEASEVERSION
 # Update the version number in the generated documentation website.
 echo -n ${RELEASEVERSION} > ./documentation/layouts/shortcodes/YauaaVersion.md
 
-# Update the top of the CHANGELOG.md
-vim CHANGELOG.md
+# Update the top of the CHANGELOG.md and website frontpage
+vim CHANGELOG.md documentation/content/_index.md
 
 git status
 git commit -m"Version ${RELEASEVERSION}" -a
