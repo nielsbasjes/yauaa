@@ -19,20 +19,9 @@ Try it!
 You can try it online with your own browser here: [https://try.yauaa.basjes.nl/](https://try.yauaa.basjes.nl/).
 
 **NOTES**
-
-1. This runs under a "Free quota" on Google AppEngine. If this quota is exceeded then it will simply become unavailable for that day.
-2. After a while of inactivity the instance is terminated so the first page may take 15-30 seconds to load.
-3. If you really like this then run it on your local systems. It's much faster that way.
-   A ready to run docker image that can be used in both local mode and also in Kubernetes: ([more info](https://yauaa.basjes.nl/README-WebServlet.html)).
-
-   With docker installed do
-
-       docker pull nielsbasjes/yauaa
-       docker run -p8080:8080 nielsbasjes/yauaa
-
-   and then open
-
-       http://localhost:8080/
+1. This runs on a very slow and rate limited machine.
+2. If you really like this then run it on your local systems. It's much faster that way.
+   A Kubernetes ready Docker image is provided. See this page about the [WebServlet](https://yauaa.basjes.nl/using/webservlet) for more information.
 
 Donations
 ===
