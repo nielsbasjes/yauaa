@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.4-SNAPSHOT
 ===
-- ...
+- New/improved detections
+    - More Apple devices
 
 v6.3
 ===
