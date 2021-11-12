@@ -18,7 +18,7 @@
 package nl.basjes.parse.useragent.beam;
 
 import nl.basjes.parse.useragent.UserAgent;
-import org.apache.beam.vendor.calcite.v1_20_0.org.apache.calcite.linq4j.function.Parameter;
+import org.apache.beam.vendor.calcite.v1_26_0.org.apache.calcite.linq4j.function.Parameter;
 
 import java.util.Arrays;
 import java.util.List;

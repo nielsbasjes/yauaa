@@ -5,6 +5,8 @@ v6.4-SNAPSHOT
 ===
 - New/improved detections
     - More Apple devices
+- Updated UDF dependencies
+    - Apache Beam           2.34.0
 
 v6.3
 ===
