@@ -5,7 +5,7 @@ weight = 10
 ## Building
 Requirements:
 - A Linux class machine (can be a VM)
-- The normal build tools for a Java project (i.e. maven 3.6+ and jdk 11+)
+- The normal build tools for a Java project (i.e. maven 3.6+ and jdk 11)
   - The `./start-docker.sh` script launches a docker based build environment with all needed tools.
 
 and then simply do:

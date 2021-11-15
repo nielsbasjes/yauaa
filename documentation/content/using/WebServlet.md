@@ -274,10 +274,10 @@ I created the required secret (in the correct namespace) with a command similar 
 kubectl -n yauaa create secret tls yauaa-cert --key=/etc/letsencrypt/live/example.nl/privkey.pem --cert=/etc/letsencrypt/live/example.nl/fullchain.pem
 ```
 
-After the secret has been put into place the ```Ingress``` can be created with SSL.
+After the secret has been put into place the ```Ingress``` can be created with SSL ([official K8S documentation on this](https://kubernetes.io/docs/concepts/services-networking/ingress/#tls)).
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: yauaa
@@ -286,17 +286,20 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
-  rules:
-    - host: yauaa.example.nl
-      http:
-        paths:
-          - backend:
-              serviceName: yauaa
-              servicePort: 80
-            path: /
   tls:
     - hosts:
         - yauaa.example.nl
       secretName: yauaa-cert
+  rules:
+    - host: yauaa.example.nl
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: yauaa
+                port:
+                  number: 80
 ```
 

@@ -1,7 +1,7 @@
 +++
 title = "Commandline usage"
 +++
-## Deprecated
+## Introduction
 With version 6.0 the dedicated commandline tool was removed.
 
 Primary reason is that it was not getting any attention,
