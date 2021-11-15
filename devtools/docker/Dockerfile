@@ -14,29 +14,69 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM centos:8
+FROM ubuntu:20.04
 
 WORKDIR /root
 
 ENV INSIDE_DOCKER Yes
 
-# --------------------------------
-# Install the basics
-RUN yum install -y epel-release
-RUN yum install -y curl wget git tar expect rpm-build rpm-sign vim-enhanced bash-completion sudo
+ARG DEBIAN_FRONTEND=noninteractive
 
-# --------------------------------
-# Java Development
-RUN yum install -y java-1.8.0-openjdk-devel
-RUN yum install -y java-11-openjdk-devel
-ENV JAVA_HOME /usr/lib/jvm/java
+WORKDIR /root
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+#####
+# Disable suggests/recommends
+#####
+RUN echo APT::Install-Recommends "0"\; > /etc/apt/apt.conf.d/10disableextras
+RUN echo APT::Install-Suggests "0"\; >>  /etc/apt/apt.conf.d/10disableextras
+
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBCONF_TERSE true
+
+###
+# Update and install common packages
+###
+RUN apt -q update \
+   && apt install -y software-properties-common apt-utils apt-transport-https ca-certificates \
+   && add-apt-repository -y ppa:deadsnakes/ppa
+
+RUN apt-get -q install -y --no-install-recommends \
+    bash-completion \
+    build-essential \
+    bzip2 \
+    wget \
+    curl \
+    docker.io \
+    git \
+    gnupg-agent \
+    rsync \
+    sudo \
+    vim \
+    locales \
+    wget \
+    time \
+    ruby \
+    openjdk-8-jdk \
+    openjdk-11-jdk \
+    openjdk-17-jdk
+
+###
+# Set the locale ( see https://stackoverflow.com/a/28406007/114196 )
+###
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # --------------------------------
 # Install Maven
-ENV MAVEN_VERSION=3.8.1
+ENV MAVEN_VERSION=3.8.3
 RUN mkdir -p /usr/local/apache-maven
-RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
-RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
+RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+RUN cd /usr/local/ && tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
 ENV M2_HOME /usr/local/apache-maven
 ENV PATH ${M2_HOME}/bin:${PATH}
 
@@ -64,13 +104,10 @@ RUN cd /usr/local/bin && \
      rm -rf shellcheck-stable*
 
 # --------------------------------
-# Install ruby (for Logstash plugin)
-RUN yum install -y ruby
-
-# --------------------------------
 # Install Hugo
+ENV HUGO_VERSION=0.89.0
 RUN cd /usr/local/bin && \
-     wget https://github.com/gohugoio/hugo/releases/download/v0.89.0/hugo_0.89.0_Linux-64bit.tar.gz && \
+     wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
      tar xzf hugo_*.tar.gz
 
 # --------------------------------

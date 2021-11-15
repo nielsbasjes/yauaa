@@ -22,10 +22,9 @@ echo "PWD: ${SCRIPTDIR}"
 
 cd "${SCRIPTDIR}" || ( echo "This should not be possible" ; exit 1 )
 
-OS=centos8
 PROJECTNAME=yauaa
 USER=$(id -un)
-CONTAINER_NAME=${PROJECTNAME}-${OS}-${USER}-$$
+CONTAINER_NAME=${PROJECTNAME}-devtools-${USER}-$$
 DOCKER_BUILD="docker build"
 
 if [ -n "${INSIDE_DOCKER+x}" ];
@@ -34,7 +33,7 @@ then
   exit 1;
 fi
 
-if [[ "$(docker images -q ${PROJECTNAME}-${OS} 2> /dev/null)" == "" ]]; then
+if [[ "$(docker images -q ${PROJECTNAME}-devtools 2> /dev/null)" == "" ]]; then
 #  DOCKER_BUILD="docker build"
 cat << "Welcome-message"
 
@@ -56,7 +55,7 @@ else
   echo "Loading Yauaa development environment"
 fi
 
-${DOCKER_BUILD} -t ${PROJECTNAME}-${OS} docker/${OS}
+${DOCKER_BUILD} -t ${PROJECTNAME}-devtools devtools/docker/
 
 buildStatus=$?
 
@@ -87,13 +86,13 @@ fi
 DOCKER_GROUP_ID=$(getent group docker | cut -d':' -f3)
 
 cat - > ___UserSpecificDockerfile << UserSpecificDocker
-FROM ${PROJECTNAME}-${OS}
+FROM ${PROJECTNAME}-devtools
 RUN bash /scripts/configure-for-user.sh "${USER_NAME}" "${USER_ID}" "${GROUP_ID}" "$(grep -F vboxsf /etc/group)"
 #RUN groupmod -g ${DOCKER_GROUP_ID} docker
 ${EXTRA_DOCKER_STEPS}
 UserSpecificDocker
 
-${DOCKER_BUILD} -t "${PROJECTNAME}-${OS}-${USER_NAME}" -f ___UserSpecificDockerfile .
+${DOCKER_BUILD} -t "${PROJECTNAME}-devtools-${USER_NAME}" -f ___UserSpecificDockerfile .
 
 buildStatus=$?
 
@@ -111,14 +110,14 @@ echo "==========================================================================
 echo ""
 
 # Do NOT Map the real ~/.m2 directory !!!
-[ -d "${PWD}/docker/_m2"    ] || mkdir "${PWD}/docker/_m2"
-[ -d "${PWD}/docker/_gnupg" ] || mkdir "${PWD}/docker/_gnupg"
+[ -d "${PWD}/devtools/docker/_m2"    ] || mkdir "${PWD}/devtools/docker/_m2"
+[ -d "${PWD}/devtools/docker/_gnupg" ] || mkdir "${PWD}/devtools/docker/_gnupg"
 
-MOUNTGPGDIR="${PWD}/docker/_gnupg"
+MOUNTGPGDIR="${PWD}/devtools/docker/_gnupg"
 
 if [[ "${1}" == "RELEASE" ]];
 then
-  cp "${HOME}"/.m2/*.xml "${PWD}/docker/_m2"
+  cp "${HOME}"/.m2/*.xml "${PWD}/devtools/docker/_m2"
   MOUNTGPGDIR="${HOME}/.gnupg"
 
   echo "Setting up for release process"
@@ -156,13 +155,13 @@ V_OPTS=:z
 docker run --rm=true ${DOCKER_INTERACTIVE}                      \
        -u "${USER_NAME}"                                        \
        -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}${V_OPTS:-}" \
-       -v "${HOME}/.m2:/home/${USER_NAME}/.m2${V_OPTS:-}" \
+       -v "${HOME}/.m2:/home/${USER_NAME}/.m2${V_OPTS:-}"       \
        -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg${V_OPTS:-}" \
        ${DOCKER_SOCKET_MOUNT}                                   \
        -w "/home/${USER}/${PROJECTNAME}"                        \
        -p 1313:1313                                             \
        --name "${CONTAINER_NAME}"                               \
-       "${PROJECTNAME}-${OS}-${USER_NAME}"                      \
+       "${PROJECTNAME}-devtools-${USER_NAME}"                   \
        "${COMMAND[@]}"
 
 exit 0

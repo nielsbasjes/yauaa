@@ -4,9 +4,11 @@ This is intended as an overview of the major changes
 v6.4-SNAPSHOT
 ===
 - New/improved detections
-    - More Apple devices
+  - More Apple devices
 - Updated UDF dependencies
-    - Apache Beam           2.34.0
+  - Apache Beam             2.34.0
+- Build:
+  - Change developer building docker image to Ubuntu 20.04
 
 v6.3
 ===
