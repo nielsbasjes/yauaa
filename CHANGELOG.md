@@ -7,6 +7,7 @@ v6.4-SNAPSHOT
   - More Apple devices
 - Updated UDF dependencies
   - Apache Beam             2.34.0
+  - Elastic Search/Logstash 7.15.0
 - Build:
   - Change developer building docker image to Ubuntu 20.04
 
