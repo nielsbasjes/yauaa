@@ -73,6 +73,7 @@ config:
       "AlohaBrowser"    : "Aloha Browser"
       "Sleipnir"        : "Sleipnir"
       "RockMelt"        : "RockMelt"
+      "VivoBrowser"     : "VivoBrowser"
 
 - lookup:
     name: 'KnownWebviewAppNames'
@@ -576,6 +577,39 @@ config:
     - 'AgentVersion                        :    10000 :agent.product.name="Chrome"^.version'
     - 'WebviewAppName                      :        0 :"Unknown Webview App"'
     - 'WebviewAppVersion                   :        0 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>'
+    - 'WebViewAppName                      :@WebViewApp.name'
+    require:
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
+    - 'agent.product.comments.entry="wv"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :@Chrome.version'
+    - 'WebviewAppName                      :        9 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :        9 :@WebViewApp.version'
+
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>>'
+    - 'WebViewAppName                      :@WebViewApp.name'
+    require:
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
+    - 'agent.product.comments.entry="wv"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :@Chrome.version'
+    - 'WebviewAppName                      :        9 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :        9 :@WebViewApp.version'
+
 
 - test:
     input:

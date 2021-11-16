@@ -320,6 +320,7 @@ config:
     - 'DeviceModelLine                     :IsInLookUpPrefix[MobileBrandPrefixes;agent.(1-2)product.name]'
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Windows"]'
     - 'IsNull[LookUp[MobileBrands;@DeviceModelLine]]' # Only use this if the name IS NOT exactly the brand
     extract:
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@DeviceModelLine]'
@@ -330,6 +331,7 @@ config:
     - 'DeviceModelLine                     :IsInLookUpPrefix[MobileBrands;agent.product.name]'
     require:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
+    - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Windows"]'
     - 'IsNull[LookUp[MobileBrands;@DeviceModelLine]]' # Only use this if the name IS NOT exactly the brand
     extract:
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
