@@ -6,6 +6,7 @@ v6.4-SNAPSHOT
 - New/improved detections
   - More Apple devices
   - VivoBrowser often implies Vivo DeviceBrand
+  - Handle the SalesforceMobileSDK apps better.
 - Updated UDF dependencies
   - Apache Beam             2.34.0
   - Elastic Search/Logstash 7.15.0

@@ -4837,3 +4837,457 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+
+# ========================================================
+# Salesforce Mobile SDK
+# --------------------------------------------------------
+
+# https://github.com/forcedotcom/SalesforceMobileSDK-Android/blob/dev/libs/SalesforceSDK/src/com/salesforce/androidsdk/app/SalesforceSDKManager.java#L943
+#  SalesforceMobileSDK/{salesforceSDK version} android/{android OS version} appName/appVersion {Native|Hybrid} uid_{device id}
+
+# https://github.com/forcedotcom/SalesforceMobileSDK-Android/blob/dev/libs/SalesforceSDK/src/com/salesforce/androidsdk/app/SalesforceSDKManager.java#L969
+#  SalesforceMobileSDK/{salesforceSDK version} android/{android OS version} {provideAppName()}/appVersion {Native|Hybrid} uid_{device id}
+
+# Code does NOT match the comments !!!
+#      return String.format("SalesforceMobileSDK/%s android mobile/%s (%s) %s/%s %s uid_%s ftr_%s SecurityPatch/%s",
+#                     SDK_VERSION, Build.VERSION.RELEASE, Build.MODEL, appName, getAppVersion(),
+#                     appTypeWithQualifier, uid, TextUtils.join(".", features),
+#                     Build.VERSION.SECURITY_PATCH);
+
+# "SalesforceMobileSDK/{SDK_VERSION} android mobile/{Build.VERSION.RELEASE} ({Build.MODEL}) {appName}/{getAppVersion} {appTypeWithQualifier} uid_{uid} ftr_{. separated features} SecurityPatch/{Build.VERSION.SECURITY_PATCH}"
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="SalesforceMobileSDK"'
+    variable:
+    - 'AppType                             :agent.product.name[1]{"Native"'
+    - 'AppProduct                          :@AppType^<'
+    extract:
+    - 'AgentClass                          :    10000 : "Mobile App"'
+    - 'AgentName                           :    10000 : @AppProduct.name'
+    - 'AgentVersion                        :    10000 : @AppProduct.version'
+    - 'WebviewAppName                      :        1 : "<<<null>>>"'
+    - 'WebviewAppVersion                   :        1 : "<<<null>>>"'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="SalesforceMobileSDK"'
+    variable:
+    - 'AppType                             :agent.product.name[1]{"Hybrid"'
+    - 'AppProduct                          :@AppType^<'
+    extract:
+    - 'WebviewAppName                      :      100 : @AppProduct.name'
+    - 'WebviewAppVersion                   :      100 : @AppProduct.version'
+
+
+- lookup:
+    name: 'SFSDKMobileBrands'
+    merge:
+    - 'MobileBrands'
+    - 'MobileBrandPrefixes'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="SalesforceMobileSDK"'
+    variable:
+    - 'DeviceModelTag                      :agent.product.name="android mobile"^.(1)comments.(1)entry'
+    extract:
+    - 'DeviceName                          :      100 :@DeviceModelTag'
+    - 'DeviceBrand                         :      100 :LookUpPrefix[SFSDKMobileBrands;@DeviceModelTag]'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="SalesforceMobileSDK"'
+    extract:
+    - 'DeviceClass                         :        0 :"Mobile"'
+    - 'OperatingSystemClass                :        1 :"Mobile"'
+    - 'OperatingSystemName                 :        1 :"Android"'
+    - 'OperatingSystemVersion              :        1 :agent.product.name="android mobile"^.version'
+
+
+# https://github.com/forcedotcom/SalesforceMobileSDK-iOS/blob/master/libs/SalesforceSDKCore/SalesforceSDKCore/Classes/Common/SalesforceSDKManager.h#L193
+# Default implementation, when executed, will return a user agent of the form:
+#  SalesforceMobileSDK/3.0.0 iPhone OS/8.1 (iPad) AppName/AppVersion *Native or Hybrid with optional qualifier* *Web-based user agent string*
+
+# https://github.com/forcedotcom/SalesforceMobileSDK-iOS/blob/master/libs/SalesforceSDKCore/SalesforceSDKCore/Classes/RestAPI/SFRestAPI.m#L213
+#  Set a user agent string based on the mobile SDK version.
+#  We are building a user agent of the form:
+#  SalesforceMobileSDK/1.0 iPhone OS/3.2.0 (iPad) AppName/AppVersion Native uid_<device id> [Current User Agent]
+
+- matcher:
+    require:
+    - 'agent.(1)product.name="SalesforceMobileSDK"'
+    extract:
+    - 'AgentUuid                           :        1 :ReplaceString[agent.product.version{"uid_"@;"uid_";""]'
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/9.1.1 iOS/15.1 (iPhone) Chatter/234.020(6203393) Hybrid uid_848778C0-172E-487B-8355-3822BC5417DC ftr_ Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhone/15.1 iOS_iPhone Salesforce1/234.020(6203393)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'AppleWebKit 605.1.15'
+      AgentNameVersionMajor                : 'AppleWebKit 605'
+      AgentUuid                            : '848778C0-172E-487B-8355-3822BC5417DC'
+      WebviewAppName                       : 'Chatter'
+      WebviewAppVersion                    : '234.020'
+      WebviewAppVersionMajor               : '234'
+      WebviewAppNameVersionMajor           : 'Chatter 234'
+
+# Based upon what the code currently shows:
+# SalesforceMobileSDK/{SDK_VERSION} android mobile/{Build.VERSION.RELEASE} ({Build.MODEL}) {appName}/{getAppVersion} {appTypeWithQualifier} uid_{uid} ftr_{. separated features} SecurityPatch/{Build.VERSION.SECURITY_PATCH}
+- test:
+    input: # Manually created based upon the code: Hybrid on Phone
+      user_agent_string: 'SalesforceMobileSDK/1.1 android mobile/2.2 (SM-G920F) BasjesApp/3.3 HybridLocal uid_TheDevice-UUID-123 ftr_some.kind.of.feature SecurityPatch/4.4 Mozilla/5.0 (Linux; Android 7.0; SM-G920F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G920F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : 'TheDevice-UUID-123'
+      WebviewAppName                       : 'BasjesApp'
+      WebviewAppVersion                    : '3.3'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'BasjesApp 3'
+
+
+- test:
+    input: # Manually created based upon the code: Hybrid on Tablet
+      user_agent_string: 'SalesforceMobileSDK/1.1 android mobile/2.2 (SM-G SomeTablet) BasjesApp/3.3 HybridLocal uid_TheDevice-UUID-123 ftr_some.kind.of.feature SecurityPatch/4.4 Mozilla/5.0 (Linux; Android 7.0; SM-G920F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-G SomeTablet'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : 'TheDevice-UUID-123'
+      WebviewAppName                       : 'BasjesApp'
+      WebviewAppVersion                    : '3.3'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersionMajor           : 'BasjesApp 3'
+
+
+- test:
+    input: # Manually created based upon the code: Native on Phone
+      user_agent_string: 'SalesforceMobileSDK/1.1 android mobile/2.2 (SM-G920F) BasjesApp/3.3 Native uid_TheDevice-UUID-123 ftr_some.kind.of.feature SecurityPatch/4.4 Mozilla/5.0 (Linux; Android 7.0; SM-G920F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G920F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'BasjesApp'
+      AgentVersion                         : '3.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'BasjesApp 3.3'
+      AgentNameVersionMajor                : 'BasjesApp 3'
+      AgentUuid                            : 'TheDevice-UUID-123'
+
+
+- test:
+    input: # Manually created based upon the code: Native on Tablet
+      user_agent_string: 'SalesforceMobileSDK/1.1 android mobile/2.2 (SM-G SomeTablet) BasjesApp/3.3 Native uid_TheDevice-UUID-123 ftr_some.kind.of.feature SecurityPatch/4.4 Mozilla/5.0 (Linux; Android 7.0; SM-G920F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-G SomeTablet'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'BasjesApp'
+      AgentVersion                         : '3.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'BasjesApp 3.3'
+      AgentNameVersionMajor                : 'BasjesApp 3'
+      AgentUuid                            : 'TheDevice-UUID-123'
+
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/6.0.0 android mobile/7.0 (SM-G920F) Schoolpoort/1.0 HybridLocal uid_a18335bc65e6a9c9 ftr_AI.GS.UA.US Hybrid Mozilla/5.0 (Linux; Android 7.0; SM-G920F Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G920F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : 'a18335bc65e6a9c9'
+      WebviewAppName                       : 'Schoolpoort'
+      WebviewAppVersion                    : '1.0'
+      WebviewAppVersionMajor               : '1'
+      WebviewAppNameVersionMajor           : 'Schoolpoort 1'
+
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/6.0.0 android mobile/8.0.0 (SM-G930F) Schoolpoort/1.0 HybridLocal uid_69907699e1ae0a29 ftr_AI.GS.UA.US Hybrid Mozilla/5.0 (Linux; Android 8.0.0; SM-G930F Build/R16NW; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G930F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : '69907699e1ae0a29'
+      WebviewAppName                       : 'Schoolpoort'
+      WebviewAppVersion                    : '1.0'
+      WebviewAppVersionMajor               : '1'
+      WebviewAppNameVersionMajor           : 'Schoolpoort 1'
+
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/6.0.0 android mobile/10 (SM-G973F) Schoolpoort/1.0 HybridLocal uid_58db6bf1e5c88b1a ftr_AI.GS.UA.US Hybrid Mozilla/5.0 (Linux; Android 10; SM-G973F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G973F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : '58db6bf1e5c88b1a'
+      WebviewAppName                       : 'Schoolpoort'
+      WebviewAppVersion                    : '1.0'
+      WebviewAppVersionMajor               : '1'
+      WebviewAppNameVersionMajor           : 'Schoolpoort 1'
+
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/6.0.0 android mobile/10 (SM-G975F) Schoolpoort/1.0 HybridLocal uid_5839c72a16b77760 ftr_AI.GS.UA.US Hybrid Mozilla/5.0 (Linux; Android 10; SM-G975F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G975F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : '5839c72a16b77760'
+      WebviewAppName                       : 'Schoolpoort'
+      WebviewAppVersion                    : '1.0'
+      WebviewAppVersionMajor               : '1'
+      WebviewAppNameVersionMajor           : 'Schoolpoort 1'
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/6.0.0 android mobile/8.0.0 (ATU-L21) Schoolpoort/1.0 HybridLocal uid_0a4a95e25b6623eb ftr_AI.GS.UA.US Hybrid Mozilla/5.0 (Linux; Android 8.0.0; ATU-L21 Build/HUAWEIATU-L21; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.149 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ATU-L21'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.149'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      AgentUuid                            : '0a4a95e25b6623eb'
+      WebviewAppName                       : 'Schoolpoort'
+      WebviewAppVersion                    : '1.0'
+      WebviewAppVersionMajor               : '1'
+      WebviewAppNameVersionMajor           : 'Schoolpoort 1'
+
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/9.1.0 android mobile/9 (SM-A530F) Salesforce1/232.051.0(232060200) Native uid ftr_ SecurityPatch/2021-05-01 Cordova/8.0.0 auraff/sm Mozilla/5.0 (Linux; Android 9; SM-A530F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/92.0.4515.166 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A530F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '92.0'
+      LayoutEngineVersionMajor             : '92'
+      LayoutEngineNameVersion              : 'Blink 92.0'
+      LayoutEngineNameVersionMajor         : 'Blink 92'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Salesforce1'
+      AgentVersion                         : '232.051.0'
+      AgentVersionMajor                    : '232'
+      AgentNameVersion                     : 'Salesforce1 232.051.0'
+      AgentNameVersionMajor                : 'Salesforce1 232'
+
+
+- test:
+    input:
+      user_agent_string: 'SalesforceMobileSDK/7.2.0 android mobile/9 (PDBM00) Salesforce1/226.020.0(226020100) Native uid ftr_AI.UA.US Cordova/8.0.0 auraff/sm'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Salesforce1'
+      AgentVersion                         : '226.020.0'
+      AgentVersionMajor                    : '226'
+      AgentNameVersion                     : 'Salesforce1 226.020.0'
+      AgentNameVersionMajor                : 'Salesforce1 226'
