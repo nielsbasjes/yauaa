@@ -30,11 +30,9 @@
   <name>Yauaa : </name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
-  <url>https://yauaa.basjes.nl</url>
-
   <properties>
-    <target.java.version>1.8</target.java.version>
-    <target.java.release>8</target.java.release>
+    <target.java.version>11</target.java.version>
+    <target.java.release>11</target.java.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
     <maven.compiler.source>${target.java.version}</maven.compiler.source>
@@ -43,7 +41,9 @@
     <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.5.2</maven.minimal.version>
 
+    <!-- You cannot simply upgrade this because of the customized visitor!!! -->
     <antlr.version>4.9.3</antlr.version>
+    <antlr-pvisitor.version>1.0.1-${antlr.version}</antlr-pvisitor.version>
     <snakeyaml.version>1.30</snakeyaml.version>
 
     <!-- ============================================== -->
@@ -176,6 +176,8 @@
     <docker-based-package.phase>package</docker-based-package.phase>
   </properties>
 
+  <url>https://yauaa.basjes.nl</url>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -271,6 +273,23 @@
       <id>disableDockerHubUsages</id>
       <properties>
         <docker-based-package.phase>none</docker-based-package.phase>
+      </properties>
+    </profile>
+
+    <profile>
+<!--      FIXME: DROP THIS PROFILE WHEN DONE-->
+      <id>skipQualityDURINGREWORK</id>
+      <activation><activeByDefault>true</activeByDefault></activation>
+      <properties>
+<!--        <skipTests>true</skipTests>-->
+        <sonar.skip>true</sonar.skip>
+        <rat.skip>true</rat.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
+        <spotbugs.skip>true</spotbugs.skip>
+        <dependency-check.skip>true</dependency-check.skip>
+        <depencency-convergence.phase>none</depencency-convergence.phase>
+        <docker-based-tests.skip>true</docker-based-tests.skip>
       </properties>
     </profile>
 
@@ -498,7 +517,7 @@
             <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
             <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
             <arg>-Xlint:all,-classfile,-processing,-serial</arg>
-            <arg>-Werror</arg>
+<!--            <arg>-Werror</arg>  FIXME: REENABLE WHEN DONE -->
             <arg>-implicit:class</arg>
           </compilerArgs>
           <showWarnings>true</showWarnings>
@@ -845,12 +864,13 @@
   <modules>
     <module>devtools</module>
     <module>analyzer</module>
-    <module>analyzer-it</module>
-    <module>udfs</module>
-    <module>webapp</module>
-    <module>examples</module>
-    <module>benchmarks</module>
-    <module>documentation</module>
+<!--    FIXME: REENABLE ALL THESE MODULES -->
+<!--    <module>analyzer-it</module>-->
+<!--    <module>udfs</module>-->
+<!--    <module>webapp</module>-->
+<!--    <module>examples</module>-->
+<!--    <module>benchmarks</module>-->
+<!--    <module>documentation</module>-->
   </modules>
 
   <licenses>

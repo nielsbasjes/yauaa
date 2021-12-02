@@ -17,10 +17,10 @@
 
 package nl.basjes.parse.useragent.parse;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 
 public final class EvilManualUseragentStringHacks {
@@ -56,10 +56,13 @@ public final class EvilManualUseragentStringHacks {
         }
         String result = useragent;
 
-        result = MULTIPLE_SPACES.matcher(result).replaceAll(" ");
-
         // The first one is a special kind of space: https://unicodemap.org/details/0x2002/index.html
         result = replaceString(result, "\u2002", " ");
+
+        // The Weibo useragent This one is a single useragent that hold significant traffic
+        result = replaceString(result, "__", " ");
+
+        result = MULTIPLE_SPACES.matcher(result).replaceAll(" ");
 
         if (result.charAt(0) == ' ') {
             result = result.trim();
@@ -134,9 +137,6 @@ public final class EvilManualUseragentStringHacks {
         // Kick some garbage that sometimes occurs.
         result = replaceString(result, ",gzip(gfe)", "");
 
-        // The Weibo useragent This one is a single useragent that hold significant traffic
-        result = replaceString(result, "__", " ");
-
         if (
             (result.indexOf('%') != -1) &&
                 (result.contains("%20") ||
@@ -145,9 +145,8 @@ public final class EvilManualUseragentStringHacks {
                  result.contains("%2F") ||
                  result.contains("%28"))) {
             try {
-                result = URLDecoder.decode(result, "UTF-8");
-            } catch (UnsupportedEncodingException | IllegalArgumentException e) {
-                // UnsupportedEncodingException: Can't happen because the UTF-8 is hardcoded here.
+                result = URLDecoder.decode(result, UTF_8);
+            } catch (IllegalArgumentException e) {
                 // IllegalArgumentException: Probably bad % encoding in there somewhere.
                 // Ignore and continue.
             }

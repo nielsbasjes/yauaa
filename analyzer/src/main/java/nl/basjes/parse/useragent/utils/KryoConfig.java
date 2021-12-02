@@ -79,7 +79,7 @@ import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.TestCase;
-import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
+import nl.basjes.parse.useragent.parse.UserAgentTreeMatchMaker;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,7 +165,7 @@ public final class KryoConfig {
         kryo.register(FieldCalculator.class);
         kryo.register(MajorVersionCalculator.class);
 
-        kryo.register(UserAgentTreeFlattener.class);
+        kryo.register(UserAgentTreeMatchMaker.class);
         kryo.register(TreeExpressionEvaluator.class);
         kryo.register(WalkList.class);
         kryo.register(StepContains.class);

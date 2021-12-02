@@ -69,6 +69,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.analyze.MatcherTree.createNewAgentRoot;
 import static nl.basjes.parse.useragent.analyze.NumberRangeVisitor.NUMBER_RANGE_VISITOR;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
@@ -107,7 +108,7 @@ public abstract class MatcherAction implements Serializable {
     private static final Logger LOG = LogManager.getLogger(MatcherAction.class);
 
     protected Matcher matcher;
-    private MatchesList matches;
+    private MatchesList<MatcherTree> matches;
     protected boolean mustHaveMatches = false;
 
     boolean mustHaveMatches() {
@@ -171,11 +172,11 @@ public abstract class MatcherAction implements Serializable {
         lexer.addErrorListener(errorListener);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        UserAgentTreeWalkerParser parser = new UserAgentTreeWalkerParser(tokens);
+        UserAgentTreeWalkerParser<MatcherTree> parser = new UserAgentTreeWalkerParser<>(tokens);
 
         parser.addErrorListener(errorListener);
 
-        ParserRuleContext requiredPattern = parseWalkerExpression(parser);
+        ParserRuleContext<MatcherTree> requiredPattern = parseWalkerExpression(parser);
 
         // We couldn't ditch the double quotes around the fixed values in the parsing phase.
         // So we ditch them here. We simply walk the tree and modify some of the tokens.
@@ -189,7 +190,7 @@ public abstract class MatcherAction implements Serializable {
         if (fixedValue != null) {
             setFixedValue(fixedValue);
             mustHaveMatches = false;
-            matches = new MatchesList(0);
+            matches = new MatchesList<>(0);
             return 0; // Not interested in any patterns
         }
 
@@ -200,7 +201,9 @@ public abstract class MatcherAction implements Serializable {
             mustHaveMatches = evaluator.mustHaveMatches();
         }
 
-        int informs = calculateInformPath(this, "agent", requiredPattern);
+        MatcherTree matcherTree = createNewAgentRoot();
+
+        int informs = calculateInformPath(this, matcherTree, requiredPattern);
 
         // If this is based on a variable we do not need any matches from the hashmap.
         if (mustHaveMatches && informs == 0) {
@@ -211,13 +214,13 @@ public abstract class MatcherAction implements Serializable {
         if (informs > 0) {
             listSize = 1;
         }
-        this.matches = new MatchesList(listSize);
+        this.matches = new MatchesList<>(listSize);
         return informs;
     }
 
-    protected abstract ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser);
+    protected abstract ParserRuleContext<MatcherTree> parseWalkerExpression(UserAgentTreeWalkerParser<MatcherTree> parser);
 
-    private static class UnQuoteValues extends UserAgentTreeWalkerBaseVisitor<Void> {
+    private static class UnQuoteValues extends UserAgentTreeWalkerBaseVisitor<Void, MatcherTree> {
         private void unQuoteToken(Token token) {
             if (token instanceof CommonToken) {
                 CommonToken commonToken = (CommonToken) token;
@@ -227,87 +230,87 @@ public abstract class MatcherAction implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathLookup(MatcherPathLookupContext ctx) {
+        public Void visitMatcherPathLookup(MatcherPathLookupContext<MatcherTree> ctx) {
             unQuoteToken(ctx.defaultValue);
             return super.visitMatcherPathLookup(ctx);
         }
 
         @Override
-        public Void visitMatcherPathLookupContains(MatcherPathLookupContainsContext ctx) {
+        public Void visitMatcherPathLookupContains(MatcherPathLookupContainsContext<MatcherTree> ctx) {
             unQuoteToken(ctx.defaultValue);
             return super.visitMatcherPathLookupContains(ctx);
         }
 
         @Override
-        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext ctx) {
+        public Void visitMatcherPathLookupPrefix(MatcherPathLookupPrefixContext<MatcherTree> ctx) {
             unQuoteToken(ctx.defaultValue);
             return super.visitMatcherPathLookupPrefix(ctx);
         }
 
         @Override
-        public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext ctx) {
+        public Void visitMatcherDefaultIfNull(MatcherDefaultIfNullContext<MatcherTree> ctx) {
             unQuoteToken(ctx.defaultValue);
             return super.visitMatcherDefaultIfNull(ctx);
         }
 
         @Override
-        public Void visitPathFixedValue(PathFixedValueContext ctx) {
+        public Void visitPathFixedValue(PathFixedValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitPathFixedValue(ctx);
         }
 
         @Override
-        public Void visitMatcherConcat(MatcherConcatContext ctx) {
+        public Void visitMatcherConcat(MatcherConcatContext<MatcherTree> ctx) {
             unQuoteToken(ctx.prefix);
             unQuoteToken(ctx.postfix);
             return super.visitMatcherConcat(ctx);
         }
 
         @Override
-        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext ctx) {
+        public Void visitMatcherConcatPrefix(MatcherConcatPrefixContext<MatcherTree> ctx) {
             unQuoteToken(ctx.prefix);
             return super.visitMatcherConcatPrefix(ctx);
         }
 
         @Override
-        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext ctx) {
+        public Void visitMatcherConcatPostfix(MatcherConcatPostfixContext<MatcherTree> ctx) {
             unQuoteToken(ctx.postfix);
             return super.visitMatcherConcatPostfix(ctx);
         }
 
         @Override
-        public Void visitMatcherReplaceString(MatcherReplaceStringContext ctx) {
+        public Void visitMatcherReplaceString(MatcherReplaceStringContext<MatcherTree> ctx) {
             unQuoteToken(ctx.search);
             unQuoteToken(ctx.replace);
             return super.visitMatcherReplaceString(ctx);
         }
 
         @Override
-        public Void visitStepEqualsValue(StepEqualsValueContext ctx) {
+        public Void visitStepEqualsValue(StepEqualsValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepEqualsValue(ctx);
         }
 
         @Override
-        public Void visitStepNotEqualsValue(StepNotEqualsValueContext ctx) {
+        public Void visitStepNotEqualsValue(StepNotEqualsValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepNotEqualsValue(ctx);
         }
 
         @Override
-        public Void visitStepStartsWithValue(StepStartsWithValueContext ctx) {
+        public Void visitStepStartsWithValue(StepStartsWithValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepStartsWithValue(ctx);
         }
 
         @Override
-        public Void visitStepEndsWithValue(StepEndsWithValueContext ctx) {
+        public Void visitStepEndsWithValue(StepEndsWithValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepEndsWithValue(ctx);
         }
 
         @Override
-        public Void visitStepContainsValue(StepContainsValueContext ctx) {
+        public Void visitStepContainsValue(StepContainsValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepContainsValue(ctx);
         }
@@ -329,7 +332,7 @@ public abstract class MatcherAction implements Serializable {
      * @param value  The value that was found
      * @param result The node in the parser tree where the match occurred
      */
-    public void inform(String key, String value, ParseTree result) {
+    public void inform(String key, String value, ParseTree<MatcherTree> result) {
         matcher.receivedInput();
 
         // Only if this needs input we tell the matcher on the first one.
@@ -367,7 +370,7 @@ public abstract class MatcherAction implements Serializable {
      * actually perform the analysis and do the (expensive) tree walking and matching.
      */
     void processInformedMatches() {
-        for (MatchesList.Match match : matches) {
+        for (MatchesList.Match<MatcherTree> match : matches) {
             WalkResult matchedValue = evaluator.evaluate(match.getResult(), match.getKey(), match.getValue());
             if (matchedValue != null) {
                 inform(match.getKey(), matchedValue);
@@ -391,194 +394,197 @@ public abstract class MatcherAction implements Serializable {
          * Applies this function to the given arguments.
          *
          * @param action The applicable action.
-         * @param treeName The name of the current tree.
+         * @param matcherTree The name of the current tree.
          * @param tree The actual location in the parseTree
          * @return the number of informs done
          */
-        int calculateInformPath(MatcherAction action, String treeName, ParserRuleContext tree);
+        int calculateInformPath(MatcherAction action, MatcherTree matcherTree, ParserRuleContext<MatcherTree> tree);
     }
 
     private static final Map<Class<?>, CalculateInformPathFunction> CALCULATE_INFORM_PATH = new HashMap<>();
 
     static {
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherBaseContext.class,             (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherBaseContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsNullContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(IsSyntaxErrorContext.class,           (action, treeName, tree) -> {
-            action.matcher.informMeAbout(action, SYNTAX_ERROR + "=" + ((IsSyntaxErrorContext) tree).value.getText());
+        CALCULATE_INFORM_PATH.put(MatcherBaseContext.class,             (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherBaseContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsNullContext.class,       (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathIsNullContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(IsSyntaxErrorContext.class,           (action, matcherTree, tree) -> {
+            action.matcher.informMeAbout(action, SYNTAX_ERROR + "=" + ((IsSyntaxErrorContext<MatcherTree>) tree).value.getText());
             return 1;
         });
 
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherExtractContext.class,          (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherExtractContext) tree).expression));
+        CALCULATE_INFORM_PATH.put(MatcherExtractContext.class,          (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherExtractContext<MatcherTree>) tree).expression));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherVariableContext.class,         (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherVariableContext) tree).expression));
+        CALCULATE_INFORM_PATH.put(MatcherVariableContext.class,         (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherVariableContext<MatcherTree>) tree).expression));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(MatcherPathContext.class,             (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathContext) tree).basePath()));
-        CALCULATE_INFORM_PATH.put(MatcherConcatContext.class,           (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherConcatContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherConcatPrefixContext.class,     (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherConcatPrefixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherConcatPostfixContext.class,    (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherConcatPostfixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherNormalizeBrandContext.class,   (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherNormalizeBrandContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherExtractBrandFromUrlContext.class,   (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherExtractBrandFromUrlContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherCleanVersionContext.class,     (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherCleanVersionContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherReplaceStringContext.class,     (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherReplaceStringContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,       (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathLookupContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContext.class,  (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsInLookupContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,      (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathLookupContainsContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,  (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsInLookupContainsContext) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathContext.class,             (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathContext<MatcherTree>) tree).basePath()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatContext.class,           (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherConcatContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatPrefixContext.class,     (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherConcatPrefixContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherConcatPostfixContext.class,    (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherConcatPostfixContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherNormalizeBrandContext.class,   (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherNormalizeBrandContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherExtractBrandFromUrlContext.class,   (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherExtractBrandFromUrlContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherCleanVersionContext.class,     (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherCleanVersionContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherReplaceStringContext.class,     (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherReplaceStringContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupContext.class,       (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathLookupContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContext.class,  (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathIsInLookupContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupContainsContext.class,      (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathLookupContainsContext<MatcherTree>) tree).matcher()));
         CALCULATE_INFORM_PATH.put(MatcherPathIsNotInLookupContainsContext.class,  (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsNotInLookupContainsContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathLookupPrefixContext.class,        (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathLookupPrefixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupPrefixContext.class,    (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsInLookupPrefixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherPathIsNotInLookupPrefixContext.class,    (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherPathIsNotInLookupPrefixContext) tree).matcher()));
-        CALCULATE_INFORM_PATH.put(MatcherDefaultIfNullContext.class,           (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherDefaultIfNullContext) tree).matcher()));
-        CALCULATE_INFORM_PATH .put(MatcherWordRangeContext.class,        (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherWordRangeContext) tree).matcher()));
-        CALCULATE_INFORM_PATH .put(MatcherSegmentRangeContext.class,        (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((MatcherSegmentRangeContext) tree).matcher()));
+            calculateInformPath(action, treeName, ((MatcherPathIsNotInLookupContainsContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupContainsContext.class,  (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathIsInLookupContainsContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathLookupPrefixContext.class,        (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathLookupPrefixContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsInLookupPrefixContext.class,    (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathIsInLookupPrefixContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherPathIsNotInLookupPrefixContext.class,    (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherPathIsNotInLookupPrefixContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH.put(MatcherDefaultIfNullContext.class,           (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherDefaultIfNullContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH .put(MatcherWordRangeContext.class,        (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherWordRangeContext<MatcherTree>) tree).matcher()));
+        CALCULATE_INFORM_PATH .put(MatcherSegmentRangeContext.class,        (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((MatcherSegmentRangeContext<MatcherTree>) tree).matcher()));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(PathVariableContext.class,            (action, treeName, tree) -> {
-            action.matcher.informMeAboutVariable(action, ((PathVariableContext) tree).variable.getText());
+        CALCULATE_INFORM_PATH.put(PathVariableContext.class,            (action, matcherTree, tree) -> {
+            action.matcher.informMeAboutVariable(action, ((PathVariableContext<MatcherTree>) tree).variable.getText());
             return 0;
         });
 
-        CALCULATE_INFORM_PATH.put(PathWalkContext.class,                (action, treeName, tree) ->
-            calculateInformPath(action, treeName, ((PathWalkContext) tree).nextStep));
+        CALCULATE_INFORM_PATH.put(PathWalkContext.class,                (action, matcherTree, tree) ->
+            calculateInformPath(action, matcherTree, ((PathWalkContext<MatcherTree>) tree).nextStep));
 
         // -------------
-        CALCULATE_INFORM_PATH.put(StepDownAgentContext.class, (action, treeName, tree) -> {
-            StepDownAgentContext thisTree = ((StepDownAgentContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.AGENT, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownAgentContext.class, (action, matcherTree, tree) -> {
+            StepDownAgentContext<MatcherTree> thisTree = ((StepDownAgentContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.AGENT, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownProductContext.class, (action, treeName, tree) -> {
-            StepDownProductContext thisTree = ((StepDownProductContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.PRODUCT, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownProductContext.class, (action, matcherTree, tree) -> {
+            StepDownProductContext<MatcherTree> thisTree = ((StepDownProductContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.PRODUCT, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownNameContext.class, (action, treeName, tree) -> {
-            StepDownNameContext thisTree = ((StepDownNameContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.NAME, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownNameContext.class, (action, matcherTree, tree) -> {
+            StepDownNameContext<MatcherTree> thisTree = ((StepDownNameContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.NAME, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownVersionContext.class, (action, treeName, tree) -> {
-            StepDownVersionContext thisTree = ((StepDownVersionContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.VERSION, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownVersionContext.class, (action, matcherTree, tree) -> {
+            StepDownVersionContext<MatcherTree> thisTree = ((StepDownVersionContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.VERSION, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownCommentsContext.class, (action, treeName, tree) -> {
-            StepDownCommentsContext thisTree = ((StepDownCommentsContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.COMMENTS, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownCommentsContext.class, (action, matcherTree, tree) -> {
+            StepDownCommentsContext<MatcherTree> thisTree = ((StepDownCommentsContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.COMMENTS, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownEntryContext.class, (action, treeName, tree) -> {
-            StepDownEntryContext thisTree = ((StepDownEntryContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.ENTRY, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownEntryContext.class, (action, matcherTree, tree) -> {
+            StepDownEntryContext<MatcherTree> thisTree = ((StepDownEntryContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.ENTRY, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownTextContext.class, (action, treeName, tree) -> {
-            StepDownTextContext thisTree = ((StepDownTextContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.TEXT, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownTextContext.class, (action, matcherTree, tree) -> {
+            StepDownTextContext<MatcherTree> thisTree = ((StepDownTextContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.TEXT, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownUrlContext.class, (action, treeName, tree) -> {
-            StepDownUrlContext thisTree = ((StepDownUrlContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.URL, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownUrlContext.class, (action, matcherTree, tree) -> {
+            StepDownUrlContext<MatcherTree> thisTree = ((StepDownUrlContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.URL, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownEmailContext.class, (action, treeName, tree) -> {
-            StepDownEmailContext thisTree = ((StepDownEmailContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.EMAIL, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownEmailContext.class, (action, matcherTree, tree) -> {
+            StepDownEmailContext<MatcherTree> thisTree = ((StepDownEmailContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.EMAIL, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownBase64Context.class, (action, treeName, tree) -> {
-            StepDownBase64Context thisTree = ((StepDownBase64Context) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.BASE64, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownBase64Context.class, (action, matcherTree, tree) -> {
+            StepDownBase64Context<MatcherTree> thisTree = ((StepDownBase64Context<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.BASE64, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownUuidContext.class, (action, treeName, tree) -> {
-            StepDownUuidContext thisTree = ((StepDownUuidContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.UUID, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownUuidContext.class, (action, matcherTree, tree) -> {
+            StepDownUuidContext<MatcherTree> thisTree = ((StepDownUuidContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.UUID, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownKeyvalueContext.class, (action, treeName, tree) -> {
-            StepDownKeyvalueContext thisTree = ((StepDownKeyvalueContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.KEYVALUE, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownKeyvalueContext.class, (action, matcherTree, tree) -> {
+            StepDownKeyvalueContext<MatcherTree> thisTree = ((StepDownKeyvalueContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.KEYVALUE, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownKeyContext.class, (action, treeName, tree) -> {
-            StepDownKeyContext thisTree = ((StepDownKeyContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.KEY, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownKeyContext.class, (action, matcherTree, tree) -> {
+            StepDownKeyContext<MatcherTree> thisTree = ((StepDownKeyContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.KEY, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepDownValueContext.class, (action, treeName, tree) -> {
-            StepDownValueContext thisTree = ((StepDownValueContext) tree);
-            return calculateInformDownPath(action, treeName, thisTree.numberRange(), AgentPathFragment.VALUE, thisTree.nextStep);
+        CALCULATE_INFORM_PATH.put(StepDownValueContext.class, (action, matcherTree, tree) -> {
+            StepDownValueContext<MatcherTree> thisTree = ((StepDownValueContext<MatcherTree>) tree);
+            return calculateInformDownPath(action, matcherTree, thisTree.numberRange(), AgentPathFragment.VALUE, thisTree.nextStep);
         });
 
-        CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class, (action, treeName, tree) -> {
-            StepEqualsValueContext thisTree = ((StepEqualsValueContext) tree);
-            action.matcher.informMeAbout(action, treeName + "=\"" + thisTree.value.getText() + "\"");
+        CALCULATE_INFORM_PATH.put(StepEqualsValueContext.class, (action, matcherTree, tree) -> {
+            StepEqualsValueContext<MatcherTree> thisTree = ((StepEqualsValueContext<MatcherTree>) tree);
+            action.matcher.informMeAbout(action, matcherTree + "=\"" + thisTree.value.getText() + "\"");
             return 1;
         });
 
-        CALCULATE_INFORM_PATH.put(StepStartsWithValueContext.class, (action, treeName, tree) -> {
-            StepStartsWithValueContext thisTree = ((StepStartsWithValueContext) tree);
-            action.matcher.informMeAboutPrefix(action, treeName, thisTree.value.getText());
+        CALCULATE_INFORM_PATH.put(StepStartsWithValueContext.class, (action, matcherTree, tree) -> {
+            StepStartsWithValueContext<MatcherTree> thisTree = ((StepStartsWithValueContext<MatcherTree>) tree);
+            action.matcher.informMeAboutPrefix(action, matcherTree.toString(), thisTree.value.getText());
             return 1;
         });
 
-        CALCULATE_INFORM_PATH.put(StepWordRangeContext.class, (action, treeName, tree) -> {
-            StepWordRangeContext thisTree = ((StepWordRangeContext) tree);
+        CALCULATE_INFORM_PATH.put(StepWordRangeContext.class, (action, matcherTree, tree) -> {
+            StepWordRangeContext<MatcherTree> thisTree = ((StepWordRangeContext<MatcherTree>) tree);
             Range range = WordRangeVisitor.getRange(thisTree.wordRange());
-            action.matcher.lookingForRange(treeName, range);
-            return calculateInformPath(action, treeName + range, thisTree.nextStep);
+            action.matcher.lookingForRange(matcherTree.toString(), range);
+            matcherTree.addWordRangeMatcherAction(range, action);
+            return calculateInformPath(action, matcherTree, thisTree.nextStep);
+//            return calculateInformPath(action, matcherTree + range, thisTree.nextStep);
         });
     }
 
-    private static int calculateInformDownPath(MatcherAction action, String treeName, NumberRangeContext numberRangeContext, AgentPathFragment agent, PathContext nextStep) {
+    private static int calculateInformDownPath(MatcherAction action, MatcherTree matcherTree, NumberRangeContext<MatcherTree> numberRangeContext, AgentPathFragment agent, PathContext<MatcherTree> nextStep) {
         int informs = 0;
         for (int number : NUMBER_RANGE_VISITOR.visit(numberRangeContext)) {
-            informs += calculateInformPath(action, treeName + '.' + "(" + number + ")" + agent, nextStep);
+//          FIXME: THIS IS BROKEN
+            informs += 1; //calculateInformPath(action, matcherTree + '.' + "(" + number + ")" + agent, nextStep);
         }
         return informs;
     }
 
-    private static int calculateInformPath(MatcherAction action, String treeName, ParserRuleContext tree) {
+    private static int calculateInformPath(MatcherAction action, MatcherTree matcherTree, ParserRuleContext<MatcherTree> tree) {
         if (tree == null) {
-            action.matcher.informMeAbout(action, treeName);
+            action.matcher.informMeAbout(action, matcherTree.toString());
             return 1;
         }
 
         CalculateInformPathFunction function = CALCULATE_INFORM_PATH.get(tree.getClass());
         if (function != null) {
-            return function.calculateInformPath(action, treeName, tree);
+            return function.calculateInformPath(action, matcherTree, tree);
         }
 
-        action.matcher.informMeAbout(action, treeName);
+        action.matcher.informMeAbout(action, matcherTree.toString());
         return 1;
     }
 
@@ -591,7 +597,7 @@ public abstract class MatcherAction implements Serializable {
         }
     }
 
-    public MatchesList getMatches() {
+    public MatchesList<MatcherTree> getMatches() {
         return matches;
     }
 

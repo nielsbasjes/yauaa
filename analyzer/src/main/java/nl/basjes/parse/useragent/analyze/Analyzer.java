@@ -37,7 +37,7 @@ public interface Analyzer extends Serializable {
         return null;
     }
 
-    void inform(String path, String value, ParseTree ctx);
+    void inform(String path, String value, ParseTree<MatcherTree> ctx);
 
     void informMeAbout(MatcherAction matcherAction, String keyPattern);
 

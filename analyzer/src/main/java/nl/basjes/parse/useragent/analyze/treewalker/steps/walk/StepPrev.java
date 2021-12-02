@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -26,15 +27,15 @@ import javax.annotation.Nullable;
 
 public class StepPrev extends Step {
 
-    private ParseTree prev(ParseTree tree) {
-        ParseTree parent = up(tree);
+    private ParseTree<MatcherTree> prev(ParseTree<MatcherTree> tree) {
+        ParseTree<MatcherTree> parent = up(tree);
 
         if (parent == null) {
             return null;
         }
 
-        ParseTree prevChild = null;
-        ParseTree child = null;
+        ParseTree<MatcherTree> prevChild = null;
+        ParseTree<MatcherTree> child = null;
         int i;
         for (i = 0; i < parent.getChildCount(); i++) {
             if (!treeIsSeparator(child)) {
@@ -49,8 +50,8 @@ public class StepPrev extends Step {
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
-        ParseTree prevTree = prev(tree);
+    public WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
+        ParseTree<MatcherTree> prevTree = prev(tree);
         if (prevTree == null) {
             return null;
         }

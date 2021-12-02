@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.AgentField.ImmutableAgentField;
 import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.analyze.Matcher;
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
@@ -496,7 +497,7 @@ public interface UserAgent extends Serializable {
         return result;
     }
 
-    class MutableUserAgent extends UserAgentBaseListener implements UserAgent, Serializable, DefaultANTLRErrorListener {
+    class MutableUserAgent extends UserAgentBaseListener<MatcherTree> implements UserAgent, Serializable, DefaultANTLRErrorListener {
 
         private static final Logger LOG                     = LogManager.getLogger(UserAgent.class);
 

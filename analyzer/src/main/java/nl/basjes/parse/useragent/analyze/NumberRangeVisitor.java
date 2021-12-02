@@ -44,7 +44,7 @@ import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberR
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToEndContext;
 import static nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.NumberRangeStartToOpenEndContext;
 
-public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList> {
+public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<NumberRangeList, MatcherTree> {
 
     private static final Integer DEFAULT_MIN = 1;
     private static final Integer DEFAULT_MAX = 10;
@@ -75,8 +75,8 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
     private NumberRangeVisitor() {
     }
 
-    private static Integer getMaxRange(NumberRangeContext ctx) {
-        ParserRuleContext parent = ctx.getParent();
+    private Integer getMaxRange(NumberRangeContext<MatcherTree> ctx) {
+        ParserRuleContext<MatcherTree> parent = ctx.getParent();
         Integer maxRange = MAX_RANGE.get(parent.getClass());
         if (maxRange == null) {
             return DEFAULT_MAX;
@@ -86,44 +86,44 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
 
     static final NumberRangeVisitor NUMBER_RANGE_VISITOR = new NumberRangeVisitor();
 
-    public static NumberRangeList getList(NumberRangeContext ctx) {
+    public static NumberRangeList getList(NumberRangeContext<MatcherTree> ctx) {
         return NUMBER_RANGE_VISITOR.visit(ctx);
     }
 
     @Override
-    public NumberRangeList visitNumberRangeStartToEnd(NumberRangeStartToEndContext ctx) {
+    public NumberRangeList visitNumberRangeStartToEnd(NumberRangeStartToEndContext<MatcherTree> ctx) {
         return new NumberRangeList(
                 Integer.parseInt(ctx.rangeStart.getText()),
                 Integer.parseInt(ctx.rangeEnd.getText()));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeOpenStartToEnd(NumberRangeOpenStartToEndContext ctx) {
+    public NumberRangeList visitNumberRangeOpenStartToEnd(NumberRangeOpenStartToEndContext<MatcherTree> ctx) {
         return new NumberRangeList(
             1,
             Integer.parseInt(ctx.rangeEnd.getText()));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeStartToOpenEnd(NumberRangeStartToOpenEndContext ctx) {
+    public NumberRangeList visitNumberRangeStartToOpenEnd(NumberRangeStartToOpenEndContext<MatcherTree> ctx) {
         return new NumberRangeList(
             Integer.parseInt(ctx.rangeStart.getText()),
             getMaxRange(ctx));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeSingleValue(NumberRangeSingleValueContext ctx) {
+    public NumberRangeList visitNumberRangeSingleValue(NumberRangeSingleValueContext<MatcherTree> ctx) {
         int value = Integer.parseInt(ctx.count.getText());
         return new NumberRangeList(value, value);
     }
 
     @Override
-    public NumberRangeList visitNumberRangeAll(NumberRangeAllContext ctx) {
+    public NumberRangeList visitNumberRangeAll(NumberRangeAllContext<MatcherTree> ctx) {
         return new NumberRangeList(DEFAULT_MIN, getMaxRange(ctx));
     }
 
     @Override
-    public NumberRangeList visitNumberRangeEmpty(NumberRangeEmptyContext ctx) {
+    public NumberRangeList visitNumberRangeEmpty(NumberRangeEmptyContext<MatcherTree> ctx) {
         return new NumberRangeList(DEFAULT_MIN, getMaxRange(ctx));
     }
 }

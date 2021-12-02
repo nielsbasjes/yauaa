@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown;
 
+import nl.basjes.parse.useragent.analyze.MatcherTree;
+import nl.basjes.parse.useragent.parse.AgentPathFragment;
 import nl.basjes.parse.useragent.parser.UserAgentBaseVisitor;
 import nl.basjes.parse.useragent.parser.UserAgentParser.Base64Context;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentBlockContext;
@@ -58,52 +60,52 @@ import java.util.List;
 /**
  * This visitor will return the list of requested child nodes
  */
-public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<? extends ParseTree>> {
+public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<? extends ParseTree<MatcherTree>>, MatcherTree> {
 
-    private final String name;
+    private final AgentPathFragment pathFragment;
     private final ChildIterable childIterable;
 
-    public UserAgentGetChildrenVisitor(String name, int start, int end) {
-        this.name = name;
-        switch (name) {
-            case "keyvalue":
+    public UserAgentGetChildrenVisitor(AgentPathFragment pathFragment, int start, int end) {
+        this.pathFragment = pathFragment;
+        switch (pathFragment) {
+            case KEYVALUE:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof KeyValueContext ||
                     clazz instanceof KeyWithoutValueContext ||
                     clazz instanceof ProductNameKeyValueContext));
                 break;
 
-            case "product":
+            case PRODUCT:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof ProductContext ||
                     clazz instanceof CommentProductContext ||
                     clazz instanceof ProductNameNoVersionContext));
                 break;
 
-            case "uuid":
+            case UUID:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof UuIdContext ||
                     clazz instanceof ProductNameUuidContext));
                 break;
 
-            case "base64":
+            case BASE64:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof Base64Context));
                 break;
 
-            case "url":
+            case URL:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof SiteUrlContext ||
                     clazz instanceof ProductNameUrlContext));
                 break;
 
-            case "email":
+            case EMAIL:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof EmailAddressContext ||
                     clazz instanceof ProductNameEmailContext));
                 break;
 
-            case "text":
+            case TEXT:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof MultipleWordsContext ||
                     clazz instanceof VersionWordsContext ||
@@ -112,12 +114,12 @@ public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<?
                     clazz instanceof KeyValueVersionNameContext));
                 break;
 
-            case "name":
+            case NAME:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof ProductNameContext));
                 break;
 
-            case "version":
+            case VERSION:
                 childIterable = new ChildIterable(true, start, end, clazz -> (
                     clazz instanceof ProductVersionContext ||
                     clazz instanceof ProductVersionWithCommasContext ||
@@ -125,17 +127,17 @@ public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<?
                     clazz instanceof ProductVersionSingleWordContext));
                 break;
 
-            case "comments":
+            case COMMENTS:
                 childIterable = new ChildIterable(true, start, end, clazz -> (
                     clazz instanceof CommentBlockContext));
                 break;
 
-            case "key":
+            case KEY:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof KeyNameContext));
                 break;
 
-            case "value":
+            case VALUE:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof UuIdContext ||
                     clazz instanceof MultipleWordsContext ||
@@ -145,7 +147,7 @@ public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<?
                     clazz instanceof KeyValueProductVersionNameContext));
                 break;
 
-            case "entry":
+            case ENTRY:
                 childIterable = new ChildIterable(false, start, end, clazz -> (
                     clazz instanceof CommentEntryContext));
                 break;
@@ -156,20 +158,20 @@ public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<?
     }
 
 
-    private static final Iterator<ParseTree> EMPTY = Collections.emptyListIterator();
+    private final Iterator<ParseTree<MatcherTree>> emptyIterator = Collections.emptyListIterator();
 
     @Override
-    protected Iterator<? extends ParseTree> defaultResult() {
-        return EMPTY;
+    protected Iterator<? extends ParseTree<MatcherTree>> defaultResult() {
+        return emptyIterator;
     }
 
-    Iterator<? extends ParseTree> getChildrenByName(ParserRuleContext ctx) {
+    Iterator<? extends ParseTree<MatcherTree>> getChildrenByName(ParserRuleContext<MatcherTree> ctx) {
         return childIterable.iterator(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitUserAgent(UserAgentContext ctx) {
-        Iterator<? extends ParseTree>  children = getChildrenByName(ctx);
+    public Iterator<? extends ParseTree<MatcherTree>> visitUserAgent(UserAgentContext<MatcherTree> ctx) {
+        Iterator<? extends ParseTree<MatcherTree>>  children = getChildrenByName(ctx);
         if (children.hasNext()) {
             return children;
         }
@@ -177,37 +179,37 @@ public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<?
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitRootElements(RootElementsContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitRootElements(RootElementsContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitProduct(ProductContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitProduct(ProductContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitProductNameNoVersion(ProductNameNoVersionContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitProductNameNoVersion(ProductNameNoVersionContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitCommentProduct(CommentProductContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitCommentProduct(CommentProductContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitProductName(ProductNameContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitProductName(ProductNameContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitProductNameKeyValue(ProductNameKeyValueContext ctx) {
-        switch (name) {
-            case "key":
-                return Collections.singletonList((ParserRuleContext) ctx.key).iterator();
-            case "value":
-                List<? extends ParserRuleContext> children = ctx.multipleWords();
+    public Iterator<? extends ParseTree<MatcherTree>> visitProductNameKeyValue(ProductNameKeyValueContext<MatcherTree> ctx) {
+        switch (pathFragment) {
+            case KEY:
+                return Collections.singletonList((ParserRuleContext<MatcherTree>) ctx.key).iterator();
+            case VALUE:
+                List<? extends ParserRuleContext<MatcherTree>> children = ctx.multipleWords();
                 if (!children.isEmpty()) {
                     return children.iterator();
                 }
@@ -235,32 +237,32 @@ public class UserAgentGetChildrenVisitor extends UserAgentBaseVisitor<Iterator<?
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitProductVersion(ProductVersionContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitProductVersion(ProductVersionContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitProductVersionWithCommas(ProductVersionWithCommasContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitProductVersionWithCommas(ProductVersionWithCommasContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitKeyValue(KeyValueContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitKeyValue(KeyValueContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitKeyWithoutValue(KeyWithoutValueContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitKeyWithoutValue(KeyWithoutValueContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitCommentBlock(CommentBlockContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitCommentBlock(CommentBlockContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 
     @Override
-    public Iterator<? extends ParseTree> visitCommentEntry(CommentEntryContext ctx) {
+    public Iterator<? extends ParseTree<MatcherTree>> visitCommentEntry(CommentEntryContext<MatcherTree> ctx) {
         return getChildrenByName(ctx);
     }
 }

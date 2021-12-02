@@ -18,7 +18,7 @@
 package nl.basjes.parse.useragent.serialization;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.AbstractUserAgentAnalyzerDirectBuilder;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirectBuilder;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

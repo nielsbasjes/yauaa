@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps;
 
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.CommentSeparatorContext;
@@ -33,9 +34,10 @@ import java.io.Serializable;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public abstract class Step implements Serializable {
+    protected static final String SHOULD_NOT_BE_SEEN_ANYWHERE = "<< Should not be seen anywhere >>";
     protected static final Logger LOG = LogManager.getLogger(Step.class);
     private int stepNr;
-    protected String logprefix = "";
+    protected String logPrefix = "";
     private Step nextStep;
 
     protected boolean verbose = false;
@@ -51,39 +53,35 @@ public abstract class Step implements Serializable {
     public final void setNextStep(int newStepNr, Step newNextStep) {
         this.stepNr = newStepNr;
         this.nextStep = newNextStep;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < newStepNr + 1; i++) {
-            sb.append("-->");
-        }
-        logprefix = sb.toString();
+        logPrefix = "-->".repeat(Math.max(0, newStepNr + 1));
     }
 
-    protected final WalkResult walkNextStep(@Nonnull ParseTree tree, @Nullable String value) {
+    protected final WalkResult walkNextStep(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
         if (nextStep == null) {
             String result = value;
             if (value == null) {
-                result = getSourceText((ParserRuleContext)tree);
+                result = getSourceText((ParserRuleContext<MatcherTree>)tree);
             }
             if (verbose) {
-                LOG.info("{} Final (implicit) step: {}", logprefix, result);
+                LOG.info("{} Final (implicit) step: {}", logPrefix, result);
             }
             return new WalkResult(tree, result);
         }
 
         if (verbose) {
-            LOG.info("{} Tree: >>>{}<<<", logprefix, getSourceText((ParserRuleContext)tree));
-            LOG.info("{} Enter step({}): {}", logprefix, stepNr, nextStep);
+            LOG.info("{} Tree: >>>{}<<<", logPrefix, getSourceText((ParserRuleContext<MatcherTree>)tree));
+            LOG.info("{} Enter step({}): {}", logPrefix, stepNr, nextStep);
         }
         WalkResult result = nextStep.walk(tree, value);
         if (verbose) {
-            LOG.info("{} Result: >>>{}<<<", logprefix, result);
-            LOG.info("{} Leave step({}): {}", logprefix, result == null ? "-" : "+", nextStep);
+            LOG.info("{} Result: >>>{}<<<", logPrefix, result);
+            LOG.info("{} Leave step({}): {}", logPrefix, result == null ? "-" : "+", nextStep);
         }
         return result;
     }
 
-    protected final ParseTree up(@Nonnull ParseTree tree) {
-        ParseTree parent = tree.getParent();
+    protected final ParseTree<MatcherTree> up(@Nonnull ParseTree<MatcherTree> tree) {
+        ParseTree<MatcherTree> parent = tree.getParent();
 
         // Needed because of the way the ANTLR rules have been defined.
         if (parent instanceof UserAgentParser.ProductNameContext ||
@@ -95,14 +93,14 @@ public abstract class Step implements Serializable {
         return parent;
     }
 
-    public static boolean treeIsSeparator(ParseTree tree) {
+    public static boolean treeIsSeparator(ParseTree<MatcherTree> tree) {
         return tree instanceof CommentSeparatorContext
             || tree instanceof TerminalNode;
     }
 
-    protected String getActualValue(@Nonnull ParseTree tree, @Nullable String value) {
+    protected String getActualValue(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
         if (value == null) {
-            return getSourceText((ParserRuleContext)tree);
+            return getSourceText((ParserRuleContext<MatcherTree>)tree);
         }
         return value;
     }
@@ -116,7 +114,7 @@ public abstract class Step implements Serializable {
      *              The null value means to use the implicit 'full' value (i.e. getSourceText(tree) )
      * @return Either null or the actual value that was found.
      */
-    public abstract WalkResult walk(@Nonnull ParseTree tree, @Nullable String value);
+    public abstract WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value);
 
     /**
      * Some steps cannot fail.

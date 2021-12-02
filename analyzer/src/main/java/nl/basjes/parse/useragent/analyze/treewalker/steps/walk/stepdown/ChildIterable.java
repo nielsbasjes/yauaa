@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.walk.stepdown;
 
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -32,28 +33,28 @@ public class ChildIterable {
     private final int start;
     private final int end;
 
-    private final Predicate<ParseTree> isWantedClassPredicate;
+    private final Predicate<ParseTree<MatcherTree>> isWantedClassPredicate;
 
     public ChildIterable(boolean privateNumberRange,
                          int start, int end,
-                         Predicate<ParseTree> isWantedClassPredicate) {
+                         Predicate<ParseTree<MatcherTree>> isWantedClassPredicate) {
         this.privateNumberRange = privateNumberRange;
         this.start = start;
         this.end = end;
         this.isWantedClassPredicate = isWantedClassPredicate;
     }
 
-    public Iterator<ParseTree> iterator(ParserRuleContext treeContext) {
+    public Iterator<ParseTree<MatcherTree>> iterator(ParserRuleContext<MatcherTree> treeContext) {
         return new ChildIterator(treeContext);
     }
 
-    class ChildIterator implements Iterator<ParseTree> {
-        private final Iterator<ParseTree> childIter;
+    class ChildIterator implements Iterator<ParseTree<MatcherTree>> {
+        private final Iterator<ParseTree<MatcherTree>> childIter;
         private       Boolean             hasNext;
         private       int                 index = 0;
-        private       ParseTree           nextChild;
+        private       ParseTree<MatcherTree>           nextChild;
 
-        ChildIterator(ParserRuleContext treeContext) {
+        ChildIterator(ParserRuleContext<MatcherTree> treeContext) {
             if (treeContext.children == null) {
                 childIter = null;
                 nextChild = null;
@@ -70,7 +71,7 @@ public class ChildIterable {
          */
         private boolean findNext() {
             while (childIter.hasNext()) {
-                ParseTree nextParseTree = childIter.next();
+                ParseTree<MatcherTree> nextParseTree = childIter.next();
                 if (treeIsSeparator(nextParseTree)) {
                     continue;
                 }
@@ -107,7 +108,7 @@ public class ChildIterable {
         }
 
         @Override
-        public ParseTree next() {
+        public ParseTree<MatcherTree> next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }

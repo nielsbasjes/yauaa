@@ -24,6 +24,7 @@ import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Matcher;
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.config.TestCase;
 import org.apache.logging.log4j.LogManager;
@@ -165,9 +166,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         StringBuilder sb = new StringBuilder(1024);
 
         sb.append("| ").append(filenameHeader);
-        for (int i = filenameHeaderLength; i < maxFilenameLength; i++) {
-            sb.append(' ');
-        }
+        sb.append(" ".repeat(maxFilenameLength - filenameHeaderLength));
 
         sb.append(" |S|AA|MF|");
         if (measureSpeed) {
@@ -227,9 +226,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             sb.append("|").append(String.format("%5d", testcount))
               .append(".(").append(filename).append(':').append(linenumber).append(')');
-            for (int i = filename.length()+linenumber.length()+7; i < maxFilenameLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(Math.max(0, maxFilenameLength - (filename.length() + linenumber.length() + 7))));
 
             agent.setUserAgentString(userAgentString);
 
@@ -423,17 +420,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             sb.setLength(0);
             sb.append("+--------+-");
-            for (int i = 0; i < maxNameLength; i++) {
-                sb.append('-');
-            }
+            sb.append("-".repeat(maxNameLength));
             sb.append("-+-");
-            for (int i = 0; i < maxActualLength; i++) {
-                sb.append('-');
-            }
+            sb.append("-".repeat(maxActualLength));
             sb.append("-+---------+------------+-");
-            for (int i = 0; i < maxExpectedLength; i++) {
-                sb.append('-');
-            }
+            sb.append("-".repeat(maxExpectedLength));
             sb.append("-+");
 
             String separator = sb.toString();
@@ -441,17 +432,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             sb.setLength(0);
             sb.append("| Result | Field ");
-            for (int i = 6; i < maxNameLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(maxNameLength - 6));
             sb.append(" | Actual ");
-            for (int i = 7; i < maxActualLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(maxActualLength - 7));
             sb.append(" | Default | Confidence | Expected ");
-            for (int i = 9; i < maxExpectedLength; i++) {
-                sb.append(' ');
-            }
+            sb.append(" ".repeat(maxExpectedLength - 9));
             sb.append(" |");
 
             logInfo(errorMessageReceiver, sb.toString());
@@ -476,15 +461,11 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                     }
                 }
                 sb.append(result.field);
-                for (int i = result.field.length(); i < maxNameLength; i++) {
-                    sb.append(' ');
-                }
+                sb.append(" ".repeat(Math.max(0, maxNameLength - result.field.length())));
                 sb.append(" | ");
                 sb.append(result.actual);
 
-                for (int i = result.actual.length(); i < maxActualLength; i++) {
-                    sb.append(' ');
-                }
+                sb.append(" ".repeat(Math.max(0, maxActualLength - result.actual.length())));
 
                 if (result.isDefault) {
                     sb.append(" | Default | ");
@@ -495,16 +476,12 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 sb.append(" | ");
 
                 if (result.pass) {
-                    for (int i = 0; i < maxExpectedLength; i++) {
-                        sb.append(' ');
-                    }
+                    sb.append(" ".repeat(maxExpectedLength));
                     sb.append(" |");
                     logInfo(errorMessageReceiver, sb.toString());
                 } else {
                     sb.append(result.expected);
-                    for (int i = result.expected.length(); i < maxExpectedLength; i++) {
-                        sb.append(' ');
-                    }
+                    sb.append(" ".repeat(Math.max(0, maxExpectedLength - result.expected.length())));
                     sb.append(" |");
                     if (result.warn) {
                         logWarn(errorMessageReceiver, sb.toString());
@@ -557,24 +534,24 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
      * were actually relevant for the matcher actions.
      * @return The list of Matches that were possibly relevant.
      */
-    public List<Match> getMatches() {
-        List<Match> allMatches = new ArrayList<>(128);
+    public List<Match<MatcherTree>> getMatches() {
+        List<Match<MatcherTree>> allMatches = new ArrayList<>(128);
         for (Matcher matcher: getAllMatchers()) {
             allMatches.addAll(matcher.getMatches());
         }
         return allMatches;
     }
 
-    public synchronized List<Match> getUsedMatches(MutableUserAgent userAgent) {
+    public synchronized List<Match<MatcherTree>> getUsedMatches(MutableUserAgent userAgent) {
         // Reset all Matchers
         for (Matcher matcher : getAllMatchers()) {
             matcher.reset();
             matcher.setVerboseTemporarily(false);
         }
 
-        flattener.parse(userAgent);
+        matchMaker.parse(userAgent);
 
-        List<Match> allMatches = new ArrayList<>(128);
+        List<Match<MatcherTree>> allMatches = new ArrayList<>(128);
         for (Matcher matcher: getAllMatchers()) {
             allMatches.addAll(matcher.getUsedMatches());
         }

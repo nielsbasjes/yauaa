@@ -33,18 +33,18 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @DefaultSerializer(MatchesList.KryoSerializer.class)
-public final class MatchesList implements Collection<MatchesList.Match>, Serializable {
+public final class MatchesList<P> implements Collection<MatchesList.Match<P>>, Serializable {
 
-    public static final class Match implements Serializable {
+    public static final class Match<MP> implements Serializable {
         private String key;
         private String value;
-        private transient ParseTree result;
+        private transient ParseTree<MP> result;
 
-        public Match(String key, String value, ParseTree result) {
+        public Match(String key, String value, ParseTree<MP> result) {
             fill(key, value, result);
         }
 
-        public void fill(String nKey, String nValue, ParseTree nResult) {
+        public void fill(String nKey, String nValue, ParseTree<MP> nResult) {
             this.key = nKey;
             this.value = nValue;
             this.result = nResult;
@@ -58,7 +58,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
             return value;
         }
 
-        public ParseTree getResult() {
+        public ParseTree<MP> getResult() {
             return result;
         }
     }
@@ -66,25 +66,25 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     private int maxSize;
 
     private transient int size;
-    private transient Match[] allElements;
+    private transient Match<P>[] allElements;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MatchesList() {
     }
 
-    public static class KryoSerializer extends FieldSerializer<MatchesList> {
+    public static class KryoSerializer extends FieldSerializer<MatchesList<?>> {
         public KryoSerializer(Kryo kryo, Class<?> type) {
             super(kryo, type);
         }
 
         @Override
-        public void write(Kryo kryo, Output output, MatchesList object) {
+        public void write(Kryo kryo, Output output, MatchesList<?> object) {
             output.write(object.maxSize);
         }
 
         @Override
-        public MatchesList read(Kryo kryo, Input input, Class<? extends MatchesList> type) {
-            MatchesList matchesList = new MatchesList();
+        public MatchesList<?> read(Kryo kryo, Input input, Class<? extends MatchesList<?>> type) {
+            MatchesList<?> matchesList = new MatchesList<>();
             matchesList.maxSize = input.read();
 
             // Note: The matches list is always empty after deserialization.
@@ -108,9 +108,9 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     private void initialize() {
         size = 0;
-        allElements = new Match[maxSize];
+        allElements = new Match[maxSize]; // FIXME: Generics issue
         for (int i = 0; i < maxSize; i++) {
-            allElements[i] = new Match(null, null, null);
+            allElements[i] = new Match<>(null, null, null);
         }
     }
 
@@ -129,7 +129,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         size = 0;
     }
 
-    public void add(String key, String value, ParseTree result) {
+    public void add(String key, String value, ParseTree<P> result) {
         if (size >= maxSize) {
             increaseCapacity();
         }
@@ -140,8 +140,8 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     @Nonnull
     @Override
-    public Iterator<Match> iterator() {
-        return new Iterator<Match>() {
+    public Iterator<Match<P>> iterator() {
+        return new Iterator<>() {
             int offset = 0;
 
             @Override
@@ -150,7 +150,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
             }
 
             @Override
-            public Match next() {
+            public Match<P> next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException("Array index out of bounds");
                 }
@@ -169,10 +169,10 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     private void increaseCapacity() {
         int newMaxSize = maxSize+ CAPACITY_INCREASE;
-        Match[] newAllElements = new Match[newMaxSize];
+        Match<P>[] newAllElements = (Match<P>[])new Match[newMaxSize]; // FIXME: Generics issue
         System.arraycopy(allElements, 0, newAllElements, 0, maxSize);
         for (int i = maxSize; i < newMaxSize; i++) {
-            newAllElements[i] = new Match(null, null, null);
+            newAllElements[i] = new Match<>(null, null, null);
         }
         allElements = newAllElements;
         maxSize = newMaxSize;
@@ -180,7 +180,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
 
     public List<String> toStrings() {
         List<String> result = new ArrayList<>(size);
-        for (Match match: this) {
+        for (Match<P> match: this) {
             result.add("{ \"" + match.key + "\"=\"" + match.value + "\" }");
         }
         return result;
@@ -200,7 +200,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     }
 
     @Override
-    public boolean addAll(@Nonnull Collection<? extends Match> collection) {
+    public boolean addAll(@Nonnull Collection<? extends Match<P>> collection) {
         throw new UnsupportedOperationException();
     }
 

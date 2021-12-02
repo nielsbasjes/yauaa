@@ -95,7 +95,7 @@ class TestSteps {
 
     private final Step returnNullStep = new Step() {
         @Override
-        public WalkResult walk(@Nonnull ParseTree tree, String value) {
+        public WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, String value) {
             return null;
         }
     };

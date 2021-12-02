@@ -31,9 +31,9 @@ class TestAntlrUtils {
 
     @Test
     void testEdges() {
-        ParserRuleContext context = new ParserRuleContext(null, 42);
+        ParserRuleContext<Void> context = new ParserRuleContext<>(null, 42);
 
-        ParseTree content = new RuleContext() {
+        ParseTree<Void> content = new RuleContext<>() {
             @Override
             public String getText() {
                 return "Content";

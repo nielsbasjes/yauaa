@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.lookup;
 
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -35,9 +36,9 @@ public class StepLookupContains extends Step {
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepLookupContains() {
-        lookupName = "<< Should not be seen anywhere >>";
+        lookupName = SHOULD_NOT_BE_SEEN_ANYWHERE;
         lookup = Collections.emptyMap();
-        defaultValue = "<< Should not be seen anywhere >>";
+        defaultValue = SHOULD_NOT_BE_SEEN_ANYWHERE;
     }
 
     public StepLookupContains(String lookupName, Map<String, String> lookup, String defaultValue) {
@@ -47,7 +48,7 @@ public class StepLookupContains extends Step {
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+    public WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
         actualValue = actualValue.toLowerCase(Locale.ROOT);

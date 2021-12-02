@@ -21,6 +21,7 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import nl.basjes.parse.useragent.analyze.NumberRangeList;
 import nl.basjes.parse.useragent.analyze.NumberRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
@@ -39,14 +40,14 @@ public class StepDown extends Step {
 
     private final int start;
     private final int end;
-    private final String name;
+    private final AgentPathFragment pathFragment;
     private transient UserAgentGetChildrenVisitor userAgentGetChildrenVisitor;
 
     /**
      * Initialize the transient default values
      */
     private void setDefaultFieldValues() {
-        userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor(name, start, end);
+        userAgentGetChildrenVisitor = new UserAgentGetChildrenVisitor(pathFragment, start, end);
     }
 
     private void readObject(java.io.ObjectInputStream stream)
@@ -72,25 +73,25 @@ public class StepDown extends Step {
     private StepDown() {
         start = -1;
         end = -1;
-        name = null;
+        pathFragment = null;
     }
 
-    public StepDown(NumberRangeContext numberRange, AgentPathFragment pathFragment) {
+    public StepDown(NumberRangeContext<MatcherTree> numberRange, AgentPathFragment pathFragment) {
         this(NumberRangeVisitor.getList(numberRange), pathFragment);
     }
 
     public StepDown(NumberRangeList numberRange, AgentPathFragment pathFragment) {
-        this.name = pathFragment.getPathName();
+        this.pathFragment = pathFragment;
         this.start = numberRange.getStart();
         this.end = numberRange.getEnd();
         setDefaultFieldValues();
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
-        Iterator<? extends ParseTree> children = userAgentGetChildrenVisitor.visit(tree);
+    public WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
+        Iterator<? extends ParseTree<MatcherTree>> children = userAgentGetChildrenVisitor.visit(tree);
         while (children.hasNext()) {
-            ParseTree  child       = children.next();
+            ParseTree<MatcherTree>  child       = children.next();
             WalkResult childResult = walkNextStep(child, null);
             if (childResult != null) {
                 return childResult;
@@ -101,7 +102,7 @@ public class StepDown extends Step {
 
     @Override
     public String toString() {
-        return "Down([" + start + ":" + end + "]" + name + ")";
+        return "Down([" + start + ":" + end + "]" + pathFragment + ")";
     }
 
 }

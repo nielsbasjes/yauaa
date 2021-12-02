@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.parse;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.GetAllPathsAnalyzer;
+import nl.basjes.parse.useragent.utils.GetAllPathsAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.logging.log4j.LogManager;

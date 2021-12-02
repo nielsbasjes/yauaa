@@ -76,7 +76,7 @@ public class Matcher implements Serializable {
     }
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer) {
+    public Matcher(Analyzer analyzer) {
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
@@ -413,16 +413,16 @@ public class Matcher implements Serializable {
         }
     }
 
-    public List<MatchesList.Match> getMatches() {
-        List<MatchesList.Match> allMatches = new ArrayList<>(128);
+    public List<MatchesList.Match<MatcherTree>> getMatches() {
+        List<MatchesList.Match<MatcherTree>> allMatches = new ArrayList<>(128);
         for (MatcherAction action : dynamicActions) {
             allMatches.addAll(action.getMatches());
         }
         return allMatches;
     }
 
-    public List<MatchesList.Match> getUsedMatches() {
-        List<MatchesList.Match> allMatches = new ArrayList<>(128);
+    public List<MatchesList.Match<MatcherTree>> getUsedMatches() {
+        List<MatchesList.Match<MatcherTree>> allMatches = new ArrayList<>(128);
         for (MatcherAction action : dynamicActions) {
             if (action.cannotBeValid()) {
                 return new ArrayList<>(); // There is NO way one of them is valid

@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.analyze.MatcherTree;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.Interval;
@@ -25,14 +26,14 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public final class AntlrUtils {
     private AntlrUtils() {}
 
-    public static final ParseTree NULL_PARSE_TREE = new ParserRuleContext() {
+    public static final ParseTree<MatcherTree> NULL_PARSE_TREE = new ParserRuleContext<>() {
         @Override
         public String getText() {
             return null;
         }
     };
 
-    public static String getSourceText(ParserRuleContext ctx){
+    public static String getSourceText(ParserRuleContext<?> ctx){
         if (ctx.start == null || ctx.stop == null) {
             return ctx.getText();
         }
