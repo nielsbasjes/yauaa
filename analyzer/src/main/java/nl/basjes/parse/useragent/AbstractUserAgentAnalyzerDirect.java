@@ -95,6 +95,7 @@ import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
@@ -638,6 +639,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         HARD_CODED_GENERATED_FIELDS.add(OPERATING_SYSTEM_NAME_VERSION);
         HARD_CODED_GENERATED_FIELDS.add(OPERATING_SYSTEM_NAME_VERSION_MAJOR);
         HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_VERSION_MAJOR);
+        HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_NAME_VERSION);
         HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_NAME_VERSION_MAJOR);
     }
 
@@ -1067,6 +1069,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             registerFieldCalculator(new MajorVersionCalculator(AGENT_VERSION_MAJOR,                     AGENT_VERSION));
 
             registerFieldCalculator(new ConcatNONDuplicatedCalculator(WEBVIEW_APP_NAME_VERSION_MAJOR,   WEBVIEW_APP_NAME,       WEBVIEW_APP_VERSION_MAJOR));
+            registerFieldCalculator(new ConcatNONDuplicatedCalculator(WEBVIEW_APP_NAME_VERSION,         WEBVIEW_APP_NAME,       WEBVIEW_APP_VERSION));
             registerFieldCalculator(new MajorVersionCalculator(WEBVIEW_APP_VERSION_MAJOR,               WEBVIEW_APP_VERSION));
 
             registerFieldCalculator(new ConcatNONDuplicatedCalculator(LAYOUT_ENGINE_NAME_VERSION_MAJOR, LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION_MAJOR));

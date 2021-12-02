@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v6.4-SNAPSHOT
 ===
+- Analyzer
+  - Added WebviewAppNameVersion.
 - New/improved detections
   - More Apple devices
   - VivoBrowser often implies Vivo DeviceBrand

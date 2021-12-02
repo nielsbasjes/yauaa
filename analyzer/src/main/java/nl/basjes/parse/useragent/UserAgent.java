@@ -100,6 +100,7 @@ public interface UserAgent extends Serializable {
     String WEBVIEW_APP_NAME                     = "WebviewAppName";
     String WEBVIEW_APP_VERSION                  = "WebviewAppVersion";
     String WEBVIEW_APP_VERSION_MAJOR            = "WebviewAppVersionMajor";
+    String WEBVIEW_APP_NAME_VERSION             = "WebviewAppNameVersion";
     String WEBVIEW_APP_NAME_VERSION_MAJOR       = "WebviewAppNameVersionMajor";
 
     String FACEBOOK_CARRIER                     = "FacebookCarrier";
@@ -203,6 +204,7 @@ public interface UserAgent extends Serializable {
         WEBVIEW_APP_NAME,
         WEBVIEW_APP_VERSION,
         WEBVIEW_APP_VERSION_MAJOR,
+        WEBVIEW_APP_NAME_VERSION,
         WEBVIEW_APP_NAME_VERSION_MAJOR,
 
         FACEBOOK_CARRIER,
