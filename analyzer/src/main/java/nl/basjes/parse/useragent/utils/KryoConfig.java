@@ -41,6 +41,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNotInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
@@ -166,6 +167,7 @@ public final class KryoConfig {
         kryo.register(TreeExpressionEvaluator.class);
         kryo.register(WalkList.class);
         kryo.register(StepContains.class);
+        kryo.register(StepNotContains.class);
         kryo.register(StepDefaultIfNull.class);
         kryo.register(StepEndsWith.class);
         kryo.register(StepEquals.class);

@@ -188,6 +188,11 @@ config:
   - matcher:
       <<: *MATCH_OPTIONS
       extract:
+        - 'NotContainsO: 1:  agent.(1)product.(1)comments.(1-5)entry.product.(1)name!~"o"^.version'
+
+  - matcher:
+      <<: *MATCH_OPTIONS
+      extract:
         - 'VEquals:     1:  LookUp[Versions;agent.(1)product.comments.entry.product.name="Three"^.version]'
 
   - matcher:
@@ -298,6 +303,7 @@ config:
         StartsThree: "333"
         EndsWo: "222"
         ContainsOU: "444"
+        NotContainsO: "333"
         VEquals: "Version Three"
         VStartsTh: "Version Three"
         VEndsWo: "Version Two"

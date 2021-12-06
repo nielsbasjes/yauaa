@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNotInSet;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepIsNull;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
@@ -82,6 +83,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext2Conte
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext3Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNext4Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNextContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotEqualsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev2Context;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepPrev3Context;
@@ -683,6 +685,14 @@ public class WalkList implements Serializable {
         public Void visitStepContainsValue(StepContainsValueContext ctx) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepContains(ctx.value.getText()));
+            visitNext(ctx.nextStep);
+            return null; // Void
+        }
+
+        @Override
+        public Void visitStepNotContainsValue(StepNotContainsValueContext ctx) {
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepNotContains(ctx.value.getText()));
             visitNext(ctx.nextStep);
             return null; // Void
         }

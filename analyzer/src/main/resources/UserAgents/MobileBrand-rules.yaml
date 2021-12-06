@@ -390,3 +390,18 @@ config:
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrands;@VersionTag]'
     - 'DeviceName                          :      313 :@VersionTag'
     - 'DeviceVersion                       :      313 :@VersionTag^.(3)version'
+
+- matcher:
+    variable:
+    - 'DeviceTag                           :agent.(1)product.(1)comments.(3)entry.product'
+    - 'Brand                               :@DeviceTag.name'
+    - 'DeviceName                          :@DeviceTag.version'
+    require:
+    - '@Brand!~"Build"'
+    - 'agent.(1)product.(1)comments.(1)entry="Linux"'
+    - 'agent.(1)product.(1)comments.(2)entry.product.name="Android"'
+    - 'IsNull[agent.(1)product.(1)comments.(4)entry]'
+    - 'IsNull[LookUp[MobileBrands;@Brand]]' # Only use this if the brand we found is "unknown"
+    extract:
+    - 'DeviceBrand                         :       17 :@DeviceTag.name'
+    - 'DeviceName                          :       17 :@DeviceTag.version'

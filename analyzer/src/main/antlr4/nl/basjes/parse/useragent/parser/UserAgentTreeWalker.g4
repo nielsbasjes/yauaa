@@ -53,6 +53,7 @@ SPACE           : (' '|'\t')+   -> skip;
 NOTEQUALS       : '!='          ;
 EQUALS          : '='           ;
 CONTAINS        : '~'           ;
+NOTCONTAINS     : '!~'          ;
 STARTSWITH      : '{'           ;
 ENDSWITH        : '}'           ;
 
@@ -112,13 +113,14 @@ path            : DOT numberRange name=PATHTOKENNAME  (nextStep=path)?  #stepDow
                 | PREV2                           (nextStep=path)?  #stepPrev2
                 | PREV3                           (nextStep=path)?  #stepPrev3
                 | PREV4                           (nextStep=path)?  #stepPrev4
-                | EQUALS     value=VALUE          (nextStep=path)?  #stepEqualsValue
-                | NOTEQUALS  value=VALUE          (nextStep=path)?  #stepNotEqualsValue
-                | STARTSWITH value=VALUE          (nextStep=path)?  #stepStartsWithValue
-                | ENDSWITH   value=VALUE          (nextStep=path)?  #stepEndsWithValue
-                | CONTAINS   value=VALUE          (nextStep=path)?  #stepContainsValue
-                | IN         set=VALUENAME        (nextStep=path)?  #stepIsInSet          // Works with both set and lookup
-                | NOTIN      set=VALUENAME        (nextStep=path)?  #stepIsNotInSet       // Works with both set and lookup
+                | EQUALS      value=VALUE         (nextStep=path)?  #stepEqualsValue
+                | NOTEQUALS   value=VALUE         (nextStep=path)?  #stepNotEqualsValue
+                | STARTSWITH  value=VALUE         (nextStep=path)?  #stepStartsWithValue
+                | ENDSWITH    value=VALUE         (nextStep=path)?  #stepEndsWithValue
+                | CONTAINS    value=VALUE         (nextStep=path)?  #stepContainsValue
+                | NOTCONTAINS value=VALUE         (nextStep=path)?  #stepNotContainsValue
+                | IN          set=VALUENAME       (nextStep=path)?  #stepIsInSet          // Works with both set and lookup
+                | NOTIN       set=VALUENAME       (nextStep=path)?  #stepIsNotInSet       // Works with both set and lookup
                 | wordRange                       (nextStep=path)?  #stepWordRange
                 | BACKTOFULL                      (nextStep=path)?  #stepBackToFull
                 ;

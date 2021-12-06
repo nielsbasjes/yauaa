@@ -44,6 +44,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherVariabl
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherWordRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepContainsValueContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepNotContainsValueContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.StepWordRangeContext;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
@@ -292,6 +293,12 @@ public abstract class MatcherAction implements Serializable {
         public Void visitStepContainsValue(StepContainsValueContext ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepContainsValue(ctx);
+        }
+
+        @Override
+        public Void visitStepNotContainsValue(StepNotContainsValueContext ctx) {
+            unQuoteToken(ctx.value);
+            return super.visitStepNotContainsValue(ctx);
         }
     }
 
