@@ -244,7 +244,8 @@ fragment WORDLetter
     ;
 
 WORD
-    : MINUS* WORDLetter+ (MINUS+ WORDLetter+ )* MINUS*
+    // Sometime we get '-=Some thing=-' ... because it looks cool ...?
+    : '-='? MINUS* WORDLetter+ (MINUS+ WORDLetter+ )* MINUS* '=-'?
 //    | SPACE MINUS SPACE
     | UNASSIGNEDVARIABLE
     ;
@@ -453,6 +454,7 @@ commentBlock
 commentEntry
     :   ( emptyWord )
     |   (
+            UNASSIGNEDVARIABLE*
             ( commentProduct
             | keyValue
             | uuId
@@ -508,7 +510,10 @@ keyValue
     : key=keyName
       (
         (COLON|EQUALS)+
-        ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName )
+        (
+            (CURLYBRACEOPEN ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName ) CURLYBRACECLOSE ) |
+            ( uuId | siteUrl | emailAddress | multipleWords | base64 | keyValueVersionName )
+        )
       )+
     ;
 
@@ -534,6 +539,7 @@ multipleWords
     : (MINUS* WORD)+ MINUS*
     | WORD* GIBBERISH WORD*
     | MINUS
+    | UNASSIGNEDVARIABLE
     ;
 
 versionWords

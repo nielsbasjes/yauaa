@@ -1767,7 +1767,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
-      __SyntaxError__                      : 'true'
 
 
 - test:
@@ -2321,7 +2320,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android Zoe ROM 7.7 - CM7.2 - SDSL v4; pl-pl; LG-GT540 Build/GWK74; -=Zoe ROM=-) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
     expected:
-      DeviceClass                          : 'Mobile'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'LG GT540'
       DeviceBrand                          : 'LG'
       OperatingSystemClass                 : 'Mobile'
@@ -2332,21 +2331,20 @@ config:
       OperatingSystemNameVersionMajor      : 'Android 7'
       OperatingSystemVersionBuild          : 'GWK74'
       LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.1'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Android Zoe ROM'
-      AgentVersion                         : '7.7'
-      AgentVersionMajor                    : '7'
-      AgentNameVersion                     : 'Android Zoe ROM 7.7'
-      AgentNameVersionMajor                : 'Android Zoe ROM 7'
+      AgentName                            : 'Stock Android Browser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Stock Android Browser 4.0'
+      AgentNameVersionMajor                : 'Stock Android Browser 4'
       AgentLanguage                        : 'Polish (Poland)'
       AgentLanguageCode                    : 'pl-pl'
       AgentSecurity                        : 'Strong security'
-      __SyntaxError__                      : 'true'
 
 # This vendor sends out broken useragents by default: missing ')' just after the "Build/VM".
 - test:
@@ -2727,7 +2725,6 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
-      __SyntaxError__                      : 'true'
 
 
 # Broken in 2 ways:
