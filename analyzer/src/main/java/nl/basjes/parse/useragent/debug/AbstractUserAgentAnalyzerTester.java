@@ -44,7 +44,7 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 
 @DefaultSerializer(AbstractUserAgentAnalyzerTester.KryoSerializer.class)
 public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
-    private static final Logger LOG = LogManager.getLogger(AbstractUserAgentAnalyzerTester.class);
+    private static final Logger LOG = LogManager.getFormatterLogger(AbstractUserAgentAnalyzerTester.class);
 
     /**
      * This is used to configure the provided Kryo instance if Kryo serialization is desired.
@@ -182,7 +182,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
         if (showPassedTests) {
             LOG.info("+===========================================================================================");
-            LOG.info("{}", sb);
+            LOG.info("%s", sb);
             LOG.info("+-------------------------------------------------------------------------------------------");
         }
 
@@ -283,7 +283,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             if (init) {
                 LOG.info(testLogLine);
                 sb.append(agent.toYamlTestCase());
-                LOG.info("{}", sb);
+                LOG.info("%s", sb);
             }
 
             int maxNameLength     = 6; // "Field".length()+1;            NOSONAR: This is not commented code.
@@ -384,7 +384,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             }
 
             if (parseResult.hasAmbiguity()) {
-                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity {} times. ", parseResult.getAmbiguityCount());
+                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity %d times. ", parseResult.getAmbiguityCount());
             }
             if (parseResult.hasSyntaxError()) {
                 logInfo(errorMessageReceiver, "| Parsing problem: Syntax Error");
@@ -418,7 +418,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 sb.append("#    - 'AgentVersion                        :      1 :' \n");
                 sb.append('\n');
                 sb.append('\n');
-                LOG.info("{}", sb);
+                LOG.info("%s", sb);
             }
 
             sb.setLength(0);
@@ -519,8 +519,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             logInfo(errorMessageReceiver, agent.toMatchTrace(failedFieldNames));
 
-            logInfo(errorMessageReceiver, "\n\nconfig:\n{}", parseResult.toYamlTestCase(!init, failComments));
-            logInfo(errorMessageReceiver, "Location of failed test.({}:{})", filename, linenumber);
+            logInfo(errorMessageReceiver, "\n\nconfig:\n%s", parseResult.toYamlTestCase(!init, failComments));
+            logInfo(errorMessageReceiver, "Location of failed test.(%s:%s})", filename, linenumber);
             if (!pass && !showAll) {
                 return false;
             }
@@ -532,13 +532,13 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         if (showPassedTests) {
             LOG.info("+===========================================================================================");
         } else {
-            LOG.info("All {} tests passed", testcount);
+            LOG.info("All %d tests passed", testcount);
         }
 
         long fullStop = System.nanoTime();
 
-        LOG.info("This took {} ms for {} tests : averaging to {} msec/test (This includes test validation and logging!!)",
-            (fullStop - fullStart)/1000000,
+        LOG.info("This took %8.3f ms for %5d tests : averaging to %6.3f msec/test (This includes test validation and logging!!)",
+            (fullStop - fullStart)/1000000.0,
             testcount,
             ((double)(fullStop - fullStart)) / (testcount * 1000000L));
 
@@ -650,7 +650,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
         impactList
 //            .stream().filter(mi -> mi.neededInputs > 2)
-            .forEach(i -> LOG.info("{}", i));
+            .forEach(i -> LOG.info("%s", i));
     }
 
     public abstract static class AbstractUserAgentAnalyzerTesterBuilder<UAA extends AbstractUserAgentAnalyzerTester, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>
