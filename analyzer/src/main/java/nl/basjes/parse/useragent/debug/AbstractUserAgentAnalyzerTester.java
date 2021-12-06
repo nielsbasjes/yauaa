@@ -216,8 +216,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             }
 
             if (testName == null) {
-                if (userAgentString.length() > 300) {
-                    testName = userAgentString.substring(0, 290) + " ... ( " + userAgentString.length() + " chars)";
+                if (userAgentString.length() > 200) {
+                    testName = userAgentString.substring(0, 190) + " ... ( " + userAgentString.length() + " chars)";
                 } else {
                     testName = userAgentString;
                 }
@@ -519,8 +519,8 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
             logInfo(errorMessageReceiver, agent.toMatchTrace(failedFieldNames));
 
-            logInfo(errorMessageReceiver, "\n\nconfig:\n%s", parseResult.toYamlTestCase(!init, failComments));
-            logInfo(errorMessageReceiver, "Location of failed test.(%s:%s})", filename, linenumber);
+            logInfo(errorMessageReceiver, "\n\nconfig:\n{}", parseResult.toYamlTestCase(!init, failComments));
+            logInfo(errorMessageReceiver, "Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
                 return false;
             }
