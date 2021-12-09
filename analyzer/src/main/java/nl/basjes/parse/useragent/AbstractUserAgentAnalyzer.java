@@ -26,13 +26,15 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import org.apache.commons.collections4.map.LRUMap;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Map;
 
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
 public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect implements Serializable {
     public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     protected int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
-    private transient LRUMap<String, ImmutableUserAgent> parseCache = null;
+    private transient Map<String, ImmutableUserAgent> parseCache = null;
 
     protected AbstractUserAgentAnalyzer() {
         super();
@@ -101,9 +103,15 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         initializeCache();
     }
 
+    public void clearCache() {
+        if (parseCache != null) {
+            parseCache.clear();
+        }
+    }
+
     private synchronized void initializeCache() {
         if (cacheSize >= 1) {
-            parseCache = new LRUMap<>(cacheSize);
+            parseCache = Collections.synchronizedMap(new LRUMap<>(cacheSize));
         } else {
             parseCache = null;
         }
@@ -114,7 +122,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     }
 
     @Override
-    public synchronized ImmutableUserAgent parse(MutableUserAgent userAgent) {
+    public ImmutableUserAgent parse(MutableUserAgent userAgent) {
         if (userAgent == null) {
             return null;
         }

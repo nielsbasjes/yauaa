@@ -381,7 +381,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     }
 
     private boolean matchersHaveBeenInitialized = false;
-    public void initializeMatchers() {
+    public synchronized void initializeMatchers() {
         if (matchersHaveBeenInitialized) {
             return;
         }
@@ -572,11 +572,11 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
 
     /**
      * Parses and analyzes the useragent string provided in the MutableUserAgent instance.
-     * NOTE: This method is synchronized because the way the analyzer works is not reentrant.
+     * NOTE: This method is internally synchronized because the way the analyzer works is not reentrant.
      * @param userAgent The MutableUserAgent instance that is to be parsed and that gets all results
      * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
      */
-    public synchronized ImmutableUserAgent parse(MutableUserAgent userAgent) {
+    public ImmutableUserAgent parse(MutableUserAgent userAgent) {
         initializeMatchers();
         String useragentString = userAgent.getUserAgentString();
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
@@ -585,43 +585,45 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             return new ImmutableUserAgent(hardCodedPostProcessing(userAgent));
         }
 
-        // Reset all Matchers
-        reset();
+        synchronized (this) {
+            // Reset all Matchers
+            reset();
 
-        if (userAgent.isDebug()) {
-            for (Matcher matcher : allMatchers) {
-                matcher.setVerboseTemporarily(true);
-            }
-        }
-
-        try {
-            userAgent = flattener.parse(userAgent);
-
-            inform(SYNTAX_ERROR, userAgent.getValue(SYNTAX_ERROR), null);
-
-            if (verbose) {
-                LOG.info("=========== Checking all Touched Matchers: {}", touchedMatchers.size());
-            }
-            // Fire all Analyzers with any input
-            for (Matcher matcher : touchedMatchers) {
-                matcher.analyze(userAgent);
+            if (userAgent.isDebug()) {
+                for (Matcher matcher : allMatchers) {
+                    matcher.setVerboseTemporarily(true);
+                }
             }
 
-            if (verbose) {
-                LOG.info("=========== Checking all Zero Input Matchers: {}", zeroInputMatchers.size());
-            }
-            // Fire all Analyzers that should not get input
-            for (Matcher matcher : zeroInputMatchers) {
-                matcher.analyze(userAgent);
-            }
+            try {
+                userAgent = flattener.parse(userAgent);
 
-            userAgent.processSetAll();
-        } catch (RuntimeException rte) {
-            // If this occurs then someone has found a previously undetected problem.
-            // So this is a safety for something that 'can' but 'should not' occur.
-            userAgent.reset();
-            setAsHacker(userAgent, 10000);
-            userAgent.setForced(HACKER_ATTACK_VECTOR, "Yauaa Exploit", 10000);
+                inform(SYNTAX_ERROR, userAgent.getValue(SYNTAX_ERROR), null);
+
+                if (verbose) {
+                    LOG.info("=========== Checking all Touched Matchers: {}", touchedMatchers.size());
+                }
+                // Fire all Analyzers with any input
+                for (Matcher matcher : touchedMatchers) {
+                    matcher.analyze(userAgent);
+                }
+
+                if (verbose) {
+                    LOG.info("=========== Checking all Zero Input Matchers: {}", zeroInputMatchers.size());
+                }
+                // Fire all Analyzers that should not get input
+                for (Matcher matcher : zeroInputMatchers) {
+                    matcher.analyze(userAgent);
+                }
+
+                userAgent.processSetAll();
+            } catch (RuntimeException rte) {
+                // If this occurs then someone has found a previously undetected problem.
+                // So this is a safety for something that 'can' but 'should not' occur.
+                userAgent.reset();
+                setAsHacker(userAgent, 10000);
+                userAgent.setForced(HACKER_ATTACK_VECTOR, "Yauaa Exploit", 10000);
+            }
         }
         return new ImmutableUserAgent(hardCodedPostProcessing(userAgent));
     }

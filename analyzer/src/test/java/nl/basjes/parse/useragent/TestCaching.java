@@ -17,9 +17,10 @@
 
 package nl.basjes.parse.useragent;
 
-import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -27,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class TestCaching {
 
     @Test
-    void testSettingCaching() throws IllegalAccessException {
+    void testSettingCaching() {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withCache(42)
@@ -36,15 +37,12 @@ class TestCaching {
             .build();
 
         assertEquals(42, uaa.getCacheSize());
-        assertEquals(42, getAllocatedCacheSize(uaa));
 
         uaa.disableCaching();
         assertEquals(0, uaa.getCacheSize());
-        assertEquals(0, getAllocatedCacheSize(uaa));
 
         uaa.setCacheSize(42);
         assertEquals(42, uaa.getCacheSize());
-        assertEquals(42, getAllocatedCacheSize(uaa));
     }
 
     @Test
@@ -57,15 +55,12 @@ class TestCaching {
             .build();
 
         assertEquals(0, uaa.getCacheSize());
-        assertEquals(0, getAllocatedCacheSize(uaa));
 
         uaa.setCacheSize(42);
         assertEquals(42, uaa.getCacheSize());
-        assertEquals(42, getAllocatedCacheSize(uaa));
 
         uaa.disableCaching();
         assertEquals(0, uaa.getCacheSize());
-        assertEquals(0, getAllocatedCacheSize(uaa));
     }
 
 
@@ -84,7 +79,6 @@ class TestCaching {
         UserAgent agent;
 
         assertEquals(1, uaa.getCacheSize());
-        assertEquals(1, getAllocatedCacheSize(uaa));
 
         agent = uaa.parse(uuid);
         assertEquals(uuid, agent.get(fieldName).getValue());
@@ -96,28 +90,19 @@ class TestCaching {
 
         uaa.disableCaching();
         assertEquals(0, uaa.getCacheSize());
-        assertEquals(0, getAllocatedCacheSize(uaa));
 
         agent = uaa.parse(uuid);
         assertEquals(uuid, agent.get(fieldName).getValue());
         assertNull(getCache(uaa));
     }
 
-    private LRUMap<?, ?> getCache(UserAgentAnalyzer uaa) throws IllegalAccessException {
-        LRUMap<?, ?> actualCache = null;
+    private Map<?, ?> getCache(UserAgentAnalyzer uaa) throws IllegalAccessException {
+        Map<?, ?> actualCache = null;
         Object rawParseCache = FieldUtils.readField(uaa, "parseCache", true);
-        if (rawParseCache instanceof LRUMap<?, ?>) {
-            actualCache = (LRUMap<?, ?>) rawParseCache;
+        if (rawParseCache instanceof Map<?, ?>) {
+            actualCache = (Map<?, ?>) rawParseCache;
         }
         return actualCache;
-    }
-
-    private int getAllocatedCacheSize(UserAgentAnalyzer uaa) throws IllegalAccessException {
-        LRUMap<?, ?> cache = getCache(uaa);
-        if (cache == null) {
-            return 0;
-        }
-        return cache.maxSize();
     }
 
     @Test

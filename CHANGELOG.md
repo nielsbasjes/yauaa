@@ -7,6 +7,7 @@ v6.4-SNAPSHOT
   - Added WebviewAppNameVersion.
   - Added a 'not contains' operator '!~'
   - Parser can handle a few more tricky cases
+  - Change synchronization to improve concurrent performance.
 - New/improved detections
   - More Apple devices
   - VivoBrowser often implies Vivo DeviceBrand
