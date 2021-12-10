@@ -63,6 +63,21 @@ echo "    chart.draw(data, options);"
 echo "}"
 echo "google.charts.load('current', {'packages':['corechart']});"
 echo "google.charts.setOnLoadCallback(drawChart);"
+
+# https://stackoverflow.com/a/20384135/114196
+echo "//create trigger to resizeEnd event"
+echo "\$(window).resize(function() {"
+echo "    if(this.resizeTO) clearTimeout(this.resizeTO);"
+echo "    this.resizeTO = setTimeout(function() {"
+echo "        \$(this).trigger('resizeEnd');"
+echo "    }, 500);"
+echo "});"
+
+echo "//redraw graph when window resize is completed"
+echo "\$(window).on('resizeEnd', function() {"
+echo "    drawChart();"
+echo "});"
+
 echo "</script>"
 
 
