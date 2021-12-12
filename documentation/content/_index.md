@@ -12,6 +12,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 6.4
+- Updated log4j
+- Better performance in multithreaded scenarios
+
 ### Version 6.3
 - Report frozen (=manipulated) Mac OS X versions as `??`:
   - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.

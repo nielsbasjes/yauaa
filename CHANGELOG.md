@@ -1,8 +1,12 @@
 
 This is intended as an overview of the major changes
-
-v6.4-SNAPSHOT
+v6.5-SNAPSHOT
 ===
+
+v6.4
+===
+- Security
+  - Updated log4j dependency
 - Analyzer
   - Added WebviewAppNameVersion.
   - Added a 'not contains' operator '!~'
