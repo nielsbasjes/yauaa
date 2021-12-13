@@ -101,9 +101,8 @@ class TestMemoryFootprint {
             memoryAfterClean, bytesToMegabytes(memoryAfterClean)));
 
         // ----------------------------------------------
-        // Assert the overall delta is below 10 MB
-
-        assertTrue((memoryAfterClean - memoryInitial) < 10_000_000, "To much memory remained after cleanup");
+        // Assert the overall delta is below 20 MB
+        assertTrue((memoryAfterClean - memoryInitial) < 20_000_000, "To much memory remained after cleanup");
     }
 
     @Disabled
