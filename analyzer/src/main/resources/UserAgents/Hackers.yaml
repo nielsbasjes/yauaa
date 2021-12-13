@@ -26,6 +26,7 @@ config:
 #      "${"                    : "Code Injection" # This one has exceptions --> Has separate rule
 
       # Apache Log4j RCE CVE-2021-44228
+      "/Basic/Command/"       : "Code Injection" # ${jndi:ldap://195.54.160.149:12344/Basic/Command/Ba
       "${jndi:"               : "Code Injection" # ${jndi:ldap://195.54.160.149:12344/Basic/Command/Ba
       "${${::"                : "Code Injection" # ${${::-j}${::-n}${::-d}${::-i}
 
