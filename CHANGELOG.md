@@ -2,6 +2,8 @@
 This is intended as an overview of the major changes
 v6.5-SNAPSHOT
 ===
+- New/improved detections
+  - Classify Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
 
 v6.4
 ===
