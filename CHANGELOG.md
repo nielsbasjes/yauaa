@@ -5,6 +5,9 @@ v6.5-SNAPSHOT
 - New/improved detections
   - Classify Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
   - Handle the SalesforceMobileSDK apps better.
+- Updated UDF dependencies
+  - Apache Flink            1.14.1
+  - Apache Nifi             1.15.1
 
 v6.4
 ===
