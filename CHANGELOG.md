@@ -1,7 +1,13 @@
 
 This is intended as an overview of the major changes
-v6.5-SNAPSHOT
+v6.6-SNAPSHOT
 ===
+- ...
+
+v6.5
+===
+- Security
+  - Updated log4j dependency to 2.16.0
 - New/improved detections
   - Classify Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
   - Handle the SalesforceMobileSDK apps better.
@@ -12,7 +18,7 @@ v6.5-SNAPSHOT
 v6.4
 ===
 - Security
-  - Updated log4j dependency
+  - Updated log4j dependency to 2.15.0
 - Analyzer
   - Added WebviewAppNameVersion.
   - Added a 'not contains' operator '!~'

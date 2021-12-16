@@ -12,6 +12,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 6.5
+- Updated log4j to 2.16.0
+- Able to classify JNDI attacks as code injection.
+
 ### Version 6.4
 - Updated log4j
 - Better performance in multithreaded scenarios
@@ -20,20 +24,6 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 - Report frozen (=manipulated) Mac OS X versions as `??`:
   - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
   - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
-
-### Version 6.2
-- The type of CPU is no longer (incorrectly) used as the version (Linux i386 --> Linux ??).
-- The toMap incorrectly filtered out "default" values you asked for (which caused trouble in UDFs).
-- A new (experimental) [UDF]({{< relref "Snowflake" >}}) for [Snowflake](https://snowflake.com).
-
-### Version 6.1
-- Support for the new `reduced` User-Agent as it is being implemented in Google Chrome/Chromium.
-- Improved User Defined Function for Apache Beam SQL.
-- Detect the first car based browsers. DeviceClass = Car
-
-### Version 6.0
-- Fully replaced SLF4J with Log4J2; since this is a breaking change the next version will be 6.0
-- Dropping the native commandline version. Using the webservlet locally with curl is a lot faster.
 
 ---
 ## Donations
