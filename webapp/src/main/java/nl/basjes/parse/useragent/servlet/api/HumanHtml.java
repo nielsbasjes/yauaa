@@ -238,6 +238,9 @@ public class HumanHtml {
         sb.append("<hr/>");
         sb.append("<p class=\"logobar documentation\">Read the online documentation at <a href=\"https://yauaa.basjes.nl\">" +
             "https://yauaa.basjes.nl</a></p>");
+        sb.append("<p class=\"logobar forum\">I you have a question or an idea we can have a discussion <a href=\"https://github.com/nielsbasjes/yauaa/discussions\">" +
+            "here</a></p>");
+
         sb.append("<p class=\"logobar bug\">");
         addBugReportButton(sb, userAgents.get(0));
         sb.append("</p>");
