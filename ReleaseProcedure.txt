@@ -1,7 +1,11 @@
 The maven release plugin turned out to be too hard to handle.
 So we do it manually.
 
+# Ensure we have all upstream updates (like patches from Renovate)
+git pull
+
 # Ensure all has been committed
+
 
 # Ensure it all works
 mvn clean verify -PpackageForRelease
