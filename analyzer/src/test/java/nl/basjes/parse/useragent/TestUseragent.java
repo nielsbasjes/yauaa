@@ -338,13 +338,13 @@ class TestUseragent {
 
         assertEquals(
             // You get the fields in the order you ask them!
-            "  - user_agent_string: 'Some''Agent'\n" +
-            "    Niels        : 'Basjes'\n" +
-            "    DeviceClass  : 'Unknown'\n",
+            "  - user_agent_string  : 'Some''Agent'\n" +
+            "    Niels              : 'Basjes'\n" +
+            "    DeviceClass        : 'Unknown'\n",
             userAgent1.toString("Niels", "DeviceClass"));
 
         assertEquals(
-            "  - user_agent_string: 'Some''Agent'\n" +
+            "  - user_agent_string                : 'Some''Agent'\n" +
             "    DeviceClass                      : 'Unknown'\n" +
             "    DeviceName                       : 'Unknown'\n" +
             "    DeviceBrand                      : 'Unknown'\n" +

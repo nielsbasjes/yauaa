@@ -414,12 +414,13 @@ public interface UserAgent extends Serializable {
     }
 
     default String toString(List<String> fieldNames) {
-        int           maxLength = 0;
+        String uaFieldName = "user_agent_string";
+        int    maxLength   = uaFieldName.length();
         for (String fieldName : fieldNames) {
             maxLength = Math.max(maxLength, fieldName.length());
         }
-        StringBuilder sb        = new StringBuilder("  - user_agent_string");
-        for (int l = "user_agent_string".length(); l < maxLength + 2; l++) {
+        StringBuilder sb        = new StringBuilder("  - ").append(uaFieldName);
+        for (int l = uaFieldName.length(); l < maxLength + 2; l++) {
             sb.append(' ');
         }
         sb.append(": '").append(escapeYaml(getUserAgentString())).append("'\n");
