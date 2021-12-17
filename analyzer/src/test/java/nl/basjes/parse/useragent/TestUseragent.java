@@ -385,7 +385,7 @@ class TestUseragent {
         MutableUserAgent userAgent = new MutableUserAgent("Some Agent", wanted);
 
         assertEquals(
-            "  - user_agent_string: 'Some Agent'\n", // +
+            "  - user_agent_string  : 'Some Agent'\n", // +
 //            "    DeviceClass   : 'Unknown'\n" +
 //            "    AgentVersion  : '??'\n",
             userAgent.toString());
