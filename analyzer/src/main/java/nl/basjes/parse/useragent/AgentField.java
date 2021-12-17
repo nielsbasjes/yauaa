@@ -32,8 +32,8 @@ public interface AgentField extends Serializable {
 
     /**
      * @return How certain are we about this value?
-     * <0 : We are uncertain.
-     * 0>= : The higher the more confident.
+     * &lt;0 : We are uncertain.
+     * 0&gt;= : The higher the more confident.
      */
     long getConfidence();
 
