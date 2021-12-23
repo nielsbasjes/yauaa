@@ -10,7 +10,37 @@ Works with Java, Scala, Kotlin and provides ready for use UDFs for several proce
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
 ---
+## Regarding the recent Log4J2 issues
+The Yauaa analyzer uses the Log4J2 API to do the logging and through the included dependencies also JCL and SLF4J are needed to run.
+
+TL;DR:
+- **The core of Yauaa is safe** as it does not include any logging dependencies and expects the application to provide everything.
+- **In normal operations user input is not logged**.
+- The **Snowflake UDF is affected** by these problems (due to shading the dependencies in).
+
+### NO batteries included
+By design the Yauaa library expects the application in which it is used to provide the actual logging dependencies and configuration.
+If you do not provide the needed logging classes it will simply fail at startup.
+
+So by design the Yauaa library expects all of these frameworks to be provided (and configured) and does not include any of them or any configuration for them.
+
+This is true for most of the released artifacts (including the base library) except for the Snowflake UDF which does include almost all dependencies.
+So the Snowflake UDF IS affected by this issue and all users are recommended to update.
+
+### Minimal logging
+Note that Yauaa does not log any user input and/or analysis results from user input during normal operation.
+Only during development and during unit tests the Useragents are logged.
+
+This is because it was designed to run in very large scale batch and streaming situations (very large as in "Let's analyze these 10^10 records").
+
+### Bring your own batteries
+To assist in running Yauaa without the logj4-core jar an example was created that only uses SLF4J: [here](https://github.com/nielsbasjes/yauaa/tree/master/examples/java-slf4j).
+
+---
 ## HIGH Profile release notes:
+
+### Version 6.6
+- Updated log4j to 2.17.0
 
 ### Version 6.5
 - Updated log4j to 2.16.0
