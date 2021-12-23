@@ -6,6 +6,8 @@ v6.6-SNAPSHOT
   - Updated log4j dependency to 2.17.0
 - Updated UDF dependencies
   - Apache Nifi             1.15.2
+- Examples
+  - Added a Java example using SLF4J (so no Log4j2).
 
 v6.5
 ===
