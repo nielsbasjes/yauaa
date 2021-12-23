@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Yauaa: Yet Another UserAgent Analyzer | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1640264562 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1640264562 rel=stylesheet>
-<link href=/css/hybrid.css?1640264562 rel=stylesheet>
-<link href=/css/featherlight.min.css?1640264562 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1640264562 rel=stylesheet>
-<link href=/css/auto-complete.css?1640264562 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1640264562 rel=stylesheet>
-<link href=/css/theme.css?1640264562 rel=stylesheet>
-<link href=/css/tabs.css?1640264562 rel=stylesheet>
-<link href=/css/hugo-theme.css?1640264562 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1640264562 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1640264562></script>
+<link href=/css/nucleus.css?1640271113 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1640271113 rel=stylesheet>
+<link href=/css/hybrid.css?1640271113 rel=stylesheet>
+<link href=/css/featherlight.min.css?1640271113 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1640271113 rel=stylesheet>
+<link href=/css/auto-complete.css?1640271113 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1640271113 rel=stylesheet>
+<link href=/css/theme.css?1640271113 rel=stylesheet>
+<link href=/css/tabs.css?1640271113 rel=stylesheet>
+<link href=/css/hugo-theme.css?1640271113 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1640271113 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1640271113></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
 <script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
 </head>
@@ -42,10 +42,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1640264562></script>
-<script type=text/javascript src=/js/auto-complete.js?1640264562></script>
+<script type=text/javascript src=/js/lunr.min.js?1640271113></script>
+<script type=text/javascript src=/js/auto-complete.js?1640271113></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1640264562></script>
+<script type=text/javascript src=/js/search.js?1640271113></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -281,7 +281,32 @@ Related projects
 <p>Works with Java, Scala, Kotlin and provides ready for use UDFs for several processing systems.</p>
 <p>The full documentation can be found here <a href=https://yauaa.basjes.nl>https://yauaa.basjes.nl</a></p>
 <hr>
+<h2 id=regarding-the-recent-log4j2-issues>Regarding the recent Log4J2 issues</h2>
+<p>The Yauaa analyzer uses the Log4J2 API to do the logging and through the included dependencies also JCL and SLF4J are needed to run.</p>
+<p>TL;DR:</p>
+<ul>
+<li><strong>The core of Yauaa is safe</strong> as it does not include any logging dependencies and expects the application to provide everything.</li>
+<li><strong>In normal operations user input is not logged</strong>.</li>
+<li>The <strong>Snowflake UDF is affected</strong> by these problems (due to shading the dependencies in).</li>
+</ul>
+<h3 id=no-batteries-included>NO batteries included</h3>
+<p>By design the Yauaa library expects the application in which it is used to provide the actual logging dependencies and configuration.
+If you do not provide the needed logging classes it will simply fail at startup.</p>
+<p>So by design the Yauaa library expects all of these frameworks to be provided (and configured) and does not include any of them or any configuration for them.</p>
+<p>This is true for most of the released artifacts (including the base library) except for the Snowflake UDF which does include almost all dependencies.
+So the Snowflake UDF IS affected by this issue and all users are recommended to update.</p>
+<h3 id=minimal-logging>Minimal logging</h3>
+<p>Note that Yauaa does not log any user input and/or analysis results from user input during normal operation.
+Only during development and during unit tests the Useragents are logged.</p>
+<p>This is because it was designed to run in very large scale batch and streaming situations (very large as in &ldquo;Let&rsquo;s analyze these 10^10 records&rdquo;).</p>
+<h3 id=bring-your-own-batteries>Bring your own batteries</h3>
+<p>To assist in running Yauaa without the logj4-core jar an example was created that only uses SLF4J: <a href=https://github.com/nielsbasjes/yauaa/tree/master/examples/java-slf4j>here</a>.</p>
+<hr>
 <h2 id=high-profile-release-notes>HIGH Profile release notes:</h2>
+<h3 id=version-66>Version 6.6</h3>
+<ul>
+<li>Updated log4j to 2.17.0</li>
+</ul>
 <h3 id=version-65>Version 6.5</h3>
 <ul>
 <li>Updated log4j to 2.16.0</li>
@@ -330,15 +355,15 @@ limitations under the License.
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1640264562></script>
-<script src=/js/perfect-scrollbar.min.js?1640264562></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1640264562></script>
-<script src=/js/jquery.sticky.js?1640264562></script>
-<script src=/js/featherlight.min.js?1640264562></script>
-<script src=/js/highlight.pack.js?1640264562></script>
+<script src=/js/clipboard.min.js?1640271113></script>
+<script src=/js/perfect-scrollbar.min.js?1640271113></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1640271113></script>
+<script src=/js/jquery.sticky.js?1640271113></script>
+<script src=/js/featherlight.min.js?1640271113></script>
+<script src=/js/highlight.pack.js?1640271113></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1640264562></script>
-<script src=/js/learn.js?1640264562></script>
-<script src=/js/hugo-learn.js?1640264562></script>
+<script src=/js/modernizr.custom-3.6.0.js?1640271113></script>
+<script src=/js/learn.js?1640271113></script>
+<script src=/js/hugo-learn.js?1640271113></script>
 </body>
 </html>
