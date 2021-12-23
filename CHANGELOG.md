@@ -2,7 +2,10 @@
 This is intended as an overview of the major changes
 v6.6-SNAPSHOT
 ===
-- ...
+- Security
+  - Updated log4j dependency to 2.17.0
+- Updated UDF dependencies
+  - Apache Nifi             1.15.2
 
 v6.5
 ===
