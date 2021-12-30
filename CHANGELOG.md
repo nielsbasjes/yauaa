@@ -6,6 +6,8 @@ v6.7-SNAPSHOT
   - Updated log4j dependency to 2.17.1
 - Analyzer
   - Allow specifying a custom caching implementation.
+- Updated UDF dependencies
+    - Apache Beam             2.35.0
 
 v6.6
 ===
