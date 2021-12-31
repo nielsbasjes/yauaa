@@ -2,7 +2,8 @@
 This is intended as an overview of the major changes
 v6.7-SNAPSHOT
 ===
-- ...
+- Security
+  - Updated log4j dependency to 2.17.1
 
 v6.6
 ===
