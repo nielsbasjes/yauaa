@@ -8,6 +8,7 @@ v6.7-SNAPSHOT
   - Allow specifying a custom caching implementation.
 - Updated UDF dependencies
     - Apache Beam             2.35.0
+    - Elastic Search/Logstash 7.16.0
 
 v6.6
 ===
