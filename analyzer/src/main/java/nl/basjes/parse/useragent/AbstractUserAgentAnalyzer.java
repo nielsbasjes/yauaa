@@ -34,7 +34,8 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     protected int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
-    private transient Map<String, ImmutableUserAgent> parseCache = null;
+    private transient Map<String, ImmutableUserAgent> parseCache;
+    private CacheInstantiator cacheInstantiator = new DefaultCacheInstantiator();
 
     protected AbstractUserAgentAnalyzer() {
         super();
@@ -65,6 +66,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     public static void configureKryo(Object kryoInstance) {
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(AbstractUserAgentAnalyzer.class);
+        kryo.register(DefaultCacheInstantiator.class);
         AbstractUserAgentAnalyzerDirect.configureKryo(kryo);
     }
 
@@ -109,11 +111,35 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         }
     }
 
+    public void setCacheInstantiator(CacheInstantiator newCacheInstantiator) {
+        cacheInstantiator = newCacheInstantiator;
+    }
+
     private synchronized void initializeCache() {
         if (cacheSize >= 1) {
-            parseCache = Collections.synchronizedMap(new LRUMap<>(cacheSize));
+            parseCache = cacheInstantiator.instantiateCache(cacheSize);
         } else {
             parseCache = null;
+        }
+    }
+
+    public interface CacheInstantiator extends Serializable {
+        /**
+         * A single method that must create a new instance of the cache.
+         * The returned instance MUST implement at least the {@link Map#get} and {@link Map#put}
+         * methods in a threadsafe way if you intend to use this in a multithreaded scenario.
+         * Yauaa only uses the put and get methods and in exceptional cases the clear method.
+         * An implementation that does some kind of automatic cleaning of obsolete values is recommended (like LRU).
+         * @param cacheSize is the size of the new cache (which will be >= 1)
+         * @return Instance of the new cache.
+         */
+        Map<String, ImmutableUserAgent> instantiateCache(int cacheSize);
+    }
+
+    private static class DefaultCacheInstantiator implements CacheInstantiator {
+        @Override
+        public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+            return Collections.synchronizedMap(new LRUMap<>(cacheSize));
         }
     }
 
@@ -148,7 +174,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
             extends AbstractUserAgentAnalyzerDirectBuilder<UAA, B> {
         private final UAA uaa;
 
-        public AbstractUserAgentAnalyzerBuilder(UAA newUaa) {
+        protected AbstractUserAgentAnalyzerBuilder(UAA newUaa) {
             super(newUaa);
             this.uaa = newUaa;
         }
@@ -171,6 +197,18 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         public B withoutCache() {
             failIfAlreadyBuilt();
             uaa.setCacheSize(0);
+            return (B)this;
+        }
+
+        /**
+         * Specify a custom class to create the cache.
+         * Use this if the default Synchronized LRUMap is unsuitable for your needs.
+         * @param cacheInstantiator The class that will create a new cache instance when requested.
+         * @return the current Builder instance.
+         */
+        public B withCacheInstantiator(CacheInstantiator cacheInstantiator) {
+            failIfAlreadyBuilt();
+            uaa.setCacheInstantiator(cacheInstantiator);
             return (B)this;
         }
 

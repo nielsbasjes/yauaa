@@ -40,6 +40,31 @@ If you need multiple instances of the UserAgentAnalyzer then you MUST create a n
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' or "Unknown" if you extract a specific name.
 
+##Custom caching implementation
+Since version 6.7 you can specify a custom implementation for the cache by providing an instance of the factory interface `CacheInstantiator`.
+
+Do note that Yauaa assumes the caching implementation to be threadsafe.
+If you use a non-threadsafe implementation in a multithreaded context it will break.
+
+The default implementation uses a synchronized LRU map.
+
+    return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+
+A custom implementation can be specified via the `Builder` using the `withCacheInstantiator(...)` method:
+
+    UserAgentAnalyzer uaa = UserAgentAnalyzer
+        .newBuilder()
+        .withCacheInstantiator(
+            new CacheInstantiator() {
+                @Override
+                public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+                    return new MyMuchBetterCacheImplementation(cacheSize);
+                }
+            }
+        )
+        .withCache(10000)
+        .build();
+
 ## Logging dependencies
 The Yauaa engine uses Log4j2 as the primary logging framework; yet some of the transitive dependencies
 of this project use different logging frameworks.

@@ -4,6 +4,8 @@ v6.7-SNAPSHOT
 ===
 - Security
   - Updated log4j dependency to 2.17.1
+- Analyzer
+  - Allow specifying a custom caching implementation.
 
 v6.6
 ===

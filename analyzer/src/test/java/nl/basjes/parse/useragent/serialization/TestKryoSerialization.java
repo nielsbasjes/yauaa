@@ -30,6 +30,9 @@ class TestKryoSerialization extends AbstractSerializationTest {
         Kryo             kryo             = new Kryo();
         UserAgentAnalyzerTester.configureKryo(kryo);
 
+        // Now we KNOW in our code we have a custom CacheInstantiator that needs to be registered too for Kryo.
+        kryo.register(TestingCacheInstantiator.class);
+
         // For debugging
         kryo.setRegistrationRequired(true);
         kryo.setWarnUnregisteredClasses(true);
@@ -48,6 +51,9 @@ class TestKryoSerialization extends AbstractSerializationTest {
     UserAgentAnalyzerTester deserialize(byte[] bytes) {
         Kryo            kryo            = new Kryo();
         UserAgentAnalyzerTester.configureKryo(kryo);
+
+        // Now we KNOW in our code we have a custom CacheInstantiator that needs to be registered too for Kryo.
+        kryo.register(TestingCacheInstantiator.class);
 
         ByteBufferInput byteBufferInput = new ByteBufferInput(bytes);
         return (UserAgentAnalyzerTester) kryo.readClassAndObject(byteBufferInput);

@@ -17,13 +17,17 @@
 
 package nl.basjes.parse.useragent.serialization;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -66,6 +70,27 @@ abstract class AbstractSerializationTest {
         serializeAndDeserializeUAA(false, false, true);
     }
 
+    public static class TestingCacheInstantiator implements CacheInstantiator {
+        @Override
+        public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+            return new LRUMap<String, ImmutableUserAgent>(cacheSize) {
+                @Override
+                public synchronized ImmutableUserAgent get(Object key) {
+                    return super.get(key);
+                }
+
+                @Override
+                public synchronized ImmutableUserAgent put(String key, ImmutableUserAgent value) {
+                    return super.put(key, value);
+                }
+
+                @Override
+                public synchronized void clear() {
+                    super.clear();
+                }
+            };
+        }
+    }
 
     private void serializeAndDeserializeUAA(boolean immediate, boolean runTestsBefore, boolean useTestRules) throws IOException, ClassNotFoundException {
         LOG.info("==============================================================");
@@ -75,6 +100,7 @@ abstract class AbstractSerializationTest {
         UserAgentAnalyzerTesterBuilder uaab = UserAgentAnalyzerTester
             .newBuilder()
             .keepTests()
+            .withCacheInstantiator(new TestingCacheInstantiator())
             .withCache(1234)
             .hideMatcherLoadStats();
 

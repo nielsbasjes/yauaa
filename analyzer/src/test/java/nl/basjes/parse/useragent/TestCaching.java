@@ -17,15 +17,23 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class TestCaching {
+
+    private static final Logger LOG = LogManager.getLogger(TestCaching.class);
 
     @Test
     void testSettingCaching() {
@@ -46,7 +54,7 @@ class TestCaching {
     }
 
     @Test
-    void testSettingNoCaching() throws IllegalAccessException {
+    void testSettingNoCaching() {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
@@ -62,7 +70,6 @@ class TestCaching {
         uaa.disableCaching();
         assertEquals(0, uaa.getCacheSize());
     }
-
 
     @Test
     void testCache() throws IllegalAccessException {
@@ -121,8 +128,92 @@ class TestCaching {
         UserAgent agent2 = uaa.parse(userAgent);
 
         // Both should be the same
-        assertEquals(agent1.toYamlTestCase(), agent2.toYamlTestCase());
+        assertEquals(agent1, agent2);
     }
 
+    @Test
+    void testCustomCacheImplementationInline() {
+        String userAgent = "Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCacheInstantiator(
+                new CacheInstantiator() {
+                    @Override
+                    public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+                        // The Map MUST be synchronized
+                        return Collections.synchronizedMap(
+                            // NOTE: A simple HashMap is BAD as it is not cleaned and will grow infinitely towards an OOM.
+                            // This is ONLY for this test.
+                            new LRUMap<String, ImmutableUserAgent>(cacheSize) {
+                                @Override
+                                public ImmutableUserAgent get(Object key) {
+                                    LOG.info("Did a GET on {}", key);
+                                    return super.get(key);
+                                }
+
+                                @Override
+                                public ImmutableUserAgent put(String key, ImmutableUserAgent value) {
+                                    LOG.info("Did a PUT on {}", key);
+                                    return super.put(key, value);
+                                }
+                            }
+                        );
+                    }
+                }
+            )
+            .withCache(10)
+            .hideMatcherLoadStats()
+            .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(userAgent);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(userAgent);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
+
+    private static class TestingCacheInstantiator implements CacheInstantiator {
+        @Override
+        public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+            return Collections.synchronizedMap(
+                new LRUMap<String, ImmutableUserAgent>(cacheSize) {
+                    @Override
+                    public ImmutableUserAgent get(Object key) {
+                        LOG.info("Did a GET on {}", key);
+                        return super.get(key);
+                    }
+
+                    @Override
+                    public ImmutableUserAgent put(String key, ImmutableUserAgent value) {
+                        LOG.info("Did a PUT on {}", key);
+                        return super.put(key, value);
+                    }
+                }
+            );
+        }
+    }
+
+    @Test
+    void testCustomCacheImplementationClass() {
+        String userAgent = "Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCacheInstantiator(new TestingCacheInstantiator())
+            .withCache(10)
+            .hideMatcherLoadStats()
+            .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(userAgent);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(userAgent);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
 
 }
