@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * This test is intended to see if there is a performance difference for cached hits
  * if there are a lot of uncached hits also.
  */
+@Disabled
 class TestConcurrentPerformance {
     private static final Logger LOG = LogManager.getLogger(TestConcurrentPerformance.class);
 
@@ -80,7 +82,6 @@ class TestConcurrentPerformance {
         }
     }
 
-    @Disabled
     @Test
     void testCachedMultiThreadedPerformance() throws InterruptedException { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzer uaa =
@@ -102,8 +103,18 @@ class TestConcurrentPerformance {
             LOG.info("Iteration {} : Start", i);
 
             FireAllTestCases  fireTests      = new FireAllTestCases(uaa, testCases);
-            RunCachedTestCase cachedTestCase = new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000);
-
+            List<RunCachedTestCase> cachedTestCases = Arrays.asList(
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000),
+                    new RunCachedTestCase(uaa, cachedUserAgent, 10_000_000)
+                );
             // Wipe the cache for the new run.
             uaa.clearCache();
 
@@ -112,20 +123,24 @@ class TestConcurrentPerformance {
 
             // Start both
             fireTests.start();
-            cachedTestCase.start();
+            cachedTestCases.forEach(Thread::start);
 
             // Wait for both to finish
             fireTests.join();
-            cachedTestCase.join();
-
-            long iterations = cachedTestCase.getIterations();
-            long nanosUsed = cachedTestCase.getNanosUsed();
-            LOG.info("Iteration {} : Took {}ns ({}ms) = {}ns each", i, nanosUsed, (nanosUsed) / 1_000_000L, nanosUsed/iterations);
-
-            if (i > 3) {
-                totalIterations += iterations;
-                totalNanosUsed += nanosUsed;
+            for (RunCachedTestCase ctc : cachedTestCases) {
+                ctc.join();
             }
+
+            for (RunCachedTestCase cachedTestCase : cachedTestCases) {
+                long iterations = cachedTestCase.getIterations();
+                long nanosUsed = cachedTestCase.getNanosUsed();
+                LOG.info("Iteration {} : Took {}ns ({}ms) = {}ns each", i, nanosUsed, (nanosUsed) / 1_000_000L, nanosUsed/iterations);
+            }
+
+//            if (i > 3) {
+//                totalIterations += iterations;
+//                totalNanosUsed += nanosUsed;
+//            }
         }
 
         LOG.info("Average    : {}ns ({}ms) = {}ns each", totalNanosUsed, (totalNanosUsed) / 1_000_000L, totalNanosUsed/totalIterations);
