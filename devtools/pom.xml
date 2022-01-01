@@ -36,6 +36,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
         <configuration>
           <skip>true</skip>
         </configuration>
@@ -43,7 +44,9 @@
 
       <!-- This module deliberately has no tests. -->
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <failIfNoTests>false</failIfNoTests>
         </configuration>
