@@ -1,6 +1,11 @@
 
 This is intended as an overview of the major changes
-v6.7-SNAPSHOT
+
+v6.8-SNAPSHOT
+===
+- ...
+
+v6.7
 ===
 - Security
   - Updated log4j dependency to 2.17.1
@@ -10,7 +15,7 @@ v6.7-SNAPSHOT
   - Apache Beam             2.35.0
   - Elastic Search/Logstash 7.16.0
 - Build:
-  - Build under JDK 17 (by disabling incompatble UDFs) 
+  - Builds under JDK 17 (by disabling incompatble UDFs) 
 
 v6.6
 ===

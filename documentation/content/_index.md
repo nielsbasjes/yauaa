@@ -42,6 +42,7 @@ To assist in running Yauaa without the logj4-core jar an example was created tha
 ### Version 6.7
 - Updated log4j to 2.17.1
 - Allow providing a custom caching implementation.
+- Builds with JDK 17
 
 ### Version 6.6
 - Updated log4j to 2.17.0
