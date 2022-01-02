@@ -7,8 +7,10 @@ v6.7-SNAPSHOT
 - Analyzer
   - Allow specifying a custom caching implementation.
 - Updated UDF dependencies
-    - Apache Beam             2.35.0
-    - Elastic Search/Logstash 7.16.0
+  - Apache Beam             2.35.0
+  - Elastic Search/Logstash 7.16.0
+- Build:
+  - Build under JDK 17 (by disabling incompatble UDFs) 
 
 v6.6
 ===

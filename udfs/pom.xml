@@ -91,10 +91,10 @@
     <module>logparser</module>
     <module>pig</module>
     <module>flink</module>
-    <module>flink-table</module>
+<!--    <module>flink-table</module> -->
     <module>beam</module>
     <module>beam-sql</module>
-    <module>hive</module>
+<!--    <module>hive</module> -->
     <module>drill</module>
     <module>nifi</module>
     <module>elasticsearch</module>
@@ -102,6 +102,53 @@
   </modules>
 
   <profiles>
+    <profile>
+      <id>JDK11</id>
+      <activation><jdk>[11,12)</jdk></activation>
+      <!-- Some udfs will only build on JDK 11 because of the much strikter module enforcement  -->
+      <!-- Building these under JDK 17 will fail with Exceptions like:                          -->
+      <!--    Caused by: java.lang.reflect.InaccessibleObjectException:                         -->
+      <!--        Unable to ... accessible: module java.base does not "opens java.util" to ...  -->
+      <modules>
+        <module>flink-table</module>
+        <module>hive</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>NewerThanJDK11</id>
+      <activation><jdk>[12,)</jdk></activation>
+      <!-- Some udfs will only build on JDK 11 because of the much strikter module enforcement  -->
+      <!-- Building these under JDK 17 will fail with Exceptions like:                          -->
+      <!--    Caused by: java.lang.reflect.InaccessibleObjectException:                         -->
+      <!--        Unable to ... accessible: module java.base does not "opens java.util" to ...  -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>Warn about too new JDK version.</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>bash</executable>
+                  <arguments>
+                    <argument>-c</argument>
+                    <argument>echo -e "\e[1;91m[WARN]\n\e[1;91m[WARN] \e[0;93mThe UDFs for Apache Hive and Apache Flink SQL require JDK 11 so under JDK with $(javac --version) they will not be built !!\n\e[1;91m[WARN]\e[0m"</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
     <profile>
       <id>buildRuby</id>
       <activation>
@@ -125,6 +172,8 @@
         <executions>
           <execution>
             <id>dependency-convergence</id>
+            <!-- Disable the dependency-convergence for the UDFs                -->
+            <!-- The transient dependencies cause almost all to fail over this. -->
             <phase>none</phase>
             <goals>
               <goal>enforce</goal>
