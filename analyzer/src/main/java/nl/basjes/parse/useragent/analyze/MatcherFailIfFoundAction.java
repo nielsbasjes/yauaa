@@ -35,7 +35,7 @@ public class MatcherFailIfFoundAction extends MatcherAction {
         init(config, matcher);
     }
 
-    protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
+    protected ParserRuleContext<MatcherTree> parseWalkerExpression(UserAgentTreeWalkerParser<MatcherTree> parser) {
         return parser.matcherRequire();
     }
 
@@ -54,7 +54,7 @@ public class MatcherFailIfFoundAction extends MatcherAction {
     private boolean foundRequiredValue = false;
 
     @Override
-    public void inform(String key, String value, ParseTree result) {
+    public void inform(String key, String value, ParseTree<MatcherTree> result) {
         super.inform(key, value, result);
         // If there are NO additional steps then we can immediately conclude this is matcher must fail.
         if (evaluator.isEmpty()) {

@@ -54,7 +54,7 @@ public class StepNext extends Step {
 
     @Override
     public WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
-        ParseTree nextTree = next(tree);
+        ParseTree<MatcherTree> nextTree = next(tree);
         if (nextTree == null) {
             return null;
         }

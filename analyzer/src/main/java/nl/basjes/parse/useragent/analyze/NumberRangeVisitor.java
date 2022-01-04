@@ -49,6 +49,7 @@ public final class NumberRangeVisitor extends UserAgentTreeWalkerBaseVisitor<Num
     private static final Integer DEFAULT_MIN = 1;
     private static final Integer DEFAULT_MAX = 10;
 
+    @SuppressWarnings("rawtypes")
     private static final Map<Class<? extends ParserRuleContext>, Integer> MAX_RANGE = new HashMap<>();
 
     static {

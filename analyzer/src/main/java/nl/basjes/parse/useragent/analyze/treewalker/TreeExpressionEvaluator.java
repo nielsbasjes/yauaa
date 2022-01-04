@@ -88,7 +88,7 @@ public class TreeExpressionEvaluator implements Serializable {
         return new UserAgentTreeWalkerBaseVisitor<String, MatcherTree>() {
 
             @Override
-            protected boolean shouldVisitNextChild(RuleNode node, String currentResult) {
+            protected boolean shouldVisitNextChild(RuleNode<MatcherTree> node, String currentResult) {
                 return currentResult == null;
             }
 

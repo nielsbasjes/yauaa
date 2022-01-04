@@ -42,7 +42,7 @@ public class MatcherVariableAction extends MatcherAction {
         init(config, matcher);
     }
 
-    protected ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser) {
+    protected ParserRuleContext<MatcherTree> parseWalkerExpression(UserAgentTreeWalkerParser<MatcherTree> parser) {
         return parser.matcherVariable();
     }
 

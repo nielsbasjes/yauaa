@@ -106,9 +106,10 @@ public final class MatchesList<P> implements Collection<MatchesList.Match<P>>, S
         initialize();
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void initialize() {
         size = 0;
-        allElements = new Match[maxSize]; // FIXME: Generics issue
+        allElements = (Match<P>[])new Match[maxSize]; // FIXME: Generics array creation issue
         for (int i = 0; i < maxSize; i++) {
             allElements[i] = new Match<>(null, null, null);
         }
@@ -167,6 +168,7 @@ public final class MatchesList<P> implements Collection<MatchesList.Match<P>>, S
 
     private static final int CAPACITY_INCREASE = 3;
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void increaseCapacity() {
         int newMaxSize = maxSize+ CAPACITY_INCREASE;
         Match<P>[] newAllElements = (Match<P>[])new Match[newMaxSize]; // FIXME: Generics issue
@@ -195,7 +197,7 @@ public final class MatchesList<P> implements Collection<MatchesList.Match<P>>, S
 // ============================================================
 
     @Override
-    public boolean add(Match match) {
+    public boolean add(Match<P> match) {
         throw new UnsupportedOperationException();
     }
 

@@ -78,7 +78,7 @@ class TestSteps {
     private static Map<String, String> lookup;
     private static Set<String>         set;
 
-    private final ParseTree dummyTree = new ParserRuleContext(){
+    private final ParseTree<MatcherTree> dummyTree = new ParserRuleContext(){
         @Override
         public String getText() {
             return "DuMmY";

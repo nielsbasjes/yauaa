@@ -316,7 +316,7 @@ public abstract class MatcherAction implements Serializable {
         }
 
         @Override
-        public Void visitStepNotContainsValue(StepNotContainsValueContext ctx) {
+        public Void visitStepNotContainsValue(StepNotContainsValueContext<MatcherTree> ctx) {
             unQuoteToken(ctx.value);
             return super.visitStepNotContainsValue(ctx);
         }

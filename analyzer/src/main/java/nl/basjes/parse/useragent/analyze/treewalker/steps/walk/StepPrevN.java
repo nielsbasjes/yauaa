@@ -41,6 +41,7 @@ public class StepPrevN extends Step {
         this.steps = steps;
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private ParseTree<MatcherTree> prev(ParseTree<MatcherTree> tree) {
         ParseTree<MatcherTree> parent = up(tree);
 

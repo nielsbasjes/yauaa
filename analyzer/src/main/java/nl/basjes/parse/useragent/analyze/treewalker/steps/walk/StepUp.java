@@ -29,7 +29,7 @@ public class StepUp extends Step {
 
     @Override
     public WalkResult walk(@Nonnull ParseTree<MatcherTree> tree, @Nullable String value) {
-        ParseTree parent = up(tree);
+        ParseTree<MatcherTree> parent = up(tree);
         if (parent == null) {
             return null;
         }
