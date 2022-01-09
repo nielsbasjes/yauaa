@@ -40,7 +40,7 @@ If you need multiple instances of the UserAgentAnalyzer then you MUST create a n
 
 Note that not all fields are available after every parse. So be prepared to receive a 'null' or "Unknown" if you extract a specific name.
 
-##Custom caching implementation
+## Custom caching implementation
 Since version 6.7 you can specify a custom implementation for the cache by providing an instance of the factory interface `CacheInstantiator`.
 
 Do note that Yauaa assumes the caching implementation to be threadsafe.
