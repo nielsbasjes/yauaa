@@ -25,6 +25,7 @@ import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
+import nl.basjes.parse.useragent.analyze.AnalyzerMatcher;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
@@ -50,7 +51,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -85,7 +85,6 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
-import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
@@ -94,15 +93,11 @@ import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 @DefaultSerializer(AbstractUserAgentAnalyzerDirect.KryoSerializer.class)
 public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, AnalyzerPreHeater, Serializable {
 
-    // We set this to 1000000 always.
-    // Why?
-    // At the time of writing this the actual HashMap size needed about 410K entries.
-    // To keep the bins small the load factor of 0.75 already puts us at the capacity of 1048576
-    private static final int INFORM_ACTIONS_HASHMAP_CAPACITY = 1000000;
-
     private static final Logger LOG = LogManager.getLogger(AbstractUserAgentAnalyzerDirect.class);
     private final ArrayList<Matcher> allMatchers = new ArrayList<>(5000);
     private final ArrayList<Matcher> zeroInputMatchers = new ArrayList<>(100);
+
+    public AnalyzerMatcher analyzerMatcher;
 
     protected List<Matcher> getAllMatchers() {
         return allMatchers;
@@ -111,8 +106,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     protected MatcherList getTouchedMatchers() {
         return touchedMatchers;
     }
-
-    private final Map<String, Set<MatcherAction>> informMatcherActions = new LinkedHashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
 
     private boolean showMatcherStats = false;
 
@@ -209,7 +202,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         lines.add("Lookups      : " + ((lookups == null) ? 0 : lookups.size()));
         lines.add("LookupSets   : " + lookupSets.size());
         lines.add("Matchers     : " + allMatchers.size());
-        lines.add("Hashmap size : " + informMatcherActions.size());
+//        lines.add("Hashmap size : " + informMatcherActions.size());
         lines.add("Ranges map   : " + informMatcherActionRanges.size());
         lines.add("Testcases    : " + testCases.size());
 
@@ -271,7 +264,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         zeroInputMatchers.clear();
         zeroInputMatchers.trimToSize();
 
-        informMatcherActions.clear();
+//        informMatcherActions.clear();
 
         config = null;
 
@@ -283,6 +276,8 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         lookups = Collections.emptyMap();
         lookupSets = Collections.emptyMap();
         matchMaker.clear();
+
+        analyzerMatcher = null;
 
         invalidateCaches();
     }
