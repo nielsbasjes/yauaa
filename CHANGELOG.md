@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.8-SNAPSHOT
 ===
-- ...
+- New/improved detections
+    - Classify more Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
 
 v6.7
 ===
@@ -15,7 +16,7 @@ v6.7
   - Apache Beam             2.35.0
   - Elastic Search/Logstash 7.16.0
 - Build:
-  - Builds under JDK 17 (by disabling incompatble UDFs) 
+  - Builds under JDK 17 (by disabling incompatble UDFs)
 
 v6.6
 ===

