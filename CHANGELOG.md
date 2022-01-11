@@ -5,6 +5,7 @@ v6.8-SNAPSHOT
 ===
 - New/improved detections
     - Classify more Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
+    - Fix Samsung SC-... devices (were detected as Huawei SC-... devices).
 
 v6.7
 ===
