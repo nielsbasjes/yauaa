@@ -384,7 +384,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             }
 
             if (parseResult.hasAmbiguity()) {
-                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity %d times. ", parseResult.getAmbiguityCount());
+                logInfo(errorMessageReceiver, "| Parsing problem: Ambiguity {} times. ", parseResult.getAmbiguityCount());
             }
             if (parseResult.hasSyntaxError()) {
                 logInfo(errorMessageReceiver, "| Parsing problem: Syntax Error");
