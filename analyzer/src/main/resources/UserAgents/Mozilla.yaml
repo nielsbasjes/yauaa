@@ -48,6 +48,35 @@ config:
       AgentNameVersion                     : 'Firefox 1firefoxversion'
       AgentNameVersionMajor                : 'Firefox 1firefoxversion'
 
+- test:
+    input:
+      # This actually occurred in real access logs --> TODO: Really messy result.
+      user_agent_string: 'Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefox'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : 'geckoversion'
+      LayoutEngineVersionMajor             : 'geckoversion'
+      LayoutEngineNameVersion              : 'Gecko geckoversion'
+      LayoutEngineNameVersionMajor         : 'Gecko geckoversion'
+      LayoutEngineBuild                    : 'geckotrail Firefox'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Gecko'
+      AgentVersion                         : 'geckoversion'
+      AgentVersionMajor                    : 'geckoversion'
+      AgentNameVersion                     : 'Gecko geckoversion'
+      AgentNameVersionMajor                : 'Gecko geckoversion'
+
+
 #Other Gecko based browsers
 - test:
     input:
