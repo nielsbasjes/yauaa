@@ -8,6 +8,8 @@ v6.8-SNAPSHOT
 - New/improved detections
     - Classify more Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
     - Fix Samsung SC-... devices (were detected as Huawei SC-... devices).
+- Updated UDF dependencies
+  - Apache Flink            1.14.3
 
 v6.7
 ===
