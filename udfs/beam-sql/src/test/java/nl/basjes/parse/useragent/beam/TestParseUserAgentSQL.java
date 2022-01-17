@@ -92,24 +92,62 @@ public class TestParseUserAgentSQL implements Serializable {
                     "\"DeviceBrand\":\"Unknown\"," +
                     "\"DeviceCpu\":\"Intel x86_64\"," +
                     "\"DeviceCpuBits\":\"64\"," +
+                    "\"DeviceFirmwareVersion\":\"??\"," +
+                    "\"DeviceVersion\":\"??\"," +
                     "\"OperatingSystemClass\":\"Desktop\"," +
                     "\"OperatingSystemName\":\"Linux\"," +
                     "\"OperatingSystemVersion\":\"??\"," +
                     "\"OperatingSystemVersionMajor\":\"??\"," +
                     "\"OperatingSystemNameVersion\":\"Linux ??\"," +
                     "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
+                    "\"OperatingSystemVersionBuild\":\"??\"," +
                     "\"LayoutEngineClass\":\"Browser\"," +
                     "\"LayoutEngineName\":\"Blink\"," +
                     "\"LayoutEngineVersion\":\"48.0\"," +
                     "\"LayoutEngineVersionMajor\":\"48\"," +
                     "\"LayoutEngineNameVersion\":\"Blink 48.0\"," +
                     "\"LayoutEngineNameVersionMajor\":\"Blink 48\"," +
+                    "\"LayoutEngineBuild\":\"Unknown\"," +
                     "\"AgentClass\":\"Browser\"," +
                     "\"AgentName\":\"Chrome\"," +
                     "\"AgentVersion\":\"48.0.2564.82\"," +
                     "\"AgentVersionMajor\":\"48\"," +
                     "\"AgentNameVersion\":\"Chrome 48.0.2564.82\"," +
-                    "\"AgentNameVersionMajor\":\"Chrome 48\"}",
+                    "\"AgentNameVersionMajor\":\"Chrome 48\"," +
+
+                    "\"AgentBuild\":\"Unknown\"," +
+                    "\"AgentLanguage\":\"Unknown\"," +
+                    "\"AgentLanguageCode\":\"Unknown\"," +
+                    "\"AgentInformationEmail\":\"Unknown\"," +
+                    "\"AgentInformationUrl\":\"Unknown\"," +
+                    "\"AgentSecurity\":\"Unknown\"," +
+                    "\"AgentUuid\":\"Unknown\"," +
+                    "\"WebviewAppName\":\"Unknown\"," +
+                    "\"WebviewAppVersion\":\"??\"," +
+                    "\"WebviewAppVersionMajor\":\"??\"," +
+                    "\"WebviewAppNameVersion\":\"Unknown ??\"," +
+                    "\"WebviewAppNameVersionMajor\":\"Unknown ??\"," +
+                    "\"FacebookCarrier\":\"Unknown\"," +
+                    "\"FacebookDeviceClass\":\"Unknown\"," +
+                    "\"FacebookDeviceName\":\"Unknown\"," +
+                    "\"FacebookDeviceVersion\":\"??\"," +
+                    "\"FacebookFBOP\":\"Unknown\"," +
+                    "\"FacebookFBSS\":\"Unknown\"," +
+                    "\"FacebookOperatingSystemName\":\"Unknown\"," +
+                    "\"FacebookOperatingSystemVersion\":\"??\"," +
+                    "\"Anonymized\":\"Unknown\"," +
+                    "\"HackerAttackVector\":\"Unknown\"," +
+                    "\"HackerToolkit\":\"Unknown\"," +
+                    "\"KoboAffiliate\":\"Unknown\"," +
+                    "\"KoboPlatformId\":\"Unknown\"," +
+                    "\"IECompatibilityVersion\":\"??\"," +
+                    "\"IECompatibilityVersionMajor\":\"??\"," +
+                    "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
+                    "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
+                    "\"__SyntaxError__\":\"Unknown\"," +
+                    "\"Carrier\":\"Unknown\"," +
+                    "\"GSAInstallationID\":\"Unknown\"," +
+                    "\"NetworkType\":\"Unknown\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"}",
 
@@ -188,6 +226,10 @@ public class TestParseUserAgentSQL implements Serializable {
                    "\"DeviceClass\":\"Phone\"," +
                    "\"DeviceName\":\"Google Nexus 6\"," +
                    "\"DeviceBrand\":\"Google\"," +
+                   "\"DeviceCpu\":\"Unknown\"," +
+                   "\"DeviceCpuBits\":\"Unknown\"," +
+                   "\"DeviceFirmwareVersion\":\"??\"," +
+                   "\"DeviceVersion\":\"??\"," +
                    "\"OperatingSystemClass\":\"Mobile\"," +
                    "\"OperatingSystemName\":\"Android\"," +
                    "\"OperatingSystemVersion\":\"7.0\"," +
@@ -201,12 +243,46 @@ public class TestParseUserAgentSQL implements Serializable {
                    "\"LayoutEngineVersionMajor\":\"53\"," +
                    "\"LayoutEngineNameVersion\":\"Blink 53.0\"," +
                    "\"LayoutEngineNameVersionMajor\":\"Blink 53\"," +
+                   "\"LayoutEngineBuild\":\"Unknown\"," +
                    "\"AgentClass\":\"Browser\"," +
                    "\"AgentName\":\"Chrome\"," +
                    "\"AgentVersion\":\"53.0.2785.124\"," +
                    "\"AgentVersionMajor\":\"53\"," +
                    "\"AgentNameVersion\":\"Chrome 53.0.2785.124\"," +
-                   "\"AgentNameVersionMajor\":\"Chrome 53\"}",
+                   "\"AgentNameVersionMajor\":\"Chrome 53\"," +
+                   "\"AgentBuild\":\"Unknown\"," +
+                   "\"AgentLanguage\":\"Unknown\"," +
+                   "\"AgentLanguageCode\":\"Unknown\"," +
+                   "\"AgentInformationEmail\":\"Unknown\"," +
+                   "\"AgentInformationUrl\":\"Unknown\"," +
+                   "\"AgentSecurity\":\"Unknown\"," +
+                   "\"AgentUuid\":\"Unknown\"," +
+                   "\"WebviewAppName\":\"Unknown\"," +
+                   "\"WebviewAppVersion\":\"??\"," +
+                   "\"WebviewAppVersionMajor\":\"??\"," +
+                   "\"WebviewAppNameVersion\":\"Unknown ??\"," +
+                   "\"WebviewAppNameVersionMajor\":\"Unknown ??\"," +
+                   "\"FacebookCarrier\":\"Unknown\"," +
+                   "\"FacebookDeviceClass\":\"Unknown\"," +
+                   "\"FacebookDeviceName\":\"Unknown\"," +
+                   "\"FacebookDeviceVersion\":\"??\"," +
+                   "\"FacebookFBOP\":\"Unknown\"," +
+                   "\"FacebookFBSS\":\"Unknown\"," +
+                   "\"FacebookOperatingSystemName\":\"Unknown\"," +
+                   "\"FacebookOperatingSystemVersion\":\"??\"," +
+                   "\"Anonymized\":\"Unknown\"," +
+                   "\"HackerAttackVector\":\"Unknown\"," +
+                   "\"HackerToolkit\":\"Unknown\"," +
+                   "\"KoboAffiliate\":\"Unknown\"," +
+                   "\"KoboPlatformId\":\"Unknown\"," +
+                   "\"IECompatibilityVersion\":\"??\"," +
+                   "\"IECompatibilityVersionMajor\":\"??\"," +
+                   "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
+                   "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
+                   "\"__SyntaxError__\":\"Unknown\"," +
+                   "\"Carrier\":\"Unknown\"," +
+                   "\"GSAInstallationID\":\"Unknown\"," +
+                   "\"NetworkType\":\"Unknown\"}",
 
                "{\"OperatingSystemClass\":\"Mobile\"}",
 

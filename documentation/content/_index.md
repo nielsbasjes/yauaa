@@ -39,21 +39,14 @@ To assist in running Yauaa without the logj4-core jar an example was created tha
 ---
 ## HIGH Profile release notes:
 
+### Version 6.8 (Unreleased)
+- The list of returned fields is more consistent (including the "Default" values).
+  - Fix detection of Samsung SC-... devices.
+
 ### Version 6.7
 - Updated log4j to 2.17.1
 - Allow providing a custom caching implementation.
 - Builds with JDK 17
-
-### Version 6.6
-- Updated log4j to 2.17.0
-
-### Version 6.5
-- Updated log4j to 2.16.0
-- Able to classify JNDI attacks as code injection.
-
-### Version 6.4
-- Updated log4j
-- Better performance in multithreaded scenarios
 
 ### Version 6.3
 - Report frozen (=manipulated) Mac OS X versions as `??`:

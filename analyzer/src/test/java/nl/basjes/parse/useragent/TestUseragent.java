@@ -24,11 +24,18 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -331,10 +338,11 @@ class TestUseragent {
         assertEquals("Basjes", userAgent2.getValue("Niels"));
         assertEquals(42, userAgent2.getConfidence("Niels"));
 
-        // A values that is "Default" is not copied so when getting the confidence it will return -1
+        // Also values that are "Default" are copied.
         assertTrue(userAgent2.get("BackToDefault").isDefaultValue());
         assertEquals("Unknown", userAgent2.getValue("BackToDefault"));
-        assertEquals(-1, userAgent2.getConfidence("BackToDefault"));
+        // You may have a default value ("<<<null>>>") with a confidence.
+        assertEquals(84, userAgent2.getConfidence("BackToDefault"));
 
         assertEquals(
             // You get the fields in the order you ask them!
@@ -366,6 +374,7 @@ class TestUseragent {
             "    AgentVersionMajor                : '??'\n" +
             "    AgentNameVersion                 : 'Unknown ??'\n" +
             "    AgentNameVersionMajor            : 'Unknown ??'\n" +
+            "    BackToDefault                    : 'Unknown'\n" +
             "    Niels                            : 'Basjes'\n",
             userAgent1.toString());
 
@@ -378,21 +387,96 @@ class TestUseragent {
 
     @Test
     void limitedToString() {
-        List<String> wanted = Arrays.asList("DeviceClass", "AgentVersion", "SomethingElse");
+        List<String> wanted = Arrays.asList("Unsure", "DeviceClass", "AgentVersion");
 
         // When only asking for a limited set of fields then the internal datastructures are
         // initialized with only the known attributes for which we have 'non standard' default values.
         MutableUserAgent userAgent = new MutableUserAgent("Some Agent", wanted);
 
         assertEquals(
-            "  - user_agent_string  : 'Some Agent'\n", // +
-//            "    DeviceClass   : 'Unknown'\n" +
-//            "    AgentVersion  : '??'\n",
+            "  - user_agent_string  : 'Some Agent'\n" +
+            "    DeviceClass        : 'Unknown'\n" +
+            "    AgentVersion       : '??'\n" +
+            "    Unsure             : 'Unknown'\n",
             userAgent.toString());
 
-        assertEquals("Unknown", userAgent.getValue("DeviceClass"));
-        assertEquals("??",      userAgent.getValue("AgentVersion"));
-        assertEquals("Unknown", userAgent.getValue("SomethingElse"));
+        // We set the wanted field
+        ((MutableAgentField)(userAgent.get("Unsure"))).setValueForced("--> Unsure",       -1); // --> isDefault !
+        userAgent.set("DeviceClass",   "--> DeviceClass",   1);
+        userAgent.set("AgentVersion",  "--> AgentVersion",  2);
+        // We also set an unwanted field
+        userAgent.set("SomethingElse", "--> SomethingElse", 3);
+
+        // We should be able to retrieve all of them
+        assertEquals("--> Unsure",          userAgent.getValue("Unsure"));
+        assertEquals("--> DeviceClass",     userAgent.getValue("DeviceClass"));
+        assertEquals("--> AgentVersion",    userAgent.getValue("AgentVersion"));
+        assertEquals("--> SomethingElse",   userAgent.getValue("SomethingElse"));
+
+        // Default value?
+        assertTrue(userAgent.get("Unsure").isDefaultValue());
+        assertFalse(userAgent.get("DeviceClass").isDefaultValue());
+        assertFalse(userAgent.get("AgentVersion").isDefaultValue());
+        assertFalse(userAgent.get("SomethingElse").isDefaultValue());
+
+        // The output map if requested should only contain the wanted fields.
+        assertEquals(
+            "  - user_agent_string  : 'Some Agent'\n" +
+            "    DeviceClass        : '--> DeviceClass'\n" +
+            "    AgentVersion       : '--> AgentVersion'\n" +
+            "    Unsure             : '--> Unsure'\n",
+            userAgent.toString());
+
         userAgent.destroy();
+    }
+
+    // https://github.com/nielsbasjes/yauaa/issues/426
+    // When asking for only specific fields they should always
+    // be in the end result even if the output is not calculated by anything (i.e. "Unknown").
+    @Test
+    void bugReport426() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withField(DEVICE_BRAND)
+            .build();
+        UserAgent result = uaa.parse("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36 Edg/96.0.1054.2");
+        Map<String, String> resultMap = result.toMap();
+        // As requested: DeviceBrand
+        assertEquals("Unknown", resultMap.get(DEVICE_BRAND));
+        // Needed specifically for DeviceBrand calculation
+        assertEquals("Unknown", resultMap.get(AGENT_INFORMATION_URL));
+        assertEquals("Unknown", resultMap.get(AGENT_INFORMATION_EMAIL));
+        // Always needed
+        assertEquals("Desktop", resultMap.get(DEVICE_CLASS));
+
+        // Not requested and not needed so not present in the produced Map.
+        assertNull(resultMap.get(AGENT_NAME));
+
+        // When retrieving directly from the UserAgent requesting a non-exsiting field will yield a Default answer.
+        assertFalse(result.getAvailableFieldNamesSorted().contains(AGENT_NAME));
+        AgentField agentField = result.get(AGENT_NAME);
+        assertTrue(agentField.isDefaultValue());
+        assertEquals("Unknown", agentField.getValue());
+        assertEquals(-1, agentField.getConfidence());
+    }
+
+    /**
+     * If a field has never been extracted yet it must still be present.
+     */
+    @Test
+    void verifyThatUnextractedFieldsArePresent() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .immediateInitialization()
+            // All fields!
+            .build();
+        UserAgent result = uaa.parse("Mozilla/5.0 (SM-123) Niels Basjes/42");
+        Map<String, String> resultMap = result.toMap();
+        // As requested: DeviceBrand
+        assertEquals("Samsung", resultMap.get(DEVICE_BRAND));
+        assertEquals("Unknown", resultMap.get(AGENT_INFORMATION_URL));
+        assertEquals("Unknown", resultMap.get(AGENT_INFORMATION_EMAIL));
+        assertEquals("Unknown", resultMap.get(DEVICE_CLASS));
+        assertEquals("Niels Basjes", resultMap.get(AGENT_NAME));
     }
 }

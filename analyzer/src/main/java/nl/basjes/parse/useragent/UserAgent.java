@@ -570,6 +570,9 @@ public interface UserAgent extends Serializable {
             if (newWantedFieldNames != null) {
                 if (!newWantedFieldNames.isEmpty()) {
                     wantedFieldNames = new LinkedHashSet<>(newWantedFieldNames);
+                    for (String wantedFieldName : wantedFieldNames) {
+                        set(wantedFieldName, "Nothing", -2);
+                    }
                 }
             }
         }
@@ -728,21 +731,11 @@ public interface UserAgent extends Serializable {
                 fieldNames.addAll(STANDARD_FIELDS);
                 allFields.forEach((fieldName, field) -> {
                     if (!fieldNames.contains(fieldName)) {
-                        if (!field.isDefaultValue()) {
-                            fieldNames.add(fieldName);
-                        }
+                        fieldNames.add(fieldName);
                     }
                 });
             } else {
-                allFields.forEach((fieldName, field) -> {
-                    if (!fieldNames.contains(fieldName)) {
-                        if (!field.isDefaultValue()) {
-                            if (wantedFieldNames.contains(fieldName)) {
-                                fieldNames.add(fieldName);
-                            }
-                        }
-                    }
-                });
+                fieldNames.addAll(wantedFieldNames);
             }
 
             // This is not a field; this is a special operator.

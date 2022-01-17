@@ -24,13 +24,60 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
+import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_LANGUAGE;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_LANGUAGE_CODE;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_SECURITY;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_UUID;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU_BITS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_FIRMWARE_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.HACKER_ATTACK_VECTOR;
+import static nl.basjes.parse.useragent.UserAgent.HACKER_TOOLKIT;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_BUILD;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_BUILD;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
+import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.config.ConfigLoader.DEFAULT_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -298,6 +345,189 @@ class TestBuilder {
         // Preheat has a separate list with all the test cases (smaller since we do not have the answers there).
         assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
         assertEquals(PreHeatCases.USERAGENTS.size(), userAgentAnalyzer.preHeat());
+    }
+
+    private static final Logger LOG = LogManager.getLogger(TestBuilder.class);
+
+    private UserAgentAnalyzer createWithWantedFieldNames(String... fieldNames) {
+        UserAgentAnalyzerBuilder builder =
+            UserAgentAnalyzer
+                .newBuilder()
+                .dropTests()
+                .hideMatcherLoadStats();
+        for (String fieldName: fieldNames) {
+            builder.withField(fieldName);
+        }
+        UserAgentAnalyzer userAgentAnalyzer = builder.build();
+
+        Set<String> wantedFieldNames = userAgentAnalyzer.getWantedFieldNames();
+        LOG.info("Input : fields({}): {}", fieldNames.length, fieldNames);
+        LOG.info("Output: fields({}): {}", wantedFieldNames == null ? "null" : wantedFieldNames.size(), wantedFieldNames);
+        return userAgentAnalyzer;
+    }
+
+    private Set<String> fields(String... names) {
+        return new TreeSet<>(Arrays.asList(names));
+    }
+
+    private static final String TEST_UA = "Mozilla/5.0 (SM-123) Niels Basjes/42";
+
+    @Test
+    void testWantedFieldNamesAll() {
+        UserAgentAnalyzer uaa = createWithWantedFieldNames();
+        assertNull(uaa.getWantedFieldNames());
+        Set<String> expectedFields = fields(
+            SYNTAX_ERROR,
+            DEVICE_CLASS,
+            DEVICE_BRAND,
+            DEVICE_NAME,
+            DEVICE_CPU,
+            DEVICE_CPU_BITS,
+            DEVICE_FIRMWARE_VERSION,
+            DEVICE_VERSION,
+            OPERATING_SYSTEM_CLASS,
+            OPERATING_SYSTEM_NAME,
+            OPERATING_SYSTEM_VERSION,
+            OPERATING_SYSTEM_VERSION_MAJOR,
+            OPERATING_SYSTEM_NAME_VERSION,
+            OPERATING_SYSTEM_NAME_VERSION_MAJOR,
+            OPERATING_SYSTEM_VERSION_BUILD,
+            LAYOUT_ENGINE_CLASS,
+            LAYOUT_ENGINE_NAME,
+            LAYOUT_ENGINE_VERSION,
+            LAYOUT_ENGINE_VERSION_MAJOR,
+            LAYOUT_ENGINE_NAME_VERSION,
+            LAYOUT_ENGINE_NAME_VERSION_MAJOR,
+            AGENT_CLASS,
+            AGENT_NAME,
+            AGENT_VERSION,
+            AGENT_VERSION_MAJOR,
+            AGENT_NAME_VERSION,
+            AGENT_NAME_VERSION_MAJOR,
+            AGENT_INFORMATION_EMAIL,
+            AGENT_INFORMATION_URL,
+            AGENT_LANGUAGE,
+            AGENT_LANGUAGE_CODE,
+            AGENT_NAME,
+            AGENT_NAME_VERSION,
+            AGENT_NAME_VERSION_MAJOR,
+            AGENT_SECURITY,
+            AGENT_UUID,
+            AGENT_VERSION,
+            AGENT_VERSION_MAJOR,
+            HACKER_ATTACK_VECTOR,
+            HACKER_TOOLKIT,
+            LAYOUT_ENGINE_BUILD,
+            LAYOUT_ENGINE_CLASS,
+            LAYOUT_ENGINE_NAME,
+            LAYOUT_ENGINE_NAME_VERSION,
+            LAYOUT_ENGINE_NAME_VERSION_MAJOR,
+            LAYOUT_ENGINE_VERSION,
+            LAYOUT_ENGINE_VERSION_MAJOR,
+            WEBVIEW_APP_NAME,
+            WEBVIEW_APP_NAME_VERSION,
+            WEBVIEW_APP_NAME_VERSION_MAJOR,
+            WEBVIEW_APP_VERSION,
+            WEBVIEW_APP_VERSION_MAJOR
+        );
+        // We only specify a subset of all fields to test for because otherwise each new field will fail this test.
+        List<String> allPossibleFieldNames = uaa.getAllPossibleFieldNamesSorted();
+        for (String expectedField : expectedFields) {
+            assertTrue(allPossibleFieldNames.contains(expectedField), "Missing field: " + expectedField);
+        }
+
+        UserAgent userAgent = uaa.parse(TEST_UA);
+        List<String> available = userAgent.getAvailableFieldNamesSorted();
+
+        // We only specify a subset of all fields to test for because otherwise each new field will fail this test.
+        for (String expectedField : expectedFields) {
+            assertTrue(available.contains(expectedField), "Missing field: " + expectedField);
+        }
+    }
+
+    @Test
+    void testWantedFieldNamesOne() {
+        UserAgentAnalyzer uaa = createWithWantedFieldNames(
+            OPERATING_SYSTEM_NAME_VERSION
+        );
+
+        Set<String> expectedWantedFields = fields(
+            DEVICE_CLASS,
+            OPERATING_SYSTEM_NAME,
+            OPERATING_SYSTEM_VERSION,
+            OPERATING_SYSTEM_NAME_VERSION,
+            SET_ALL_FIELDS);
+        assertEquals(expectedWantedFields, uaa.getWantedFieldNames());
+
+        Set<String> expectedPossibleFields = fields(
+            SYNTAX_ERROR,
+            DEVICE_CLASS,
+            OPERATING_SYSTEM_NAME,
+            OPERATING_SYSTEM_VERSION,
+            OPERATING_SYSTEM_NAME_VERSION);
+        assertEquals(expectedPossibleFields, uaa.getAllPossibleFieldNames());
+
+        UserAgent userAgent = uaa.parse(TEST_UA);
+        assertEquals(expectedPossibleFields, new TreeSet<>(userAgent.getAvailableFieldNamesSorted()));
+    }
+
+    @Test
+    void testWantedFieldNamesTwo() {
+        UserAgentAnalyzer uaa = createWithWantedFieldNames(
+            OPERATING_SYSTEM_NAME,
+            AGENT_VERSION
+        );
+
+        Set<String> expectedWantedFields = fields(
+            DEVICE_CLASS,
+            OPERATING_SYSTEM_NAME,
+            AGENT_VERSION,
+            SET_ALL_FIELDS);
+        assertEquals(expectedWantedFields, uaa.getWantedFieldNames());
+
+        Set<String> expectedPossibleFields = fields(
+            SYNTAX_ERROR,
+            DEVICE_CLASS,
+            OPERATING_SYSTEM_NAME,
+            AGENT_VERSION);
+        assertEquals(expectedPossibleFields, uaa.getAllPossibleFieldNames());
+
+        UserAgent userAgent = uaa.parse(TEST_UA);
+        assertEquals(expectedPossibleFields, new TreeSet<>(userAgent.getAvailableFieldNamesSorted()));
+    }
+
+    @Test
+    void testWantedFieldNamesOneAndCalc() {
+        UserAgentAnalyzer uaa = createWithWantedFieldNames(
+            AGENT_NAME_VERSION_MAJOR
+        );
+
+        Set<String> expectedWantedFields = fields(
+            DEVICE_CLASS,
+            DEVICE_BRAND,
+            AGENT_INFORMATION_EMAIL,
+            AGENT_INFORMATION_URL,
+            AGENT_NAME,
+            AGENT_VERSION,
+            AGENT_VERSION_MAJOR,
+            AGENT_NAME_VERSION_MAJOR,
+            SET_ALL_FIELDS);
+        assertEquals(expectedWantedFields, uaa.getWantedFieldNames());
+
+        Set<String> expectedPossibleFields = fields(
+            SYNTAX_ERROR,
+            DEVICE_CLASS,
+            DEVICE_BRAND,
+            AGENT_INFORMATION_EMAIL,
+            AGENT_INFORMATION_URL,
+            AGENT_NAME,
+            AGENT_VERSION,
+            AGENT_VERSION_MAJOR,
+            AGENT_NAME_VERSION_MAJOR);
+        assertEquals(expectedPossibleFields, uaa.getAllPossibleFieldNames());
+
+        UserAgent userAgent = uaa.parse(TEST_UA);
+        assertEquals(expectedPossibleFields, new TreeSet<>(userAgent.getAvailableFieldNamesSorted()));
     }
 
 }

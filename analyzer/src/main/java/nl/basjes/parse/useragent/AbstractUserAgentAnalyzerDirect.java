@@ -420,9 +420,30 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         if (allPossibleFieldNamesCache == null) {
             synchronized (this) {
                 if (allPossibleFieldNamesCache == null) {
-                    Set<String> names = new TreeSet<>(HARD_CODED_GENERATED_FIELDS);
-                    for (Matcher matcher : allMatchers) {
-                        names .addAll(matcher.getAllPossibleFieldNames());
+                    Set<String> names = new TreeSet<>(CORE_SYSTEM_GENERATED_FIELDS);
+                    if (wantedFieldNames == null) {
+                        for (Matcher matcher : allMatchers) {
+                            names.addAll(matcher.getAllPossibleFieldNames());
+                        }
+                        for (FieldCalculator calculator : fieldCalculators) {
+                            names.add(calculator.getCalculatedFieldName());
+                        }
+                    } else {
+                        for (Matcher matcher : allMatchers) {
+                            // Not all wanted fields are possible !
+                            for (String possibleFieldName : matcher.getAllPossibleFieldNames()) {
+                                if (wantedFieldNames.contains(possibleFieldName)) {
+                                    names.add(possibleFieldName);
+                                }
+                            }
+                        }
+                        for (FieldCalculator calculator : fieldCalculators) {
+                            String possibleFieldName = calculator.getCalculatedFieldName();
+                            if (wantedFieldNames.contains(possibleFieldName)) {
+                                names.add(possibleFieldName);
+                            }
+                        }
+                        names.remove(SET_ALL_FIELDS);
                     }
                     allPossibleFieldNamesCache = names;
                 }
@@ -566,7 +587,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      */
     @Override
     public ImmutableUserAgent parse(String userAgentString) {
-        MutableUserAgent userAgent = new MutableUserAgent(userAgentString, wantedFieldNames);
+        MutableUserAgent userAgent = new MutableUserAgent(userAgentString, getAllPossibleFieldNames());
         return parse(userAgent);
     }
 
@@ -628,21 +649,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         return new ImmutableUserAgent(hardCodedPostProcessing(userAgent));
     }
 
-    private static final List<String> HARD_CODED_GENERATED_FIELDS = new ArrayList<>();
+    private static final List<String> CORE_SYSTEM_GENERATED_FIELDS = new ArrayList<>();
 
     static {
-        HARD_CODED_GENERATED_FIELDS.add(SYNTAX_ERROR);
-        HARD_CODED_GENERATED_FIELDS.add(AGENT_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add(AGENT_NAME_VERSION);
-        HARD_CODED_GENERATED_FIELDS.add(AGENT_NAME_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_NAME_VERSION);
-        HARD_CODED_GENERATED_FIELDS.add(LAYOUT_ENGINE_NAME_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add(OPERATING_SYSTEM_NAME_VERSION);
-        HARD_CODED_GENERATED_FIELDS.add(OPERATING_SYSTEM_NAME_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_VERSION_MAJOR);
-        HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_NAME_VERSION);
-        HARD_CODED_GENERATED_FIELDS.add(WEBVIEW_APP_NAME_VERSION_MAJOR);
+        CORE_SYSTEM_GENERATED_FIELDS.add(SYNTAX_ERROR);
     }
 
     public boolean isWantedField(String fieldName) {
@@ -1012,15 +1022,15 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         }
 
         protected final Set<String> allFieldsForWhichACalculatorExists = new HashSet<>();
+        protected final Set<String> dependenciesNeededByCalculators = new HashSet<>();
 
         private void registerFieldCalculator(FieldCalculator fieldCalculator) {
             String calculatedFieldName = fieldCalculator.getCalculatedFieldName();
             allFieldsForWhichACalculatorExists.add(calculatedFieldName);
-            if (uaa.isWantedField(calculatedFieldName)) {
+            if (uaa.isWantedField(calculatedFieldName) ||
+                dependenciesNeededByCalculators.contains(calculatedFieldName)) {
                 fieldCalculators.add(fieldCalculator);
-                if (uaa.wantedFieldNames != null) {
-                    uaa.wantedFieldNames.addAll(fieldCalculator.getDependencies());
-                }
+                dependenciesNeededByCalculators.addAll(fieldCalculator.getDependencies());
             }
         }
 
@@ -1091,6 +1101,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
 
             Collections.reverse(fieldCalculators);
             uaa.setFieldCalculators(fieldCalculators);
+
+            if (uaa.wantedFieldNames != null) {
+                uaa.wantedFieldNames.addAll(dependenciesNeededByCalculators);
+            }
 
             boolean showLoading = uaa.getShowMatcherStats();
 
