@@ -145,8 +145,16 @@ This can be achieved by creating the analyzer in Java like this:
 One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
 
+Do note that some fields need other fields as input (i.e. intermediate result). For example the `DeviceBrand` also needs the `AgentInformationEmail` and `AgentInformationUrl` because in some cases the actual brand is derived from for example the domainname that usually is present in those. So if you only ask for the `DomainBrand` you will get those fields also.
+
 In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
 You can choose to use these and avoid subtle typos in the requested attribute names.
+
+    uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withField(DEVICE_CLASS)
+            .withField(AGENT_NAME_VERSION_MAJOR)
+            .build();
 
 ## Building your project with -Xlint:all
 If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.
@@ -169,7 +177,7 @@ If your project does not use Kryo and you have this warning then there are sever
 <dependency>
     <groupId>com.esotericsoftware</groupId>
     <artifactId>kryo</artifactId>
-    <version>4.0.2</version>
+    <version>5.2.1</version>
     <scope>provided</scope>
 </dependency>
 ```
