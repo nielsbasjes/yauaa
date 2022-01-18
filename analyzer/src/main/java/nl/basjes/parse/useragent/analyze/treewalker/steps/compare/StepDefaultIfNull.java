@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
+import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -24,30 +25,30 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class StepDefaultIfNull  extends Step {
+public class StepDefaultIfNull extends Step {
 
     private final String  defaultValue;
-    private final boolean canFail;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepDefaultIfNull() {
         defaultValue = "<< Should not be seen anywhere >>";
-        canFail = false;
     }
 
     public StepDefaultIfNull(String defaultValue) {
         this.defaultValue = defaultValue;
-        canFail = defaultValue == null;
+        if (defaultValue == null) {
+            throw new InvalidParserConfigurationException("Setting a null default on DefaultIfNull is useless.");
+        }
     }
 
     @Override
     public boolean canFail() {
-        return canFail;
+        return false;
     }
 
     @Override
     public boolean mustHaveInput() {
-        return canFail;
+        return false;
     }
 
     @Override

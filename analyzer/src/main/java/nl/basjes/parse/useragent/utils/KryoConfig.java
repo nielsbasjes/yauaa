@@ -144,6 +144,7 @@ public final class KryoConfig {
         kryo.register(AgentField.MutableAgentField.class);
 
         kryo.register(Matcher.class);
+        kryo.register(Matcher.MatcherDemotedExtractAction.class);
         kryo.register(MatcherAction.class);
         kryo.register(MatcherList.class);
         kryo.register(MatchesList.class);

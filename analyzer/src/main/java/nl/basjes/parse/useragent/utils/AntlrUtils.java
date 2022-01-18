@@ -33,9 +33,6 @@ public final class AntlrUtils {
     };
 
     public static String getSourceText(ParserRuleContext ctx){
-        if (ctx == null) {
-            return null;
-        }
         if (ctx.start == null || ctx.stop == null) {
             return ctx.getText();
         }

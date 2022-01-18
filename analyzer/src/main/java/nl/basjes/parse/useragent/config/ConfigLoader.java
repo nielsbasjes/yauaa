@@ -273,11 +273,6 @@ public class ConfigLoader {
                 resourceString);
             LOG.info("{}", msg);
         }
-
-        if (resources.isEmpty()) {
-            throw new InvalidParserConfigurationException("No matchers were loaded at all.");
-        }
-
     }
 
     private Map<String, Resource> findAllResources(String resourceString, boolean showLoadMessages, boolean areOptional, boolean loadingDefaultResources) {

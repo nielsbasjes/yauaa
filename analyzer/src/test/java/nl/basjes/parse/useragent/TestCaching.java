@@ -51,6 +51,8 @@ class TestCaching {
 
         uaa.setCacheSize(42);
         assertEquals(42, uaa.getCacheSize());
+
+        uaa.clearCache();
     }
 
     @Test

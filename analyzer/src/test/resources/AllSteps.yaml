@@ -141,6 +141,16 @@ config:
       - 'IsInSet_Lookup     :   1 : @Foo?MyLookup'
 
 - matcher:
+    require:
+      - 'IsNull[agent.uuid]'
+    variable:
+      - 'Foo: agent.product.name^.name'
+    extract:
+      - 'IsNotInSet            :   1 : @Foo?!MySet'
+      - 'IsNotInSet_Lookup     :   1 : @Foo?!MyLookup'
+
+
+- matcher:
     extract:
       - 'AgentInformationUrl:   1 : "::::"'
 

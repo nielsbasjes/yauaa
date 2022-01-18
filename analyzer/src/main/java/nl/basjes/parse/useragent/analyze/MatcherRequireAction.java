@@ -27,7 +27,7 @@ public class MatcherRequireAction extends MatcherAction {
     private static final Logger LOG = LogManager.getLogger(MatcherRequireAction.class);
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
-    private MatcherRequireAction() {
+    protected MatcherRequireAction() {
     }
 
     public MatcherRequireAction(String config, Matcher matcher) {

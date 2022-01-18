@@ -221,9 +221,9 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
     @Override
     public String toString() {
-        return "UserAgentAnalyzer{" +
+        return "UserAgentAnalyzer {\n" +
             "cacheSize=" + cacheSize +
-            ", "+ super.toString()+"} ";
+            ",\n"+ super.toString()+"\n} ";
     }
 
 }

@@ -50,7 +50,7 @@ public interface AnalyzerPreHeater extends Analyzer {
      */
     default long preHeat(long preheatIterations, boolean log) {
         if (PreHeatCases.USERAGENTS.isEmpty()) {
-            LOG.warn("NO PREHEAT WAS DONE. This should never occur.");
+            LOG.fatal("NO PREHEAT WAS DONE. This should never occur.");
             return 0;
         }
         if (preheatIterations <= 0) {

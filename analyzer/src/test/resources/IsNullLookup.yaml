@@ -62,6 +62,12 @@ config:
     extract:
       - 'ExistMismatch                      :        1 :"Success"'
 
+  # IsNull where the input exists and the lookup fails --> Should pass
+- matcher:
+    require:
+      - 'DefaultIfNull[agent.uuid;"Nope"]'
+    extract:
+      - 'ExistMismatch                      :        1 :"Success"'
 
 - test:
     input:

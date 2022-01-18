@@ -187,4 +187,14 @@ public final class AnalyzerConfig implements Serializable {
             return analyzerConfig;
         }
     }
+
+    @Override
+    public String toString() {
+        return "AnalyzerConfig {\n" +
+            "   matcherConfigs=" + matcherConfigs + ",\n" +
+            "   lookups=" + lookups + ",\n" +
+            "   lookupSets=" + lookupSets + ",\n" +
+            "   testCases=" + testCases +
+            "\n}";
+    }
 }

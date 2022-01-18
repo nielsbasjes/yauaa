@@ -98,6 +98,20 @@ class TestErrorHandling {
     }
 
     @Test
+    void checkLookupMergeMissing() {
+        runTest(
+            "classpath*:BadDefinitions/LookupMergeMissing.yaml",
+            containsString("Unable to merge lookup"));
+    }
+
+    @Test
+    void checkLookupMergeSetMissing() {
+        runTest(
+            "classpath*:BadDefinitions/LookupMergeSetMissing.yaml",
+            containsString("Unable to merge set"));
+    }
+
+    @Test
     void checkLookupMissing() {
         runTest(
             "classpath*:BadDefinitions/LookupMissing.yaml",
@@ -119,10 +133,23 @@ class TestErrorHandling {
     }
 
     @Test
+    void checkIsNotInLookupPrefixMissing() {
+        runTest(
+            "classpath*:BadDefinitions/IsNotInLookupPrefixMissing.yaml",
+            containsString("Missing lookup"));
+    }
+
+    @Test
     void checkLookupDuplicateKey() {
         runTest(
             "classpath*:BadDefinitions/LookupDuplicateKey.yaml",
             containsString("appears multiple times"));
+    }
+
+    @Test void checkFixedStringFailIfFound() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringFailIfFound.yaml",
+            containsString("It is useless to put a fixed value \"One\" in the failIfFound section."));
     }
 
     private static final String FIXED_LOOKUP_ERROR = "A lookup for a fixed input value is a needless complexity.";

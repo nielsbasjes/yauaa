@@ -32,6 +32,10 @@ config:
     extract:
     - 'IsInPrefixes : 1 : IsInLookUpPrefix[Prefixes;agent]'
 
+- matcher:
+    extract:
+    - 'NotInPrefixes : 1 : IsNotInLookUpPrefix[Prefixes;agent.uuid]'
+
 - lookup:
     name: 'Level2Prefixes'
     map:

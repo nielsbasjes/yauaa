@@ -52,14 +52,10 @@ public class CalculateAgentName extends FieldCalculator {
 
         String value = name.getValue();
         if (isLowerCase(value)) {
-            long confidence = name.getConfidence();
-            if (confidence < 0) {
-                confidence = 0;
-            }
             userAgent.setForced(
                 AGENT_NAME,
                 Normalize.brand(value),
-                confidence);
+                name.getConfidence());
         }
     }
 

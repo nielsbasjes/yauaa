@@ -40,10 +40,6 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
         private String value;
         private transient ParseTree result;
 
-        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
-        private Match() {
-        }
-
         public Match(String key, String value, ParseTree result) {
             fill(key, value, result);
         }

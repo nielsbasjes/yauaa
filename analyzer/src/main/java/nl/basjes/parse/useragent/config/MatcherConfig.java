@@ -47,10 +47,6 @@ public class MatcherConfig implements Serializable {
         this.configLines.addAll(configLines);
     }
 
-    public void add(ConfigLine configLine) {
-        this.configLines.add(configLine);
-    }
-
     public List<String> getOptions() {
         return options;
     }
@@ -113,22 +109,22 @@ public class MatcherConfig implements Serializable {
 
         @Override
         public String toString() {
-            return "ConfigLine{" +
-                "type=" + type +
-                ", attribute='" + attribute + '\'' +
-                ", confidence=" + confidence +
-                ", expression='" + expression + '\'' +
+            return "ConfigLine{\n" +
+                "  type=" + type + ",\n" +
+                "  attribute='" + attribute + "',\n" +
+                "  confidence=" + confidence + ",\n" +
+                "  expression='" + expression + "',\n" +
                 '}';
         }
     }
 
     @Override
     public String toString() {
-        return "MatcherConfig{" +
-            "options=" + options +
-            ", matcherSourceFilename='" + matcherSourceFilename + '\'' +
-            ", matcherSourceLineNumber=" + matcherSourceLineNumber +
-            ", configLines=" + configLines +
-            '}';
+        return "MatcherConfig{\n" +
+            "   options=" + options + ",\n" +
+            "   matcherSourceFilename='" + matcherSourceFilename + "',\n" +
+            "   matcherSourceLineNumber=" + matcherSourceLineNumber + ",\n" +
+            "   configLines=" + configLines + "\n" +
+            "}";
     }
 }

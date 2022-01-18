@@ -259,6 +259,36 @@ class TestTreewalkerRequire {
     }
 
     @Test
+    void trimDefaultIfNull() {
+        String path = "DefaultIfNull[agent.(1)product.(1)comments;\"DefaultValue\"]";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)comments"
+        };
+
+        String[] expectedWalkList = {
+            // Empty list, the only step that cannot fail was pruned.
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
+    void trimReplaceString() {
+        String path = "ReplaceString[agent.(1)product.(1)comments;\"From\";\"To\"]";
+
+        String[] expectedHashEntries = {
+            "agent.(1)product.(1)comments"
+        };
+
+        String[] expectedWalkList = {
+            // Empty list, the only step that cannot fail was pruned.
+        };
+
+        checkPath(path, expectedHashEntries, expectedWalkList);
+    }
+
+    @Test
     void validateWalkPathParsingRangeNoDefault() {
         String path = "IsNull[LookUp[TridentVersions;agent.(1)product.(2-4)comments.(*)product.name[1]=\"Trident\"" +
             "[2-3]~\"Foo\"^.(*)version[2]{\"7.\"]]";

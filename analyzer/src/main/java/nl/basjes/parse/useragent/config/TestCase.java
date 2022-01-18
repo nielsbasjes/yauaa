@@ -19,6 +19,8 @@ package nl.basjes.parse.useragent.config;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.analyze.Analyzer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 
@@ -37,6 +40,8 @@ public class TestCase implements Serializable {
     private final List<String> options;
     private final Map<String, String> metadata;
     private final Map<String, String> expected;
+
+    private static final Logger LOG = LogManager.getLogger(TestCase.class);
 
     // For Kryo ONLY
     @SuppressWarnings("unused")
@@ -89,6 +94,42 @@ public class TestCase implements Serializable {
     }
 
     public boolean verify(Analyzer analyzer) {
+        return verify(analyzer, false);
+    }
+
+    private static final String SPACE_FILLER = "                                                                    ";
+    private static final String MIN_FILLER   = "--------------------------------------------------------------------";
+
+    private String logLine(String field, int maxFieldLength,
+                             String exp,    int maxExpectedLength,
+                             String actual, int maxActualLength) {
+        if (field == null) {
+            field = NULL_VALUE;
+        }
+        if (exp == null) {
+            exp = NULL_VALUE;
+        }
+        if (actual == null) {
+            actual = NULL_VALUE;
+        }
+        return
+            " | " + field + SPACE_FILLER.substring(0, maxFieldLength - field.length()) +
+            " | " + exp + SPACE_FILLER.substring(0, maxExpectedLength - exp.length()) +
+            " | " + actual + SPACE_FILLER.substring(0, maxActualLength - actual.length()) +
+            " |";
+    }
+
+    private String logSeparator(int maxFieldLength,
+                                int maxExpectedLength,
+                                int maxActualLength) {
+        return
+            " |-" + MIN_FILLER.substring(0, maxFieldLength)     +
+            "-+-" + MIN_FILLER.substring(0, maxExpectedLength)  +
+            "-+-" + MIN_FILLER.substring(0, maxActualLength)    +
+            "-|";
+    }
+
+    public boolean verify(Analyzer analyzer, boolean verbose) {
         UserAgent result = analyzer.parse(userAgent);
 
         TreeSet<String> combinedKeys = new TreeSet<>();
@@ -97,21 +138,49 @@ public class TestCase implements Serializable {
         combinedKeys.remove(USERAGENT_FIELDNAME); // Remove the input "field" from the result set.
         combinedKeys.remove(SYNTAX_ERROR);
 
+        boolean passed = true;
+
+        StringBuilder sb = new StringBuilder();
+
+        int maxFieldLength=20;
+        int maxExpectLength=20;
+        int maxActualLength=20;
+        if (verbose) {
+            maxFieldLength = combinedKeys.stream().map(String::length).max(Integer::compareTo).orElse(0);
+            maxExpectLength = expected.values().stream().map(String::length).max(Integer::compareTo).orElse(0);
+            maxActualLength = expected.values().stream().map(String::length).max(Integer::compareTo).orElse(0);
+
+            sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+            sb.append(logLine("Field", maxFieldLength, "Expected", maxExpectLength, "Actual", maxActualLength)).append('\n');
+            sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+        }
+
         for (String key : combinedKeys) {
             String expectedValue = expected.get(key);
+            String actualValue = result.getValue(key);
+            if (verbose) {
+                sb.append(logLine(key, maxFieldLength, expectedValue, maxExpectLength, actualValue, maxActualLength));
+            }
             if (expectedValue == null) {
                 // If we do not expect anything it is ok to get a Default value.
                 if (!result.get(key).isDefaultValue()) {
-                    return false;
+                    passed = false;
+                    sb.append(" --> UNEXPECTED");
                 }
             } else {
-                String actualValue = result.getValue(key);
                 if (!expectedValue.equals(actualValue)) {
-                    return false;
+                    passed = false;
+                    sb.append(" --> !!! FAIL !!!");
                 }
             }
+            sb.append('\n');
         }
-        return true;
+        if (verbose) {
+            sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+            LOG.info("\n{}", sb);
+        }
+
+        return passed;
     }
 
     @Override

@@ -116,6 +116,7 @@ public class Matcher implements Serializable {
         List<String> options = matcherConfig.getOptions();
         if (options != null && options.contains("verbose")) {
             verbose = true;
+            permanentVerbose = true;
         }
 
         boolean hasActiveExtractConfigs = false;
@@ -154,7 +155,7 @@ public class Matcher implements Serializable {
 
                         hasActiveExtractConfigs = true;
                     } else {
-                        dynamicActions.add(new MatcherRequireAction(configLine.getExpression(), this));
+                        dynamicActions.add(new MatcherDemotedExtractAction(configLine.getExpression(), this));
                     }
                     break;
                 default:
@@ -170,6 +171,17 @@ public class Matcher implements Serializable {
             throw new UselessMatcherException("Does not extract any wanted fields" + matcherSourceLocation);
         }
 
+    }
+
+    public static class MatcherDemotedExtractAction extends MatcherRequireAction {
+        @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+        private MatcherDemotedExtractAction() {
+            super();
+        }
+
+        MatcherDemotedExtractAction(String config, Matcher matcher) {
+            super(config, matcher);
+        }
     }
 
     public void initialize() {
@@ -188,7 +200,10 @@ public class Matcher implements Serializable {
             try {
                 newEntries += dynamicAction.initialize();
             } catch (InvalidParserConfigurationException e) {
-                if (!e.getMessage().startsWith("It is useless to put a fixed value")) {// Ignore fixed values in require
+                // Ignore fixed values in require IFF this was caused by moving a fixed value extract
+                // to a require when asking for limited set of values.
+                if (!(dynamicAction instanceof MatcherDemotedExtractAction) ||
+                    !e.getMessage().startsWith("It is useless to put a fixed value")) {
                     throw new InvalidParserConfigurationException("Syntax error.(" + matcherSourceLocation + ")" + e.getMessage(), e);
                 }
                 uselessRequireActions.add(dynamicAction);

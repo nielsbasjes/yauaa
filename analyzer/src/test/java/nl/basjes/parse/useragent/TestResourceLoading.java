@@ -18,9 +18,12 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.ConfigLoader;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -34,6 +37,7 @@ import org.yaml.snakeyaml.reader.UnicodeReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -49,6 +53,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class TestResourceLoading {
+
+    private static final Logger LOG = LogManager.getLogger(TestResourceLoading.class);
 
     @Test
     void checkEmptyAndNormalAndOptionalMissingFile() {
@@ -231,5 +237,77 @@ class TestResourceLoading {
                 }
             }
         }
+    }
+
+    @Test
+    void checkConfigLoaderEdgeCases(){
+        ConfigLoader loader = new ConfigLoader(false);
+
+        String message = assertThrows(InvalidParserConfigurationException.class, () -> {
+            loader.addResource((String)null, false);
+        }).getMessage();
+        assertTrue(message.contains("resource name was null"));
+
+        message = assertThrows(InvalidParserConfigurationException.class, () -> {
+            loader.addResource("", false);
+        }).getMessage();
+        assertTrue(message.contains("resource name was empty"));
+
+        assertFalse(ConfigLoader.isTestRulesOnlyFile(null));
+    }
+
+    private static final String YAML_RULE = "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n";
+
+    @Test
+    void checkConfigLoaderToString(){
+        ConfigLoader loader = new ConfigLoader(false);
+        loader.addYaml(YAML_RULE, "foo");
+
+        AnalyzerConfig analyzerConfig = loader.load();
+        LOG.info("Config: {}", analyzerConfig);
+    }
+
+    @Test
+    void testLoadingSeparateYamlRule(){
+        UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+            .withFields(Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName"))
+            .addYamlRule(YAML_RULE)
+            .build();
+
+        UserAgent userAgent = userAgentAnalyzer.parse(
+            "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                "Chrome/53.0.2785.124 Mobile Safari/537.36");
+
+        List<String> fieldNames = userAgent.getAvailableFieldNamesSorted();
+
+        // The EXPLICITLY requested fields
+        assertEquals("Mozilla",         userAgent.getValue("FirstProductName"));
+        assertEquals("Phone",           userAgent.getValue("DeviceClass"));
+        assertEquals("Google",          userAgent.getValue("DeviceBrand"));
+        assertEquals("Google Nexus 6",  userAgent.getValue("DeviceName"));
+        assertEquals("Chrome 53",       userAgent.getValue("AgentNameVersionMajor"));
+
+        // The IMPLICITLY requested fields (i.e. partials of the actually requested ones)
+        assertEquals("Chrome",          userAgent.getValue("AgentName"));
+        assertEquals("53.0.2785.124",   userAgent.getValue("AgentVersion"));
+        assertEquals("53",              userAgent.getValue("AgentVersionMajor"));
+
+        // The NOT requested fields are not there
+        assertFalse(fieldNames.contains("OperatingSystemClass"));
+        assertFalse(fieldNames.contains("OperatingSystemName"));
+        assertFalse(fieldNames.contains("OperatingSystemNameVersion"));
+        assertFalse(fieldNames.contains("OperatingSystemNameVersionMajor"));
+        assertFalse(fieldNames.contains("OperatingSystemVersion"));
+        assertFalse(fieldNames.contains("OperatingSystemVersionBuild"));
+        assertFalse(fieldNames.contains("OperatingSystemVersionMajor"));
+        assertFalse(fieldNames.contains("LayoutEngineClass"));
+        assertFalse(fieldNames.contains("LayoutEngineName"));
+        assertFalse(fieldNames.contains("LayoutEngineNameVersion"));
+        assertFalse(fieldNames.contains("LayoutEngineNameVersionMajor"));
+        assertFalse(fieldNames.contains("LayoutEngineVersion"));
+        assertFalse(fieldNames.contains("LayoutEngineVersionMajor"));
+        assertFalse(fieldNames.contains("AgentClass"));
+        assertFalse(fieldNames.contains("AgentNameVersion"));
     }
 }

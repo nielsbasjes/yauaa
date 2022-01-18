@@ -672,6 +672,6 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
 
     @Override
     public String toString() {
-        return "UserAgentAnalyzerTester{" + super.toString() + "} ";
+        return "UserAgentAnalyzerTester {\n" + super.toString() + "\n} ";
     }
 }
