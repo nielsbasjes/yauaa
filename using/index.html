@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>Using the analyzer | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1642544532 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1642544532 rel=stylesheet>
-<link href=/css/hybrid.css?1642544532 rel=stylesheet>
-<link href=/css/featherlight.min.css?1642544532 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1642544532 rel=stylesheet>
-<link href=/css/auto-complete.css?1642544532 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1642544532 rel=stylesheet>
-<link href=/css/theme.css?1642544532 rel=stylesheet>
-<link href=/css/tabs.css?1642544532 rel=stylesheet>
-<link href=/css/hugo-theme.css?1642544532 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1642544532 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1642544532></script>
+<link href=/css/nucleus.css?1642547158 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1642547158 rel=stylesheet>
+<link href=/css/hybrid.css?1642547158 rel=stylesheet>
+<link href=/css/featherlight.min.css?1642547158 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1642547158 rel=stylesheet>
+<link href=/css/auto-complete.css?1642547158 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1642547158 rel=stylesheet>
+<link href=/css/theme.css?1642547158 rel=stylesheet>
+<link href=/css/tabs.css?1642547158 rel=stylesheet>
+<link href=/css/hugo-theme.css?1642547158 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1642547158 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1642547158></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
 <script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
 </head>
@@ -42,10 +42,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1642544532></script>
-<script type=text/javascript src=/js/auto-complete.js?1642544532></script>
+<script type=text/javascript src=/js/lunr.min.js?1642547158></script>
+<script type=text/javascript src=/js/auto-complete.js?1642547158></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1642544532></script>
+<script type=text/javascript src=/js/search.js?1642547158></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -438,8 +438,15 @@ uaa = UserAgentAnalyzer
 </code></pre>
 <p>One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).</p>
+<p>Do note that some fields need other fields as input (i.e. intermediate result). For example the <code>DeviceBrand</code> also needs the <code>AgentInformationEmail</code> and <code>AgentInformationUrl</code> because in some cases the actual brand is derived from for example the domainname that usually is present in those. So if you only ask for the <code>DomainBrand</code> you will get those fields also.</p>
 <p>In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
 You can choose to use these and avoid subtle typos in the requested attribute names.</p>
+<pre><code>uaa = UserAgentAnalyzer
+        .newBuilder()
+        .withField(DEVICE_CLASS)
+        .withField(AGENT_NAME_VERSION_MAJOR)
+        .build();
+</code></pre>
 <h2 id=building-your-project-with--xlintall>Building your project with -Xlint:all</h2>
 <p>If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.</p>
 <pre><code>[WARNING] COMPILATION WARNING :
@@ -458,7 +465,7 @@ The Kryo library has been configured as a &ldquo;provided&rdquo; dependency beca
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;dependency&gt;</span>
     <span style=color:#f92672>&lt;groupId&gt;</span>com.esotericsoftware<span style=color:#f92672>&lt;/groupId&gt;</span>
     <span style=color:#f92672>&lt;artifactId&gt;</span>kryo<span style=color:#f92672>&lt;/artifactId&gt;</span>
-    <span style=color:#f92672>&lt;version&gt;</span>4.0.2<span style=color:#f92672>&lt;/version&gt;</span>
+    <span style=color:#f92672>&lt;version&gt;</span>5.2.1<span style=color:#f92672>&lt;/version&gt;</span>
     <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
 <span style=color:#f92672>&lt;/dependency&gt;</span>
 </code></pre></div><h2 id=important-this-library-is-single-threaded->IMPORTANT: This library is single threaded !</h2>
@@ -503,15 +510,15 @@ If you want to use such a version then the repository can be configured in your 
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1642544532></script>
-<script src=/js/perfect-scrollbar.min.js?1642544532></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1642544532></script>
-<script src=/js/jquery.sticky.js?1642544532></script>
-<script src=/js/featherlight.min.js?1642544532></script>
-<script src=/js/highlight.pack.js?1642544532></script>
+<script src=/js/clipboard.min.js?1642547158></script>
+<script src=/js/perfect-scrollbar.min.js?1642547158></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1642547158></script>
+<script src=/js/jquery.sticky.js?1642547158></script>
+<script src=/js/featherlight.min.js?1642547158></script>
+<script src=/js/highlight.pack.js?1642547158></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1642544532></script>
-<script src=/js/learn.js?1642544532></script>
-<script src=/js/hugo-learn.js?1642544532></script>
+<script src=/js/modernizr.custom-3.6.0.js?1642547158></script>
+<script src=/js/learn.js?1642547158></script>
+<script src=/js/hugo-learn.js?1642547158></script>
 </body>
 </html>
