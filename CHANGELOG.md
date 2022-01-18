@@ -10,6 +10,7 @@ v6.8-SNAPSHOT
     - Fix Samsung SC-... devices (were detected as Huawei SC-... devices).
 - Updated UDF dependencies
   - Apache Flink            1.14.3
+  - Apache Nifi             1.15.3
 
 v6.7
 ===
