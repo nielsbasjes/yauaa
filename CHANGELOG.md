@@ -12,6 +12,7 @@ v6.8-SNAPSHOT
 - Updated UDF dependencies
   - Apache Flink            1.14.3
   - Apache Nifi             1.15.3
+  - Elastic Search/Logstash 7.16.2
 
 v6.7
 ===
