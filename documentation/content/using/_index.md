@@ -46,9 +46,9 @@ Since version 6.7 you can specify a custom implementation for the cache by provi
 Do note that Yauaa assumes the caching implementation to be threadsafe.
 If you use a non-threadsafe implementation in a multithreaded context it will break.
 
-The default implementation uses a synchronized LRU map.
+The default caching implementation uses [Caffeine](https://github.com/ben-manes/caffeine) (since version 6.8).
 
-    return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+    return Caffeine.newBuilder().maximumSize(cacheSize).<String, ImmutableUserAgent>build().asMap();
 
 A custom implementation can be specified via the `Builder` using the `withCacheInstantiator(...)` method:
 

@@ -21,12 +21,12 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import org.apache.commons.collections4.map.LRUMap;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Map;
 
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
@@ -140,7 +140,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     private static class DefaultCacheInstantiator implements CacheInstantiator {
         @Override
         public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
-            return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+            return Caffeine.newBuilder().maximumSize(cacheSize).<String, ImmutableUserAgent>build().asMap();
         }
     }
 

@@ -42,6 +42,7 @@ To assist in running Yauaa without the logj4-core jar an example was created tha
 ### Version 6.8 (Unreleased)
 - The list of returned fields is more consistent (including the "Default" values).
   - Fix detection of Samsung SC-... devices.
+  - Switched the default caching implementation to [Caffeine](https://github.com/ben-manes/caffeine)
 
 ### Version 6.7
 - Updated log4j to 2.17.1

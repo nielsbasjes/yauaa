@@ -5,6 +5,7 @@ v6.8-SNAPSHOT
 ===
 - Analyzer
   - The XML/JSon/Yaml output now always contains the requested AND all needed "Unknown" value fields.
+  - Switched the default caching implementation to Caffeine
 - New/improved detections
     - Classify more Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
     - Fix Samsung SC-... devices (were detected as Huawei SC-... devices).
