@@ -17,13 +17,16 @@
 
 package org.elasticsearch.plugin.ingest.yauaa;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
+import org.apache.commons.collections4.map.LRUMap;
 import org.elasticsearch.ingest.AbstractProcessor;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -84,7 +87,19 @@ public class YauaaProcessor extends AbstractProcessor {
             UserAgentAnalyzerBuilder builder = UserAgentAnalyzer
                 .newBuilder()
                 .dropTests()
-                .immediateInitialization();
+                .immediateInitialization()
+
+                // With the default Caffeine based cache an exception occurs at startup:
+                // Caused by: java.security.AccessControlException: access denied ("java.lang.reflect.ReflectPermission" "suppressAccessChecks")
+                //         at java.base/java.security.AccessControlContext.checkPermission(AccessControlContext.java:485)
+                //         at java.base/java.security.AccessController.checkPermission(AccessController.java:1068)
+                //         at java.base/java.lang.SecurityManager.checkPermission(SecurityManager.java:416)
+                //         at java.base/java.lang.invoke.MethodHandles.privateLookupIn(MethodHandles.java:233)
+                //         at com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue.<clinit>(MpscGrowableArrayQueue.java:662)
+                // ...
+                .withCacheInstantiator(
+                    (AbstractUserAgentAnalyzer.CacheInstantiator) size ->
+                        Collections.synchronizedMap(new LRUMap<>(size)));
 
             if (cacheSize >= 0) {
                 builder.withCache(cacheSize);
