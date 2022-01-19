@@ -59,7 +59,7 @@ class TestPredefinedBrowsers {
 
     private void validateAllPredefinedBrowsersMultipleFields(Collection<String> fields) {
         LOG.info("==============================================================");
-        LOG.info("Validating when ONLY asking for {}", fields.toString());
+        LOG.info("Validating when ONLY asking for %s", fields.toString());
         LOG.info("--------------------------------------------------------------");
         UserAgentAnalyzerTester userAgentAnalyzer =
             UserAgentAnalyzerTester
