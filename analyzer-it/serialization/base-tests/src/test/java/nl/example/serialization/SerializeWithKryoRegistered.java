@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.example.Demo;
 
 public class SerializeWithKryoRegistered extends SerializeWithKryo {
-    // If the type Kryo is part o the method signature it has effects
+    // If the type Kryo is part of the method signature it has effects
     // on the serialization we are trying to test here.
     // So this returns Object !
     @Override
