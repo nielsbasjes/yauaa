@@ -36,11 +36,11 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     protected int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
     private transient Map<String, ImmutableUserAgent> parseCache;
     private CacheInstantiator cacheInstantiator = new DefaultCacheInstantiator();
-    private ImmutableUserAgent nullAgent = null;
+    private transient ImmutableUserAgent nullAgent = null;
+    protected boolean wasBuilt = false;
 
     protected AbstractUserAgentAnalyzer() {
         super();
-        initializeCache();
     }
 
     @Override
@@ -103,7 +103,9 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
      */
     public void setCacheSize(int newCacheSize) {
         cacheSize = Math.max(newCacheSize, 0);
-        initializeCache();
+        if (wasBuilt) {
+            initializeCache();
+        }
     }
 
     public void clearCache() {
@@ -114,9 +116,12 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
     public void setCacheInstantiator(CacheInstantiator newCacheInstantiator) {
         cacheInstantiator = newCacheInstantiator;
+        if (wasBuilt) {
+            initializeCache();
+        }
     }
 
-    private synchronized void initializeCache() {
+    synchronized void initializeCache() {
         if (cacheSize >= 1) {
             parseCache = cacheInstantiator.instantiateCache(cacheSize);
         } else {
@@ -216,6 +221,8 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         @SuppressWarnings("EmptyMethod") // We must override the method because of the generic return value.
         @Override
         public UAA build() {
+            uaa.wasBuilt = true;
+            uaa.initializeCache();
             return super.build();
         }
     }

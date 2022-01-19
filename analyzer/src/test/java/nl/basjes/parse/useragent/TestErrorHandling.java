@@ -286,7 +286,7 @@ class TestErrorHandling {
         assertNull(agent.getUserAgentString());
 
         agent = uaa.parse((MutableUserAgent) null);
-        assertNull(agent);
+        assertNotNull(agent);
 
         assertNull(EvilManualUseragentStringHacks.fixIt(null));
     }
