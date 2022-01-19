@@ -92,6 +92,8 @@ public abstract class AbstractSerializationTest {
 
         demoAfter.parse(null);
         String after = demoAfter.toString();
+        // To avoid getting >60MiB of error log if it goes wrong.
+        assertEquals(before.length(), after.length());
         assertEquals(before, after);
 
         LOG.info("==============================================================");

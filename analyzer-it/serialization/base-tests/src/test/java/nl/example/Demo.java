@@ -40,6 +40,7 @@ public class Demo implements Serializable {
 
     @Override
     public String toString() {
+        uaa.reset(); // To avoid mismatching on the old Matches.
         return "Demo{" +
             "uaa=" + uaa +
             '}';
