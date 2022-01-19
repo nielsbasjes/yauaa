@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.8-SNAPSHOT
+v6.9-SNAPSHOT
+===
+- ...
+
+v6.8
 ===
 - Analyzer
   - The XML/JSon/Yaml output now always contains the requested AND all needed "Unknown" value fields.
