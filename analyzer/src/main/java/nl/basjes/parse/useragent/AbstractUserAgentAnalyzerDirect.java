@@ -51,6 +51,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -568,7 +569,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     /**
      * Resets the state of the Analyzer to the default state.
      */
-    public void reset() {
+    public synchronized void reset() {
         // Reset all Matchers
         for (Matcher matcher : touchedMatchers) {
             matcher.reset();
@@ -597,6 +598,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      * @param userAgent The MutableUserAgent instance that is to be parsed and that gets all results
      * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
      */
+    @Nonnull
     public ImmutableUserAgent parse(MutableUserAgent userAgent) {
         initializeMatchers();
         String useragentString = userAgent.getUserAgentString();

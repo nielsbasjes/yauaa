@@ -36,6 +36,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
     protected int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
     private transient Map<String, ImmutableUserAgent> parseCache;
     private CacheInstantiator cacheInstantiator = new DefaultCacheInstantiator();
+    private ImmutableUserAgent nullAgent = null;
 
     protected AbstractUserAgentAnalyzer() {
         super();
@@ -147,26 +148,26 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         return cacheSize;
     }
 
+    @Nonnull
     @Override
     public ImmutableUserAgent parse(MutableUserAgent userAgent) {
-        if (userAgent == null) {
-            return null;
+        // Many caching implementations do not allow null keys and/or values
+        if (userAgent == null || userAgent.getUserAgentString() == null) {
+            synchronized (this) {
+                if (nullAgent == null) {
+                    nullAgent = super.parse(new MutableUserAgent((String) null));
+                }
+                return nullAgent;
+            }
         }
+
+        // Do we even have a cache?
         if (parseCache == null) {
-            userAgent.reset();
             return super.parse(userAgent);
         }
 
-        String             userAgentString = userAgent.getUserAgentString();
-        ImmutableUserAgent cachedValue     = parseCache.get(userAgentString);
-        if (cachedValue != null) {
-            return cachedValue; // As it is immutable it can safely be returned as is
-        } else {
-            cachedValue = super.parse(userAgent);
-            parseCache.put(userAgentString, cachedValue);
-        }
-        // We have our answer.
-        return cachedValue;
+        // As the parse result is immutable it can safely be cached and returned as is
+        return parseCache.computeIfAbsent(userAgent.getUserAgentString(), ua -> super.parse(userAgent));
     }
 
     @SuppressWarnings("unchecked") // For all the casts of 'this' to 'B'
