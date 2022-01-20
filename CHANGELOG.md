@@ -3,7 +3,7 @@ This is intended as an overview of the major changes
 
 v6.9-SNAPSHOT
 ===
-- ...
+- Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
 
 v6.8
 ===
