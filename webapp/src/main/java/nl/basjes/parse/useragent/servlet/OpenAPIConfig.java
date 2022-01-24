@@ -44,28 +44,4 @@ public class OpenAPIConfig {
                 .description("Yauaa - Yet Another UserAgent Analyzer")
                 .url("https://yauaa.basjes.nl"));
     }
-
-//    @Bean
-//    public Docket api() {
-//
-//        final ArrayList<Response> responseMessages = new ArrayList<>();
-//        responseMessages.add(new ResponseBuilder()
-//            .code("200")
-//            .description("Successfully parsed the provided input")
-//            .build());
-//        responseMessages.add(new ResponseBuilder()
-//            .code("503")
-//            .description("Internal error, or Yauaa is currently still busy starting up.")
-//            .build());
-//
-//        return new Docket(DocumentationType.SWAGGER_2)
-//            .groupName("yauaa-v1")
-//            .select()
-//            .apis(withMethodAnnotation(ApiOperation.class))
-//            .build()
-//            .globalResponses(GET, responseMessages)
-//            .globalResponses(POST, responseMessages)
-//            .apiInfo(apiInfo());
-//    }
-
 }

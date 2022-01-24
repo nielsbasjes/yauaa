@@ -74,6 +74,7 @@ public class StatusCheck {
 
     // ------------------------------------------
 
+    @SuppressWarnings("SameReturnValue")
     @Operation(
         summary = "Is the servlet running?",
         description = "This endpoint is intended for checking if the service has been started up.<br>" +
@@ -94,6 +95,7 @@ public class StatusCheck {
 
     // ------------------------------------------
 
+    @SuppressWarnings("SameReturnValue")
     @Operation(
         summary = "Is the analyzer engine running?",
         description = "This endpoint is intended for checking if the service has been started up.<br>" +

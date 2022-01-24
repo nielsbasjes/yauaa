@@ -35,7 +35,7 @@ class TestErrorHandlingLogOutput {
     private static final Logger LOG = LogManager.getLogger(TestErrorHandlingLogOutput.class);
 
     @RegisterExtension
-    private LogMessagesScraper logMessages = new LogMessagesScraper(
+    private final LogMessagesScraper logMessages = new LogMessagesScraper(
         DebugUserAgent.class,
         AbstractUserAgentAnalyzerTester.class
     );

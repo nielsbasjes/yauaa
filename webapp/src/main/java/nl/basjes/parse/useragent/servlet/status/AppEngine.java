@@ -39,6 +39,7 @@ public class AppEngine {
      *
      * @return Returns a non empty message body.
      */
+    @SuppressWarnings("SameReturnValue")
     @Operation(
         summary = "Is the analyzer engine running?",
         description = "The old style AppEngine status endpoint."

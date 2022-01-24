@@ -91,10 +91,6 @@ class TestMemoryFootprint {
             memoryAfterDestroy, bytesToMegabytes(memoryAfterDestroy)));
 
         // ----------------------------------------------
-        // Now we free it to be cleaned up by the GC
-        uaa = null;
-
-        assertNull(uaa);
 
         long memoryAfterClean = getMemoryUsageAfterGC();
         LOG.info(String.format("5: Null Analyzer + GC --> Used memory is %10d bytes (%5d MiB).",

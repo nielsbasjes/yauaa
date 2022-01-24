@@ -170,9 +170,6 @@ class DemonstrationOfTumblingTableSQLFunction {
             );
         Table resultTable = tableEnv.sqlQuery(sqlQuery);
 
-//        TypeInformation<Row> tupleType = new RowTypeInfo(SQL_TIMESTAMP, STRING, STRING, STRING, STRING, STRING, LONG);
-//        DataStream<Row>      resultSet = tableEnv.toAppendStream(resultTable, tupleType);
-
         DataStream<Row>      resultSet = tableEnv.toDataStream(resultTable);
         resultSet.print();
 

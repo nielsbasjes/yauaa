@@ -20,7 +20,6 @@ package nl.basjes.statistics;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // CHECKSTYLE.OFF: ParenPad
 class TestCounter {
@@ -228,7 +227,7 @@ class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -247,7 +246,7 @@ class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -266,7 +265,7 @@ class TestCounter {
         c1.increment(3);
         c1.increment(20);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -288,7 +287,7 @@ class TestCounter {
         c1.increment(c2);
         c1.increment(c3);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -310,7 +309,7 @@ class TestCounter {
         c1.increment(c3);
         c1.increment(10);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -338,7 +337,7 @@ class TestCounter {
         c1.increment(10);
         c1.increment(c5);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -366,7 +365,7 @@ class TestCounter {
         c1.increment(10);
         c1.increment(c5.toBytes());
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -385,7 +384,7 @@ class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -404,7 +403,7 @@ class TestCounter {
 
         c1.increment(c2);
 
-        assertTrue(counterIsSameAsReferenceCounter(c1), BAD);
+        assertCounterIsSameAsReferenceCounter(c1);
     }
 
     // ------------------------------------------
@@ -420,7 +419,7 @@ class TestCounter {
         c.increment(10);
         c.increment(20);
 
-        assertTrue(counterIsSameAsReferenceCounter(c), BAD);
+        assertCounterIsSameAsReferenceCounter(c);
     }
 
     // ------------------------------------------
@@ -436,7 +435,7 @@ class TestCounter {
         c.increment(1);
         c.increment(0);
 
-        assertTrue(counterIsSameAsReferenceCounter(c), BAD);
+        assertCounterIsSameAsReferenceCounter(c);
     }
 
     // ------------------------------------------
@@ -445,7 +444,7 @@ class TestCounter {
     void testCounterSerialization() {
         byte[] serializedBytes = REFERENCE_COUNTER.toBytes();
         Counter deserialized = new Counter(serializedBytes);
-        assertTrue(counterIsSameAsReferenceCounter(deserialized), BAD);
+        assertCounterIsSameAsReferenceCounter(deserialized);
     }
 
     // ------------------------------------------
@@ -459,7 +458,7 @@ class TestCounter {
 
     // ------------------------------------------
 
-    private boolean counterIsSameAsReferenceCounter(final Counter c) {
+    private void assertCounterIsSameAsReferenceCounter(final Counter c) {
         assertEquals(REFERENCE_COUNTER.getN(),         c.getN(),                   BAD_COUNT    );
         assertEquals(REFERENCE_COUNTER.getMin(),       c.getMin(),      MAX_ERROR, BAD_MIN      );
         assertEquals(REFERENCE_COUNTER.getMean(),      c.getMean(),     MAX_ERROR, BAD_MEAN     );
@@ -468,7 +467,6 @@ class TestCounter {
         assertEquals(REFERENCE_COUNTER.getStdDev(),    c.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
         assertEquals(REFERENCE_COUNTER.getVariance(),  c.getVariance(), MAX_ERROR, BAD_VARIANCE );
         assertEquals(REFERENCE_COUNTER.getStdDev(),    c.getStdDev(),   MAX_ERROR, BAD_STDDEV   );
-        return true;
     }
 
 }

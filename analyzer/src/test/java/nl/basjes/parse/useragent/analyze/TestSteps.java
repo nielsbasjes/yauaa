@@ -128,9 +128,8 @@ class TestSteps {
 
     @Test
     void testStepDefaultIfNullNoDefault() {
-        assertThrows(InvalidParserConfigurationException.class, () -> {
-            new StepDefaultIfNull(null);
-        });
+        assertThrows(InvalidParserConfigurationException.class, () ->
+            new StepDefaultIfNull(null));
     }
 
     @Test

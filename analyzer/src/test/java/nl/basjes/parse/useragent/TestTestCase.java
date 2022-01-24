@@ -36,7 +36,7 @@ class TestTestCase {
         "AppleWebKit/537.36 (KHTML, like Gecko) " +
         "Chrome/53.0.2785.124 Mobile Safari/537.36";
 
-    UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+    final UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
         .withFields(Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor"))
         .build();
 

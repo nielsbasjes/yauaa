@@ -46,7 +46,7 @@ public class LogMessagesScraper implements BeforeTestExecutionCallback, AfterTes
      */
     private static final String PATTERN = "%highlight{%d{ABSOLUTE} [%-5p] %-40c{1}:%5L: %m%n%throwable}{FATAL=bright red reverse, ERROR=bright red, WARN=bright yellow, INFO=default, DEBUG=cyan, TRACE=magenta}";
 
-    private List<Logger> loggers;
+    private final List<Logger> loggers;
     private Appender appender;
     private final CharArrayWriter outContent = new CharArrayWriter();
 

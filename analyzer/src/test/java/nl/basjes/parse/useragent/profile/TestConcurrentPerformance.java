@@ -39,8 +39,8 @@ class TestConcurrentPerformance {
     private static final Logger LOG = LogManager.getLogger(TestConcurrentPerformance.class);
 
     public static class FireAllTestCases extends Thread {
-        private Analyzer analyzer;
-        private List<TestCase> testCases;
+        private final Analyzer analyzer;
+        private final List<TestCase> testCases;
 
         FireAllTestCases(Analyzer analyzer, List<TestCase> testCases) {
             this.analyzer = analyzer;
@@ -53,9 +53,9 @@ class TestConcurrentPerformance {
     }
 
     public static class RunCachedTestCase extends Thread {
-        private Analyzer analyzer;
-        private String testCase;
-        private long iterations;
+        private final Analyzer analyzer;
+        private final String testCase;
+        private final long iterations;
         private long nanosUsed;
 
         RunCachedTestCase(Analyzer analyzer, String testCase, long iterations) {
@@ -137,10 +137,6 @@ class TestConcurrentPerformance {
                 LOG.info("Iteration {} : Took {}ns ({}ms) = {}ns each", i, nanosUsed, (nanosUsed) / 1_000_000L, nanosUsed/iterations);
             }
 
-//            if (i > 3) {
-//                totalIterations += iterations;
-//                totalNanosUsed += nanosUsed;
-//            }
         }
 
         LOG.info("Average    : {}ns ({}ms) = {}ns each", totalNanosUsed, (totalNanosUsed) / 1_000_000L, totalNanosUsed/totalIterations);

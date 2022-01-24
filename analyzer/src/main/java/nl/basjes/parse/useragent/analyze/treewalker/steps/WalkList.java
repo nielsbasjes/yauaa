@@ -549,26 +549,28 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
-        private Void doStepNextN(PathContext nextStep, int nextSteps) {
+        private void doStepNextN(PathContext nextStep, int nextSteps) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepNextN(nextSteps));
             visitNext(nextStep);
-            return null; // Void
         }
 
         @Override
         public Void visitStepNext2(StepNext2Context ctx) {
-            return doStepNextN(ctx.nextStep, 2);
+            doStepNextN(ctx.nextStep, 2);
+            return null; // Void
         }
 
         @Override
         public Void visitStepNext3(StepNext3Context ctx) {
-            return doStepNextN(ctx.nextStep, 3);
+            doStepNextN(ctx.nextStep, 3);
+            return null; // Void
         }
 
         @Override
         public Void visitStepNext4(StepNext4Context ctx) {
-            return doStepNextN(ctx.nextStep, 4);
+            doStepNextN(ctx.nextStep, 4);
+            return null; // Void
         }
 
         //----
@@ -580,26 +582,28 @@ public class WalkList implements Serializable {
             return null; // Void
         }
 
-        private Void doStepPrevN(PathContext nextStep, int prevSteps) {
+        private void doStepPrevN(PathContext nextStep, int prevSteps) {
             fromHereItCannotBeInHashMapAnymore();
             add(new StepPrevN(prevSteps));
             visitNext(nextStep);
-            return null; // Void
         }
 
         @Override
         public Void visitStepPrev2(StepPrev2Context ctx) {
-            return doStepPrevN(ctx.nextStep, 2);
+            doStepPrevN(ctx.nextStep, 2);
+            return null; // Void
         }
 
         @Override
         public Void visitStepPrev3(StepPrev3Context ctx) {
-            return doStepPrevN(ctx.nextStep, 3);
+            doStepPrevN(ctx.nextStep, 3);
+            return null; // Void
         }
 
         @Override
         public Void visitStepPrev4(StepPrev4Context ctx) {
-            return doStepPrevN(ctx.nextStep, 4);
+            doStepPrevN(ctx.nextStep, 4);
+            return null; // Void
         }
 
         //----

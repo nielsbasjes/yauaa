@@ -48,6 +48,7 @@ import static nl.basjes.parse.useragent.utils.YamlUtils.getValueAsSequenceNode;
 import static nl.basjes.parse.useragent.utils.YamlUtils.requireNodeInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -191,6 +192,8 @@ class TestResourceLoading {
                 }
             }
 
+            assertNotNull(configNodeTuple);
+
             SequenceNode configNode = getValueAsSequenceNode(configNodeTuple, ruleFileName);
             List<Node> configList = configNode.getValue();
 
@@ -243,14 +246,12 @@ class TestResourceLoading {
     void checkConfigLoaderEdgeCases(){
         ConfigLoader loader = new ConfigLoader(false);
 
-        String message = assertThrows(InvalidParserConfigurationException.class, () -> {
-            loader.addResource((String)null, false);
-        }).getMessage();
+        String message = assertThrows(InvalidParserConfigurationException.class, () ->
+            loader.addResource((String)null, false)).getMessage();
         assertTrue(message.contains("resource name was null"));
 
-        message = assertThrows(InvalidParserConfigurationException.class, () -> {
-            loader.addResource("", false);
-        }).getMessage();
+        message = assertThrows(InvalidParserConfigurationException.class, () ->
+            loader.addResource("", false)).getMessage();
         assertTrue(message.contains("resource name was empty"));
 
         assertFalse(ConfigLoader.isTestRulesOnlyFile(null));
@@ -260,11 +261,16 @@ class TestResourceLoading {
 
     @Test
     void checkConfigLoaderToString(){
-        ConfigLoader loader = new ConfigLoader(false);
-        loader.addYaml(YAML_RULE, "foo");
+        AnalyzerConfig analyzerConfig = new ConfigLoader(false)
+            .addYaml(YAML_RULE, "foo")
+            .keepTests()
+            .dropTests()
+            .load();
 
-        AnalyzerConfig analyzerConfig = loader.load();
-        LOG.info("Config: {}", analyzerConfig);
+        String asString = analyzerConfig.toString();
+        assertTrue(asString.contains("matcherSourceFilename='foo'"));
+        assertTrue(asString.contains("attribute='FirstProductName'"));
+        assertTrue(asString.contains("expression='agent.(1)product.(1)name'"));
     }
 
     @Test

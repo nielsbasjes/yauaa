@@ -23,6 +23,7 @@ import com.esotericsoftware.kryo.io.ByteBufferOutput;
 import org.junit.jupiter.api.Test;
 
 import java.nio.ByteBuffer;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -163,7 +164,7 @@ class TestMatcherList {
     @Test
     void testUnsupportedAddAll() {
         assertThrows(UnsupportedOperationException.class, () ->
-            new MatcherList(1).addAll(null));
+            new MatcherList(1).addAll(Collections.emptyList()));
     }
 
     @Test
