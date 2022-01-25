@@ -3,7 +3,10 @@ This is intended as an overview of the major changes
 
 v6.9-SNAPSHOT
 ===
-- Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
+- Analyzer
+  - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
+- Build
+  - Run tests against created docker image.
 
 v6.8
 ===

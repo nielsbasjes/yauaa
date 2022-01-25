@@ -16,36 +16,21 @@
  */
 package nl.basjes.parse.useragent.servlet;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TestParseServlet extends AbstractParseServletTests {
-
-    private static final Logger LOG = LogManager.getLogger(TestParseServlet.class);
-
-    @LocalServerPort
-    private int port;
-
-    @Autowired
-    private TestRestTemplate restTemplate;
-
-    private int attemptsRemaining = 50;
+public class ITParseServlet extends AbstractParseServletTests {
 
     @Override
     int getPort() {
-        return port;
+        return 8080;
     }
+
+    TestRestTemplate restTemplate = new TestRestTemplate(new RestTemplateBuilder().rootUri("http://localhost:8080/"));
 
     @Override
     TestRestTemplate getTestRestTemplate() {
         return restTemplate;
     }
+
 }

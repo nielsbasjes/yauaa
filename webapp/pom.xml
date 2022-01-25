@@ -246,6 +246,7 @@
         <version>0.38.1</version>
 
         <configuration>
+          <follow>false</follow>
           <images>
             <image>
               <name>nielsbasjes/yauaa:${project.version}</name>
@@ -291,7 +292,6 @@
               </build>
 
               <run>
-                <autoRemove>true</autoRemove>
                 <ports>
                   <port>yauaa.port:8080</port>
                 </ports>
@@ -310,12 +310,58 @@
 
           </images>
         </configuration>
+
         <executions>
           <execution>
             <id>build-docker</id>
+            <configuration>
+              <skip>${docker-based-tests.skip}</skip>
+            </configuration>
             <phase>${docker-based-package.phase}</phase>
             <goals>
               <goal>build</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>start</id>
+            <phase>pre-integration-test</phase>
+            <configuration>
+              <skip>${docker-based-tests.skip}</skip>
+            </configuration>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>stop</id>
+            <configuration>
+              <skip>${docker-based-tests.skip}</skip>
+            </configuration>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven-failsafe-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>run-tests</id>
+            <configuration>
+              <skip>${docker-based-tests.skip}</skip>
+            </configuration>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
