@@ -42,6 +42,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
 import static nl.basjes.parse.useragent.servlet.ParseService.getInitStartMoment;
 import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzer;
 import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzerFailureMessage;
@@ -141,6 +142,14 @@ public class HumanHtml {
                     List<Pair<String, Pair<String, String>>> fields           = new ArrayList<>(32);
                     for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
                         Pair<String, String> split = prefixSplitter(fieldname);
+
+                        if (!STANDARD_FIELDS.contains(fieldname)) {
+                            if (userAgent.get(fieldname).isDefaultValue()) {
+                                // Skip the "non standard" fields that do not have a relevant value.
+                                continue;
+                            }
+                        }
+
                         fields.add(new ImmutablePair<>(fieldname, split));
                         Integer count = fieldGroupCounts.get(split.getLeft());
                         if (count == null) {
@@ -212,12 +221,11 @@ public class HumanHtml {
     }
 
     private void stillStartingUp(StringBuilder sb) {
-        long   now        = System.currentTimeMillis();
-        long   millisBusy = now - getInitStartMoment();
-        String timeString = String.format("%3.1f", millisBusy / 1000.0);
-
         String userAgentAnalyzerFailureMessage = getUserAgentAnalyzerFailureMessage();
         if (userAgentAnalyzerFailureMessage == null) {
+            long   now        = System.currentTimeMillis();
+            long   millisBusy = now - getInitStartMoment();
+            String timeString = String.format("%3.1f", millisBusy / 1000.0);
             sb
                 .append("<div class=\"notYetStartedBorder\">")
                 .append("<p class=\"notYetStarted\">The analyzer is currently starting up.</p>")
