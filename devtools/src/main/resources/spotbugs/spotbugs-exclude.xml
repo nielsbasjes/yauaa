@@ -114,11 +114,18 @@
     <Bug pattern="DM_GC"/>
   </Match>
 
-  <!-- Yes, a bit dodgy .. I know -->
+  <!-- Yes, a bit dodgy ... I know -->
   <Match>
     <Class name="nl.basjes.parse.useragent.servlet.ParseService"/>
     <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
     <Field name="initStartMoment"/>
+  </Match>
+
+  <!--  Not important -->
+  <Match>
+    <Class name="nl.basjes.parse.useragent.servlet.ParseService"/>
+    <Bug pattern="MS_EXPOSE_REP"/>
+    <Field name="userAgentAnalyzer"/>
   </Match>
 
   <!-- False positive: This is ensured by the Spring annotation   -->
