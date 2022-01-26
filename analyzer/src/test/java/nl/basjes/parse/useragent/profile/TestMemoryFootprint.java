@@ -53,6 +53,7 @@ class TestMemoryFootprint {
         return runtime.totalMemory() - runtime.freeMemory();
     }
 
+    @Disabled("This is too unreliable and fails much too often.")
     @Test
     void checkForMemoryLeaks() {
 
