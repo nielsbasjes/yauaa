@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-module nl.example.java11module {
+module nl.example.java17module {
     opens nl.example;
     exports nl.example;
 

@@ -15,11 +15,16 @@
  * limitations under the License.
  */
 
-module nl.example.java11module {
-    opens nl.example;
-    exports nl.example;
+// We must open all test packages so Junit can read them all.
+open module nl.example.java17tests {
+    requires nl.example.java17module;
 
-    requires nl.basjes.parse.useragent;
-    requires com.github.benmanes.caffeine;
-    requires nl.basjes.collections.prefixmap;
+    // Needed because we do serialization with this
+    requires com.esotericsoftware.kryo;
+
+    // Additional libraries used in the test classes
+    requires org.apache.logging.log4j;
+    requires org.junit.jupiter.api;
+    requires org.junit.jupiter.engine;
+    requires org.apache.commons.collections4;
 }

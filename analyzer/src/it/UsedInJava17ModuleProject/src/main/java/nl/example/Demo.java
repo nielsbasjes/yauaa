@@ -15,11 +15,26 @@
  * limitations under the License.
  */
 
-module nl.example.java11module {
-    opens nl.example;
-    exports nl.example;
+package nl.example;
 
-    requires nl.basjes.parse.useragent;
-    requires com.github.benmanes.caffeine;
-    requires nl.basjes.collections.prefixmap;
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
+
+public class Demo {
+
+    private final UserAgentAnalyzer uaa;
+
+    public Demo() {
+        uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCache(1234)
+            .withField("DeviceClass")
+            .withAllFields()
+            .build();
+    }
+
+    public UserAgent parse(String userAgent) {
+        return uaa.parse(userAgent);
+    }
+
 }

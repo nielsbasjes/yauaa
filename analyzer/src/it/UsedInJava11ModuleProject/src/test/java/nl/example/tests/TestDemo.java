@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package nl.example;
+package nl.example.tests;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.example.Demo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
