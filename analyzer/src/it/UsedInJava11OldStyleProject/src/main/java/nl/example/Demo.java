@@ -15,16 +15,26 @@
  * limitations under the License.
  */
 
-// We must open all test packages so Junit can read them all.
-open module nl.example.java11tests {
-    requires nl.example.java11module;
+package nl.example;
 
-    // Needed because we do serialization with this
-    requires com.esotericsoftware.kryo;
+import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
-    // Additional libraries used in the test classes
-    requires org.apache.logging.log4j;
-    requires org.junit.jupiter.api;
-    requires org.junit.jupiter.engine;
-    requires org.apache.commons.collections4;
+public class Demo {
+
+    private final UserAgentAnalyzer uaa;
+
+    public Demo() {
+        uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCache(1234)
+            .withField("DeviceClass")
+            .withAllFields()
+            .build();
+    }
+
+    public UserAgent parse(String userAgent) {
+        return uaa.parse(userAgent);
+    }
+
 }
