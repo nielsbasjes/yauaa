@@ -1323,3 +1323,59 @@ config:
       AgentVersionMajor                    : '95'
       AgentNameVersion                     : 'Chrome 95'
       AgentNameVersionMajor                : 'Chrome 95'
+
+
+# Real example: A Nokia 7.2 phone running Android 11
+# Full:
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.98 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '97.0'
+      LayoutEngineVersionMajor             : '97'
+      LayoutEngineNameVersion              : 'Blink 97.0'
+      LayoutEngineNameVersionMajor         : 'Blink 97'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '97.0.4692.98'
+      AgentVersionMajor                    : '97'
+      AgentNameVersion                     : 'Chrome 97.0.4692.98'
+      AgentNameVersionMajor                : 'Chrome 97'
+
+# Reduced:
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '97'
+      LayoutEngineVersionMajor             : '97'
+      LayoutEngineNameVersion              : 'Blink 97'
+      LayoutEngineNameVersionMajor         : 'Blink 97'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '97'
+      AgentVersionMajor                    : '97'
+      AgentNameVersion                     : 'Chrome 97'
+      AgentNameVersionMajor                : 'Chrome 97'
