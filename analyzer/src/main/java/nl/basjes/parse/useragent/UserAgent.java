@@ -478,6 +478,9 @@ public interface UserAgent extends Serializable {
         private static final Logger LOG                     = LogManager.getLogger(UserAgent.class);
 
         private static String getDefaultValueForField(String fieldName) {
+            if (fieldName.equals(SYNTAX_ERROR)) {
+                return "false";
+            }
             if (fieldName.contains("NameVersion")) {
                 return UNKNOWN_NAME_VERSION;
             }
