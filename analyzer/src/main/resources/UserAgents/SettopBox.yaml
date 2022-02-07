@@ -695,10 +695,45 @@ config:
       AgentNameVersionMajor                : 'Stock Android Browser 4'
       AgentSecurity                        : 'Strong security'
 
+# =======================================================================
+# ROKU
+
+- matcher:
+    variable:
+      - 'Roku                                :agent.product.name="ROKU"^'
+    extract:
+      - 'DeviceClass                         :      111 :"Set-top box"'
+      - 'DeviceName                          :      111 :"Roku Digital Video"'
+      - 'DeviceBrand                         :      111 :"Roku"'
+      - 'OperatingSystemClass                :      150 :"Embedded"'
+      - 'OperatingSystemName                 :      150 :"Roku OS"'
+      - 'OperatingSystemVersion              :      150 :CleanVersion[@Roku.(1)version?!UnwantedVersionValues]'
+      - 'OperatingSystemVersionBuild         :      150 :@Roku.(1)comments.(1)entry'
 
 
-
-
-
-
-
+- test:
+    input:
+      user_agent_string: 'Roku/DVP-10.5 (10.5.0.4208-AE),gzip(gfe),gzip(gfe); (gzip)'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Roku Digital Video'
+      DeviceBrand                          : 'Roku'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Roku OS'
+      OperatingSystemVersion               : 'DVP-10.5'
+      OperatingSystemVersionMajor          : 'DVP'
+      OperatingSystemNameVersion           : 'Roku OS DVP-10.5'
+      OperatingSystemNameVersionMajor      : 'Roku OS DVP'
+      OperatingSystemVersionBuild          : '10.5.0.4208-AE'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Roku'
+      AgentVersion                         : 'DVP-10.5'
+      AgentVersionMajor                    : 'DVP'
+      AgentNameVersion                     : 'Roku DVP-10.5'
+      AgentNameVersionMajor                : 'Roku DVP'
