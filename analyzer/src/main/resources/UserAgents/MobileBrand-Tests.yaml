@@ -1952,3 +1952,67 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+  # Matching of brand to a string like 'LM-Q710(FGN)' fails if we use word matcher
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/89.0.4389.86 Mobile Safari/537.36'
+    expected:
+      DeviceClass                    : 'Phone'
+      DeviceName                     : 'LG LM-Q710(FGN)'
+      DeviceBrand                    : 'LG'
+      OperatingSystemClass           : 'Mobile'
+      OperatingSystemName            : 'Android'
+      OperatingSystemVersion         : '8.1.0'
+      OperatingSystemVersionMajor    : '8'
+      OperatingSystemNameVersion     : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor: 'Android 8'
+      OperatingSystemVersionBuild    : 'OPM1.171019.019'
+      LayoutEngineClass              : 'Browser'
+      LayoutEngineName               : 'Blink'
+      LayoutEngineVersion            : '89.0'
+      LayoutEngineVersionMajor       : '89'
+      LayoutEngineNameVersion        : 'Blink 89.0'
+      LayoutEngineNameVersionMajor   : 'Blink 89'
+      AgentClass                     : 'Browser Webview'
+      AgentName                      : 'Chrome Webview'
+      AgentVersion                   : '89.0.4389.86'
+      AgentVersionMajor              : '89'
+      AgentNameVersion               : 'Chrome Webview 89.0.4389.86'
+      AgentNameVersionMajor          : 'Chrome Webview 89'
+      WebviewAppName                 : 'Unknown Webview App'
+      WebviewAppVersion              : '??'
+      WebviewAppVersionMajor         : '??'
+      WebviewAppNameVersion          : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor     : 'Unknown Webview App ??'
+# Top 30 Impacted UAs as of 2022-02-04
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-X210(G) Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-Q610(FGN) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.4758.87 Mobile Safari/537.36"
+# "Dalvik/2.1.0 (Linux; U; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019)"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-X212(G) Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36 (Mobile; afma-sdk-a-v214815015.214815015.0)"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.87 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.45 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.4758.87 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36"
+# "Dalvik/2.1.0 (Linux; U; Android 9; LM-X410(FG) Build/PKQ1.190522.001)"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/79.0.3945.116 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-X210(G) Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-Q610(FGN) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.4758.87 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36"
+# "Dalvik/2.1.0 (Linux; U; Android 8.1.0; LM-X210(G) Build/OPM1.171019.026)"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-X210(G) Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-X210(G) Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/98.0.4758.87 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 7.1.2; LM-X210(G) Build/N2G47H; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.87 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36 (Mobile; afma-sdk-a-v214815026.214815026.0)"
+# "Mozilla/5.0 (Linux; Android 9; LM-X410(FG) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.45 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-X210(G) Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.87 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 9; LM-Q610(FGN) Build/PKQ1.190522.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/96.0.4664.104 Mobile Safari/537.36"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/94.0.4606.85 Mobile Safari/537.36"
+# "Dalvik/2.1.0 (Linux; U; Android 9; LM-Q610(FGN) Build/PKQ1.190522.001)"
+# "Mozilla/5.0 (Linux; Android 8.1.0; LM-Q710(FGN) Build/OPM1.171019.019; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/95.0.4638.74 Mobile Safari/537.36"

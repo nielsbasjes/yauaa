@@ -309,7 +309,16 @@ config:
     extract:
     - 'DeviceClass                         :        2 :"Mobile"'
     - 'DeviceName                          :       81 :@DeviceName'
-    - 'DeviceBrand                         :       82 :LookUpPrefix[MobileBrandPrefixes;@DeviceName[1]]'
+    - 'DeviceBrand                         :       83 :LookUpPrefix[MobileBrandPrefixes;@DeviceName[1]]'
+
+# for matches that end with a '-' (like LM-) we need to not use the word extractor [1]
+- matcher:
+    variable:
+      - 'DeviceName                          :agent.(1-2)product.(1)comments.entry.(2-)product.name="Build"^^.(1)product'
+    extract:
+      - 'DeviceClass                         :        2 :"Mobile"'
+      - 'DeviceName                          :       81 :@DeviceName'
+      - 'DeviceBrand                         :       82 :LookUpPrefix[MobileBrandPrefixes;@DeviceName]'
 
 # ===================================================================================================
 
