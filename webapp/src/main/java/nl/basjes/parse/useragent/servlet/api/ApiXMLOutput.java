@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
@@ -193,8 +194,10 @@ public class ApiXMLOutput {
         if (userAgentAnalyzerIsAvailable()) {
             UserAgentAnalyzer userAgentAnalyzer = ParseService.getUserAgentAnalyzer();
             List<String> result = new ArrayList<>(2048);
-            splitPerFilledLine(userAgentString)
-                .forEach(ua -> result.add(userAgentAnalyzer.parse(ua).toXML()));
+            for (String input : splitPerFilledLine(userAgentString)) {
+                UserAgent userAgent = userAgentAnalyzer.parse(input);
+                result.add(userAgent.toXML(userAgent.getCleanedAvailableFieldNamesSorted()));
+            }
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + String.join("\n", result);
         }
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Yauaa></Yauaa>";

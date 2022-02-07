@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
@@ -198,7 +199,8 @@ public class ApiYamlOutput {
                 if (input.startsWith("#")) {
                     result.add(input);
                 } else {
-                    result.add(userAgentAnalyzer.parse(input).toYamlTestCase());
+                    UserAgent userAgent = userAgentAnalyzer.parse(input);
+                    result.add(userAgent.toYamlTestCase(userAgent.getCleanedAvailableFieldNamesSorted()));
                 }
             }
             return String.join("\n", result);

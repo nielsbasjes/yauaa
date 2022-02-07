@@ -7,6 +7,8 @@ v6.9-SNAPSHOT
   - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
 - Build
   - Run tests against created docker image.
+- Webservlet:
+  - Omit the non standard fields with a default value.
 
 v6.8
 ===

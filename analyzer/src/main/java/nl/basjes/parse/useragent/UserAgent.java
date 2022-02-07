@@ -59,6 +59,20 @@ public interface UserAgent extends Serializable {
 
     List<String> getAvailableFieldNamesSorted();
 
+    default List<String> getCleanedAvailableFieldNamesSorted() {
+        List<String> fieldNames = new ArrayList<>();
+        for (String fieldName : getAvailableFieldNamesSorted()) {
+            if (!STANDARD_FIELDS.contains(fieldName)) {
+                if (get(fieldName).isDefaultValue()) {
+                    // Skip the "non standard" fields that do not have a relevant value.
+                    continue;
+                }
+            }
+            fieldNames.add(fieldName);
+        }
+        return fieldNames;
+    }
+
     String DEVICE_CLASS                         = "DeviceClass";
     String DEVICE_NAME                          = "DeviceName";
     String DEVICE_BRAND                         = "DeviceBrand";
@@ -240,22 +254,32 @@ public interface UserAgent extends Serializable {
     }
 
     default String toYamlTestCase() {
-        return toYamlTestCase(false, null);
+        return toYamlTestCase(false, getAvailableFieldNamesSorted(), null);
+    }
+
+    default String toYamlTestCase(List<String> fieldNames) {
+        return toYamlTestCase(false, fieldNames, null);
     }
 
     default String toYamlTestCase(boolean showConfidence) {
-        return toYamlTestCase(showConfidence, null);
+        return toYamlTestCase(showConfidence, getAvailableFieldNamesSorted(), null);
     }
 
     default String toYamlTestCase(boolean showConfidence, Map<String, String> comments) {
+        return toYamlTestCase(showConfidence, getAvailableFieldNamesSorted(), comments);
+    }
+
+    default String toYamlTestCase(boolean showConfidence, List<String> fieldNames) {
+        return toYamlTestCase(showConfidence, fieldNames, null);
+    }
+
+    default String toYamlTestCase(boolean showConfidence, List<String> fieldNames, Map<String, String> comments) {
         StringBuilder sb = new StringBuilder(10240);
         sb.append("\n");
         sb.append("- test:\n");
         sb.append("    input:\n");
         sb.append("      user_agent_string: '").append(escapeYaml(getUserAgentString())).append("'\n");
         sb.append("    expected:\n");
-
-        List<String> fieldNames = getAvailableFieldNamesSorted();
 
         int maxNameLength  = 30;
         int maxValueLength = 0;
@@ -303,7 +327,6 @@ public interface UserAgent extends Serializable {
 
             sb.append('\n');
         }
-        sb.append("\n\n");
 
         return sb.toString();
     }
@@ -765,6 +788,7 @@ public interface UserAgent extends Serializable {
         private final ImmutableAgentField               userAgentStringField;
         private final Map<String, ImmutableAgentField>  allFields;
         private final List<String>                      availableFieldNamesSorted;
+        private List<String>                            cleanedAvailableFieldNamesSorted;
         private final boolean                           hasSyntaxError;
         private final boolean                           hasAmbiguity;
         private final int                               ambiguityCount;
@@ -844,6 +868,15 @@ public interface UserAgent extends Serializable {
         @Override
         public List<String> getAvailableFieldNamesSorted() {
             return availableFieldNamesSorted;
+        }
+
+        @Override
+        public List<String> getCleanedAvailableFieldNamesSorted() {
+            if (cleanedAvailableFieldNamesSorted == null) {
+                cleanedAvailableFieldNamesSorted =
+                    Collections.unmodifiableList(UserAgent.super.getCleanedAvailableFieldNamesSorted());
+            }
+            return cleanedAvailableFieldNamesSorted;
         }
 
         @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
