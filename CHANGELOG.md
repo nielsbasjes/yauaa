@@ -5,10 +5,13 @@ v6.9-SNAPSHOT
 ===
 - Analyzer
   - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
+  - Handle cases like this `LM-Q710(FGN) Build/OPM1.171019.019` ([Sam Hendley](https://github.com/samhendley/))
 - Build
   - Run tests against created docker image.
 - Webservlet:
   - Omit the non standard fields with a default value.
+- Updated UDF dependencies
+    - Apache Beam             2.36.0
 
 v6.8
 ===
