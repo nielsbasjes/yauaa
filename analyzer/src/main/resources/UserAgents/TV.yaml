@@ -2389,19 +2389,29 @@ config:
       AgentNameVersion                     : 'Safari 538.1'
       AgentNameVersionMajor                : 'Safari 538'
 
+# the samsung-agent/1.0 and samsung-agent/1.1 are only used in CTV contexts as far as we can detect
+# on 2022-02-04. This means it's a TV device running Tizen operating system. We could probably assume
+# more based on what other Samsung TVs report but that's a slippery slope
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="samsung-agent"'
+    extract:
+      - 'DeviceClass                       :     2018 :"TV"'
+      - 'OperatingSystemName               :     2018 :"Tizen"'
+
 - test:
     input:
       user_agent_string: 'samsung-agent/1.1'
     expected:
-      DeviceClass                          : 'Unknown'
+      DeviceClass                          : 'TV'
       DeviceName                           : 'Samsung Agent'
       DeviceBrand                          : 'Samsung'
       OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      OperatingSystemName                  : 'Tizen'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      OperatingSystemNameVersion           : 'Tizen ??'
+      OperatingSystemNameVersionMajor      : 'Tizen ??'
       LayoutEngineClass                    : 'Unknown'
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
