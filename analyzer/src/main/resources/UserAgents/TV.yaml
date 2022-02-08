@@ -2574,3 +2574,47 @@ config:
 #  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D48f-E0, wireless)"
 #  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D43f-E2, wireless)"
 #  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D32f-E1, wired)"
+
+##### Comcast Cable Boxes
+
+# Comcast Set Top Box. Only two of these UAs currently detected but they produce a steady 5M hourly opportunities. Looks like
+# older UA: `Mozilla/5.0 (Linux) AppleWebKit/601.0 (KHTML, like Gecko) Version/8.0 Safari/601.0 WPE` has been almost
+# entirely replaced by UA used in test (as of 2022-02-04). This makes sense since comcast can update all of their
+# boxes at will so we'd likely only ever see 1 variation of this UA at a time.
+- matcher:
+    require:
+      # The detected UAs end with 'WPE' but I don't know how to specify that best in this tool so right now we are
+      # casting a wider net than necessary.
+      - 'agent~"WPE"'
+    extract:
+      - 'DeviceClass                         :     1000 : "Set-top Box"'
+      - 'DeviceName                          :     1000 : "WPE"'
+      - 'DeviceBrand                         :     1000 : "Comcast"'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; x86_64 GNU/Linux) AppleWebKit/601.1 (KHTML, like Gecko) Version/8.0 Safari/601.1 WPE'
+    expected:
+      DeviceClass                    : 'Set-top Box'
+      DeviceName                     : 'Comcast WPE'
+      DeviceBrand                    : 'Comcast'
+      DeviceCpu                      : 'Intel x86_64'
+      DeviceCpuBits                  : '64'
+      OperatingSystemClass           : 'Desktop'
+      OperatingSystemName            : 'Linux'
+      OperatingSystemVersion         : '??'
+      OperatingSystemVersionMajor    : '??'
+      OperatingSystemNameVersion     : 'Linux ??'
+      OperatingSystemNameVersionMajor: 'Linux ??'
+      LayoutEngineClass              : 'Browser'
+      LayoutEngineName               : 'AppleWebKit'
+      LayoutEngineVersion            : '601.1'
+      LayoutEngineVersionMajor       : '601'
+      LayoutEngineNameVersion        : 'AppleWebKit 601.1'
+      LayoutEngineNameVersionMajor   : 'AppleWebKit 601'
+      AgentClass                     : 'Browser'
+      AgentName                      : 'Safari'
+      AgentVersion                   : '8.0'
+      AgentVersionMajor              : '8'
+      AgentNameVersion               : 'Safari 8.0'
+      AgentNameVersionMajor          : 'Safari 8'
