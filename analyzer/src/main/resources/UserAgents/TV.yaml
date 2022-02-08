@@ -2459,3 +2459,118 @@ config:
       AgentNameVersion                     : 'Unknown ??'
       AgentNameVersionMajor                : 'Unknown ??'
       AgentSecurity                        : 'Strong security'
+
+### VIZIO TV Detection
+
+# VIZIO smart cast and older TV detection
+- matcher:
+    variable:
+      - 'VTAG                              :agent.product.name{"VIZIO"^'
+    extract:
+      - 'DeviceClass                         :     2000 :"TV"'
+      - 'DeviceName                          :     2000 :@VTAG.name'
+      - 'DeviceBrand                         :     2000 :"Vizio"'
+      - 'DeviceVersion                       :     2000 :@VTAG.(1)comments.(1)entry.(3)product.(1)version'
+      - 'OperatingSystemVersion              :     2000 :@VTAG.(1)comments.(1)entry.(2)product.(1)version'
+      - 'OperatingSystemClass                :     2000 :"Embedded"'
+      - 'OperatingSystemName                 :     2000 :"Vizio Smartcast"'
+      - 'OperatingSystemVersion              :     2000 :"<<<null>>>"'
+      - 'OperatingSystemVersionMajor         :     2000 :"<<<null>>>"'
+
+- matcher:
+    variable:
+      - 'VTAG                              :agent.product.name{"VIZIO"^'
+    require:
+      - '@VTAG.(1)comments.(1)entry.(1)text="Vizio"'
+    extract:
+      - 'DeviceClass                         :     2001 :"TV"'
+      - 'DeviceName                          :     2001 :@VTAG.name'
+      - 'DeviceBrand                         :     2001 :"Vizio"'
+      - 'DeviceVersion                       :     2001 :@VTAG.(1)comments.(2)entry'
+      - 'OperatingSystemVersion              :     2001 :@VTAG.version'
+      - 'OperatingSystemClass                :     2001 :"Embedded"'
+      - 'OperatingSystemName                 :     2001 :"Vizio DTV"'
+      - 'OperatingSystemVersion              :     2001 :"<<<null>>>"'
+      - 'OperatingSystemVersionMajor         :     2001 :"<<<null>>>"'
+
+- test:
+    input:
+      # The parser complains of an Ambiguity in the UA which causes the test to fail. I'm not sure how to address since I can't
+      # control the incoming UA. The parsing appears to work correctly
+      user_agent_string: 'Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKA-3.0.335.17 FW/4.60.30-4 Model/D40f-G9)'
+    expected:
+      DeviceClass: 'TV'
+      DeviceName: 'Vizio SmartCast'
+      DeviceBrand: 'Vizio'
+      DeviceCpu: 'ARMv7l'
+      DeviceCpuBits: '32'
+      DeviceVersion: 'D40f-G9'
+      OperatingSystemClass: 'Embedded'
+      OperatingSystemName: 'Vizio Smartcast'
+      OperatingSystemVersion: '4.60.30-4'
+      OperatingSystemVersionMajor: '4'
+      OperatingSystemNameVersion: 'Vizio Smartcast 4.60.30-4'
+      OperatingSystemNameVersionMajor: 'Vizio Smartcast 4'
+      LayoutEngineClass: 'Browser'
+      LayoutEngineName: 'Blink'
+      LayoutEngineVersion: '72.0'
+      LayoutEngineVersionMajor: '72'
+      LayoutEngineNameVersion: 'Blink 72.0'
+      LayoutEngineNameVersionMajor: 'Blink 72'
+      AgentClass: 'Browser'
+      AgentName: 'Chrome'
+      AgentVersion: '72.0.3626.121'
+      AgentVersionMajor: '72'
+      AgentNameVersion: 'Chrome 72.0.3626.121'
+      AgentNameVersionMajor: 'Chrome 72'
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D43f-E2, wireless)'
+    expected:
+      DeviceClass                    : 'TV'
+      DeviceName                     : 'Vizio DTV'
+      DeviceBrand                    : 'Vizio'
+      DeviceCpu                      : 'ARMv7l'
+      DeviceCpuBits                  : '32'
+      DeviceVersion                  : 'D43f-E2'
+      OperatingSystemClass           : 'Embedded'
+      OperatingSystemName            : 'Vizio DTV'
+      OperatingSystemVersion         : 'V7.20.8'
+      OperatingSystemVersionMajor    : 'V7'
+      OperatingSystemNameVersion     : 'Vizio DTV V7.20.8'
+      OperatingSystemNameVersionMajor: 'Vizio DTV V7'
+      LayoutEngineClass              : 'Browser'
+      LayoutEngineName               : 'Blink'
+      LayoutEngineVersion            : '49.0'
+      LayoutEngineVersionMajor       : '49'
+      LayoutEngineNameVersion        : 'Blink 49.0'
+      LayoutEngineNameVersionMajor   : 'Blink 49'
+      AgentClass                     : 'Browser'
+      AgentName                      : 'Opera'
+      AgentVersion                   : '36.0.2128.0'
+      AgentVersionMajor              : '36'
+      AgentNameVersion               : 'Opera 36.0.2128.0'
+      AgentNameVersionMajor          : 'Opera 36'
+
+#  Top 15 'Modern' Vizio strings and top 5 'Old' Vizio UAs as of 2022-02-04
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKB-5.1.531.1 FW/2.70.33-1 Model/V505-G9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKC-4.6.448.1 FW/1.20.18.13-1 Model/V505-H9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKA-5.1.542.1 FW/4.70.27-3 Model/D40f-G9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKA-5.1.542.1 FW/4.70.27-3 Model/D32h-G9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKE-4.6.432.1 FW/3.0.11.3-1 Model/D40f-J09)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKA-5.1.542.1 FW/4.70.27-3 Model/D24h-G9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKC-4.6.448.1 FW/1.20.18.13-1 Model/V655-H9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKB-5.1.531.1 FW/2.70.33-1 Model/V655-G9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKC-4.6.448.1 FW/1.20.18.13-1 Model/V505-J09)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKE-4.6.432.1 FW/3.0.11.3-1 Model/D32h-J09)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKA-5.1.542.1 FW/4.70.27-3 Model/D43fx-F4)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKB-5.1.531.1 FW/2.70.33-1 Model/D50x-G9)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKC-4.6.448.1 FW/1.20.18.13-1 Model/V655-J09)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKC-4.6.448.1 FW/1.20.18.13-1 Model/V555-H1)"
+#  "Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36 CrKey/1.0.999999 VIZIO SmartCast(Conjure/MTKB-5.1.531.1 FW/2.70.33-1 Model/V555-G1)"
+#  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D32f-E1, wireless)"
+#  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D50f-E1, wireless)"
+#  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D48f-E0, wireless)"
+#  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D43f-E2, wireless)"
+#  "Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36 OPR/36.0.2128.0 OMI/4.8.0.129.ALISHAN6.19 VIZIO-DTV/V7.20.8 (Vizio, D32f-E1, wired)"
