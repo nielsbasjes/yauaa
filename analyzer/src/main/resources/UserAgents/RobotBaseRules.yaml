@@ -44,6 +44,9 @@ config:
 - matcher:
     variable:
     - 'RobotName                           :IsInLookUpContains[RobotStrings;agent.product.name]'
+    require:
+    - 'IsNull[@RobotName~"fuboTV"]'
+    - 'IsNull[@RobotName~"SEI Robotics"]'
     extract:
     - 'DeviceClass                         :    11100 :"Robot"'
     - 'DeviceName                          :   311100 :@RobotName'

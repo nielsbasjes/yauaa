@@ -10182,3 +10182,34 @@ config:
       AgentNameVersion                     : 'SMTBot 1.0'
       AgentNameVersionMajor                : 'SMTBot 1'
       AgentInformationUrl                  : 'http://www.similartech.com/smtbot'
+
+# fuboTV agent is being characterized as a Robot because fu_bot_v contains the string 'bot'
+# Other UAs getting caught by same issue:
+# "DroidRBTv/3320|SEI Robotics TVision HUB v2|Tv_6.9_in|R_11"
+# "Dalvik/2.1.0 (Linux; U; Android 9; Pyxis-CBT Build/PI; SEI Robotics) OTTera/14.700 FailArmy"
+- test:
+    input   :
+      user_agent_string: 'fuboTV/4.56.0 (Linux;Android 7.1.2; AFTJMST12 Build/NS6286) FuboPlayer/v1.21.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Insignia 4K-Fire TV (2018)'
+      DeviceBrand                          : 'Insignia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'FireOS'
+      OperatingSystemVersion               : '7.1.2'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'FireOS 7.1.2'
+      OperatingSystemNameVersionMajor      : 'FireOS 7'
+      OperatingSystemVersionBuild          : 'NS6286'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '4.56.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Unknown 4.56.0'
+      LayoutEngineNameVersionMajor         : 'Unknown 4'
+      AgentClass                           : 'Special'
+      AgentName                            : 'fuboTV'
+      AgentVersion                         : '4.56.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'fuboTV 4.56.0'
+      AgentNameVersionMajor                : 'fuboTV 4'
