@@ -29,7 +29,7 @@ config:
     require:
     - 'LookUp[Dummy;@FirstProductName;"Fake"]'
     - 'IsInLookUpContains[Dummy;@FirstProductName]'
-    - 'IsInNotLookUpContains[Dummy;@FirstProductName]'
+    - 'IsNotInLookUpContains[Dummy;@FirstProductName]'
     - 'LookUpContains[Dummy;@FirstProductName;"Fake"]'
     - 'IsNull[@FirstProductName^.name="Word"!="Other"^.name[1]@{"Start"}"End"@@[-1][2-3][3-]<><>><<]'
     extract:
