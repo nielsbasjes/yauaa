@@ -46,6 +46,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepNotEquals;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.compare.StepStartsWith;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsInLookupPrefix;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsNotInLookupContains;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepIsNotInLookupPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.lookup.StepLookupContains;
@@ -178,6 +179,7 @@ public final class KryoConfig {
         kryo.register(StepNotEquals.class);
         kryo.register(StepStartsWith.class);
         kryo.register(StepIsInLookupContains.class);
+        kryo.register(StepIsNotInLookupContains.class);
         kryo.register(StepIsInLookupPrefix.class);
         kryo.register(StepIsNotInLookupPrefix.class);
         kryo.register(StepLookup.class);

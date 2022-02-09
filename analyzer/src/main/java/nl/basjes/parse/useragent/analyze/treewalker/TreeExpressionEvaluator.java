@@ -22,9 +22,11 @@ import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
@@ -114,6 +116,10 @@ public class TreeExpressionEvaluator implements Serializable {
             }
 
             @Override public String visitMatcherPathIsInLookupContains(MatcherPathIsInLookupContainsContext ctx) {
+                return visitLookupsFailOnFixedString(ctx.matcher());
+            }
+
+            @Override public String visitMatcherPathIsNotInLookupContains(MatcherPathIsNotInLookupContainsContext ctx) {
                 return visitLookupsFailOnFixedString(ctx.matcher());
             }
 

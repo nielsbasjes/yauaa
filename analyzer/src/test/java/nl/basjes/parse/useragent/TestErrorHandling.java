@@ -184,9 +184,23 @@ class TestErrorHandling {
             containsString(FIXED_LOOKUP_ERROR));
     }
 
+
+    @Test void checkFixedStringIsNotInLookupContains() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringIsNotInLookupContains.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
+    }
+
     @Test void checkFixedStringIsInLookupPrefix() {
         runTest(
             "classpath*:BadDefinitions/FixedStringIsInLookupPrefix.yaml",
+            containsString(FIXED_LOOKUP_ERROR));
+    }
+
+
+    @Test void checkFixedStringIsNotInLookupPrefix() {
+        runTest(
+            "classpath*:BadDefinitions/FixedStringIsNotInLookupPrefix.yaml",
             containsString(FIXED_LOOKUP_ERROR));
     }
 

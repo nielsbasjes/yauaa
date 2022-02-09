@@ -263,7 +263,7 @@ Back to full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three
 Special operations
 
 Operation | Symbol | Example | Result value (if applicable)
-:--- |:--- |:---|:---
+:--- |:--- |:--- |:---
 Check if the expresssion resulted in a null 'no match' value. | IsNull[expression] | IsNull[agent.(1)product.(3)name] | true
 Return the result or the provided default value in case the expression was a null 'no match' value. | DefaultIfNull[expression;defaultvalue] | DefaultIfNull[agent.(1)product.(3)name;"Something"]
 Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
@@ -274,6 +274,7 @@ LookUp the value against a lookup table and return the original value if a match
 LookUp the lookupname in the lookup table that the value contains | LookUpContains[lookupname;expression] | LookUpContains[OSNames;agent.product.entry.text]
 LookUp the lookupname in the lookup table that the value contains (with fallback in case no match) | LookUpContains[lookupname;expression;defaultvalue] | LookUpContains[OSNames;agent.product.entry.text;"Unknown"]
 LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present. | IsInLookUpContains[lookupname;expression] | IsInLookUpContains[OSNames;agent.product.entry.text]
+LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is NOT present. | IsNotInLookUpContains[lookupname;expression] | IsNotInLookUpContains[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value. | LookUpPrefix[lookupname;expression] | LookUpPrefix[OSNames;agent.product.entry.text]
 LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match). | LookUpPrefix[lookupname;expression;defaultvalue] | LookUpPrefix[OSNames;agent.product.entry.text;"Unknown"]
 LookUp the value against a lookup table and return the value if there is NO matching prefix of the key. | LookUpIsNotInPrefix[lookupname;expression] | LookUpIsNotInPrefix[OSNames;agent.product.entry.text]

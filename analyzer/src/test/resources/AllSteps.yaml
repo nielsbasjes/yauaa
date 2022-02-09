@@ -43,6 +43,12 @@ config:
     map:
       "o":   "Foo"
 
+- lookup:
+    name: 'MyNotContains'
+    map:
+      "@@@@":   "Foo"
+
+
 - matcher:
     extract:
       - 'FixedString0        :   1 : "Ok"'
@@ -129,9 +135,10 @@ config:
     variable:
       - 'Foo: agent.product.name^.name'
     extract:
-      - 'IsInLookUp         :   1 : IsInLookUp        [MyLookup;@Foo]'
-      - 'IsInLookUpPrefix   :   1 : IsInLookUpPrefix  [MyPrefixes;@Foo]'
-      - 'IsInLookUpContains :   1 : IsInLookUpContains[MyContains;@Foo]'
+      - 'IsInLookUp            :   1 : IsInLookUp        [MyLookup;@Foo]'
+      - 'IsInLookUpPrefix      :   1 : IsInLookUpPrefix  [MyPrefixes;@Foo]'
+      - 'IsInLookUpContains    :   1 : IsInLookUpContains[MyContains;@Foo]'
+      - 'IsNotInLookUpContains :   1 : IsNotInLookUpContains[MyNotContains;@Foo]'
 
 - matcher:
     variable:
