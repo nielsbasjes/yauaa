@@ -161,9 +161,36 @@ config:
     extract:
       - 'AgentInformationUrl:   1 : "::::"'
 
+# Checking extracting version substrings
+- matcher:
+    variable:
+      - 'RawVersion            :agent.(1)product.comments.entry.product.version'
+      - 'CleanedVersion        :CleanVersion[@RawVersion]'
+    extract:
+      - 'RawVersion            :      1 : @RawVersion'
+      - 'RawVersionPart1       :      1 : @RawVersion[1]'
+      - 'RawVersionPart1a      :      1 : @RawVersion[1-]'
+      - 'RawVersionPart1b      :      1 : @RawVersion[-1]'
+      - 'RawVersionPart2       :      1 : @RawVersion[2]'
+      - 'RawVersionPart2a      :      1 : @RawVersion[2-]'
+      - 'RawVersionPart2b      :      1 : @RawVersion[-2]'
+      - 'RawVersionPart3       :      1 : @RawVersion[3]'
+      - 'RawVersionPart3a      :      1 : @RawVersion[3-]'
+      - 'RawVersionPart3b      :      1 : @RawVersion[-3]'
+      - 'CleanedVersion        :      1 : @CleanedVersion'
+      - 'CleanedVersionPart1   :      1 : @CleanedVersion[1]'
+      - 'CleanedVersionPart1a  :      1 : @CleanedVersion[1-]'
+      - 'CleanedVersionPart1b  :      1 : @CleanedVersion[-1]'
+      - 'CleanedVersionPart2   :      1 : @CleanedVersion[2]'
+      - 'CleanedVersionPart2a  :      1 : @CleanedVersion[2-]'
+      - 'CleanedVersionPart2b  :      1 : @CleanedVersion[-2]'
+      - 'CleanedVersionPart3   :      1 : @CleanedVersion[3]'
+      - 'CleanedVersionPart3a  :      1 : @CleanedVersion[3-]'
+      - 'CleanedVersionPart3b  :      1 : @CleanedVersion[-3]'
+
 - test:
     input:
-       user_agent_string                   : 'Foo/1.0 (BAR bars /2_0_0)'
+       user_agent_string                   : 'Foo/1.0 (BAR bars /3_2_1)'
     expected:
       FixedString0                         : 'Ok'
       FixedString1                         : 'Ok'
@@ -172,7 +199,7 @@ config:
       Concat1                              : '>BAR bars'
       Concat2                              : 'BAR bars<'
       NormalizeBrand                       : 'BAR Bars'
-      CleanVersion                         : '2.0.0'
+      CleanVersion                         : '3.2.1'
       LookUpFoo1                           : 'Foo'
       LookUpFoo2                           : 'Foo'
       LookUpBar1                           : 'No Bar'
@@ -189,3 +216,25 @@ config:
       IsNotInLookUpContains                : 'Foo'
       DeviceBrand                          : "Unknown"
       AgentInformationUrl                  : "::::"
+
+      RawVersion                           : '3_2_1'   #
+      RawVersionPart1                      : '3'       #   [1]
+      RawVersionPart1a                     : '3_2_1'   #   [1-]
+      RawVersionPart1b                     : '3'       #   [-1]
+      RawVersionPart2                      : '2'       #   [2]
+      RawVersionPart2a                     : '2_1'     #   [2-]
+      RawVersionPart2b                     : '3_2'     #   [-2]
+      RawVersionPart3                      : '1'       #   [3]
+      RawVersionPart3a                     : '1'       #   [3-]
+      RawVersionPart3b                     : '3_2_1'   #   [-3]
+
+      CleanedVersion                       : '3.2.1'   #
+      CleanedVersionPart1                  : '3'       #   [1]
+      CleanedVersionPart1a                 : '3.2.1'   #   [1-]
+      CleanedVersionPart1b                 : '3'       #   [-1]
+      CleanedVersionPart2                  : '2'       #   [2]
+      CleanedVersionPart2a                 : '2.1'     #   [2-]
+      CleanedVersionPart2b                 : '3.2'     #   [-2]
+      CleanedVersionPart3                  : '1'       #   [3]
+      CleanedVersionPart3a                 : '1'       #   [3-]
+      CleanedVersionPart3b                 : '3.2.1'   #   [-3]

@@ -186,7 +186,7 @@ config:
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeMajorVersion?ChromeFrozenMajorVersionsToWindows'
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
-    - '@ChromeVersion}".0.0.0"'
+    - '@ChromeVersion[2-]="0.0.0"'
     extract:
     - 'OperatingSystemName                 :      200 : "<<<null>>>"'
     - 'OperatingSystemVersion              :      200 : "<<<null>>>"'
@@ -203,7 +203,7 @@ config:
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
-    - '@ChromeVersion}".0.0.0"'
+    - '@ChromeVersion[2-]="0.0.0"'
     extract:
     # IF NOT A MIX VERSION, WE DO NOT OVERRIDE THE OS NAME
     - 'LayoutEngineClass                   :     3000 : "Browser"'
@@ -837,7 +837,7 @@ config:
     require:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - 'agent.(3)product.name="Chrome"'
-    - '@ChromeVersion}".0.0.0"'
+    - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
     - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
