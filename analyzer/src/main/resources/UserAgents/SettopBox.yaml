@@ -700,15 +700,15 @@ config:
 
 - matcher:
     variable:
-      - 'Roku                                :agent.product.name="ROKU"^'
+    - 'Roku                                :agent.product.name="ROKU"^'
     extract:
-      - 'DeviceClass                         :      111 :"Set-top box"'
-      - 'DeviceName                          :      111 :"Roku Digital Video"'
-      - 'DeviceBrand                         :      111 :"Roku"'
-      - 'OperatingSystemClass                :      150 :"Embedded"'
-      - 'OperatingSystemName                 :      150 :"Roku OS"'
-      - 'OperatingSystemVersion              :      150 :CleanVersion[@Roku.(1)version?!UnwantedVersionValues]'
-      - 'OperatingSystemVersionBuild         :      150 :@Roku.(1)comments.(1)entry'
+    - 'DeviceClass                         :      111 :"Set-top box"'
+    - 'DeviceName                          :      111 :"Roku Digital Video"'
+    - 'DeviceBrand                         :      111 :"Roku"'
+    - 'OperatingSystemClass                :      150 :"Embedded"'
+    - 'OperatingSystemName                 :      150 :"Roku OS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@Roku.(1)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersionBuild         :      150 :@Roku.(1)comments.(1)entry'
 
 
 - test:
