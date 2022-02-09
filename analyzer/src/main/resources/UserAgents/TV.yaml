@@ -2581,14 +2581,21 @@ config:
 # older UA: `Mozilla/5.0 (Linux) AppleWebKit/601.0 (KHTML, like Gecko) Version/8.0 Safari/601.0 WPE` has been almost
 # entirely replaced by UA used in test (as of 2022-02-04). This makes sense since comcast can update all of their
 # boxes at will so we'd likely only ever see 1 variation of this UA at a time.
+# Note that 3rd party documentation was found that stated:
+#   - 4. User agents lacking device identifiers
+#     Examples:
+#     ...
+#     · The Comcast X1 Box returns the default WebPlatformEmbedded (WPE) user agent
+#     “Mozilla/5.0 (Linux; x86_64 GNU/Linux) AppleWebKit/601.1 (KHTML, like Gecko) Version/8.0
+#     Safari/601.1 WPE”
+# This seems to refer to https://webkit.org/wpe/
+# Since this user agent is very rarely used we ASSUME it is the one found most commonly "in the wild": Comcast X1
 - matcher:
     require:
-      # The detected UAs end with 'WPE' but I don't know how to specify that best in this tool so right now we are
-      # casting a wider net than necessary.
-      - 'agent}"WPE"'
+      - 'agent.(3-)text="WPE"'
     extract:
       - 'DeviceClass                         :     1000 : "Set-top Box"'
-      - 'DeviceName                          :     1000 : "WPE"'
+      - 'DeviceName                          :     1000 : "X1"'
       - 'DeviceBrand                         :     1000 : "Comcast"'
 
 - test:
@@ -2596,7 +2603,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; x86_64 GNU/Linux) AppleWebKit/601.1 (KHTML, like Gecko) Version/8.0 Safari/601.1 WPE'
     expected:
       DeviceClass                    : 'Set-top Box'
-      DeviceName                     : 'Comcast WPE'
+      DeviceName                     : 'Comcast X1'
       DeviceBrand                    : 'Comcast'
       DeviceCpu                      : 'Intel x86_64'
       DeviceCpuBits                  : '64'
@@ -2618,3 +2625,30 @@ config:
       AgentVersionMajor              : '8'
       AgentNameVersion               : 'Safari 8.0'
       AgentNameVersionMajor          : 'Safari 8'
+
+# The older Comcast UA
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux) AppleWebKit/601.0 (KHTML, like Gecko) Version/8.0 Safari/601.0 WPE'
+    expected:
+      DeviceClass                          : 'Set-top Box'
+      DeviceName                           : 'Comcast X1'
+      DeviceBrand                          : 'Comcast'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.0'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.0'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '8.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Safari 8.0'
+      AgentNameVersionMajor                : 'Safari 8'
