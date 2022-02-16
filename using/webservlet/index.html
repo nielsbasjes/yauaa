@@ -14,18 +14,18 @@
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
 <title>The demonstration webservlet | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1644835841 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1644835841 rel=stylesheet>
-<link href=/css/hybrid.css?1644835841 rel=stylesheet>
-<link href=/css/featherlight.min.css?1644835841 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1644835841 rel=stylesheet>
-<link href=/css/auto-complete.css?1644835841 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1644835841 rel=stylesheet>
-<link href=/css/theme.css?1644835841 rel=stylesheet>
-<link href=/css/tabs.css?1644835841 rel=stylesheet>
-<link href=/css/hugo-theme.css?1644835841 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1644835841 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1644835841></script>
+<link href=/css/nucleus.css?1645004712 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1645004712 rel=stylesheet>
+<link href=/css/hybrid.css?1645004712 rel=stylesheet>
+<link href=/css/featherlight.min.css?1645004712 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1645004712 rel=stylesheet>
+<link href=/css/auto-complete.css?1645004712 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1645004712 rel=stylesheet>
+<link href=/css/theme.css?1645004712 rel=stylesheet>
+<link href=/css/tabs.css?1645004712 rel=stylesheet>
+<link href=/css/hugo-theme.css?1645004712 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1645004712 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1645004712></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
 <script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
 </head>
@@ -42,10 +42,10 @@
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
 </div>
-<script type=text/javascript src=/js/lunr.min.js?1644835841></script>
-<script type=text/javascript src=/js/auto-complete.js?1644835841></script>
+<script type=text/javascript src=/js/lunr.min.js?1645004712></script>
+<script type=text/javascript src=/js/auto-complete.js?1645004712></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1644835841></script>
+<script type=text/javascript src=/js/search.js?1645004712></script>
 </div>
 <section id=homelinks>
 <ul>
@@ -323,7 +323,7 @@ some APIs that allow you to try things out.</p>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;dependency&gt;</span>
   <span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
   <span style=color:#f92672>&lt;artifactId&gt;</span>yauaa-webapp<span style=color:#f92672>&lt;/artifactId&gt;</span>
-  <span style=color:#f92672>&lt;version&gt;</span>6.8<span style=color:#f92672>&lt;/version&gt;</span>
+  <span style=color:#f92672>&lt;version&gt;</span>6.9<span style=color:#f92672>&lt;/version&gt;</span>
   <span style=color:#f92672>&lt;type&gt;</span>war<span style=color:#f92672>&lt;/type&gt;</span>
 <span style=color:#f92672>&lt;/dependency&gt;</span>
 </code></pre></div><p>NOTE that this is a <strong>DEMONSTRATION</strong> servlet!</p>
@@ -334,8 +334,8 @@ some APIs that allow you to try things out.</p>
 </code></pre>
 <p>So with docker installed and running on your (Linux) desktop
 you should be able to so something as simple as</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>docker pull nielsbasjes/yauaa:6.8
-docker run -p8080:8080 nielsbasjes/yauaa:6.8
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>docker pull nielsbasjes/yauaa:6.9
+docker run -p8080:8080 nielsbasjes/yauaa:6.9
 </code></pre></div><p>and then open</p>
 <pre><code>http://localhost:8080/
 </code></pre>
@@ -344,7 +344,7 @@ docker run -p8080:8080 nielsbasjes/yauaa:6.8
 <p>The servlet supports loading your own custom rules, which can be useful to classify internal monitoring systems.
 It does this by looking in the folder that start with UserAgents for yaml files (i.e. <code>file:UserAgents*/*.yaml</code> ).</p>
 <p>Based on the docker image this can be easily done with an additional layer where your entire <code>Dockerfile</code> looks like this</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-dockerfile data-lang=dockerfile><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> nielsbasjes/yauaa:6.8</span><span style=color:#960050;background-color:#1e0010>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-dockerfile data-lang=dockerfile><span style=color:#66d9ef>FROM</span><span style=color:#e6db74> nielsbasjes/yauaa:6.9</span><span style=color:#960050;background-color:#1e0010>
 </span><span style=color:#960050;background-color:#1e0010></span><span style=color:#66d9ef>ADD</span> InternalTraffic.yaml UserAgents/<span style=color:#960050;background-color:#1e0010>
 </span></code></pre></div><p>When you build that docker image and run it the logging should contain something like this:</p>
 <pre><code>Loading 1 rule files using expression: file:UserAgents*/*.yaml
@@ -380,7 +380,7 @@ exposes it as a <code>Service</code> that simply does <code>http</code>.</p>
     <span style=color:#f92672>spec</span>:
       <span style=color:#f92672>containers</span>:
       - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>yauaa</span>
-        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nielsbasjes/yauaa:6.8</span>
+        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nielsbasjes/yauaa:6.9</span>
         <span style=color:#f92672>ports</span>:
         - <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>8080</span>
           <span style=color:#f92672>name</span>: <span style=color:#ae81ff>yauaa</span>
@@ -486,7 +486,7 @@ Note that the folder under which it is mounted must be at the root level and the
             <span style=color:#f92672>name</span>: <span style=color:#ae81ff>niels-yauaa-rules</span>
       <span style=color:#f92672>containers</span>:
       - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>yauaa</span>
-        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nielsbasjes/yauaa:6.8</span>
+        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nielsbasjes/yauaa:6.9</span>
         <span style=color:#f92672>volumeMounts</span>:
           <span style=color:#75715e># NOTE 1: The directory name MUST start with  &#34;/UserAgents&#34; !!</span>
           <span style=color:#75715e># NOTE 2: You can have multiple as long as the mountPaths are all different.</span>
@@ -571,15 +571,15 @@ or you may choose to expose it via an <code>Ingress</code>.</p>
 <div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
 </div>
-<script src=/js/clipboard.min.js?1644835841></script>
-<script src=/js/perfect-scrollbar.min.js?1644835841></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1644835841></script>
-<script src=/js/jquery.sticky.js?1644835841></script>
-<script src=/js/featherlight.min.js?1644835841></script>
-<script src=/js/highlight.pack.js?1644835841></script>
+<script src=/js/clipboard.min.js?1645004712></script>
+<script src=/js/perfect-scrollbar.min.js?1645004712></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1645004712></script>
+<script src=/js/jquery.sticky.js?1645004712></script>
+<script src=/js/featherlight.min.js?1645004712></script>
+<script src=/js/highlight.pack.js?1645004712></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1644835841></script>
-<script src=/js/learn.js?1644835841></script>
-<script src=/js/hugo-learn.js?1644835841></script>
+<script src=/js/modernizr.custom-3.6.0.js?1645004712></script>
+<script src=/js/learn.js?1645004712></script>
+<script src=/js/hugo-learn.js?1645004712></script>
 </body>
 </html>
