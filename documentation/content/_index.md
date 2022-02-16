@@ -39,7 +39,7 @@ To assist in running Yauaa without the logj4-core jar an example was created tha
 ---
 ## HIGH Profile release notes:
 
-### Version 6.9 (Unreleased)
+### Version 6.9
 - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
 
 ### Version 6.8

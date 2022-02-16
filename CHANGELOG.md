@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.9-SNAPSHOT
+v6.10-SNAPSHOT
+===
+- ...
+
+v6.9
 ===
 - Analyzer
   - New IsNotInLookUpContains function used to speedup Robot pattern matching.
