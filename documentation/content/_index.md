@@ -10,6 +10,29 @@ Works with Java, Scala, Kotlin and provides ready for use UDFs for several proce
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
 ---
+## HIGH Profile release notes:
+
+### Version 6.9
+- Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
+- Detect several types of TVs and Set-top boxes better. Contributed by [Sam Hendley](https://github.com/samhendley/).
+
+### Version 6.8
+- The list of returned fields is more consistent (including the "Default" values).
+- Fix detection of Samsung SC-... devices.
+- Switched the default caching implementation to [Caffeine](https://github.com/ben-manes/caffeine)
+  NOTE: Caffeine needs Java 11. If you still need to run on Java 8 you can change the caching implementation used back to any other implementation.
+
+### Version 6.7
+- Updated log4j to 2.17.1
+- Allow providing a custom caching implementation.
+- Builds with JDK 17
+
+### Version 6.3
+- Report frozen (=manipulated) Mac OS X versions as `??`:
+  - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
+  - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
+
+---
 ## Regarding the recent Log4J2 issues
 The Yauaa analyzer uses the Log4J2 API to do the logging and through the included dependencies also JCL and SLF4J are needed to run.
 
@@ -35,28 +58,6 @@ This is because it was designed to run in very large scale batch and streaming s
 
 ### Bring your own batteries
 To assist in running Yauaa without the logj4-core jar an example was created that only uses SLF4J: [here](https://github.com/nielsbasjes/yauaa/tree/master/examples/java-slf4j).
-
----
-## HIGH Profile release notes:
-
-### Version 6.9
-- Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
-
-### Version 6.8
-- The list of returned fields is more consistent (including the "Default" values).
-- Fix detection of Samsung SC-... devices.
-- Switched the default caching implementation to [Caffeine](https://github.com/ben-manes/caffeine)
-  NOTE: Caffeine needs Java 11. If you still need to run on Java 8 you can change the caching implementation used back to any other implementation.
-
-### Version 6.7
-- Updated log4j to 2.17.1
-- Allow providing a custom caching implementation.
-- Builds with JDK 17
-
-### Version 6.3
-- Report frozen (=manipulated) Mac OS X versions as `??`:
-  - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
-  - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
 
 ---
 ## Donations
