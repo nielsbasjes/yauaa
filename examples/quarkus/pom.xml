@@ -19,15 +19,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-<!--  <parent>-->
-<!--    <artifactId>yauaa-example-parent</artifactId>-->
-<!--    <groupId>nl.basjes.parse.useragent</groupId>-->
-<!--    <version>5.19-SNAPSHOT</version>-->
-<!--  </parent>-->
+  <parent>
+    <artifactId>yauaa-example-parent</artifactId>
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <version>6.10-SNAPSHOT</version>
+  </parent>
 
-  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-example-quarkus</artifactId>
-  <version>0.1-SNAPSHOT</version>
   <name>Yauaa : Examples : Quarkus</name>
 
   <properties>
@@ -39,13 +37,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <quarkus-plugin.version>1.6.1.Final</quarkus-plugin.version>
-    <quarkus.platform.version>1.6.1.Final</quarkus.platform.version>
+    <quarkus-plugin.version>2.7.1.Final</quarkus-plugin.version>
+    <quarkus.platform.version>2.7.1.Final</quarkus.platform.version>
 
     <surefire-plugin.version>2.22.2</surefire-plugin.version>
     <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
-
-    <yauaa.version>6.9</yauaa.version>
 
   </properties>
 
@@ -83,14 +79,29 @@
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>${yauaa.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
-<!--    <dependency>-->
-<!--      <groupId>org.slf4j</groupId>-->
-<!--      <artifactId>jcl-over-slf4j</artifactId>-->
-<!--      <version>1.7.30</version>-->
-<!--    </dependency>-->
+    <!-- The default logging implementation for Yauaa -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <!-- Needed for the included classes from org.springframework:spring-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
 
   </dependencies>
 
