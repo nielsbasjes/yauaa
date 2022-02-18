@@ -25,31 +25,16 @@
     <version>6.10-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>yauaa-documentation</artifactId>
+
+  <name>Yauaa : Documentation website</name>
+
   <packaging>pom</packaging>
-
-  <artifactId>yauaa-example-parent</artifactId>
-  <name>Yauaa : Examples :</name>
-
-  <properties>
-    <!-- We override this setting because the one in the parent causes problems -->
-    <argLine>-Xmx2048m</argLine>
-    <sonar.skip>true</sonar.skip>
-    <depencency-convergence.phase>none</depencency-convergence.phase>
-
-    <!-- This is to make the example code a bit easier to copy into your own project. -->
-    <yauaa.version>6.10-SNAPSHOT</yauaa.version>
-  </properties>
-
-  <modules>
-    <module>java</module>
-    <module>java-slf4j</module>
-    <module>kotlin</module>
-    <module>scala</module>
-<!--    <module>quarkus</module>-->
-  </modules>
 
   <build>
     <plugins>
+      <!-- Never deploy this to a maven repo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
@@ -58,7 +43,47 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+
+      <!-- This module deliberately has no tests. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>prepareRelease</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>Update website to show the released version.</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>./UpdateVersionWebsite.sh</executable>
+                  <arguments>
+                    <argument>${project.version}</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>

@@ -7,47 +7,19 @@ git pull
 # Ensure all has been committed
 git status
 
-# Ensure it all works
-mvn clean verify -PpackageForRelease
-mvn clean
-
-# Prepare the versions for the release
-RELEASEVERSION=6.10
-NEXTVERSION=6.11
-
-# Creating and publishing the new Tagging
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASEVERSION}
-
-# Edit the yauaa.version in ./examples/quarkus/pom.xml
-sed -i "s@<yauaa.version>[0-9.]*</yauaa.version>@<yauaa.version>${RELEASEVERSION}</yauaa.version>@g" ./examples/quarkus/pom.xml
-
-# Update the version number in the generated documentation website.
-echo -n ${RELEASEVERSION} > ./documentation/layouts/shortcodes/YauaaVersion.md
-
 # Update the top of the CHANGELOG.md and website frontpage
 vim CHANGELOG.md documentation/content/_index.md
+git commit -M"Updated CHANGELOG and website before release" CHANGELOG.md documentation/content/_index.md
 
-git status
-git commit -m"Version ${RELEASEVERSION}" -a
-
-# We must first tag it because the tag is generated into the code
-git tag -a v${RELEASEVERSION} -m"Tag Version ${RELEASEVERSION}"
-
-#mvn clean deploy -Prelease -Pdeploy-local
-#VERIFY If this all looks good
+# Prepare the release
+mvn release:prepare
 
 # These two profiles are defined in ~/.m2/settings.xml
-mvn clean deploy -PpackageForRelease -Prelease -PdeployToSonatype
+mvn release:perform -PdeployToSonatype
 
 #
 # Now check SONATYPE
 #
-
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${NEXTVERSION}-SNAPSHOT
-
-# Update ReleaseProcedure.txt (versions near the top)
-
-git commit -m"Start development for ${NEXTVERSION}" -a
 
 git push
 git push origin v${RELEASEVERSION}

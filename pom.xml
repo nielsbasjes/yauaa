@@ -113,6 +113,7 @@
     <maven-install-plugin.version>3.0.0-M1</maven-install-plugin.version>
     <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
+    <maven-release-plugin.version>3.0.0-M5</maven-release-plugin.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
     <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
@@ -345,33 +346,6 @@
                 <goals>
                   <goal>deploy</goal>
                 </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <!-- Description: https://github.com/git-commit-id/git-commit-id-maven-plugin -->
-            <groupId>io.github.git-commit-id</groupId>
-            <artifactId>git-commit-id-maven-plugin</artifactId>
-            <version>${git-commit-id-maven-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>Validate-Revision-Information</id>
-                <phase>validate</phase>
-                <goals>
-                  <goal>validateRevision</goal>
-                </goals>
-                <configuration>
-                  <validationProperties>
-                    <!-- verify that the current repository is not dirty -->
-                    <validationProperty>
-                      <name>Don't try to release if something has not yet been committed.</name>
-                      <value>${git.dirty}</value>
-                      <shouldMatchTo>false</shouldMatchTo>
-                    </validationProperty>
-                  </validationProperties>
-                  <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
-                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -678,6 +652,28 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven-release-plugin.version}</version>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <updateDependencies>false</updateDependencies>
+
+          <scmCommentPrefix>Release:</scmCommentPrefix>
+          <scmReleaseCommitComment>Release: Version @{releaseLabel}</scmReleaseCommitComment>
+          <scmDevelopmentCommitComment>Release: Start development of next version</scmDevelopmentCommitComment>
+          <scmRollbackCommitComment>Release: Rollback the release of @{releaseLabel}</scmRollbackCommitComment>
+
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+
+          <preparationGoals>-PprepareRelease -PpackageForRelease clean verify</preparationGoals>
+          <releaseProfiles>packageForRelease,release,deployToSonatype</releaseProfiles>
+          <pushChanges>false</pushChanges>
+          <remoteTagging>false</remoteTagging>
+        </configuration>
+      </plugin>
+
     </plugins>
 
     <pluginManagement>
@@ -851,6 +847,7 @@
     <module>webapp</module>
     <module>examples</module>
     <module>benchmarks</module>
+    <module>documentation</module>
   </modules>
 
   <licenses>
@@ -876,7 +873,8 @@
   <scm>
     <url>https://github.com/nielsbasjes/yauaa</url>
     <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
-    <developerConnection>scm:git:.</developerConnection>
+    <developerConnection>scm:git:file:///${project.basedir}</developerConnection>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
