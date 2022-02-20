@@ -1,25 +1,33 @@
-The maven release plugin turned out to be too hard to handle.
-So we do it manually.
+# Release procedure.
+This uses the maven-replease-plugin which has been configured to ONLY modify the local git repo.
 
-# Ensure we have all upstream updates (like patches from Renovate)
+## Ensure we have all upstream updates (like patches from Renovate)
 git pull
 
-# Ensure all has been committed
+## Ensure all has been committed
 git status
 
-# Update the top of the CHANGELOG.md and website frontpage
+## Update the top of the CHANGELOG.md and website frontpage
 vim CHANGELOG.md documentation/content/_index.md
 git commit -M"Updated CHANGELOG and website before release" CHANGELOG.md documentation/content/_index.md
 
-# Prepare the release
+## Prepare the release: Make releasable version and make tag.
 mvn release:prepare
 
-# These two profiles are defined in ~/.m2/settings.xml
-mvn release:perform -PdeployToSonatype
+# UNDO Procedure MANUALLY:
+# mvn release:rollback    will create an extra commit to rollback the changes in the pom.xml files and remove the tag but NOT everything.
+# Using `git log` see how many commits must be removed.
+# git reset HEAD~2
+
+# Actually run the release: Effectively mvn deploy towards Sonatype
+mvn release:perform
 
 #
 # Now check SONATYPE
 #
+
+# This now contains the latest released version
+RELEASEVERSION=$(cat documentation/layouts/shortcodes/YauaaVersion.md)
 
 git push
 git push origin v${RELEASEVERSION}
@@ -28,8 +36,7 @@ git push origin v${RELEASEVERSION}
 docker push nielsbasjes/yauaa:${RELEASEVERSION}
 docker push nielsbasjes/yauaa:latest
 
-Upload logstash gem to github.com
-
+# Upload logstash gem to github.com
 
 #######################
 
