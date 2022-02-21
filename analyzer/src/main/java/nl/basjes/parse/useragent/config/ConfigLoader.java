@@ -252,12 +252,14 @@ public class ConfigLoader {
                 String filename = resource.getFilename();
                 if (filename != null) {
                     maxFilenameLength = Math.max(maxFilenameLength, filename.length());
-
-                    String yamlString = new BufferedReader(
-                        new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8))
-                        .lines()
-                        .collect(Collectors.joining("\n"));
-
+                    String yamlString;
+                    try (InputStreamReader inputStreamReader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
+                        try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                            yamlString =  bufferedReader
+                                .lines()
+                                .collect(Collectors.joining("\n"));
+                        }
+                    }
                     yamlRules.put(filename, yamlString);
                 }
             } catch (IOException e) {
