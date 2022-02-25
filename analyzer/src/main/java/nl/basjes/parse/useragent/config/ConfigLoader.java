@@ -278,7 +278,7 @@ public class ConfigLoader {
     }
 
     private Map<String, Resource> findAllResources(String resourceString, boolean showLoadMessages, boolean areOptional, boolean loadingDefaultResources) {
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(this.getClass().getClassLoader());
         Map<String, Resource> resources = new TreeMap<>();
         try {
             Resource[] resourceArray = resolver.getResources(resourceString);
