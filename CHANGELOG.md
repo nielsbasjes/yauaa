@@ -5,6 +5,8 @@ v6.10-SNAPSHOT
 ===
 - UDFs
   - New UDF for Trino (a.k.a. Presto SQL)
+- Updated UDF dependencies
+    - Apache Drill            1.20.0
 
 v6.9
 ===
