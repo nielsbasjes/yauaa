@@ -94,6 +94,21 @@
     <plugins>
 
       <plugin>
+        <groupId>io.trino</groupId>
+        <artifactId>trino-maven-plugin</artifactId>
+        <version>11</version>
+        <executions>
+          <execution>
+            <id>check-spi-dependencies</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check-spi-dependencies</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>${maven-assembly-plugin.version}</version>
