@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.10-SNAPSHOT
 ===
-- ...
+- UDFs
+  - New UDF for Trino (a.k.a. Presto SQL)
 
 v6.9
 ===
