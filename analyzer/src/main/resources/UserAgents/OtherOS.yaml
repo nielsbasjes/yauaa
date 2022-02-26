@@ -297,6 +297,38 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (OS/2; U; OS/2; en-US) AppleWebKit/533.3 (KHTML, like Gecko) QupZilla/1.3.1 Safari/533.3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'OS/2'
+      OperatingSystemVersion               : '2.x'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'OS/2 2.x'
+      OperatingSystemNameVersionMajor      : 'OS/2 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '533.3'
+      LayoutEngineVersionMajor             : '533'
+      LayoutEngineNameVersion              : 'AppleWebKit 533.3'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 533'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QupZilla'
+      AgentVersion                         : '1.3.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'QupZilla 1.3.1'
+      AgentNameVersionMajor                : 'QupZilla 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentInformationEmail                : 'Unknown'
+      AgentInformationUrl                  : 'Unknown'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (X11; U; NetBSD alpha; en-US; rv:1.8.1.6) Gecko/20080115 Firefox/51.0'
     expected:
       DeviceClass                          : 'Desktop'
