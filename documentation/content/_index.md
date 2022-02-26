@@ -12,6 +12,9 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 6.10 (Unreleased)
+- New UDF for [Trino](https://trino.io/) (a.k.a. Presto SQL)
+
 ### Version 6.9
 - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
 - Detect several types of TVs and Set-top boxes better. Contributed by [Sam Hendley](https://github.com/samhendley/).
