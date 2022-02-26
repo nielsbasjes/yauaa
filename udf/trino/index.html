@@ -13,7 +13,7 @@
 <meta name=msapplication-TileColor content="#2d89ef">
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
-<title>Tags | Yauaa - Yet Another UserAgent Analyzer</title>
+<title>Trino | Yauaa - Yet Another UserAgent Analyzer</title>
 <link href=/css/nucleus.css?1645897248 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1645897248 rel=stylesheet>
 <link href=/css/hybrid.css?1645897248 rel=stylesheet>
@@ -29,7 +29,7 @@
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
 <script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
 </head>
-<body data-url=/tags/>
+<body data-url=/udf/trino/>
 <nav id=sidebar>
 <div id=header-wrapper>
 <div id=header>
@@ -105,7 +105,8 @@ Licence
 </li>
 </ul>
 </li>
-<li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
+<li data-nav-id=/udf/ title="User Defined Functions" class="dd-item
+parent">
 <a href=/udf/>
 User Defined Functions
 </a>
@@ -180,7 +181,7 @@ Snowflake
 Snowplow
 </a>
 </li>
-<li data-nav-id=/udf/trino/ title=Trino class=dd-item>
+<li data-nav-id=/udf/trino/ title=Trino class="dd-item active">
 <a href=/udf/trino/>
 Trino
 </a>
@@ -280,6 +281,12 @@ Related projects
 <div class="padding highlightable">
 <div>
 <div id=top-bar>
+<div id=top-github-link>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/master/documentation/content/udf/Trino.md target=blank>
+<i class="fas fa-code-branch"></i>
+<span id=top-github-link-text>Edit this page</span>
+</a>
+</div>
 <div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
@@ -288,11 +295,19 @@ Related projects
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > Tags
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/udf/>User Defined Functions</a> > Trino
 </span>
 </div>
 <div class=progress>
 <div class=wrapper>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</a></li>
+<li><a href=#installation>Installation</a></li>
+<li><a href=#example-usage>Example usage</a></li>
+</ul>
+</nav>
 </div>
 </div>
 </div>
@@ -301,11 +316,41 @@ Related projects
 </div>
 <div id=body-inner>
 <h1>
-tag ::
-Tags
+Trino
 </h1>
-<ul>
-</ul>
+<h2 id=introduction>Introduction</h2>
+<p>This is a User Defined Function for <a href=https://trino.io>Trino</a> (a.k.a. Presto SQL)</p>
+<h2 id=status--experimental->STATUS: &mldr; EXPERIMENTAL &mldr;</h2>
+<p>The Trino plugin is very new.
+Please tell if it works or not in your case.</p>
+<h2 id=installation>Installation</h2>
+<p>You can get the prebuilt UDF from <a href="https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-trino/6.9/yauaa-trino-6.9-udf.jar">maven central</a>.</p>
+<p>In the plugin directory of your Trino server create a subdirectory and copy the <code>yauaa-trino-6.9-udf.jar</code> to that new directory.</p>
+<p>In the trino docker image this is <code>/usr/lib/trino/plugin/</code> so putting the jar in something like <code>/usr/lib/trino/plugin/yauaa</code> is a fine choice.</p>
+<p><strong>Important note:</strong> This directory may only contain this jar file; no other files may be present!</p>
+<h2 id=example-usage>Example usage</h2>
+<p>This UDF provides a single new function <code>parse_user_agent(&lt;useragent>)</code>.</p>
+<p>This function needs one input which is the UserAgent string that needs to be analyzed.</p>
+<p>The return value is a <code>map(varchar, varchar)</code> which is a key value map of all possible properties.</p>
+<p>Example:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#66d9ef>SELECT</span> parsedUseragent[<span style=color:#e6db74>&#39;DeviceClass&#39;</span>]              <span style=color:#66d9ef>AS</span> DeviceClass,
+       parsedUseragent[<span style=color:#e6db74>&#39;AgentNameVersionMajor&#39;</span>]    <span style=color:#66d9ef>AS</span> AgentNameVersionMajor
+<span style=color:#66d9ef>FROM</span> (
+    <span style=color:#66d9ef>SELECT</span>  useragent,
+            parse_user_agent(useragent) <span style=color:#66d9ef>AS</span> parsedUseragent
+    <span style=color:#66d9ef>FROM</span> (
+        <span style=color:#66d9ef>SELECT</span> useragent
+        <span style=color:#66d9ef>FROM</span> (
+            <span style=color:#66d9ef>VALUES</span> (<span style=color:#e6db74>&#39;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36&#39;</span>)
+        ) <span style=color:#66d9ef>AS</span> t (useragent)
+    )
+);
+</code></pre></div><p>Outputs:</p>
+<pre tabindex=0><code> DeviceClass | AgentNameVersionMajor
+-------------+-----------------------
+ Desktop     | Chrome 98
+(1 row)
+</code></pre>
 <footer class=footline>
 </footer>
 </div>
