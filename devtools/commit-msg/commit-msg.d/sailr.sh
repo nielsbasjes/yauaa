@@ -1,6 +1,6 @@
 #!/bin/bash
 
-release_tag=master
+release_tag=main
 sailr_repo="https://github.com/craicoverflow/sailr/tree/$release_tag"
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"

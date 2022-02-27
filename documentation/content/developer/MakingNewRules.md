@@ -309,7 +309,7 @@ agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.
 Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
 
-I created a test that shows all of the debug output of this example: [unit test](https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java) and [yaml file](https://github.com/nielsbasjes/yauaa/tree/master/analyzer/src/test/resources/DocumentationExample.yaml)
+I created a test that shows all of the debug output of this example: [unit test](https://github.com/nielsbasjes/yauaa/tree/main/analyzer/src/test/java/nl/basjes/parse/useragent/DocumentationExample.java) and [yaml file](https://github.com/nielsbasjes/yauaa/tree/main/analyzer/src/test/resources/DocumentationExample.yaml)
 
 This can also be run from the commandline using:
 

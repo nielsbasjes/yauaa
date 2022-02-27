@@ -60,7 +60,7 @@ Only during development and during unit tests the Useragents are logged.
 This is because it was designed to run in very large scale batch and streaming situations (very large as in "Let's analyze these 10^10 records").
 
 ### Bring your own batteries
-To assist in running Yauaa without the logj4-core jar an example was created that only uses SLF4J: [here](https://github.com/nielsbasjes/yauaa/tree/master/examples/java-slf4j).
+To assist in running Yauaa without the logj4-core jar an example was created that only uses SLF4J: [here](https://github.com/nielsbasjes/yauaa/tree/main/examples/java-slf4j).
 
 ---
 ## Donations

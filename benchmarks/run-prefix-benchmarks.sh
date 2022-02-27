@@ -47,7 +47,7 @@ function run {
 }
 
 # First ensure that all dependencies for the current version are in place
-( cd .. ; git checkout . ; git checkout master )
+( cd .. ; git checkout . ; git checkout main )
 ( cd .. ; mvn clean install -DskipTests=true -Drat.skip=true )
 
 build 56a053a552c00fe72280e6e0db406906e64915df 5.6-SNAPSHOT-1-AllRules
