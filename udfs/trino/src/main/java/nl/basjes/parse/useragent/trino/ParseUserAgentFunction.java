@@ -28,6 +28,7 @@ import io.trino.spi.type.StandardTypes;
 import io.trino.spi.type.TypeOperators;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.Version;
 
 import java.util.Map;
 
@@ -55,7 +56,9 @@ public final class ParseUserAgentFunction {
     }
 
     @ScalarFunction("parse_user_agent")
-    @Description("Parses the UserAgent into all possible pieces using the Yauaa library. https://yauaa.basjes.nl ")
+    @Description("Tries to parse and analyze the provided useragent string and extract as many attributes " +
+        "as possible. Uses Yauaa (Yet Another UserAgent Analyzer) version " + Version.PROJECT_VERSION + ". " +
+        "See https://yauaa.basjes.nl/udf/trino/ for documentation.")
     @SqlType("map(varchar, varchar)")
     public static Block parseUserAgent(@SqlType(StandardTypes.VARCHAR) Slice userAgentSlice) throws IllegalArgumentException {
         String userAgentStringToParse = null;
