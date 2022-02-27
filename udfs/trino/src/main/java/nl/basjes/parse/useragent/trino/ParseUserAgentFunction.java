@@ -38,12 +38,21 @@ public final class ParseUserAgentFunction {
     private ParseUserAgentFunction() {
     }
 
-    private static final ThreadLocal<UserAgentAnalyzer> USER_AGENT_ANALYZER_THREAD_LOCAL =
-        ThreadLocal.withInitial(() -> UserAgentAnalyzer
-            .newBuilder()
-            .hideMatcherLoadStats()
-            .withCache(10000)
-            .build());
+    private static UserAgentAnalyzer userAgentAnalyzerInstance = null;
+
+    private static UserAgentAnalyzer getInstance() {
+        // NOTE: We currently cannot make an instance with only the wanted fields.
+        //       We only know the required parameters the moment the call is done.
+        //       At that point it is too late to create an optimized instance.
+        if (userAgentAnalyzerInstance == null) {
+            userAgentAnalyzerInstance = UserAgentAnalyzer
+                .newBuilder()
+                .immediateInitialization()
+                .dropTests()
+                .build();
+        }
+        return userAgentAnalyzerInstance;
+    }
 
     @ScalarFunction("parse_user_agent")
     @Description("Parses the UserAgent into all possible pieces using the Yauaa library. https://yauaa.basjes.nl ")
@@ -54,7 +63,7 @@ public final class ParseUserAgentFunction {
             userAgentStringToParse = userAgentSlice.toStringUtf8();
         }
 
-        UserAgentAnalyzer userAgentAnalyzer = USER_AGENT_ANALYZER_THREAD_LOCAL.get();
+        UserAgentAnalyzer userAgentAnalyzer = getInstance();
 
         UserAgent userAgent = userAgentAnalyzer.parse(userAgentStringToParse);
         Map<String, String> resultMap = userAgent.toMap(userAgent.getAvailableFieldNamesSorted());
