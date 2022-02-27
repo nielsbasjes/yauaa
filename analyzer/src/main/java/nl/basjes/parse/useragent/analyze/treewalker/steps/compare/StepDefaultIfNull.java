@@ -17,11 +17,8 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
-<<<<<<< HEAD
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
-=======
 import nl.basjes.parse.useragent.analyze.MatcherTree;
->>>>>>> 106fcd66... WIP
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -36,7 +33,6 @@ public class StepDefaultIfNull extends Step {
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepDefaultIfNull() {
         defaultValue = SHOULD_NOT_BE_SEEN_ANYWHERE;
-        canFail = false;
     }
 
     public StepDefaultIfNull(String defaultValue) {
