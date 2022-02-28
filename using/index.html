@@ -2,7 +2,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=generator content="Hugo 0.92.2">
+<meta name=generator content="Hugo 0.93.0">
 <meta name=description content="This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.">
 <meta name=author content="Niels Basjes">
 <link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png>
@@ -13,48 +13,38 @@
 <meta name=msapplication-TileColor content="#2d89ef">
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
-<title>Using the analyzer | Yauaa - Yet Another UserAgent Analyzer</title>
-<link href=/css/nucleus.css?1645968530 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1645968530 rel=stylesheet>
-<link href=/css/hybrid.css?1645968530 rel=stylesheet>
-<link href=/css/featherlight.min.css?1645968530 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1645968530 rel=stylesheet>
-<link href=/css/auto-complete.css?1645968530 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1645968530 rel=stylesheet>
-<link href=/css/theme.css?1645968530 rel=stylesheet>
-<link href=/css/tabs.css?1645968530 rel=stylesheet>
-<link href=/css/hugo-theme.css?1645968530 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1645968530 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1645968530></script>
-<style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style>
-<script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="https://wa.basjes.nl/",c,a,d;_paq.push(['setTrackerUrl',b+'wa.php']),_paq.push(['setSiteId','1']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'wa.js',d.parentNode.insertBefore(a,d)}()</script>
-</head>
-<body data-url=/using/>
+<title>Using the analyzer | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1646059070 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1646059070 rel=stylesheet>
+<link href=/css/hybrid.css?1646059070 rel=stylesheet>
+<link href=/css/featherlight.min.css?1646059070 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1646059070 rel=stylesheet>
+<link href=/css/auto-complete.css?1646059070 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1646059070 rel=stylesheet>
+<link href=/css/theme.css?1646059070 rel=stylesheet>
+<link href=/css/tabs.css?1646059070 rel=stylesheet>
+<link href=/css/hugo-theme.css?1646059070 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1646059070 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1646059070></script>
+<style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style><script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){t="https://wa.basjes.nl/",_paq.push(["setTrackerUrl",t+"wa.php"]),_paq.push(["setSiteId","1"]);var t,n=document,e=n.createElement("script"),s=n.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src=t+"wa.js",s.parentNode.insertBefore(e,s)}()</script>
+</head><body data-url=/using/>
 <nav id=sidebar>
 <div id=header-wrapper>
 <div id=header>
 <a id=logo href=/>
-<p class=logo-bar>Yauaa</p>
-</a>
-</div>
-<div class=searchbox>
+<p class=logo-bar>Yauaa</p></a>
+</div><div class=searchbox>
 <label for=search-by><i class="fas fa-search"></i></label>
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
-</div>
-<script type=text/javascript src=/js/lunr.min.js?1645968530></script>
-<script type=text/javascript src=/js/auto-complete.js?1645968530></script>
+</div><script type=text/javascript src=/js/lunr.min.js?1646059070></script>
+<script type=text/javascript src=/js/auto-complete.js?1646059070></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1645968530></script>
-</div>
-<section id=homelinks>
+<script type=text/javascript src=/js/search.js?1646059070></script>
+</div><section id=homelinks>
 <ul>
 <li>
 <a class=padding href=/><i class="fas fa-home"></i> Yauaa</a>
-</li>
-</ul>
-</section>
-<div class=highlightable>
+</li></ul></section><div class=highlightable>
 <ul class=topics>
 <li data-nav-id=/expect/ title="What to expect" class=dd-item>
 <a href=/expect/>
@@ -65,20 +55,15 @@ What to expect
 <a href=/expect/fieldvalues/>
 Field values
 </a>
-</li>
-<li data-nav-id=/expect/performance/ title=Performance class=dd-item>
+</li><li data-nav-id=/expect/performance/ title=Performance class=dd-item>
 <a href=/expect/performance/>
 Performance
 </a>
-</li>
-<li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item>
+</li><li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item>
 <a href=/expect/tryit/>
 Try it!
 </a>
-</li>
-</ul>
-</li>
-<li data-nav-id=/using/ title="Using the analyzer" class="dd-item
+</li></ul></li><li data-nav-id=/using/ title="Using the analyzer" class="dd-item
 parent
 active">
 <a href=/using/>
@@ -89,25 +74,19 @@ Using Yauaa
 <a href=/using/memoryusage/>
 Memory usage
 </a>
-</li>
-<li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item>
+</li><li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item>
 <a href=/using/webservlet/>
 Webservlet
 </a>
-</li>
-<li data-nav-id=/using/limitations/ title=Limitations class=dd-item>
+</li><li data-nav-id=/using/limitations/ title=Limitations class=dd-item>
 <a href=/using/limitations/>
 Limitations
 </a>
-</li>
-<li data-nav-id=/using/license/ title=Licence class=dd-item>
+</li><li data-nav-id=/using/license/ title=Licence class=dd-item>
 <a href=/using/license/>
 Licence
 </a>
-</li>
-</ul>
-</li>
-<li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
+</li></ul></li><li data-nav-id=/udf/ title="User Defined Functions" class=dd-item>
 <a href=/udf/>
 User Defined Functions
 </a>
@@ -116,80 +95,63 @@ User Defined Functions
 <a href=/udf/apache-beam/>
 Apache Beam
 </a>
-</li>
-<li data-nav-id=/udf/apache-beam-sql/ title="Apache Beam SQL" class=dd-item>
+</li><li data-nav-id=/udf/apache-beam-sql/ title="Apache Beam SQL" class=dd-item>
 <a href=/udf/apache-beam-sql/>
 Apache Beam SQL
 </a>
-</li>
-<li data-nav-id=/udf/apache-drill/ title="Apache Drill" class=dd-item>
+</li><li data-nav-id=/udf/apache-drill/ title="Apache Drill" class=dd-item>
 <a href=/udf/apache-drill/>
 Apache Drill
 </a>
-</li>
-<li data-nav-id=/udf/apache-flink/ title="Apache Flink" class=dd-item>
+</li><li data-nav-id=/udf/apache-flink/ title="Apache Flink" class=dd-item>
 <a href=/udf/apache-flink/>
 Apache Flink
 </a>
-</li>
-<li data-nav-id=/udf/apache-flink-table/ title="Apache Flink Table/SQL" class=dd-item>
+</li><li data-nav-id=/udf/apache-flink-table/ title="Apache Flink Table/SQL" class=dd-item>
 <a href=/udf/apache-flink-table/>
 Apache Flink Table/SQL
 </a>
-</li>
-<li data-nav-id=/udf/apache-hive/ title="Apache Hive" class=dd-item>
+</li><li data-nav-id=/udf/apache-hive/ title="Apache Hive" class=dd-item>
 <a href=/udf/apache-hive/>
 Apache Hive
 </a>
-</li>
-<li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class=dd-item>
+</li><li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class=dd-item>
 <a href=/udf/apache-nifi/>
 Apache Nifi
 </a>
-</li>
-<li data-nav-id=/udf/apache-pig/ title="Apache Pig" class=dd-item>
+</li><li data-nav-id=/udf/apache-pig/ title="Apache Pig" class=dd-item>
 <a href=/udf/apache-pig/>
 Apache Pig
 </a>
-</li>
-<li data-nav-id=/udf/commandline/ title="Commandline usage" class=dd-item>
+</li><li data-nav-id=/udf/commandline/ title="Commandline usage" class=dd-item>
 <a href=/udf/commandline/>
 Commandline usage
 </a>
-</li>
-<li data-nav-id=/udf/elastic-logstash/ title="Elastic LogStash" class=dd-item>
+</li><li data-nav-id=/udf/elastic-logstash/ title="Elastic LogStash" class=dd-item>
 <a href=/udf/elastic-logstash/>
 Elastic LogStash
 </a>
-</li>
-<li data-nav-id=/udf/elastic-search/ title="Elastic Search" class=dd-item>
+</li><li data-nav-id=/udf/elastic-search/ title="Elastic Search" class=dd-item>
 <a href=/udf/elastic-search/>
 Elastic Search
 </a>
-</li>
-<li data-nav-id=/udf/logparser/ title=LogParser class=dd-item>
+</li><li data-nav-id=/udf/logparser/ title=LogParser class=dd-item>
 <a href=/udf/logparser/>
 LogParser
 </a>
-</li>
-<li data-nav-id=/udf/snowflake/ title=Snowflake class=dd-item>
+</li><li data-nav-id=/udf/snowflake/ title=Snowflake class=dd-item>
 <a href=/udf/snowflake/>
 Snowflake
 </a>
-</li>
-<li data-nav-id=/udf/snowplow/ title=Snowplow class=dd-item>
+</li><li data-nav-id=/udf/snowplow/ title=Snowplow class=dd-item>
 <a href=/udf/snowplow/>
 Snowplow
 </a>
-</li>
-<li data-nav-id=/udf/trino/ title=Trino class=dd-item>
+</li><li data-nav-id=/udf/trino/ title=Trino class=dd-item>
 <a href=/udf/trino/>
 Trino
 </a>
-</li>
-</ul>
-</li>
-<li data-nav-id=/developer/ title=Development class=dd-item>
+</li></ul></li><li data-nav-id=/developer/ title=Development class=dd-item>
 <a href=/developer/>
 Development
 </a>
@@ -198,25 +160,19 @@ Development
 <a href=/developer/building/>
 Building from source
 </a>
-</li>
-<li data-nav-id=/developer/basedesign/ title="Base Design" class=dd-item>
+</li><li data-nav-id=/developer/basedesign/ title="Base Design" class=dd-item>
 <a href=/developer/basedesign/>
 Base Design
 </a>
-</li>
-<li data-nav-id=/developer/makingnewrules/ title="Making new rules" class=dd-item>
+</li><li data-nav-id=/developer/makingnewrules/ title="Making new rules" class=dd-item>
 <a href=/developer/makingnewrules/>
 Making new rules
 </a>
-</li>
-<li data-nav-id=/developer/shadingdependencies/ title="Shading dependencies" class=dd-item>
+</li><li data-nav-id=/developer/shadingdependencies/ title="Shading dependencies" class=dd-item>
 <a href=/developer/shadingdependencies/>
 Shading dependencies
 </a>
-</li>
-</ul>
-</li>
-<li data-nav-id=/other/ title=Other class=dd-item>
+</li></ul></li><li data-nav-id=/other/ title=Other class=dd-item>
 <a href=/other/>
 Other
 </a>
@@ -225,61 +181,37 @@ Other
 <a href=/other/article/>
 Blogpost
 </a>
-</li>
-<li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
+</li><li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item>
 <a href=/other/relatedprojects/>
 Related projects
 </a>
-</li>
-</ul>
-</li>
-</ul>
-<section id=shortcuts>
-<h3>More</h3>
-<ul>
+</li></ul></li></ul><section id=shortcuts>
+<h3>More</h3><ul>
 <li>
 <a class=padding href=https://github.com/nielsbasjes/yauaa><i class="fab fa-git-square"></i> Git repo</a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://github.com/nielsbasjes/yauaa/discussions><i class="fa fa-comment-alt"></i> Discussions</a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md><i class="fa fa-file-alt"></i> Changelog</a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://github.com/nielsbasjes/yauaa/issues><i class="fa fa-bug"></i> Issue tracker</a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://github.com/nielsbasjes/yauaa/actions><img alt="Github actions Build status" src=https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa></a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://app.codecov.io/gh/nielsbasjes/yauaa><img alt="Coverage Status" src=https://img.shields.io/codecov/c/github/nielsbasjes/yauaa></a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://www.apache.org/licenses/LICENSE-2.0.html><img alt=License src=https://img.shields.io/:license-apache-blue.svg></a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22><img alt="Maven Central" src=https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg></a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://github.com/nielsbasjes/yauaa/stargazers><img alt="GitHub stars" src="https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars"></a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://hub.docker.com/r/nielsbasjes/yauaa><img alt="Docker Hub" src=https://img.shields.io/docker/pulls/nielsbasjes/yauaa></a>
-</li>
-<li>
+</li><li>
 <a class=padding href=https://www.paypal.me/nielsbasjes><img alt="If this project has business value for you then dont hesitate to support me with a small donation." src=https://img.shields.io/badge/Donations-via%20Paypal-blue.svg></a>
-</li>
-</ul>
-</section>
-<section id=footer>
-<p>&copy;2013-2022 by <a href=https://niels.basjes.nl>Niels Basjes</a></p>
-</section>
-</div>
-</nav>
-<section id=body>
-<div id=overlay></div>
-<div class="padding highlightable">
+</li></ul></section><section id=footer>
+<p>&copy;2013-2022 by <a href=https://niels.basjes.nl>Niels Basjes</a></p></section></div></nav><section id=body>
+<div id=overlay></div><div class="padding highlightable">
 <div>
 <div id=top-bar>
 <div id=top-github-link>
@@ -287,8 +219,7 @@ Related projects
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
-</div>
-<div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
+</div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb>
 <span id=sidebar-toggle-span>
 <a href=# id=sidebar-toggle data-sidebar-toggle>
 <i class="fas fa-bars"></i>
@@ -298,50 +229,22 @@ Related projects
 <span class=links>
 <a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > Using the analyzer
 </span>
-</div>
-<div class=progress>
+</div><div class=progress>
 <div class=wrapper>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#using-the-analyzer>Using the analyzer</a></li>
-<li><a href=#using-in-java-applications>Using in Java applications</a></li>
-<li><a href=#custom-caching-implementation>Custom caching implementation</a></li>
-<li><a href=#logging-dependencies>Logging dependencies</a></li>
-<li><a href=#serialization>Serialization</a></li>
-<li><a href=#avoid-using-it-as-a-static-member>Avoid using it as a static member</a></li>
-<li><a href=#cache-size-setting>Cache size setting</a></li>
-<li><a href=#limiting-to-only-certain-fields>Limiting to only certain fields</a></li>
-<li><a href=#building-your-project-with--xlintall>Building your project with -Xlint:all</a></li>
-<li><a href=#important-this-library-is-single-threaded->IMPORTANT: This library is single threaded !</a></li>
-<li><a href=#eclipse-users>Eclipse users</a></li>
-<li><a href=#scala-usage>Scala usage</a></li>
-<li><a href=#snapshots>Snapshots</a></li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-</div>
-<div id=head-tags>
-</div>
-<div id=body-inner>
+<li><a href=#using-the-analyzer>Using the analyzer</a></li><li><a href=#using-in-java-applications>Using in Java applications</a></li><li><a href=#custom-caching-implementation>Custom caching implementation</a></li><li><a href=#logging-dependencies>Logging dependencies</a></li><li><a href=#serialization>Serialization</a></li><li><a href=#avoid-using-it-as-a-static-member>Avoid using it as a static member</a></li><li><a href=#cache-size-setting>Cache size setting</a></li><li><a href=#limiting-to-only-certain-fields>Limiting to only certain fields</a></li><li><a href=#building-your-project-with--xlintall>Building your project with -Xlint:all</a></li><li><a href=#important-this-library-is-single-threaded->IMPORTANT: This library is single threaded !</a></li><li><a href=#eclipse-users>Eclipse users</a></li><li><a href=#scala-usage>Scala usage</a></li><li><a href=#snapshots>Snapshots</a></li></ul></nav></div></div></div></div><div id=head-tags>
+</div><div id=body-inner>
 <h1>
 Using the analyzer
-</h1>
-<h2 id=using-the-analyzer>Using the analyzer</h2>
-<p>To use this analyzer you can use it either directly in your Java based applications or use one of
-the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, &mldr;) as described <a href=../udf/>here</a>.</p>
-<h2 id=using-in-java-applications>Using in Java applications</h2>
-<p>To use the library you must first add it as a dependency to your application.
-The library has been published to <a href=https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa/6.9/jar>maven central</a> so that should work in almost any environment.</p>
-<p>If you use a maven based project simply add this dependency to your project.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;dependency&gt;</span>
-    <span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
-    <span style=color:#f92672>&lt;artifactId&gt;</span>yauaa<span style=color:#f92672>&lt;/artifactId&gt;</span>
-    <span style=color:#f92672>&lt;version&gt;</span>6.9<span style=color:#f92672>&lt;/version&gt;</span>
-<span style=color:#f92672>&lt;/dependency&gt;</span>
-</code></pre></div><p>and in your application you can use it as simple as this</p>
-<pre><code>UserAgentAnalyzer uaa = UserAgentAnalyzer
+</h1><h2 id=using-the-analyzer>Using the analyzer</h2><p>To use this analyzer you can use it either directly in your Java based applications or use one of
+the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, &mldr;) as described <a href=../udf/>here</a>.</p><h2 id=using-in-java-applications>Using in Java applications</h2><p>To use the library you must first add it as a dependency to your application.
+The library has been published to <a href=https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa/6.9/jar>maven central</a> so that should work in almost any environment.</p><p>If you use a maven based project simply add this dependency to your project.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>yauaa<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>6.9<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>and in your application you can use it as simple as this</p><pre><code>UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .hideMatcherLoadStats()
             .withCache(10000)
@@ -352,19 +255,10 @@ UserAgent agent = uaa.parse(&quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US
 for (String fieldName: agent.getAvailableFieldNamesSorted()) {
     System.out.println(fieldName + &quot; = &quot; + agent.getValue(fieldName));
 }
-</code></pre>
-<p>Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
-If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.</p>
-<p>Note that not all fields are available after every parse. So be prepared to receive a &lsquo;null&rsquo; or &ldquo;Unknown&rdquo; if you extract a specific name.</p>
-<h2 id=custom-caching-implementation>Custom caching implementation</h2>
-<p>Since version 6.7 you can specify a custom implementation for the cache by providing an instance of the factory interface <code>CacheInstantiator</code>.</p>
-<p>Do note that Yauaa assumes the caching implementation to be threadsafe.
-If you use a non-threadsafe implementation in a multithreaded context it will break.</p>
-<p>The default caching implementation uses <a href=https://github.com/ben-manes/caffeine>Caffeine</a> (since version 6.8).</p>
-<pre><code>return Caffeine.newBuilder().maximumSize(cacheSize).&lt;String, ImmutableUserAgent&gt;build().asMap();
-</code></pre>
-<p>A custom implementation can be specified via the <code>Builder</code> using the <code>withCacheInstantiator(...)</code> method:</p>
-<pre><code>UserAgentAnalyzer uaa = UserAgentAnalyzer
+</code></pre><p>Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
+If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.</p><p>Note that not all fields are available after every parse. So be prepared to receive a &rsquo;null&rsquo; or &ldquo;Unknown&rdquo; if you extract a specific name.</p><h2 id=custom-caching-implementation>Custom caching implementation</h2><p>Since version 6.7 you can specify a custom implementation for the cache by providing an instance of the factory interface <code>CacheInstantiator</code>.</p><p>Do note that Yauaa assumes the caching implementation to be threadsafe.
+If you use a non-threadsafe implementation in a multithreaded context it will break.</p><p>The default caching implementation uses <a href=https://github.com/ben-manes/caffeine>Caffeine</a> (since version 6.8).</p><pre><code>return Caffeine.newBuilder().maximumSize(cacheSize).&lt;String, ImmutableUserAgent&gt;build().asMap();
+</code></pre><p>A custom implementation can be specified via the <code>Builder</code> using the <code>withCacheInstantiator(...)</code> method:</p><pre><code>UserAgentAnalyzer uaa = UserAgentAnalyzer
     .newBuilder()
     .withCacheInstantiator(
         new CacheInstantiator() {
@@ -376,22 +270,11 @@ If you use a non-threadsafe implementation in a multithreaded context it will br
     )
     .withCache(10000)
     .build();
-</code></pre>
-<h2 id=logging-dependencies>Logging dependencies</h2>
-<p>The Yauaa engine uses Log4j2 as the primary logging framework; yet some of the transitive dependencies
-of this project use different logging frameworks.</p>
-<p>To minimize the complexity of the dependency handling I have chosen to simply not include ANY logging framework and
-expect the consuming system to provide what ever fits best.</p>
-<p>So in the end to use this you must provide either an implementation or a bridge for:</p>
-<ul>
-<li>Apache Log4j2</li>
-<li>Apache (Jakarta) Commons logging (like org.apache.commons.logging.LogFactory) aka JCL.</li>
-<li>Simple Logging Facade for Java (SLF4J)</li>
-</ul>
-<p>So it all depends on your exact context (i.e. which logging framework are you going to use) what
-the best solution is for you to make all of this logging work as intended.</p>
-<p>In case you are using Apache Log4j2 you should have these dependencies in addition to Yauaa in your project</p>
-<pre><code>&lt;!-- The default logging implementation for Yauaa --&gt;
+</code></pre><h2 id=logging-dependencies>Logging dependencies</h2><p>The Yauaa engine uses Log4j2 as the primary logging framework; yet some of the transitive dependencies
+of this project use different logging frameworks.</p><p>To minimize the complexity of the dependency handling I have chosen to simply not include ANY logging framework and
+expect the consuming system to provide what ever fits best.</p><p>So in the end to use this you must provide either an implementation or a bridge for:</p><ul>
+<li>Apache Log4j2</li><li>Apache (Jakarta) Commons logging (like org.apache.commons.logging.LogFactory) aka JCL.</li><li>Simple Logging Facade for Java (SLF4J)</li></ul><p>So it all depends on your exact context (i.e. which logging framework are you going to use) what
+the best solution is for you to make all of this logging work as intended.</p><p>In case you are using Apache Log4j2 you should have these dependencies in addition to Yauaa in your project</p><pre><code>&lt;!-- The default logging implementation for Yauaa --&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
   &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
@@ -409,96 +292,58 @@ the best solution is for you to make all of this logging work as intended.</p>
   &lt;artifactId&gt;log4j-jcl&lt;/artifactId&gt;
   &lt;version&gt;${log4j2.version}&lt;/version&gt;
 &lt;/dependency&gt;
-</code></pre>
-<p>NOTE: Some of those logging frameworks are only used in specific analysis situations (like robots with a url).
+</code></pre><p>NOTE: Some of those logging frameworks are only used in specific analysis situations (like robots with a url).
 To avoid failing only when such an event occurs a <code>fail fast</code> construct has been added:
 At the moment of creating the UserAgentAnalyzer (i.e. during the <code>.build()</code>) a temporary instance all of these Logging
-frameworks are created. If one of them is not present it will immediately throw an <code>InvalidLoggingDependencyException</code> (=<code>RuntimeException</code>).</p>
-<h2 id=serialization>Serialization</h2>
-<p>If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and
-Kryo are supported. Note that with Kryo 5.x you need to register all classes and configure Kryo correctly.</p>
-<p>To facilitate doing this correctly the static method <code>configureKryo</code> was created.
-So in general your code should look something like this:</p>
-<pre><code>    Kryo kryo = new Kryo();
+frameworks are created. If one of them is not present it will immediately throw an <code>InvalidLoggingDependencyException</code> (=<code>RuntimeException</code>).</p><h2 id=serialization>Serialization</h2><p>If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and
+Kryo are supported. Note that with Kryo 5.x you need to register all classes and configure Kryo correctly.</p><p>To facilitate doing this correctly the static method <code>configureKryo</code> was created.
+So in general your code should look something like this:</p><pre><code>    Kryo kryo = new Kryo();
     UserAgentAnalyzer.configureKryo(kryo);
-</code></pre>
-<p>Note that both the serializing and the deserializing instance of Kryo must be configured in the same way.</p>
-<h2 id=avoid-using-it-as-a-static-member>Avoid using it as a static member</h2>
-<p>If you make the UserAgentAnalyzer a static member of a class then cleaning it up after use may be a problem.
+</code></pre><p>Note that both the serializing and the deserializing instance of Kryo must be configured in the same way.</p><h2 id=avoid-using-it-as-a-static-member>Avoid using it as a static member</h2><p>If you make the UserAgentAnalyzer a static member of a class then cleaning it up after use may be a problem.
 One case where this happens is in the context of something like Tomcat where a webapp is loaded and then unloaded.
 If the analyzer is a static member of your servlet then this unloading may retain a lot of the memory used for the internal
-data structures.</p>
-<h2 id=cache-size-setting>Cache size setting</h2>
-<p>I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
+data structures.</p><h2 id=cache-size-setting>Cache size setting</h2><p>I recommend you leave the cache to a size that is roughly the unique number of useragents your site finds
 in a limited timespan. Something like 15/30/60 minutes usually gives you a fine cache size.
 On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour.
-So in my opinion a cache size of 5K-10K elements is a good choice.</p>
-<h2 id=limiting-to-only-certain-fields>Limiting to only certain fields</h2>
-<p>In some scenarios you only want a specific field and all others are unwanted.
-This can be achieved by creating the analyzer in Java like this:</p>
-<pre><code>UserAgentAnalyzer uaa;
+So in my opinion a cache size of 5K-10K elements is a good choice.</p><h2 id=limiting-to-only-certain-fields>Limiting to only certain fields</h2><p>In some scenarios you only want a specific field and all others are unwanted.
+This can be achieved by creating the analyzer in Java like this:</p><pre><code>UserAgentAnalyzer uaa;
 
 uaa = UserAgentAnalyzer
         .newBuilder()
         .withField(&quot;DeviceClass&quot;)
         .withField(&quot;AgentNameVersionMajor&quot;)
         .build();
-</code></pre>
-<p>One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
-The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).</p>
-<p>Do note that some fields need other fields as input (i.e. intermediate result). For example the <code>DeviceBrand</code> also needs the <code>AgentInformationEmail</code> and <code>AgentInformationUrl</code> because in some cases the actual brand is derived from for example the domainname that usually is present in those. So if you only ask for the <code>DomainBrand</code> you will get those fields also.</p>
-<p>In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
-You can choose to use these and avoid subtle typos in the requested attribute names.</p>
-<pre><code>uaa = UserAgentAnalyzer
+</code></pre><p>One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
+The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).</p><p>Do note that some fields need other fields as input (i.e. intermediate result). For example the <code>DeviceBrand</code> also needs the <code>AgentInformationEmail</code> and <code>AgentInformationUrl</code> because in some cases the actual brand is derived from for example the domainname that usually is present in those. So if you only ask for the <code>DomainBrand</code> you will get those fields also.</p><p>In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
+You can choose to use these and avoid subtle typos in the requested attribute names.</p><pre><code>uaa = UserAgentAnalyzer
         .newBuilder()
         .withField(DEVICE_CLASS)
         .withField(AGENT_NAME_VERSION_MAJOR)
         .build();
-</code></pre>
-<h2 id=building-your-project-with--xlintall>Building your project with -Xlint:all</h2>
-<p>If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.</p>
-<pre><code>[WARNING] COMPILATION WARNING :
+</code></pre><h2 id=building-your-project-with--xlintall>Building your project with -Xlint:all</h2><p>If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.</p><pre><code>[WARNING] COMPILATION WARNING :
 [INFO] -------------------------------------------------------------
 [WARNING] Cannot find annotation method 'value()' in type 'com.esotericsoftware.kryo.DefaultSerializer': class file for com.esotericsoftware.kryo.DefaultSerializer not found
 [WARNING] Cannot find annotation method 'value()' in type 'com.esotericsoftware.kryo.DefaultSerializer'
 [INFO] 2 warnings
-</code></pre>
-<p>The Yauaa analyzer has been prepared in such a way that it can be serialized using both the standard Java serialization and the Kryo serialization library.
-The Kryo library has been configured as a &ldquo;provided&rdquo; dependency because many do not need it, and (to avoid version conflicts) those who do need it have this dependency already.</p>
-<p>If your project does not use Kryo and you have this warning then there are several ways to work around this:</p>
-<ol>
-<li>Disable the Xlint check that triggers this warning. Apparently this is the &ldquo;classfile&rdquo; so try to use <strong>-Xlint:all,-classfile</strong> instead.</li>
-<li>Add the otherwise needless Kryo library as a &ldquo;provided&rdquo; dependency to your project.</li>
-</ol>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=color:#f92672>&lt;dependency&gt;</span>
-    <span style=color:#f92672>&lt;groupId&gt;</span>com.esotericsoftware<span style=color:#f92672>&lt;/groupId&gt;</span>
-    <span style=color:#f92672>&lt;artifactId&gt;</span>kryo<span style=color:#f92672>&lt;/artifactId&gt;</span>
-    <span style=color:#f92672>&lt;version&gt;</span>5.2.1<span style=color:#f92672>&lt;/version&gt;</span>
-    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
-<span style=color:#f92672>&lt;/dependency&gt;</span>
-</code></pre></div><h2 id=important-this-library-is-single-threaded->IMPORTANT: This library is single threaded !</h2>
-<p>Because the internal analyzer code is not reentrant the main method has been synchronized on the instance.
-So from the perspective of you the application developer this library is thread safe.</p>
-<p>If you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared synchronized instance.</p>
-<p>Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.</p>
-<h2 id=eclipse-users>Eclipse users</h2>
-<p>Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code:
+</code></pre><p>The Yauaa analyzer has been prepared in such a way that it can be serialized using both the standard Java serialization and the Kryo serialization library.
+The Kryo library has been configured as a &ldquo;provided&rdquo; dependency because many do not need it, and (to avoid version conflicts) those who do need it have this dependency already.</p><p>If your project does not use Kryo and you have this warning then there are several ways to work around this:</p><ol>
+<li>Disable the Xlint check that triggers this warning. Apparently this is the &ldquo;classfile&rdquo; so try to use <strong>-Xlint:all,-classfile</strong> instead.</li><li>Add the otherwise needless Kryo library as a &ldquo;provided&rdquo; dependency to your project.</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;groupId&gt;</span>com.esotericsoftware<span style=color:#f92672>&lt;/groupId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;artifactId&gt;</span>kryo<span style=color:#f92672>&lt;/artifactId&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;version&gt;</span>5.2.1<span style=color:#f92672>&lt;/version&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&lt;scope&gt;</span>provided<span style=color:#f92672>&lt;/scope&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h2 id=important-this-library-is-single-threaded->IMPORTANT: This library is single threaded !</h2><p>Because the internal analyzer code is not reentrant the main method has been synchronized on the instance.
+So from the perspective of you the application developer this library is thread safe.</p><p>If you are in a multi threaded situation you should create a separate instance per thread or accept the speed limitation of the shared synchronized instance.</p><p>Note that you should really instantiate it only once per thread (and use a ThreadPool or something similar) because starting a new instance takes several seconds.</p><h2 id=eclipse-users>Eclipse users</h2><p>Be aware of there is a bug in Eclipse which will show you errors in perfectly valid Java code:
 <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475">https://bugs.eclipse.org/bugs/show_bug.cgi?id=527475</a>
-The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly.</p>
-<h2 id=scala-usage>Scala usage</h2>
-<p>When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.</p>
-<p>Starting with Yauaa version 5.14 the rewritten builders (contributed by <a href=https://github.com/tegonal>Robert Stoll</a>)
-will become available which will make it a lot easier for Scala users to use:</p>
-<pre><code>val uaa = UserAgentAnalyzer.newBuilder
+The errors you see are related to the inheritance model used by the Builders in this project and the fact that Eclipse does not interpret it correctly.</p><h2 id=scala-usage>Scala usage</h2><p>When using this library from a Scala application the way the Builders have been constructed turns out to be very unfriendly to use.</p><p>Starting with Yauaa version 5.14 the rewritten builders (contributed by <a href=https://github.com/tegonal>Robert Stoll</a>)
+will become available which will make it a lot easier for Scala users to use:</p><pre><code>val uaa = UserAgentAnalyzer.newBuilder
   .withCache(10000)
   .hideMatcherLoadStats
   .withField(&quot;DeviceClass&quot;)
   .build
-</code></pre>
-<h2 id=snapshots>Snapshots</h2>
-<p>Occasionally I publish a snapshot version.
-If you want to use such a version then the repository can be configured in your maven with something like this</p>
-<pre><code>&lt;repositories&gt;
+</code></pre><h2 id=snapshots>Snapshots</h2><p>Occasionally I publish a snapshot version.
+If you want to use such a version then the repository can be configured in your maven with something like this</p><pre><code>&lt;repositories&gt;
   &lt;repository&gt;
     &lt;id&gt;sonatype-oss-snapshots&lt;/id&gt;
     &lt;name&gt;Sonatype OSS Snapshots&lt;/name&gt;
@@ -507,26 +352,17 @@ If you want to use such a version then the repository can be configured in your 
     &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;
   &lt;/repository&gt;
 &lt;/repositories&gt;
-</code></pre>
-<footer class=footline>
-</footer>
-</div>
-</div>
-<div id=navigation>
-</div>
-</section>
-<div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
-<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div>
-</div>
-<script src=/js/clipboard.min.js?1645968530></script>
-<script src=/js/perfect-scrollbar.min.js?1645968530></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1645968530></script>
-<script src=/js/jquery.sticky.js?1645968530></script>
-<script src=/js/featherlight.min.js?1645968530></script>
-<script src=/js/highlight.pack.js?1645968530></script>
+</code></pre><footer class=footline>
+</footer></div></div><div id=navigation>
+</div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
+<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1646059070></script>
+<script src=/js/perfect-scrollbar.min.js?1646059070></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1646059070></script>
+<script src=/js/jquery.sticky.js?1646059070></script>
+<script src=/js/featherlight.min.js?1646059070></script>
+<script src=/js/highlight.pack.js?1646059070></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1645968530></script>
-<script src=/js/learn.js?1645968530></script>
-<script src=/js/hugo-learn.js?1645968530></script>
-</body>
-</html>
+<script src=/js/modernizr.custom-3.6.0.js?1646059070></script>
+<script src=/js/learn.js?1646059070></script>
+<script src=/js/hugo-learn.js?1646059070></script>
+</body></html>
