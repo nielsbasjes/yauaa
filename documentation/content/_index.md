@@ -12,7 +12,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-### Version 6.10 (Unreleased)
+### Version 6.10
 - New UDF for [Trino](https://trino.io/) (a.k.a. Presto SQL)
 
 ### Version 6.9
