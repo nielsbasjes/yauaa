@@ -13,18 +13,18 @@
 <meta name=msapplication-TileColor content="#2d89ef">
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
-<title>Commandline usage | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1646223389 rel=stylesheet>
-<link href=/css/fontawesome-all.min.css?1646223389 rel=stylesheet>
-<link href=/css/hybrid.css?1646223389 rel=stylesheet>
-<link href=/css/featherlight.min.css?1646223389 rel=stylesheet>
-<link href=/css/perfect-scrollbar.min.css?1646223389 rel=stylesheet>
-<link href=/css/auto-complete.css?1646223389 rel=stylesheet>
-<link href=/css/atom-one-dark-reasonable.css?1646223389 rel=stylesheet>
-<link href=/css/theme.css?1646223389 rel=stylesheet>
-<link href=/css/tabs.css?1646223389 rel=stylesheet>
-<link href=/css/hugo-theme.css?1646223389 rel=stylesheet>
-<link href=/css/theme-yauaa.css?1646223389 rel=stylesheet>
-<script src=/js/jquery-3.3.1.min.js?1646223389></script>
+<title>Commandline usage | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1646231084 rel=stylesheet>
+<link href=/css/fontawesome-all.min.css?1646231084 rel=stylesheet>
+<link href=/css/hybrid.css?1646231084 rel=stylesheet>
+<link href=/css/featherlight.min.css?1646231084 rel=stylesheet>
+<link href=/css/perfect-scrollbar.min.css?1646231084 rel=stylesheet>
+<link href=/css/auto-complete.css?1646231084 rel=stylesheet>
+<link href=/css/atom-one-dark-reasonable.css?1646231084 rel=stylesheet>
+<link href=/css/theme.css?1646231084 rel=stylesheet>
+<link href=/css/tabs.css?1646231084 rel=stylesheet>
+<link href=/css/hugo-theme.css?1646231084 rel=stylesheet>
+<link href=/css/theme-yauaa.css?1646231084 rel=stylesheet>
+<script src=/js/jquery-3.3.1.min.js?1646231084></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style><script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){t="https://wa.basjes.nl/",_paq.push(["setTrackerUrl",t+"wa.php"]),_paq.push(["setSiteId","1"]);var t,n=document,e=n.createElement("script"),s=n.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src=t+"wa.js",s.parentNode.insertBefore(e,s)}()</script>
 </head><body data-url=/udf/commandline/>
 <nav id=sidebar>
@@ -36,10 +36,10 @@
 <label for=search-by><i class="fas fa-search"></i></label>
 <input data-search-input id=search-by type=search placeholder=Search...>
 <span data-search-clear><i class="fas fa-times"></i></span>
-</div><script type=text/javascript src=/js/lunr.min.js?1646223389></script>
-<script type=text/javascript src=/js/auto-complete.js?1646223389></script>
+</div><script type=text/javascript src=/js/lunr.min.js?1646231084></script>
+<script type=text/javascript src=/js/auto-complete.js?1646231084></script>
 <script type=text/javascript>var baseurl="/"</script>
-<script type=text/javascript src=/js/search.js?1646223389></script>
+<script type=text/javascript src=/js/search.js?1646231084></script>
 </div><section id=homelinks>
 <ul>
 <li>
@@ -239,8 +239,8 @@ Commandline usage
 </h1><h2 id=introduction>Introduction</h2><p>With version 6.0 the dedicated commandline tool was removed.</p><p>Primary reason is that it was not getting any attention,
 and it did not perform well (mainly due to the relatively big startup overhead).</p><p>So if you have the need to use Yauaa from a commandline perspective the easiest way to do this is by starting
 the docker based webservlet locally (and leave it running &ldquo;for a long time&rdquo;) and use something like curl
-to get the information you are looking for.</p><h2 id=initial-startup>Initial startup</h2><p>Simply start the webservlet using docker and run it in the background (takes a few seconds):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker pull nielsbasjes/yauaa:6.9
-</span></span><span style=display:flex><span>docker run --detach -p8080:8080 nielsbasjes/yauaa:6.9
+to get the information you are looking for.</p><h2 id=initial-startup>Initial startup</h2><p>Simply start the webservlet using docker and run it in the background (takes a few seconds):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker pull nielsbasjes/yauaa:6.10
+</span></span><span style=display:flex><span>docker run --detach -p8080:8080 nielsbasjes/yauaa:6.10
 </span></span></code></pre></div><h2 id=doing-a-single-value>Doing a single value</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>AGENT<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36&#34;</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>curl -X POST <span style=color:#ae81ff>\
@@ -280,14 +280,14 @@ to get the information you are looking for.</p><h2 id=initial-startup>Initial st
 </span></span></code></pre></div><footer class=footline>
 </footer></div></div><div id=navigation>
 </div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
-<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1646223389></script>
-<script src=/js/perfect-scrollbar.min.js?1646223389></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1646223389></script>
-<script src=/js/jquery.sticky.js?1646223389></script>
-<script src=/js/featherlight.min.js?1646223389></script>
-<script src=/js/highlight.pack.js?1646223389></script>
+<div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1646231084></script>
+<script src=/js/perfect-scrollbar.min.js?1646231084></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1646231084></script>
+<script src=/js/jquery.sticky.js?1646231084></script>
+<script src=/js/featherlight.min.js?1646231084></script>
+<script src=/js/highlight.pack.js?1646231084></script>
 <script>hljs.initHighlightingOnLoad()</script>
-<script src=/js/modernizr.custom-3.6.0.js?1646223389></script>
-<script src=/js/learn.js?1646223389></script>
-<script src=/js/hugo-learn.js?1646223389></script>
+<script src=/js/modernizr.custom-3.6.0.js?1646231084></script>
+<script src=/js/learn.js?1646231084></script>
+<script src=/js/hugo-learn.js?1646231084></script>
 </body></html>
