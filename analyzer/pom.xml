@@ -16,15 +16,13 @@
   ~ limitations under the License.
   -->
 
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <artifactId>yauaa-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <version>6.10-SNAPSHOT</version>
+    <version>6.10</version>
   </parent>
   <artifactId>yauaa</artifactId>
 
@@ -396,9 +394,9 @@
             <phase>generate-sources</phase>
             <configuration>
               <target>
-                <fileset id="packagedRules" dir="src/main/resources/UserAgents/"/>
-                <pathconvert targetos="unix" pathsep="&#34;,&#13;        &#34;" property="my-file-list" refid="packagedRules">
-                  <map from="${basedir}/src/main/resources/" to=""/>
+                <fileset id="packagedRules" dir="src/main/resources/UserAgents/" />
+                <pathconvert targetos="unix" pathsep="&quot;,&#xD; &quot;" property="my-file-list" refid="packagedRules">
+                  <map from="${basedir}/src/main/resources/" to="" />
                 </pathconvert>
                 <!--suppress MavenModelInspection -->
                 <echo file="${basedir}/target/temp-yaml-list.txt">${my-file-list}</echo>
@@ -640,7 +638,7 @@
     <url>https://github.com/nielsbasjes/yauaa</url>
     <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
     <developerConnection>scm:git:file:///${project.basedir}</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v6.10</tag>
   </scm>
 
 </project>

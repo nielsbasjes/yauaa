@@ -17,15 +17,13 @@
   ~ limitations under the License.
   -->
 
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>yauaa-parent</artifactId>
   <packaging>pom</packaging>
   <groupId>nl.basjes.parse.useragent</groupId>
-  <version>6.10-SNAPSHOT</version>
+  <version>6.10</version>
 
   <name>Yauaa : </name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
@@ -137,7 +135,7 @@
     <springdoc.version>1.6.6</springdoc.version>
 
     <!-- See http://www.eclemma.org/jacoco/trunk/doc/prepare-agent-mojo.html-->
-    <jacoco.surefireArgLine/>
+    <jacoco.surefireArgLine />
     <argLine>@{jacoco.surefireArgLine} -Xmx2048m</argLine>
 
     <sonar-maven-plugin.version>3.9.1.2184</sonar-maven-plugin.version>
@@ -478,7 +476,7 @@
             </goals>
             <configuration>
               <rules>
-                <dependencyConvergence/>
+                <dependencyConvergence />
               </rules>
             </configuration>
           </execution>
@@ -877,7 +875,7 @@
     <url>https://github.com/nielsbasjes/yauaa</url>
     <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
     <developerConnection>scm:git:file:///${project.basedir}</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v6.10</tag>
   </scm>
 
 </project>
