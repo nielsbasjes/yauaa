@@ -21,7 +21,7 @@ ARG ELK_VERSION
 FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
 
 COPY ./target/*.zip ./plugin/
-COPY src/test/docker/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+COPY src/it/docker/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 RUN bin/elasticsearch-plugin -v -v -v install file:///$(ls /usr/share/elasticsearch/plugin/*.zip | head -1)
 
