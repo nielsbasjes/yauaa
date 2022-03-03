@@ -3,7 +3,7 @@ This is intended as an overview of the major changes
 
 v6.11-SNAPSHOT
 ===
-- ...
+- Handle the Edge 99+ edge://flags/#force-major-version-to-minor
 
 v6.10
 ===

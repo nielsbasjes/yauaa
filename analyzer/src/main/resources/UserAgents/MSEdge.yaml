@@ -1110,3 +1110,225 @@ config:
       AgentVersionMajor                    : '90'
       AgentNameVersion                     : 'Edge 90.0.818.51'
       AgentNameVersionMajor                : 'Edge 90'
+
+# ------------------------------------------------------------------------------------------------------------------
+# Edge 99 on Linux has : edge://flags/#force-major-version-to-minor
+# Put major version in minor version position in User-Agent
+# Lock the Microsoft Edge major version in the User-Agent string to 99, and force the major version number
+# to the minor version position.
+# This flag is a backup plan for unexpected site-compatibility breakage with a three digit major version.
+#  – Mac, Windows, Linux, Android
+
+# The normal UserAgent: Edge 99 on Linux
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.45 Safari/537.36 Edg/99.0.1150.25'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99.0'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99.0'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '99.0.1150.25'
+      AgentVersionMajor                    : '99'
+      AgentNameVersion                     : 'Edge 99.0.1150.25'
+      AgentNameVersionMajor                : 'Edge 99'
+
+- matcher:
+    variable:
+      - 'Edge                                :agent.product.name="Edg"^'
+      - 'EdgeVersion                         :@Edge.version'
+    require:
+      - '@EdgeVersion[1]="99"'
+      - '@EdgeVersion[2]!="0"'
+    extract:
+      - 'LayoutEngineVersion                 :     3000 : Concat[@EdgeVersion[2];".0"]'
+      - 'AgentVersion                        :     3000 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
+
+- matcher:
+    variable:
+      - 'Edge                                :agent.product.name="EdgA"^'
+      - 'EdgeVersion                         :@Edge.version'
+    require:
+      - '@EdgeVersion[1]="99"'
+      - '@EdgeVersion[2]!="0"'
+    extract:
+      - 'LayoutEngineVersion                 :     3000 : Concat[@EdgeVersion[2];".0"]'
+      - 'AgentVersion                        :     3000 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
+
+- matcher:
+    variable:
+      - 'Edge                                :agent.product.name="EdgiOS"^'
+      - 'EdgeVersion                         :@Edge.version'
+    require:
+      - '@EdgeVersion[1]="99"'
+      - '@EdgeVersion[2]!="0"'
+    extract:
+      - 'LayoutEngineVersion                 :     3000 : Concat[@EdgeVersion[2];".0"]'
+      - 'AgentVersion                        :     3000 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
+
+
+  # Edge 99 on Linux with edge://flags/#force-major-version-to-minor enabled
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.99.1150.25 Safari/537.36 Edg/99.99.1150.25'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99.0'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99.0'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '99.0'
+      AgentVersionMajor                    : '99'
+      AgentNameVersion                     : 'Edge 99.0'
+      AgentNameVersionMajor                : 'Edge 99'
+
+# Edge 99 on Android with edge://flags/#force-major-version-to-minor enabled
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.99.1150.28 Mobile Safari/537.36 EdgA/99.99.1150.28'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99.0'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99.0'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '99.0'
+      AgentVersionMajor                    : '99'
+      AgentNameVersion                     : 'Edge 99.0'
+      AgentNameVersionMajor                : 'Edge 99'
+
+
+  # Predicted Edge 123 on Linux with edge://flags/#force-major-version-to-minor enabled
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.123.1150.25 Safari/537.36 Edg/99.123.1150.25'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '123.0'
+      LayoutEngineVersionMajor             : '123'
+      LayoutEngineNameVersion              : 'Blink 123.0'
+      LayoutEngineNameVersionMajor         : 'Blink 123'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '123.0'
+      AgentVersionMajor                    : '123'
+      AgentNameVersion                     : 'Edge 123.0'
+      AgentNameVersionMajor                : 'Edge 123'
+
+# Predicted Edge 123 on Android with edge://flags/#force-major-version-to-minor enabled
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.123.1150.28 Mobile Safari/537.36 EdgA/99.123.1150.28'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '123.0'
+      LayoutEngineVersionMajor             : '123'
+      LayoutEngineNameVersion              : 'Blink 123.0'
+      LayoutEngineNameVersionMajor         : 'Blink 123'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '123.0'
+      AgentVersionMajor                    : '123'
+      AgentNameVersion                     : 'Edge 123.0'
+      AgentNameVersionMajor                : 'Edge 123'
+
+
+# Edge 99 with edge://flags/#force-minor-version-to-100 enabled
+# Force the Microsoft Edge minor version in the User-Agent string to 100, which allows testing a 3-digit minor version number.
+# Currently, the minor version is always reported as 0, but due to potential breakage with the upcoming major version 100,
+# this flag allows us to test whether setting the major version in the minor version part of the User-Agent string
+# would be an acceptable alternative. If force-major-version-to-100 is set, then this flag has no effect.
+# If force-major-version-in-minor is enabled this flag will have no effect. – Mac, Windows, Linux, Android
+
+# This developer only case is reported incorrectly as 100 instead of 99
+# Unfixable, there are simply too many competing flags that throw the versions around.
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.100.1150.25 Safari/537.36 Edg/99.100.1150.25'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'        # Unfixable: Known to be incorrect (100 should be 99)
+      LayoutEngineVersionMajor             : '100'          # Unfixable: Known to be incorrect (100 should be 99)
+      LayoutEngineNameVersion              : 'Blink 100.0'  # Unfixable: Known to be incorrect (100 should be 99)
+      LayoutEngineNameVersionMajor         : 'Blink 100'    # Unfixable: Known to be incorrect (100 should be 99)
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '100.0'        # Unfixable: Known to be incorrect (100 should be 99)
+      AgentVersionMajor                    : '100'          # Unfixable: Known to be incorrect (100 should be 99)
+      AgentNameVersion                     : 'Edge 100.0'   # Unfixable: Known to be incorrect (100 should be 99)
+      AgentNameVersionMajor                : 'Edge 100'     # Unfixable: Known to be incorrect (100 should be 99)
