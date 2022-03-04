@@ -6,6 +6,8 @@ v6.11-SNAPSHOT
 - Analyzer
   - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
   - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
+- Updated UDF dependencies
+    - Apache Beam             2.37.0
 
 v6.10
 ===
