@@ -3,7 +3,9 @@ This is intended as an overview of the major changes
 
 v6.11-SNAPSHOT
 ===
-- Handle the Edge 99+ edge://flags/#force-major-version-to-minor
+- Analyzer
+  - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
+  - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
 
 v6.10
 ===

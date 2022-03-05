@@ -12,6 +12,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 6.11 (Unreleased)
+- Handle the Edge 99+ edge://flags/#force-major-version-to-minor
+- Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
+
 ### Version 6.10
 - New UDF for [Trino](https://trino.io/) (a.k.a. Presto SQL)
   - See [https://yauaa.basjes.nl/udf/trino/](https://yauaa.basjes.nl/udf/trino/) for usage information.

@@ -848,6 +848,9 @@ config:
     - 'OperatingSystemClass                :   400001 :@UnifiedPlatform[[4]]'
     - 'OperatingSystemName                 :   400001 :@UnifiedPlatform[[5]]'
     - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400001 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
+    - 'OperatingSystemNameVersionMajor     :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
 
 # ============================================
 # Desktop (user on Windows 8.1, for example)
@@ -1379,3 +1382,167 @@ config:
       AgentVersionMajor                    : '97'
       AgentNameVersion                     : 'Chrome 97'
       AgentNameVersionMajor                : 'Chrome 97'
+
+# https://docs.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11
+
+# User-Agent strings won't be updated to differentiate between Windows 11 and Windows 10.
+# We don't recommend using User-Agent strings to retrieve user agent data.
+# Browsers that don't support User-Agent Client Hints won't be able to differentiate between Windows 11 and Windows 10.
+
+# Windows 10 was released in 2015 ~ Chrome 40
+# Windows 11 was announced June 2021 (~ Chrome 91) and released Oktober 2021 (~ Chrome 94)
+- set:
+    name: 'ChromeWindows10Reliable'
+    values:
+      - '30'
+      - '31'
+      - '32'
+      - '33'
+      - '34'
+      - '35'
+      - '36'
+      - '37'
+      - '38'
+      - '39'
+      - '40'
+      - '41'
+      - '42'
+      - '43'
+      - '44'
+      - '45'
+      - '46'
+      - '47'
+      - '48'
+      - '49'
+      - '50'
+      - '51'
+      - '52'
+      - '53'
+      - '54'
+      - '55'
+      - '56'
+      - '57'
+      - '58'
+      - '59'
+      - '60'
+      - '61'
+      - '62'
+      - '63'
+      - '64'
+      - '65'
+      - '66'
+      - '67'
+      - '68'
+      - '69'
+      - '70'
+      - '71'
+      - '72'
+      - '73'
+      - '74'
+      - '75'
+      - '76'
+      - '77'
+      - '78'
+      - '79'
+      - '80'
+      - '81'
+      - '82'
+      - '83'
+      - '84'
+      - '85'
+      - '86'
+      - '87'
+      - '88'
+      - '89'
+      - '90'
+      - '91'
+
+
+# Chrome
+- matcher:
+    variable:
+      - 'Chrome: agent.product.name="Chrome"^'
+    require:
+      - 'IsNull[@Chrome>>]'
+      - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
+      - '@Chrome.version[1]?!ChromeWindows10Reliable'
+    extract:
+      - 'OperatingSystemName                 :      101 : "Windows NT"'
+      - 'OperatingSystemVersion              :      101 : ">=10"'
+      - 'OperatingSystemVersionMajor         :      101 : ">=10"'
+      - 'OperatingSystemNameVersion          :      101 : "Windows >=10"'
+      - 'OperatingSystemNameVersionMajor     :      101 : "Windows >=10"'
+
+# Edge
+- matcher:
+    variable:
+      - 'Chrome: agent.product.name="Chrome"^'
+    require:
+      - 'agent.product.name="Edg"' # Preformance trick
+      - '@Chrome>>.name="Edg"'
+      - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
+      - '@Chrome.version[1]?!ChromeWindows10Reliable'
+    extract:
+      - 'OperatingSystemName                 :      101 : "Windows NT"'
+      - 'OperatingSystemVersion              :      101 : ">=10"'
+      - 'OperatingSystemVersionMajor         :      101 : ">=10"'
+      - 'OperatingSystemNameVersion          :      101 : "Windows >=10"'
+      - 'OperatingSystemNameVersionMajor     :      101 : "Windows >=10"'
+
+# Chrome 99 on Windows 11
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99.0'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99.0'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '99.0.4844.51'
+      AgentVersionMajor                    : '99'
+      AgentNameVersion                     : 'Chrome 99.0.4844.51'
+      AgentNameVersionMajor                : 'Chrome 99'
+
+# Chrome 99 on Windows 11 Reduced
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '99'
+      AgentVersionMajor                    : '99'
+      AgentNameVersion                     : 'Chrome 99'
+      AgentNameVersionMajor                : 'Chrome 99'
