@@ -1,6 +1,6 @@
 +++
 title = "Memory usage"
-weight = 50
+weight = 40
 +++
 
 The system relies heavily on HashMaps to quickly find the rules that need to be fired.

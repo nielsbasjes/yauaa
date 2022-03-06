@@ -1,6 +1,6 @@
 +++
 title = "Limitations"
-weight = 60
+weight = 30
 +++
 ## It only analyzes the provided string
 This system is based on analyzing the useragent string and looking for the patterns in the useragent string as they have been defined by parties like Google, Microsoft, Samsung and many others. These have been augmented with observations how developers apparently do things. There are really no (ok, very limited) lookup tables that define if a certain device name is a Phone or a Tablet. This makes this system very maintainable because there is no need to have a list of all possible devices.

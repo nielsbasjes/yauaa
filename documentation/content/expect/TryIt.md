@@ -1,6 +1,6 @@
 +++
 title="Try it!"
-weight = 30
+weight = 50
 +++
 
 You can try it online with your own browser here: [https://try.yauaa.basjes.nl/](https://try.yauaa.basjes.nl/).
