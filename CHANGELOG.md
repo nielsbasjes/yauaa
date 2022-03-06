@@ -4,6 +4,7 @@ This is intended as an overview of the major changes
 v6.11-SNAPSHOT
 ===
 - Analyzer
+  - Handle the Chrome 99+ chrome://flags/#force-major-version-to-minor
   - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
   - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
 - Updated UDF dependencies
