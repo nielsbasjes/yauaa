@@ -13,7 +13,7 @@
 <meta name=msapplication-TileColor content="#2d89ef">
 <meta name=msapplication-TileImage content="/favicon/mstile-144x144.png">
 <meta name=theme-color content="#ffffff">
-<title>Development | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1646604589 rel=stylesheet>
+<title>Manipulations | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1646604589 rel=stylesheet>
 <link href=/css/fontawesome-all.min.css?1646604589 rel=stylesheet>
 <link href=/css/hybrid.css?1646604589 rel=stylesheet>
 <link href=/css/featherlight.min.css?1646604589 rel=stylesheet>
@@ -26,7 +26,7 @@
 <link href=/css/theme-yauaa.css?1646604589 rel=stylesheet>
 <script src=/js/jquery-3.3.1.min.js?1646604589></script>
 <style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style><script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){t="https://wa.basjes.nl/",_paq.push(["setTrackerUrl",t+"wa.php"]),_paq.push(["setSiteId","1"]);var t,n=document,e=n.createElement("script"),s=n.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src=t+"wa.js",s.parentNode.insertBefore(e,s)}()</script>
-</head><body data-url=/developer/>
+</head><body data-url=/expect/manipulations/>
 <nav id=sidebar>
 <div id=header-wrapper>
 <div id=header>
@@ -46,7 +46,8 @@
 <a class=padding href=/><i class="fas fa-home"></i> Yauaa</a>
 </li></ul></section><div class=highlightable>
 <ul class=topics>
-<li data-nav-id=/expect/ title="What to expect" class=dd-item>
+<li data-nav-id=/expect/ title="What to expect" class="dd-item
+parent">
 <a href=/expect/>
 What to expect
 </a>
@@ -63,7 +64,7 @@ Performance
 <a href=/expect/limitations/>
 Limitations
 </a>
-</li><li data-nav-id=/expect/manipulations/ title=Manipulations class=dd-item>
+</li><li data-nav-id=/expect/manipulations/ title=Manipulations class="dd-item active">
 <a href=/expect/manipulations/>
 Manipulations
 </a>
@@ -157,9 +158,7 @@ Snowplow
 <a href=/udf/trino/>
 Trino
 </a>
-</li></ul></li><li data-nav-id=/developer/ title=Development class="dd-item
-parent
-active">
+</li></ul></li><li data-nav-id=/developer/ title=Development class=dd-item>
 <a href=/developer/>
 Development
 </a>
@@ -223,7 +222,7 @@ Related projects
 <div>
 <div id=top-bar>
 <div id=top-github-link>
-<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/main/documentation/content/developer/_index.md target=blank>
+<a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/main/documentation/content/expect/Manipulations.md target=blank>
 <i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span>
 </a>
@@ -235,24 +234,47 @@ Related projects
 </span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
 <span class=links>
-<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > Development
+<a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/expect/>What to expect</a> > Manipulations
 </span>
 </div><div class=progress>
 <div class=wrapper>
-<nav id=TableOfContents></nav></div></div></div></div><div id=head-tags>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#privacy>Privacy</a>
+<ul>
+<li><a href=#reducingfreezing-the-useragent>Reducing/Freezing the UserAgent</a></li></ul></li><li><a href=#compatibility>Compatibility</a>
+<ul>
+<li><a href=#there-is-no-macos-11>There is no MacOS 11</a></li><li><a href=#there-is-no-windows-11-in-chromiumchromeedge>There is no Windows 11 in Chromium/Chrome/Edge/&mldr;</a></li><li><a href=#there-is-no-windows-11-in-firefox>There is no Windows 11 in Firefox</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags>
 </div><div id=body-inner>
 <h1>
-Development
-</h1><p>These pages explain the internals of the system and contains the guidelines on how to extend it with your own rules.</p><ul class="children children-li">
-<li>
-<a href=/developer/building/>Building from source</a>
-</li><li>
-<a href=/developer/basedesign/>Base Design</a>
-</li><li>
-<a href=/developer/makingnewrules/>Making new rules</a>
-</li><li>
-<a href=/developer/shadingdependencies/>Shading dependencies</a>
-</li></ul><footer class=footline>
+Manipulations
+</h1><h2 id=privacy>Privacy</h2><p>Useragents have had a lot of information about the device and the browser in it. This has been so detailled in the past that there were many situations where the useragents could be used for tracking visitors very reliably.</p><h3 id=reducingfreezing-the-useragent>Reducing/Freezing the UserAgent</h3><p>So a few years ago in several browsers projects started to reduce the level of information in the UserAgent. As a direct consequence the analysis results will become less usefull over time as browsers will start taking away more and more information.</p><ul>
+<li><a href=https://www.chromium.org/updates/ua-reduction>https://www.chromium.org/updates/ua-reduction</a></li><li><a href=https://www.chromestatus.com/feature/5704553745874944>https://www.chromestatus.com/feature/5704553745874944</a></li></ul><p>The (Q1 2022) DRAFT proposal of the User-Agent Client Hints is intended to contain the information needed in a cleaner way.</p><ul>
+<li><a href=https://wicg.github.io/ua-client-hints/>https://wicg.github.io/ua-client-hints/</a></li><li><a href=https://github.com/WICG/ua-client-hints>https://github.com/WICG/ua-client-hints</a></li></ul><p>At this point in time (Q1 2022):</p><ul>
+<li>This is not a standard yet</li><li>Not all browsers support this
+<ul>
+<li>Chromium based browsers support this.</li><li>Firefox 97 does not.</li></ul></li></ul><h2 id=compatibility>Compatibility</h2><p>Also (as I have written a long time ago in <a href=https://techlab.bol.com/making-sense-user-agent-string/>this article</a>) the UserAgents set values to show to websites what they are compatible with.</p><p>In 2021 several browsers stopped updating the version number of the underlying operating system because of compatibility problems with poorly written websites.</p><p>Also several browsers are reaching version 100 which makes the version 3 digits; which leads to parsing problems if a website expects a 2 digit version.</p><p>This has led to some testing flags for website builders like
+<a href=chrome://flags/#force-major-version-to-100>chrome://flags/#force-major-version-to-100</a></p><blockquote>
+<p><strong>Force major version to 100 in User-Agent</strong></p></blockquote><blockquote>
+<p>Force the Chrome major version in the User-Agent string to 100, which allows testing the 3-digit major version number before the actual M100 release. This flag is only available from M96-M99. – Mac, Windows, Linux, Chrome OS, Android, Fuchsia</p></blockquote><p>and also <a href=chrome://flags/#force-minor-version-to-100>chrome://flags/#force-minor-version-to-100</a></p><blockquote>
+<p><strong>Force the minor version to 100 in the User-Agent string</strong></p></blockquote><blockquote>
+<p>Force the Chrome minor version in the User-Agent string to 100, which allows testing a 3-digit minor version number. Currently, the minor version is always reported as 0, but due to potential breakage with the upcoming major version 100, this flag allows us to test whether setting the major version in the minor version part of the User-Agent string would be an acceptable alternative. If force-major-version-to-100 is set, then this flag has no effect. See crbug.com/1278459 for details. – Mac, Windows, Linux, Chrome OS, Android, Fuchsia</p></blockquote><p><strong>Hold on</strong>: They are testing if they can set the major version in the minor version position &mldr; to work around broken websites?</p><p>In Chrome/Edge 99 has actually implemented this flag:</p><p><a href=chrome://flags/#force-major-version-to-minor>chrome://flags/#force-major-version-to-minor</a></p><blockquote>
+<p><strong>Put major version in minor version position in User-Agent</strong></p></blockquote><blockquote>
+<p>Lock the Microsoft Edge major version in the User-Agent string to 99, and force the major version number to the minor version position. This flag is a backup plan for unexpected site-compatibility breakage with a three digit major version. – Mac, Windows, Linux, Chrome OS, Android, Fuchsia</p></blockquote><p>So you get the effect:</p><ul>
+<li>Chrome/99.0.1150.25 = Chrome 99</li><li>Chrome/99.123.1150.25 = Chrome 123</li></ul><p>Don&rsquo;t worry: Yauaa actually detects and handles this and reports the correct version.</p><h3 id=there-is-no-macos-11>There is no MacOS 11</h3><p>Both Chromium (=Chrome, Edge, &mldr;) and Firefox have frozen the version of MacOS X to 10.15(.7) and as a consequence MacOS 11 &mldr; simply does not appear in any of their UserAgents.
+As a consequence these specific versions are reported as unknown version (<code>??</code>).</p><p>Back ground information:</p><ul>
+<li>Always <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1175225">10_15_7</a> since Chrome 90.</li><li>Always <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh>10.15</a> since Firefox 87.</li></ul><h3 id=there-is-no-windows-11-in-chromiumchromeedge>There is no Windows 11 in Chromium/Chrome/Edge/&mldr;</h3><p>Microsoft has documented here <a href=https://docs.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11>https://docs.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11</a></p><blockquote>
+<p>There are two approaches for sites to access user agent information:</p><ul>
+<li>User-Agent strings (legacy).</li><li>User-Agent Client Hints (recommended).</li></ul><p>Websites can differentiate between users on Windows 11 and Windows 10 by using User-Agent Client Hints (UA-CH).`</p></blockquote><p>and</p><blockquote>
+<p>User-Agent strings won&rsquo;t be updated to differentiate between Windows 11 and Windows 10. We don&rsquo;t recommend using User-Agent strings to retrieve user agent data. Browsers that don&rsquo;t support User-Agent Client Hints won&rsquo;t be able to differentiate between Windows 11 and Windows 10.</p></blockquote><p>And thus the Chrome UserAgent on Windows 11 looks like this:</p><blockquote>
+<p>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36</p></blockquote><p>Which clealy says: <code>Windows 10.0</code></p><h3 id=there-is-no-windows-11-in-firefox>There is no Windows 11 in Firefox</h3><p>Firefox has an explicit issue called <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1693295">Cap the Windows version in the User-Agent to 10.0.</a>.</p><p>Their <a href=https://hg.mozilla.org/mozilla-central/rev/3b60746765d3>code comment</a> clearly describes why</p><blockquote>
+<p>Cap the reported Windows version to 10.0. This way, Microsoft doesn&rsquo;t
+get to change Web compat-sensitive values without our veto. The
+compat-sensitivity keeps going up as 10.0 stays as the current value
+for longer and longer. If the system-reported version ever changes,
+we&rsquo;ll be able to take our time to evaluate the Web compat impact
+instead of having to scamble to react like happened with macOS
+changing from 10.x to 11.x.</p></blockquote><footer class=footline>
 </footer></div></div><div id=navigation>
 </div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px>
 <div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1646604589></script>
