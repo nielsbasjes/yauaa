@@ -19,8 +19,6 @@
 # Client side pre-commit hook to assist the committers to ensure the commit messages
 # follow the chosen convention.
 
-SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-
 function die() {
   #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
   # Reset
@@ -44,11 +42,3 @@ function die() {
   echo -e "${Color_Off}"
   exit 1
 }
-
-for check in "${SCRIPTDIR}"/commit-msg.d/*sh; do
-   . ${check}
-done
-
-echo "=========================="
-
-exit 0

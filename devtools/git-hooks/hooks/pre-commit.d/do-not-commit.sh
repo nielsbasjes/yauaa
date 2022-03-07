@@ -16,6 +16,14 @@
 # limitations under the License.
 #
 
-
 # Fail if there is a DONOTCOMMIT in one of the files to be committed
-git-diff-index -p -M --cached HEAD -- | grep '^+' | grep -F DONOTCOMMIT && die "Blocking commit because string DONOTCOMMIT detected in patch: \n$(git diff --cached | fgrep -B2 -A2 DONOTCOMMIT)\n"
+for filename in $(git diff --cached --name-only | grep -F -v git-hooks);
+do
+  grep -F "DONOTCOMMIT" $filename > /dev/null 2>&1
+  STATUS=$?
+  if [ "${STATUS}" -eq 0 ];
+  then
+    die "Blocking commit because string DONOTCOMMIT detected in patch: $filename"
+  fi
+done
+echo "No files with DONOTCOMMIT: Ok"

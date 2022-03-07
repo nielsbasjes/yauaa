@@ -18,8 +18,8 @@
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-SOURCEDIR="${SCRIPTDIR}/commit-msg"
-HOOKDIR="${SCRIPTDIR}/../.git/hooks"
+SOURCEDIR="${SCRIPTDIR}/hooks"
+HOOKDIR="${SCRIPTDIR}/../../.git/hooks"
 
 if [ ! -f "${HOOKDIR}/commit-msg.sample" ];
 then
@@ -29,7 +29,13 @@ fi
 
 function listFiles() {
   cd "${SOURCEDIR}" || die "Unable to enter ${SOURCEDIR}"
-  find . -type f | grep -F commit-msg | grep -F -v sample | sort
+  SOURCE_FILES=$(find . -type f | grep -F -v sample | sort)
+  cd "${HOOKDIR}" || die "Unable to enter ${HOOKDIR}"
+  INSTALLED_FILES=$(find . -type f | grep -F -v sample | sort)
+  (
+  echo $SOURCE_FILES
+  echo $INSTALLED_FILES
+  ) | sort -u
 }
 
 function calculateHashes() {
@@ -44,12 +50,12 @@ function calculateHash() {
   calculateHashes "${DIR}" | md5sum | cut -d' ' -f1
 }
 
-SCRIPTHASH=$(calculateHash "${SCRIPTDIR}/commit-msg" )
+SCRIPTHASH=$(calculateHash "${SOURCEDIR}" )
 INSTALLEDHASH=$(calculateHash "${HOOKDIR}")
 
 if [ "$SCRIPTHASH" == "$INSTALLEDHASH" ]
 then
-  echo "Git hooks are in place."
+  echo "All installed git hooks are as expected."
 else
 
   #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
@@ -79,5 +85,7 @@ else
   echo "Difference between source(<) and hookdir(>)"
   diff /tmp/checkCommitHooks_source_$$ /tmp/checkCommitHooks_hook_$$
   rm /tmp/checkCommitHooks_source_$$ /tmp/checkCommitHooks_hook_$$
+
+  sleep 5s
 fi
 

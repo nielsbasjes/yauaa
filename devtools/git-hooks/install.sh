@@ -26,6 +26,10 @@ then
   exit 1
 fi
 
-( cd "${SCRIPTDIR}/" && cp -a commit-msg* "${HOOKDIR}/" )
+( cd "${SCRIPTDIR}/hooks" && cp -a * "${HOOKDIR}/" )
 chmod 755 "${HOOKDIR}/commit-msg"
+chmod 755 "${HOOKDIR}/pre-commit"
+
 echo "Installation completed"
+
+${SCRIPTDIR}/check-git-commit-hooks.sh
