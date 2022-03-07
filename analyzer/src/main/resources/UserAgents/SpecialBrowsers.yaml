@@ -2795,11 +2795,11 @@ config:
       LayoutEngineNameVersion              : 'Trident 7.0'
       LayoutEngineNameVersionMajor         : 'Trident 7'
       AgentClass                           : 'Browser'
-      AgentName                            : 'BR-Safe-Browsing'
-      AgentVersion                         : '??'
-      AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'BR-Safe-Browsing ??'
-      AgentNameVersionMajor                : 'BR-Safe-Browsing ??'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '11.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Internet Explorer 11.0'
+      AgentNameVersionMajor                : 'Internet Explorer 11'
 
 - test:
     input:
@@ -4035,17 +4035,17 @@ config:
     - 'AgentName                           :     2009 : NormalizeBrand[@Agent.name]'
     - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
 
-- matcher:
-    variable:
-    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
-    - 'AgentName                           :@Agent.text'
-    require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
-    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
-    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
-    extract:
-    - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
-    - 'AgentVersion                        :     2008 : "<<<null>>>"'
+#- matcher:
+#    variable:
+#    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+#    - 'AgentName                           :@Agent.text'
+#    require:
+#    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
+#    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+#    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"]'
+#    extract:
+#    - 'AgentName                           :     2008 : NormalizeBrand[@AgentName]'
+#    - 'AgentVersion                        :     2008 : "<<<null>>>"'
 
 - matcher:
     variable:
