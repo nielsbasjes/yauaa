@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.11-SNAPSHOT
+v6.12-SNAPSHOT
+===
+- ...
+
+v6.11
 ===
 - New/improved detections
   - Handle the Chrome 99+ chrome://flags/#force-major-version-to-minor

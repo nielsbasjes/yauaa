@@ -12,7 +12,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-### Version 6.11 (Unreleased)
+### Version 6.11
 - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
 - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
 
