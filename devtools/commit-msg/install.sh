@@ -26,6 +26,6 @@ then
   exit 1
 fi
 
-cp -a commit-msg* ${HOOKDIR}/
-chmod 755 ${HOOKDIR}/commit-msg
+( cd "${SCRIPTDIR}/" && cp -a commit-msg* "${HOOKDIR}/" )
+chmod 755 "${HOOKDIR}/commit-msg"
 echo "Installation completed"
