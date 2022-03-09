@@ -279,6 +279,8 @@ public class HumanHtml {
             .append("</html>");
     }
 
+    private static final String CACHE_BUSTER = Version.GIT_COMMIT_ID.substring(0, 8);
+
     private void htmlHead(StringBuilder sb) {
         sb.append("<!DOCTYPE html>");
         sb.append("<html lang=\"en\" ><head profile=\"http://www.w3.org/2005/10/profile\">");
@@ -291,7 +293,7 @@ public class HumanHtml {
         if (!userAgentAnalyzerIsAvailable() && getUserAgentAnalyzerFailureMessage() == null) {
             sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
         }
-        sb.append("<link rel=\"stylesheet\" href=\"style.css\">");
+        sb.append("<link rel=\"stylesheet\" href=\"style.css?").append(CACHE_BUSTER).append("\">");
         sb.append("<title>Analyzing the useragent</title>");
 
         sb.append("</head>");
