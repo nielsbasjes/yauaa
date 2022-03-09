@@ -128,7 +128,13 @@ public class HumanHtml {
                     sb.append("<hr/>");
                     sb.append("<h2 class=\"title\">The UserAgent</h2>");
                     sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
-                    sb.append("<h2 class=\"title\">The analysis result</h2>");
+                    sb
+                        .append("<h2 class=\"title\">The analysis result")
+                        .append(" <a class=\"hideLink\" href=\"?ua=")
+                        .append(URLEncoder.encode(userAgent.getUserAgentString(), "UTF-8"))
+                        // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
+                        .append("\">\uD83D\uDD17</a>")
+                        .append("</h2>");
 
                     List<String> tags = getTags(userAgent);
                     sb.append("<p class=\"tags\">")
