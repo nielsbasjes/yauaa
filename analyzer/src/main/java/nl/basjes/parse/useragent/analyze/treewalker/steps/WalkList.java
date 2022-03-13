@@ -60,9 +60,11 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatC
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherDefaultIfNullContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractBrandFromUrlContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupContainsContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsNotInLookupPrefixContext;
@@ -71,6 +73,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLoo
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathLookupPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherReplaceStringContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherSegmentRangeContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathVariableContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.PathWalkContext;
@@ -329,7 +332,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherPathIsInLookup(UserAgentTreeWalkerParser.MatcherPathIsInLookupContext ctx) {
+        public Void visitMatcherPathIsInLookup(MatcherPathIsInLookupContext ctx) {
             visit(ctx.matcher());
 
             fromHereItCannotBeInHashMapAnymore();
@@ -473,7 +476,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherExtractBrandFromUrl(UserAgentTreeWalkerParser.MatcherExtractBrandFromUrlContext ctx) {
+        public Void visitMatcherExtractBrandFromUrl(MatcherExtractBrandFromUrlContext ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepExtractBrandFromUrl());
@@ -513,7 +516,7 @@ public class WalkList implements Serializable {
         }
 
         @Override
-        public Void visitMatcherSegmentRange(UserAgentTreeWalkerParser.MatcherSegmentRangeContext ctx) {
+        public Void visitMatcherSegmentRange(MatcherSegmentRangeContext ctx) {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepSegmentRange(WordRangeVisitor.getRange(ctx.wordRange())));
