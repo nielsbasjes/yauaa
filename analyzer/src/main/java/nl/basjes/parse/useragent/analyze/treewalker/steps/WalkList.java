@@ -54,7 +54,6 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrev;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepPrevN;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.walk.StepUp;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerBaseVisitor;
-import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherCleanVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPostfixContext;
