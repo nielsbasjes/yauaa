@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v6.12-SNAPSHOT
 ===
-- ...
+- Updated UDF dependencies
+    - Apache Flink            1.14.4
 
 v6.11
 ===
