@@ -254,7 +254,7 @@ public interface UserAgent extends Serializable {
     }
 
     default String toYamlTestCase() {
-        return toYamlTestCase(false, getAvailableFieldNamesSorted(), null);
+        return toYamlTestCase(false,  getCleanedAvailableFieldNamesSorted(), null);
     }
 
     default String toYamlTestCase(List<String> fieldNames) {
@@ -262,11 +262,11 @@ public interface UserAgent extends Serializable {
     }
 
     default String toYamlTestCase(boolean showConfidence) {
-        return toYamlTestCase(showConfidence, getAvailableFieldNamesSorted(), null);
+        return toYamlTestCase(showConfidence, getCleanedAvailableFieldNamesSorted(), null);
     }
 
     default String toYamlTestCase(boolean showConfidence, Map<String, String> comments) {
-        return toYamlTestCase(showConfidence, getAvailableFieldNamesSorted(), comments);
+        return toYamlTestCase(showConfidence, getCleanedAvailableFieldNamesSorted(), comments);
     }
 
     default String toYamlTestCase(boolean showConfidence, List<String> fieldNames) {
@@ -461,6 +461,35 @@ public interface UserAgent extends Serializable {
                 }
             }
         }
+        return sb.toString();
+    }
+
+    default String toJavaTestCase() {
+        return toJavaTestCase(getCleanedAvailableFieldNamesSorted());
+    }
+
+    default String toJavaTestCase(List<String> fieldNames) {
+        StringBuilder sb        = new StringBuilder();
+        int    maxValueLength   = 0;
+        for (String fieldName : fieldNames) {
+            maxValueLength = Math.max(maxValueLength, StringEscapeUtils.escapeJava(getValue(fieldName)).length());
+        }
+
+        for (String fieldName : fieldNames) {
+            if (!USERAGENT_FIELDNAME.equals(fieldName)) {
+                AgentField field = get(fieldName);
+                if (field != null) {
+                    String value = StringEscapeUtils.escapeJava(getValue(fieldName));
+                    sb.append("    assertEquals(\"").append(value).append("\", ");
+                    for (int l = value.length(); l < maxValueLength + 2; l++) {
+                        sb.append(' ');
+                    }
+                    sb.append("userAgent.getValue(\"").append(StringEscapeUtils.escapeJava(fieldName)).append("\"));");
+                    sb.append('\n');
+                }
+            }
+        }
+
         return sb.toString();
     }
 
