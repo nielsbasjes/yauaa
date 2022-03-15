@@ -4,7 +4,8 @@ This is intended as an overview of the major changes
 v6.12-SNAPSHOT
 ===
 - Updated UDF dependencies
-    - Apache Flink            1.14.4
+  - Apache Flink            1.14.4
+  - Elastic Search/Logstash 7.17.1
 
 v6.11
 ===
@@ -14,14 +15,14 @@ v6.11
   - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
   - Specific edge case in Internet Explorer UA.
 - Updated UDF dependencies
-    - Apache Beam             2.37.0
+  - Apache Beam             2.37.0
 
 v6.10
 ===
 - UDFs
   - New UDF for Trino (a.k.a. Presto SQL)
 - Updated UDF dependencies
-    - Apache Drill            1.20.0
+  - Apache Drill            1.20.0
 
 v6.9
 ===
@@ -36,7 +37,7 @@ v6.9
 - Webservlet:
   - Omit the non standard fields with a default value.
 - Updated UDF dependencies
-    - Apache Beam             2.36.0
+  - Apache Beam             2.36.0
 
 v6.8
 ===
@@ -44,8 +45,8 @@ v6.8
   - The XML/JSon/Yaml output now always contains the requested AND all needed "Unknown" value fields.
   - Switched the default caching implementation to Caffeine
 - New/improved detections
-    - Classify more Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
-    - Fix Samsung SC-... devices (were detected as Huawei SC-... devices).
+  - Classify more Apache Log4j RCE CVE-2021-44228 useragents as "Code Injection".
+  - Fix Samsung SC-... devices (were detected as Huawei SC-... devices).
 - Updated UDF dependencies
   - Apache Flink            1.14.3
   - Apache Nifi             1.15.3
