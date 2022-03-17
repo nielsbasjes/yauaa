@@ -27,4 +27,4 @@ do
   fi
 done
 
-echo "No generated files: Ok"
+pass "No generated files"

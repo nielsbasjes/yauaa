@@ -19,26 +19,35 @@
 # Client side pre-commit hook to assist the committers to ensure the commit messages
 # follow the chosen convention.
 
+#https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+# Reset
+export Color_Off='\e[0m'      # Text Reset
+
+# High Intensity
+export IRed='\e[0;91m'        # Red
+export IYellow='\e[0;93m'     # Yellow
+export IBlue='\e[0;94m'       # Blue
+export IWhite='\e[0;97m'      # White
+
+# Bold High Intensity
+export BIRed='\e[1;91m'       # Red
+export BIGreen='\e[1;92m'     # Green
+export BIBlue='\e[1;94m'      # Blue
+
+function pass() {
+  echo -e "${Color_Off}${IWhite}[${BIGreen}PASS${IWhite}] ${Color_Off}${1}"
+}
+
+function fail() {
+  echo -e "${Color_Off}${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}${1}${Color_Off}"
+}
+
 function die() {
-  #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
-  # Reset
-  export Color_Off='\e[0m'      # Text Reset
-
-  # High Intensity
-  export IRed='\e[0;91m'        # Red
-  export IYellow='\e[0;93m'     # Yellow
-  export IBlue='\e[0;94m'       # Blue
-  export IWhite='\e[0;97m'      # White
-
-  # Bold High Intensity
-  export BIRed='\e[1;91m'       # Red
-  export BIBlue='\e[1;94m'      # Blue
-
   echo -e "${Color_Off}"
-  echo -e "${IWhite}[${BIRed}FATAL${IWhite}] ${IYellow}/========================================================================"
-  echo -e "${IWhite}[${BIRed}FATAL${IWhite}] ${IYellow}| ${BIRed} ---------->>> THE CHANGES WERE NOT COMMITTED ! <<<---------- ${IYellow}"
-  echo -e "${IWhite}[${BIRed}FATAL${IWhite}] ${IYellow}| ${BIRed} $@ ${IYellow}"
-  echo -e "${IWhite}[${BIRed}FATAL${IWhite}] ${IYellow}\\========================================================================"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}/========================================================================"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}| ${BIRed} ---------->>> THE CHANGES WERE NOT COMMITTED ! <<<---------- ${IYellow}"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}| ${BIRed} $@ ${IYellow}"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}\\========================================================================"
   echo -e "${Color_Off}"
   exit 1
 }

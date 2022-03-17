@@ -26,4 +26,4 @@ do
     die "Blocking commit because string DONOTCOMMIT detected in patch: $filename"
   fi
 done
-echo "No files with DONOTCOMMIT: Ok"
+pass "No files with DONOTCOMMIT: Ok"

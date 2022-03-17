@@ -21,8 +21,8 @@ COMMIT_MSG_FILE=$1
 COMMIT_LINES=$(cat "${COMMIT_MSG_FILE}" | grep . | grep -v '^#' | wc -l)
 if [ "${COMMIT_LINES}" -eq 1 ];
 then
-  echo "Single line commit message: Ok"
+  pass "Single line commit message: Ok"
 else
-  echo "Single line commit message: Fail: Found ${COMMIT_LINES} lines"
+  fail "Single line commit message: Found ${COMMIT_LINES} lines"
   exit 1
 fi
