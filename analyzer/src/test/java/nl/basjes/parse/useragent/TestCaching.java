@@ -177,6 +177,28 @@ class TestCaching {
         assertEquals(agent1, agent2);
     }
 
+    @Test
+    void testCustomCacheImplementationInlineLambda() {
+        String userAgent = "Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .withCacheInstantiator(
+                cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize))
+            )
+            .withCache(10)
+            .hideMatcherLoadStats()
+            .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(userAgent);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(userAgent);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
+
     private static class TestingCacheInstantiator implements CacheInstantiator {
         @Override
         public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
