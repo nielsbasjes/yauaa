@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 v6.12-SNAPSHOT
 ===
 - Build:
-  - Apache Flink Table UDF now also builds under JDK 17
+  - Apache Flink Table and Hive UDFs now also build under JDK 17
   - Apache Hive UDF has docker based integration test
 - Updated UDF dependencies
   - Apache Flink            1.14.4
