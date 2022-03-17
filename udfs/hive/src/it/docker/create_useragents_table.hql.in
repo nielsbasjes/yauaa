@@ -48,14 +48,16 @@ DESCRIBE FUNCTION EXTENDED ParseUserAgentTmp;
 
 !echo "=-------------------------------------------------------------------------";
 !echo "[1] Run query using table";
-SELECT ParseUserAgentTmp(useragent).DeviceClass,
+SELECT 'TMP',
+       ParseUserAgentTmp(useragent).DeviceClass,
        ParseUserAgentTmp(useragent).OperatingsystemNameVersion,
        ParseUserAgentTmp(useragent).AgentNameVersionMajor
 FROM   clickLogs;
 
 !echo "=-------------------------------------------------------------------------";
 !echo "[2] Run query using direct value";
-SELECT ParseUserAgentTmp('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+SELECT 'TMP',
+       ParseUserAgentTmp('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
 
 
 !echo "==========================================================================";
@@ -66,14 +68,15 @@ DESCRIBE FUNCTION EXTENDED ParseUserAgent;
 
 !echo "=-------------------------------------------------------------------------";
 !echo "[1] Run query using table";
-SELECT ParseUserAgent(useragent).DeviceClass,
+SELECT 'PERM',
+       ParseUserAgent(useragent).DeviceClass,
        ParseUserAgent(useragent).OperatingsystemNameVersion,
        ParseUserAgent(useragent).AgentNameVersionMajor
 FROM   clickLogs;
 
 !echo "=-------------------------------------------------------------------------";
 !echo "[2] Run query using direct value";
-SELECT ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+SELECT 'PERM', ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
 !echo "==========================================================================";
 
 --

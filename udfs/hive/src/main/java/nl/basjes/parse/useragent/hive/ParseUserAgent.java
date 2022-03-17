@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.hive;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.apache.commons.collections4.map.LRUMap;
 import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
@@ -30,6 +31,7 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.StringObjectInspe
 import org.apache.hadoop.io.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -95,6 +97,11 @@ public class ParseUserAgent extends GenericUDF {
             .newBuilder()
             .hideMatcherLoadStats()
             .delayInitialization()
+            // Caffeine is a Java 11+ library.
+            // This is one is Java 8 compatible.
+            .withCacheInstantiator(
+                cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize))
+            )
             .build();
 
         fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();

@@ -50,6 +50,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>${commons-collections4.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-client</artifactId>
       <version>${hadoop.version}</version>
@@ -78,6 +84,20 @@
     </dependency>
 
   </dependencies>
+
+  <profiles>
+    <profile>
+    <id>NewerThanJDK11</id>
+    <activation><jdk>[12,)</jdk></activation>
+    <!-- Under JDK 17 the tests fail during the build.                                              -->
+    <!-- So when built on JDK 17 we rely on                                                         -->
+    <!-- - The fact that the tests are also run under JDK 11                                        -->
+    <!-- - The fact that we have a docker based integration test with the JDK 17 produced artifact  -->
+      <properties>
+        <skipTests>true</skipTests>
+      </properties>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
@@ -184,6 +204,28 @@
             <version>2.0b6</version>
           </dependency>
         </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>Run Docker based IT test</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <skip>${docker-based-tests.skip}</skip>
+              <executable>${basedir}/src/it/docker/run-it-test.sh</executable>
+              <arguments>
+                <argument>${elasticsearch.version}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>

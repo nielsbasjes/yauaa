@@ -17,12 +17,14 @@
 
 package nl.basjes.parse.useragent.hive;
 
+import org.apache.hadoop.hive.common.StringInternUtils;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF.DeferredJavaObject;
 import org.apache.hadoop.hive.ql.udf.generic.GenericUDF.DeferredObject;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.StandardStructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectInspectorFactory;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,6 +32,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestParseUserAgent {
+
+    @BeforeAll
+    static void init() {
+        try {
+            // Trigger the static initializer of this utility class ... that fails under JDK 17
+            StringInternUtils dummy = new StringInternUtils();
+        } catch (Exception ioe) {
+            //Ignore
+        }
+    }
 
     @Test
     void testBasic() throws HiveException {

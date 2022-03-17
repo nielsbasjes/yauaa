@@ -16,15 +16,14 @@
 #
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
-cd "${SCRIPTDIR}"
-
+cd "${SCRIPTDIR}" || exit 1
 # Start the Hive installation
 docker-compose up -d
 
 sleep 5s
 
 # Figure out what the name of the actual Jar file is.
-JARNAME=$( cd ../../target/ ;  ls yauaa-hive-*-udf.jar )
+JARNAME=$( cd ../../../target/ || exit 1;  ls yauaa-hive-*-udf.jar )
 
 # Store the jar file in HDFS
 echo "==========================================="
@@ -32,12 +31,6 @@ echo "Installing Yauaa UDF on HDFS"
 docker exec -t -i hive-server bash  hdfs dfs -mkdir '/udf/'
 docker exec -t -i hive-server bash  hdfs dfs -put "/udf-target/${JARNAME}" '/udf/'
 docker exec -t -i hive-server bash  hdfs dfs -ls '/udf/'
-
-# Run the test Hive script
-echo "==========================================="
-echo "Running tests"
-sed "s/@JARNAME@/${JARNAME}/g" create_useragents_table.hql.in > create_useragents_table.hql
-docker exec -t -i hive-server hive -f '/useragents/create_useragents_table.hql'
 
 # Allow for manual commands
 echo "==========================================="

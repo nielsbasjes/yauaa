@@ -44,7 +44,7 @@ services:
     container_name: hive-server
     volumes:
       - .:/useragents
-      - ../../target/:/udf-target
+      - ../../../target/:/udf-target
     env_file:
       - ./hadoop-hive.env
     environment:
