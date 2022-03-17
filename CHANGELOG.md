@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v6.12-SNAPSHOT
 ===
+- Build:
+  - Flink Table UDF now also builds under JDK 17
 - Updated UDF dependencies
   - Apache Flink            1.14.4
   - Elastic Search/Logstash 7.17.1

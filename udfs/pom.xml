@@ -89,7 +89,7 @@
     <module>logparser</module>
     <module>pig</module>
     <module>flink</module>
-<!--    <module>flink-table</module> -->
+    <module>flink-table</module>
     <module>beam</module>
     <module>beam-sql</module>
 <!--    <module>hive</module> -->
@@ -109,7 +109,6 @@
       <!--    Caused by: java.lang.reflect.InaccessibleObjectException:                         -->
       <!--        Unable to ... accessible: module java.base does not "opens java.util" to ...  -->
       <modules>
-        <module>flink-table</module>
         <module>hive</module>
       </modules>
     </profile>
@@ -138,7 +137,7 @@
                   <executable>bash</executable>
                   <arguments>
                     <argument>-c</argument>
-                    <argument>echo -e "\e[1;91m[WARN]\n\e[1;91m[WARN] \e[0;93mThe UDFs for Apache Hive and Apache Flink SQL require JDK 11 so under JDK with $(javac --version) they will not be built !!\n\e[1;91m[WARN]\e[0m"</argument>
+                    <argument>echo -e "\e[1;91m[WARN]\n\e[1;91m[WARN] \e[0;93mThe UDF for Apache Hive requires JDK 11 so under JDK with $(javac --version) it will not be built !!\n\e[1;91m[WARN]\e[0m"</argument>
                   </arguments>
                 </configuration>
               </execution>

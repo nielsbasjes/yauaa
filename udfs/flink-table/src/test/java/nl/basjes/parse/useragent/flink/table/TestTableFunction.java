@@ -114,10 +114,11 @@ class TestTableFunction {
             assertTrue(expectedDeviceClass           instanceof String);
             assertTrue(expectedAgentNameVersionMajor instanceof String);
 
+            System.err.println("----- Checking: " + useragent);
             assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
             assertEquals(expectedAgentNameVersionMajor, agentNameVersionMajor, "Wrong AgentNameVersionMajor: " + useragent);
             return useragent.toString();
-        }).printToErr();
+        });
 
         senv.execute();
     }
@@ -171,10 +172,11 @@ class TestTableFunction {
             assertTrue(expectedDeviceClass           instanceof String);
             assertTrue(expectedAgentNameVersionMajor instanceof String);
 
+            System.err.println("----- Checking: " + useragent);
             assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
             assertEquals(expectedAgentNameVersionMajor, agentNameVersionMajor, "Wrong AgentNameVersionMajor: " + useragent);
             return useragent.toString();
-        }).printToErr();
+        });
 
         senv.execute();
     }
@@ -229,8 +231,9 @@ class TestTableFunction {
                 ((Map<?, ?>)parsedUseragent).get("AgentNameVersionMajor"),
                 "Wrong AgentNameVersionMajor: " + useragent);
 
+            System.err.println("----- Checking: " + useragent);
             return useragent.toString();
-        }).printToErr();
+        });
 
         senv.execute();
     }
