@@ -65,6 +65,17 @@ A custom implementation can be specified via the `Builder` using the `withCacheI
         .withCache(10000)
         .build();
 
+## Running on Java 8
+Yauaa 6.x still allows running on Java 8, yet the default caching library needs Java 11.
+
+If you are still using Java 8 then you can fix this problem by using the `LRUMap` caching implementation that is part of the Apache commons-collections library and do something like this:
+
+    UserAgentAnalyzer uaa = UserAgentAnalyzer
+        .newBuilder()
+        .withCacheInstantiator(cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize)))
+        .withCache(10000)
+        .build();
+
 ## Logging dependencies
 The Yauaa engine uses Log4j2 as the primary logging framework; yet some of the transitive dependencies
 of this project use different logging frameworks.
