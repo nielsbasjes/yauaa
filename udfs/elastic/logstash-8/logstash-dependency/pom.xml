@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!--
+  ~ Yet Another UserAgent Analyzer
+  ~ Copyright (C) 2013-2022 Niels Basjes
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <artifactId>yauaa-logstash-8-parent</artifactId>
+    <version>6.12-SNAPSHOT</version>
+  </parent>
+  <artifactId>yauaa-logstash-8-dependency</artifactId>
+
+  <name>Yauaa : UDF : Elastic : Logstash 8.x : Dependency</name>
+  <description>A parsing and analyzing library to get information from a useragent string.</description>
+  <packaging>pom</packaging>
+
+  <url>https://yauaa.basjes.nl</url>
+
+  <build>
+    <plugins>
+
+      <!-- FIXME: Until https://github.com/elastic/logstash/issues/11002 is done we must download -->
+      <!--        the required dependency via a 'different' route ... -->
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>Download logstash dependency</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>./download-logstash.sh</executable>
+              <arguments>
+                <argument>${logstash.version}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Niels Basjes</name>
+      <email>niels@basjes.nl</email>
+      <roles>
+        <role>Architect</role>
+        <role>Developer</role>
+      </roles>
+      <timezone>Europe/Amsterdam</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <url>https://github.com/nielsbasjes/yauaa</url>
+    <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
+    <developerConnection>scm:git:file:///${project.basedir}</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+</project>

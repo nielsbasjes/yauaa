@@ -18,6 +18,13 @@
       "enabled": false
     },
     {
+      "description": "Disable major updates for Elastic Search 7",
+      "matchPackageNames": ["org.elasticsearch:elasticsearch"],
+      "matchCurrentVersion": "[7.0.0,8.0.0)",
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "description": "Disable automatic updates for log4j for ElasticSearch (avoid jar-hell)",
       "groupName": "elasticsearch.log4j2.version",
       "matchPackagePrefixes": ["org.apache.logging.log4j"],

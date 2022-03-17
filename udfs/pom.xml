@@ -95,24 +95,10 @@
     <module>hive</module>
     <module>drill</module>
     <module>nifi</module>
-    <module>elasticsearch</module>
+    <module>elastic</module>
     <module>snowflake</module>
     <module>trino</module>
   </modules>
-
-  <profiles>
-    <profile>
-      <id>buildRuby</id>
-      <activation>
-        <property>
-          <name>!DisableRuby</name>
-        </property>
-      </activation>
-      <modules>
-        <module>logstash</module>
-      </modules>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>
