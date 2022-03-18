@@ -75,7 +75,7 @@ else
   echo -e "${Color_Off}"
   echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}/========================================================================\\"
   echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}|                 ${BIRed}git commit hooks need to be updated !${IYellow}                  |"
-  echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}| ${BIRed}Use ${SCRIPTDIR}/commit-msg/install.sh to install them.${IYellow} |"
+  echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}| ${BIRed}Use ${SCRIPTDIR}/install.sh to install them.${IYellow} |"
   echo -e "${IWhite}[${BIRed}WARN${IWhite}] ${IYellow}\\========================================================================/"
   echo -e "${Color_Off}"
 
