@@ -359,6 +359,28 @@
             </executions>
           </plugin>
 
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${maven-enforcer-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>A release MUST be built under JDK 17</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireJavaVersion>
+                      <version>[17,)</version>
+                      <message>Although the target JVM is JRE 8, a release MUST be done with JDK 17 because some UDFs require it.</message>
+                    </requireJavaVersion>
+                  </rules>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>
@@ -395,6 +417,28 @@
                     </validationProperty>
                   </validationProperties>
                   <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${maven-enforcer-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>A release MUST be built under JDK 17</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireJavaVersion>
+                      <version>[17,)</version>
+                      <message>Although the target JVM is JRE 8, a release MUST be done with JDK 17 because some UDFs require it.</message>
+                    </requireJavaVersion>
+                  </rules>
                 </configuration>
               </execution>
             </executions>
