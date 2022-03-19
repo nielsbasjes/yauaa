@@ -55,10 +55,10 @@ Building has side effects ! Because at this time none of the required dependenci
 It downloads the entire logstash distribution, extracts the logstash-core.</description></item><item><title>Elastic Search</title><link>/udf/elastic-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/elastic-search/</guid><description>Introduction User Defined Function (ingest processor) for Elastic Search
 STATUS: &amp;hellip; EXPERIMENTAL &amp;hellip; The ElasticSearch ingest plugin is very new.
 And yes it is similar to https://www.elastic.co/guide/en/elasticsearch/reference/master/user-agent-processor.html
-Getting the UDF You can get the prebuilt ingest plugin from maven central.
-Installing the plugin You only need to install it into your elasticsearch once
-bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-6.11.zip Usage This plugin is intended to be used in an ingest pipeline.
-You have to specify the name of the input field and the place where the possible configuration flags are:</description></item><item><title>LogParser</title><link>/udf/logparser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/logparser/</guid><description>Introduction This is a User Defined Function for LogParser
+Getting the UDF You can get the prebuilt ingest plugin from maven central for
+Elastic Search 7.x. Elastic Search 8.x. Installing the plugin You only need to install it into your Elastic Search once
+On Elastic Search 7.x:
+bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-6.11.zip On Elastic Search 8.</description></item><item><title>LogParser</title><link>/udf/logparser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/logparser/</guid><description>Introduction This is a User Defined Function for LogParser
 Getting the UDF You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;nl.basjes.parse.useragent&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;yauaa-logparser&amp;lt;/artifactId&amp;gt; &amp;lt;classifier&amp;gt;udf&amp;lt;/classifier&amp;gt; &amp;lt;version&amp;gt;6.11&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Example usage -- Import the UDF jar file so this script can use it REGISTER *.jar; %declare LOGFILE 'access.log' %declare LOGFORMAT '%h %l %u %t &amp;quot;%r&amp;quot; %&amp;gt;s %b &amp;quot;%{Referer}i&amp;quot; &amp;quot;%{User-Agent}i&amp;quot;' OSName = LOAD '$LOGFILE' USING nl.</description></item><item><title>Snowplow</title><link>/udf/snowplow/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/snowplow/</guid><description>Introduction If you are a user of the Snowplow Analytics system and would like to use Yauaa in your analysis you are in luck.
