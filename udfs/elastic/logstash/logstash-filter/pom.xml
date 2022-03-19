@@ -21,12 +21,12 @@
 
   <parent>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <artifactId>yauaa-logstash-8-parent</artifactId>
+    <artifactId>yauaa-logstash-parent</artifactId>
     <version>6.12-SNAPSHOT</version>
   </parent>
-  <artifactId>yauaa-logstash-8</artifactId>
+  <artifactId>yauaa-logstash</artifactId>
 
-  <name>Yauaa : UDF : Elastic : Logstash 8.x : Filter</name>
+  <name>Yauaa : UDF : Elastic : Logstash : Filter</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
   <url>https://yauaa.basjes.nl</url>
@@ -60,7 +60,7 @@
     <dependency>
       <groupId>org.logstash</groupId>
       <artifactId>logstash-core</artifactId>
-      <version>${logstash.version}</version>
+      <version>${logstash-8.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -236,7 +236,7 @@
           </execution>
 
           <execution>
-            <id>Run Docker based IT test</id>
+            <id>Run Docker based IT test with Logstash ${logstash-7.version}</id>
             <phase>integration-test</phase>
             <goals>
               <goal>exec</goal>
@@ -245,7 +245,22 @@
               <skip>${docker-based-tests.skip}</skip>
               <executable>${basedir}/src/it/docker/run-it-test.sh</executable>
               <arguments>
-                <argument>${logstash.version}</argument>
+                <argument>${logstash-7.version}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Run Docker based IT test with Logstash ${logstash-8.version}</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <skip>${docker-based-tests.skip}</skip>
+              <executable>${basedir}/src/it/docker/run-it-test-8.sh</executable>
+              <arguments>
+                <argument>${logstash-8.version}</argument>
               </arguments>
             </configuration>
           </execution>

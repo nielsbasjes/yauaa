@@ -11,25 +11,17 @@
       "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/"
     },
     {
-      "description": "Disable major updates for kryo4",
+      "description": "Disable major updates for kryo 4.x (Needed for backwards compatibility testing)",
       "matchPackageNames": ["com.esotericsoftware:kryo"],
       "matchCurrentVersion": "[4.0.0,5.0.0)",
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
     {
-      "description": "Disable major updates for Elastic Search 7",
+      "description": "Disable major updates for Elastic Search 7.x (Needed for backwards compatibility testing)",
       "matchPackageNames": ["org.elasticsearch:elasticsearch"],
       "matchCurrentVersion": "[7.0.0,8.0.0)",
       "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
-      "description": "Disable automatic updates for log4j for ElasticSearch (avoid jar-hell)",
-      "groupName": "elasticsearch.log4j2.version",
-      "matchPackagePrefixes": ["org.apache.logging.log4j"],
-      "matchCurrentVersion": "[2.11.1]",
-      "matchUpdateTypes": ["major", "minor", "patch", "pin"],
       "enabled": false
     },
     {

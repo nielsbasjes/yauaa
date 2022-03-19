@@ -62,37 +62,36 @@
     <dependency>
       <groupId>org.elasticsearch</groupId>
       <artifactId>elasticsearch</artifactId>
-      <version>${elasticsearch.version}</version>
+      <version>${elasticsearch-7.version}</version>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>${elasticsearch.log4j2.version}</version>
-      <scope>test</scope>
+      <version>${log4j2.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-jcl</artifactId>
-      <version>${elasticsearch.log4j2.version}</version>
-<!--      <scope>test</scope>-->
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jcl</artifactId>
+      <version>${spring.version}</version>
+<!--      <scope>provided</scope>-->
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${elasticsearch.log4j2.version}</version>
-<!--      <scope>test</scope>-->
+      <version>${log4j2.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${elasticsearch.log4j2.version}</version>
-<!--      <version>${log4j2.version}</version>-->
-      <scope>test</scope>
+      <version>${log4j2.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -166,7 +165,7 @@
               <skip>${docker-based-tests.skip}</skip>
               <executable>${basedir}/src/it/docker/run-it-test.sh</executable>
               <arguments>
-                <argument>${elasticsearch.version}</argument>
+                <argument>${elasticsearch-7.version}</argument>
               </arguments>
             </configuration>
           </execution>

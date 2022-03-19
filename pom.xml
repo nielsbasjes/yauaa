@@ -76,18 +76,15 @@
     <logparser.version>5.7</logparser.version>
 
     <!-- Elastic tools 7.x series -->
-    <elastic.version>7.17.1</elastic.version>
-    <logstash.version>${elastic.version}</logstash.version>
-    <elasticsearch.version>${elastic.version}</elasticsearch.version>
-    <!-- This is the log4j2 version used in ES.  UPGRADE WITH CARE: ES will fail on wrong version "Jar hell". -->
-    <elasticsearch.log4j2.version>2.11.1</elasticsearch.log4j2.version> <!--  -->
+    <elastic-7.version>7.17.1</elastic-7.version>
+    <!-- logstash-7: Only used for ensuring backwards compatibility -->
+    <logstash-7.version>${elastic-7.version}</logstash-7.version>
+    <elasticsearch-7.version>${elastic-7.version}</elasticsearch-7.version>
 
     <!-- Elastic tools 8.x series -->
     <elastic-8.version>8.1.0</elastic-8.version>
+    <logstash-8.version>${elastic-8.version}</logstash-8.version>
     <elasticsearch-8.version>${elastic-8.version}</elasticsearch-8.version>
-    <!-- This is the log4j2 version used in ES.  UPGRADE WITH CARE: ES will fail on wrong version "Jar hell". -->
-    <elasticsearch-8.log4j2.version>2.11.1</elasticsearch-8.log4j2.version> <!--  -->
-    <!-- TODO: Logstash 8   <logstash-8.version>${elastic-8.version}</logstash-8.version>-->
 
     <!-- Trino (a.k.a. Presto SQL)-->
     <trino.version>374</trino.version>

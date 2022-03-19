@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <!--
   ~ Yet Another UserAgent Analyzer
   ~ Copyright (C) 2013-2022 Niels Basjes
@@ -20,42 +20,58 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>yauaa-elastic-udfs-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
+    <artifactId>yauaa-logstash-parent</artifactId>
     <version>6.12-SNAPSHOT</version>
   </parent>
-  <artifactId>yauaa-logstash-8-parent</artifactId>
-  <packaging>pom</packaging>
-  <name>Yauaa : UDF : Elastic : Logstash 8.x : </name>
+  <artifactId>yauaa-logstash-dependency</artifactId>
 
+  <name>Yauaa : UDF : Elastic : Logstash : Dependency</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
+  <packaging>pom</packaging>
 
   <url>https://yauaa.basjes.nl</url>
 
-  <modules>
-    <module>logstash-dependency</module>
-    <module>logstash-filter</module>
-  </modules>
-
   <build>
     <plugins>
+
+      <!-- FIXME: Until https://github.com/elastic/logstash/issues/11002 is done we must download -->
+      <!--        the required dependency via a 'different' route ... -->
+
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>${maven-deploy-plugin.version}</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec-maven-plugin.version}</version>
         <executions>
-          <!-- Do NOT install the JAR file, only the gem file must be installed. -->
           <execution>
-            <id>default-deploy</id>
-            <phase>deploy</phase>
+            <id>Download logstash dependency</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
             <configuration>
-              <skip>true</skip>
+              <executable>./download-logstash.sh</executable>
+              <arguments>
+                <argument>${logstash-8.version}</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy-plugin.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
     </plugins>
+
   </build>
+
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>

@@ -10,13 +10,20 @@ The ElasticSearch ingest plugin is very new.
 And yes it is similar to https://www.elastic.co/guide/en/elasticsearch/reference/master/user-agent-processor.html
 
 ## Getting the UDF
-You can get the prebuilt ingest plugin from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-elasticsearch/{{%YauaaVersion%}}/yauaa-elasticsearch-{{%YauaaVersion%}}.zip).
+You can get the prebuilt ingest plugin from maven central for
+- [Elastic Search 7.x](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-elasticsearch/{{%YauaaVersion%}}/yauaa-elasticsearch-{{%YauaaVersion%}}.zip).
+- [Elastic Search 8.x](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-elasticsearch-8/{{%YauaaVersion%}}/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip).
 
 ## Installing the plugin
-You only need to install it into your elasticsearch once
+You only need to install it into your Elastic Search once
 
+On Elastic Search 7.x:
 ```bash
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-{{%YauaaVersion%}}.zip
+```
+On Elastic Search 8.x
+```bash
+bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip
 ```
 
 ## Usage
