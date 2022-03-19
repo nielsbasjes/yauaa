@@ -12,6 +12,9 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 6.12 (Unreleased)
+- New UDF for ElasticSearch 8
+
 ### Version 6.11
 - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
 - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
