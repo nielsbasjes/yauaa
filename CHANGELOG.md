@@ -7,10 +7,12 @@ v6.12-SNAPSHOT
   - Apache Flink Table and Hive UDFs now also build under JDK 17
   - Apache Hive UDF has docker based integration test
 - UDFs
-  - New UDF for Elastic Search 8
+  - New UDF for Elastic Search 8.1.1
+  - Trino UDF uses ThreadLocal for better performance
 - Updated UDF dependencies
   - Apache Flink            1.14.4
-  - Elastic Search/Logstash 7.17.1
+  - Elastic Search          7.17.1
+  - Elastic Logstash        8.1.1
 
 v6.11
 ===
