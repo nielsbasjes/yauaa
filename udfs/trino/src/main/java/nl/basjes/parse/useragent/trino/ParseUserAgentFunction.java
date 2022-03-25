@@ -39,21 +39,17 @@ public final class ParseUserAgentFunction {
     private ParseUserAgentFunction() {
     }
 
-    private static UserAgentAnalyzer userAgentAnalyzerInstance = null;
-
-    private static UserAgentAnalyzer getInstance() {
-        // NOTE: We currently cannot make an instance with only the wanted fields.
-        //       We only know the required parameters the moment the call is done.
-        //       At that point it is too late to create an optimized instance.
-        if (userAgentAnalyzerInstance == null) {
-            userAgentAnalyzerInstance = UserAgentAnalyzer
+    // NOTE: We currently cannot make an instance with only the wanted fields.
+    //       We only know the required parameters the moment the call is done.
+    //       At that point it is too late to create an optimized instance.
+    private static ThreadLocal<UserAgentAnalyzer> threadLocalUserAgentAnalyzer =
+        ThreadLocal.withInitial(() ->
+            UserAgentAnalyzer
                 .newBuilder()
+                .hideMatcherLoadStats()
+                .withCache(10000)
                 .immediateInitialization()
-                .dropTests()
-                .build();
-        }
-        return userAgentAnalyzerInstance;
-    }
+                .build());
 
     @ScalarFunction("parse_user_agent")
     @Description("Tries to parse and analyze the provided useragent string and extract as many attributes " +
@@ -66,7 +62,7 @@ public final class ParseUserAgentFunction {
             userAgentStringToParse = userAgentSlice.toStringUtf8();
         }
 
-        UserAgentAnalyzer userAgentAnalyzer = getInstance();
+        UserAgentAnalyzer userAgentAnalyzer = threadLocalUserAgentAnalyzer.get();
 
         UserAgent userAgent = userAgentAnalyzer.parse(userAgentStringToParse);
         Map<String, String> resultMap = userAgent.toMap(userAgent.getAvailableFieldNamesSorted());
