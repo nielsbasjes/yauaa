@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.config.TestCase;
+import nl.basjes.parse.useragent.config.TestCase.TestResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -72,14 +73,17 @@ class TestTestCase {
         testCase.expect("AgentClass",                       null);
         testCase.expect("AgentNameVersion",                 null);
 
-        assertTrue(testCase.verify(userAgentAnalyzer));
+        TestResult testResult = testCase.verify(userAgentAnalyzer);
+        assertTrue(testResult.testPassed(), testResult.getErrorReport());
     }
 
     @Test
     void badInput() {
         TestCase testCase = new TestCase(USERAGENT, "My test");
         testCase.expect("DeviceClass",   "This will be wrong");
-        assertFalse(testCase.verify(userAgentAnalyzer, true));
+        TestResult testResult = testCase.verify(userAgentAnalyzer);
+        assertFalse(testResult);
+        LOG.error("{}", testResult);
     }
 
 }

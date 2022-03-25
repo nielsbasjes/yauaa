@@ -20,15 +20,15 @@ package nl.basjes.parse.useragent.serialization;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.ByteBufferInput;
 import com.esotericsoftware.kryo.io.ByteBufferOutput;
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 import java.nio.ByteBuffer;
 
 class TestKryoSerialization extends AbstractSerializationTest {
 
-    byte[] serialize(UserAgentAnalyzerTester uaa) {
+    byte[] serialize(UserAgentAnalyzer uaa) {
         Kryo             kryo             = new Kryo();
-        UserAgentAnalyzerTester.configureKryo(kryo);
+        UserAgentAnalyzer.configureKryo(kryo);
 
         // Now we KNOW in our code we have a custom CacheInstantiator that needs to be registered too for Kryo.
         kryo.register(TestingCacheInstantiator.class);
@@ -48,15 +48,15 @@ class TestKryoSerialization extends AbstractSerializationTest {
         return arr;
     }
 
-    UserAgentAnalyzerTester deserialize(byte[] bytes) {
+    UserAgentAnalyzer deserialize(byte[] bytes) {
         Kryo            kryo            = new Kryo();
-        UserAgentAnalyzerTester.configureKryo(kryo);
+        UserAgentAnalyzer.configureKryo(kryo);
 
         // Now we KNOW in our code we have a custom CacheInstantiator that needs to be registered too for Kryo.
         kryo.register(TestingCacheInstantiator.class);
 
         ByteBufferInput byteBufferInput = new ByteBufferInput(bytes);
-        return (UserAgentAnalyzerTester) kryo.readClassAndObject(byteBufferInput);
+        return (UserAgentAnalyzer) kryo.readClassAndObject(byteBufferInput);
     }
 
 }

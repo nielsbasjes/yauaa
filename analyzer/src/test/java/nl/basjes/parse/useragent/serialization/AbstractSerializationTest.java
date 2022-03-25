@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.serialization;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester.UserAgentAnalyzerTesterBuilder;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import org.apache.commons.collections4.map.LRUMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,38 +36,23 @@ abstract class AbstractSerializationTest {
 
     private static final Logger LOG = LogManager.getLogger(AbstractSerializationTest.class);
 
-    abstract byte[] serialize(UserAgentAnalyzerTester uaa) throws IOException;
+    abstract byte[] serialize(UserAgentAnalyzer uaa) throws IOException;
 
-    abstract UserAgentAnalyzerTester deserialize(byte[] bytes) throws IOException, ClassNotFoundException;
+    abstract UserAgentAnalyzer deserialize(byte[] bytes) throws IOException, ClassNotFoundException;
 
     @Test
-    void serializeAndDeserializeFullNOTestsBeforeRealTests() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true, false, false);
+    void serializeAndDeserializeFullNOTestsBefore() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, false);
     }
 
     @Test
-    void serializeAndDeserializeFullTestsBeforeRealTests() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true, true, false);
+    void serializeAndDeserializeFullTestsBefore() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(true, true);
     }
 
     @Test
-    void serializeAndDeserializeFastRealTests() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(false, false, false);
-    }
-
-    @Test
-    void serializeAndDeserializeFullNOTestsBeforeTestRules() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true, false, true);
-    }
-
-    @Test
-    void serializeAndDeserializeFullTestsBeforeTestRules() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(true, true, true);
-    }
-
-    @Test
-    void serializeAndDeserializeFastTestRules() throws IOException, ClassNotFoundException {
-        serializeAndDeserializeUAA(false, false, true);
+    void serializeAndDeserializeFast() throws IOException, ClassNotFoundException {
+        serializeAndDeserializeUAA(false, false);
     }
 
     public static class TestingCacheInstantiator implements CacheInstantiator {
@@ -92,37 +77,29 @@ abstract class AbstractSerializationTest {
         }
     }
 
-    private void serializeAndDeserializeUAA(boolean immediate, boolean runTestsBefore, boolean useTestRules) throws IOException, ClassNotFoundException {
+    private void serializeAndDeserializeUAA(boolean immediate, boolean runTestsBefore) throws IOException, ClassNotFoundException {
         LOG.info("==============================================================");
         LOG.info("Create");
         LOG.info("--------------------------------------------------------------");
 
-        UserAgentAnalyzerTesterBuilder uaab = UserAgentAnalyzerTester
+        UserAgentAnalyzerBuilder uaab = UserAgentAnalyzer
             .newBuilder()
             .keepTests()
             .withCacheInstantiator(new TestingCacheInstantiator())
             .withCache(1234)
             .hideMatcherLoadStats();
 
-        if (useTestRules) {
-            uaab.dropDefaultResources()
-                .addResources("classpath*:AllSteps.yaml")
-                .addResources("classpath*:AllFields-tests.yaml")
-                .addResources("classpath*:AllPossibleSteps.yaml")
-                .addResources("classpath*:IsNullLookup.yaml");
-        }
-
         if (immediate) {
             uaab.immediateInitialization();
         }
 
-        UserAgentAnalyzerTester uaaBefore = uaab.build();
+        UserAgentAnalyzer uaaBefore = uaab.build();
 
         String uaaBeforeString = uaaBefore.toString();
 
         if (runTestsBefore) {
             LOG.info("--------------------------------------------------------------");
-            assertTrue(uaaBefore.runTests(false, false, null, false, false), "Tests BEFORE serialization failed");
+            uaaBefore.getTestCases().forEach(testCase -> assertTrue(testCase.verify(uaaBefore)));
 
             // Get rid of the data of the last tested useragent
             uaaBefore.reset();
@@ -144,7 +121,7 @@ abstract class AbstractSerializationTest {
         LOG.info("Deserialize");
 
         long deserializeStartNs = System.nanoTime();
-        UserAgentAnalyzerTester uaaAfter = deserialize(bytes);
+        UserAgentAnalyzer uaaAfter = deserialize(bytes);
         long deserializeStopNs = System.nanoTime();
 
         LOG.info("Done");
@@ -159,7 +136,7 @@ abstract class AbstractSerializationTest {
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
-        assertTrue(uaaAfter.runTests(false, false, null, false, false), "Tests AFTER serialization failed");
+        uaaBefore.getTestCases().forEach(testCase -> assertTrue(testCase.verify(uaaBefore)));
         LOG.info("==============================================================");
     }
 

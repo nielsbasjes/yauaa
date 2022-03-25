@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.config.TestCase;
+import nl.basjes.parse.useragent.config.TestCase.TestResult;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -104,16 +106,56 @@ class TestPredefinedBrowsers {
         LOG.info("--------------------------------------------------------------");
 
         List<TestCase> testCases = uaa.getTestCases();
-        long start = System.nanoTime();
-        assertEquals(0, testCases.stream().filter(testCase -> !testCase.verify(uaa)).count());
-        long stop = System.nanoTime();
+        List<TestResult> testResults = testCases.stream()
+            .map(testCase -> testCase.verify(uaa))
+            .collect(Collectors.toList());
 
-        LOG.info("All %d tests passed in %dms (average %4.3fms per testcase).",
-            testCases.size(), (stop-start)/1_000_000, ((stop-start)/1_000_000D/testCases.size()));
+        assertEquals(0, testResults.stream()
+                .filter(TestResult::testFailed)
+                .count());
+
+        long totalDurationNS = testResults.stream()
+            .map(TestResult::getParseDurationNS)
+            .reduce(0L, Long::sum);
+
+        LOG.info("All %4d tests passed in %5dms (average %4.3fms = %5dns per testcase).",
+            testCases.size(),
+            (totalDurationNS/1_000_000),
+            (totalDurationNS/1_000_000D/testCases.size()),
+            (totalDurationNS/testCases.size())
+        );
 
         LOG.info("--------------------------------------------------------------");
         LOG.info("Running all tests again which should return the cached values");
-        assertEquals(0, testCases.stream().filter(testCase -> !testCase.verify(uaa)).count());
+        List<TestResult> testResultsCached = testCases.stream()
+            .map(testCase -> testCase.verify(uaa))
+            .collect(Collectors.toList());
+
+        assertEquals(0, testResultsCached.stream()
+            .filter(TestResult::testFailed)
+            .count());
+
+        long totalDurationNSCached = testResultsCached.stream()
+            .map(TestResult::getParseDurationNS)
+            .reduce(0L, Long::sum);
+
+        long averageDurationNSCached = totalDurationNSCached / testCases.size();
+        LOG.info("All %4d tests passed in %5dms (average %4.3fms = %5dns per testcase) FROM CACHE.",
+            testCases.size(),
+            totalDurationNSCached/1_000_000,
+            averageDurationNSCached/1_000_000D,
+            averageDurationNSCached
+        );
+
+        // Normal: > 0.50ms per test
+        // Cached: < 0.01ms per test
+        long maxAverageNS = 10000;
+        assertTrue(averageDurationNSCached < maxAverageNS,
+            String.format("Too slow average cached retrieval: %d ns (~%4.3f ms). Max allowed average: %4.3f ms.",
+                averageDurationNSCached,
+                averageDurationNSCached/1_000_000D,
+                maxAverageNS/1_000_000D)
+        );
 
         // Only here for ensuring the code being tested with "all fields".
         uaa.destroy();

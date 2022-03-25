@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.serialization;
 
-import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestJavaSerialization extends AbstractSerializationTest {
 
-    byte[] serialize(UserAgentAnalyzerTester uaa) throws IOException {
+    byte[] serialize(UserAgentAnalyzer uaa) throws IOException {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             ObjectOutput out = new ObjectOutputStream(bos);
             out.writeObject(uaa);
@@ -40,13 +40,13 @@ class TestJavaSerialization extends AbstractSerializationTest {
         }
     }
 
-    UserAgentAnalyzerTester deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+    UserAgentAnalyzer deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
 
         try (ObjectInput in = new ObjectInputStream(bis)) {
             Object o = in.readObject();
-            assertTrue(o instanceof UserAgentAnalyzerTester);
-            return (UserAgentAnalyzerTester) o;
+            assertTrue(o instanceof UserAgentAnalyzer);
+            return (UserAgentAnalyzer) o;
         }
     }
 

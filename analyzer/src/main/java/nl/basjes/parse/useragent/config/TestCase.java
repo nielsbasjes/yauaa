@@ -28,7 +28,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeSet;
+import java.util.function.BooleanSupplier;
 
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
@@ -40,6 +42,38 @@ public class TestCase implements Serializable {
     private final List<String> options;
     private final Map<String, String> metadata;
     private final Map<String, String> expected;
+
+    public static class TestResult implements BooleanSupplier {
+        private TestCase testCase;
+        private boolean pass;
+        private long parseDurationNS;
+        private String errorReport;
+        public TestCase getTestCase() {
+            return testCase;
+        }
+        public boolean testPassed() {
+            return pass;
+        }
+        public boolean testFailed() {
+            return !pass;
+        }
+        public long getParseDurationNS() {
+            return parseDurationNS;
+        }
+        public String getErrorReport() {
+            return errorReport;
+        }
+
+        @Override
+        public String toString() {
+            return testCase + errorReport;
+        }
+
+        @Override
+        public boolean getAsBoolean() {
+            return pass;
+        }
+    }
 
     private static final Logger LOG = LogManager.getLogger(TestCase.class);
 
@@ -93,12 +127,22 @@ public class TestCase implements Serializable {
         this.expected.put(key, value);
     }
 
-    public boolean verify(Analyzer analyzer) {
-        return verify(analyzer, false);
+    private String spaceFiller(int length) {
+        return filler(length, ' ');
     }
-
-    private static final String SPACE_FILLER = "                                                                    ";
-    private static final String MIN_FILLER   = "--------------------------------------------------------------------";
+    private String minFiller(int length) {
+        return filler(length, '-');
+    }
+    private String filler(int length, char charr) {
+        if (length <= 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(charr);
+        }
+        return sb.toString();
+    }
 
     private String logLine(String field, int maxFieldLength,
                              String exp,    int maxExpectedLength,
@@ -113,9 +157,9 @@ public class TestCase implements Serializable {
             actual = NULL_VALUE;
         }
         return
-            " | " + field + SPACE_FILLER.substring(0, maxFieldLength - field.length()) +
-            " | " + exp + SPACE_FILLER.substring(0, maxExpectedLength - exp.length()) +
-            " | " + actual + SPACE_FILLER.substring(0, maxActualLength - actual.length()) +
+            " | " + field   + spaceFiller(maxFieldLength    - field.length())   +
+            " | " + exp     + spaceFiller(maxExpectedLength - exp.length())     +
+            " | " + actual  + spaceFiller(maxActualLength   - actual.length())  +
             " |";
     }
 
@@ -123,14 +167,20 @@ public class TestCase implements Serializable {
                                 int maxExpectedLength,
                                 int maxActualLength) {
         return
-            " |-" + MIN_FILLER.substring(0, maxFieldLength)     +
-            "-+-" + MIN_FILLER.substring(0, maxExpectedLength)  +
-            "-+-" + MIN_FILLER.substring(0, maxActualLength)    +
+            " |-" + minFiller(maxFieldLength)     +
+            "-+-" + minFiller(maxExpectedLength)  +
+            "-+-" + minFiller(maxActualLength)    +
             "-|";
     }
 
-    public boolean verify(Analyzer analyzer, boolean verbose) {
+    public TestResult verify(Analyzer analyzer) {
+        long startTime = System.nanoTime();
         UserAgent result = analyzer.parse(userAgent);
+        long endTime = System.nanoTime();
+
+        TestResult testResult = new TestResult();
+        testResult.testCase = this;
+        testResult.parseDurationNS = endTime-startTime;
 
         TreeSet<String> combinedKeys = new TreeSet<>();
         combinedKeys.addAll(expected.keySet());
@@ -140,27 +190,26 @@ public class TestCase implements Serializable {
 
         boolean passed = true;
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("\n");
 
-        int maxFieldLength=20;
-        int maxExpectLength=20;
-        int maxActualLength=20;
-        if (verbose) {
-            maxFieldLength = combinedKeys.stream().map(String::length).max(Integer::compareTo).orElse(0);
-            maxExpectLength = expected.values().stream().map(String::length).max(Integer::compareTo).orElse(0);
-            maxActualLength = expected.values().stream().map(String::length).max(Integer::compareTo).orElse(0);
+        int maxFieldLength  = combinedKeys     .stream().filter(Objects::nonNull).map(String::length).max(Integer::compareTo).orElse(0);
+        int maxExpectLength = expected.values().stream().filter(Objects::nonNull).map(String::length).max(Integer::compareTo).orElse(0);
+        int maxActualLength = result.toMap().entrySet().stream()
+            .filter(entry -> !entry.getKey().equals(USERAGENT_FIELDNAME))
+            .map(Map.Entry::getValue)
+            .filter(Objects::nonNull)
+            .map(String::length)
+            .max(Integer::compareTo)
+            .orElse(0);
 
-            sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
-            sb.append(logLine("Field", maxFieldLength, "Expected", maxExpectLength, "Actual", maxActualLength)).append('\n');
-            sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
-        }
+        sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+        sb.append(logLine("Field", maxFieldLength, "Expected", maxExpectLength, "Actual", maxActualLength)).append('\n');
+        sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
 
         for (String key : combinedKeys) {
             String expectedValue = expected.get(key);
             String actualValue = result.getValue(key);
-            if (verbose) {
-                sb.append(logLine(key, maxFieldLength, expectedValue, maxExpectLength, actualValue, maxActualLength));
-            }
+            sb.append(logLine(key, maxFieldLength, expectedValue, maxExpectLength, actualValue, maxActualLength));
             if (expectedValue == null) {
                 // If we do not expect anything it is ok to get a Default value.
                 if (!result.get(key).isDefaultValue()) {
@@ -175,12 +224,12 @@ public class TestCase implements Serializable {
             }
             sb.append('\n');
         }
-        if (verbose) {
-            sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
-            LOG.info("\n{}", sb);
-        }
 
-        return passed;
+        sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+
+        testResult.pass = passed;
+        testResult.errorReport = sb.toString();
+        return testResult;
     }
 
     @Override

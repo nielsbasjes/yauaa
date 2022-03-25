@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.config.TestCase;
+import nl.basjes.parse.useragent.config.TestCase.TestResult;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaTestsFailed;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,9 +107,10 @@ public class RunTests {
         List<TestCase> testCases = userAgentAnalyzer.getTestCases();
 
         long start = System.nanoTime();
-        List<TestCase> failedTests = testCases
+        List<TestResult> failedTests = testCases
             .stream()
-            .filter(testCase -> !testCase.verify(userAgentAnalyzer))
+            .map(testCase -> testCase.verify(userAgentAnalyzer))
+            .filter(TestResult::testFailed)
             .collect(Collectors.toList());
         long stop = System.nanoTime();
 
