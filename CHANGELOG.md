@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v6.12-SNAPSHOT
+v6.13-SNAPSHOT
+===
+- ...
+
+v6.12
 ===
 - Build:
   - Apache Flink Table and Hive UDFs now also build under JDK 17
