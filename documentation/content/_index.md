@@ -13,7 +13,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ## HIGH Profile release notes:
 
 ### Version 6.12 (Unreleased)
-- New UDF for ElasticSearch 8
+- New UDF for ElasticSearch 8 besides the ES 7 variant because of breaking change in ES 7->8
 
 ### Version 6.11
 - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
