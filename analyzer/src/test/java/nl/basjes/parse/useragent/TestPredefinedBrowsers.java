@@ -148,8 +148,8 @@ class TestPredefinedBrowsers {
         );
 
         // Normal: > 0.50ms per test
-        // Cached: < 0.01ms per test
-        long maxAverageNS = 10000;
+        // Cached: < 0.10ms per test
+        long maxAverageNS = 100000;
         assertTrue(averageDurationNSCached < maxAverageNS,
             String.format("Too slow average cached retrieval: %d ns (~%4.3f ms). Max allowed average: %4.3f ms.",
                 averageDurationNSCached,
