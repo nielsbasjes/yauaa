@@ -26,3 +26,6 @@ COPY src/it/docker/logstash.yml  /usr/share/logstash/config/
 
 RUN echo -e "\n\n\n\e[1;92mThis next step can take quite long (about 1 minute is 'normal').\e[0m\n\n\n"
 RUN bin/logstash-plugin install $(ls /plugin/*.gem | head -1)
+
+RUN find /plugin                                -type f -print0 | xargs -0 ls -laF
+RUN find /usr/share/logstash/vendor/local_gems/ -type f -print0 | xargs -0 ls -laF

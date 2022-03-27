@@ -20,8 +20,10 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 export ELK_VERSION=$1
 
-DOCKER_IMAGE=yauaa-logstash-7:latest
-CONTAINER_NAME=yauaa-logstash-7
+MAJOR_VERSION=$( echo ${ELK_VERSION} | cut -d'.' -f1)
+
+DOCKER_IMAGE=yauaa-logstash-${MAJOR_VERSION}:latest
+CONTAINER_NAME=yauaa-logstash-${MAJOR_VERSION}
 
 
 #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
@@ -51,6 +53,8 @@ function fail() {
   echo -e "${Color_Off}${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}${1}${Color_Off}"
 }
 
+info "Running LogStash ${ELK_VERSION} in Docker test in ${DIR}."
+
 # First we fully wipe any old instance of our integration test
 info "Removing any remaining stuff from previous test runs."
 docker kill "${CONTAINER_NAME}"
@@ -61,7 +65,7 @@ docker rmi "${DOCKER_IMAGE}"
 info "Building docker image for Elastic LogStash ${ELK_VERSION} with the plugin installed."
 docker build --build-arg ELK_VERSION="${ELK_VERSION}" -t "${DOCKER_IMAGE}" -f "${DIR}/Dockerfile" "${DIR}/../../.."
 
-TESTLOG="${DIR}/test-output-7.log"
+TESTLOG="${DIR}/test-output-${ELK_VERSION}-$(date +%Y-%m-%d-%H%M%S).log"
 
 # Third we start the instance
 info "Running Elastic LogStash ${ELK_VERSION} with plugin installed."
@@ -78,7 +82,10 @@ function checkLog() {
     pass "${expected}"
   else
     fail "${expected}"
+    fail "================================================================================="
+    fail "=== Test output"
     cat "${TESTLOG}"
+    fail "================================================================================="
     exit 255
   fi
 }

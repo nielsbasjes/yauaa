@@ -187,7 +187,7 @@
                   <include>*:*</include>
                 </includes>
               </artifactSet>
-              <outputFile>target/vendor/jar-dependencies/org/logstash/filters/nl/basjes/parse/useragent/logstash/logstash-filter-yauaa/6.12-SNAPSHOT/logstash-filter-yauaa-6.12-SNAPSHOT.jar</outputFile>
+              <outputFile>${project.build.directory}/vendor/jar-dependencies/${filter.package.dir}/logstash-filter-${filter.name}/${project.version}/logstash-filter-${filter.name}-${project.version}.jar</outputFile>
               <filters>
                 <filter>
                   <!--
@@ -227,7 +227,7 @@
             </goals>
             <configuration>
               <executable>gem</executable>
-              <workingDirectory>target</workingDirectory>
+              <workingDirectory>${project.build.directory}</workingDirectory>
               <arguments>
                 <argument>build</argument>
                 <argument>logstash-filter-${filter.name}.gemspec</argument>
@@ -243,7 +243,7 @@
             </goals>
             <configuration>
               <skip>${docker-based-tests.skip}</skip>
-              <executable>${basedir}/src/it/docker/run-it-test-7.sh</executable>
+              <executable>${basedir}/src/it/docker/run-it-test.sh</executable>
               <arguments>
                 <argument>${logstash-7.version}</argument>
               </arguments>
@@ -258,7 +258,7 @@
             </goals>
             <configuration>
               <skip>${docker-based-tests.skip}</skip>
-              <executable>${basedir}/src/it/docker/run-it-test-8.sh</executable>
+              <executable>${basedir}/src/it/docker/run-it-test.sh</executable>
               <arguments>
                 <argument>${logstash-8.version}</argument>
               </arguments>
