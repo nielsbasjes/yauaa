@@ -4,6 +4,8 @@ This is intended as an overview of the major changes
 v6.13-SNAPSHOT
 ===
 - Security update for jackson-databind
+- Updated UDF dependencies
+    - Apache Nifi             1.16.0
 
 v6.12
 ===
