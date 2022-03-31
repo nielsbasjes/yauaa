@@ -95,52 +95,6 @@
         </executions>
       </plugin>
 
-      <!-- Some of the dependencies (Antlr4, Spring and SnakeYaml) have proven to be problematic -->
-      <!-- for downstream users who need different versions of these in the same application.    -->
-      <!-- So for only these we include and relocate the used classes into the main jar.         -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven-shade-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>inject-problematic-dependencies</id>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <artifactSet>
-                <includes>
-                  <include>nl.basjes.parse.useragent:yauaa</include>
-                </includes>
-              </artifactSet>
-              <filters>
-                <filter>
-                  <!--
-                      Shading signed JARs will fail without this.
-                      http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar
-                  -->
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>META-INF/MANIFEST.MF</exclude>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                    <exclude>META-INF/LICENSE.txt</exclude>
-                    <exclude>META-INF/NOTICE.txt</exclude>
-                    <exclude>META-INF/DEPENDENCIES</exclude>
-                    <exclude>META-INF/LICENSE</exclude>
-                    <exclude>META-INF/NOTICE</exclude>
-                  </excludes>
-                </filter>
-              </filters>
-            </configuration>
-          </execution>
-
-        </executions>
-      </plugin>
-
       <plugin> <!-- source file must end up in the jar for janino parsing -->
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>

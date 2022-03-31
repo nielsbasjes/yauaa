@@ -80,46 +80,9 @@ For which I've put up a pull request: https://github.com/apache/maven-shade-plug
 ## Solution 2: Inject the dependency-reduced-pom.xml into the final jar
 This way building an external project no longer includes things like Antlr a second time.
 
-Script: inject-dependency-reduced-pom-into-jar.sh:
+With the maven-shade-plugin version 3.3.0 (2022-03-24) this is now a built-in feature:
 
-```bash
-#!/bin/bash
-groupId=$1
-artifactId=$2
-version=$3
-
-DIR=META-INF/maven/${groupId}/${artifactId}
-mkdir -p target/${DIR}
-cp dependency-reduced-pom.xml target/${DIR}/pom.xml
-jar -uf target/${artifactId}-${version}.jar -C target ${DIR}/pom.xml
-```
-
-and in the pom.xml:
-
-```xml
-<plugin>
-  <groupId>org.codehaus.mojo</groupId>
-  <artifactId>exec-maven-plugin</artifactId>
-  <version>1.6.0</version>
-  <executions>
-    <execution>
-      <id>Inject dependency-reduced-pom.xml to the final jar file</id>
-      <phase>package</phase>
-      <goals>
-        <goal>exec</goal>
-      </goals>
-      <configuration>
-        <executable>./inject-dependency-reduced-pom-into-jar.sh</executable>
-        <arguments>
-          <argument>${project.groupId}</argument>
-          <argument>${project.artifactId}</argument>
-          <argument>${project.version}</argument>
-        </arguments>
-      </configuration>
-    </execution>
-  </executions>
-</plugin>
-```
+    <useDependencyReducedPomInJar>true</useDependencyReducedPomInJar>
 
 ## Problem 3: The other modules look at the original pom.xml
 So after solution 2 it is all fine for external projects using the created jar file because they look at
@@ -153,3 +116,4 @@ The final step I had to take was to include these 4 dependencies again as 'provi
 ## Additional notes
 - Immediately setting these dependencies to 'provided' causes them not to be included by the shade plugin.
 - Using the optional setting on the dependency caused "missing classes" errors in IntelliJ
+- The open issue at the maven/maven-shade-plugin end for problems 3 and 4: https://issues.apache.org/jira/browse/MSHADE-326
