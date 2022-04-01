@@ -7,7 +7,9 @@ v6.13-SNAPSHOT
 - Build
   - Use new feature in maven-shade-plugin to use the correct pom.xml in the jar.
 - Updated UDF dependencies
-    - Apache Nifi             1.16.0
+  - Apache Nifi             1.16.0
+  - Elastic Search          7.17.2 & 8.1.2
+  - Elastic Logstash        8.1.2
 
 v6.12
 ===
