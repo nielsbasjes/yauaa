@@ -1150,36 +1150,36 @@ config:
 
 - matcher:
     variable:
-      - 'Edge                                :agent.product.name="Edg"^'
-      - 'EdgeVersion                         :@Edge.version'
+    - 'Edge                                :agent.product.name="Edg"^'
+    - 'EdgeVersion                         :@Edge.version'
     require:
-      - '@EdgeVersion[1]="99"'
-      - '@EdgeVersion[2]!="0"'
+    - '@EdgeVersion[1]="99"'
+    - '@EdgeVersion[2]!="0"'
     extract:
-      - 'LayoutEngineVersion                 :     3001 : Concat[@EdgeVersion[2];".0"]'
-      - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
+    - 'LayoutEngineVersion                 :     3001 : Concat[@EdgeVersion[2];".0"]'
+    - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
 
 - matcher:
     variable:
-      - 'Edge                                :agent.product.name="EdgA"^'
-      - 'EdgeVersion                         :@Edge.version'
+    - 'Edge                                :agent.product.name="EdgA"^'
+    - 'EdgeVersion                         :@Edge.version'
     require:
-      - '@EdgeVersion[1]="99"'
-      - '@EdgeVersion[2]!="0"'
+    - '@EdgeVersion[1]="99"'
+    - '@EdgeVersion[2]!="0"'
     extract:
-      - 'LayoutEngineVersion                 :     3001 : Concat[@EdgeVersion[2];".0"]'
-      - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
+    - 'LayoutEngineVersion                 :     3001 : Concat[@EdgeVersion[2];".0"]'
+    - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
 
 - matcher:
     variable:
-      - 'Edge                                :agent.product.name="EdgiOS"^'
-      - 'EdgeVersion                         :@Edge.version'
+    - 'Edge                                :agent.product.name="EdgiOS"^'
+    - 'EdgeVersion                         :@Edge.version'
     require:
-      - '@EdgeVersion[1]="99"'
-      - '@EdgeVersion[2]!="0"'
+    - '@EdgeVersion[1]="99"'
+    - '@EdgeVersion[2]!="0"'
     extract:
-      - 'LayoutEngineVersion                 :     3001 : Concat[@EdgeVersion[2];".0"]'
-      - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
+    - 'LayoutEngineVersion                 :     3001 : Concat[@EdgeVersion[2];".0"]'
+    - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
 
 
   # Edge 99 on Linux with edge://flags/#force-major-version-to-minor enabled
