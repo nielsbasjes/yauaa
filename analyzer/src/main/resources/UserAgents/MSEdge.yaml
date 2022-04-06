@@ -1332,3 +1332,115 @@ config:
       AgentVersionMajor                    : '100'          # Unfixable: Known to be incorrect (100 should be 99)
       AgentNameVersion                     : 'Edge 100.0'   # Unfixable: Known to be incorrect (100 should be 99)
       AgentNameVersionMajor                : 'Edge 100'     # Unfixable: Known to be incorrect (100 should be 99)
+
+
+# EdgW = Edge Webview
+# https://stackoverflow.com/questions/68208057/what-does-edgew-mean-in-the-microsoft-edge-useragent
+# https://docs.microsoft.com/en-us/microsoft-edge/webview2/
+- matcher:
+    variable:
+    - 'EdgeWebview                         :agent.product.name="EdgW"^'
+    extract:
+    - 'AgentName                           :    11000 : "Edge Webview"'
+    - 'AgentVersion                        :    11000 : @EdgeWebview.version'
+    - 'WebviewAppName                      :       11 :"Unknown Webview App"'
+    - 'WebviewAppVersion                   :       11 :"??"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; SM-A325F Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/99.0.4844.88 Mobile Safari/537.36 EdgW/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A325F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.012'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99.0'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99.0'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Edge Webview'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Edge Webview 1.0'
+      AgentNameVersionMajor                : 'Edge Webview 1'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 11; SM-G991B Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/91.0.4472.120 Mobile Safari/537.36 EdgW/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G991B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.012'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '91.0'
+      LayoutEngineVersionMajor             : '91'
+      LayoutEngineNameVersion              : 'Blink 91.0'
+      LayoutEngineNameVersionMajor         : 'Blink 91'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Edge Webview'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Edge Webview 1.0'
+      AgentNameVersionMajor                : 'Edge Webview 1'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 10; VCE-L22 Build/HUAWEIVCE-L22; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/84.0.4147.89 Mobile Safari/537.36 EdgW/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei VCE-L22'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'HUAWEIVCE-L22'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '84.0'
+      LayoutEngineVersionMajor             : '84'
+      LayoutEngineNameVersion              : 'Blink 84.0'
+      LayoutEngineNameVersionMajor         : 'Blink 84'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Edge Webview'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Edge Webview 1.0'
+      AgentNameVersionMajor                : 'Edge Webview 1'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
