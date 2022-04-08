@@ -147,12 +147,12 @@ class TestResourceLoading {
             .addResources("classpath*:AllSteps.yaml")
             .build();
 
-        uaa.finalizeLoadingRules();
+        uaa.getMatchMaker().finalizeLoadingRules();
         List<String> fieldList1 = uaa.getAllPossibleFieldNamesSorted();
 
         uaa.loadResources("CompanyInternalUserAgents.yaml");
 
-        uaa.finalizeLoadingRules();
+        uaa.getMatchMaker().finalizeLoadingRules();
         List<String> fieldList2 = uaa.getAllPossibleFieldNamesSorted();
 
         List<String> extraFields = new ArrayList<>();

@@ -26,6 +26,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
+
+
 @Path("/parse")
 public class ParseService {
 
@@ -40,7 +43,7 @@ public class ParseService {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getYamlGET(@HeaderParam("user-agent") String userAgentString) {
+    public String getYamlGET(@HeaderParam(USERAGENT_HEADER) String userAgentString) {
         return userAgentAnalyzer.parse(userAgentString).toYamlTestCase();
     }
 

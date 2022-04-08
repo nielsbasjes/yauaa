@@ -55,8 +55,8 @@ class TestUserAgentAnalysisMapperInline {
 
             .map(new UserAgentAnalysisMapper<TestRecord>(15000) { // Setting the cacheSize
                 @Override
-                public String getUserAgentString(TestRecord record) {
-                    return record.useragent;
+                public String getUserAgentString(TestRecord element) {
+                    return element.useragent;
                 }
 
                 @SuppressWarnings("unused") // Called via the annotation
@@ -118,8 +118,8 @@ class TestUserAgentAnalysisMapperInline {
 
             .map(new UserAgentAnalysisMapper<TestRecord>() {
                 @Override
-                public String getUserAgentString(TestRecord record) {
-                    return record.useragent;
+                public String getUserAgentString(TestRecord element) {
+                    return element.useragent;
                 }
 
                 @SuppressWarnings("unused") // Called via the annotation

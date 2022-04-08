@@ -54,8 +54,8 @@ class TestAnnotationSystem {
         }
 
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
     }
 
@@ -239,8 +239,8 @@ class TestAnnotationSystem {
         }
 
         @Override
-        public String getUserAgentString(PrivateTestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(PrivateTestRecord element) {
+            return element.useragent;
         }
     }
 

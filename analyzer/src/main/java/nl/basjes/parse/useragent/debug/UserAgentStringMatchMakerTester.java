@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.debug;
 import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.AbstractUserAgentAnalyzerBuilder;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
@@ -41,10 +42,12 @@ import java.util.TreeMap;
 
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
+import static nl.basjes.parse.useragent.debug.GetAllPaths.getAllPaths;
 
-@DefaultSerializer(AbstractUserAgentAnalyzerTester.KryoSerializer.class)
-public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
-    private static final Logger LOG = LogManager.getFormatterLogger(AbstractUserAgentAnalyzerTester.class);
+@SuppressWarnings("PlaceholderCountMatchesArgumentCount")
+@DefaultSerializer(UserAgentStringMatchMakerTester.KryoSerializer.class)
+public class UserAgentStringMatchMakerTester extends AbstractUserAgentAnalyzer {
+    private static final Logger LOG = LogManager.getFormatterLogger(UserAgentStringMatchMakerTester.class);
 
     /**
      * This is used to configure the provided Kryo instance if Kryo serialization is desired.
@@ -54,7 +57,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
      */
     public static void configureKryo(Object kryoInstance) {
         Kryo kryo = (Kryo) kryoInstance;
-        kryo.register(AbstractUserAgentAnalyzerTester.class);
+        kryo.register(UserAgentStringMatchMakerTester.class);
         AbstractUserAgentAnalyzer.configureKryo(kryo);
     }
 
@@ -186,9 +189,20 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             LOG.info("+-------------------------------------------------------------------------------------------");
         }
 
+        // If there are tests without any expectations then we ONLY run the first one of those.
+        List<TestCase> testCases = new ArrayList<>();
+        for (TestCase test : analyzer.getTestCases()) {
+            if (test.getExpected().isEmpty()) {
+                testCases.clear();
+                testCases.add(test);
+                break;
+            }
+            testCases.add(test);
+        }
+
         boolean allPass = true;
         int testcount = 0;
-        for (TestCase test : analyzer.getTestCases()) {
+        for (TestCase test : testCases) {
             testcount++;
             String testName = test.getTestName();
             String userAgentString = test.getUserAgent();
@@ -231,8 +245,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
                 sb.append(' ');
             }
 
-            agent.setUserAgentString(userAgentString);
-
+            agent.setHeaders(test.getHeaders());
 
             UserAgent parseResult = null;
             long      measuredSpeed=-1;
@@ -520,12 +533,13 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             logInfo(errorMessageReceiver, agent.toMatchTrace(failedFieldNames));
 
             logInfo(errorMessageReceiver, "\n\nconfig:\n{}", parseResult.toYamlTestCase(!init, failComments));
+            if (init) {
+                logInfo(errorMessageReceiver, "Location of the new test.({}:{})", filename, linenumber);
+                return allPass;
+            }
             logInfo(errorMessageReceiver, "Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
                 return false;
-            }
-            if (init) {
-                return allPass;
             }
         }
 
@@ -551,35 +565,6 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
     }
 
     // ===============================================================================================================
-
-    /**
-     * This function is used only for analyzing which patterns that could possibly be relevant
-     * were actually relevant for the matcher actions.
-     * @return The list of Matches that were possibly relevant.
-     */
-    public List<Match> getMatches() {
-        List<Match> allMatches = new ArrayList<>(128);
-        for (Matcher matcher: getAllMatchers()) {
-            allMatches.addAll(matcher.getMatches());
-        }
-        return allMatches;
-    }
-
-    public synchronized List<Match> getUsedMatches(MutableUserAgent userAgent) {
-        // Reset all Matchers
-        for (Matcher matcher : getAllMatchers()) {
-            matcher.reset();
-            matcher.setVerboseTemporarily(false);
-        }
-
-        flattener.parse(userAgent);
-
-        List<Match> allMatches = new ArrayList<>(128);
-        for (Matcher matcher: getAllMatchers()) {
-            allMatches.addAll(matcher.getUsedMatches());
-        }
-        return allMatches;
-    }
 
 
     private static class MatcherImpact {
@@ -653,7 +638,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
             .forEach(i -> LOG.info("%s", i));
     }
 
-    public abstract static class AbstractUserAgentAnalyzerTesterBuilder<UAA extends AbstractUserAgentAnalyzerTester, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>
+    public abstract static class AbstractUserAgentAnalyzerTesterBuilder<UAA extends UserAgentStringMatchMakerTester, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>
         extends AbstractUserAgentAnalyzerBuilder<UAA, B> {
 
         AbstractUserAgentAnalyzerTesterBuilder(UAA newUaa) {
@@ -663,9 +648,7 @@ public class AbstractUserAgentAnalyzerTester extends AbstractUserAgentAnalyzer {
         @SuppressWarnings("EmptyMethod") // We must override the method because of the generic return value.
         @Override
         public UAA build() {
-            UAA analyzer = super.build();
-            verifyCalculatorDependencyOrdering();
-            return analyzer;
+            return super.build();
         }
     }
 

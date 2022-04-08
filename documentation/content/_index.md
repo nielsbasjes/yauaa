@@ -12,36 +12,27 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-### Version 6.12
-- New UDF for ElasticSearch 8 besides the ES 7 variant because of breaking change in ES 7->8
+### Version 6.13 (Unreleased)
+- New UDF for ElasticSearch 8
+- Initial support (Java API only) for using ClientHints.
 
-### Version 6.11
-- Handle the Edge 99+ edge://flags/#force-major-version-to-minor
-- Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
-
-### Version 6.10
+### Main points from previous releases
+- Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.
+  - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
+  - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
+  - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
+  - Report frozen `Mac OS X` versions as `??`:
+    - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
+    - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
+- Updates because of Log4Shell
 - New UDF for [Trino](https://trino.io/) (a.k.a. Presto SQL)
   - See [https://yauaa.basjes.nl/udf/trino/](https://yauaa.basjes.nl/udf/trino/) for usage information.
+- New UDF for ElasticSearch 8 besides the ES 7 variant because of breaking change in ES 7->8
+- Switched the default caching implementation to [Caffeine](https://github.com/ben-manes/caffeine)
 
-### Version 6.9
-- Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
+and ofcourse several improved detections
 - Detect several types of TVs and Set-top boxes better. Contributed by [Sam Hendley](https://github.com/samhendley/).
 
-### Version 6.8
-- The list of returned fields is more consistent (including the "Default" values).
-- Fix detection of Samsung SC-... devices.
-- Switched the default caching implementation to [Caffeine](https://github.com/ben-manes/caffeine)
-  NOTE: Caffeine needs Java 11. If you still need to run on Java 8 you can change the caching implementation used back to any other implementation.
-
-### Version 6.7
-- Updated log4j to 2.17.1
-- Allow providing a custom caching implementation.
-- Builds with JDK 17
-
-### Version 6.3
-- Report frozen (=manipulated) Mac OS X versions as `??`:
-  - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
-  - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
 
 ---
 ## Regarding the recent Log4J2 issues

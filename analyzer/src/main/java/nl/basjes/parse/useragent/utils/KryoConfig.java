@@ -21,8 +21,9 @@ import com.esotericsoftware.kryo.Kryo;
 import nl.basjes.collections.prefixmap.StringPrefixMap;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.analyze.Analyzer;
+import nl.basjes.parse.useragent.analyze.MatchMaker;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
@@ -31,6 +32,7 @@ import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
 import nl.basjes.parse.useragent.analyze.MatcherVariableAction;
 import nl.basjes.parse.useragent.analyze.MatchesList;
+import nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
@@ -139,10 +141,14 @@ public final class KryoConfig {
 
         // All classes we have under this.
         kryo.register(Analyzer.class);
+        kryo.register(MatchMaker.class);
         kryo.register(UserAgent.ImmutableUserAgent.class);
         kryo.register(AgentField.ImmutableAgentField.class);
         kryo.register(UserAgent.MutableUserAgent.class);
         kryo.register(AgentField.MutableAgentField.class);
+
+        kryo.register(MatchMaker.class);
+        kryo.register(UserAgentStringMatchMaker.class);
 
         kryo.register(Matcher.class);
         kryo.register(Matcher.MatcherDemotedExtractAction.class);

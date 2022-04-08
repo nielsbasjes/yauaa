@@ -53,6 +53,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine.Type.EXTRACT;
 import static nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine.Type.FAIL_IF_FOUND;
 import static nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine.Type.REQUIRE;
@@ -151,6 +152,11 @@ public class ConfigLoader {
         return this;
     }
 
+    public ConfigLoader keepTests(boolean doWeKeepThem){
+        this.keepTests = doWeKeepThem;
+        return this;
+    }
+
     public ConfigLoader keepTests(){
         this.keepTests = true;
         return this;
@@ -160,6 +166,9 @@ public class ConfigLoader {
         this.keepTests = false;
         return this;
     }
+
+
+
 
     // ------------------------------------------
 
@@ -459,7 +468,7 @@ public class ConfigLoader {
             analyzerConfig.putLookupSetsMerges(name, merge);
         }
 
-        analyzerConfig.putLookupSet(name, lookupSet);
+        analyzerConfig.putLookupSets(name, lookupSet);
     }
 
     private void loadYamlMatcher(MappingNode entry, String filename) {
@@ -524,13 +533,17 @@ public class ConfigLoader {
 
     private void loadYamlTestcase(MappingNode entry, String filename) {
         if (!doingOnlyASingleTest) {
-            String input = null;
             String testName = null;
             List<String> options = null;
             Map<String, String> expected = new LinkedHashMap<>();
+            Map<String, String> headers =  new LinkedHashMap<>();
+
             for (NodeTuple tuple : entry.getValue()) {
                 String name = getKeyAsString(tuple, filename);
                 switch (name) {
+                    case "name":
+                        testName = getValueAsString(tuple, filename);
+                        break;
                     case "options":
                         options = getStringValues(tuple.getValueNode(), filename);
                         if (options.contains("only")) {
@@ -541,11 +554,18 @@ public class ConfigLoader {
                     case "input":
                         for (NodeTuple inputTuple : getValueAsMappingNode(tuple, filename).getValue()) {
                             String inputName = getKeyAsString(inputTuple, filename);
-                            if ("user_agent_string".equals(inputName)) {
-                                input = getValueAsString(inputTuple, filename);
-                            }
-                            if ("name".equals(inputName)) {
-                                testName = getValueAsString(inputTuple, filename);
+                            switch (inputName) {
+                                case "user_agent_string":
+                                case USERAGENT_HEADER:
+                                    headers.put(USERAGENT_HEADER, getValueAsString(inputTuple, filename));
+                                    break;
+                                case "name":
+                                    LOG.fatal("FOUND NAME {}", filename);
+                                    testName = getValueAsString(inputTuple, filename);
+                                    break;
+                                default:
+                                    headers.put(inputName, getValueAsString(inputTuple, filename));
+                                    break;
                             }
                         }
                         break;
@@ -563,14 +583,14 @@ public class ConfigLoader {
                 }
             }
 
-            require(input != null, entry, filename, "Test is missing input");
+            require(headers.containsKey(USERAGENT_HEADER), entry, filename, "Test is missing input");
 
             if (expected.isEmpty()) {
                 doingOnlyASingleTest = true;
                 analyzerConfig.clearAllTestCases();
             }
 
-            TestCase testCase = new TestCase(input, testName);
+            TestCase testCase = new TestCase(headers, testName);
 
             if (!expected.isEmpty()) {
                 expected.forEach(testCase::expect);

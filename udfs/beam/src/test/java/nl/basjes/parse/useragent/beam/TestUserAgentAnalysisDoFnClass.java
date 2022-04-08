@@ -39,8 +39,8 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
 
     public static class MyUserAgentAnalysisDoFn extends UserAgentAnalysisDoFn<TestRecord> {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
 
         @SuppressWarnings("unused") // Called via the annotation

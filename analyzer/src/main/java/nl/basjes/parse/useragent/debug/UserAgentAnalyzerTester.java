@@ -21,7 +21,7 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 
 @DefaultSerializer(UserAgentAnalyzerTester.KryoSerializer.class)
-public final class UserAgentAnalyzerTester extends AbstractUserAgentAnalyzerTester {
+public final class UserAgentAnalyzerTester extends UserAgentStringMatchMakerTester {
 
     public static UserAgentAnalyzerTesterBuilder newBuilder() {
         return new UserAgentAnalyzerTesterBuilder(new UserAgentAnalyzerTester()).keepTests();
@@ -42,7 +42,7 @@ public final class UserAgentAnalyzerTester extends AbstractUserAgentAnalyzerTest
     public static void configureKryo(Object kryoInstance) {
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(UserAgentAnalyzerTester.class);
-        AbstractUserAgentAnalyzerTester.configureKryo(kryo);
+        UserAgentStringMatchMakerTester.configureKryo(kryo);
     }
 
 }

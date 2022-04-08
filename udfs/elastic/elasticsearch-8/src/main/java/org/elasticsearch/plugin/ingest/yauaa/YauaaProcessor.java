@@ -19,6 +19,7 @@ package org.elasticsearch.plugin.ingest.yauaa;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
 import org.apache.commons.collections4.map.LRUMap;

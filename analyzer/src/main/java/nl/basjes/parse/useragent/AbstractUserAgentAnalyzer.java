@@ -28,6 +28,7 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
 public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect implements Serializable {
@@ -112,6 +113,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         if (parseCache != null) {
             parseCache.clear();
         }
+        clientHintsAnalyzer.clearCache();
     }
 
     public void setCacheInstantiator(CacheInstantiator newCacheInstantiator) {
@@ -153,14 +155,48 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         return cacheSize;
     }
 
+    // =========================================================
+    /**
+     * Sets the new size of the client hints parsing cache.
+     * Note that this will also wipe the existing cache.
+     *
+     * @param newCacheSize The size of the new LRU cache. As size of 0 will disable caching.
+     */
+    public void setClientHintsCacheSize(int newCacheSize) {
+        clientHintsAnalyzer.setCacheSize(newCacheSize);
+    }
+
+    public int getClientHintsCacheSize() {
+        return clientHintsAnalyzer.getCacheSize();
+    }
+
+    public void setClientHintsCacheInstantiator(ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator) {
+        clientHintsAnalyzer.setCacheInstantiator(clientHintsCacheInstantiator);
+    }
+
+    public interface ClientHintsCacheInstantiator<T extends Serializable> extends Serializable {
+        /**
+         * A single method that must create a new instance of the cache.
+         * The returned instance MUST implement at least the {@link Map#get} and {@link Map#put}
+         * methods in a threadsafe way if you intend to use this in a multithreaded scenario.
+         * Yauaa only uses the put and get methods and in exceptional cases the clear method.
+         * An implementation that does some kind of automatic cleaning of obsolete values is recommended (like LRU).
+         * @param cacheSize is the size of the new cache (which will be >= 1)
+         * @return Instance of the new cache.
+         */
+        ConcurrentMap<String, T> instantiateCache(int cacheSize);
+    }
+
+    // =========================================================
+
     @Nonnull
     @Override
-    public ImmutableUserAgent parse(MutableUserAgent userAgent) {
+    public ImmutableUserAgent parseRawUserAgent(MutableUserAgent userAgent) {
         // Many caching implementations do not allow null keys and/or values
         if (userAgent == null || userAgent.getUserAgentString() == null) {
             synchronized (this) {
                 if (nullAgent == null) {
-                    nullAgent = super.parse(new MutableUserAgent((String) null));
+                    nullAgent = super.parseRawUserAgent(new MutableUserAgent((String) null));
                 }
                 return nullAgent;
             }
@@ -172,7 +208,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         }
 
         // As the parse result is immutable it can safely be cached and returned as is
-        return parseCache.computeIfAbsent(userAgent.getUserAgentString(), ua -> super.parse(userAgent));
+        return parseCache.computeIfAbsent(userAgent.getUserAgentString(), ua -> super.parseRawUserAgent(userAgent));
     }
 
     @SuppressWarnings("unchecked") // For all the casts of 'this' to 'B'
@@ -184,6 +220,8 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
             super(newUaa);
             this.uaa = newUaa;
         }
+
+        // ------------------------------------------
 
         /**
          * Specify a new cache size (0 = disable caching).
@@ -208,7 +246,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
         /**
          * Specify a custom class to create the cache.
-         * Use this if the default Synchronized LRUMap is unsuitable for your needs.
+         * Use this if the default Caffeine cache is unsuitable for your needs.
          * @param cacheInstantiator The class that will create a new cache instance when requested.
          * @return the current Builder instance.
          */
@@ -217,6 +255,43 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
             uaa.setCacheInstantiator(cacheInstantiator);
             return (B)this;
         }
+
+        // ------------------------------------------
+
+        /**
+         * Specify a new ClientHint cache size (0 = disable caching).
+         * @param newCacheSize The new cache size value
+         * @return the current Builder instance.
+         */
+        public B withClientHintsCache(int newCacheSize) {
+            failIfAlreadyBuilt();
+            uaa.setClientHintsCacheSize(newCacheSize);
+            return (B)this;
+        }
+
+        /**
+         * Disable ClientHint caching.
+         * @return the current Builder instance.
+         */
+        public B withoutClientHintsCache() {
+            failIfAlreadyBuilt();
+            uaa.setClientHintsCacheSize(0);
+            return (B)this;
+        }
+
+        /**
+         * Specify a custom class to create the ClientHint  cache.
+         * Use this if the default Caffeine cache is unsuitable for your needs.
+         * @param cacheInstantiator The class that will create a new cache instance when requested.
+         * @return the current Builder instance.
+         */
+        public B withClientHintCacheInstantiator(ClientHintsCacheInstantiator<?> cacheInstantiator) {
+            failIfAlreadyBuilt();
+            uaa.setClientHintsCacheInstantiator(cacheInstantiator);
+            return (B)this;
+        }
+
+        // ------------------------------------------
 
         @SuppressWarnings("EmptyMethod") // We must override the method because of the generic return value.
         @Override

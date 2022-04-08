@@ -17,10 +17,11 @@
 
 package nl.basjes.parse.useragent.config;
 
+import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.analyze.Analyzer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import nl.basjes.parse.useragent.UserAgentStringMatchMaker;
+import nl.basjes.parse.useragent.analyze.MatchMaker;
+import nl.basjes.parse.useragent.utils.StringTable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,16 +29,17 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.BooleanSupplier;
 
-import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
+
 
 public class TestCase implements Serializable {
-    private final String userAgent;
+    private final Map<String, String> headers;
     private final String testName;
     private final List<String> options;
     private final Map<String, String> metadata;
@@ -48,18 +50,23 @@ public class TestCase implements Serializable {
         private boolean pass;
         private long parseDurationNS;
         private String errorReport;
+
         public TestCase getTestCase() {
             return testCase;
         }
+
         public boolean testPassed() {
             return pass;
         }
+
         public boolean testFailed() {
             return !pass;
         }
+
         public long getParseDurationNS() {
             return parseDurationNS;
         }
+
         public String getErrorReport() {
             return errorReport;
         }
@@ -75,20 +82,27 @@ public class TestCase implements Serializable {
         }
     }
 
-    private static final Logger LOG = LogManager.getLogger(TestCase.class);
-
     // For Kryo ONLY
     @SuppressWarnings("unused")
     private TestCase() {
-        this.userAgent = "<<Should never appear after deserialization>>";
+        this.headers = Collections.emptyMap();
         this.testName = "<<Should never appear after deserialization>>";
-        this.options =  Collections.emptyList();
+        this.options = Collections.emptyList();
         this.metadata = Collections.emptyMap();
         this.expected = Collections.emptyMap();
     }
 
+    public TestCase(Map<String, String> headers, String testName) {
+        this.headers = headers;
+        this.testName = testName;
+        this.options = new ArrayList<>();
+        this.metadata = new LinkedHashMap<>();
+        this.expected = new LinkedHashMap<>();
+    }
+
     public TestCase(String userAgent, String testName) {
-        this.userAgent = userAgent;
+        this.headers = new TreeMap<>();
+        this.headers.put(USERAGENT_HEADER, userAgent);
         this.testName = testName;
         this.options = new ArrayList<>();
         this.metadata = new LinkedHashMap<>();
@@ -96,7 +110,15 @@ public class TestCase implements Serializable {
     }
 
     public String getUserAgent() {
-        return userAgent;
+        return this.headers.get(USERAGENT_HEADER);
+    }
+
+    public Map<String, String> getHeaders() {
+        return this.headers;
+    }
+
+    public void addHeader(String name, String value) {
+        this.headers.put(name, value);
     }
 
     public String getTestName() {
@@ -127,60 +149,15 @@ public class TestCase implements Serializable {
         this.expected.put(key, value);
     }
 
-    private String spaceFiller(int length) {
-        return filler(length, ' ');
-    }
-    private String minFiller(int length) {
-        return filler(length, '-');
-    }
-    private String filler(int length, char charr) {
-        if (length <= 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            sb.append(charr);
-        }
-        return sb.toString();
-    }
-
-    private String logLine(String field, int maxFieldLength,
-                             String exp,    int maxExpectedLength,
-                             String actual, int maxActualLength) {
-        if (field == null) {
-            field = NULL_VALUE;
-        }
-        if (exp == null) {
-            exp = NULL_VALUE;
-        }
-        if (actual == null) {
-            actual = NULL_VALUE;
-        }
-        return
-            " | " + field   + spaceFiller(maxFieldLength    - field.length())   +
-            " | " + exp     + spaceFiller(maxExpectedLength - exp.length())     +
-            " | " + actual  + spaceFiller(maxActualLength   - actual.length())  +
-            " |";
-    }
-
-    private String logSeparator(int maxFieldLength,
-                                int maxExpectedLength,
-                                int maxActualLength) {
-        return
-            " |-" + minFiller(maxFieldLength)     +
-            "-+-" + minFiller(maxExpectedLength)  +
-            "-+-" + minFiller(maxActualLength)    +
-            "-|";
-    }
-
     public TestResult verify(Analyzer analyzer) {
+        UserAgent result;
         long startTime = System.nanoTime();
-        UserAgent result = analyzer.parse(userAgent);
+        result = analyzer.parse(getHeaders());
         long endTime = System.nanoTime();
 
         TestResult testResult = new TestResult();
         testResult.testCase = this;
-        testResult.parseDurationNS = endTime-startTime;
+        testResult.parseDurationNS = endTime - startTime;
 
         TreeSet<String> combinedKeys = new TreeSet<>();
         combinedKeys.addAll(expected.keySet());
@@ -192,40 +169,40 @@ public class TestCase implements Serializable {
 
         StringBuilder sb = new StringBuilder("\n");
 
-        int maxFieldLength  = combinedKeys     .stream().filter(Objects::nonNull).map(String::length).max(Integer::compareTo).orElse(0);
-        int maxExpectLength = expected.values().stream().filter(Objects::nonNull).map(String::length).max(Integer::compareTo).orElse(0);
-        int maxActualLength = result.toMap().entrySet().stream()
-            .filter(entry -> !entry.getKey().equals(USERAGENT_FIELDNAME))
-            .map(Map.Entry::getValue)
-            .filter(Objects::nonNull)
-            .map(String::length)
-            .max(Integer::compareTo)
-            .orElse(0);
+        sb.append(">>>>>>>>>>>>>> ").append(testName).append(" <<<<<<<<<<<<<<\n");
+        StringTable inputTable = new StringTable().withHeaders("Header", "Value");
+        getHeaders().forEach(inputTable::addRow);
+        sb.append(inputTable).append('\n');
 
-        sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
-        sb.append(logLine("Field", maxFieldLength, "Expected", maxExpectLength, "Actual", maxActualLength)).append('\n');
-        sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+        StringTable resultTable = new StringTable().withHeaders("Field", "Expected", "Actual");
 
         for (String key : combinedKeys) {
             String expectedValue = expected.get(key);
             String actualValue = result.getValue(key);
-            sb.append(logLine(key, maxFieldLength, expectedValue, maxExpectLength, actualValue, maxActualLength));
+
+            if (expectedValue == null && result.get(key).isDefaultValue()) {
+                continue;
+            }
+            List<String> fields = new ArrayList<>();
+            fields.add(key);
+            fields.add(expectedValue);
+            fields.add(actualValue);
+
             if (expectedValue == null) {
                 // If we do not expect anything it is ok to get a Default value.
                 if (!result.get(key).isDefaultValue()) {
                     passed = false;
-                    sb.append(" --> UNEXPECTED");
+                    fields.add(" --> UNEXPECTED");
                 }
             } else {
                 if (!expectedValue.equals(actualValue)) {
                     passed = false;
-                    sb.append(" --> !!! FAIL !!!");
+                    fields.add(" --> !!! FAIL !!!");
                 }
             }
-            sb.append('\n');
+            resultTable.addRow(fields);
         }
-
-        sb.append(logSeparator(maxFieldLength, maxExpectLength, maxActualLength)).append('\n');
+        sb.append(resultTable);
 
         testResult.pass = passed;
         testResult.errorReport = sb.toString();
@@ -234,12 +211,30 @@ public class TestCase implements Serializable {
 
     @Override
     public String toString() {
-        return "TestCase{" +
-            "userAgent='" + userAgent + '\'' +
-            ", testName='" + testName + '\'' +
-            ", options=" + options +
-            ", metadata=" + metadata +
-            ", expected=" + expected +
-            '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("====================================================================================\n");
+        sb.append("TestCase: >>>>>>>>>>>>>> ").append(testName).append(" <<<<<<<<<<<<<<\n");
+
+        if (options != null && !options.isEmpty()) {
+            StringTable optionsTable = new StringTable().withHeaders("Option");
+            options.forEach(optionsTable::addRow);
+            sb.append(optionsTable).append('\n');
+        }
+        if (metadata != null && !metadata.isEmpty()) {
+            StringTable metadataTable = new StringTable().withHeaders("Metadata", "Value");
+            metadata.forEach(metadataTable::addRow);
+            sb.append(metadataTable).append('\n');
+        }
+
+        StringTable inputTable = new StringTable().withHeaders("Header", "Value");
+        getHeaders().forEach(inputTable::addRow);
+        sb.append(inputTable).append('\n');
+
+        StringTable expectedTable = new StringTable().withHeaders("Field", "Expected Value");
+        expected.forEach(expectedTable::addRow);
+        sb.append(expectedTable).append('\n');
+        sb.append("====================================================================================\n");
+
+        return sb.toString();
     }
 }

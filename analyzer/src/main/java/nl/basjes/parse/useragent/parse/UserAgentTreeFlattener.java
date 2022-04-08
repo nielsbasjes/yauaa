@@ -19,8 +19,7 @@ package nl.basjes.parse.useragent.parse;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzerDirect;
-import nl.basjes.parse.useragent.analyze.Analyzer;
+import nl.basjes.parse.useragent.analyze.MatchMaker;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import nl.basjes.parse.useragent.parser.UserAgentLexer;
@@ -73,7 +72,7 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.utils.AntlrUtils.getSourceText;
 
 public class UserAgentTreeFlattener extends UserAgentBaseListener implements Serializable {
-    private final Analyzer               analyzer;
+    private final MatchMaker analyzer;
 
     private static final String AGENT    = "agent";
     private static final String PRODUCT  = "product";
@@ -165,10 +164,10 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private UserAgentTreeFlattener() {
-        analyzer = new UserAgentAnalyzerDirect(); // Set unused value
+        analyzer = new MatchMaker.Dummy();
     }
 
-    public UserAgentTreeFlattener(Analyzer analyzer) {
+    public UserAgentTreeFlattener(MatchMaker analyzer) {
         this.analyzer = analyzer;
     }
 

@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class TestUserAgentAnalysisMapperRaw {
     public static class TestMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
 
         @SuppressWarnings("unused") // Called via the annotation
@@ -68,8 +68,8 @@ class TestUserAgentAnalysisMapperRaw {
 
     public static class TestImpossibleFieldMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
 
         @SuppressWarnings("unused") // Deliberate test case of bad annotation

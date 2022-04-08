@@ -39,8 +39,8 @@ class TestUserAgentAnalysisMapperClass {
 
     public static class MyUserAgentAnalysisMapper extends UserAgentAnalysisMapper<TestRecord> {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
 
         @SuppressWarnings("unused") // Called via the annotation

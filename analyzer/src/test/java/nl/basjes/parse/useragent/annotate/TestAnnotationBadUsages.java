@@ -68,7 +68,7 @@ class TestAnnotationBadUsages {
         }
 
         @Override
-        public String getUserAgentString(Object record) {
+        public String getUserAgentString(Object element) {
             return null;
         }
     }

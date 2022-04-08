@@ -43,8 +43,8 @@ class TestAnnotationCachesetting {
     @SuppressWarnings("unused") // Called via the annotation
     public static class MyMapper implements UserAgentAnnotationMapper<TestRecord>, Serializable {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
 
         @YauaaField("DeviceClass")

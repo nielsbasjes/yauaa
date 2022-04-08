@@ -40,7 +40,7 @@ import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 public class Matcher implements Serializable {
     private static final Logger LOG = LogManager.getLogger(Matcher.class);
 
-    private final Analyzer analyzer;
+    private final MatchMaker analyzer;
     private final List<MatcherVariableAction> variableActions;
     private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
@@ -76,7 +76,7 @@ public class Matcher implements Serializable {
     }
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer) {
+    Matcher(MatchMaker analyzer) {
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
@@ -99,7 +99,7 @@ public class Matcher implements Serializable {
         return analyzer.getLookupSets();
     }
 
-    public Matcher(Analyzer analyzer,
+    public Matcher(MatchMaker analyzer,
                    Collection<String> wantedFieldNames,
                    MatcherConfig matcherConfig) throws UselessMatcherException {
         this.analyzer = analyzer;

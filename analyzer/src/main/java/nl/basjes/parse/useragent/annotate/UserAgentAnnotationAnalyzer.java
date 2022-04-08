@@ -135,26 +135,26 @@ public class UserAgentAnnotationAnalyzer<T> {
             .build();
     }
 
-    public T map(T record) {
-        if (record == null) {
+    public T map(T element) {
+        if (element == null) {
             return null;
         }
         if (mapper == null) {
             throw new InvalidParserConfigurationException("[Map] The mapper instance is null.");
         }
 
-        UserAgent userAgent = userAgentAnalyzer.parse(mapper.getUserAgentString(record));
+        UserAgent userAgent = userAgentAnalyzer.parse(mapper.getRequestHeaders(element));
 
         for (Map.Entry<String, List<Method>> fieldSetter : fieldSetters.entrySet()) {
             String value = userAgent.getValue(fieldSetter.getKey());
             for (Method method : fieldSetter.getValue()) {
                 try {
-                    method.invoke(mapper, record, value);
+                    method.invoke(mapper, element, value);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new InvalidParserConfigurationException("A problem occurred while calling the requested setter", e);
                 }
             }
         }
-        return record;
+        return element;
     }
 }

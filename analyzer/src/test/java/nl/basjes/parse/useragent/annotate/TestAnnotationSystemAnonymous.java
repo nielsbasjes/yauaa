@@ -56,8 +56,8 @@ class TestAnnotationSystemAnonymous {
         record =
             new MyMapper<TestRecord>() {
                 @Override
-                public String getUserAgentString(TestRecord testRecord) {
-                    return testRecord.useragent;
+                public String getUserAgentString(TestRecord element) {
+                    return element.useragent;
                 }
 
                 @SuppressWarnings("unused") // Called via the annotation
@@ -81,8 +81,8 @@ class TestAnnotationSystemAnonymous {
 
     public abstract static class MyErrorMapper extends MyMapper<TestRecord> {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+        public String getUserAgentString(TestRecord element) {
+            return element.useragent;
         }
     }
 
