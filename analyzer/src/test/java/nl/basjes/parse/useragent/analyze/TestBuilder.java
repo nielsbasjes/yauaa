@@ -85,10 +85,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class TestBuilder {
 
     private void runTestCase(Analyzer userAgentAnalyzer) {
-        UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
+
+        String userAgentString = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
+        UserAgent parsedAgent = userAgentAnalyzer.parse(userAgentString);
 
         LogManager.getLogger(TestBuilder.class).info("{}", parsedAgent.toYamlTestCase(true));
+
+        // The original input
+        assertEquals(userAgentString,            parsedAgent.getUserAgentString());
 
         // The requested fields
         assertEquals("Phone",                    parsedAgent.getValue("DeviceClass"              )); // Phone

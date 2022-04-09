@@ -40,6 +40,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -141,7 +142,7 @@ public interface UserAgent extends Serializable {
 
     String SYNTAX_ERROR                         = "__SyntaxError__";
     String USERAGENT_FIELDNAME                  = "Useragent";
-    String USERAGENT_HEADER                     = "User-Agent";
+    String USERAGENT_HEADER                     = "user-agent"; // In LOWER CASE !!
 
     String NETWORK_TYPE                         = "NetworkType";
 
@@ -732,11 +733,11 @@ public interface UserAgent extends Serializable {
         }
 
         public void addHeader(Map<String, String> newHeaders) {
-            this.headers.putAll(newHeaders);
+            newHeaders.forEach(this::addHeader);
         }
 
         public void addHeader(String name, String value) {
-            this.headers.put(name, value);
+            this.headers.put(name.toLowerCase(Locale.ROOT), value);
         }
 
         public void reset() {

@@ -583,7 +583,7 @@ public class ConfigLoader {
                 }
             }
 
-            require(headers.containsKey(USERAGENT_HEADER), entry, filename, "Test is missing input");
+            require(headers.keySet().stream().map(String::toLowerCase).filter(USERAGENT_HEADER::equals).count() == 1, entry, filename, "Test is missing input");
 
             if (expected.isEmpty()) {
                 doingOnlyASingleTest = true;
