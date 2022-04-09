@@ -55,7 +55,9 @@ public class ClientHintsHeadersParser implements Serializable {
         addParser(new ParseSecChUaModel());
         addParser(new ParseSecChUaPlatform());
         addParser(new ParseSecChUaPlatformVersion());
-        addParser(new ParseSecChUaWoW64());
+
+        // We can parse this but we do not have any use for it right now.
+//        addParser(new ParseSecChUaWoW64());
     }
 
     public List<String> supportedClientHintHeaders() {
@@ -83,6 +85,7 @@ public class ClientHintsHeadersParser implements Serializable {
     public static void configureKryo(Object kryoInstance) {
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(ClientHintsHeadersParser.class);
+        kryo.register(ClientHintsHeadersParser.DefaultClientHintsCacheInstantiator.class);
         kryo.register(ClientHints.class);
         kryo.register(BrandVersionListParser.class);
         kryo.register(CHParser.class);
@@ -96,6 +99,11 @@ public class ClientHintsHeadersParser implements Serializable {
         kryo.register(ParseSecChUaWoW64.class);
     }
 
+    /**
+     * Tries to find as much usefull information from the client Headers as possible.
+     * @param requestHeaders
+     * @return An instance of ClientHints. possibly without anything in it.
+     */
     public ClientHints parse(Map<String, String> requestHeaders) {
         ClientHints clientHints = new ClientHints();
 

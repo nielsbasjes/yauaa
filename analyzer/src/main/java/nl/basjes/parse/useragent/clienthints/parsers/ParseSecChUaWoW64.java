@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class ParseSecChUaWoW64 implements CHParser {
+
     public static final String HEADER_FIELD = "Sec-CH-UA-WoW64";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
@@ -36,8 +37,9 @@ public class ParseSecChUaWoW64 implements CHParser {
     //
     //   Sec-CH-UA-WoW64 = sf-boolean
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;

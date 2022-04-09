@@ -28,6 +28,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.Map;
 
+import static java.util.Collections.singletonMap;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -89,13 +91,15 @@ class TestCaching {
 
         assertEquals(1, uaa.getCacheSize());
 
-        agent = uaa.parse(uuid);
-        assertEquals(uuid, agent.get(fieldName).getValue());
-        assertEquals(agent, getCache(uaa).get(uuid));
+        String cacheKey = singletonMap(USERAGENT_HEADER, uuid).toString();
 
         agent = uaa.parse(uuid);
         assertEquals(uuid, agent.get(fieldName).getValue());
-        assertEquals(agent, getCache(uaa).get(uuid));
+        assertEquals(agent, getCache(uaa).get(cacheKey));
+
+        agent = uaa.parse(uuid);
+        assertEquals(uuid, agent.get(fieldName).getValue());
+        assertEquals(agent, getCache(uaa).get(cacheKey));
 
         uaa.disableCaching();
         assertEquals(0, uaa.getCacheSize());

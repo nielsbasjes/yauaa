@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class ParseSecChUaPlatform implements CHParser {
+
     public static final String HEADER_FIELD = "Sec-CH-UA-Platform";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
@@ -40,8 +41,9 @@ public class ParseSecChUaPlatform implements CHParser {
     //   will be sent by default, whether or not the server opted-into receiving the header via an Accept-CH header
     //   (although it can still be controlled by its policy controlled client hints feature).
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         String value = parseSfString(input);
         if (value != null && !value.isEmpty()) {

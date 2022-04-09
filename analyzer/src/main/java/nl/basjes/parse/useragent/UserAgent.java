@@ -825,7 +825,7 @@ public interface UserAgent extends Serializable {
             allFields.put(fieldName, agentField);
         }
 
-        public AgentField get(String fieldName) {
+        public MutableAgentField get(String fieldName) {
             if (USERAGENT_FIELDNAME.equals(fieldName)) {
                 String userAgentString = getUserAgentString();
                 MutableAgentField agentField = new MutableAgentField(userAgentString);
@@ -885,6 +885,11 @@ public interface UserAgent extends Serializable {
 
             Collections.sort(fieldNames);
             result.addAll(fieldNames);
+
+            // This special system field is always available and we put it at the end.
+            result.remove(SYNTAX_ERROR);
+            result.add(SYNTAX_ERROR);
+
             return result;
         }
 
@@ -895,7 +900,7 @@ public interface UserAgent extends Serializable {
     }
 
     class ImmutableUserAgent implements UserAgent {
-        private Map<String, String >                            headers;
+        private Map<String, String>                     headers;
         private final ImmutableAgentField               userAgentStringField;
         private final Map<String, ImmutableAgentField>  allFields;
         private final List<String>                      availableFieldNamesSorted;

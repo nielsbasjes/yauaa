@@ -34,8 +34,9 @@ public class ParseSecChUaArch implements CHParser {
     //   The header’s ABNF is:
     //         Sec-CH-UA-Arch = sf-string
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         String value = parseSfString(input);
         if (value != null && !value.isEmpty()) {

@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class ParseSecChUaMobile implements CHParser {
+
     public static final String HEADER_FIELD = "Sec-CH-UA-Mobile";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
@@ -39,8 +40,9 @@ public class ParseSecChUaMobile implements CHParser {
     //   (although it can still be controlled by its policy controlled client hints feature).
     //   It is considered low entropy because it is a single bit of information directly controllable by the user.
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         Boolean parsedBoolean = parseBoolean(input);
         if (parsedBoolean != null) {

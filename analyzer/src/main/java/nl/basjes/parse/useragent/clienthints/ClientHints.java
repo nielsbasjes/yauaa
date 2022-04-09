@@ -22,12 +22,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 // In call cases: null means not specified
 public class ClientHints implements Serializable {
     // See: https://wicg.github.io/ua-client-hints/#interface
-    @Getter @Setter private List<BrandVersion> brands = null;
+    @Getter @Setter private ArrayList<BrandVersion> brands = null;
     @Getter @Setter private Boolean mobile = null;
     @Getter @Setter private String architecture = null;
     @Getter @Setter private String bitness = null;
@@ -35,10 +35,10 @@ public class ClientHints implements Serializable {
     @Getter @Setter private String platform = null;
     @Getter @Setter private String platformVersion = null;
     @Getter @Setter private Boolean wow64 = null;
-    @Getter @Setter private List<BrandVersion> fullVersionList = null;
+    @Getter @Setter private ArrayList<BrandVersion> fullVersionList = null;
 
     @AllArgsConstructor
-    public static class BrandVersion {
+    public static class BrandVersion implements Serializable {
         @Getter @Setter private String brand;
         @Getter @Setter private String version;
     }

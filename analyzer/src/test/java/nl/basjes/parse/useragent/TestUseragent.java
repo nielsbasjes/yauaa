@@ -71,7 +71,7 @@ class TestUseragent {
         assertEquals(-1, agent.getConfidence("UnknownOne").longValue());
         agent.set("UnknownOne", "One", 111);
         check(agent, "UnknownOne", "One", 111);
-        ((MutableAgentField)agent.get("UnknownOne")).reset();
+        agent.get("UnknownOne").reset();
         check(agent, "UnknownOne", "Unknown", -1);
 
         // Setting unknown new attributes FORCED
@@ -80,21 +80,21 @@ class TestUseragent {
         assertEquals(-1, agent.getConfidence("UnknownTwo").longValue());
         agent.setForced("UnknownTwo", "Two", 222);
         check(agent, "UnknownTwo", "Two", 222);
-        ((MutableAgentField)agent.get("UnknownTwo")).reset();
+        agent.get("UnknownTwo").reset();
         check(agent, "UnknownTwo", "Unknown", -1);
 
         // Setting known attributes
         check(agent, "AgentClass", "Unknown", -1);
         agent.set("AgentClass", "One", 111);
         check(agent, "AgentClass", "One", 111);
-        ((MutableAgentField)agent.get("AgentClass")).reset();
+        agent.get("AgentClass").reset();
         check(agent, "AgentClass", "Unknown", -1);
 
         // Setting known attributes FORCED
         check(agent, "AgentVersion", "??", -1);
         agent.setForced("AgentVersion", "Two", 222);
         check(agent, "AgentVersion", "Two", 222);
-        ((MutableAgentField)agent.get("AgentVersion")).reset();
+        agent.get("AgentVersion").reset();
         check(agent, "AgentVersion", "??", -1);
 
         agent.set(name, "One", 111);
@@ -122,7 +122,7 @@ class TestUseragent {
         agent.set(name, "Three", 333); // Should be used
         check(agent, name, "Three", 333);
 
-        MutableAgentField field = (MutableAgentField) agent.get(name);
+        MutableAgentField field = agent.get(name);
         field.setValueForced("Five", 5); // Should be used
         check(agent, name, "Five", 5);
         field.setValueForced("<<<null>>>", 4); // Should be used
@@ -368,13 +368,13 @@ class TestUseragent {
     @Test
     void fullToString() {
         MutableUserAgent userAgent1 = new MutableUserAgent("Some'Agent");
-        ((MutableAgentField)userAgent1.get("Niels")).setValue("Basjes", 42);
+        userAgent1.get("Niels").setValue("Basjes", 42);
 
-        ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("One", 42);
+        userAgent1.get("BackToDefault").setValue("One", 42);
         assertEquals("One", userAgent1.getValue("BackToDefault"));
         assertEquals(42, userAgent1.getConfidence("BackToDefault"));
 
-        ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("<<<null>>>", 84);
+        userAgent1.get("BackToDefault").setValue("<<<null>>>", 84);
         assertTrue(userAgent1.get("BackToDefault").isDefaultValue());
         assertEquals("Unknown", userAgent1.getValue("BackToDefault"));
         assertEquals(84, userAgent1.getConfidence("BackToDefault"));
@@ -405,30 +405,35 @@ class TestUseragent {
             userAgent1.toString("Niels", "DeviceClass"));
 
         assertEquals(
-            "  - user_agent_string                : 'Some''Agent'\n" +
-            "    DeviceClass                      : 'Unknown'\n" +
-            "    DeviceName                       : 'Unknown'\n" +
-            "    DeviceBrand                      : 'Unknown'\n" +
-            "    OperatingSystemClass             : 'Unknown'\n" +
-            "    OperatingSystemName              : 'Unknown'\n" +
-            "    OperatingSystemVersion           : '??'\n" +
-            "    OperatingSystemVersionMajor      : '??'\n" +
-            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
-            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
-            "    LayoutEngineClass                : 'Unknown'\n" +
-            "    LayoutEngineName                 : 'Unknown'\n" +
-            "    LayoutEngineVersion              : '??'\n" +
-            "    LayoutEngineVersionMajor         : '??'\n" +
-            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
-            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
-            "    AgentClass                       : 'Unknown'\n" +
-            "    AgentName                        : 'Unknown'\n" +
-            "    AgentVersion                     : '??'\n" +
-            "    AgentVersionMajor                : '??'\n" +
-            "    AgentNameVersion                 : 'Unknown ??'\n" +
-            "    AgentNameVersionMajor            : 'Unknown ??'\n" +
-            "    BackToDefault                    : 'Unknown'\n" +
-            "    Niels                            : 'Basjes'\n",
+            "\n" +
+            "- test:\n" +
+            "    input:\n" +
+            "      'User-Agent'      : 'Some''Agent'\n" +
+            "    expected:\n" +
+            "      DeviceClass                          : 'Unknown'\n" +
+            "      DeviceName                           : 'Unknown'\n" +
+            "      DeviceBrand                          : 'Unknown'\n" +
+            "      OperatingSystemClass                 : 'Unknown'\n" +
+            "      OperatingSystemName                  : 'Unknown'\n" +
+            "      OperatingSystemVersion               : '??'\n" +
+            "      OperatingSystemVersionMajor          : '??'\n" +
+            "      OperatingSystemNameVersion           : 'Unknown ??'\n" +
+            "      OperatingSystemNameVersionMajor      : 'Unknown ??'\n" +
+            "      LayoutEngineClass                    : 'Unknown'\n" +
+            "      LayoutEngineName                     : 'Unknown'\n" +
+            "      LayoutEngineVersion                  : '??'\n" +
+            "      LayoutEngineVersionMajor             : '??'\n" +
+            "      LayoutEngineNameVersion              : 'Unknown ??'\n" +
+            "      LayoutEngineNameVersionMajor         : 'Unknown ??'\n" +
+            "      AgentClass                           : 'Unknown'\n" +
+            "      AgentName                            : 'Unknown'\n" +
+            "      AgentVersion                         : '??'\n" +
+            "      AgentVersionMajor                    : '??'\n" +
+            "      AgentNameVersion                     : 'Unknown ??'\n" +
+            "      AgentNameVersionMajor                : 'Unknown ??'\n" +
+            "      BackToDefault                        : 'Unknown'\n" +
+            "      Niels                                : 'Basjes'\n" +
+            "      __SyntaxError__                      : 'false'\n",
             userAgent1.toString());
 
         assertEquals(userAgent1.getAvailableFieldNamesSorted(), userAgent2.getAvailableFieldNamesSorted());
@@ -454,11 +459,12 @@ class TestUseragent {
             "    expected:\n" +
             "      DeviceClass                         : 'Unknown'\n" +
             "      AgentVersion                        : '??'\n" +
-            "      Unsure                              : 'Unknown'\n",
+            "      Unsure                              : 'Unknown'\n" +
+            "      __SyntaxError__                     : 'false'\n",
             userAgent.toString());
 
         // We set the wanted field
-        ((MutableAgentField)(userAgent.get("Unsure"))).setValueForced("--> Unsure",       -1); // --> isDefault !
+        userAgent.get("Unsure").setValueForced("--> Unsure",       -1); // --> isDefault !
         userAgent.set("DeviceClass",   "--> DeviceClass",   1);
         userAgent.set("AgentVersion",  "--> AgentVersion",  2);
         // We also set an unwanted field
@@ -478,10 +484,15 @@ class TestUseragent {
 
         // The output map if requested should only contain the wanted fields.
         assertEquals(
-            "  - user_agent_string  : 'Some Agent'\n" +
-            "    DeviceClass        : '--> DeviceClass'\n" +
-            "    AgentVersion       : '--> AgentVersion'\n" +
-            "    Unsure             : '--> Unsure'\n",
+            "\n" +
+            "- test:\n" +
+            "    input:\n" +
+            "      'User-Agent'      : 'Some Agent'\n" +
+            "    expected:\n" +
+            "      DeviceClass                         : '--> DeviceClass'\n" +
+            "      AgentVersion                        : '--> AgentVersion'\n" +
+            "      Unsure                              : '--> Unsure'\n" +
+            "      __SyntaxError__                     : 'false'\n",
             userAgent.toString());
 
         userAgent.destroy();
@@ -525,7 +536,11 @@ class TestUseragent {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .immediateInitialization()
-            // All fields!
+            .withField(DEVICE_BRAND)
+            .withField(AGENT_INFORMATION_URL)
+            .withField(AGENT_INFORMATION_EMAIL)
+            .withField(DEVICE_CLASS)
+            .withField(AGENT_NAME)
             .build();
         UserAgent result = uaa.parse("Mozilla/5.0 (SM-123) Niels Basjes/42");
         Map<String, String> resultMap = result.toMap();

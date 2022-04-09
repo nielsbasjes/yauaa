@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.DEFAULT_USER_AGENT_MAX_LENGTH;
+
 public final class AnalyzerConfig implements Serializable {
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
@@ -57,8 +59,9 @@ public final class AnalyzerConfig implements Serializable {
         lookups         .putAll(additionalConfig.lookups);
         lookupSets      .putAll(additionalConfig.lookupSets);
         matcherConfigs  .putAll(additionalConfig.matcherConfigs);
-        userAgentMaxLength = Math.min(userAgentMaxLength, additionalConfig.userAgentMaxLength);
-
+        if (additionalConfig.userAgentMaxLength >= 0) {
+            userAgentMaxLength = Math.min(userAgentMaxLength, additionalConfig.userAgentMaxLength);
+        }
         if (additionalConfig.wantedFieldNames == null) {
             wantedFieldNames = null;
         } else {
@@ -68,6 +71,10 @@ public final class AnalyzerConfig implements Serializable {
                 wantedFieldNames.addAll(additionalConfig.wantedFieldNames);
             }
         }
+    }
+
+    public Set<String> getWantedFieldNames() {
+        return wantedFieldNames;
     }
 
     public Map<String, MatcherConfig> getMatcherConfigs() {
@@ -90,8 +97,22 @@ public final class AnalyzerConfig implements Serializable {
         return userAgentMaxLength;
     }
 
-    public void setUserAgentMaxLength(int newUserAgentMaxLength) {
-        this.userAgentMaxLength = newUserAgentMaxLength;
+    public AnalyzerConfig setUserAgentMaxLength(int newUserAgentMaxLength) {
+        if (newUserAgentMaxLength < 0) {
+            this.userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
+        } else {
+            this.userAgentMaxLength = newUserAgentMaxLength;
+        }
+        return this;
+    }
+
+    public AnalyzerConfig wantedFieldNames(Set<String> newWantedFieldNames) {
+        if (newWantedFieldNames == null || newWantedFieldNames.isEmpty()) {
+            this.wantedFieldNames = null;
+        } else {
+            this.wantedFieldNames = new TreeSet<>(newWantedFieldNames);
+        }
+        return this;
     }
 
     public static class AnalyzerConfigBuilder {
@@ -244,7 +265,7 @@ public final class AnalyzerConfig implements Serializable {
     @Override
     public String toString() {
         return "AnalyzerConfig {\n" +
-            "   matcherConfigs=" + matcherConfigs.size() + ",\n" +
+            "   matcherConfigs=" + matcherConfigs + ",\n" +
             "   lookups=" + lookups.size() + ",\n" +
             "   lookupSets=" + lookupSets.size() + ",\n" +
             "   testCases=" + testCases.size()  + ",\n" +

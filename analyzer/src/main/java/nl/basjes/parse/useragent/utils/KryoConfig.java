@@ -78,6 +78,7 @@ import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.TestCase;
@@ -130,6 +131,9 @@ public final class KryoConfig {
 
         // This class
         kryo.register(AbstractUserAgentAnalyzerDirect.class);
+
+        ClientHintsAnalyzer.configureKryo(kryo);
+
 
         // The config classes
         kryo.register(MatcherConfig.class);

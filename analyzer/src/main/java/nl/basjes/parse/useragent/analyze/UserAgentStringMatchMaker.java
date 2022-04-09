@@ -24,7 +24,6 @@ import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import nl.basjes.parse.useragent.AnalyzerPreHeater;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import nl.basjes.parse.useragent.analyze.MatchesList.Match;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.calculate.CalculateAgentClass;
 import nl.basjes.parse.useragent.calculate.CalculateAgentEmail;
@@ -117,7 +116,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
 
     private final Map<String, Set<MatcherAction>> informMatcherActions = new LinkedHashMap<>(INFORM_ACTIONS_HASHMAP_CAPACITY);
 
-    private boolean showMatcherStats = false;
+    private boolean showMatcherStats;
 
     // If we want ALL fields this is null. If we only want specific fields this is a list of names.
     protected Set<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
@@ -141,6 +140,11 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         } else {
             config.merge(analyzerConfig);
         }
+    }
+
+    @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
+    private UserAgentStringMatchMaker() {
+        initTransientFields();
     }
 
     /*
@@ -202,7 +206,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         logVersion(lines);
     }
 
-    private boolean delayInitialization = true;
+    private boolean delayInitialization;
     void delayInitialization() {
         delayInitialization = true;
     }
@@ -272,12 +276,11 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
 
         addAnalyzerConfig(extraConfig);
         invalidateCaches();
+        finalizeLoadingRules(); // FIXME: This is a rebuild of what has already been done. #SLOW!
     }
 
     public void finalizeLoadingRules() {
-        logVersion();
         flattener = new UserAgentTreeFlattener(this);
-
 
         if (wantedFieldNames != null) {
             int wantedSize = wantedFieldNames.size();
@@ -363,8 +366,6 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         for (Matcher matcher : allMatchers) {
             matcher.reset();
         }
-
-        touchedMatchers = new MatcherList(32);
     }
 
     private transient volatile Set<String> allPossibleFieldNamesCache = null; //NOSONAR: The getter avoids the java:S3077 issues
@@ -483,6 +484,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         }
     }
 
+    @Override
     public int getUserAgentMaxLength() {
         return this.userAgentMaxLength;
     }
@@ -507,7 +509,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         userAgent.set(HACKER_ATTACK_VECTOR,         "Unknown", confidence);
     }
 
-    private transient MatcherList touchedMatchers = null;
+    private transient MatcherList touchedMatchers = new MatcherList(32);
 
     @Override
     public void receivedInput(Matcher matcher) {
@@ -688,6 +690,11 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         this.showMatcherStats = showMatcherStats;
         this.delayInitialization = delayInitialization;
 
+        Set<String> newWantedFieldNames = this.config.getWantedFieldNames();
+        if (newWantedFieldNames != null && !newWantedFieldNames.isEmpty()) {
+            this.wantedFieldNames = new TreeSet<>(newWantedFieldNames);
+        }
+
         registerFieldCalculator(new ConcatNONDuplicatedCalculator(AGENT_NAME_VERSION_MAJOR,         AGENT_NAME,             AGENT_VERSION_MAJOR));
         registerFieldCalculator(new ConcatNONDuplicatedCalculator(AGENT_NAME_VERSION,               AGENT_NAME,             AGENT_VERSION));
         registerFieldCalculator(new MajorVersionCalculator(AGENT_VERSION_MAJOR,                     AGENT_VERSION));
@@ -714,8 +721,8 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         Collections.reverse(fieldCalculators);
         verifyCalculatorDependencyOrdering();
 
-        if (wantedFieldNames != null && !wantedFieldNames.isEmpty()) {
-            wantedFieldNames.addAll(dependenciesNeededByCalculators);
+        if (this.wantedFieldNames != null && !this.wantedFieldNames.isEmpty()) {
+            this.wantedFieldNames.addAll(dependenciesNeededByCalculators);
         }
 
         finalizeLoadingRules();

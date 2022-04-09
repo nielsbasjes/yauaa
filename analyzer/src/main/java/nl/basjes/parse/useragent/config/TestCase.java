@@ -19,8 +19,6 @@ package nl.basjes.parse.useragent.config;
 
 import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentStringMatchMaker;
-import nl.basjes.parse.useragent.analyze.MatchMaker;
 import nl.basjes.parse.useragent.utils.StringTable;
 
 import java.io.Serializable;

@@ -94,6 +94,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
     public void disableCaching() {
         setCacheSize(0);
+        setClientHintsCacheSize(0);
     }
 
     /**
@@ -191,12 +192,12 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
     @Nonnull
     @Override
-    public ImmutableUserAgent parseRawUserAgent(MutableUserAgent userAgent) {
+    public ImmutableUserAgent parse(MutableUserAgent userAgent) {
         // Many caching implementations do not allow null keys and/or values
         if (userAgent == null || userAgent.getUserAgentString() == null) {
             synchronized (this) {
                 if (nullAgent == null) {
-                    nullAgent = super.parseRawUserAgent(new MutableUserAgent((String) null));
+                    nullAgent = super.parse(new MutableUserAgent((String) null));
                 }
                 return nullAgent;
             }
@@ -208,7 +209,8 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         }
 
         // As the parse result is immutable it can safely be cached and returned as is
-        return parseCache.computeIfAbsent(userAgent.getUserAgentString(), ua -> super.parseRawUserAgent(userAgent));
+        // FIXME: The userAgent.getHeaders().toString() is expensive !
+        return parseCache.computeIfAbsent(userAgent.getHeaders().toString(), ua -> super.parse(userAgent));
     }
 
     @SuppressWarnings("unchecked") // For all the casts of 'this' to 'B'

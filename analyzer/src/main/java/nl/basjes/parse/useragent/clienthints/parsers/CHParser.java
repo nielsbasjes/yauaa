@@ -33,7 +33,8 @@ public interface CHParser extends Serializable {
      * @param headerName         The actual name of the header (may be different case than the expected inputfield)
      * @return The same instance as the provided clientHints parameter.
      */
-    ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName);
+    @Nonnull
+    ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName);
 
     /**
      * What are the Client Hints that this parser can do something with?

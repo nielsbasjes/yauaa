@@ -151,7 +151,7 @@ public class Matcher implements Serializable {
 
                         // Make sure the field actually exists
                         newValuesUserAgent.set(configLine.getAttribute(), "Dummy", -9999);
-                        action.setResultAgentField((AgentField.MutableAgentField) newValuesUserAgent.get(configLine.getAttribute()));
+                        action.setResultAgentField(newValuesUserAgent.get(configLine.getAttribute()));
 
                         hasActiveExtractConfigs = true;
                     } else {

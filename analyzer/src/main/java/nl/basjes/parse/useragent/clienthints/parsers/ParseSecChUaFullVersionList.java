@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ParseSecChUaFullVersionList implements CHParser {
@@ -43,14 +43,15 @@ public class ParseSecChUaFullVersionList implements CHParser {
     //   - Return the output of running serializing a list with list as input.
     //
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;
         }
         // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.51", "Google Chrome";v="99.0.4844.51"
-        List<BrandVersion> brandVersions = BrandVersionListParser.parse(input);
+        ArrayList<BrandVersion> brandVersions = BrandVersionListParser.parse(input);
         if (!brandVersions.isEmpty()) {
             clientHints.setFullVersionList(brandVersions);
         }

@@ -1,3 +1,20 @@
+/*
+ * Yet Another UserAgent Analyzer
+ * Copyright (C) 2013-2022 Niels Basjes
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package nl.basjes.parse.useragent.clienthints;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -6,8 +23,10 @@ import lombok.Getter;
 import nl.basjes.collections.PrefixMap;
 import nl.basjes.collections.prefixmap.StringPrefixMap;
 import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 
@@ -84,7 +103,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
         // Improve the Device Class if it is the vague "Mobile" thing.
         if (clientHints.getMobile() != null) {
-            AgentField.MutableAgentField deviceClass = (AgentField.MutableAgentField) userAgent.get(UserAgent.DEVICE_CLASS);
+            MutableAgentField deviceClass = userAgent.get(UserAgent.DEVICE_CLASS);
             if (MOBILE.getValue().equals(deviceClass.getValue())) {
                 if (Boolean.TRUE.equals(clientHints.getMobile())) {
                     deviceClass.setValue(PHONE.getValue(), deviceClass.getConfidence() + 1);
@@ -96,8 +115,8 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
         // Improve the Device Brand/Name if it is unknown.
         if (clientHints.getModel() != null) {
-            AgentField.MutableAgentField deviceBrand = (AgentField.MutableAgentField) userAgent.get(UserAgent.DEVICE_BRAND);
-            AgentField.MutableAgentField deviceName = (AgentField.MutableAgentField) userAgent.get(UserAgent.DEVICE_NAME);
+            MutableAgentField deviceBrand = userAgent.get(UserAgent.DEVICE_BRAND);
+            MutableAgentField deviceName = userAgent.get(UserAgent.DEVICE_NAME);
             if (UNKNOWN_VALUE.equals(deviceBrand.getValue()) ||
                 UNKNOWN_VALUE.equals(deviceName.getValue())) {
                 overrideValue(deviceBrand, WordSplitter.getInstance().getSingleSplit(clientHints.getModel(), 1));
@@ -167,13 +186,13 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         }
 
         // Improve the Agent info.
-        List<ClientHints.BrandVersion> fullVersionList = clientHints.getFullVersionList();
+        List<BrandVersion> fullVersionList = clientHints.getFullVersionList();
         if (fullVersionList != null && !fullVersionList.isEmpty()) {
             String version;
             String majorVersion;
             int index;
             String agentName;
-            for (ClientHints.BrandVersion brandVersion : fullVersionList) {
+            for (BrandVersion brandVersion : fullVersionList) {
                 switch (brandVersion.getBrand()) {
                     case "Chromium":
                         version = brandVersion.getVersion();
@@ -231,8 +250,8 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         return userAgent;
     }
 
-    private void overrideValue(AgentField field, String newValue) {
-        ((AgentField.MutableAgentField)field).setValue(newValue, field.getConfidence()+1);
+    private void overrideValue(MutableAgentField field, String newValue) {
+        field.setValue(newValue, field.getConfidence()+1);
     }
 
 }

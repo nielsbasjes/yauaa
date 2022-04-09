@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
@@ -30,7 +30,7 @@ public class ParseSecChUa implements CHParser {
 
     public static final String HEADER_FIELD = "Sec-CH-UA";
 
-    private transient ConcurrentMap<String, List<BrandVersion>> cache = null;
+    private transient ConcurrentMap<String, ArrayList<BrandVersion>> cache = null;
 
     public ParseSecChUa() {
         // Nothing to do right now
@@ -38,7 +38,7 @@ public class ParseSecChUa implements CHParser {
 
     @SuppressWarnings("unchecked")
     public void initializeCache(ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
-        cache = (ConcurrentMap<String, List<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        cache = (ConcurrentMap<String, ArrayList<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
     }
 
     public void clearCache() {
@@ -69,15 +69,16 @@ public class ParseSecChUa implements CHParser {
     //          by "examining the structure of other headers and by testing for the availability and semantics of
     //          the features introduced or modified between releases of a particular browser" [Janc2014]).
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;
         }
         // " Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"
 
-        List<BrandVersion> brandVersions;
+        ArrayList<BrandVersion> brandVersions;
         // Do we even have a cache?
         if (cache == null) {
             brandVersions = BrandVersionListParser.parse(input);

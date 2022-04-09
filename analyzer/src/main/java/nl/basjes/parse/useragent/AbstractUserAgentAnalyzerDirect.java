@@ -40,6 +40,7 @@ import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,7 +48,9 @@ import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.config.ConfigLoader.DEFAULT_RESOURCES;
+import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
 @DefaultSerializer(AbstractUserAgentAnalyzerDirect.KryoSerializer.class)
 public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, AnalyzerConfigHolder, AnalyzerPreHeater, Serializable {
@@ -150,10 +153,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      * @param userAgentString The User-Agent String that is to be parsed and analyzed
      * @return An ImmutableUserAgent record that holds all of the results.
      */
+    @Nonnull
     @Override
     public ImmutableUserAgent parse(String userAgentString) {
-        MutableUserAgent userAgent = new MutableUserAgent(userAgentString);
-        return parseRawUserAgent(userAgent);
+        return parse(Collections.singletonMap(USERAGENT_HEADER, userAgentString));
     }
 
     /**
@@ -164,9 +167,9 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     @Nonnull
     @Override
     public ImmutableUserAgent parse(Map<String, String> requestHeaders) {
-        MutableUserAgent userAgent = new MutableUserAgent();
+        MutableUserAgent userAgent = new MutableUserAgent(getWantedFieldNames());
         userAgent.addHeader(requestHeaders);
-        return new ImmutableUserAgent(parseRaw(userAgent));
+        return parse(userAgent);
     }
 
     /**
@@ -177,19 +180,12 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      */
     @Nonnull
     public ImmutableUserAgent parse(MutableUserAgent inputUserAgent) {
-        return new ImmutableUserAgent(parseRaw(inputUserAgent));
-    }
+        if (inputUserAgent == null) {
+            return new ImmutableUserAgent(matchMaker.parse(new MutableUserAgent((String) null)));
+        }
 
-    /**
-     * Parses and analyzes the useragent string and clienthints provided in the MutableUserAgent instance.
-     * NOTE: This method is internally synchronized because the way the analyzer works is not reentrant.
-     * @param inputUserAgent The MutableUserAgent instance that is to be parsed and that gets all results
-     * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
-     */
-    @Nonnull
-    protected MutableUserAgent parseRaw(MutableUserAgent inputUserAgent) {
         // So we parse the User-Agent header normally
-        MutableUserAgent userAgent = new MutableUserAgent(parseRawUserAgent(inputUserAgent));
+        MutableUserAgent userAgent = matchMaker.parse(inputUserAgent);
 
         Map<String, String> requestHeaders = inputUserAgent.getHeaders();
         if (requestHeaders.size() > 1) {
@@ -199,19 +195,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             // Lastly we modify the parsed userAgent with the found clientHints
             userAgent = clientHintsAnalyzer.merge(userAgent, clientHints);
         }
-        return userAgent;
-    }
-
-    /**
-     * Parses and analyzes the ONLY the useragent string.
-     * This is a separate method so it can be overridden with a caching construct in a subclass.
-     * @param inputUserAgent The MutableUserAgent instance that is to be parsed and that gets all results
-     * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
-     */
-    @Nonnull
-    protected ImmutableUserAgent parseRawUserAgent(MutableUserAgent inputUserAgent) {
-        // So we parse the User-Agent header normally
-        return new ImmutableUserAgent(matchMaker.parse(inputUserAgent));
+        return new ImmutableUserAgent(userAgent);
     }
 
     public List<String> supportedClientHintHeaders() {
@@ -488,6 +472,8 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             // This is a "fail fast" to ensure any problems happen even before startup.
             CheckLoggingDependencies.verifyLoggingDependencies();
 
+            logVersion();
+
             // In case we only want specific fields we must all these special cases too
             if (!wantedFieldNames.isEmpty()) {
                 // Special field that affects ALL fields.
@@ -507,8 +493,11 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
                 configLoader.addYaml(yamlRule, "Manually Inserted Rules " + yamlRuleCount++);
             }
 
-            AnalyzerConfig analyzerConfig = configLoader.load();
-            analyzerConfig.setUserAgentMaxLength(userAgentMaxLength);
+            AnalyzerConfig analyzerConfig =
+                configLoader
+                    .load()
+                    .setUserAgentMaxLength(userAgentMaxLength)
+                    .wantedFieldNames(wantedFieldNames);
 
             uaa.configure(analyzerConfig, showMatcherStats, delayInitialization);
 
@@ -524,4 +513,12 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         }
     }
 
+    @Override
+    public String toString() {
+        return "AbstractUserAgentAnalyzerDirect{" +
+            "clientHintsAnalyzer=" + clientHintsAnalyzer +
+            ", matchMaker=" + matchMaker +
+            ", analyzerConfig=" + analyzerConfig +
+            '}';
+    }
 }

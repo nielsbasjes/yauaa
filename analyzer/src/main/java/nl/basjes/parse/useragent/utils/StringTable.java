@@ -34,7 +34,10 @@ public class StringTable {
             int maxWidth = headers.get(column).length();
             for (List<String> line : lines) {
                 if (!line.isEmpty() && line.size() > column) {
-                    maxWidth = Math.max(maxWidth, line.get(column).length());
+                    String columnValue = line.get(column);
+                    if (columnValue != null) {
+                        maxWidth = Math.max(maxWidth, columnValue.length());
+                    }
                 }
             }
             columnWidths.add(maxWidth);

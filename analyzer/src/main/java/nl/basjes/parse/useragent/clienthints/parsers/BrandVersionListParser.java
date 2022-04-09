@@ -31,16 +31,15 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BrandVersionListParser extends ClientHintsBaseVisitor<Void> implements DefaultANTLRErrorListener {
 
-    public static List<BrandVersion> parse(String inputString) {
+    public static ArrayList<BrandVersion> parse(String inputString) {
         return new BrandVersionListParser(inputString).getResult();
     }
 
     @Getter
-    private List<BrandVersion> result;
+    private ArrayList<BrandVersion> result;
 
     public BrandVersionListParser(String inputString) {
         result = new ArrayList<>();

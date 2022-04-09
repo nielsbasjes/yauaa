@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
@@ -30,7 +30,7 @@ public class ParseSecChUaFullVersion implements CHParser {
 
     public static final String HEADER_FIELD = "Sec-CH-UA-Full-Version";
 
-    private transient ConcurrentMap<String, List<BrandVersion>> cache;
+    private transient ConcurrentMap<String, ArrayList<BrandVersion>> cache;
 
     public ParseSecChUaFullVersion() {
         // Nothing to do right now
@@ -38,7 +38,7 @@ public class ParseSecChUaFullVersion implements CHParser {
 
     @SuppressWarnings("unchecked")
     public void initializeCache(ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
-        cache = (ConcurrentMap<String, List<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        cache = (ConcurrentMap<String, ArrayList<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
     }
 
     public void clearCache() {
@@ -61,13 +61,14 @@ public class ParseSecChUaFullVersion implements CHParser {
     //     Sec-CH-UA-Full-Version = sf-string
     //
 
+    @Nonnull
     @Override
-    public ClientHints parse(Map<String, String> clientHintsHeaders, ClientHints clientHints, String headerName) {
+    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;
         }
-        List<BrandVersion> brandVersions = cache.computeIfAbsent(input, value -> BrandVersionListParser.parse(input));
+        ArrayList<BrandVersion> brandVersions = cache.computeIfAbsent(input, value -> BrandVersionListParser.parse(input));
         clientHints.setBrands(brandVersions);
         return clientHints;
     }
