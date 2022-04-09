@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import nl.basjes.collections.PrefixMap;
 import nl.basjes.collections.prefixmap.StringPrefixMap;
-import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;

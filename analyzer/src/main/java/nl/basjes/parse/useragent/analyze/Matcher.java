@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine;

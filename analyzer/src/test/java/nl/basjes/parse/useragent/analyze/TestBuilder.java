@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.PreHeatCases;
 import nl.basjes.parse.useragent.UserAgent;
