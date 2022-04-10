@@ -21,6 +21,7 @@ import nl.basjes.parse.useragent.AgentField.ImmutableAgentField;
 import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
+import nl.basjes.parse.useragent.utils.CaseInsensitiveStringTreeMap;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
@@ -46,6 +47,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+
+import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 public interface UserAgent extends Serializable {
 
@@ -286,14 +289,14 @@ public interface UserAgent extends Serializable {
 
         maxNameLength = Math.max(30, Math.max(maxNameLength, maxHeaderNameLength));
 
-        sb.append("      '").append(USERAGENT_HEADER).append("'");
+        sb.append("      '").append(capitalizeFully(USERAGENT_HEADER, ' ', '-')).append("'");
         for (int l = USERAGENT_HEADER.length(); l < maxHeaderNameLength + 6; l++) {
             sb.append(' ');
         }
         sb.append(": '").append(escapeYaml(getUserAgentString())).append("'\n");
         for (Map.Entry<String, String> headerEntry : getHeaders().entrySet()) {
             if (!USERAGENT_HEADER.equals(headerEntry.getKey())) {
-                sb.append("      '").append(escapeYaml(headerEntry.getKey())).append("'");
+                sb.append("      '").append(escapeYaml(capitalizeFully(headerEntry.getKey(), ' ', '-'))).append("'");
                 for (int l = headerEntry.getKey().length(); l < maxNameLength + 6; l++) {
                     sb.append(' ');
                 }
@@ -365,7 +368,7 @@ public interface UserAgent extends Serializable {
         Map<String, String> result = new TreeMap<>();
 
         for (String fieldName : fieldNames) {
-            if (USERAGENT_FIELDNAME.equals(fieldName) || USERAGENT_HEADER.equals(fieldName)) {
+            if (USERAGENT_FIELDNAME.equalsIgnoreCase(fieldName) || USERAGENT_HEADER.equalsIgnoreCase(fieldName)) {
                 result.put(USERAGENT_FIELDNAME, getUserAgentString());
             } else {
                 AgentField field = get(fieldName);
@@ -457,31 +460,6 @@ public interface UserAgent extends Serializable {
 
     default String toString(List<String> fieldNames) {
         return toYamlTestCase(fieldNames);
-//        String uaFieldName = "user_agent_string";
-//        int    maxLength   = uaFieldName.length();
-//        for (String fieldName : fieldNames) {
-//            maxLength = Math.max(maxLength, fieldName.length());
-//        }
-//        StringBuilder sb        = new StringBuilder("  - ").append(uaFieldName);
-//        for (int l = uaFieldName.length(); l < maxLength + 2; l++) {
-//            sb.append(' ');
-//        }
-//        sb.append(": '").append(escapeYaml(getUserAgentString())).append("'\n");
-//
-//        for (String fieldName : fieldNames) {
-//            if (!USERAGENT_FIELDNAME.equals(fieldName)) {
-//                AgentField field = get(fieldName);
-//                if (field != null) {
-//                    sb.append("    ").append(fieldName);
-//                    for (int l = fieldName.length(); l < maxLength + 2; l++) {
-//                        sb.append(' ');
-//                    }
-//                    sb.append(": '").append(escapeYaml(field.getValue())).append('\'');
-//                    sb.append('\n');
-//                }
-//            }
-//        }
-//        return sb.toString();
     }
 
     default String toJavaTestCase() {
@@ -646,7 +624,7 @@ public interface UserAgent extends Serializable {
         }
 
         // The original input value
-        private Map<String, String> headers = new TreeMap<>();
+        private Map<String, String> headers = new CaseInsensitiveStringTreeMap<>();
 
         private boolean debug = false;
 
@@ -686,7 +664,7 @@ public interface UserAgent extends Serializable {
         }
 
         public MutableUserAgent(ImmutableUserAgent userAgent) {
-            headers = new TreeMap<>(userAgent.headers);
+            headers = new CaseInsensitiveStringTreeMap<>(userAgent.headers);
             hasSyntaxError = userAgent.hasSyntaxError;
             hasAmbiguity = userAgent.hasAmbiguity;
             ambiguityCount = userAgent.ambiguityCount;
@@ -911,7 +889,7 @@ public interface UserAgent extends Serializable {
         private final int                               ambiguityCount;
 
         public ImmutableUserAgent(UserAgent userAgent) {
-            headers = new TreeMap<>(userAgent.getHeaders());
+            headers = new CaseInsensitiveStringTreeMap<>(userAgent.getHeaders());
             hasSyntaxError = userAgent.hasSyntaxError();
             hasAmbiguity = userAgent.hasAmbiguity();
             ambiguityCount = userAgent.getAmbiguityCount();

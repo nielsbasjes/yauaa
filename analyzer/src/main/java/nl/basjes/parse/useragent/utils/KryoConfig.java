@@ -128,12 +128,12 @@ public final class KryoConfig {
         kryo.register(HashMap.class);
         kryo.register(TreeSet.class);
         kryo.register(TreeMap.class);
+        kryo.register(CaseInsensitiveStringTreeMap.class);
 
         // This class
         kryo.register(AbstractUserAgentAnalyzerDirect.class);
 
         ClientHintsAnalyzer.configureKryo(kryo);
-
 
         // The config classes
         kryo.register(MatcherConfig.class);
