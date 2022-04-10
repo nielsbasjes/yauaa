@@ -83,6 +83,7 @@ import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -128,7 +129,7 @@ public final class KryoConfig {
         kryo.register(HashMap.class);
         kryo.register(TreeSet.class);
         kryo.register(TreeMap.class);
-        kryo.register(CaseInsensitiveStringTreeMap.class);
+        kryo.register(LinkedCaseInsensitiveMap.class);
 
         // This class
         kryo.register(AbstractUserAgentAnalyzerDirect.class);

@@ -21,7 +21,6 @@ import nl.basjes.parse.useragent.AgentField.ImmutableAgentField;
 import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
-import nl.basjes.parse.useragent.utils.CaseInsensitiveStringTreeMap;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
@@ -31,6 +30,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -624,7 +624,7 @@ public interface UserAgent extends Serializable {
         }
 
         // The original input value
-        private Map<String, String> headers = new CaseInsensitiveStringTreeMap<>();
+        private Map<String, String> headers = new LinkedCaseInsensitiveMap<>();
 
         private boolean debug = false;
 
@@ -650,7 +650,9 @@ public interface UserAgent extends Serializable {
         private final Map<String, MutableAgentField> allFields = new TreeMap<>();
 
         private void setWantedFieldNames(Collection<String> newWantedFieldNames) {
-            if (newWantedFieldNames != null) {
+            if (newWantedFieldNames == null) {
+                wantedFieldNames = null;
+            } else {
                 if (!newWantedFieldNames.isEmpty()) {
                     wantedFieldNames = new LinkedHashSet<>(newWantedFieldNames);
                     for (String wantedFieldName : wantedFieldNames) {
@@ -664,7 +666,8 @@ public interface UserAgent extends Serializable {
         }
 
         public MutableUserAgent(ImmutableUserAgent userAgent) {
-            headers = new CaseInsensitiveStringTreeMap<>(userAgent.headers);
+            headers = new LinkedCaseInsensitiveMap<>();
+            headers.putAll(userAgent.headers);
             hasSyntaxError = userAgent.hasSyntaxError;
             hasAmbiguity = userAgent.hasAmbiguity;
             ambiguityCount = userAgent.ambiguityCount;
@@ -889,7 +892,9 @@ public interface UserAgent extends Serializable {
         private final int                               ambiguityCount;
 
         public ImmutableUserAgent(UserAgent userAgent) {
-            headers = new CaseInsensitiveStringTreeMap<>(userAgent.getHeaders());
+            headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            headers.putAll(userAgent.getHeaders());
+
             hasSyntaxError = userAgent.hasSyntaxError();
             hasAmbiguity = userAgent.hasAmbiguity();
             ambiguityCount = userAgent.getAmbiguityCount();

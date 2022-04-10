@@ -31,7 +31,9 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -550,5 +552,35 @@ class TestUseragent {
         assertEquals("Unknown", resultMap.get(AGENT_INFORMATION_EMAIL));
         assertEquals("Unknown", resultMap.get(DEVICE_CLASS));
         assertEquals("Niels Basjes", resultMap.get(AGENT_NAME));
+
+        // And fields that are not implicitly calculated and not asked for are absent
+        assertNull(resultMap.get(DEVICE_NAME));
+        assertNull(resultMap.get(OPERATING_SYSTEM_CLASS));
     }
+
+    /**
+     * If a field has never been extracted yet it must still be present.
+     */
+    @Test
+    void testCaseInsensitiveHeaders() {
+        MutableUserAgent mutableUserAgent = new MutableUserAgent();
+        mutableUserAgent.addHeader("ONE", "1");
+        mutableUserAgent.addHeader("TWO", "2");
+
+        assertEquals("1", mutableUserAgent.getHeaders().get("oNe"));
+        assertEquals("1", mutableUserAgent.getHeaders().get("OnE"));
+        assertEquals("2", mutableUserAgent.getHeaders().get("tWo"));
+        assertEquals("2", mutableUserAgent.getHeaders().get("TwO"));
+
+        ImmutableUserAgent immutableUserAgent = new ImmutableUserAgent(mutableUserAgent);
+
+        assertEquals("1", immutableUserAgent.getHeaders().get("oNe"));
+        assertEquals("1", immutableUserAgent.getHeaders().get("OnE"));
+        assertEquals("2", immutableUserAgent.getHeaders().get("tWo"));
+        assertEquals("2", immutableUserAgent.getHeaders().get("TwO"));
+    }
+
+
+
+
 }

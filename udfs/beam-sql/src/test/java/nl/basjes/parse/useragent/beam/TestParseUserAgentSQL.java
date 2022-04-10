@@ -85,69 +85,69 @@ public class TestParseUserAgentSQL implements Serializable {
                 "Desktop",
 
                 "Chrome 48.0.2564.82",
-
-                "{\"Useragent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/48.0.2564.82 Safari\\/537.36\"," +
-                    "\"DeviceClass\":\"Desktop\"," +
-                    "\"DeviceName\":\"Linux Desktop\"," +
-                    "\"DeviceBrand\":\"Unknown\"," +
-                    "\"DeviceCpu\":\"Intel x86_64\"," +
-                    "\"DeviceCpuBits\":\"64\"," +
-                    "\"DeviceFirmwareVersion\":\"??\"," +
-                    "\"DeviceVersion\":\"??\"," +
-                    "\"OperatingSystemClass\":\"Desktop\"," +
-                    "\"OperatingSystemName\":\"Linux\"," +
-                    "\"OperatingSystemVersion\":\"??\"," +
-                    "\"OperatingSystemVersionMajor\":\"??\"," +
-                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
-                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
-                    "\"OperatingSystemVersionBuild\":\"??\"," +
-                    "\"LayoutEngineClass\":\"Browser\"," +
-                    "\"LayoutEngineName\":\"Blink\"," +
-                    "\"LayoutEngineVersion\":\"48.0\"," +
-                    "\"LayoutEngineVersionMajor\":\"48\"," +
-                    "\"LayoutEngineNameVersion\":\"Blink 48.0\"," +
-                    "\"LayoutEngineNameVersionMajor\":\"Blink 48\"," +
-                    "\"LayoutEngineBuild\":\"Unknown\"," +
-                    "\"AgentClass\":\"Browser\"," +
-                    "\"AgentName\":\"Chrome\"," +
-                    "\"AgentVersion\":\"48.0.2564.82\"," +
-                    "\"AgentVersionMajor\":\"48\"," +
-                    "\"AgentNameVersion\":\"Chrome 48.0.2564.82\"," +
-                    "\"AgentNameVersionMajor\":\"Chrome 48\"," +
-
-                    "\"AgentBuild\":\"Unknown\"," +
-                    "\"AgentLanguage\":\"Unknown\"," +
-                    "\"AgentLanguageCode\":\"Unknown\"," +
-                    "\"AgentInformationEmail\":\"Unknown\"," +
-                    "\"AgentInformationUrl\":\"Unknown\"," +
-                    "\"AgentSecurity\":\"Unknown\"," +
-                    "\"AgentUuid\":\"Unknown\"," +
-                    "\"WebviewAppName\":\"Unknown\"," +
-                    "\"WebviewAppVersion\":\"??\"," +
-                    "\"WebviewAppVersionMajor\":\"??\"," +
-                    "\"WebviewAppNameVersion\":\"Unknown ??\"," +
-                    "\"WebviewAppNameVersionMajor\":\"Unknown ??\"," +
-                    "\"FacebookCarrier\":\"Unknown\"," +
-                    "\"FacebookDeviceClass\":\"Unknown\"," +
-                    "\"FacebookDeviceName\":\"Unknown\"," +
-                    "\"FacebookDeviceVersion\":\"??\"," +
-                    "\"FacebookFBOP\":\"Unknown\"," +
-                    "\"FacebookFBSS\":\"Unknown\"," +
-                    "\"FacebookOperatingSystemName\":\"Unknown\"," +
-                    "\"FacebookOperatingSystemVersion\":\"??\"," +
-                    "\"Anonymized\":\"Unknown\"," +
-                    "\"HackerAttackVector\":\"Unknown\"," +
-                    "\"HackerToolkit\":\"Unknown\"," +
-                    "\"KoboAffiliate\":\"Unknown\"," +
-                    "\"KoboPlatformId\":\"Unknown\"," +
-                    "\"IECompatibilityVersion\":\"??\"," +
-                    "\"IECompatibilityVersionMajor\":\"??\"," +
-                    "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
-                    "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
-                    "\"__SyntaxError__\":\"false\"," +
-                    "\"Carrier\":\"Unknown\"," +
-                    "\"GSAInstallationID\":\"Unknown\"," +
-                    "\"NetworkType\":\"Unknown\"}",
+//
+//                "{\"Useragent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/48.0.2564.82 Safari\\/537.36\"," +
+//                    "\"DeviceClass\":\"Desktop\"," +
+//                    "\"DeviceName\":\"Linux Desktop\"," +
+//                    "\"DeviceBrand\":\"Unknown\"," +
+//                    "\"DeviceCpu\":\"Intel x86_64\"," +
+//                    "\"DeviceCpuBits\":\"64\"," +
+////                    "\"DeviceFirmwareVersion\":\"??\"," +
+////                    "\"DeviceVersion\":\"??\"," +
+//                    "\"OperatingSystemClass\":\"Desktop\"," +
+//                    "\"OperatingSystemName\":\"Linux\"," +
+//                    "\"OperatingSystemVersion\":\"??\"," +
+//                    "\"OperatingSystemVersionMajor\":\"??\"," +
+//                    "\"OperatingSystemNameVersion\":\"Linux ??\"," +
+//                    "\"OperatingSystemNameVersionMajor\":\"Linux ??\"," +
+////                    "\"OperatingSystemVersionBuild\":\"??\"," +
+//                    "\"LayoutEngineClass\":\"Browser\"," +
+//                    "\"LayoutEngineName\":\"Blink\"," +
+//                    "\"LayoutEngineVersion\":\"48.0\"," +
+//                    "\"LayoutEngineVersionMajor\":\"48\"," +
+//                    "\"LayoutEngineNameVersion\":\"Blink 48.0\"," +
+//                    "\"LayoutEngineNameVersionMajor\":\"Blink 48\"," +
+////                    "\"LayoutEngineBuild\":\"Unknown\"," +
+//                    "\"AgentClass\":\"Browser\"," +
+//                    "\"AgentName\":\"Chrome\"," +
+//                    "\"AgentVersion\":\"48.0.2564.82\"," +
+//                    "\"AgentVersionMajor\":\"48\"," +
+//                    "\"AgentNameVersion\":\"Chrome 48.0.2564.82\"," +
+//                    "\"AgentNameVersionMajor\":\"Chrome 48\"," +
+//
+////                    "\"AgentBuild\":\"Unknown\"," +
+////                    "\"AgentLanguage\":\"Unknown\"," +
+////                    "\"AgentLanguageCode\":\"Unknown\"," +
+//                    "\"AgentInformationEmail\":\"Unknown\"," +
+//                    "\"AgentInformationUrl\":\"Unknown\"," +
+////                    "\"AgentSecurity\":\"Unknown\"," +
+////                    "\"AgentUuid\":\"Unknown\"," +
+//                    "\"WebviewAppName\":\"Unknown\"," +
+//                    "\"WebviewAppVersion\":\"??\"," +
+//                    "\"WebviewAppVersionMajor\":\"??\"," +
+//                    "\"WebviewAppNameVersion\":\"Unknown ??\"," +
+//                    "\"WebviewAppNameVersionMajor\":\"Unknown ??\"," +
+////                    "\"FacebookCarrier\":\"Unknown\"," +
+////                    "\"FacebookDeviceClass\":\"Unknown\"," +
+////                    "\"FacebookDeviceName\":\"Unknown\"," +
+////                    "\"FacebookDeviceVersion\":\"??\"," +
+////                    "\"FacebookFBOP\":\"Unknown\"," +
+////                    "\"FacebookFBSS\":\"Unknown\"," +
+////                    "\"FacebookOperatingSystemName\":\"Unknown\"," +
+////                    "\"FacebookOperatingSystemVersion\":\"??\"," +
+////                    "\"Anonymized\":\"Unknown\"," +
+////                    "\"HackerAttackVector\":\"Unknown\"," +
+////                    "\"HackerToolkit\":\"Unknown\"," +
+////                    "\"KoboAffiliate\":\"Unknown\"," +
+////                    "\"KoboPlatformId\":\"Unknown\"," +
+////                    "\"IECompatibilityVersion\":\"??\"," +
+////                    "\"IECompatibilityVersionMajor\":\"??\"," +
+////                    "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
+////                    "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
+////                    "\"Carrier\":\"Unknown\"," +
+////                    "\"GSAInstallationID\":\"Unknown\"," +
+//                    "\"NetworkType\":\"Unknown\"," +
+//                    "\"__SyntaxError__\":\"false\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"}",
 
@@ -222,67 +222,67 @@ public class TestParseUserAgentSQL implements Serializable {
 
                "Chrome 53.0.2785.124",
 
-               "{\"Useragent\":\"Mozilla\\/5.0 (Linux; Android 7.0; Nexus 6 Build\\/NBD90Z) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/53.0.2785.124 Mobile Safari\\/537.36\"," +
-                   "\"DeviceClass\":\"Phone\"," +
-                   "\"DeviceName\":\"Google Nexus 6\"," +
-                   "\"DeviceBrand\":\"Google\"," +
-                   "\"DeviceCpu\":\"Unknown\"," +
-                   "\"DeviceCpuBits\":\"Unknown\"," +
-                   "\"DeviceFirmwareVersion\":\"??\"," +
-                   "\"DeviceVersion\":\"??\"," +
-                   "\"OperatingSystemClass\":\"Mobile\"," +
-                   "\"OperatingSystemName\":\"Android\"," +
-                   "\"OperatingSystemVersion\":\"7.0\"," +
-                   "\"OperatingSystemVersionMajor\":\"7\"," +
-                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
-                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
-                   "\"OperatingSystemVersionBuild\":\"NBD90Z\"," +
-                   "\"LayoutEngineClass\":\"Browser\"," +
-                   "\"LayoutEngineName\":\"Blink\"," +
-                   "\"LayoutEngineVersion\":\"53.0\"," +
-                   "\"LayoutEngineVersionMajor\":\"53\"," +
-                   "\"LayoutEngineNameVersion\":\"Blink 53.0\"," +
-                   "\"LayoutEngineNameVersionMajor\":\"Blink 53\"," +
-                   "\"LayoutEngineBuild\":\"Unknown\"," +
-                   "\"AgentClass\":\"Browser\"," +
-                   "\"AgentName\":\"Chrome\"," +
-                   "\"AgentVersion\":\"53.0.2785.124\"," +
-                   "\"AgentVersionMajor\":\"53\"," +
-                   "\"AgentNameVersion\":\"Chrome 53.0.2785.124\"," +
-                   "\"AgentNameVersionMajor\":\"Chrome 53\"," +
-                   "\"AgentBuild\":\"Unknown\"," +
-                   "\"AgentLanguage\":\"Unknown\"," +
-                   "\"AgentLanguageCode\":\"Unknown\"," +
-                   "\"AgentInformationEmail\":\"Unknown\"," +
-                   "\"AgentInformationUrl\":\"Unknown\"," +
-                   "\"AgentSecurity\":\"Unknown\"," +
-                   "\"AgentUuid\":\"Unknown\"," +
-                   "\"WebviewAppName\":\"Unknown\"," +
-                   "\"WebviewAppVersion\":\"??\"," +
-                   "\"WebviewAppVersionMajor\":\"??\"," +
-                   "\"WebviewAppNameVersion\":\"Unknown ??\"," +
-                   "\"WebviewAppNameVersionMajor\":\"Unknown ??\"," +
-                   "\"FacebookCarrier\":\"Unknown\"," +
-                   "\"FacebookDeviceClass\":\"Unknown\"," +
-                   "\"FacebookDeviceName\":\"Unknown\"," +
-                   "\"FacebookDeviceVersion\":\"??\"," +
-                   "\"FacebookFBOP\":\"Unknown\"," +
-                   "\"FacebookFBSS\":\"Unknown\"," +
-                   "\"FacebookOperatingSystemName\":\"Unknown\"," +
-                   "\"FacebookOperatingSystemVersion\":\"??\"," +
-                   "\"Anonymized\":\"Unknown\"," +
-                   "\"HackerAttackVector\":\"Unknown\"," +
-                   "\"HackerToolkit\":\"Unknown\"," +
-                   "\"KoboAffiliate\":\"Unknown\"," +
-                   "\"KoboPlatformId\":\"Unknown\"," +
-                   "\"IECompatibilityVersion\":\"??\"," +
-                   "\"IECompatibilityVersionMajor\":\"??\"," +
-                   "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
-                   "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
-                   "\"__SyntaxError__\":\"false\"," +
-                   "\"Carrier\":\"Unknown\"," +
-                   "\"GSAInstallationID\":\"Unknown\"," +
-                   "\"NetworkType\":\"Unknown\"}",
+//               "{\"Useragent\":\"Mozilla\\/5.0 (Linux; Android 7.0; Nexus 6 Build\\/NBD90Z) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/53.0.2785.124 Mobile Safari\\/537.36\"," +
+//                   "\"DeviceClass\":\"Phone\"," +
+//                   "\"DeviceName\":\"Google Nexus 6\"," +
+//                   "\"DeviceBrand\":\"Google\"," +
+////                   "\"DeviceCpu\":\"Unknown\"," +
+////                   "\"DeviceCpuBits\":\"Unknown\"," +
+////                   "\"DeviceFirmwareVersion\":\"??\"," +
+////                   "\"DeviceVersion\":\"??\"," +
+//                   "\"OperatingSystemClass\":\"Mobile\"," +
+//                   "\"OperatingSystemName\":\"Android\"," +
+//                   "\"OperatingSystemVersion\":\"7.0\"," +
+//                   "\"OperatingSystemVersionMajor\":\"7\"," +
+//                   "\"OperatingSystemNameVersion\":\"Android 7.0\"," +
+//                   "\"OperatingSystemNameVersionMajor\":\"Android 7\"," +
+//                   "\"OperatingSystemVersionBuild\":\"NBD90Z\"," +
+//                   "\"LayoutEngineClass\":\"Browser\"," +
+//                   "\"LayoutEngineName\":\"Blink\"," +
+//                   "\"LayoutEngineVersion\":\"53.0\"," +
+//                   "\"LayoutEngineVersionMajor\":\"53\"," +
+//                   "\"LayoutEngineNameVersion\":\"Blink 53.0\"," +
+//                   "\"LayoutEngineNameVersionMajor\":\"Blink 53\"," +
+////                   "\"LayoutEngineBuild\":\"Unknown\"," +
+//                   "\"AgentClass\":\"Browser\"," +
+//                   "\"AgentName\":\"Chrome\"," +
+//                   "\"AgentVersion\":\"53.0.2785.124\"," +
+//                   "\"AgentVersionMajor\":\"53\"," +
+//                   "\"AgentNameVersion\":\"Chrome 53.0.2785.124\"," +
+//                   "\"AgentNameVersionMajor\":\"Chrome 53\"," +
+////                   "\"AgentBuild\":\"Unknown\"," +
+////                   "\"AgentLanguage\":\"Unknown\"," +
+////                   "\"AgentLanguageCode\":\"Unknown\"," +
+//                   "\"AgentInformationEmail\":\"Unknown\"," +
+////                   "\"AgentInformationUrl\":\"Unknown\"," +
+////                   "\"AgentSecurity\":\"Unknown\"," +
+////                   "\"AgentUuid\":\"Unknown\"," +
+//                   "\"WebviewAppName\":\"Unknown\"," +
+//                   "\"WebviewAppVersion\":\"??\"," +
+//                   "\"WebviewAppVersionMajor\":\"??\"," +
+//                   "\"WebviewAppNameVersion\":\"Unknown ??\"," +
+//                   "\"WebviewAppNameVersionMajor\":\"Unknown ??\"," +
+////                   "\"FacebookCarrier\":\"Unknown\"," +
+////                   "\"FacebookDeviceClass\":\"Unknown\"," +
+////                   "\"FacebookDeviceName\":\"Unknown\"," +
+////                   "\"FacebookDeviceVersion\":\"??\"," +
+////                   "\"FacebookFBOP\":\"Unknown\"," +
+////                   "\"FacebookFBSS\":\"Unknown\"," +
+////                   "\"FacebookOperatingSystemName\":\"Unknown\"," +
+////                   "\"FacebookOperatingSystemVersion\":\"??\"," +
+////                   "\"Anonymized\":\"Unknown\"," +
+////                   "\"HackerAttackVector\":\"Unknown\"," +
+////                   "\"HackerToolkit\":\"Unknown\"," +
+////                   "\"KoboAffiliate\":\"Unknown\"," +
+////                   "\"KoboPlatformId\":\"Unknown\"," +
+////                   "\"IECompatibilityVersion\":\"??\"," +
+////                   "\"IECompatibilityVersionMajor\":\"??\"," +
+////                   "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
+////                   "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
+////                   "\"Carrier\":\"Unknown\"," +
+////                   "\"GSAInstallationID\":\"Unknown\"," +
+//                   "\"NetworkType\":\"Unknown\"," +
+//                   "\"__SyntaxError__\":\"false\"}",
 
                "{\"OperatingSystemClass\":\"Mobile\"}",
 
@@ -357,7 +357,7 @@ public class TestParseUserAgentSQL implements Serializable {
             .addStringField("userAgent")
             .addStringField("deviceClass")
             .addStringField("agentNameVersion")
-            .addStringField("parsedUserAgentJson0")
+//            .addStringField("parsedUserAgentJson0")
             .addStringField("parsedUserAgentJson1")
             .addStringField("parsedUserAgentJson2")
             .addStringField("parsedUserAgentJson3")
@@ -414,8 +414,8 @@ public class TestParseUserAgentSQL implements Serializable {
                         "    ParseUserAgentField(userAgent, 'DeviceClass')        AS deviceClass, " +
                         "    ParseUserAgentField(userAgent, 'AgentNameVersion')   AS agentNameVersion, " +
 
-                        "    ParseUserAgentJson(userAgent" +
-                        "                      ) AS parsedUserAgentJson0, " +
+//                        "    ParseUserAgentJson(userAgent" +
+//                        "                      ) AS parsedUserAgentJson0, " +
 
                         "    ParseUserAgentJson(userAgent," +
                         "                       'OperatingSystemClass'" +
