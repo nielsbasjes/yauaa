@@ -28,7 +28,6 @@ import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
 
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
 public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect implements Serializable {
@@ -185,7 +184,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
          * @param cacheSize is the size of the new cache (which will be >= 1)
          * @return Instance of the new cache.
          */
-        ConcurrentMap<String, T> instantiateCache(int cacheSize);
+        Map<String, T> instantiateCache(int cacheSize);
     }
 
     // =========================================================

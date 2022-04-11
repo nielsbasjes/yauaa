@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -151,14 +153,6 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-//    @Test
-//    // Deprecated field
-//    void testSecChUaFullVersion() {
-//        ClientHints clientHints = parse("sEc-cH-uA-Full-Version", "Something");
-//    }
-
-    // ------------------------------------------
-
     @Test
     void testSecChUaFullVersionList() {
         ClientHints clientHints = parse("sEc-cH-uA-Full-Version-List", "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"99.0.4844.51\", \"Google Chrome\";v=\"99.0.4844.51\"");
@@ -210,7 +204,7 @@ class TestClientHintsParsing {
         ClientHints clientHints = parse("sEc-cH-uA-Mobile", "?1");
         Boolean mobile = clientHints.getMobile();
         assertNotNull(mobile);
-        assertEquals(Boolean.TRUE, mobile);
+        assertEquals(TRUE, mobile);
     }
 
     @Test
@@ -218,7 +212,7 @@ class TestClientHintsParsing {
         ClientHints clientHints = parse("sEc-cH-uA-Mobile", "?0");
         Boolean mobile = clientHints.getMobile();
         assertNotNull(mobile);
-        assertEquals(Boolean.FALSE, mobile);
+        assertEquals(FALSE, mobile);
     }
 
     @Test
@@ -330,6 +324,40 @@ class TestClientHintsParsing {
 //    void testSecChUaWoW64() {
 //
 //    }
+
+    // ------------------------------------------
+
+    @Test
+    void testSecChUaWoW64T() {
+        ClientHints clientHints = parse("sEc-cH-uA-WoW64", "?1");
+        Boolean wow64 = clientHints.getWow64();
+        assertNotNull(wow64);
+        assertEquals(TRUE, wow64);
+    }
+
+    @Test
+    void testSecChUaWoW64F() {
+        ClientHints clientHints = parse("sEc-cH-uA-WoW64", "?0");
+        Boolean wow64 = clientHints.getWow64();
+        assertNotNull(wow64);
+        assertEquals(FALSE, wow64);
+    }
+
+    @Test
+    void testSecChUaWoW64BadValue() {
+        assertNull(parse("sEc-cH-uA-WoW64", "xx").getWow64());
+    }
+
+    @Test
+    void testSecChUaWoW64Empty() {
+        assertNull(parse("sEc-cH-uA-WoW64", "").getWow64());
+    }
+
+    @Test
+    void testSecChUaWoW64Null() {
+        assertNull(parse("sEc-cH-uA-WoW64", null).getWow64());
+    }
+
 
     // ------------------------------------------
 

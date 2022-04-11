@@ -36,11 +36,13 @@ public class ParseSecChUaFullVersion implements CHParser {
         // Nothing to do right now
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-    public void initializeCache(ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
+    public void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
         cache = (ConcurrentMap<String, ArrayList<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
     }
 
+    @Override
     public void clearCache() {
         if (cache != null) {
             cache.clear();

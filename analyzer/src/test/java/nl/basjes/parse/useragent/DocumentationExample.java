@@ -18,11 +18,18 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DocumentationExample {
+
+    private static final Logger LOG = LogManager.getLogger(DocumentationExample.class);
 
     @Test
     void runDocumentationExample() {
@@ -33,5 +40,30 @@ class DocumentationExample {
             .build();
         assertTrue(uaa.runTests(false, true));
     }
+
+    @Test
+    void runNormalUsageExample() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .build();
+
+        Map<String, String> requestHeaders = new TreeMap<>();
+
+        requestHeaders.put("User-Agent",                       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36");
+        requestHeaders.put("Sec-Ch-Ua",                        "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"");
+        requestHeaders.put("Sec-Ch-Ua-Arch",                   "\"x86\"");
+        requestHeaders.put("Sec-Ch-Ua-Full-Version-List",      "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"99.0.4844.51\", \"Google Chrome\";v=\"99.0.4844.51\"");
+        requestHeaders.put("Sec-Ch-Ua-Mobile",                 "?0");
+        requestHeaders.put("Sec-Ch-Ua-Model",                  "");
+        requestHeaders.put("Sec-Ch-Ua-Platform",               "\"Windows\"");
+        requestHeaders.put("Sec-Ch-Ua-Platform-Version",       "\"14.0.0\"");
+
+        UserAgent userAgent = uaa.parse(requestHeaders);
+
+        LOG.info("Result: {}", userAgent);
+        assertTrue(userAgent.toString().contains("'Linux 5.13.0'"));
+    }
+
+
 
 }

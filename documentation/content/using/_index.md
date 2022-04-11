@@ -72,7 +72,12 @@ If you are still using Java 8 then you can fix this problem by using the `LRUMap
 
     UserAgentAnalyzer uaa = UserAgentAnalyzer
         .newBuilder()
-        .withCacheInstantiator(cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize)))
+        .withCacheInstantiator(
+            (CacheInstantiator) size ->
+                Collections.synchronizedMap(new LRUMap<>(size)))
+        .withClientHintCacheInstantiator(
+            (ClientHintsCacheInstantiator<?>) size ->
+                Collections.synchronizedMap(new LRUMap<>(size)))
         .withCache(10000)
         .build();
 

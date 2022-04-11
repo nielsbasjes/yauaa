@@ -419,6 +419,10 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
                         names.add(fieldName);
                     }
                     names.addAll(fieldNames);
+
+                    // Force the Syntax error to be the last in the list.
+                    names.remove(SYNTAX_ERROR);
+                    names.add(SYNTAX_ERROR);
                     allPossibleFieldNamesSortedCache = names;
                 }
             }

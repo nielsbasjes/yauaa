@@ -583,7 +583,8 @@ public class ConfigLoader {
                 }
             }
 
-            require(headers.keySet().stream().map(String::toLowerCase).filter(USERAGENT_HEADER::equals).count() == 1, entry, filename, "Test is missing input");
+            final String lowercaseUseragentHeader = USERAGENT_HEADER.toLowerCase(Locale.ROOT);
+            require(headers.keySet().stream().map(String::toLowerCase).filter(lowercaseUseragentHeader::equals).count() == 1, entry, filename, "Test is missing input");
 
             if (expected.isEmpty()) {
                 doingOnlyASingleTest = true;

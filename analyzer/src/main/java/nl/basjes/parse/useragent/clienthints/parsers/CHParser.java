@@ -30,7 +30,7 @@ public interface CHParser extends Serializable {
      *
      * @param clientHintsHeaders The map of request headers that at least contains one of the supported fields
      * @param clientHints        The instance that is to be updated
-     * @param headerName         The actual name of the header (may be different case than the expected inputfield)
+     * @param headerName         The actual name of the header (must do case-insensitive compare!)
      * @return The same instance as the provided clientHints parameter.
      */
     @Nonnull
@@ -78,7 +78,7 @@ public interface CHParser extends Serializable {
         return null; // Bad input
     }
 
-    default void initializeCache(ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
+    default void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
         // No cache implemented by default.
     }
 

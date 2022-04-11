@@ -151,7 +151,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     /**
      * Parses and analyzes the provided useragent string
      * @param userAgentString The User-Agent String that is to be parsed and analyzed
-     * @return An ImmutableUserAgent record that holds all of the results.
+     * @return An ImmutableUserAgent record that holds all the results.
      */
     @Nonnull
     @Override
@@ -162,7 +162,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     /**
      * Parses and analyzes the provided useragent string
      * @param requestHeaders A map of all useful request Headers: the "User-Agent" and all Client Hints: "Sec-Ch-Ua"*
-     * @return An ImmutableUserAgent record that holds all of the results.
+     * @return An ImmutableUserAgent record that holds all the results.
      */
     @Nonnull
     @Override
@@ -265,7 +265,9 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
 
         protected void failIfAlreadyBuilt() {
             if (didBuildStep) {
-                throw new IllegalStateException("A builder can provide only a single instance. It is not allowed to set values after doing build()");
+                throw new IllegalStateException(
+                    "A builder can provide only a single instance. " +
+                    "It is not allowed to set values after doing build()");
             }
         }
 
@@ -460,21 +462,21 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
 
 
         /**
-         * Construct the analyzer and run the preheat (if requested).
+         * Construct the analyzer and run the preheat sequence (if requested).
          * @return the new analyzer instance.
          */
         public UAA build() {
             failIfAlreadyBuilt();
 
-            // Before we initialize we check if the logging has been setup correctly.
+            // Before we initialize we check if the logging has been set up correctly.
             // Not all useragents trigger the same logging libraries because some
-            // of the logging libraries are only used in specific analysis code.
+            // logging libraries are only used in specific analysis code.
             // This is a "fail fast" to ensure any problems happen even before startup.
             CheckLoggingDependencies.verifyLoggingDependencies();
 
             logVersion();
 
-            // In case we only want specific fields we must all these special cases too
+            // In case we only want specific fields we must add these special cases too
             if (!wantedFieldNames.isEmpty()) {
                 // Special field that affects ALL fields.
                 wantedFieldNames.add(SET_ALL_FIELDS);

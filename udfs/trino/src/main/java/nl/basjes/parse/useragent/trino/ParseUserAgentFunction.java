@@ -30,6 +30,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import static io.trino.spi.type.VarcharType.VARCHAR;
@@ -65,7 +66,7 @@ public final class ParseUserAgentFunction {
         UserAgentAnalyzer userAgentAnalyzer = threadLocalUserAgentAnalyzer.get();
 
         UserAgent userAgent = userAgentAnalyzer.parse(userAgentStringToParse);
-        Map<String, String> resultMap = userAgent.toMap(userAgent.getAvailableFieldNamesSorted());
+        Map<String, String> resultMap = userAgent.toMap(new ArrayList<>(userAgentAnalyzer.getAllPossibleFieldNames()));
 
         MapType mapType = new MapType(VARCHAR, VARCHAR, new TypeOperators());
 

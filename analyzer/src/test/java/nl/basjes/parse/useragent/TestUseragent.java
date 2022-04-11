@@ -400,7 +400,7 @@ class TestUseragent {
             "\n" +
             "- test:\n" +
             "    input:\n" +
-            "      'User-Agent'      : 'Some''Agent'\n" +
+            "      'User-Agent'                        : 'Some''Agent'\n" +
             "    expected:\n" +
             "      Niels                               : 'Basjes'\n" +
             "      DeviceClass                         : 'Unknown'\n",
@@ -410,7 +410,7 @@ class TestUseragent {
             "\n" +
             "- test:\n" +
             "    input:\n" +
-            "      'User-Agent'      : 'Some''Agent'\n" +
+            "      'User-Agent'                         : 'Some''Agent'\n" +
             "    expected:\n" +
             "      DeviceClass                          : 'Unknown'\n" +
             "      DeviceName                           : 'Unknown'\n" +
@@ -457,7 +457,7 @@ class TestUseragent {
             "\n" +
             "- test:\n" +
             "    input:\n" +
-            "      'User-Agent'      : 'Some Agent'\n" +
+            "      'User-Agent'                        : 'Some Agent'\n" +
             "    expected:\n" +
             "      DeviceClass                         : 'Unknown'\n" +
             "      AgentVersion                        : '??'\n" +
@@ -489,7 +489,7 @@ class TestUseragent {
             "\n" +
             "- test:\n" +
             "    input:\n" +
-            "      'User-Agent'      : 'Some Agent'\n" +
+            "      'User-Agent'                        : 'Some Agent'\n" +
             "    expected:\n" +
             "      DeviceClass                         : '--> DeviceClass'\n" +
             "      AgentVersion                        : '--> AgentVersion'\n" +

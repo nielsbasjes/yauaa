@@ -12,9 +12,8 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-### Version 6.13 (Unreleased)
-- New UDF for ElasticSearch 8
-- Initial support (Java API only) for using ClientHints.
+### Version 7.0.0 (Unreleased)
+- Support for using ClientHints (Only for the Java API and webservlet).
 
 ### Main points from previous releases
 - Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.

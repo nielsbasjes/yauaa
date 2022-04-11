@@ -41,7 +41,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -145,7 +144,7 @@ public interface UserAgent extends Serializable {
 
     String SYNTAX_ERROR                         = "__SyntaxError__";
     String USERAGENT_FIELDNAME                  = "Useragent";
-    String USERAGENT_HEADER                     = "user-agent"; // In LOWER CASE !!
+    String USERAGENT_HEADER                     = "User-Agent";
 
     String NETWORK_TYPE                         = "NetworkType";
 
@@ -284,20 +283,20 @@ public interface UserAgent extends Serializable {
         sb.append("- test:\n");
         sb.append("    input:\n");
 
-        int maxNameLength  = fieldNames.stream().map(String::length).max(Integer::compareTo).orElse(30);
+        int maxNameLength  = fieldNames.stream().map(String::length).max(Integer::compareTo).orElse(0);
         int maxHeaderNameLength = getHeaders().keySet().stream().map(String::length).max(Integer::compareTo).orElse(0);
 
-        maxNameLength = Math.max(30, Math.max(maxNameLength, maxHeaderNameLength));
+        maxNameLength = Math.max(30, Math.max(maxNameLength, maxHeaderNameLength)) + 4;
 
         sb.append("      '").append(capitalizeFully(USERAGENT_HEADER, ' ', '-')).append("'");
-        for (int l = USERAGENT_HEADER.length(); l < maxHeaderNameLength + 6; l++) {
+        for (int l = USERAGENT_HEADER.length(); l < maxNameLength; l++) {
             sb.append(' ');
         }
         sb.append(": '").append(escapeYaml(getUserAgentString())).append("'\n");
         for (Map.Entry<String, String> headerEntry : getHeaders().entrySet()) {
             if (!USERAGENT_HEADER.equals(headerEntry.getKey())) {
                 sb.append("      '").append(escapeYaml(capitalizeFully(headerEntry.getKey(), ' ', '-'))).append("'");
-                for (int l = headerEntry.getKey().length(); l < maxNameLength + 6; l++) {
+                for (int l = headerEntry.getKey().length(); l < maxNameLength; l++) {
                     sb.append(' ');
                 }
                 sb.append(": '").append(escapeYaml(headerEntry.getValue())).append("'\n");
@@ -318,7 +317,7 @@ public interface UserAgent extends Serializable {
         for (String fieldName : fieldNames) {
             AgentField field = get(fieldName);
             sb.append("      ").append(fieldName);
-            for (int l = fieldName.length(); l < maxNameLength + 6; l++) {
+            for (int l = fieldName.length(); l < maxNameLength + 2; l++) {
                 sb.append(' ');
             }
             String value = escapeYaml(field.getValue());
@@ -326,7 +325,7 @@ public interface UserAgent extends Serializable {
 
             if (showConfidence || comments != null) {
                 int l = value.length();
-                for (; l < maxValueLength + 5; l++) {
+                for (; l < maxValueLength + 4; l++) {
                     sb.append(' ');
                 }
                 sb.append("# ");
@@ -555,7 +554,7 @@ public interface UserAgent extends Serializable {
 
     class MutableUserAgent extends UserAgentBaseListener implements UserAgent, Serializable, DefaultANTLRErrorListener {
 
-        private static final Logger LOG                     = LogManager.getLogger(UserAgent.class);
+        private static final Logger LOG = LogManager.getLogger(UserAgent.class);
 
         private static String getDefaultValueForField(String fieldName) {
             if (fieldName.equals(SYNTAX_ERROR)) {
@@ -718,7 +717,7 @@ public interface UserAgent extends Serializable {
         }
 
         public void addHeader(String name, String value) {
-            this.headers.put(name.toLowerCase(Locale.ROOT), value);
+            this.headers.put(name, value);
         }
 
         public void reset() {
@@ -726,9 +725,7 @@ public interface UserAgent extends Serializable {
             hasAmbiguity = false;
             ambiguityCount = 0;
 
-            for (MutableAgentField field : allFields.values()) {
-                field.reset();
-            }
+            allFields.values().forEach(MutableAgentField::reset);
         }
 
         public static boolean isSystemField(String fieldname) {
@@ -882,7 +879,7 @@ public interface UserAgent extends Serializable {
     }
 
     class ImmutableUserAgent implements UserAgent {
-        private Map<String, String>                     headers;
+        private final Map<String, String>               headers;
         private final ImmutableAgentField               userAgentStringField;
         private final Map<String, ImmutableAgentField>  allFields;
         private final List<String>                      availableFieldNamesSorted;
@@ -892,7 +889,7 @@ public interface UserAgent extends Serializable {
         private final int                               ambiguityCount;
 
         public ImmutableUserAgent(UserAgent userAgent) {
-            headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+            headers = new LinkedCaseInsensitiveMap<>();
             headers.putAll(userAgent.getHeaders());
 
             hasSyntaxError = userAgent.hasSyntaxError();

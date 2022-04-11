@@ -74,7 +74,7 @@ public class HumanHtml {
     private static String getMemoryUsage() {
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
-        runtime.gc(); // NOSONAR: We do gc to get a bit more accurate number of the actually memory usage (java:S1215)
+        runtime.gc(); // NOSONAR: We do gc to get a bit more accurate number of the actual memory usage (java:S1215)
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
@@ -152,19 +152,27 @@ public class HumanHtml {
                     sb.append("<hr/>");
                     sb.append("<h2 class=\"title\">The UserAgent</h2>");
                     sb.append("<div class=\"input\">");
-                    sb.append("<p>").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
 
                     if (useClientHints) {
                         sb.append("<table class=\"clientHints\">");
-                        sb.append("<tr><th colspan=2><b><center>[Experimental] Examining the User Agent Client Hints.</center></b></th></tr>");
+                        sb.append("<tr><th colspan=2><b><center>User-Agent and Client Hints</center></b></th></tr>");
                         sb.append("<tr><th>Available Client Hints</th><th>Value</th></tr>");
-                        for (String clientHintHeader : getUserAgentAnalyzer().supportedClientHintHeaders()) {
-                            String value = requestHeaders.get(clientHintHeader);
+                        List<String> showHeaders = new ArrayList<>();
+                        showHeaders.add(USERAGENT_HEADER);
+                        showHeaders.addAll(getUserAgentAnalyzer().supportedClientHintHeaders());
+                        for (String header : showHeaders) {
+                            String value = requestHeaders.get(header);
                             if (value != null) {
-                                sb.append("<tr><td>").append(clientHintHeader).append("</td><td>").append(value).append("</td></tr>");
+                                sb.append("<tr><td>")
+                                    .append(escapeHtml4(header))
+                                    .append("</td><td>")
+                                    .append(escapeHtml4(value))
+                                    .append("</td></tr>");
                             }
                         }
                         sb.append("</table>");
+                    } else {
+                        sb.append("<p>").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
                     }
                     sb.append("</div>");
 
@@ -196,7 +204,7 @@ public class HumanHtml {
 
                         if (!STANDARD_FIELDS.contains(fieldname)) {
                             if (userAgent.get(fieldname).isDefaultValue()) {
-                                // Skip the "non standard" fields that do not have a relevant value.
+                                // Skip the "non-standard" fields that do not have a relevant value.
                                 continue;
                             }
                         }
@@ -271,7 +279,7 @@ public class HumanHtml {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.add("Accept-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
-        responseHeaders.add("Critical-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
+//        responseHeaders.add("Critical-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
 
         return new ResponseEntity<>(sb.toString(), responseHeaders, OK);
     }

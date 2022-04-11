@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -148,8 +149,6 @@ class TestCaching {
                     public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
                         // The Map MUST be synchronized
                         return Collections.synchronizedMap(
-                            // NOTE: A simple HashMap is BAD as it is not cleaned and will grow infinitely towards an OOM.
-                            // This is ONLY for this test.
                             new LRUMap<String, ImmutableUserAgent>(cacheSize) {
                                 @Override
                                 public ImmutableUserAgent get(Object key) {
@@ -187,8 +186,11 @@ class TestCaching {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withCacheInstantiator(
-                cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize))
-            )
+                (CacheInstantiator) size ->
+                    Collections.synchronizedMap(new LRUMap<>(size)))
+            .withClientHintCacheInstantiator(
+                (ClientHintsCacheInstantiator<?>) size ->
+                    Collections.synchronizedMap(new LRUMap<>(size)))
             .withCache(10)
             .hideMatcherLoadStats()
             .build();

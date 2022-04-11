@@ -32,21 +32,20 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 public class ClientHintsHeadersParser implements Serializable {
     public static final Logger LOG = LogManager.getFormatterLogger("CHParser");
 
-    private Map<String, CHParser> parsers;
+    private final Map<String, CHParser> parsers;
     public ClientHintsHeadersParser() {
-        parsers = new TreeMap<>();
+        parsers = new LinkedCaseInsensitiveMap<>();
         addParser(new ParseSecChUa()); // Ordering matters: this and the "Full version list" write to the same fields.
         addParser(new ParseSecChUaArch());
 //        addParser(new ParseSecChUaFullVersion()); // Deprecated header
@@ -56,8 +55,8 @@ public class ClientHintsHeadersParser implements Serializable {
         addParser(new ParseSecChUaPlatform());
         addParser(new ParseSecChUaPlatformVersion());
 
-        // We can parse this but we do not have any use for it right now.
-//        addParser(new ParseSecChUaWoW64());
+        // We can parse this, yet we do not have any use for it right now.
+        addParser(new ParseSecChUaWoW64());
     }
 
     public List<String> supportedClientHintHeaders() {
@@ -65,7 +64,7 @@ public class ClientHintsHeadersParser implements Serializable {
     }
 
     private void addParser(CHParser parser) {
-        String field = parser.inputField().toLowerCase(Locale.ROOT);
+        String field = parser.inputField();
         if (parsers.containsKey(field)) {
             throw new IllegalStateException("We have two parsers for the same field (" + field + "): " +
                 parsers.get(field).getClass().getSimpleName() +
@@ -101,8 +100,8 @@ public class ClientHintsHeadersParser implements Serializable {
 
     /**
      * Tries to find as much usefull information from the client Headers as possible.
-     * @param requestHeaders
-     * @return An instance of ClientHints. possibly without anything in it.
+     * @param requestHeaders The full list of available request headers that may contain some useable Client Hints.
+     * @return An instance of ClientHints. Possibly without anything in it.
      */
     public ClientHints parse(Map<String, String> requestHeaders) {
         ClientHints clientHints = new ClientHints();
@@ -126,7 +125,7 @@ public class ClientHintsHeadersParser implements Serializable {
     private int clientHintsCacheSize;
 
     static class DefaultClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
-        public ConcurrentMap<String, T> instantiateCache(int cacheSize) {
+        public Map<String, T> instantiateCache(int cacheSize) {
             return Caffeine.newBuilder().maximumSize(cacheSize).<String, T>build().asMap();
         }
     }
