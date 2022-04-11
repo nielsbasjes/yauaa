@@ -3,7 +3,7 @@ title = "What to expect"
 weight = 10
 +++
 
-This library extracts as many as possible fields from the provided User-Agent value.
+This library extracts as many as possible fields from the provided User-Agent value and (if available) the provided [Client Hints](https://wicg.github.io/ua-client-hints/).
 
 As an example the useragent of my phone (from a while ago):
 

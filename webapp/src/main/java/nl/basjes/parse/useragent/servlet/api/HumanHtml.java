@@ -25,7 +25,10 @@ import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,6 +47,7 @@ import java.util.Map;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.servlet.ParseService.getInitStartMoment;
 import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzer;
 import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzerFailureMessage;
@@ -52,6 +57,7 @@ import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
+import static org.springframework.http.HttpStatus.OK;
 
 @Tag(name = "Yauaa", description = "Analyzing the useragents")
 @RestController
@@ -68,7 +74,7 @@ public class HumanHtml {
     private static String getMemoryUsage() {
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
-        runtime.gc(); // NOSONAR: We do gc to get a bit more accurate number of the actually memory usage (java:S1215)
+        runtime.gc(); // NOSONAR: We do gc to get a bit more accurate number of the actual memory usage (java:S1215)
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
@@ -81,10 +87,10 @@ public class HumanHtml {
         value = "/",
         produces = MediaType.TEXT_HTML_VALUE
     )
-    public String getHtml(@RequestHeader("User-Agent") String userAgentString,
-                          @RequestParam(name = "ua", required = false) String userAgentStringParam) {
+    public ResponseEntity<String> getHtml(@RequestHeader Map<String, String> requestHeaders,
+                                  @RequestParam(name = "ua", required = false) String userAgentStringParam) {
         if (userAgentStringParam == null || userAgentStringParam.isEmpty()) {
-            return doHTML(userAgentString);
+            return doHTML(requestHeaders);
         } else {
             return doHTML(userAgentStringParam);
         }
@@ -96,13 +102,25 @@ public class HumanHtml {
         consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
         produces = MediaType.TEXT_HTML_VALUE
     )
-    public String getHtmlPOST(@ModelAttribute("useragent") String userAgent) {
+    public ResponseEntity<String> getHtmlPOST(@ModelAttribute("useragent") String userAgent) {
         return doHTML(userAgent);
     }
 
     // ===========================================
 
-    private String doHTML(String userAgentString) {
+    private ResponseEntity<String> doHTML(String userAgentString) {
+        return doHTML(Collections.singletonMap(USERAGENT_HEADER, userAgentString), false);
+    }
+
+    private ResponseEntity<String> doHTML(Map<String, String> rawRequestHeaders) {
+        return doHTML(rawRequestHeaders, true);
+    }
+
+    private ResponseEntity<String> doHTML(Map<String, String> rawRequestHeaders, boolean useClientHints) {
+        LinkedCaseInsensitiveMap<String> requestHeaders = new LinkedCaseInsensitiveMap<>();
+        requestHeaders.putAll(rawRequestHeaders);
+
+        String userAgentString = requestHeaders.get(USERAGENT_HEADER);
         long start      = System.nanoTime();
         long startParse = 0;
         long stopParse  = 0;
@@ -117,24 +135,59 @@ public class HumanHtml {
 
             if (userAgentAnalyzerIsAvailable()) {
                 startParse = System.nanoTime();
-
                 List<UserAgent> userAgents = new ArrayList<>();
-                final List<String> userAgentStrings = splitPerFilledLine(userAgentString);
-                userAgentStrings.forEach(ua -> userAgents.add(getUserAgentAnalyzer().parse(ua)));
+
+                if (useClientHints) {
+                    userAgents.add(getUserAgentAnalyzer().parse(requestHeaders));
+                } else {
+                    final List<String> userAgentStrings = splitPerFilledLine(userAgentString);
+                    for (String ua : userAgentStrings) {
+                        userAgents.add(getUserAgentAnalyzer().parse(ua));
+                    }
+                }
                 stopParse = System.nanoTime();
 
                 for (UserAgent userAgent: userAgents) {
 
                     sb.append("<hr/>");
                     sb.append("<h2 class=\"title\">The UserAgent</h2>");
-                    sb.append("<p class=\"input\">").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
-                    sb
-                        .append("<h2 class=\"title\">The analysis result")
-                        .append(" <a class=\"hideLink\" href=\"?ua=")
-                        .append(URLEncoder.encode(userAgent.getUserAgentString(), "UTF-8"))
-                        // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                        .append("\">\uD83D\uDD17</a>")
-                        .append("</h2>");
+                    sb.append("<div class=\"input\">");
+
+                    if (useClientHints) {
+                        sb.append("<table class=\"clientHints\">");
+                        sb.append("<tr><th colspan=2><b><center>User-Agent and Client Hints</center></b></th></tr>");
+                        sb.append("<tr><th>Available Client Hints</th><th>Value</th></tr>");
+                        List<String> showHeaders = new ArrayList<>();
+                        showHeaders.add(USERAGENT_HEADER);
+                        showHeaders.addAll(getUserAgentAnalyzer().supportedClientHintHeaders());
+                        for (String header : showHeaders) {
+                            String value = requestHeaders.get(header);
+                            if (value != null) {
+                                sb.append("<tr><td>")
+                                    .append(escapeHtml4(header))
+                                    .append("</td><td>")
+                                    .append(escapeHtml4(value))
+                                    .append("</td></tr>");
+                            }
+                        }
+                        sb.append("</table>");
+                    } else {
+                        sb.append("<p>").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
+                    }
+                    sb.append("</div>");
+
+                    sb.append("<h2 class=\"title\">The analysis result");
+                    if (useClientHints) {
+                        sb
+                            .append(" (improved with ClientHints where possible)");
+                    } else {
+                        sb
+                            .append(" <a class=\"hideLink\" href=\"?ua=")
+                            .append(URLEncoder.encode(userAgent.getUserAgentString(), "UTF-8"))
+                            // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
+                            .append("\">\uD83D\uDD17</a>");
+                    }
+                    sb.append("</h2>");
 
                     List<String> tags = getTags(userAgent);
                     sb.append("<p class=\"tags\">")
@@ -151,7 +204,7 @@ public class HumanHtml {
 
                         if (!STANDARD_FIELDS.contains(fieldname)) {
                             if (userAgent.get(fieldname).isDefaultValue()) {
-                                // Skip the "non standard" fields that do not have a relevant value.
+                                // Skip the "non-standard" fields that do not have a relevant value.
                                 continue;
                             }
                         }
@@ -223,7 +276,12 @@ public class HumanHtml {
 
             htmlFooter(sb);
         }
-        return sb.toString();
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Accept-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
+//        responseHeaders.add("Critical-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
+
+        return new ResponseEntity<>(sb.toString(), responseHeaders, OK);
     }
 
     private void stillStartingUp(StringBuilder sb) {

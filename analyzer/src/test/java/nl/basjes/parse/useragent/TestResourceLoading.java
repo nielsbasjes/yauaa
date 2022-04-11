@@ -117,6 +117,23 @@ class TestResourceLoading {
     }
 
     @Test
+    void checkAllFieldsCallsAfterLoadingAdditionalResourceDuringBuildUnsorted() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .dropDefaultResources()
+            .addResources("classpath*:AllSteps.yaml")
+            .addResources("CompanyInternalUserAgents.yaml")
+            .build();
+
+        Set<String> fieldSet = uaa.getAllPossibleFieldNames();
+
+        List<String> extraFields = new ArrayList<>();
+        Collections.addAll(extraFields, "ApplicationName", "ApplicationVersion", "ApplicationInstance", "ApplicationGitCommit", "ServerName");
+
+        assertTrue(fieldSet.containsAll(extraFields));
+    }
+
+    @Test
     void checkAllFieldsCallsAfterLoadingAdditionalResourceUnsorted() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
@@ -147,12 +164,12 @@ class TestResourceLoading {
             .addResources("classpath*:AllSteps.yaml")
             .build();
 
-        uaa.finalizeLoadingRules();
+//        uaa.getMatchMaker().finalizeLoadingRules();
         List<String> fieldList1 = uaa.getAllPossibleFieldNamesSorted();
 
         uaa.loadResources("CompanyInternalUserAgents.yaml");
 
-        uaa.finalizeLoadingRules();
+//        uaa.getMatchMaker().finalizeLoadingRules();
         List<String> fieldList2 = uaa.getAllPossibleFieldNamesSorted();
 
         List<String> extraFields = new ArrayList<>();

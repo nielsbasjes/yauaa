@@ -17,14 +17,16 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
-import nl.basjes.parse.useragent.config.TestCase;
+import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,8 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.MAX_PREFIX_HASH_MATCH;
-import static nl.basjes.parse.useragent.UserAgentAnalyzerDirect.firstCharactersForPrefixHash;
+import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.MAX_PREFIX_HASH_MATCH;
+import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.firstCharactersForPrefixHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -442,26 +444,22 @@ class TestTreewalkerRequire {
         assertNull(step);
     }
 
-    public static class TestAnalyzer implements Analyzer {
+    public static class TestAnalyzer implements Analyzer, MatchMaker {
+        private final AnalyzerConfig config;
 
-        private final Map<String, Map<String, String>> lookups;
-        private final Map<String, Set<String>> lookupSets;
-
+        @Nonnull
         @Override
-        public Map<String, Map<String, String>> getLookups() {
-            return lookups;
-        }
-
-        @Override
-        public Map<String, Set<String>> getLookupSets() {
-            return lookupSets;
+        public AnalyzerConfig getConfig() {
+            return config;
         }
 
         TestAnalyzer(Map<String, Map<String, String>> lookups, Map<String, Set<String>> lookupSets) {
-            this.lookups = lookups;
-            this.lookupSets = lookupSets;
+            config = AnalyzerConfig
+                .newBuilder()
+                .putLookups(lookups)
+                .putLookupSets(lookupSets)
+                .build();
         }
-
 
         @Override
         public void inform(String path, String value, ParseTree ctx) {
@@ -492,12 +490,6 @@ class TestTreewalkerRequire {
         @Override
         public Set<Integer> getRequiredPrefixLengths(String treeName) {
             return Collections.emptySet();
-        }
-
-        @Override
-        public List<TestCase> getTestCases() {
-            // Never called
-            return Collections.emptyList();
         }
     }
 

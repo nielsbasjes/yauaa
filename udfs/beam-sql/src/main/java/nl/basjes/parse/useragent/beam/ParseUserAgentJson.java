@@ -56,6 +56,6 @@ public class ParseUserAgentJson extends BaseParseUserAgentUDF {
 
             return agent.toJson(fieldList);
         }
-        return agent.toJson();
+        return agent.toJson(getAllFields());
     }
 }

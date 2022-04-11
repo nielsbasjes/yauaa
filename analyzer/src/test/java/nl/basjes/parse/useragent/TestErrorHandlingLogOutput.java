@@ -17,9 +17,9 @@
 
 package nl.basjes.parse.useragent;
 
-import nl.basjes.parse.useragent.debug.AbstractUserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.debug.DebugUserAgent;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
+import nl.basjes.parse.useragent.debug.UserAgentStringMatchMakerTester;
 import nl.basjes.parse.useragent.utils.LogMessagesScraper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +37,7 @@ class TestErrorHandlingLogOutput {
     @RegisterExtension
     private final LogMessagesScraper logMessages = new LogMessagesScraper(
         DebugUserAgent.class,
-        AbstractUserAgentAnalyzerTester.class
+        UserAgentStringMatchMakerTester.class
     );
 
     @Test

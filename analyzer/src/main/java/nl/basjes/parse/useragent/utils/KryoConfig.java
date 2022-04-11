@@ -21,8 +21,9 @@ import com.esotericsoftware.kryo.Kryo;
 import nl.basjes.collections.prefixmap.StringPrefixMap;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
 import nl.basjes.parse.useragent.AgentField;
+import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.analyze.Analyzer;
+import nl.basjes.parse.useragent.analyze.MatchMaker;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.analyze.MatcherAction;
 import nl.basjes.parse.useragent.analyze.MatcherExtractAction;
@@ -31,6 +32,7 @@ import nl.basjes.parse.useragent.analyze.MatcherList;
 import nl.basjes.parse.useragent.analyze.MatcherRequireAction;
 import nl.basjes.parse.useragent.analyze.MatcherVariableAction;
 import nl.basjes.parse.useragent.analyze.MatchesList;
+import nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
@@ -76,10 +78,12 @@ import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,9 +129,12 @@ public final class KryoConfig {
         kryo.register(HashMap.class);
         kryo.register(TreeSet.class);
         kryo.register(TreeMap.class);
+        kryo.register(LinkedCaseInsensitiveMap.class);
 
         // This class
         kryo.register(AbstractUserAgentAnalyzerDirect.class);
+
+        ClientHintsAnalyzer.configureKryo(kryo);
 
         // The config classes
         kryo.register(MatcherConfig.class);
@@ -143,6 +150,9 @@ public final class KryoConfig {
         kryo.register(AgentField.ImmutableAgentField.class);
         kryo.register(UserAgent.MutableUserAgent.class);
         kryo.register(AgentField.MutableAgentField.class);
+
+        kryo.register(MatchMaker.class);
+        kryo.register(UserAgentStringMatchMaker.class);
 
         kryo.register(Matcher.class);
         kryo.register(Matcher.MatcherDemotedExtractAction.class);

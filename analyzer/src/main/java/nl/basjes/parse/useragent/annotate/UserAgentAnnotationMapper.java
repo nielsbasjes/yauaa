@@ -17,6 +17,17 @@
 
 package nl.basjes.parse.useragent.annotate;
 
+import java.util.Collections;
+import java.util.Map;
+
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
+
 public interface UserAgentAnnotationMapper<T> {
-    String getUserAgentString(T record);
+    default String getUserAgentString(T element) {
+        return null;
+    }
+
+    default Map<String, String> getRequestHeaders(T element) {
+        return Collections.singletonMap(USERAGENT_HEADER, getUserAgentString(element));
+    }
 }

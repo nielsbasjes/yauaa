@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -110,9 +111,8 @@ class TestPredefinedBrowsers {
             .map(testCase -> testCase.verify(uaa))
             .collect(Collectors.toList());
 
-        assertEquals(0, testResults.stream()
-                .filter(TestResult::testFailed)
-                .count());
+        List<TestResult> failedTests = testResults.stream().filter(TestResult::testFailed).collect(Collectors.toList());
+        assertEquals(0, failedTests.size(), failedTests.toString());
 
         long totalDurationNS = testResults.stream()
             .map(TestResult::getParseDurationNS)
@@ -169,7 +169,9 @@ class TestPredefinedBrowsers {
         Map<String, List<String>> allTestInputs = new HashMap<>(2000);
         Set<String> duplicates = new HashSet<>();
         for (TestCase testCase: uaa.getTestCases()) {
-            String input = testCase.getUserAgent();
+
+            Map<String, String> inputHeaders = new TreeMap<>(testCase.getHeaders());
+            String input = inputHeaders.toString();
             String location = testCase.getMetadata().get("filename") + ":" + testCase.getMetadata().get("fileline");
             List<String> locations = allTestInputs.get(input);
             if (locations == null) {

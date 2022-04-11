@@ -17,7 +17,8 @@
 
 package org.elasticsearch.plugin.ingest.yauaa;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
@@ -98,7 +99,10 @@ public class YauaaProcessor extends AbstractProcessor {
                 //         at com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue.<clinit>(MpscGrowableArrayQueue.java:662)
                 // ...
                 .withCacheInstantiator(
-                    (AbstractUserAgentAnalyzer.CacheInstantiator) size ->
+                    (CacheInstantiator) size ->
+                        Collections.synchronizedMap(new LRUMap<>(size)))
+                .withClientHintCacheInstantiator(
+                    (ClientHintsCacheInstantiator<?>) size ->
                         Collections.synchronizedMap(new LRUMap<>(size)));
 
             if (cacheSize >= 0) {

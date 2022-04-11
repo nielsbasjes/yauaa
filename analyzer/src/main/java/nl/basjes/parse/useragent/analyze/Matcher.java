@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine;
@@ -40,7 +39,7 @@ import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 public class Matcher implements Serializable {
     private static final Logger LOG = LogManager.getLogger(Matcher.class);
 
-    private final Analyzer analyzer;
+    private final MatchMaker analyzer;
     private final List<MatcherVariableAction> variableActions;
     private final List<MatcherAction> dynamicActions;
     private final List<MatcherAction> fixedStringActions;
@@ -76,7 +75,7 @@ public class Matcher implements Serializable {
     }
 
     // Package private constructor for testing purposes only
-    Matcher(Analyzer analyzer) {
+    Matcher(MatchMaker analyzer) {
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();
@@ -99,7 +98,7 @@ public class Matcher implements Serializable {
         return analyzer.getLookupSets();
     }
 
-    public Matcher(Analyzer analyzer,
+    public Matcher(MatchMaker analyzer,
                    Collection<String> wantedFieldNames,
                    MatcherConfig matcherConfig) throws UselessMatcherException {
         this.analyzer = analyzer;
@@ -151,7 +150,7 @@ public class Matcher implements Serializable {
 
                         // Make sure the field actually exists
                         newValuesUserAgent.set(configLine.getAttribute(), "Dummy", -9999);
-                        action.setResultAgentField((AgentField.MutableAgentField) newValuesUserAgent.get(configLine.getAttribute()));
+                        action.setResultAgentField(newValuesUserAgent.get(configLine.getAttribute()));
 
                         hasActiveExtractConfigs = true;
                     } else {
