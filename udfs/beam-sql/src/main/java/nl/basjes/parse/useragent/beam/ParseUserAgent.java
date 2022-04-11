@@ -56,6 +56,6 @@ public class ParseUserAgent extends BaseParseUserAgentUDF {
 
             return agent.toMap(fieldList);
         }
-        return agent.toMap();
+        return agent.toMap(getAllFields());
     }
 }

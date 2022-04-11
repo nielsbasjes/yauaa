@@ -95,6 +95,25 @@ public interface AgentField extends Serializable {
             reset();
         }
 
+        MutableAgentField(AgentField agentField) {
+            if (agentField instanceof MutableAgentField) {
+                this.defaultValue = ((MutableAgentField)agentField).defaultValue;
+                this.value        = ((MutableAgentField)agentField).value;
+                this.confidence   = ((MutableAgentField)agentField).confidence;
+                return;
+            }
+
+            if (agentField instanceof ImmutableAgentField) {
+                this.defaultValue = ((ImmutableAgentField)agentField).defaultValue;
+                this.value        = ((ImmutableAgentField)agentField).value;
+                this.confidence   = ((ImmutableAgentField)agentField).confidence;
+                return;
+            }
+            this.defaultValue = agentField.getDefaultValue();
+            this.value        = agentField.getValue();
+            this.confidence   = agentField.getConfidence();
+        }
+
         public void reset() {
             value = null;
             confidence = -1;
@@ -172,15 +191,28 @@ public interface AgentField extends Serializable {
             this.defaultValue = defaultValue;
         }
 
-        public ImmutableAgentField(MutableAgentField agentField) {
-            value = agentField.getValue();
-            confidence = agentField.getConfidence();
+        public ImmutableAgentField(AgentField agentField) {
             isDefaultValue = agentField.isDefaultValue();
-            defaultValue = agentField.getDefaultValue();
+            if (agentField instanceof MutableAgentField) {
+                value          = ((MutableAgentField)agentField).value;
+                confidence     = ((MutableAgentField)agentField).confidence;
+                defaultValue   = ((MutableAgentField)agentField).defaultValue;
+                return;
+            }
+            if (agentField instanceof ImmutableAgentField) {
+                value          = ((ImmutableAgentField)agentField).value;
+                confidence     = ((ImmutableAgentField)agentField).confidence;
+                defaultValue   = ((ImmutableAgentField)agentField).defaultValue;
+                return;
+            }
+            throw new IllegalArgumentException("We do not know this subclass of AgentField");
         }
 
         @Override
         public String getValue() {
+            if (value == null) {
+                return defaultValue;
+            }
             return value;
         }
 

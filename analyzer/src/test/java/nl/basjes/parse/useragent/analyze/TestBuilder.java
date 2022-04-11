@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect;
+import nl.basjes.parse.useragent.Analyzer;
 import nl.basjes.parse.useragent.PreHeatCases;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
@@ -84,11 +84,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 // CHECKSTYLE.OFF: ParenPad
 class TestBuilder {
 
-    private void runTestCase(AbstractUserAgentAnalyzerDirect userAgentAnalyzer) {
-        UserAgent parsedAgent = userAgentAnalyzer.parse("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
-            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36");
+    private void runTestCase(Analyzer userAgentAnalyzer) {
+
+        String userAgentString = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
+        UserAgent parsedAgent = userAgentAnalyzer.parse(userAgentString);
 
         LogManager.getLogger(TestBuilder.class).info("{}", parsedAgent.toYamlTestCase(true));
+
+        // The original input
+        assertEquals(userAgentString,            parsedAgent.getUserAgentString());
 
         // The requested fields
         assertEquals("Phone",                    parsedAgent.getValue("DeviceClass"              )); // Phone
@@ -107,20 +112,25 @@ class TestBuilder {
         assertEquals("Google",                   parsedAgent.getValue("DeviceBrand"              )); // Google
 
         // The rest must be the default value (i.e. no rules fired)
-        assertTrue(parsedAgent.get("DeviceName"                   ).isDefaultValue()); // Nexus 6
-        assertTrue(parsedAgent.get("OperatingSystemClass"         ).isDefaultValue()); // Mobile
-        assertTrue(parsedAgent.get("OperatingSystemName"          ).isDefaultValue()); // Android
-        assertTrue(parsedAgent.get("OperatingSystemVersion"       ).isDefaultValue()); // 7.0
-        assertTrue(parsedAgent.get("OperatingSystemNameVersion"   ).isDefaultValue()); // Android 7.0
-        assertTrue(parsedAgent.get("OperatingSystemVersionBuild"  ).isDefaultValue()); // NBD90Z
-        assertTrue(parsedAgent.get("LayoutEngineClass"            ).isDefaultValue()); // Browser
-        assertTrue(parsedAgent.get("LayoutEngineName"             ).isDefaultValue()); // Blink
-        assertTrue(parsedAgent.get("LayoutEngineVersion"          ).isDefaultValue()); // 53.0
-        assertTrue(parsedAgent.get("LayoutEngineVersionMajor"     ).isDefaultValue()); // 53
-        assertTrue(parsedAgent.get("LayoutEngineNameVersion"      ).isDefaultValue()); // Blink 53.0
-        assertTrue(parsedAgent.get("LayoutEngineNameVersionMajor" ).isDefaultValue()); // Blink 53
-        assertTrue(parsedAgent.get("AgentClass"                   ).isDefaultValue()); // Browser
-        assertTrue(parsedAgent.get("AgentNameVersion"             ).isDefaultValue()); // Chrome 53.0.2785.124
+        shouldBeDefaultValue(parsedAgent, "DeviceName"                   ); // Nexus 6
+        shouldBeDefaultValue(parsedAgent, "OperatingSystemClass"         ); // Mobile
+        shouldBeDefaultValue(parsedAgent, "OperatingSystemName"          ); // Android
+        shouldBeDefaultValue(parsedAgent, "OperatingSystemVersion"       ); // 7.0
+        shouldBeDefaultValue(parsedAgent, "OperatingSystemNameVersion"   ); // Android 7.0
+        shouldBeDefaultValue(parsedAgent, "OperatingSystemVersionBuild"  ); // NBD90Z
+        shouldBeDefaultValue(parsedAgent, "LayoutEngineClass"            ); // Browser
+        shouldBeDefaultValue(parsedAgent, "LayoutEngineName"             ); // Blink
+        shouldBeDefaultValue(parsedAgent, "LayoutEngineVersion"          ); // 53.0
+        shouldBeDefaultValue(parsedAgent, "LayoutEngineVersionMajor"     ); // 53
+        shouldBeDefaultValue(parsedAgent, "LayoutEngineNameVersion"      ); // Blink 53.0
+        shouldBeDefaultValue(parsedAgent, "LayoutEngineNameVersionMajor" ); // Blink 53
+        shouldBeDefaultValue(parsedAgent, "AgentClass"                   ); // Browser
+        shouldBeDefaultValue(parsedAgent, "AgentNameVersion"             ); // Chrome 53.0.2785.124
+    }
+
+    private void shouldBeDefaultValue(UserAgent parsedAgent, String fieldName) {
+        assertTrue(parsedAgent.get(fieldName).isDefaultValue(),
+            "Unexpected value for \"" + fieldName + "\"");
     }
 
     @Test
@@ -370,13 +380,13 @@ class TestBuilder {
         return new TreeSet<>(Arrays.asList(names));
     }
 
-    private static final String TEST_UA = "Mozilla/5.0 (SM-123) Niels Basjes/42";
+    private static final String TEST_UA = "Mozilla/5.0 (SM-123) Niels Basjes/42 (https://yauaa.basjes.nl)";
 
     @Test
     void testWantedFieldNamesAll() {
         UserAgentAnalyzer uaa = createWithWantedFieldNames();
         assertNull(uaa.getWantedFieldNames());
-        Set<String> expectedFields = fields(
+        Set<String> expectedPossibleFields = fields(
             SYNTAX_ERROR,
             DEVICE_CLASS,
             DEVICE_BRAND,
@@ -432,15 +442,46 @@ class TestBuilder {
         );
         // We only specify a subset of all fields to test for because otherwise each new field will fail this test.
         List<String> allPossibleFieldNames = uaa.getAllPossibleFieldNamesSorted();
-        for (String expectedField : expectedFields) {
+        for (String expectedField : expectedPossibleFields) {
             assertTrue(allPossibleFieldNames.contains(expectedField), "Missing field: " + expectedField);
         }
 
         UserAgent userAgent = uaa.parse(TEST_UA);
         List<String> available = userAgent.getAvailableFieldNamesSorted();
 
+        Set<String> expectedAvailableFields = fields(
+            SYNTAX_ERROR,
+            DEVICE_CLASS,
+            DEVICE_BRAND,
+            DEVICE_NAME,
+            OPERATING_SYSTEM_CLASS,
+            OPERATING_SYSTEM_NAME,
+            OPERATING_SYSTEM_VERSION,
+            OPERATING_SYSTEM_VERSION_MAJOR,
+            OPERATING_SYSTEM_NAME_VERSION,
+            OPERATING_SYSTEM_NAME_VERSION_MAJOR,
+            LAYOUT_ENGINE_CLASS,
+            LAYOUT_ENGINE_NAME,
+            LAYOUT_ENGINE_VERSION,
+            LAYOUT_ENGINE_VERSION_MAJOR,
+            LAYOUT_ENGINE_NAME_VERSION,
+            LAYOUT_ENGINE_NAME_VERSION_MAJOR,
+            AGENT_CLASS,
+            AGENT_NAME,
+            AGENT_VERSION,
+            AGENT_VERSION_MAJOR,
+            AGENT_NAME_VERSION,
+            AGENT_NAME_VERSION_MAJOR,
+            AGENT_INFORMATION_URL,
+            AGENT_NAME,
+            AGENT_NAME_VERSION,
+            AGENT_NAME_VERSION_MAJOR,
+            AGENT_VERSION,
+            AGENT_VERSION_MAJOR
+        );
+
         // We only specify a subset of all fields to test for because otherwise each new field will fail this test.
-        for (String expectedField : expectedFields) {
+        for (String expectedField : expectedAvailableFields) {
             assertTrue(available.contains(expectedField), "Missing field: " + expectedField);
         }
     }

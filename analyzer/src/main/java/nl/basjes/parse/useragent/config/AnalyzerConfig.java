@@ -26,8 +26,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+
+import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.DEFAULT_USER_AGENT_MAX_LENGTH;
 
 public final class AnalyzerConfig implements Serializable {
+
+    // If we want ALL fields this is null. If we only want specific fields this is a list of names.
+    private Set<String> wantedFieldNames = null; // NOSONAR: Only accessed via Builder.
 
     // file+line number --> Config at that location
     private final Map<String, MatcherConfig> matcherConfigs = new LinkedHashMap<>();
@@ -36,6 +42,8 @@ public final class AnalyzerConfig implements Serializable {
 
     // Lookup SET name --> values of this set
     private final Map<String, Set<String>> lookupSets = new LinkedHashMap<>(128);
+
+    private int userAgentMaxLength = -1;
 
     private final List<TestCase> testCases = new ArrayList<>(8192);
 
@@ -51,6 +59,22 @@ public final class AnalyzerConfig implements Serializable {
         lookups         .putAll(additionalConfig.lookups);
         lookupSets      .putAll(additionalConfig.lookupSets);
         matcherConfigs  .putAll(additionalConfig.matcherConfigs);
+        if (additionalConfig.userAgentMaxLength >= 0) {
+            userAgentMaxLength = Math.min(userAgentMaxLength, additionalConfig.userAgentMaxLength);
+        }
+        if (additionalConfig.wantedFieldNames == null) {
+            wantedFieldNames = null;
+        } else {
+            if (wantedFieldNames == null) {
+                wantedFieldNames = new TreeSet<>(additionalConfig.wantedFieldNames);
+            } else {
+                wantedFieldNames.addAll(additionalConfig.wantedFieldNames);
+            }
+        }
+    }
+
+    public Set<String> getWantedFieldNames() {
+        return wantedFieldNames;
     }
 
     public Map<String, MatcherConfig> getMatcherConfigs() {
@@ -67,6 +91,28 @@ public final class AnalyzerConfig implements Serializable {
 
     public List<TestCase> getTestCases() {
         return testCases;
+    }
+
+    public int getUserAgentMaxLength() {
+        return userAgentMaxLength;
+    }
+
+    public AnalyzerConfig setUserAgentMaxLength(int newUserAgentMaxLength) {
+        if (newUserAgentMaxLength < 0) {
+            this.userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
+        } else {
+            this.userAgentMaxLength = newUserAgentMaxLength;
+        }
+        return this;
+    }
+
+    public AnalyzerConfig wantedFieldNames(Set<String> newWantedFieldNames) {
+        if (newWantedFieldNames == null || newWantedFieldNames.isEmpty()) {
+            this.wantedFieldNames = null;
+        } else {
+            this.wantedFieldNames = new TreeSet<>(newWantedFieldNames);
+        }
+        return this;
     }
 
     public static class AnalyzerConfigBuilder {
@@ -93,8 +139,18 @@ public final class AnalyzerConfig implements Serializable {
          * @param name   The name of the lookup
          * @param values The additional keys and values for this lookup.
          */
-        public void putLookup(String name, Map<String, String> values) {
+        public AnalyzerConfigBuilder putLookup(String name, Map<String, String> values) {
             analyzerConfig.lookups.put(name, values);
+            return this;
+        }
+
+        /**
+         * @param newLookups The additional lookups.
+         */
+        public AnalyzerConfigBuilder putLookups(Map<String, Map<String, String>> newLookups) {
+            // FIXME: Handle lookupnames that already exist
+            analyzerConfig.lookups.putAll(newLookups);
+            return this;
         }
 
         /**
@@ -102,18 +158,28 @@ public final class AnalyzerConfig implements Serializable {
          * @param name The name of the lookup
          * @param lookupNames The names of the lookups that must be added to the specified lookup.
          */
-        public void putLookupMerges(String name, Set<String> lookupNames) {
+        public AnalyzerConfigBuilder putLookupMerges(String name, Set<String> lookupNames) {
             lookupMerge.put(name, lookupNames);
+            return this;
         }
-
 
         /**
          * Store the keys and values.
          * @param name   The name of the lookupSet
          * @param values The additional keys and values for this lookup.
          */
-        public void putLookupSet(String name, Set<String> values) {
+        public AnalyzerConfigBuilder putLookupSets(String name, Set<String> values) {
             analyzerConfig.lookupSets.put(name, values);
+            return this;
+        }
+
+        /**
+         * @param newLookupSets The additional lookup sets.
+         */
+        public AnalyzerConfigBuilder putLookupSets(Map<String, Set<String>> newLookupSets) {
+            // FIXME: Handle lookupnames that already exist
+            analyzerConfig.lookupSets.putAll(newLookupSets);
+            return this;
         }
 
         /**
@@ -121,16 +187,24 @@ public final class AnalyzerConfig implements Serializable {
          * @param name The name of the lookupSet
          * @param setNames The names of the lookupSets that must be added to the specified lookupSet.
          */
-        public void putLookupSetsMerges(String name, Set<String> setNames) {
+        public AnalyzerConfigBuilder putLookupSetsMerges(String name, Set<String> setNames) {
             lookupSetMerge.put(name, setNames);
+            return this;
         }
 
-        public void clearAllTestCases() {
+        public AnalyzerConfigBuilder clearAllTestCases() {
             analyzerConfig.testCases.clear();
+            return this;
         }
 
-        public void addTestCase(TestCase testCase) {
+        public AnalyzerConfigBuilder addTestCase(TestCase testCase) {
             analyzerConfig.testCases.add(testCase);
+            return this;
+        }
+
+        public AnalyzerConfigBuilder withUserAgentMaxLength(int userAgentMaxLength) {
+            analyzerConfig.userAgentMaxLength = userAgentMaxLength;
+            return this;
         }
 
         public AnalyzerConfig build() {
@@ -192,9 +266,10 @@ public final class AnalyzerConfig implements Serializable {
     public String toString() {
         return "AnalyzerConfig {\n" +
             "   matcherConfigs=" + matcherConfigs + ",\n" +
-            "   lookups=" + lookups + ",\n" +
-            "   lookupSets=" + lookupSets + ",\n" +
-            "   testCases=" + testCases +
+            "   lookups=" + lookups.size() + ",\n" +
+            "   lookupSets=" + lookupSets.size() + ",\n" +
+            "   testCases=" + testCases.size()  + ",\n" +
+            "   userAgentMaxLength=" + userAgentMaxLength + ",\n" +
             "\n}";
     }
 }

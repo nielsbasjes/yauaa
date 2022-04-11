@@ -31,7 +31,9 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,7 +73,7 @@ class TestUseragent {
         assertEquals(-1, agent.getConfidence("UnknownOne").longValue());
         agent.set("UnknownOne", "One", 111);
         check(agent, "UnknownOne", "One", 111);
-        ((MutableAgentField)agent.get("UnknownOne")).reset();
+        agent.get("UnknownOne").reset();
         check(agent, "UnknownOne", "Unknown", -1);
 
         // Setting unknown new attributes FORCED
@@ -80,21 +82,21 @@ class TestUseragent {
         assertEquals(-1, agent.getConfidence("UnknownTwo").longValue());
         agent.setForced("UnknownTwo", "Two", 222);
         check(agent, "UnknownTwo", "Two", 222);
-        ((MutableAgentField)agent.get("UnknownTwo")).reset();
+        agent.get("UnknownTwo").reset();
         check(agent, "UnknownTwo", "Unknown", -1);
 
         // Setting known attributes
         check(agent, "AgentClass", "Unknown", -1);
         agent.set("AgentClass", "One", 111);
         check(agent, "AgentClass", "One", 111);
-        ((MutableAgentField)agent.get("AgentClass")).reset();
+        agent.get("AgentClass").reset();
         check(agent, "AgentClass", "Unknown", -1);
 
         // Setting known attributes FORCED
         check(agent, "AgentVersion", "??", -1);
         agent.setForced("AgentVersion", "Two", 222);
         check(agent, "AgentVersion", "Two", 222);
-        ((MutableAgentField)agent.get("AgentVersion")).reset();
+        agent.get("AgentVersion").reset();
         check(agent, "AgentVersion", "??", -1);
 
         agent.set(name, "One", 111);
@@ -122,7 +124,7 @@ class TestUseragent {
         agent.set(name, "Three", 333); // Should be used
         check(agent, name, "Three", 333);
 
-        MutableAgentField field = (MutableAgentField) agent.get(name);
+        MutableAgentField field = agent.get(name);
         field.setValueForced("Five", 5); // Should be used
         check(agent, name, "Five", 5);
         field.setValueForced("<<<null>>>", 4); // Should be used
@@ -160,7 +162,7 @@ class TestUseragent {
 
     @Test
     void testCopying() {
-        MutableAgentField origNull = new MutableAgentField(null);
+        MutableAgentField origNull = new MutableAgentField((String)null);
         origNull.setValue("One", 1);
         MutableAgentField copyNull = new MutableAgentField("Foo"); // Different default!
         assertTrue(copyNull.setValue(origNull));
@@ -174,7 +176,7 @@ class TestUseragent {
 
         MutableAgentField origFoo = new MutableAgentField("Foo");
         origFoo.setValue("Two", 2);
-        MutableAgentField copyFoo = new MutableAgentField(null); // Different default!
+        MutableAgentField copyFoo = new MutableAgentField((String)null); // Different default!
         copyFoo.setValue(origFoo);
 
         assertEquals("Two", copyFoo.getValue());
@@ -182,6 +184,55 @@ class TestUseragent {
         copyFoo.reset();
         assertNull(copyFoo.getValue()); // The default should NOT be modified
         assertEquals(-1, copyFoo.getConfidence());
+    }
+
+    @Test
+    void testCopying2() {
+        MutableUserAgent mutableUserAgent = new MutableUserAgent("Agent");
+        mutableUserAgent.addHeader("Header One", "One");
+        mutableUserAgent.set("Field One", "Value One", 1);
+        mutableUserAgent.set("Field Two", "Value Two", 2);
+
+        assertEquals(2,              mutableUserAgent.getHeaders().values().size());
+        assertEquals("Agent",        mutableUserAgent.getHeaders().get("User-Agent"));
+        assertEquals("Agent",        mutableUserAgent.getHeaders().get("User-Agent"));
+        assertEquals("One",          mutableUserAgent.getHeaders().get("Header One"));
+        assertEquals("One",          mutableUserAgent.getHeaders().get("Header One"));
+
+        assertEquals("Value One",    mutableUserAgent.getValue("Field One"));
+        assertEquals("Value Two",    mutableUserAgent.getValue("Field Two"));
+        assertEquals(1,              mutableUserAgent.getConfidence("Field One"));
+        assertEquals(2,              mutableUserAgent.getConfidence("Field Two"));
+
+        assertEquals(mutableUserAgent, mutableUserAgent);
+
+        ImmutableUserAgent immutableUserAgent = new ImmutableUserAgent(mutableUserAgent);
+        assertEquals(mutableUserAgent, immutableUserAgent);
+
+        assertEquals(2,              immutableUserAgent.getHeaders().values().size());
+        assertEquals("Agent",        immutableUserAgent.getHeaders().get("User-Agent"));
+        assertEquals("Agent",        immutableUserAgent.getHeaders().get("uSeR-aGeNt"));
+        assertEquals("One",          immutableUserAgent.getHeaders().get("Header One"));
+        assertEquals("One",          immutableUserAgent.getHeaders().get("hEaDeR oNe"));
+
+        assertEquals("Value One",    immutableUserAgent.getValue("Field One"));
+        assertEquals("Value Two",    immutableUserAgent.getValue("Field Two"));
+        assertEquals(1,              immutableUserAgent.getConfidence("Field One"));
+        assertEquals(2,              immutableUserAgent.getConfidence("Field Two"));
+
+        MutableUserAgent mutableUserAgent2 = new MutableUserAgent(immutableUserAgent);
+        assertEquals(mutableUserAgent2, immutableUserAgent);
+
+        assertEquals(2,              mutableUserAgent2.getHeaders().values().size());
+        assertEquals("Agent",        mutableUserAgent2.getHeaders().get("User-Agent"));
+        assertEquals("Agent",        mutableUserAgent2.getHeaders().get("uSeR-aGeNt"));
+        assertEquals("One",          mutableUserAgent2.getHeaders().get("Header One"));
+        assertEquals("One",          mutableUserAgent2.getHeaders().get("hEaDeR oNe"));
+
+        assertEquals("Value One",    mutableUserAgent2.getValue("Field One"));
+        assertEquals("Value Two",    mutableUserAgent2.getValue("Field Two"));
+        assertEquals(1,              mutableUserAgent2.getConfidence("Field One"));
+        assertEquals(2,              mutableUserAgent2.getConfidence("Field Two"));
     }
 
     @Test
@@ -205,7 +256,7 @@ class TestUseragent {
         MutableAgentField field3 = new MutableAgentField("Foo"); // Same, different confidence
         field3.setValue("One", 2);
 
-        MutableAgentField field4 = new MutableAgentField(null); // Same, different default
+        MutableAgentField field4 = new MutableAgentField((String)null); // Same, different default
         field4.setValue("One", 1);
 
         // We compare the base agent with 4 variations
@@ -217,7 +268,7 @@ class TestUseragent {
         mutableAgent4.setImmediateForTesting("Field", field4); // Different field default value
 
         // Check em
-        assertEquals(baseAgent, baseAgent);
+        assertEquals(baseAgent, baseAgent); // Ensure that equals on the same results in true
         assertEquals(baseAgent, mutableAgent0);
         assertEquals(mutableAgent0, baseAgent);
         assertEquals(baseAgent.hashCode(), mutableAgent0.hashCode());
@@ -287,7 +338,7 @@ class TestUseragent {
         MutableAgentField field3 = new MutableAgentField("Foo"); // Same, different confidence
         field3.setValue("One", 2);
 
-        MutableAgentField field4 = new MutableAgentField(null); // Same, different default
+        MutableAgentField field4 = new MutableAgentField((String)null); // Same, different default
         field4.setValue("One", 1);
 
         // This is mainly used when rendering in a debugger.
@@ -319,13 +370,13 @@ class TestUseragent {
     @Test
     void fullToString() {
         MutableUserAgent userAgent1 = new MutableUserAgent("Some'Agent");
-        ((MutableAgentField)userAgent1.get("Niels")).setValue("Basjes", 42);
+        userAgent1.get("Niels").setValue("Basjes", 42);
 
-        ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("One", 42);
+        userAgent1.get("BackToDefault").setValue("One", 42);
         assertEquals("One", userAgent1.getValue("BackToDefault"));
         assertEquals(42, userAgent1.getConfidence("BackToDefault"));
 
-        ((MutableAgentField)userAgent1.get("BackToDefault")).setValue("<<<null>>>", 84);
+        userAgent1.get("BackToDefault").setValue("<<<null>>>", 84);
         assertTrue(userAgent1.get("BackToDefault").isDefaultValue());
         assertEquals("Unknown", userAgent1.getValue("BackToDefault"));
         assertEquals(84, userAgent1.getConfidence("BackToDefault"));
@@ -346,36 +397,45 @@ class TestUseragent {
 
         assertEquals(
             // You get the fields in the order you ask them!
-            "  - user_agent_string  : 'Some''Agent'\n" +
-            "    Niels              : 'Basjes'\n" +
-            "    DeviceClass        : 'Unknown'\n",
+            "\n" +
+            "- test:\n" +
+            "    input:\n" +
+            "      'User-Agent'                        : 'Some''Agent'\n" +
+            "    expected:\n" +
+            "      Niels                               : 'Basjes'\n" +
+            "      DeviceClass                         : 'Unknown'\n",
             userAgent1.toString("Niels", "DeviceClass"));
 
         assertEquals(
-            "  - user_agent_string                : 'Some''Agent'\n" +
-            "    DeviceClass                      : 'Unknown'\n" +
-            "    DeviceName                       : 'Unknown'\n" +
-            "    DeviceBrand                      : 'Unknown'\n" +
-            "    OperatingSystemClass             : 'Unknown'\n" +
-            "    OperatingSystemName              : 'Unknown'\n" +
-            "    OperatingSystemVersion           : '??'\n" +
-            "    OperatingSystemVersionMajor      : '??'\n" +
-            "    OperatingSystemNameVersion       : 'Unknown ??'\n" +
-            "    OperatingSystemNameVersionMajor  : 'Unknown ??'\n" +
-            "    LayoutEngineClass                : 'Unknown'\n" +
-            "    LayoutEngineName                 : 'Unknown'\n" +
-            "    LayoutEngineVersion              : '??'\n" +
-            "    LayoutEngineVersionMajor         : '??'\n" +
-            "    LayoutEngineNameVersion          : 'Unknown ??'\n" +
-            "    LayoutEngineNameVersionMajor     : 'Unknown ??'\n" +
-            "    AgentClass                       : 'Unknown'\n" +
-            "    AgentName                        : 'Unknown'\n" +
-            "    AgentVersion                     : '??'\n" +
-            "    AgentVersionMajor                : '??'\n" +
-            "    AgentNameVersion                 : 'Unknown ??'\n" +
-            "    AgentNameVersionMajor            : 'Unknown ??'\n" +
-            "    BackToDefault                    : 'Unknown'\n" +
-            "    Niels                            : 'Basjes'\n",
+            "\n" +
+            "- test:\n" +
+            "    input:\n" +
+            "      'User-Agent'                         : 'Some''Agent'\n" +
+            "    expected:\n" +
+            "      DeviceClass                          : 'Unknown'\n" +
+            "      DeviceName                           : 'Unknown'\n" +
+            "      DeviceBrand                          : 'Unknown'\n" +
+            "      OperatingSystemClass                 : 'Unknown'\n" +
+            "      OperatingSystemName                  : 'Unknown'\n" +
+            "      OperatingSystemVersion               : '??'\n" +
+            "      OperatingSystemVersionMajor          : '??'\n" +
+            "      OperatingSystemNameVersion           : 'Unknown ??'\n" +
+            "      OperatingSystemNameVersionMajor      : 'Unknown ??'\n" +
+            "      LayoutEngineClass                    : 'Unknown'\n" +
+            "      LayoutEngineName                     : 'Unknown'\n" +
+            "      LayoutEngineVersion                  : '??'\n" +
+            "      LayoutEngineVersionMajor             : '??'\n" +
+            "      LayoutEngineNameVersion              : 'Unknown ??'\n" +
+            "      LayoutEngineNameVersionMajor         : 'Unknown ??'\n" +
+            "      AgentClass                           : 'Unknown'\n" +
+            "      AgentName                            : 'Unknown'\n" +
+            "      AgentVersion                         : '??'\n" +
+            "      AgentVersionMajor                    : '??'\n" +
+            "      AgentNameVersion                     : 'Unknown ??'\n" +
+            "      AgentNameVersionMajor                : 'Unknown ??'\n" +
+            "      BackToDefault                        : 'Unknown'\n" +
+            "      Niels                                : 'Basjes'\n" +
+            "      __SyntaxError__                      : 'false'\n",
             userAgent1.toString());
 
         assertEquals(userAgent1.getAvailableFieldNamesSorted(), userAgent2.getAvailableFieldNamesSorted());
@@ -394,14 +454,19 @@ class TestUseragent {
         MutableUserAgent userAgent = new MutableUserAgent("Some Agent", wanted);
 
         assertEquals(
-            "  - user_agent_string  : 'Some Agent'\n" +
-            "    DeviceClass        : 'Unknown'\n" +
-            "    AgentVersion       : '??'\n" +
-            "    Unsure             : 'Unknown'\n",
+            "\n" +
+            "- test:\n" +
+            "    input:\n" +
+            "      'User-Agent'                        : 'Some Agent'\n" +
+            "    expected:\n" +
+            "      DeviceClass                         : 'Unknown'\n" +
+            "      AgentVersion                        : '??'\n" +
+            "      Unsure                              : 'Unknown'\n" +
+            "      __SyntaxError__                     : 'false'\n",
             userAgent.toString());
 
         // We set the wanted field
-        ((MutableAgentField)(userAgent.get("Unsure"))).setValueForced("--> Unsure",       -1); // --> isDefault !
+        userAgent.get("Unsure").setValueForced("--> Unsure",       -1); // --> isDefault !
         userAgent.set("DeviceClass",   "--> DeviceClass",   1);
         userAgent.set("AgentVersion",  "--> AgentVersion",  2);
         // We also set an unwanted field
@@ -421,10 +486,15 @@ class TestUseragent {
 
         // The output map if requested should only contain the wanted fields.
         assertEquals(
-            "  - user_agent_string  : 'Some Agent'\n" +
-            "    DeviceClass        : '--> DeviceClass'\n" +
-            "    AgentVersion       : '--> AgentVersion'\n" +
-            "    Unsure             : '--> Unsure'\n",
+            "\n" +
+            "- test:\n" +
+            "    input:\n" +
+            "      'User-Agent'                        : 'Some Agent'\n" +
+            "    expected:\n" +
+            "      DeviceClass                         : '--> DeviceClass'\n" +
+            "      AgentVersion                        : '--> AgentVersion'\n" +
+            "      Unsure                              : '--> Unsure'\n" +
+            "      __SyntaxError__                     : 'false'\n",
             userAgent.toString());
 
         userAgent.destroy();
@@ -468,7 +538,11 @@ class TestUseragent {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .immediateInitialization()
-            // All fields!
+            .withField(DEVICE_BRAND)
+            .withField(AGENT_INFORMATION_URL)
+            .withField(AGENT_INFORMATION_EMAIL)
+            .withField(DEVICE_CLASS)
+            .withField(AGENT_NAME)
             .build();
         UserAgent result = uaa.parse("Mozilla/5.0 (SM-123) Niels Basjes/42");
         Map<String, String> resultMap = result.toMap();
@@ -478,5 +552,35 @@ class TestUseragent {
         assertEquals("Unknown", resultMap.get(AGENT_INFORMATION_EMAIL));
         assertEquals("Unknown", resultMap.get(DEVICE_CLASS));
         assertEquals("Niels Basjes", resultMap.get(AGENT_NAME));
+
+        // And fields that are not implicitly calculated and not asked for are absent
+        assertNull(resultMap.get(DEVICE_NAME));
+        assertNull(resultMap.get(OPERATING_SYSTEM_CLASS));
     }
+
+    /**
+     * If a field has never been extracted yet it must still be present.
+     */
+    @Test
+    void testCaseInsensitiveHeaders() {
+        MutableUserAgent mutableUserAgent = new MutableUserAgent();
+        mutableUserAgent.addHeader("ONE", "1");
+        mutableUserAgent.addHeader("TWO", "2");
+
+        assertEquals("1", mutableUserAgent.getHeaders().get("oNe"));
+        assertEquals("1", mutableUserAgent.getHeaders().get("OnE"));
+        assertEquals("2", mutableUserAgent.getHeaders().get("tWo"));
+        assertEquals("2", mutableUserAgent.getHeaders().get("TwO"));
+
+        ImmutableUserAgent immutableUserAgent = new ImmutableUserAgent(mutableUserAgent);
+
+        assertEquals("1", immutableUserAgent.getHeaders().get("oNe"));
+        assertEquals("1", immutableUserAgent.getHeaders().get("OnE"));
+        assertEquals("2", immutableUserAgent.getHeaders().get("tWo"));
+        assertEquals("2", immutableUserAgent.getHeaders().get("TwO"));
+    }
+
+
+
+
 }

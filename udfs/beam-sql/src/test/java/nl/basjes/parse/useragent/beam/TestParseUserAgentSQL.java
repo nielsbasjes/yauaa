@@ -144,10 +144,10 @@ public class TestParseUserAgentSQL implements Serializable {
                     "\"IECompatibilityVersionMajor\":\"??\"," +
                     "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
                     "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
-                    "\"__SyntaxError__\":\"false\"," +
                     "\"Carrier\":\"Unknown\"," +
                     "\"GSAInstallationID\":\"Unknown\"," +
-                    "\"NetworkType\":\"Unknown\"}",
+                    "\"NetworkType\":\"Unknown\","+
+                    "\"__SyntaxError__\":\"false\"}",
 
                 "{\"OperatingSystemClass\":\"Desktop\"}",
 
@@ -279,10 +279,10 @@ public class TestParseUserAgentSQL implements Serializable {
                    "\"IECompatibilityVersionMajor\":\"??\"," +
                    "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
                    "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
-                   "\"__SyntaxError__\":\"false\"," +
                    "\"Carrier\":\"Unknown\"," +
                    "\"GSAInstallationID\":\"Unknown\"," +
-                   "\"NetworkType\":\"Unknown\"}",
+                   "\"NetworkType\":\"Unknown\"," +
+                   "\"__SyntaxError__\":\"false\"}",
 
                "{\"OperatingSystemClass\":\"Mobile\"}",
 

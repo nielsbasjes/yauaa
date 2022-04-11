@@ -24,7 +24,7 @@ It is simply the library in a servlet, no optimizations or smart memory settings
 ## Docker
 Starting with version 5.14.1 the webservlet is also published to the central docker registry.
 
-    https://hub.docker.com/r/nielsbasjes/yauaa
+- https://hub.docker.com/r/nielsbasjes/yauaa
 
 So with docker installed and running on your (Linux) desktop
 you should be able to so something as simple as
@@ -36,7 +36,7 @@ docker run -p8080:8080 nielsbasjes/yauaa:{{%YauaaVersion%}}
 
 and then open
 
-    http://localhost:8080/
+- http://localhost:8080/
 
 in your browser to get the output of the servlet.
 

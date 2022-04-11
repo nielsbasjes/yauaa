@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.analyze;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.junit.jupiter.api.Test;
 
-import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_USER_AGENT_MAX_LENGTH;
+import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.DEFAULT_USER_AGENT_MAX_LENGTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestBasics {
@@ -46,22 +46,22 @@ class TestBasics {
 
         userAgentAnalyzer.setCacheSize(50000);
         assertEquals(50000, userAgentAnalyzer.getCacheSize(), "Incorrect default cache size");
-
-        userAgentAnalyzer.setUserAgentMaxLength(555);
-        assertEquals(555, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect user agent max length");
     }
 
     @Test
     void testUserAgentMaxLengthSetter() {
-        UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
-        userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
+        UserAgentAnalyzer userAgentAnalyzer;
 
+        userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
+        userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
         assertEquals(DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
 
-        userAgentAnalyzer.setUserAgentMaxLength(250);
+        userAgentAnalyzer = UserAgentAnalyzer.newBuilder().withUserAgentMaxLength(250).build();
+        userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
         assertEquals(250, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
 
-        userAgentAnalyzer.setUserAgentMaxLength(-100);
+        userAgentAnalyzer = UserAgentAnalyzer.newBuilder().withUserAgentMaxLength(-100).build();
+        userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
         assertEquals(DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
     }
 

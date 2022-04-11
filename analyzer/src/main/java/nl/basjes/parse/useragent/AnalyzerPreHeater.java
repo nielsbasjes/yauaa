@@ -17,7 +17,6 @@
 
 package nl.basjes.parse.useragent;
 
-import nl.basjes.parse.useragent.analyze.Analyzer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

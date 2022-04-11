@@ -17,9 +17,8 @@
 
 package nl.basjes.parse.useragent.parse;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.GetAllPathsAnalyzer;
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.debug.GetAllPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -1361,7 +1360,7 @@ class TestUserAgentFlattening {
         sb.append("| ").append(useragent).append('\n');
         sb.append("|-------------------------------------- \n");
 
-        GetAllPathsAnalyzer analyzer = UserAgentAnalyzer.getAllPathsAnalyzer(useragent);
+        GetAllPaths analyzer = GetAllPaths.getAllPathsAnalyzer(useragent);
         UserAgent parsedUseragent = analyzer.getResult();
 
         if (parsedUseragent.hasAmbiguity()) {

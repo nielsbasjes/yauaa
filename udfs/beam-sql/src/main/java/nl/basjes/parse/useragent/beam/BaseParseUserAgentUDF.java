@@ -20,6 +20,11 @@ package nl.basjes.parse.useragent.beam;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.beam.sdk.extensions.sql.BeamSqlUdf;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
+
 abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
     private static transient UserAgentAnalyzer userAgentAnalyzer = null;
 
@@ -36,4 +41,17 @@ abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
         }
         return userAgentAnalyzer;
     }
+
+    private static transient List<String> allFields = null;
+
+    protected static synchronized List<String> getAllFields() {
+        if (allFields == null) {
+            allFields = new ArrayList<>();
+            allFields.add(USERAGENT_FIELDNAME);
+            allFields.addAll(getInstance().getAllPossibleFieldNamesSorted());
+        }
+        return allFields;
+    }
+
+
 }

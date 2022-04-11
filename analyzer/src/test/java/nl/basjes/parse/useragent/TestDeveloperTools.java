@@ -37,8 +37,8 @@ class TestDeveloperTools {
             .showMatcherLoadStats()
             .delayInitialization()
             .keepTests()
+            .addResources("classpath*:**/CheckErrorOutput.yaml")
             .build();
-        uaa.loadResources("classpath*:**/CheckErrorOutput.yaml");
         assertFalse(uaa.runTests(false, true)); // This test must return an error state
     }
 
@@ -46,17 +46,13 @@ class TestDeveloperTools {
     void validateNewTestcaseSituationOutput() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
-            .delayInitialization()
             .showMatcherLoadStats()
+            .delayInitialization()
             .keepTests()
+            .addResources("classpath*:**/CheckNewTestcaseOutput.yaml")
             .build();
-        uaa.loadResources("classpath*:**/CheckNewTestcaseOutput.yaml");
         assertTrue(uaa.runTests(false, true));
-
-        // Immediately test the output of the toString methods of all of these classes.
-        assertTrue(uaa.toString().length() > 1000);
     }
-
 
     @Test
     void validateStringOutputsAndMatches() {

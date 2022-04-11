@@ -30,6 +30,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,7 +38,6 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -47,9 +47,12 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.text.WordUtils.capitalizeFully;
+
 public interface UserAgent extends Serializable {
 
     String getUserAgentString();
+    Map<String, String> getHeaders();
     AgentField get(String fieldName);
     String getValue(String fieldName);
     Long getConfidence(String fieldName);
@@ -141,6 +144,7 @@ public interface UserAgent extends Serializable {
 
     String SYNTAX_ERROR                         = "__SyntaxError__";
     String USERAGENT_FIELDNAME                  = "Useragent";
+    String USERAGENT_HEADER                     = "User-Agent";
 
     String NETWORK_TYPE                         = "NetworkType";
 
@@ -278,14 +282,31 @@ public interface UserAgent extends Serializable {
         sb.append("\n");
         sb.append("- test:\n");
         sb.append("    input:\n");
-        sb.append("      user_agent_string: '").append(escapeYaml(getUserAgentString())).append("'\n");
+
+        int maxNameLength  = fieldNames.stream().map(String::length).max(Integer::compareTo).orElse(0);
+        int maxHeaderNameLength = getHeaders().keySet().stream().map(String::length).max(Integer::compareTo).orElse(0);
+
+        maxNameLength = Math.max(30, Math.max(maxNameLength, maxHeaderNameLength)) + 6;
+
+        sb.append("      ").append(capitalizeFully(USERAGENT_HEADER, ' ', '-'));
+        for (int l = USERAGENT_HEADER.length(); l < maxNameLength; l++) {
+            sb.append(' ');
+        }
+        sb.append(": '").append(escapeYaml(getUserAgentString())).append("'\n");
+        for (Map.Entry<String, String> headerEntry : getHeaders().entrySet()) {
+            if (!USERAGENT_HEADER.equals(headerEntry.getKey())) {
+                sb.append("      ").append(escapeYaml(capitalizeFully(headerEntry.getKey(), ' ', '-')));
+                for (int l = headerEntry.getKey().length(); l < maxNameLength; l++) {
+                    sb.append(' ');
+                }
+                sb.append(": '").append(escapeYaml(headerEntry.getValue())).append("'\n");
+            }
+        }
+
+//        sb.append("      user_agent_string: '").append(escapeYaml(getUserAgentString())).append("'\n");
         sb.append("    expected:\n");
 
-        int maxNameLength  = 30;
         int maxValueLength = 0;
-        for (String fieldName : fieldNames) {
-            maxNameLength = Math.max(maxNameLength, fieldName.length());
-        }
         for (String fieldName : fieldNames) {
             String value = escapeYaml(getValue(fieldName));
             if (value != null) {
@@ -296,7 +317,7 @@ public interface UserAgent extends Serializable {
         for (String fieldName : fieldNames) {
             AgentField field = get(fieldName);
             sb.append("      ").append(fieldName);
-            for (int l = fieldName.length(); l < maxNameLength + 6; l++) {
+            for (int l = fieldName.length(); l < maxNameLength; l++) {
                 sb.append(' ');
             }
             String value = escapeYaml(field.getValue());
@@ -304,7 +325,7 @@ public interface UserAgent extends Serializable {
 
             if (showConfidence || comments != null) {
                 int l = value.length();
-                for (; l < maxValueLength + 5; l++) {
+                for (; l < maxValueLength + 4; l++) {
                     sb.append(' ');
                 }
                 sb.append("# ");
@@ -346,7 +367,7 @@ public interface UserAgent extends Serializable {
         Map<String, String> result = new TreeMap<>();
 
         for (String fieldName : fieldNames) {
-            if (USERAGENT_FIELDNAME.equals(fieldName)) {
+            if (USERAGENT_FIELDNAME.equalsIgnoreCase(fieldName) || USERAGENT_HEADER.equalsIgnoreCase(fieldName)) {
                 result.put(USERAGENT_FIELDNAME, getUserAgentString());
             } else {
                 AgentField field = get(fieldName);
@@ -437,31 +458,7 @@ public interface UserAgent extends Serializable {
     }
 
     default String toString(List<String> fieldNames) {
-        String uaFieldName = "user_agent_string";
-        int    maxLength   = uaFieldName.length();
-        for (String fieldName : fieldNames) {
-            maxLength = Math.max(maxLength, fieldName.length());
-        }
-        StringBuilder sb        = new StringBuilder("  - ").append(uaFieldName);
-        for (int l = uaFieldName.length(); l < maxLength + 2; l++) {
-            sb.append(' ');
-        }
-        sb.append(": '").append(escapeYaml(getUserAgentString())).append("'\n");
-
-        for (String fieldName : fieldNames) {
-            if (!USERAGENT_FIELDNAME.equals(fieldName)) {
-                AgentField field = get(fieldName);
-                if (field != null) {
-                    sb.append("    ").append(fieldName);
-                    for (int l = fieldName.length(); l < maxLength + 2; l++) {
-                        sb.append(' ');
-                    }
-                    sb.append(": '").append(escapeYaml(field.getValue())).append('\'');
-                    sb.append('\n');
-                }
-            }
-        }
-        return sb.toString();
+        return toYamlTestCase(fieldNames);
     }
 
     default String toJavaTestCase() {
@@ -493,6 +490,36 @@ public interface UserAgent extends Serializable {
         return sb.toString();
     }
 
+
+    default String toJavaExpectationsList() {
+        return toJavaExpectationsList(getCleanedAvailableFieldNamesSorted());
+    }
+
+    default String toJavaExpectationsList(List<String> fieldNames) {
+        StringBuilder sb        = new StringBuilder();
+        int    maxValueLength   = 0;
+        for (String fieldName : fieldNames) {
+            maxValueLength = Math.max(maxValueLength, fieldName.length());
+        }
+
+        for (String fieldName : fieldNames) {
+            if (!USERAGENT_FIELDNAME.equals(fieldName)) {
+                AgentField field = get(fieldName);
+                if (field != null) {
+                    String value = StringEscapeUtils.escapeJava(getValue(fieldName));
+                    sb.append("    expectations.put(\"").append(fieldName).append("\", ");
+                    for (int l = fieldName.length(); l < maxValueLength + 2; l++) {
+                        sb.append(' ');
+                    }
+                    sb.append("\"").append(value).append("\");");
+                    sb.append('\n');
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
     default boolean uaEquals(Object o) {
         if (this == o) {
             return true;
@@ -501,7 +528,7 @@ public interface UserAgent extends Serializable {
             return false;
         }
         UserAgent agent = (UserAgent) o;
-        if (!Objects.equals(getUserAgentString(), agent.getUserAgentString())) {
+        if (!Objects.equals(getHeaders(), agent.getHeaders())) {
             return false;
         }
         List<String> fieldNamesSorted1 = getAvailableFieldNamesSorted();
@@ -527,7 +554,7 @@ public interface UserAgent extends Serializable {
 
     class MutableUserAgent extends UserAgentBaseListener implements UserAgent, Serializable, DefaultANTLRErrorListener {
 
-        private static final Logger LOG                     = LogManager.getLogger(UserAgent.class);
+        private static final Logger LOG = LogManager.getLogger(UserAgent.class);
 
         private static String getDefaultValueForField(String fieldName) {
             if (fieldName.equals(SYNTAX_ERROR)) {
@@ -573,7 +600,7 @@ public interface UserAgent extends Serializable {
             RecognitionException e) {
             if (debug) {
                 LOG.error("Syntax error");
-                LOG.error("Source : {}", userAgentString);
+                LOG.error("Source : {}", getUserAgentString());
                 LOG.error("Message: {}", msg);
             }
             hasSyntaxError = true;
@@ -596,7 +623,7 @@ public interface UserAgent extends Serializable {
         }
 
         // The original input value
-        private String userAgentString = null;
+        private Map<String, String> headers = new LinkedCaseInsensitiveMap<>();
 
         private boolean debug = false;
 
@@ -619,10 +646,12 @@ public interface UserAgent extends Serializable {
             return uaHashCode();
         }
 
-        private final Map<String, MutableAgentField> allFields = new HashMap<>();
+        private final Map<String, MutableAgentField> allFields = new TreeMap<>();
 
         private void setWantedFieldNames(Collection<String> newWantedFieldNames) {
-            if (newWantedFieldNames != null) {
+            if (newWantedFieldNames == null) {
+                wantedFieldNames = null;
+            } else {
                 if (!newWantedFieldNames.isEmpty()) {
                     wantedFieldNames = new LinkedHashSet<>(newWantedFieldNames);
                     for (String wantedFieldName : wantedFieldNames) {
@@ -635,27 +664,60 @@ public interface UserAgent extends Serializable {
         public MutableUserAgent() {
         }
 
+        public MutableUserAgent(ImmutableUserAgent userAgent) {
+            headers = new LinkedCaseInsensitiveMap<>();
+            headers.putAll(userAgent.headers);
+            hasSyntaxError = userAgent.hasSyntaxError;
+            hasAmbiguity = userAgent.hasAmbiguity;
+            ambiguityCount = userAgent.ambiguityCount;
+
+            for (String fieldName: userAgent.getAvailableFieldNamesSorted()) {
+                allFields.put(fieldName, new MutableAgentField(userAgent.get(fieldName)));
+            }
+
+            setWantedFieldNames(userAgent.getAvailableFieldNamesSorted());
+        }
+
         public MutableUserAgent(Collection<String> wantedFieldNames) {
             setWantedFieldNames(wantedFieldNames);
         }
 
         public MutableUserAgent(String userAgentString) {
             // wantedFieldNames == null; --> Assume we want all fields.
-            setUserAgentString(userAgentString);
+            addHeader(USERAGENT_HEADER, userAgentString);
         }
 
         public MutableUserAgent(String userAgentString, Collection<String> wantedFieldNames) {
             setWantedFieldNames(wantedFieldNames);
-            setUserAgentString(userAgentString);
+            addHeader(USERAGENT_HEADER, userAgentString);
         }
 
         public void setUserAgentString(String newUserAgentString) {
-            this.userAgentString = newUserAgentString;
+            headers.put(USERAGENT_HEADER, newUserAgentString);
             reset();
         }
 
         public String getUserAgentString() {
-            return userAgentString;
+            return headers.get(USERAGENT_HEADER);
+        }
+
+        @Override
+        public Map<String, String> getHeaders() {
+            return headers;
+        }
+
+        public void setHeaders(Map<String, String> newHeaders) {
+            headers.clear();
+            addHeader(newHeaders);
+            reset();
+        }
+
+        public void addHeader(Map<String, String> newHeaders) {
+            newHeaders.forEach(this::addHeader);
+        }
+
+        public void addHeader(String name, String value) {
+            this.headers.put(name, value);
         }
 
         public void reset() {
@@ -663,9 +725,7 @@ public interface UserAgent extends Serializable {
             hasAmbiguity = false;
             ambiguityCount = 0;
 
-            for (MutableAgentField field : allFields.values()) {
-                field.reset();
-            }
+            allFields.values().forEach(MutableAgentField::reset);
         }
 
         public static boolean isSystemField(String fieldname) {
@@ -744,8 +804,9 @@ public interface UserAgent extends Serializable {
             allFields.put(fieldName, agentField);
         }
 
-        public AgentField get(String fieldName) {
+        public MutableAgentField get(String fieldName) {
             if (USERAGENT_FIELDNAME.equals(fieldName)) {
+                String userAgentString = getUserAgentString();
                 MutableAgentField agentField = new MutableAgentField(userAgentString);
                 agentField.setValue(userAgentString, 0L);
                 return agentField;
@@ -759,7 +820,7 @@ public interface UserAgent extends Serializable {
 
         public String getValue(String fieldName) {
             if (USERAGENT_FIELDNAME.equals(fieldName)) {
-                return userAgentString;
+                return getUserAgentString();
             }
             AgentField field = allFields.get(fieldName);
             if (field == null) {
@@ -803,6 +864,11 @@ public interface UserAgent extends Serializable {
 
             Collections.sort(fieldNames);
             result.addAll(fieldNames);
+
+            // This special system field is always available and we put it at the end.
+            result.remove(SYNTAX_ERROR);
+            result.add(SYNTAX_ERROR);
+
             return result;
         }
 
@@ -813,7 +879,7 @@ public interface UserAgent extends Serializable {
     }
 
     class ImmutableUserAgent implements UserAgent {
-        private final String                            userAgentString;
+        private final Map<String, String>               headers;
         private final ImmutableAgentField               userAgentStringField;
         private final Map<String, ImmutableAgentField>  allFields;
         private final List<String>                      availableFieldNamesSorted;
@@ -822,18 +888,21 @@ public interface UserAgent extends Serializable {
         private final boolean                           hasAmbiguity;
         private final int                               ambiguityCount;
 
-        public ImmutableUserAgent(MutableUserAgent userAgent) {
-            userAgentString = userAgent.userAgentString;
-            hasSyntaxError = userAgent.hasSyntaxError;
-            hasAmbiguity = userAgent.hasAmbiguity;
-            ambiguityCount = userAgent.ambiguityCount;
+        public ImmutableUserAgent(UserAgent userAgent) {
+            headers = new LinkedCaseInsensitiveMap<>();
+            headers.putAll(userAgent.getHeaders());
 
+            hasSyntaxError = userAgent.hasSyntaxError();
+            hasAmbiguity = userAgent.hasAmbiguity();
+            ambiguityCount = userAgent.getAmbiguityCount();
+
+            String userAgentString = getUserAgentString();
             userAgentStringField = new ImmutableAgentField(userAgentString, 0L, false, userAgentString);
 
-            Map<String, ImmutableAgentField> preparingAllFields = new LinkedHashMap<>(userAgent.allFields.size());
+            Map<String, ImmutableAgentField> preparingAllFields = new LinkedHashMap<>(userAgent.getAvailableFieldNamesSorted().size());
 
             for (String fieldName: userAgent.getAvailableFieldNamesSorted()) {
-                preparingAllFields.put(fieldName, new ImmutableAgentField((MutableAgentField) userAgent.get(fieldName)));
+                preparingAllFields.put(fieldName, new ImmutableAgentField(userAgent.get(fieldName)));
             }
 
             allFields = Collections.unmodifiableMap(preparingAllFields);
@@ -842,7 +911,12 @@ public interface UserAgent extends Serializable {
 
         @Override
         public String getUserAgentString() {
-            return userAgentString;
+            return headers.get(USERAGENT_HEADER);
+        }
+
+        @Override
+        public Map<String, String> getHeaders() {
+            return headers;
         }
 
         public AgentField get(String fieldName) {
@@ -862,7 +936,7 @@ public interface UserAgent extends Serializable {
 
         public String getValue(String fieldName) {
             if (USERAGENT_FIELDNAME.equals(fieldName)) {
-                return userAgentString;
+                return getUserAgentString();
             }
             AgentField field = allFields.get(fieldName);
             if (field == null) {

@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.hive;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.commons.collections4.map.LRUMap;
@@ -100,8 +102,11 @@ public class ParseUserAgent extends GenericUDF {
             // Caffeine is a Java 11+ library.
             // This is one is Java 8 compatible.
             .withCacheInstantiator(
-                cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize))
-            )
+                (CacheInstantiator) size ->
+                    Collections.synchronizedMap(new LRUMap<>(size)))
+            .withClientHintCacheInstantiator(
+                (ClientHintsCacheInstantiator<?>) size ->
+                    Collections.synchronizedMap(new LRUMap<>(size)))
             .build();
 
         fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
