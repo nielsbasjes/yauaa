@@ -67,11 +67,10 @@ public class ParseSecChUaFullVersion implements CHParser {
     @Override
     public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
         String input = clientHintsHeaders.get(headerName);
-        if (input == null) {
-            return clientHints;
+        String value = parseSfString(input);
+        if (value != null && !value.isEmpty()) {
+            clientHints.setFullVersion(value);
         }
-        ArrayList<BrandVersion> brandVersions = cache.computeIfAbsent(input, value -> BrandVersionListParser.parse(input));
-        clientHints.setBrands(brandVersions);
         return clientHints;
     }
 

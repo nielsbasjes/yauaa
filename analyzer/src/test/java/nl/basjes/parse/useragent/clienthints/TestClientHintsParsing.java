@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.clienthints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
@@ -135,6 +136,16 @@ class TestClientHintsParsing {
     }
 
     @Test
+    void testSecChUa8() {
+        ClientHints clientHints = parse(SEC_CH_UA, "\"Examplary Browser\"; v=\"73\"");
+        List<BrandVersion> brands = clientHints.getBrands();
+        assertNotNull(brands);
+        assertEquals(1, brands.size());
+        assertEquals("Examplary Browser",   brands.get(0).getBrand());
+        assertEquals("73",                  brands.get(0).getVersion());
+    }
+
+    @Test
     void testSecChUaBadValue() {
         assertNull(parse(SEC_CH_UA, "xxx").getBrands());
     }
@@ -178,21 +189,23 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA_FULL_VERSION = randomCase(ParseSecChUaFullVersion.HEADER_FIELD);
+
     @Test
     void testSecChUaFullVersion() {
-        ClientHints clientHints = parse(SEC_CH_UA_ARCH, "\"x86\"");
-        String architecture = clientHints.getArchitecture();
-        assertEquals("x86", architecture);
+        ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION, "\"100.0.4896.75\"");
+        String architecture = clientHints.getFullVersion();
+        assertEquals("100.0.4896.75", architecture);
     }
 
     @Test
     void testSecChUaFullVersionEmpty() {
-        assertNull(parse(SEC_CH_UA_ARCH, "\"\"").getArchitecture());
+        assertNull(parse(SEC_CH_UA_FULL_VERSION, "\"\"").getFullVersion());
     }
 
     @Test
     void testSecChUaFullVersionNull() {
-        assertNull(parse(SEC_CH_UA_ARCH, null).getArchitecture());
+        assertNull(parse(SEC_CH_UA_FULL_VERSION, null).getFullVersion());
     }
 
     // ------------------------------------------

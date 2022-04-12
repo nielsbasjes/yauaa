@@ -148,6 +148,18 @@ public interface UserAgent extends Serializable {
 
     String NETWORK_TYPE                         = "NetworkType";
 
+    String UACLIENT_HINT_BRANDS                 = "UAClientHintBrands";
+    String UACLIENT_HINT_ARCHITECTURE           = "UAClientHintArchitecture";
+    String UACLIENT_HINT_BITNESS                = "UAClientHintBitness";
+    String UACLIENT_HINT_FULL_VERSION           = "UAClientHintFullVersion";
+    String UACLIENT_HINT_FULL_VERSION_LIST      = "UAClientHintFullVersionList";
+    String UACLIENT_HINT_MOBILE                 = "UAClientHintMobile";
+    String UACLIENT_HINT_MODEL                  = "UAClientHintModel";
+    String UACLIENT_HINT_PLATFORM               = "UAClientHintPlatform";
+    String UACLIENT_HINT_PLATFORM_VERSION       = "UAClientHintPlatformVersion";
+    String UACLIENT_HINT_WOW_64                 = "UAClientHintWow64";
+
+
     String SET_ALL_FIELDS                       = "__Set_ALL_Fields__";
     String NULL_VALUE                           = "<<<null>>>";
     String UNKNOWN_VALUE                        = "Unknown";

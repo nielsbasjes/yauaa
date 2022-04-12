@@ -37,15 +37,16 @@ public interface CHParser extends Serializable {
     ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName);
 
     /**
-     * What are the Client Hints that this parser can do something with?
+     * What Client Hint can this parser do something with?
      *
-     * @return A list (non-empty) of request header names this parser can handle.
+     * @return The nonnull header name this parser can handle.
      */
     @Nonnull
     String inputField();
 
     /**
      * Determines if the provided value is a sf-boolean.
+     *
      * @param value The value to be parsed
      * @return True/False or null if this was NOT a boolean.
      */
@@ -62,8 +63,9 @@ public interface CHParser extends Serializable {
 
     /**
      * A sf-string is a String with '"' around it.
+     *
      * @param value The value to be parsed
-     * @return The actual payload string (i.e. without the surrounding '"')
+     * @return The actual payload string (i.e. without the surrounding '"') or null if invalid
      */
     default String parseSfString(String value) {
         if (value == null || value.isEmpty()) {

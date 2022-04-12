@@ -386,6 +386,9 @@ public class HumanHtml {
         } else if (input.startsWith("Agent")) {
             result.setLeft("Agent");
             result.setRight(input.replaceFirst("Agent", ""));
+        } else if (input.startsWith("UAClientHint")) {
+            result.setLeft("UAClientHint");
+            result.setRight(input.replaceFirst("UAClientHint", ""));
         }
         return result;
     }

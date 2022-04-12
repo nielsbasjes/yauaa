@@ -30,8 +30,10 @@ import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Boolean.TRUE;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
@@ -49,6 +51,16 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_ARCHITECTURE;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_BITNESS;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_BRANDS;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FULL_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FULL_VERSION_LIST;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_MOBILE;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_MODEL;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_PLATFORM;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_PLATFORM_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_WOW_64;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.PHONE;
@@ -115,7 +127,16 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     }
 
     public MutableUserAgent merge(MutableUserAgent userAgent, ClientHints clientHints) {
-        plainAddition(userAgent, clientHints);
+        setCHBrandVersionsList(userAgent, UACLIENT_HINT_BRANDS,             clientHints.getBrands());
+        setCHString(userAgent,            UACLIENT_HINT_ARCHITECTURE,       clientHints.getArchitecture());
+        setCHString(userAgent,            UACLIENT_HINT_BITNESS,            clientHints.getBitness());
+        setCHString(userAgent,            UACLIENT_HINT_FULL_VERSION,       clientHints.getFullVersion());
+        setCHBrandVersionsList(userAgent, UACLIENT_HINT_FULL_VERSION_LIST,  clientHints.getFullVersionList());
+        setCHBoolean(userAgent,           UACLIENT_HINT_MOBILE,             clientHints.getMobile());
+        setCHString(userAgent,            UACLIENT_HINT_MODEL,              clientHints.getModel());
+        setCHString(userAgent,            UACLIENT_HINT_PLATFORM,           clientHints.getPlatform());
+        setCHString(userAgent,            UACLIENT_HINT_PLATFORM_VERSION,   clientHints.getPlatformVersion());
+        setCHBoolean(userAgent,           UACLIENT_HINT_WOW_64,             clientHints.getWow64());
 
 //        detectVersionMismatchRobots(userAgent, clientHints); FIXME: This breaks too much.
         improveMobileDeviceClass(userAgent, clientHints);
@@ -125,30 +146,28 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         return userAgent;
     }
 
-    public MutableUserAgent plainAddition(MutableUserAgent userAgent, ClientHints clientHints) {
-//        ArrayList<BrandVersion> brands = null;
-//        ArrayList<BrandVersion> fullVersionList = null;
-//        Boolean mobile = null;
-//        String architecture = null;
-//        String bitness = null;
-//        String model = null;
-//        String platform = null;
-//        String platformVersion = null;
-//        Boolean wow64 = null;
-//
-//
-//        List<BrandVersion> brandsList = clientHints.getBrands();
-//        if (brandsList != null && !brandsList.isEmpty()) {
-//        }
-
-//        clientHints.getModel()
-//        clientHints.getModel()
-//        clientHints.getModel()
-//        clientHints.getModel()
-        return userAgent;
+    private void setCHBrandVersionsList(MutableUserAgent userAgent, String baseFieldName, ArrayList<BrandVersion> brandVersions) {
+        if (brandVersions != null) {
+            int i = 0;
+            for (BrandVersion brandVersion : brandVersions) {
+                userAgent.set(baseFieldName + '_' + i + "_Brand",   brandVersion.getBrand(),   1);
+                userAgent.set(baseFieldName + '_' + i + "_Version", brandVersion.getVersion(), 1);
+                i++;
+            }
+        }
     }
 
+    private void setCHString(MutableUserAgent userAgent, String fieldName, String value) {
+        if (value != null) {
+            userAgent.set(fieldName, value, 1);
+        }
+    }
 
+    private void setCHBoolean(MutableUserAgent userAgent, String fieldName, Boolean value) {
+        if (value != null) {
+            userAgent.set(fieldName, TRUE.equals(value)  ? "true" : "false", 1);
+        }
+    }
 
 
 
@@ -222,7 +241,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         if (clientHints.getMobile() != null) {
             MutableAgentField deviceClass = userAgent.get(UserAgent.DEVICE_CLASS);
             if (MOBILE.getValue().equals(deviceClass.getValue())) {
-                if (Boolean.TRUE.equals(clientHints.getMobile())) {
+                if (TRUE.equals(clientHints.getMobile())) {
                     deviceClass.setValue(PHONE.getValue(), deviceClass.getConfidence() + 1);
                 } else {
                     deviceClass.setValue(TABLET.getValue(), deviceClass.getConfidence() + 1);
