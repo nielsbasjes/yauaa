@@ -126,6 +126,14 @@ public abstract class Splitter {
         return value.substring(start, end);
     }
 
+    public String getSingleSplit(String value, List<Pair<Integer, Integer>> splitList, int split) {
+        Pair<Integer, Integer> splitRange = splitList.get(split);
+        if (splitRange == null) {
+            return null;
+        }
+        return value.substring(splitRange.getLeft(), splitRange.getRight());
+    }
+
     public String getFirstSplits(String value, int split) {
         char[] characters = value.toCharArray();
         int start = findSplitStart(characters, split);

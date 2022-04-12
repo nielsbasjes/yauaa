@@ -24,6 +24,7 @@ import nl.basjes.parse.useragent.clienthints.parsers.BrandVersionListParser;
 import nl.basjes.parse.useragent.clienthints.parsers.CHParser;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
@@ -52,7 +53,7 @@ public class ClientHintsHeadersParser implements Serializable {
         parsers = new LinkedCaseInsensitiveMap<>();
         addParser(new ParseSecChUa()); // Ordering matters: this and the "Full version list" write to the same fields.
         addParser(new ParseSecChUaArch());
-//        addParser(new ParseSecChUaFullVersion()); // Deprecated header
+        addParser(new ParseSecChUaFullVersion()); // Deprecated header, may still be useful.
         addParser(new ParseSecChUaFullVersionList());
         addParser(new ParseSecChUaMobile());
         addParser(new ParseSecChUaModel());
