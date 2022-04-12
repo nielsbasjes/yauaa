@@ -18,6 +18,14 @@
 package nl.basjes.parse.useragent.clienthints;
 
 import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.MethodOrderer;
@@ -26,6 +34,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 import static java.lang.Boolean.FALSE;
@@ -38,12 +47,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class TestClientHintsParsing {
 
     private static final Logger LOG = LogManager.getFormatterLogger(TestClientHintsParsing.class);
+    private static final Random RANDOM = new Random(42); // Repeatable random !
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA = randomCase(ParseSecChUa.HEADER_FIELD);
+
     @Test
     void testSecChUa1() {
-        ClientHints clientHints = parse("sEc-cH-uA", "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(2, brands.size());
@@ -55,7 +67,7 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUa2() {
-        ClientHints clientHints = parse("sEc-cH-uA", "\"\\Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"85\", \"Chromium\";v=\"85\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\"\\Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"85\", \"Chromium\";v=\"85\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(2, brands.size());
@@ -67,7 +79,7 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUa3() {
-        ClientHints clientHints = parse("sEc-cH-uA", "\"Chrome\"; v=\"73\", \"(Not;Browser\"; v=\"12\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\"Chrome\"; v=\"73\", \"(Not;Browser\"; v=\"12\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
@@ -77,7 +89,7 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUa4() {
-        ClientHints clientHints = parse("sEc-cH-uA", "\"Chrome\"; v=\"73\", \"(Not;Browser\"; v=\"12\", \"Chromium\"; v=\"74\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\"Chrome\"; v=\"73\", \"(Not;Browser\"; v=\"12\", \"Chromium\"; v=\"74\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(2, brands.size());
@@ -89,7 +101,7 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUa5() {
-        ClientHints clientHints = parse("sEc-cH-uA", "\"(Not;Browser\"; v=\"12\", \"Chromium\"; v=\"73\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\"(Not;Browser\"; v=\"12\", \"Chromium\"; v=\"73\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
@@ -99,7 +111,7 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUa6() {
-        ClientHints clientHints = parse("sEc-cH-uA", "\"Chrome\"; v=\"73\", \"Xwebs mega\"; v=\"60\", \"Chromium\"; v=\"73\", \"(Not;Browser\"; v=\"12\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\"Chrome\"; v=\"73\", \"Xwebs mega\"; v=\"60\", \"Chromium\"; v=\"73\", \"(Not;Browser\"; v=\"12\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(3, brands.size());
@@ -114,7 +126,7 @@ class TestClientHintsParsing {
     @Test
     void testSecChUa7() {
         // From https://wicg.github.io/ua-client-hints/#examples
-        ClientHints clientHints = parse("sEc-cH-uA", "\"Examplary Browser\"; v=\"73\", \";Not?A.Brand\"; v=\"27\"");
+        ClientHints clientHints = parse(SEC_CH_UA, "\"Examplary Browser\"; v=\"73\", \";Not?A.Brand\"; v=\"27\"");
         List<BrandVersion> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
@@ -124,29 +136,31 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUaBadValue() {
-        assertNull(parse("sEc-cH-uA", "xxx").getBrands());
+        assertNull(parse(SEC_CH_UA, "xxx").getBrands());
     }
 
     @Test
     void testSecChUaAlmostEmpty() {
-        assertNull(parse("sEc-cH-uA", "\"(Not;Browser\"; v=\"12\"").getBrands());
+        assertNull(parse(SEC_CH_UA, "\"(Not;Browser\"; v=\"12\"").getBrands());
     }
 
     @Test
     void testSecChUaEmpty() {
-        assertNull(parse("sEc-cH-uA", "").getBrands());
+        assertNull(parse(SEC_CH_UA, "").getBrands());
     }
 
     @Test
     void testSecChUaNull() {
-        assertNull(parse("sEc-cH-uA", null).getBrands());
+        assertNull(parse(SEC_CH_UA, null).getBrands());
     }
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA_ARCH = randomCase(ParseSecChUaArch.HEADER_FIELD);
+
     @Test
     void testSecChUaArch() {
-        ClientHints clientHints = parse("sEc-cH-uA-Arch", "\"x86\"");
+        ClientHints clientHints = parse(SEC_CH_UA_ARCH, "\"x86\"");
         String architecture = clientHints.getArchitecture();
         assertNotNull(architecture);
         assertEquals("x86", architecture);
@@ -154,19 +168,40 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUaArchEmpty() {
-        assertNull(parse("sEc-cH-uA-Arch", "\"\"").getArchitecture());
+        assertNull(parse(SEC_CH_UA_ARCH, "\"\"").getArchitecture());
     }
 
     @Test
     void testSecChUaArchNull() {
-        assertNull(parse("sEc-cH-uA-Arch", null).getArchitecture());
+        assertNull(parse(SEC_CH_UA_ARCH, null).getArchitecture());
     }
 
     // ------------------------------------------
 
     @Test
+    void testSecChUaFullVersion() {
+        ClientHints clientHints = parse(SEC_CH_UA_ARCH, "\"x86\"");
+        String architecture = clientHints.getArchitecture();
+        assertEquals("x86", architecture);
+    }
+
+    @Test
+    void testSecChUaFullVersionEmpty() {
+        assertNull(parse(SEC_CH_UA_ARCH, "\"\"").getArchitecture());
+    }
+
+    @Test
+    void testSecChUaFullVersionNull() {
+        assertNull(parse(SEC_CH_UA_ARCH, null).getArchitecture());
+    }
+
+    // ------------------------------------------
+
+    private static final String SEC_CH_UA_FULL_VERSION_LIST = randomCase(ParseSecChUaFullVersionList.HEADER_FIELD);
+
+    @Test
     void testSecChUaFullVersionList() {
-        ClientHints clientHints = parse("sEc-cH-uA-Full-Version-List", "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"99.0.4844.51\", \"Google Chrome\";v=\"99.0.4844.51\"");
+        ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"99.0.4844.51\", \"Google Chrome\";v=\"99.0.4844.51\"");
         List<BrandVersion> brands = clientHints.getFullVersionList();
         assertNotNull(brands);
         assertEquals(2, brands.size());
@@ -178,7 +213,7 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUaFullVersionListExtraSpaces() {
-        ClientHints clientHints = parse("sEc-cH-uA-Full-Version-List", "  \" Not A;Brand\"  ;   v=\"99.0.0.0\"  ,   \"Chromium\"  ;  v  =  \"99.0.4844.51\"   ,    \"Google Chrome\"   ;   v  =  \"99.0.4844.51\"   ");
+        ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "  \" Not A;Brand\"  ;   v=\"99.0.0.0\"  ,   \"Chromium\"  ;  v  =  \"99.0.4844.51\"   ,    \"Google Chrome\"   ;   v  =  \"99.0.4844.51\"   ");
         List<BrandVersion> brands = clientHints.getFullVersionList();
         assertNotNull(brands);
         assertEquals(2, brands.size());
@@ -189,184 +224,180 @@ class TestClientHintsParsing {
     }
 
     @Test
-    void testSecChUaFullVersionBadValue() {
-        assertNull(parse("sEc-cH-uA-Full-Version-List", "xxx").getFullVersionList());
+    void testSecChUaFullVersionListBadValue() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "xxx").getFullVersionList());
     }
 
     @Test
-    void testSecChUaFullVersionAlmostEmpty() {
-        assertNull(parse("sEc-cH-uA-Full-Version-List", "\" Not A;Brand\";v=\"99.0.0.0\"").getFullVersionList());
+    void testSecChUaFullVersionListAlmostEmpty() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "\" Not A;Brand\";v=\"99.0.0.0\"").getFullVersionList());
     }
 
     @Test
-    void testSecChUaFullVersionEmpty() {
-        assertNull(parse("sEc-cH-uA-Full-Version-List", "").getFullVersionList());
+    void testSecChUaFullVersionListEmpty() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "").getFullVersionList());
     }
 
     @Test
-    void testSecChUaFullVersionNull() {
-        assertNull(parse("sEc-cH-uA-Full-Version-List", null).getFullVersionList());
+    void testSecChUaFullVersionListNull() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, null).getFullVersionList());
     }
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA_MOBILE = randomCase(ParseSecChUaMobile.HEADER_FIELD);
+
     @Test
     void testSecChUaMobileT() {
-        ClientHints clientHints = parse("sEc-cH-uA-Mobile", "?1");
+        ClientHints clientHints = parse(SEC_CH_UA_MOBILE, "?1");
         Boolean mobile = clientHints.getMobile();
-        assertNotNull(mobile);
         assertEquals(TRUE, mobile);
     }
 
     @Test
     void testSecChUaMobileF() {
-        ClientHints clientHints = parse("sEc-cH-uA-Mobile", "?0");
+        ClientHints clientHints = parse(SEC_CH_UA_MOBILE, "?0");
         Boolean mobile = clientHints.getMobile();
-        assertNotNull(mobile);
         assertEquals(FALSE, mobile);
     }
 
     @Test
     void testSecChUaMobileBadValue() {
-        assertNull(parse("sEc-cH-uA-Mobile", "xx").getMobile());
+        assertNull(parse(SEC_CH_UA_MOBILE, "xx").getMobile());
     }
 
     @Test
     void testSecChUaMobileEmpty() {
-        assertNull(parse("sEc-cH-uA-Mobile", "").getMobile());
+        assertNull(parse(SEC_CH_UA_MOBILE, "").getMobile());
     }
 
     @Test
     void testSecChUaMobileNull() {
-        assertNull(parse("sEc-cH-uA-Mobile", null).getMobile());
+        assertNull(parse(SEC_CH_UA_MOBILE, null).getMobile());
     }
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA_MODEL = randomCase(ParseSecChUaModel.HEADER_FIELD);
+
     @Test
     void testSecChUaModel() {
-        ClientHints clientHints = parse("sEc-cH-uA-Model", "\"Nokia 7.2\"");
+        ClientHints clientHints = parse(SEC_CH_UA_MODEL, "\"Nokia 7.2\"");
         String model = clientHints.getModel();
-        assertNotNull(model);
         assertEquals("Nokia 7.2", model);
     }
 
     @Test
     void testSecChUaModelBadValueNoQuotes() {
-        assertNull(parse("sEc-cH-uA-Model", "xxx").getModel());
+        assertNull(parse(SEC_CH_UA_MODEL, "xxx").getModel());
     }
+
     @Test
     void testSecChUaModelBadValueOneQuoteLeft() {
-        assertNull(parse("sEc-cH-uA-Model", "\"xxx").getModel());
+        assertNull(parse(SEC_CH_UA_MODEL, "\"xxx").getModel());
     }
+
     @Test
     void testSecChUaModelBadValueOneQuoteRight() {
-        assertNull(parse("sEc-cH-uA-Model", "xxx\"").getModel());
+        assertNull(parse(SEC_CH_UA_MODEL, "xxx\"").getModel());
     }
 
     @Test
     void testSecChUaModelEmpty() {
-        assertNull(parse("sEc-cH-uA-Model", "\"\"").getModel());
+        assertNull(parse(SEC_CH_UA_MODEL, "\"\"").getModel());
     }
 
     @Test
     void testSecChUaModelEmptyAfterTrim() {
-        assertNull(parse("sEc-cH-uA-Model", "\"   \"").getModel());
+        assertNull(parse(SEC_CH_UA_MODEL, "\"   \"").getModel());
     }
 
     @Test
     void testSecChUaModelNull() {
-        assertNull(parse("sEc-cH-uA-Model", null).getModel());
+        assertNull(parse(SEC_CH_UA_MODEL, null).getModel());
     }
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA_PLATFORM = randomCase(ParseSecChUaPlatform.HEADER_FIELD);
+
     @Test
     void testSecChUaPlatform() {
-        ClientHints clientHints = parse("sEc-cH-uA-Platform", "\"Android\"");
+        ClientHints clientHints = parse(SEC_CH_UA_PLATFORM, "\"Android\"");
         String platform = clientHints.getPlatform();
-        assertNotNull(platform);
         assertEquals("Android", platform);
     }
 
     @Test
     void testSecChUaPlatformEmpty() {
-        ClientHints clientHints = parse("sEc-cH-uA-Platform", "\"\"");
+        ClientHints clientHints = parse(SEC_CH_UA_PLATFORM, "\"\"");
         String platform = clientHints.getPlatform();
         assertNull(platform);
     }
 
     @Test
     void testSecChUaPlatformNull() {
-        ClientHints clientHints = parse("sEc-cH-uA-Platform", null);
+        ClientHints clientHints = parse(SEC_CH_UA_PLATFORM, null);
         String platform = clientHints.getPlatform();
         assertNull(platform);
     }
 
     // ------------------------------------------
 
+    private static final String SEC_CH_UA_PLATFORM_VERSION = randomCase(ParseSecChUaPlatformVersion.HEADER_FIELD);
 
     @Test
     void testSecChUaPlatformVersion() {
-        ClientHints clientHints = parse("sEc-cH-uA-Platform-Version", "\"11\"");
+        ClientHints clientHints = parse(SEC_CH_UA_PLATFORM_VERSION, "\"11\"");
         String platform = clientHints.getPlatformVersion();
-        assertNotNull(platform);
         assertEquals("11", platform);
     }
 
     @Test
     void testSecChUaPlatformVersionEmpty() {
-        ClientHints clientHints = parse("sEc-cH-uA-Platform-Version", "\"\"");
+        ClientHints clientHints = parse(SEC_CH_UA_PLATFORM_VERSION, "\"\"");
         String platform = clientHints.getPlatformVersion();
         assertNull(platform);
     }
 
     @Test
     void testSecChUaPlatformVersionNull() {
-        ClientHints clientHints = parse("sEc-cH-uA-Platform-Version", null);
+        ClientHints clientHints = parse(SEC_CH_UA_PLATFORM_VERSION, null);
         String platform = clientHints.getPlatformVersion();
         assertNull(platform);
     }
 
     // ------------------------------------------
 
-//
-//    @Test
-//    void testSecChUaWoW64() {
-//
-//    }
-
-    // ------------------------------------------
+    private static final String SEC_CH_UA_WOW64 = randomCase(ParseSecChUaWoW64.HEADER_FIELD);
 
     @Test
     void testSecChUaWoW64T() {
-        ClientHints clientHints = parse("sEc-cH-uA-WoW64", "?1");
+        ClientHints clientHints = parse(SEC_CH_UA_WOW64, "?1");
         Boolean wow64 = clientHints.getWow64();
-        assertNotNull(wow64);
         assertEquals(TRUE, wow64);
     }
 
     @Test
     void testSecChUaWoW64F() {
-        ClientHints clientHints = parse("sEc-cH-uA-WoW64", "?0");
+        ClientHints clientHints = parse(SEC_CH_UA_WOW64, "?0");
         Boolean wow64 = clientHints.getWow64();
-        assertNotNull(wow64);
         assertEquals(FALSE, wow64);
     }
 
     @Test
     void testSecChUaWoW64BadValue() {
-        assertNull(parse("sEc-cH-uA-WoW64", "xx").getWow64());
+        assertNull(parse(SEC_CH_UA_WOW64, "xx").getWow64());
     }
 
     @Test
     void testSecChUaWoW64Empty() {
-        assertNull(parse("sEc-cH-uA-WoW64", "").getWow64());
+        assertNull(parse(SEC_CH_UA_WOW64, "").getWow64());
     }
 
     @Test
     void testSecChUaWoW64Null() {
-        assertNull(parse("sEc-cH-uA-WoW64", null).getWow64());
+        assertNull(parse(SEC_CH_UA_WOW64, null).getWow64());
     }
 
 
@@ -381,5 +412,16 @@ class TestClientHintsParsing {
         return parser.parse(headers);
     }
 
+    private static String randomCase(String input) {
+        StringBuilder output = new StringBuilder(input.length());
+        for (char c : input.toCharArray()) {
+            if (RANDOM.nextBoolean()) {
+                output.append(Character.toLowerCase(c));
+            } else {
+                output.append(Character.toUpperCase(c));
+            }
+        }
+        return output.toString();
+    }
 
 }

@@ -10215,34 +10215,6 @@ config:
       AgentNameVersionMajor                : 'fuboTV 4'
 
 
-- test:
-    input:
-      User-Agent: 'Mozilla/5.0 (compatible; Barkrowler/0.9; +https://babbar.tech/crawler)'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Babbar Robot'
-      DeviceBrand                          : 'Babbar'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Barkrowler'
-      AgentVersion                         : '0.9'
-      AgentVersionMajor                    : '0'
-      AgentNameVersion                     : 'Barkrowler 0.9'
-      AgentNameVersionMajor                : 'Barkrowler 0'
-      AgentInformationUrl                  : 'https://babbar.tech/crawler'
-
-
 # Version mismatch between UserAgent and ClientHints. No Grease ? No "Google Chrome" hint? I'm guessing Robot.
 - test:
     input:
@@ -10251,7 +10223,7 @@ config:
       Sec-Ch-Ua-Mobile                     : '?0'
       Sec-Ch-Ua-Platform                   : '"Windows"'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop' #FIXME: Is this a Robot because of the version mismatch ?
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'

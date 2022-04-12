@@ -105,6 +105,7 @@ public class ClientHintsHeadersParser implements Serializable {
         kryo.register(CHParser.class);
         kryo.register(ParseSecChUa.class);
         kryo.register(ParseSecChUaArch.class);
+        kryo.register(ParseSecChUaFullVersion.class);
         kryo.register(ParseSecChUaFullVersionList.class);
         kryo.register(ParseSecChUaMobile.class);
         kryo.register(ParseSecChUaModel.class);

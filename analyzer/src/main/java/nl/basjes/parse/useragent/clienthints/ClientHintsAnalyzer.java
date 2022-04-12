@@ -38,14 +38,12 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION_MAJOR;
@@ -117,8 +115,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     }
 
     public MutableUserAgent merge(MutableUserAgent userAgent, ClientHints clientHints) {
-        // FIXME: First version: Very hard coded analysis rules.
-        detectVersionMismatchRobots(userAgent, clientHints);
+        plainAddition(userAgent, clientHints);
+
+//        detectVersionMismatchRobots(userAgent, clientHints); FIXME: This breaks too much.
         improveMobileDeviceClass(userAgent, clientHints);
         improveDeviceBrandName(userAgent, clientHints);
         improveOperatingSystem(userAgent, clientHints);
@@ -126,69 +125,97 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         return userAgent;
     }
 
-    public void detectVersionMismatchRobots(MutableUserAgent userAgent, ClientHints clientHints) {
-        List<BrandVersion> brandsList = clientHints.getBrands();
-        if (brandsList != null && !brandsList.isEmpty()) {
-            String majorVersion;
+    public MutableUserAgent plainAddition(MutableUserAgent userAgent, ClientHints clientHints) {
+//        ArrayList<BrandVersion> brands = null;
+//        ArrayList<BrandVersion> fullVersionList = null;
+//        Boolean mobile = null;
+//        String architecture = null;
+//        String bitness = null;
+//        String model = null;
+//        String platform = null;
+//        String platformVersion = null;
+//        Boolean wow64 = null;
+//
+//
+//        List<BrandVersion> brandsList = clientHints.getBrands();
+//        if (brandsList != null && !brandsList.isEmpty()) {
+//        }
 
-            MutableAgentField layoutEngineName = userAgent.get(LAYOUT_ENGINE_NAME);
-            MutableAgentField layoutEngineVersionMajor = userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR);
-            MutableAgentField agentName = userAgent.get(AGENT_NAME);
-            MutableAgentField agentVersionMajor = userAgent.get(AGENT_VERSION_MAJOR);
-            MutableAgentField deviceClass = userAgent.get(DEVICE_CLASS);
-            for (BrandVersion brandVersion : brandsList) {
-                String[] versionSplits = userAgent.getValue(AGENT_VERSION).split("\\.");
-                if (brandVersion.getVersion().equals("99")) {
-                    if (versionSplits.length == 2 && "0".equals(versionSplits[1])) {
-                        continue;
-                    }
-                }
-                majorVersion = brandVersion.getVersion().split("\\.")[0];
-
-                switch (brandVersion.getBrand()) {
-                    case "Chromium":
-                        if (layoutEngineName.getValue().equals("Blink")) {
-                            if (!layoutEngineVersionMajor.getValue().equals(majorVersion)) {
-                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
-                            }
-                        }
-                        break;
-                    case "Google Chrome":
-                    case "Chrome":
-                        if (agentName.getValue().equals("Chrome")) {
-                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
-                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
-                            }
-                        }
-                        break;
-                    case "Microsoft Edge":
-                    case "Edge":
-                        if (agentName.getValue().equals("Edge")) {
-                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
-                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
-                            }
-                        }
-                        break;
-                    case "Opera":
-                        if (agentName.getValue().equals("Opera") && !userAgent.getValue(OPERATING_SYSTEM_CLASS).equals(MOBILE.getValue())) {
-                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
-                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
-                            }
-                        }
-                        break;
-                    case "OperaMobile":
-                        if (agentName.getValue().equals("Opera") && userAgent.getValue(OPERATING_SYSTEM_CLASS).equals(MOBILE.getValue())) {
-                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
-                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
-                            }
-                        }
-                        break;
-                    default: // Ignore all others
-                }
-            }
-        }
-
+//        clientHints.getModel()
+//        clientHints.getModel()
+//        clientHints.getModel()
+//        clientHints.getModel()
+        return userAgent;
     }
+
+
+
+
+
+//    public void detectVersionMismatchRobots(MutableUserAgent userAgent, ClientHints clientHints) {
+//        List<BrandVersion> brandsList = clientHints.getBrands();
+//        if (brandsList != null && !brandsList.isEmpty()) {
+//            String majorVersion;
+//
+//            MutableAgentField layoutEngineName = userAgent.get(LAYOUT_ENGINE_NAME);
+//            MutableAgentField layoutEngineVersionMajor = userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR);
+//            MutableAgentField agentName = userAgent.get(AGENT_NAME);
+//            MutableAgentField agentVersionMajor = userAgent.get(AGENT_VERSION_MAJOR);
+//            MutableAgentField deviceClass = userAgent.get(DEVICE_CLASS);
+//            for (BrandVersion brandVersion : brandsList) {
+//                String[] versionSplits = userAgent.getValue(AGENT_VERSION).split("\\.");
+//                if (brandVersion.getVersion().equals("99")) {
+//                    if (versionSplits.length == 2 && "0".equals(versionSplits[1])) {
+//                        continue;
+//                    }
+//                }
+//                majorVersion = brandVersion.getVersion().split("\\.")[0];
+//
+//                switch (brandVersion.getBrand()) {
+//                    case "Chromium":
+//                        if (layoutEngineName.getValue().equals("Blink")) {
+//                            if (!layoutEngineVersionMajor.getValue().equals(majorVersion)) {
+//                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
+//                            }
+//                        }
+//                        break;
+//                    case "Google Chrome":
+//                    case "Chrome":
+//                        if (agentName.getValue().equals("Chrome")) {
+//                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
+//                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
+//                            }
+//                        }
+//                        break;
+//                    case "Microsoft Edge":
+//                    case "Edge":
+//                        if (agentName.getValue().equals("Edge")) {
+//                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
+//                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
+//                            }
+//                        }
+//                        break;
+//                    case "Opera":
+//                        if (agentName.getValue().equals("Opera") &&
+//                            !userAgent.getValue(OPERATING_SYSTEM_CLASS).equals(MOBILE.getValue())) {
+//                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
+//                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
+//                            }
+//                        }
+//                        break;
+//                    case "OperaMobile":
+//                        if (agentName.getValue().equals("Opera") &&
+//                            userAgent.getValue(OPERATING_SYSTEM_CLASS).equals(MOBILE.getValue())) {
+//                            if (!agentVersionMajor.getValue().equals(majorVersion)) {
+//                                deviceClass.setValue("Robot", deviceClass.getConfidence() + 1);
+//                            }
+//                        }
+//                        break;
+//                    default: // Ignore all others
+//                }
+//            }
+//        }
+//    }
 
     public void improveMobileDeviceClass(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Device Class if it is the vague "Mobile" thing.
@@ -264,7 +291,6 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                         overrideValue(userAgent.get(OPERATING_SYSTEM_VERSION_MAJOR),      betterOsVersion.getVersionMajor());
                         overrideValue(userAgent.get(OPERATING_SYSTEM_NAME_VERSION),       betterOsVersion.getNameVersion());
                         overrideValue(userAgent.get(OPERATING_SYSTEM_NAME_VERSION_MAJOR), betterOsVersion.getNameVersionMajor());
-                        // FIXME: Add         OperatingSystemVersionBuild          : '??'
                     }
                     break;
 
