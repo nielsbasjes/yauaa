@@ -109,7 +109,13 @@ class TestClientHintsAnalysis {
         testCase.addHeader("Sec-CH-UA-Mobile",             secChUaMobile);
         testCase.addHeader("Sec-CH-UA-Platform",           secChUaPlatform);
 
-        // No change in expectations.
+        // Changed expectations.
+        testCase.expect("UAClientHintBrands_0_Brand",      "Chromium");
+        testCase.expect("UAClientHintBrands_0_Version",    "99");
+        testCase.expect("UAClientHintBrands_1_Brand",      "Google Chrome");
+        testCase.expect("UAClientHintBrands_1_Version",    "99");
+        testCase.expect("UAClientHintMobile",              "false");
+        testCase.expect("UAClientHintPlatform",            "Windows");
 
         // Verify
         assertValid(testCase, "Standard ClientHints");
@@ -132,6 +138,13 @@ class TestClientHintsAnalysis {
 
         testCase.expect("AgentVersion",                    "99.0.4844.51");
         testCase.expect("AgentNameVersion",                "Chrome 99.0.4844.51");
+
+        testCase.expect("UAClientHintArchitecture",              "x86");
+        testCase.expect("UAClientHintFullVersionList_0_Brand",   "Chromium");
+        testCase.expect("UAClientHintFullVersionList_0_Version", "99.0.4844.51");
+        testCase.expect("UAClientHintFullVersionList_1_Brand",   "Google Chrome");
+        testCase.expect("UAClientHintFullVersionList_1_Version", "99.0.4844.51");
+        testCase.expect("UAClientHintPlatformVersion",           "14.0.0");
 
         // Verify
         assertValid(testCase, "Full ClientHints");
@@ -185,7 +198,13 @@ class TestClientHintsAnalysis {
         testCase.addHeader("Sec-CH-UA-Mobile",              secChUaMobile);
         testCase.addHeader("Sec-CH-UA-Platform",            secChUaPlatform);
 
-        // No change in expectations.
+        // Changed expectations.
+        testCase.expect("UAClientHintBrands_0_Brand",      "Chromium");
+        testCase.expect("UAClientHintBrands_0_Version",    "99");
+        testCase.expect("UAClientHintBrands_1_Brand",      "Google Chrome");
+        testCase.expect("UAClientHintBrands_1_Version",    "99");
+        testCase.expect("UAClientHintMobile",              "false");
+        testCase.expect("UAClientHintPlatform",            "Windows");
 
         // Verify
         assertValid(testCase, "Standard ClientHints");
@@ -208,6 +227,13 @@ class TestClientHintsAnalysis {
 
         testCase.expect("AgentVersion",                    "99.0.4844.51");
         testCase.expect("AgentNameVersion",                "Chrome 99.0.4844.51");
+
+        testCase.expect("UAClientHintArchitecture",                "x86");
+        testCase.expect("UAClientHintFullVersionList_0_Brand",     "Chromium");
+        testCase.expect("UAClientHintFullVersionList_0_Version",   "99.0.4844.51");
+        testCase.expect("UAClientHintFullVersionList_1_Brand",     "Google Chrome");
+        testCase.expect("UAClientHintFullVersionList_1_Version",   "99.0.4844.51");
+        testCase.expect("UAClientHintPlatformVersion",             "14.0.0");
 
         // Verify
         assertValid(testCase, "Full ClientHints");
@@ -260,7 +286,13 @@ class TestClientHintsAnalysis {
         testCase.addHeader("Sec-CH-UA-Mobile",             secChUaMobile);
         testCase.addHeader("Sec-CH-UA-Platform",           secChUaPlatform);
 
-        // No change in expectations.
+        // Changed expectations.
+        testCase.expect("UAClientHintBrands_0_Brand",      "Chromium");
+        testCase.expect("UAClientHintBrands_0_Version",    "100");
+        testCase.expect("UAClientHintBrands_1_Brand",      "Google Chrome");
+        testCase.expect("UAClientHintBrands_1_Version",    "100");
+        testCase.expect("UAClientHintMobile",              "true");
+        testCase.expect("UAClientHintPlatform",            "Android");
 
         // Verify
         assertValid(testCase, "Standard ClientHints");
@@ -287,6 +319,13 @@ class TestClientHintsAnalysis {
 
         testCase.expect("AgentVersion",                     "100.0.4896.30");
         testCase.expect("AgentNameVersion",                 "Chrome 100.0.4896.30");
+
+        testCase.expect("UAClientHintFullVersionList_0_Brand",   "Chromium");
+        testCase.expect("UAClientHintFullVersionList_0_Version", "100.0.4896.30");
+        testCase.expect("UAClientHintFullVersionList_1_Brand",   "Google Chrome");
+        testCase.expect("UAClientHintFullVersionList_1_Version", "100.0.4896.30");
+        testCase.expect("UAClientHintModel",                     "Nokia 7.2");
+        testCase.expect("UAClientHintPlatformVersion",           "11.0.0");
 
         // Verify
         assertValid(testCase, "Full ClientHints");
@@ -333,6 +372,7 @@ class TestClientHintsAnalysis {
         testCase.expect("AgentNameVersion",                "Chrome 99");
         testCase.expect("AgentNameVersionMajor",           "Chrome 99");
 
+
         // Verify
         assertValid(testCase, "No ClientHints");
 
@@ -342,7 +382,13 @@ class TestClientHintsAnalysis {
         testCase.addHeader("Sec-CH-UA-Mobile",             secChUaMobile);
         testCase.addHeader("Sec-CH-UA-Platform",           secChUaPlatform);
 
-        // No change in expectations.
+        // Changed expectations.
+        testCase.expect("UAClientHintBrands_0_Brand",      "Chromium");
+        testCase.expect("UAClientHintBrands_0_Version",    "99");
+        testCase.expect("UAClientHintBrands_1_Brand",      "Google Chrome");
+        testCase.expect("UAClientHintBrands_1_Version",    "99");
+        testCase.expect("UAClientHintMobile",              "false");
+        testCase.expect("UAClientHintPlatform",            "Linux");
 
         // Verify
         assertValid(testCase, "Standard ClientHints");
@@ -365,6 +411,13 @@ class TestClientHintsAnalysis {
 
         testCase.expect("AgentVersion",                     "99.0.4844.51");
         testCase.expect("AgentNameVersion",                 "Chrome 99.0.4844.51");
+
+        testCase.expect("UAClientHintArchitecture",              "x86");
+        testCase.expect("UAClientHintFullVersionList_0_Brand",   "Chromium");
+        testCase.expect("UAClientHintFullVersionList_0_Version", "99.0.4844.51");
+        testCase.expect("UAClientHintFullVersionList_1_Brand",   "Google Chrome");
+        testCase.expect("UAClientHintFullVersionList_1_Version", "99.0.4844.51");
+        testCase.expect("UAClientHintPlatformVersion",           "5.13.0");
 
         // Verify
         assertValid(testCase, "Full ClientHints");
