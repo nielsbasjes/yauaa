@@ -42,19 +42,21 @@ If the additional headers are critical to your application you can send `Critica
 
 
 The headers Yauaa can handle are shown in this table.
+
 The shown example values are the real values recorded when running Chrom 100.0.4896.75 with the reduced User-Agent setting enabled on Windows 7.
 
-| Request header                     | Example value                                                                                                    |
-|------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| User-Agent                         | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36 |
-| Sec-Ch-Ua                          | " Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"                                              |
-| Sec-Ch-Ua-Arch                     | "x86"                                                                                                           |
-| Sec-Ch-Ua-Full-Version-List        | " Not A;Brand";v="99.0.0.0", "Chromium";v="100.0.4896.75", "Google Chrome";v="100.0.4896.75"                    |
-| Sec-Ch-Ua-Mobile                   | ?0                                                                                                              |
-| Sec-Ch-Ua-Model                    | ""                                                                                                              |
-| Sec-Ch-Ua-Platform                 | "Windows"                                                                                                       |
-| Sec-Ch-Ua-Platform-Version         | "0.1.0"                                                                                                         |
-| Sec-Ch-Ua-Wow64                    | ?0                                                                                                              |
+| Request header              | Example value                                                                                                   |
+|-----------------------------|-----------------------------------------------------------------------------------------------------------------|
+| User-Agent                  | Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36 |
+| Sec-Ch-Ua                   | " Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"                                              |
+| Sec-Ch-Ua-Arch              | "x86"                                                                                                           |
+| Sec-CH-UA-Full-Version      | "100.0.4896.75"                                                                                                 |
+| Sec-Ch-Ua-Full-Version-List | " Not A;Brand";v="99.0.0.0", "Chromium";v="100.0.4896.75", "Google Chrome";v="100.0.4896.75"                    |
+| Sec-Ch-Ua-Mobile            | ?0                                                                                                              |
+| Sec-Ch-Ua-Model             | ""                                                                                                              |
+| Sec-Ch-Ua-Platform          | "Windows"                                                                                                       |
+| Sec-Ch-Ua-Platform-Version  | "0.1.0"                                                                                                         |
+| Sec-Ch-Ua-Wow64             | ?0                                                                                                              |
 
 
 ## Logging the User-Agent Client Hints
