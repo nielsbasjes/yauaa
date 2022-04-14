@@ -19,23 +19,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <artifactId>yauaa-udf-drill-parent</artifactId>
-    <groupId>nl.basjes.parse.useragent</groupId>
-    <version>7.0.0-SNAPSHOT</version>
-  </parent>
   <artifactId>yauaa-drill-tests</artifactId>
+  <groupId>nl.basjes.parse.useragent</groupId>
+  <version>0.0.1</version>
 
   <name>Yauaa : UDF : Apache Drill : Tests</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
   <url>https://github.com/nielsbasjes/yauaa</url>
 
+  <properties>
+    <target.java.version>@target.java.version@</target.java.version>
+    <target.java.release>@target.java.release@</target.java.release>
+    <project.build.sourceEncoding>@project.build.sourceEncoding@</project.build.sourceEncoding>
+    <project.build.outputEncoding>@project.build.outputEncoding@</project.build.outputEncoding>
+    <maven.compiler.source>@maven.compiler.source@</maven.compiler.source>
+    <maven.compiler.target>@maven.compiler.target@</maven.compiler.target>
+  </properties>
+
+  <!-- Needed to allow downloading the dependencies when using maven 3.8.1-->
+  <!-- Could not transfer artifact org.kohsuke:libpam4j:pom:1.8-rev2 from/to maven-default-http-blocker (http://0.0.0.0/): -->
+  <!--   Blocked mirror for repositories: [mapr-releases (http://repository.mapr.com/maven/, default, releases)]-->
+  <repositories>
+    <repository>
+      <id>mapr</id>
+      <name>Mapr</name>
+      <url>https://repository.mapr.com/maven/</url>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>@junit5.version@</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa-drill</artifactId>
-      <version>${project.version}</version>
+      <version>@project.version@</version>
     </dependency>
 
     <!--TEST DEPENDENCIES-->
@@ -44,7 +73,7 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
+      <version>@log4j2.version@</version>
       <scope>test</scope>
     </dependency>
 
@@ -52,7 +81,7 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
+      <version>@log4j2.version@</version>
       <scope>test</scope>
     </dependency>
 
@@ -60,14 +89,14 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-jcl</artifactId>
-      <version>${log4j2.version}</version>
+      <version>@log4j2.version@</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.drill.exec</groupId>
       <artifactId>drill-java-exec</artifactId>
-      <version>${drill.version}</version>
+      <version>@drill.version@</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -84,7 +113,7 @@
     <dependency>
       <groupId>org.apache.drill.memory</groupId>
       <artifactId>drill-memory-base</artifactId>
-      <version>${drill.version}</version>
+      <version>@drill.version@</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -97,7 +126,7 @@
     <dependency>
       <groupId>org.apache.drill</groupId>
       <artifactId>drill-common</artifactId>
-      <version>${drill.version}</version>
+      <version>@drill.version@</version>
       <classifier>tests</classifier>
       <scope>test</scope>
       <exclusions>
@@ -111,7 +140,7 @@
     <dependency>
       <groupId>org.apache.drill.exec</groupId>
       <artifactId>drill-java-exec</artifactId>
-      <version>${drill.version}</version>
+      <version>@drill.version@</version>
       <classifier>tests</classifier>
       <scope>test</scope>
       <exclusions>
@@ -125,7 +154,7 @@
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
-      <version>${netty.version}</version>
+      <version>@netty.version@</version>
       <scope>provided</scope>
     </dependency>
 
@@ -146,14 +175,14 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson-databind.version}</version>
+      <version>@jackson-databind.version@</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>${jackson.version}</version>
+      <version>@jackson.version@</version>
       <scope>test</scope>
     </dependency>
 
@@ -164,7 +193,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>${maven-deploy-plugin.version}</version>
+        <version>@maven-deploy-plugin.version@</version>
         <configuration>
           <skip>true</skip>
         </configuration>
@@ -172,12 +201,12 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>${spotbugs-maven-plugin.version}</version>
+        <version>@spotbugs-maven-plugin.version@</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
+        <version>@maven-checkstyle-plugin.version@</version>
       </plugin>
     </plugins>
   </build>
