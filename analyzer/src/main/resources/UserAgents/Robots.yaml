@@ -10251,3 +10251,31 @@ config:
       UAClientHintBrands_0_Version         : '98'
       UAClientHintMobile                   : 'false'
       UAClientHintPlatform                 : 'Windows'
+
+
+- test:
+    input:
+      User-Agent                           : 'Buck/2.3.1; (+https://app.hypefactors.com/media-monitoring/about.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hypefactors Buck'
+      DeviceBrand                          : 'Hypefactors'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Buck'
+      LayoutEngineVersion                  : '2.3.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Buck 2.3.1'
+      LayoutEngineNameVersionMajor         : 'Buck 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Buck'
+      AgentVersion                         : '2.3.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Buck 2.3.1'
+      AgentNameVersionMajor                : 'Buck 2'
+      AgentInformationUrl                  : 'https://app.hypefactors.com/media-monitoring/about.html'
