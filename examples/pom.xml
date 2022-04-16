@@ -39,7 +39,7 @@
 
     <kotlin.version>1.6.10</kotlin.version>
     <scala-library.version>2.13.8</scala-library.version>
-    <quarkus.platform.version>2.7.5.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.8.0.Final</quarkus.platform.version>
     <quarkus-plugin.version>${quarkus.platform.version}</quarkus-plugin.version>
     <scalatestplus-junit-4.version>3.2.2.0</scalatestplus-junit-4.version>
     <scalatest_2.13.version>3.2.11</scalatest_2.13.version>
@@ -75,14 +75,15 @@
           <failIfNoProjects>true</failIfNoProjects>
           <!--          <debug>true</debug>-->
           <streamLogsOnFailures>true</streamLogsOnFailures>
-          <projectsDirectory>./projects</projectsDirectory>
+          <projectsDirectory>../analyzer/src/it/projects</projectsDirectory>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
           <pomIncludes>
-            <pomInclude>*/pom.xml</pomInclude>
+<!--            <pomInclude>*/pom.xml</pomInclude> FIXME-->
+            <pomInclude>quarkus/pom.xml</pomInclude>
           </pomIncludes>
           <postBuildHookScript>verify</postBuildHookScript>
           <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
-          <settingsFile>projects/settings.xml</settingsFile>
+          <settingsFile>../analyzer/src/it/projects/settings.xml</settingsFile>
           <goals>
             <goal>clean</goal>
             <goal>test</goal>

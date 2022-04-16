@@ -22,9 +22,41 @@
 
   <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-example-parent-it</artifactId>
-  <version>@project.version@</version>
+  <version>0.0.1</version>
 
   <name>Yauaa : Examples :</name>
+
+<!--  &lt;!&ndash; Use these while developing these tests. &ndash;&gt;-->
+<!--  <properties>-->
+<!--    <target.java.version>1.8</target.java.version>-->
+<!--    <target.java.release>8</target.java.release>-->
+<!--    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--    <project.build.outputEncoding>UTF-8</project.build.outputEncoding>-->
+<!--    <maven.compiler.source>${target.java.version}</maven.compiler.source>-->
+<!--    <maven.compiler.target>${target.java.version}</maven.compiler.target>-->
+<!--    <maven.compiler.release>${target.java.release}</maven.compiler.release>-->
+
+<!--    <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>-->
+<!--    <maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>-->
+<!--    <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>-->
+<!--    <docker-maven-plugin.version>0.39.1</docker-maven-plugin.version>-->
+
+<!--    &lt;!&ndash; This is to make the example code a bit easier to copy into your own project. &ndash;&gt;-->
+<!--    <yauaa.version>7.0.0-SNAPSHOT</yauaa.version>-->
+
+<!--    <log4j2.version>2.17.2</log4j2.version>-->
+<!--    <slf4j.version>1.7.36</slf4j.version>-->
+
+<!--    <kotlin.version>1.6.10</kotlin.version>-->
+<!--    <scala-library.version>2.13.8</scala-library.version>-->
+<!--    <scalatestplus-junit-4.version>3.2.2.0</scalatestplus-junit-4.version>-->
+<!--    <scalatest_2.13.version>3.2.11</scalatest_2.13.version>-->
+<!--    <quarkus.platform.version>2.8.0.Final</quarkus.platform.version>-->
+<!--    <quarkus-plugin.version>${quarkus.platform.version}</quarkus-plugin.version>-->
+<!--    <junit5.version>5.8.2</junit5.version>-->
+<!--    <hamcrest-core.version>2.2</hamcrest-core.version>-->
+
+<!--  </properties>-->
 
   <properties>
     <target.java.version>1.8</target.java.version>
@@ -46,13 +78,10 @@
     <log4j2.version>@log4j2.version@</log4j2.version>
     <slf4j.version>@slf4j.version@</slf4j.version>
 
-
     <kotlin.version>@kotlin.version@</kotlin.version>
-
     <scala-library.version>@scala-library.version@</scala-library.version>
     <scalatestplus-junit-4.version>@scalatestplus-junit-4.version@</scalatestplus-junit-4.version>
     <scalatest_2.13.version>@scalatest_2.13.version@</scalatest_2.13.version>
-
     <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
     <quarkus-plugin.version>@quarkus-plugin.version@</quarkus-plugin.version>
 
@@ -114,5 +143,13 @@
       </plugin>
     </plugins>
   </build>
+
+  <modules>
+    <module>java</module>
+    <module>java-slf4j</module>
+    <module>kotlin</module>
+    <module>quarkus</module>
+    <module>scala</module>
+  </modules>
 
 </project>

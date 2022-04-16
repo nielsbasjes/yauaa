@@ -20,8 +20,12 @@ package nl.basjes.parse.useragent.quarkus;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
+import java.util.regex.Pattern;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.matchesRegex;
 
 @QuarkusTest
 class ParseServiceTest {
@@ -35,6 +39,25 @@ class ParseServiceTest {
             .then()
                 .statusCode(200)
                 .body(containsString("Chrome 84.0.4147.89"));
+    }
+
+    @Test
+    void testCheckCustomConfigWasLoaded() {
+        given()
+            .header("User-Agent", "TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)")
+        .when()
+            .get("/parse")
+        .then()
+            .statusCode(200)
+            .body(
+                allOf(
+                    containsString("\"ApplicationGitCommit\":\"d71922715c2bfe29343644b14a4731bf5690e66e\""),
+                    containsString("\"ApplicationInstance\":\"1234\""),
+                    containsString("\"ApplicationName\":\"TestApplication\""),
+                    containsString("\"ApplicationVersion\":\"1.2.3\""),
+                    containsString("\"ServerName\":\"node123.datacenter.example.nl\"")
+                ));
+
     }
 
 }

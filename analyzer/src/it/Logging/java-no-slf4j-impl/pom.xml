@@ -21,7 +21,7 @@
 
   <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-integration-tests-logging-java-no-slf4j-impl</artifactId>
-  <version>@project.version@</version>
+  <version>1.0.0</version>
 
   <packaging>jar</packaging>
 
@@ -32,6 +32,8 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.release>8</maven.compiler.release>
+
+    <yauaa.version>@project.version@</yauaa.version>
 
     <maven-compiler-plugin.version>@maven-compiler-plugin.version@</maven-compiler-plugin.version>
     <maven-failsafe-plugin.version>@maven-failsafe-plugin.version@</maven-failsafe-plugin.version>
@@ -62,7 +64,7 @@
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>${project.version}</version>
+      <version>${yauaa.version}</version>
     </dependency>
 
     <!-- The default logging implementation for Yauaa -->

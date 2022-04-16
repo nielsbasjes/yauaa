@@ -35,13 +35,15 @@ public class ParseService {
     public void automaticStartup() {
         userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
             .immediateInitialization()
+            .addOptionalResources("file:UserAgents*/*.yaml")
+            .addOptionalResources("classpath*:UserAgents-*/*.yaml")
             .build();
     }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getYamlGET(@HeaderParam("user-agent") String userAgentString) {
-        return userAgentAnalyzer.parse(userAgentString).toYamlTestCase();
+        return userAgentAnalyzer.parse(userAgentString).toJson();
     }
 
 }
