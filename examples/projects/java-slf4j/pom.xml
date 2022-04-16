@@ -21,41 +21,44 @@
 
   <parent>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <artifactId>yauaa-example-parent</artifactId>
-    <version>7.0.0-SNAPSHOT</version>
+    <artifactId>yauaa-example-parent-it</artifactId>
+    <version>@project.version@</version>
   </parent>
 
   <packaging>jar</packaging>
 
-  <artifactId>yauaa-example-java</artifactId>
-  <name>Yauaa : Examples : Java</name>
+  <artifactId>yauaa-example-java-slf4j</artifactId>
+  <name>Yauaa : Examples : Java (SLF4J)</name>
 
   <dependencies>
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>7.0.0-SNAPSHOT</version>
+      <version>${yauaa.version}</version>
     </dependency>
 
     <!-- The default logging implementation for Yauaa -->
+    <!-- Send all Log4j2 call to SLF4J -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
+      <artifactId>log4j-to-slf4j</artifactId>
       <version>${log4j2.version}</version>
     </dependency>
 
-    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
+    <!-- The included classes from org.apache.httpcomponents.client5:httpclient5 already expects SLF4J -->
 
     <!-- Needed for the included classes from org.springframework:spring-core -->
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-jcl</artifactId>
-      <version>${log4j2.version}</version>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <!-- Just the simplest of logger for this demo. -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
     </dependency>
 
   </dependencies>

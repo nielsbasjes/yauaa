@@ -41,7 +41,7 @@
     <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.5.2</maven.minimal.version>
 
-    <antlr.version>4.10</antlr.version>
+    <antlr.version>4.10.1</antlr.version>
     <snakeyaml.version>1.30</snakeyaml.version>
 
     <!-- ============================================== -->
@@ -135,6 +135,8 @@
 
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <maven-replacer-plugin>1.4.1</maven-replacer-plugin>
+
+    <docker-maven-plugin.version>0.39.1</docker-maven-plugin.version>
 
     <spring.version>5.3.19</spring.version>
     <spring-boot.version>2.6.6</spring-boot.version>
@@ -645,8 +647,7 @@
             <exclude>.github/**</exclude>
             <exclude>**/*.json</exclude>
             <exclude>udfs/drill/src/main/resources/drill-module.conf</exclude>
-            <exclude>examples/pig/testcases.txt</exclude>
-            <exclude>**/src/main/resources/META-INF/services/org.apache.nifi.processor.Processor</exclude>
+            <exclude>examples/projects/pig/testcases.txt</exclude>
             <exclude>analyzer/src/test/resources/YamlParsingTests/Empty.yaml</exclude>
             <!-- Files from external sources -->
             <exclude>**/analyzer/src/main/code-gen/UserAgents/AppleTypes/*.csv</exclude>
@@ -808,6 +809,9 @@
           <artifactId>spotbugs-maven-plugin</artifactId>
           <version>${spotbugs-maven-plugin.version}</version>
           <configuration>
+            <!-- FIXME: Spotbugs disabled because of inconsistent reports. -->
+            <!--        Build from root: pass, Build from module: fail.    -->
+            <skip>true</skip>
             <excludeFilterFile>spotbugs/spotbugs-exclude.xml</excludeFilterFile>
           </configuration>
           <dependencies>
@@ -894,7 +898,6 @@
   <modules>
     <module>devtools</module>
     <module>analyzer</module>
-    <module>analyzer-it</module>
     <module>udfs</module>
     <module>webapp</module>
     <module>examples</module>

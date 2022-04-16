@@ -546,8 +546,14 @@
           <!--          <debug>true</debug>-->
           <streamLogsOnFailures>true</streamLogsOnFailures>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <setupIncludes>
+            <setupInclude>setup/*/pom.xml</setupInclude>
+          </setupIncludes>
           <pomIncludes>
-            <pomInclude>*/pom.xml</pomInclude>
+            <pomInclude>JavaPlain/*/pom.xml</pomInclude>
+            <pomInclude>JavaJPMS/*/pom.xml</pomInclude>
+            <pomInclude>Logging/*/pom.xml</pomInclude>
+            <pomInclude>Serialization/*/pom.xml</pomInclude>
           </pomIncludes>
           <postBuildHookScript>verify</postBuildHookScript>
           <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>

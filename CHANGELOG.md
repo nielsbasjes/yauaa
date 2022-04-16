@@ -1,13 +1,15 @@
 
 This is intended as an overview of the major changes
 
-v6.13-SNAPSHOT
+v7.0.0-SNAPSHOT
 ===
-- Security update for jackson-databind
+- Security:
+  - Update for jackson-databind
 - New/improved detections
   - Microsoft Edge Webview
 - Build
   - Use new feature in maven-shade-plugin to use the correct pom.xml in the jar.
+  - Restructure integration tests and examples to run outside the maven reactor.
 - Updated UDF dependencies
   - Apache Nifi             1.16.0
   - Elastic Search          7.17.2 & 8.1.2

@@ -19,6 +19,9 @@ SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 cd "${SCRIPTDIR}" || exit 1
 LOGFILE=hive-it-test.log
 
+# Ensure clean starting point
+docker-compose down
+
 # Start the Hive installation
 docker-compose up -d
 

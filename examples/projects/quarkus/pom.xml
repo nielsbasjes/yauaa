@@ -19,16 +19,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>yauaa-example-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <version>7.0.0-SNAPSHOT</version>
+    <artifactId>yauaa-example-parent-it</artifactId>
+    <version>@project.version@</version>
   </parent>
 
   <artifactId>yauaa-example-quarkus</artifactId>
   <name>Yauaa : Examples : Quarkus</name>
 
   <properties>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters> <!-- Set to true to generate metadata for reflection on method parameters. -->
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -36,12 +35,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <quarkus-plugin.version>2.7.5.Final</quarkus-plugin.version>
-    <quarkus.platform.version>2.7.5.Final</quarkus.platform.version>
-
-    <surefire-plugin.version>2.22.2</surefire-plugin.version>
-    <failsafe-plugin.version>2.22.2</failsafe-plugin.version>
-
+    <!-- The default port on which to expose if you do "mvn docker:run" -->
+    <yauaa.port>8080</yauaa.port>
   </properties>
 
   <dependencyManagement>
@@ -78,7 +73,7 @@
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>${project.version}</version>
+      <version>${yauaa.version}</version>
     </dependency>
 
     <!-- The default logging implementation for Yauaa -->
@@ -89,11 +84,11 @@
     </dependency>
 
     <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.apache.logging.log4j</groupId>-->
+<!--      <artifactId>log4j-slf4j-impl</artifactId>-->
+<!--      <version>${log4j2.version}</version>-->
+<!--    </dependency>-->
 
     <!-- Needed for the included classes from org.springframework:spring-core -->
     <dependency>
@@ -123,7 +118,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${compiler-plugin.version}</version>
+        <version>${maven-compiler-plugin.version}</version>
       </plugin>
 
       <plugin>
@@ -135,15 +130,6 @@
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
             <maven.home>${maven.home}</maven.home>
           </systemPropertyVariables>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>${maven-deploy-plugin.version}</version>
-        <configuration>
-          <skip>true</skip>
         </configuration>
       </plugin>
 
@@ -186,7 +172,7 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <version>0.38.1</version>
+            <version>${docker-maven-plugin.version}</version>
             <configuration>
               <images>
                 <image>

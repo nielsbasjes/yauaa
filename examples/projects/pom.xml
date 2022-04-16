@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Yet Another UserAgent Analyzer
+  ~ Copyright (C) 2013-2022 Niels Basjes
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+
+  <groupId>nl.basjes.parse.useragent</groupId>
+  <artifactId>yauaa-example-parent-it</artifactId>
+  <version>@project.version@</version>
+
+  <name>Yauaa : Examples :</name>
+
+  <properties>
+    <target.java.version>1.8</target.java.version>
+    <target.java.release>8</target.java.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+    <maven.compiler.source>${target.java.version}</maven.compiler.source>
+    <maven.compiler.target>${target.java.version}</maven.compiler.target>
+    <maven.compiler.release>${target.java.release}</maven.compiler.release>
+
+    <maven-compiler-plugin.version>@maven-compiler-plugin.version@</maven-compiler-plugin.version>
+    <maven-failsafe-plugin.version>@maven-failsafe-plugin.version@</maven-failsafe-plugin.version>
+    <maven-surefire-plugin.version>@maven-surefire-plugin.version@</maven-surefire-plugin.version>
+    <docker-maven-plugin.version>@docker-maven-plugin.version@</docker-maven-plugin.version>
+
+    <!-- Get actual version from invoker plugin. -->
+    <yauaa.version>@yauaa.version@</yauaa.version>
+
+    <log4j2.version>@log4j2.version@</log4j2.version>
+    <slf4j.version>@slf4j.version@</slf4j.version>
+
+
+    <kotlin.version>@kotlin.version@</kotlin.version>
+
+    <scala-library.version>@scala-library.version@</scala-library.version>
+    <scalatestplus-junit-4.version>@scalatestplus-junit-4.version@</scalatestplus-junit-4.version>
+    <scalatest_2.13.version>@scalatest_2.13.version@</scalatest_2.13.version>
+
+    <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
+    <quarkus-plugin.version>@quarkus-plugin.version@</quarkus-plugin.version>
+
+    <junit5.version>@junit5.version@</junit5.version>
+    <hamcrest-core.version>@hamcrest-core.version@</hamcrest-core.version>
+
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit5.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>${hamcrest-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <failIfNoTests>true</failIfNoTests>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
