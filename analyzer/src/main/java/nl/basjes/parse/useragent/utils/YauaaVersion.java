@@ -100,6 +100,14 @@ public final class YauaaVersion {
         }
     }
 
+    public static void logVersion(boolean showFullVersion) {
+        if (showFullVersion) {
+            logVersion();
+        } else {
+            LOG.info("{}", YauaaVersion::getVersion);
+        }
+    }
+
     public static void logVersion(String... extraLines) {
         logVersion(Arrays.asList(extraLines));
     }

@@ -10,6 +10,8 @@ v7.0.0-SNAPSHOT
 - Build
   - Use new feature in maven-shade-plugin to use the correct pom.xml in the jar.
   - Restructure integration tests and examples to run outside the maven reactor.
+- Analyzer
+  - Option to show only minimal version information during startup.
 - Updated UDF dependencies
   - Apache Nifi             1.16.0
   - Elastic Search          7.17.2 & 8.1.2

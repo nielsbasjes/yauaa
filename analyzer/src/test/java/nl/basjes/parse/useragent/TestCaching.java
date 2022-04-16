@@ -43,6 +43,7 @@ class TestCaching {
             .withCache(42)
             .hideMatcherLoadStats()
             .withField("AgentUuid")
+            .showMinimalVersion()
             .build();
 
         assertEquals(42, uaa.getCacheSize());
@@ -63,6 +64,7 @@ class TestCaching {
             .withoutCache()
             .hideMatcherLoadStats()
             .withField("AgentUuid")
+            .showMinimalVersion()
             .build();
 
         assertEquals(0, uaa.getCacheSize());
@@ -84,6 +86,7 @@ class TestCaching {
             .withCache(1)
             .hideMatcherLoadStats()
             .withField(fieldName)
+            .showMinimalVersion()
             .build();
 
         UserAgent agent;
@@ -120,8 +123,9 @@ class TestCaching {
         String userAgent = "Mozilla/5.0 (compatible; coccocbot-image/1.0; +http://help.coccoc.com/searchengine)";
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
-            .withCache(10)
+            .showMinimalVersion()
             .hideMatcherLoadStats()
+            .withCache(10)
             .build();
 
         // First time

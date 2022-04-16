@@ -27,14 +27,16 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DocumentationExample {
+class DocumentationExampleTest {
 
-    private static final Logger LOG = LogManager.getLogger(DocumentationExample.class);
+    private static final Logger LOG = LogManager.getLogger(DocumentationExampleTest.class);
 
     @Test
     void runDocumentationExample() {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
+            .showMinimalVersion()
+            .hideMatcherLoadStats()
             .dropDefaultResources()
             .addResources("classpath*:DocumentationExample.yaml")
             .build();
@@ -45,6 +47,7 @@ class DocumentationExample {
     void runNormalUsageExample() {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
+            .showMinimalVersion()
             .build();
 
         Map<String, String> requestHeaders = new TreeMap<>();

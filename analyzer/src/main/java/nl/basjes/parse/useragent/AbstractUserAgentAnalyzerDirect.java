@@ -464,6 +464,16 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             return (B)this;
         }
 
+        boolean showFullVersion = true;
+        public B showMinimalVersion() {
+            showFullVersion = false;
+            return (B)this;
+        }
+
+        public B showFullVersion() {
+            showFullVersion = true;
+            return (B)this;
+        }
 
         /**
          * Construct the analyzer and run the preheat sequence (if requested).
@@ -478,7 +488,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             // This is a "fail fast" to ensure any problems happen even before startup.
             CheckLoggingDependencies.verifyLoggingDependencies();
 
-            logVersion();
+            logVersion(showFullVersion);
 
             // In case we only want specific fields we must add these special cases too
             if (!wantedFieldNames.isEmpty()) {
