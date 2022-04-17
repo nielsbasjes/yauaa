@@ -14,6 +14,9 @@ As part of this an extension to the `Client Hints` have been documented and impl
 See:
 - https://wicg.github.io/ua-client-hints/#http-ua-hints
 - https://web.dev/user-agent-client-hints/
+- https://docs.microsoft.com/en-us/microsoft-edge/web-platform/user-agent-guidance
+- https://docs.microsoft.com/en-us/microsoft-edge/web-platform/how-to-detect-win11
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Sec-CH-UA#directives
 
 ## Getting the browser to send User-Agent Client Hints
 Now the User-Agent Client Hints are provided by the browser in each request to the server via additional request headers.
@@ -40,6 +43,9 @@ If the additional headers are critical to your application you can send `Critica
 
     Critical-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
 
+See:
+- https://chromestatus.com/feature/5727177800679424
+- https://github.com/WICG/client-hints-infrastructure/blob/main/reliability.md
 
 The headers Yauaa can handle are shown in this table.
 
