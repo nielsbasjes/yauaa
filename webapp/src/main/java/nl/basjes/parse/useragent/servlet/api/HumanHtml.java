@@ -150,13 +150,22 @@ public class HumanHtml {
                 for (UserAgent userAgent: userAgents) {
 
                     sb.append("<hr/>");
-                    sb.append("<h2 class=\"title\">The UserAgent</h2>");
+                    sb.append("<h2 class=\"title\">The UserAgent");
+                    copyTestcaseToClipboard(sb, userAgent);
+                    if (!useClientHints) {
+                        sb
+                            .append(" <a class=\"hideLink\" href=\"?ua=")
+                            .append(URLEncoder.encode(userAgent.getUserAgentString(), "UTF-8"))
+                            // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
+                            .append("\">\uD83D\uDD17</a>");
+                    }
+                    sb.append("</h2>");
                     sb.append("<div class=\"input\">");
 
                     if (useClientHints) {
                         sb.append("<table class=\"clientHints\">");
                         sb.append("<tr><th colspan=2><b><center>User-Agent and Client Hints</center></b></th></tr>");
-                        sb.append("<tr><th>Available Client Hints</th><th>Value</th></tr>");
+                        sb.append("<tr><th>Usable header</th><th>Value</th></tr>");
                         List<String> showHeaders = new ArrayList<>();
                         showHeaders.add(USERAGENT_HEADER);
                         showHeaders.addAll(getUserAgentAnalyzer().supportedClientHintHeaders());
@@ -176,18 +185,7 @@ public class HumanHtml {
                     }
                     sb.append("</div>");
 
-                    sb.append("<h2 class=\"title\">The analysis result");
-                    if (useClientHints) {
-                        sb
-                            .append(" (improved with ClientHints where possible)");
-                    } else {
-                        sb
-                            .append(" <a class=\"hideLink\" href=\"?ua=")
-                            .append(URLEncoder.encode(userAgent.getUserAgentString(), "UTF-8"))
-                            // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                            .append("\">\uD83D\uDD17</a>");
-                    }
-                    sb.append("</h2>");
+                    sb.append("<h2 class=\"title\">The analysis result</h2>");
 
                     List<String> tags = getTags(userAgent);
                     sb.append("<p class=\"tags\">")
@@ -278,8 +276,10 @@ public class HumanHtml {
         }
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.add("Accept-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
+        if (userAgentAnalyzerIsAvailable()) {
+            responseHeaders.add("Accept-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
 //        responseHeaders.add("Critical-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
+        }
 
         return new ResponseEntity<>(sb.toString(), responseHeaders, OK);
     }
@@ -347,6 +347,25 @@ public class HumanHtml {
         insertFavIcons(sb);
         sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
+        sb.append(
+            "<script>\n" +
+            "function copyTestCaseToClipboard() {\n" +
+            "   var copyText = document.getElementById(\"testCaseForClipboard\");\n" +
+            "   copyText.select();\n" +
+            "   copyText.setSelectionRange(0, 99999);\n" +
+            "   navigator.clipboard.writeText(copyText.value);\n" +
+            "\n" +
+            "    var tooltip = document.getElementById(\"copyTestCaseToClipboardTooltip\");\n" +
+            "    tooltip.innerHTML = \"Copied to clipboard\"\n" +
+            "}\n" +
+            "\n" +
+            "function closeCopyTestCaseToClipboardTooltip() {\n" +
+            "    var tooltip = document.getElementById(\"copyTestCaseToClipboardTooltip\");\n" +
+            "    tooltip.innerHTML = \"Copy this as a testcase to clipboard\";\n" +
+            "}\n" +
+            "</script>");
+
+
         // While initializing automatically reload the page.
         if (!userAgentAnalyzerIsAvailable() && getUserAgentAnalyzerFailureMessage() == null) {
             sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
@@ -402,6 +421,16 @@ public class HumanHtml {
         return result.trim();
     }
 
+    private void copyTestcaseToClipboard(StringBuilder sb, UserAgent userAgent) {
+        sb.append("<textarea style='display:none' id=\"testCaseForClipboard\">")
+            .append(escapeHtml4(userAgent.toYamlTestCase())) // .replace("\"", "&quote;").replace("\n", "&#10;"))
+            .append("</textarea>")
+            .append("<div class=\"tooltip\">" +
+                "<p onclick=\"copyTestCaseToClipboard()\" onmouseout=\"closeCopyTestCaseToClipboardTooltip()\">" +
+                "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip\">Copy this as a testcase to clipboard</span>" +
+                "&#128203;</p>" +
+                "</div>\n");
+    }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
         // https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=bar
