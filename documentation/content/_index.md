@@ -3,7 +3,7 @@ title = "Yauaa: Yet Another UserAgent Analyzer"
 linkTitle = "Yauaa"
 +++
 # Yauaa: Yet Another UserAgent Analyzer
-This is a java library that tries to parse and analyze the useragent string and extract as many relevant attributes as possible.
+This is a java library that tries to parse and analyze the useragent string (and when available the User-Agent Client Hints) and extract as many relevant attributes as possible.
 
 Works with Java, Scala, Kotlin and provides ready for use UDFs for several processing systems.
 
