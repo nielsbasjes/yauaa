@@ -17,11 +17,13 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.VisibleForTesting;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -74,8 +76,8 @@ public class Matcher implements Serializable {
         this.dynamicActions = new ArrayList<>();
     }
 
-    // Package private constructor for testing purposes only
-    Matcher(MatchMaker analyzer) {
+    @VisibleForTesting
+    public Matcher(MatchMaker analyzer) {
         this.analyzer = analyzer;
         this.fixedStringActions = new ArrayList<>();
         this.variableActions = new ArrayList<>();

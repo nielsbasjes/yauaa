@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.beam;
 
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annotate.YauaaField;
 import org.apache.beam.sdk.testing.NeedsRunner;
 import org.apache.beam.sdk.testing.PAssert;

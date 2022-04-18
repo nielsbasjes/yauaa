@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.config;
 
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 
 import java.io.Serializable;
 import java.util.ArrayList;

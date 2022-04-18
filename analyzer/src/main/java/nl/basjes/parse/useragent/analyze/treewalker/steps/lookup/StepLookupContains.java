@@ -20,9 +20,9 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.lookup;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
@@ -47,7 +47,7 @@ public class StepLookupContains extends Step {
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+    public WalkResult walk(@NotNull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
         actualValue = actualValue.toLowerCase(Locale.ROOT);

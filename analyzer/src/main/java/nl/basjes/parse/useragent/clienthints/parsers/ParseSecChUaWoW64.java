@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class ParseSecChUaWoW64 implements CHParser {
@@ -41,9 +41,9 @@ public class ParseSecChUaWoW64 implements CHParser {
     //
     //   Sec-CH-UA-WoW64 = sf-boolean
 
-    @Nonnull
+    @NotNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NotNull Map<String, String> clientHintsHeaders, @NotNull ClientHints clientHints, @NotNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;
@@ -55,7 +55,7 @@ public class ParseSecChUaWoW64 implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

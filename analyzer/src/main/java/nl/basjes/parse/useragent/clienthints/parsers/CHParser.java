@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -38,15 +38,15 @@ public interface CHParser extends Serializable {
      * @param headerName         The actual name of the header (must do case-insensitive compare!)
      * @return The same instance as the provided clientHints parameter.
      */
-    @Nonnull
-    ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName);
+    @NotNull
+    ClientHints parse(@NotNull Map<String, String> clientHintsHeaders, @NotNull ClientHints clientHints, @NotNull String headerName);
 
     /**
      * What Client Hint can this parser do something with?
      *
-     * @return The nonnull header name this parser can handle.
+     * @return The NonNull header name this parser can handle.
      */
-    @Nonnull
+    @NotNull
     String inputField();
 
     /**
@@ -89,7 +89,7 @@ public interface CHParser extends Serializable {
         return null;
     }
 
-    default void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
+    default void initializeCache(@NotNull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
         // No cache implemented by default.
     }
 

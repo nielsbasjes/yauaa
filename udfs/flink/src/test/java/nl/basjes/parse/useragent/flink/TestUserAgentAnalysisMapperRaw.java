@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.flink;
 
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annotate.YauaaField;
 import org.junit.jupiter.api.Test;
 

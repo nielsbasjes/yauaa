@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.analyze.treewalker.TreeExpressionEvaluator;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
@@ -60,6 +61,7 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.VisibleForTesting;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -85,7 +87,8 @@ public abstract class MatcherAction implements Serializable {
     private String matchExpression;
     TreeExpressionEvaluator evaluator;
 
-    TreeExpressionEvaluator getEvaluatorForUnitTesting() {
+    @VisibleForTesting
+    public TreeExpressionEvaluator getEvaluatorForUnitTesting() {
         return evaluator;
     }
 

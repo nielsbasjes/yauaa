@@ -610,7 +610,9 @@
             <!--     no such file or directory                                                                    -->
             <!--   https://stackoverflow.com/questions/41944939/maven-build-failure-involving-manifest-mf-classpath-in-dependency-jars  -->
             <!--   https://stackoverflow.com/questions/1344202/bad-path-warning-where-is-it-coming-from                                 -->
-            <arg>-Xlint:all,-classfile,-processing,-serial,-path</arg>
+            <!-- Ignore 'exports' warnings about "class X in module Y is not indirectly exported using requires transitive" -->
+
+            <arg>-Xlint:all,-classfile,-processing,-serial,-path,-exports</arg>
             <arg>${WerrorFlag}</arg>
             <arg>-implicit:class</arg>
           </compilerArgs>
@@ -952,6 +954,8 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
+            <!-- Allow tests to use unnamed modules -->
+            <useModulePath>false</useModulePath>
             <failIfNoTests>true</failIfNoTests>
           </configuration>
         </plugin>

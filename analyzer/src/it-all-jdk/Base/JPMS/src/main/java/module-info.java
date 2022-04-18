@@ -20,6 +20,4 @@ module nl.example.module {
     exports nl.example;
 
     requires nl.basjes.parse.useragent;
-    requires com.github.benmanes.caffeine;
-    requires nl.basjes.collections.prefixmap;
 }

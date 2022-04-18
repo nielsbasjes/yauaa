@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.utils;
 
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.Version;
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.nodes.MappingNode;

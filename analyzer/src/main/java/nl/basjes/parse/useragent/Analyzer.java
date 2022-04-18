@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent;
 
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -33,7 +33,7 @@ public interface Analyzer extends Serializable {
      * @param requestHeaders The map of all relevant request headers. This must include atleast the User-Agent.
      * @return An ImmutableUserAgent record that holds all of the results.
      */
-    @Nonnull
+    @NotNull
     default ImmutableUserAgent parse(Map<String, String> requestHeaders){
         return new ImmutableUserAgent(new MutableUserAgent());
     }
@@ -43,7 +43,7 @@ public interface Analyzer extends Serializable {
      * @param userAgentString The User-Agent String that is to be parsed and analyzed
      * @return An ImmutableUserAgent record that holds all of the results.
      */
-    @Nonnull
+    @NotNull
     default ImmutableUserAgent parse(String userAgentString) {
         return parse(Collections.singletonMap(USERAGENT_HEADER, userAgentString));
     }

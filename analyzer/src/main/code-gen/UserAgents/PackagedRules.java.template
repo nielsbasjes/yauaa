@@ -22,6 +22,11 @@ import java.util.Collections;
 import java.util.List;
 
 public final class PackagedRules {
+
+    private PackagedRules() {
+        // Only some static generated values, not to be constructed.
+    }
+
     public static final List<String> RULE_FILES_LIST = Collections.unmodifiableList(Arrays.asList(
         "###file-list###"
     ));

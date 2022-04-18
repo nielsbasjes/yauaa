@@ -22,7 +22,7 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -106,7 +106,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
         return true;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Iterator<Matcher> iterator() {
         return new Iterator<Matcher>() {
@@ -141,7 +141,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
     }
 
     // Needed for debugging
-    @Nonnull
+    @NotNull
     @Override
     public Object[] toArray() {
         return Arrays.copyOf(this.allElements, this.size);
@@ -152,7 +152,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
 // ============================================================
 
     @Override
-    public boolean addAll(@Nonnull Collection<? extends Matcher> collection) {
+    public boolean addAll(@NotNull Collection<? extends Matcher> collection) {
         throw new UnsupportedOperationException();
     }
 
@@ -162,12 +162,12 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
     }
 
     @Override
-    public boolean removeAll(@Nonnull Collection<?> collection) {
+    public boolean removeAll(@NotNull Collection<?> collection) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public boolean retainAll(@Nonnull Collection<?> collection) {
+    public boolean retainAll(@NotNull Collection<?> collection) {
         throw new UnsupportedOperationException();
     }
 
@@ -177,12 +177,12 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
     }
 
     @Override
-    public boolean containsAll(@Nonnull Collection<?> collection) {
+    public boolean containsAll(@NotNull Collection<?> collection) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <T> T[] toArray(@Nonnull T[] ts) {
+    public <T> T[] toArray(@NotNull T[] ts) {
         throw new UnsupportedOperationException();
     }
 }

@@ -20,10 +20,8 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.walk;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 public class StepPrev extends Step {
 
     private ParseTree prev(ParseTree tree) {
@@ -49,7 +47,7 @@ public class StepPrev extends Step {
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+    public WalkResult walk(@NotNull ParseTree tree, @Nullable String value) {
         ParseTree prevTree = prev(tree);
         if (prevTree == null) {
             return null;

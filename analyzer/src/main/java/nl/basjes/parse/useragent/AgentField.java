@@ -90,7 +90,7 @@ public interface AgentField extends Serializable {
             defaultValue = null;
         }
 
-        MutableAgentField(String defaultValue) {
+        public MutableAgentField(String defaultValue) {
             this.defaultValue = defaultValue;
             reset();
         }

@@ -17,7 +17,8 @@
 
 package nl.basjes.parse.useragent.config;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +28,7 @@ public interface AnalyzerConfigHolder {
      * Obtain the config for this analyzer.
      * @return The instance of the config used by this analyzer.
      */
-    @Nonnull
+    @NotNull
     AnalyzerConfig getConfig();
 
     /**

@@ -20,8 +20,12 @@ package nl.basjes.parse.useragent;
 import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 
-@DefaultSerializer(UserAgentAnalyzerDirect.KryoSerializer.class)
+@DefaultSerializer(AbstractUserAgentAnalyzerDirect.KryoSerializer.class)
 public final class UserAgentAnalyzerDirect extends AbstractUserAgentAnalyzerDirect {
+
+    private UserAgentAnalyzerDirect() {
+        // Only instantiate via builder
+    }
 
     public static UserAgentAnalyzerDirectBuilder newBuilder() {
         return new UserAgentAnalyzerDirectBuilder(new UserAgentAnalyzerDirect());

@@ -32,7 +32,8 @@
   <url>https://yauaa.basjes.nl</url>
 
   <properties>
-    <Automatic-Module-Name>nl.basjes.parse.useragent</Automatic-Module-Name>
+    <shading-relocation-root>nl.basjes.parse.useragent.shaded</shading-relocation-root>
+    <shading-relocation-root-path>nl/basjes/parse/useragent/shaded</shading-relocation-root-path>
   </properties>
 
   <dependencies>
@@ -114,9 +115,10 @@
     </dependency>
 
     <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>23.0.0</version>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
@@ -150,6 +152,21 @@
   <build>
 
     <plugins>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <!-- Needed to explicitly add it here or the generated code will go wrong when using JPMS. -->
+            <annotationProcessorPath>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </annotationProcessorPath>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -191,7 +208,6 @@
               <Implementation-Version>${project.version}</Implementation-Version>
               <Implementation-Vendor>Niels Basjes</Implementation-Vendor>
               <Implementation-Vendor-Id>nl.basjes</Implementation-Vendor-Id>
-              <Automatic-Module-Name>${Automatic-Module-Name}</Automatic-Module-Name>
               <url>${project.url}</url>
               <Multi-Release>true</Multi-Release>
             </manifestEntries>
@@ -232,11 +248,23 @@
           <relocations>
             <relocation>
               <pattern>org.antlr</pattern>
-              <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
+              <shadedPattern>${shading-relocation-root}.org.antlr</shadedPattern>
             </relocation>
             <relocation>
               <pattern>org.yaml.snakeyaml</pattern>
-              <shadedPattern>nl.basjes.shaded.org.yaml.snakeyaml</shadedPattern>
+              <shadedPattern>${shading-relocation-root}.org.yaml.snakeyaml</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.apache.commons.logging</pattern>
+              <shadedPattern>${shading-relocation-root}.org.apache.commons.logging</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.slf4j</pattern>
+              <shadedPattern>${shading-relocation-root}.org.slf4j</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.apache.logging.slf4j</pattern>
+              <shadedPattern>${shading-relocation-root}.org.apache.logging.slf4j</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -253,11 +281,42 @@
                 <includes>
                   <include>org.antlr:antlr4-runtime</include>
                   <include>org.yaml:snakeyaml</include>
+                  <include>org.slf4j:slf4j-api</include>
+                  <include>org.apache.logging.log4j:log4j-slf4j-impl</include>
                 </includes>
               </artifactSet>
             </configuration>
           </execution>
 
+        </executions>
+      </plugin>
+
+      <!-- Normally the maven-shade-plugin rightfully REMOVES the module-info.class file because                -->
+      <!-- shading and modules do not mix very well.                                                            -->
+      <!-- In this specific scenario ALL shaded dependencies are also relocated into a project specific package -->
+      <!-- and thus can no longer cause conflicts with other modules.                                           -->
+      <!-- This means we can safely reinsert the module-info.class which we have modified to not include -->
+      <!-- the shaded classes anymore                                                                   -->
+      <plugin>
+        <groupId>org.moditect</groupId>
+        <artifactId>moditect-maven-plugin</artifactId>
+        <version>1.0.0.RC2</version>
+        <executions>
+          <execution>
+            <id>reinsert-module-info</id>
+            <phase>package</phase>
+            <goals>
+              <goal>add-module-info</goal>
+            </goals>
+            <configuration>
+              <overwriteExistingFiles>true</overwriteExistingFiles>
+              <module>
+                <moduleInfoFile>
+                  ${project.basedir}/target/module-info.java
+                </moduleInfoFile>
+              </module>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 
@@ -300,7 +359,7 @@
 
                 String[] libraryWanted = {
                   "nl/basjes/parse/useragent/utils/YauaaVersion.class",
-                  "nl/basjes/shaded/org/antlr/v4/runtime/Parser.class",
+                  "${shading-relocation-root-path}/org/antlr/v4/runtime/Parser.class",
                 };
 
                 String[] libraryUnwanted = {
@@ -347,6 +406,21 @@
             </goals>
             <configuration>
               <executable>./regen-all.sh</executable>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Generate post shading module-info file.</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>bash</executable>
+              <arguments>
+                <argument>-c</argument>
+                <argument>grep -F -v '#SHADED' ./src/main/java/module-info.java > ./target/module-info.java</argument>
+              </arguments>
             </configuration>
           </execution>
 

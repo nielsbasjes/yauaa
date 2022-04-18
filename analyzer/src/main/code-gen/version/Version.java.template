@@ -21,6 +21,10 @@ import nl.basjes.parse.useragent.utils.YauaaVersion;
 
 public final class Version extends YauaaVersion.AbstractVersion {
 
+    private Version() {
+        // We want a singleton for this.
+    }
+
     private static final Version INSTANCE = new Version();
 
     public static Version getInstance() {

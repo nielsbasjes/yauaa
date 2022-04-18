@@ -50,6 +50,10 @@ public class TestCase implements Serializable {
         private String errorReport;
         private UserAgent result;
 
+        TestResult() {
+            // Only available to TestCase
+        }
+
         public TestCase getTestCase() {
             return testCase;
         }

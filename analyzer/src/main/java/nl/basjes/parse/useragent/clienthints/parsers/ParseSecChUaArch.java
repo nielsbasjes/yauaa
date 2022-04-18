@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class ParseSecChUaArch implements CHParser {
@@ -38,9 +38,9 @@ public class ParseSecChUaArch implements CHParser {
     //   The header’s ABNF is:
     //         Sec-CH-UA-Arch = sf-string
 
-    @Nonnull
+    @NotNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NotNull Map<String, String> clientHintsHeaders, @NotNull ClientHints clientHints, @NotNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         String value = parseSfString(input);
         if (value != null && !value.isEmpty()) {
@@ -49,7 +49,7 @@ public class ParseSecChUaArch implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

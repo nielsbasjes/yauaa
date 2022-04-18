@@ -21,14 +21,13 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import nl.basjes.parse.useragent.utils.Normalize;
 import org.antlr.v4.runtime.tree.ParseTree;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class StepNormalizeBrand extends Step {
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+    public WalkResult walk(@NotNull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
         String filteredValue = Normalize.brand(actualValue);
         return walkNextStep(tree, filteredValue);

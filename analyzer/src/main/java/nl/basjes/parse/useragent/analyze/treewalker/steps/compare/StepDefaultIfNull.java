@@ -17,14 +17,12 @@
 
 package nl.basjes.parse.useragent.analyze.treewalker.steps.compare;
 
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 public class StepDefaultIfNull extends Step {
 
     private final String  defaultValue;
@@ -52,7 +50,7 @@ public class StepDefaultIfNull extends Step {
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+    public WalkResult walk(@NotNull ParseTree tree, @Nullable String value) {
         WalkResult actualValue = walkNextStep(tree, value);
 
         if (actualValue == null ||

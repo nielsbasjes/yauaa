@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.config;
 
+import nl.basjes.parse.useragent.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.PackagedRules;
-import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.config.MatcherConfig.ConfigLine;
 import nl.basjes.parse.useragent.utils.YamlUtils;
 import nl.basjes.parse.useragent.utils.springframework.core.io.Resource;

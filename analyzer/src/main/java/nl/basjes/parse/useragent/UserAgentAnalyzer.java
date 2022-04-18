@@ -25,6 +25,10 @@ import java.io.Serializable;
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
 public final class UserAgentAnalyzer extends AbstractUserAgentAnalyzer implements Serializable {
 
+    private UserAgentAnalyzer() {
+        // Only instantiate via builder
+    }
+
     public static UserAgentAnalyzerBuilder newBuilder() {
         return new UserAgentAnalyzerBuilder(new UserAgentAnalyzer());
     }
