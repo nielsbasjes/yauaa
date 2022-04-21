@@ -13,9 +13,10 @@ v7.0.0-SNAPSHOT
 - Analyzer
   - Option to show only minimal version information during startup.
 - Updated UDF dependencies
+  - Apache Beam             2.38.0
   - Apache Nifi             1.16.0
-  - Elastic Search          7.17.2 & 8.1.2
-  - Elastic Logstash        8.1.2
+  - Elastic Search          7.17.3 & 8.1.3
+  - Elastic Logstash        8.1.3
 
 v6.12
 ===
