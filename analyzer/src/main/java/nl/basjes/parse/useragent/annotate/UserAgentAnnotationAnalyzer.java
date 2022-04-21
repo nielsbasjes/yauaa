@@ -143,7 +143,7 @@ public class UserAgentAnnotationAnalyzer<T> {
             throw new InvalidParserConfigurationException("[Map] The mapper instance is null.");
         }
 
-        UserAgent userAgent = userAgentAnalyzer.parse(mapper.getUserAgentString(record));
+        UserAgent userAgent = userAgentAnalyzer.parse(mapper.getRequestHeaders(record));
 
         for (Map.Entry<String, List<Method>> fieldSetter : fieldSetters.entrySet()) {
             String value = userAgent.getValue(fieldSetter.getKey());
