@@ -47,7 +47,7 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
     public static class TestDoFn extends UserAgentAnalysisDoFn<TestRecord> {
         @Override
         public String getUserAgentString(TestRecord record) {
-            return record.useragent;
+            return record.getUserAgent();
         }
 
         @SuppressWarnings("unused") // Called via the annotation
@@ -92,7 +92,7 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
                 DoFn<TestRecord, TestRecord> fn = new UserAgentAnalysisDoFn<TestRecord>() {
                     @Override
                     public String getUserAgentString(TestRecord record) {
-                        return record.useragent;
+                        return record.getUserAgent();
                     }
 
                     @SuppressWarnings("unused") // Called via the annotation

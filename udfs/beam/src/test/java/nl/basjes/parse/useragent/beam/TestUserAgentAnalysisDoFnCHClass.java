@@ -18,11 +18,9 @@
 package nl.basjes.parse.useragent.beam;
 
 import nl.basjes.parse.useragent.annotate.YauaaField;
-import org.apache.beam.sdk.coders.StringUtf8Coder;
 import org.apache.beam.sdk.testing.PAssert;
 import org.apache.beam.sdk.testing.TestPipeline;
 import org.apache.beam.sdk.transforms.Create;
-import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
 import org.junit.Rule;
@@ -33,14 +31,15 @@ import org.junit.runners.JUnit4;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RunWith(JUnit4.class)
-public class TestUserAgentAnalysisDoFnClass implements Serializable {
+public class TestUserAgentAnalysisDoFnCHClass implements Serializable {
 
     public static class MyUserAgentAnalysisDoFn extends UserAgentAnalysisDoFn<TestRecord> {
         @Override
-        public String getUserAgentString(TestRecord record) {
-            return record.getUserAgent();
+        public Map<String, String> getRequestHeaders(TestRecord element) {
+            return element.getHeaders();
         }
 
         @SuppressWarnings("unused") // Called via the annotation
@@ -54,6 +53,12 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
         public void setAgentNameVersion(TestRecord record, String value) {
             record.agentNameVersion = value;
         }
+
+        @SuppressWarnings("unused") // Called via the annotation
+        @YauaaField("OperatingSystemNameVersion")
+        public void setOperatingSystemNameVersion(TestRecord record, String value) {
+            record.operatingSystemNameVersion = value;
+        }
     }
 
     @Rule
@@ -61,28 +66,22 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
 
     @Test
     public void testInlineDefinition() { // NOSONAR java:S2699 False positive because PAssert is unknown to Sonar
-        List<String> useragents = Arrays.asList(
-            "Mozilla/5.0 (X11; Linux x86_64) " +
+        List<TestRecord> useragents = Arrays.asList(
+            new TestRecord("Mozilla/5.0 (X11; Linux x86_64) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                "Chrome/48.0.2564.82 Safari/537.36",
-
-            "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+                "Chrome/48.0.2564.82 Safari/537.36"),
+            new TestRecord("Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                "Chrome/53.0.2785.124 Mobile Safari/537.36"
+                "Chrome/53.0.2785.124 Mobile Safari/537.36"),
+            new TestRecord("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                "Chrome/100.0.4896.60 Safari/537.36",
+                "\"macOS\"",
+                "\"12.3.1\"")
         );
 
         // Apply Create, passing the list and the coder, to create the PCollection.
-        PCollection<String> input = pipeline.apply(Create.of(useragents)).setCoder(StringUtf8Coder.of());
-
-        PCollection<TestRecord> testRecords = input
-            .apply("Create testrecords from input",
-                ParDo.of(new DoFn<String, TestRecord>() {
-                    @SuppressWarnings("unused") // Called via the annotation
-                    @ProcessElement
-                    public void processElement(ProcessContext c) {
-                        c.output(new TestRecord(c.element()));
-                    }
-                }));
+        PCollection<TestRecord> testRecords = pipeline.apply(Create.of(useragents));
 
         PCollection<TestRecord> filledTestRecords = testRecords
             .apply("Extract Elements from Useragent",
@@ -90,13 +89,20 @@ public class TestUserAgentAnalysisDoFnClass implements Serializable {
 
         TestRecord expectedRecord1 = new TestRecord(useragents.get(0));
         expectedRecord1.deviceClass = "Desktop";
+        expectedRecord1.operatingSystemNameVersion = "Linux ??";
         expectedRecord1.agentNameVersion = "Chrome 48.0.2564.82";
 
         TestRecord expectedRecord2 = new TestRecord(useragents.get(1));
         expectedRecord2.deviceClass = "Phone";
+        expectedRecord2.operatingSystemNameVersion = "Android 7.0";
         expectedRecord2.agentNameVersion = "Chrome 53.0.2785.124";
 
-        PAssert.that(filledTestRecords).containsInAnyOrder(expectedRecord1, expectedRecord2);
+        TestRecord expectedRecord3 = new TestRecord(useragents.get(2));
+        expectedRecord3.deviceClass = "Desktop";
+        expectedRecord3.operatingSystemNameVersion = "Mac OS 12.3.1";
+        expectedRecord3.agentNameVersion = "Chrome 100.0.4896.60";
+
+        PAssert.that(filledTestRecords).containsInAnyOrder(expectedRecord1, expectedRecord2, expectedRecord3);
 
         pipeline.run().waitUntilFinish();
     }
