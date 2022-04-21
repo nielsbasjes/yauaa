@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 WORKDIR /root
 
