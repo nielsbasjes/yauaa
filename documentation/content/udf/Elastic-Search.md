@@ -27,20 +27,20 @@ bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-8-{{%YauaaV
 ```
 
 ## Usage
-This plugin is intended to be used in an ingest pipeline.
+This plugin is intended to be used in an `ingest pipeline`.
 
 You have to specify the name of the input `field` and the place where
 the possible configuration flags are:
 
-| Name | Mandatory/Optional | Description | Default | Example |
-| --- | --- | --- | --- | --- |
-| field        | M | The name of the input field that contains the UserAgent string | - | `"useragent"` |
-| target_field | M | The name of the output structure that will be filled with the parse results | `"user_agent"` | `"parsed_ua"` |
-| fieldNames   | O | A list of Yauaa fieldnames that are desired. When specified the system will limit processing to what is needed to get these. This means faster and less memory used. | All possible fields | `[ "DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor" ]` |
-| cacheSize    | O | The number of entries in the LRU cache of the parser | `10000` | `100` |
-| preheat      | O | How many testcases are put through the parser at startup to warmup the JVM | `0` | `1000` |
-| extraRules   | O | A yaml expression that is a set of extra rules and testcases. | - | `"config:\n- matcher:\n    extract:\n      - '"'"'FirstProductName     : 1 :agent.(1)product.(1)name'"'"'\n"`
-
+| Name                    | Mandatory/Optional | Description                                                                                                                                                          | Default             | Example                                                                                                       |
+|-------------------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|
+| field_to_header_mapping | M                  | The mapping from the input field name to the `original` request header name of this field                                                                            | -                   | `"field_to_header_mapping" : { "ua": "User-Agent" }`                                                          |
+| ~~field~~ (deprecated)  | ~~M~~              | ~~The name of the input field that contains the UserAgent string~~                                                                                                   | -                   | ~~`"useragent"`~~                                                                                             |
+| target_field            | M                  | The name of the output structure that will be filled with the parse results                                                                                          | `"user_agent"`      | `"parsed_ua"`                                                                                                 |
+| fieldNames              | O                  | A list of Yauaa fieldnames that are desired. When specified the system will limit processing to what is needed to get these. This means faster and less memory used. | All possible fields | `[ "DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor" ]`                                     |
+| cacheSize               | O                  | The number of entries in the LRU cache of the parser                                                                                                                 | `10000`             | `100`                                                                                                         |
+| preheat                 | O                  | How many testcases are put through the parser at startup to warmup the JVM                                                                                           | `0`                 | `1000`                                                                                                        |
+| extraRules              | O                  | A yaml expression that is a set of extra rules and testcases.                                                                                                        | -                   | `"config:\n- matcher:\n    extract:\n      - '"'"'FirstProductName     : 1 :agent.(1)product.(1)name'"'"'\n"` |
 
 ## Example usage
 
@@ -54,7 +54,11 @@ curl -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline
   "processors": [
     {
       "yauaa" : {
-        "field"         : "useragent",
+        "field_to_header_mapping" : {
+            "useragent":                "User-Agent",
+            "uach_platform":            "Sec-CH-UA-Platform",
+            "uach_platform_version":    "Sec-CH-UA-Platform-Version"
+        },
         "target_field"  : "parsed"
       }
     }
@@ -73,7 +77,11 @@ curl -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline
   "processors": [
     {
       "yauaa" : {
-        "field"         : "useragent",
+        "field_to_header_mapping" : {
+            "useragent":                "User-Agent",
+            "uach_platform":            "Sec-CH-UA-Platform",
+            "uach_platform_version":    "Sec-CH-UA-Platform-Version"
+        },
         "target_field"  : "parsed",
         "fieldNames"    : [ "DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName" ],
       }
@@ -94,7 +102,11 @@ curl -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline
   "processors": [
     {
       "yauaa" : {
-        "field"         : "useragent",
+        "field_to_header_mapping" : {
+            "useragent":                "User-Agent",
+            "uach_platform":            "Sec-CH-UA-Platform",
+            "uach_platform_version":    "Sec-CH-UA-Platform-Version"
+        },
         "target_field"  : "parsed",
         "fieldNames"    : [ "DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName" ],
         "cacheSize" : 10,

@@ -20,8 +20,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 export ELK_VERSION=$1
 
-DOCKER_IMAGE=yauaa-elasticsearch-8:latest
-CONTAINER_NAME=yauaa-elasticsearch-8
+DOCKER_IMAGE=yauaa-elasticsearch:latest
+CONTAINER_NAME=yauaa-elasticsearch
 
 
 #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
@@ -39,6 +39,10 @@ export BIRed='\e[1;91m'       # Red
 export BIGreen='\e[1;92m'     # Green
 export BIBlue='\e[1;94m'      # Blue
 
+function info() {
+  echo -e "${Color_Off}${IWhite}[${BIBlue}INFO${IWhite}] ${Color_Off}${1}"
+}
+
 function pass() {
   echo -e "${Color_Off}${IWhite}[${BIGreen}PASS${IWhite}] ${Color_Off}${1}"
 }
@@ -48,13 +52,13 @@ function fail() {
 }
 
 # First we fully wipe any old instance of our integration test
-echo "Removing any remaining stuff from previous test runs."
+info "Removing any remaining stuff from previous test runs."
 docker kill "${CONTAINER_NAME}"
 docker rm   "${CONTAINER_NAME}"
 docker rmi  "${DOCKER_IMAGE}"
 
 # Second we build a new image with the plugin installed
-echo "Building docker image for ElasticSearch ${ELK_VERSION} with the plugin installed."
+info "Building docker image for ElasticSearch ${ELK_VERSION} with the plugin installed."
 docker build --build-arg ELK_VERSION="${ELK_VERSION}" -t "${DOCKER_IMAGE}" -f "${DIR}/Dockerfile" "${DIR}/../../.."
 
 # Third we start the instance
@@ -68,7 +72,7 @@ killContainer() {
 
 trap killContainer EXIT
 
-echo "Waiting for ElasticSearch to become operational"
+info "Waiting for ElasticSearch to become operational"
 # We wait for at most 60 seconds
 count=60
 until curl -s http://localhost:9200/_cluster/health?pretty; do
@@ -87,73 +91,11 @@ until curl -s http://localhost:9200/_cluster/health?pretty; do
   fi
 
 done
-echo "ElasticSearch is operational now."
+pass "ElasticSearch is operational now."
 
 # =================================================="
-echo "Loading pipeline."
-
-curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa-test-pipeline_some' -d '
-{
-  "description": "A pipeline to do whatever",
-  "processors": [
-    {
-      "yauaa" : {
-        "field"         : "useragent",
-        "target_field"  : "parsed",
-        "fieldNames"    : [ "DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName" ],
-        "cacheSize" : 10,
-        "preheat"   : 10,
-        "extraRules" : "config:\n- matcher:\n    extract:\n      - '"'"'FirstProductName     : 1 :agent.(1)product.(1)name'"'"'\n"
-      }
-    }
-  ]
-}
-'
-# =================================================="
-# Get result"
-echo "Simulate the pipeline and check if it contains the desired values."
-TESTLOG="${DIR}/es-simulation.log"
-
-curl -s -H 'Content-Type: application/json' -X POST 'localhost:9200/_ingest/pipeline/yauaa-test-pipeline_some/_simulate' -d '
-{
-  "docs": [
-    {
-      "_source": {
-        "useragent" : "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36"
-      }
-    }
-  ]
-}' > "${TESTLOG}"
-
-
-function checkLog() {
-  expected="${1}"
-  cat "${TESTLOG}" | \
-    python -m json.tool | \
-    grep -F "${expected}" > /dev/null 2>&1
-
-  RESULT=$?
-
-  if [ "${RESULT}" == "0" ]; then
-    pass "${expected}"
-  else
-    fail "${expected}"
-    cat "${TESTLOG}" | \
-      python -m json.tool
-    exit 255
-  fi
-}
-
-checkLog '"AgentInformationEmail": "Unknown"'
-checkLog '"AgentInformationUrl": "Unknown"'
-checkLog '"AgentName": "Chrome"'
-checkLog '"AgentNameVersionMajor": "Chrome 53"'
-checkLog '"AgentVersion": "53.0.2785.124"'
-checkLog '"AgentVersionMajor": "53"'
-checkLog '"DeviceBrand": "Google"'
-checkLog '"DeviceClass": "Phone"'
-checkLog '"DeviceName": "Google Nexus 6"'
-checkLog '"FirstProductName": "Mozilla"'
-checkLog '"__SyntaxError__": "false"'
+# Run the tests
+. "${DIR}/it-test-1.inc"
+. "${DIR}/it-test-2.inc"
 
 # =================================================="
