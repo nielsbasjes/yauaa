@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static org.elasticsearch.ingest.ConfigurationUtils.readIntProperty;
 import static org.elasticsearch.ingest.ConfigurationUtils.readOptionalList;
 import static org.elasticsearch.ingest.ConfigurationUtils.readOptionalMap;
@@ -135,7 +136,7 @@ public class YauaaProcessor extends AbstractProcessor {
             UserAgentAnalyzer userAgentAnalyzer = builder.build();
 
             List<String> supportedHeaders = new ArrayList<>(userAgentAnalyzer.supportedClientHintHeaders());
-            supportedHeaders.add("User-Agent");
+            supportedHeaders.add(USERAGENT_HEADER);
             Map<String, String> fieldToHeaderMapping = new TreeMap<>();
             if (fieldToHeaderMappingConfig != null) {
                 for (Map.Entry<String, String> entry : fieldToHeaderMappingConfig.entrySet()) {
@@ -155,7 +156,7 @@ public class YauaaProcessor extends AbstractProcessor {
                 }
             }
             if (field != null) {
-                fieldToHeaderMapping.put(field, "User-Agent");
+                fieldToHeaderMapping.put(field, USERAGENT_HEADER);
             }
 
             return new YauaaProcessor(tag, description, fieldToHeaderMapping, targetField, userAgentAnalyzer);

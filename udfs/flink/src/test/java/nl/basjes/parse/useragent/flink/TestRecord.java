@@ -21,6 +21,8 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
+
 public class TestRecord implements Serializable {
     final TreeMap<String, String> headers = new TreeMap<>();
     String deviceClass;
@@ -30,20 +32,20 @@ public class TestRecord implements Serializable {
     String shouldRemainNull = null;
 
     public TestRecord(String useragent) {
-        headers.put("User-Agent", useragent);
+        headers.put(USERAGENT_HEADER, useragent);
     }
 
     public TestRecord(String useragent, String deviceClass, String agentNameVersion, String shouldRemainNull) {
-        headers.put("User-Agent",                 useragent);
+        headers.put(USERAGENT_HEADER, useragent);
         this.deviceClass = deviceClass;
         this.agentNameVersion = agentNameVersion;
         this.shouldRemainNull = shouldRemainNull;
     }
 
     public TestRecord(String useragent, String platform, String platformVersion) {
-        headers.put("User-Agent",                 useragent);
+        headers.put(USERAGENT_HEADER, useragent);
         if (platform != null) {
-            headers.put("Sec-CH-UA-Platform",         platform);
+            headers.put("Sec-CH-UA-Platform", platform);
         }
         if (platformVersion != null) {
             headers.put("Sec-CH-UA-Platform-Version", platformVersion);
@@ -78,7 +80,7 @@ public class TestRecord implements Serializable {
     }
 
     public String getUserAgent() {
-        return headers.get("User-Agent");
+        return headers.get(USERAGENT_HEADER);
     }
 
     @Override

@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static java.util.Collections.singletonMap;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
@@ -56,7 +57,7 @@ class TestYauaaProcessor {
         document.put(PLATFORM_VERSION_FIELD, "\"12.3.1\"");
 
         Map<String, String> fieldToHeaderMapping = new TreeMap<>();
-        fieldToHeaderMapping.put(UA_FIELD, "User-Agent");
+        fieldToHeaderMapping.put(UA_FIELD, USERAGENT_HEADER);
         fieldToHeaderMapping.put(PLATFORM_FIELD, "Sec-CH-UA-Platform");
         fieldToHeaderMapping.put(PLATFORM_VERSION_FIELD, "Sec-CH-UA-Platform-Version");
 
@@ -108,7 +109,7 @@ class TestYauaaProcessor {
     @Test
     void testExtraRules() {
         Map<String, String> fieldToHeaderMapping = new TreeMap<>();
-        fieldToHeaderMapping.put(UA_FIELD, "User-Agent");
+        fieldToHeaderMapping.put(UA_FIELD, USERAGENT_HEADER);
 
         Map<String, Object> document = new HashMap<>();
         document.put(UA_FIELD,

@@ -35,6 +35,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -55,7 +56,7 @@ public abstract class AbstractParseServletTests {
     public void ensureServiceHasStarted() throws InterruptedException {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(APPLICATION_JSON));
-        headers.set("User-Agent", "Are we there yet?");
+        headers.set(USERAGENT_HEADER, "Are we there yet?");
 
         HttpEntity<String> request = new HttpEntity<>("Are we there yet?", headers);
 
@@ -125,7 +126,7 @@ public abstract class AbstractParseServletTests {
 
         // GET: Use User-Agent header and set a dummy request body
         if (withHeader) {
-            headers.set("User-Agent", USERAGENT);
+            headers.set(USERAGENT_HEADER, USERAGENT);
         }
         HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
 
