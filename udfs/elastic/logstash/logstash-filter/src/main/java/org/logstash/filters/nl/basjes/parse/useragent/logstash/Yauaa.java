@@ -35,9 +35,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static nl.basjes.parse.useragent.UserAgent.MutableUserAgent.isSystemField;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 @LogstashPlugin(name = "yauaa")
 public class Yauaa implements Filter {
@@ -55,19 +58,47 @@ public class Yauaa implements Filter {
     public static final PluginConfigSpec<Map<String, Object>> FIELDS_CONFIG =
         PluginConfigSpec.hashSetting("fields");
 
-    private final String              sourceField;
+    private final Map<String, String> fieldToHeaderMappings;
     private       Map<String, String> outputFields;
+
+    private static final List<String> ALL_ALLOWED_HEADERS = getAllAllowedHeaders();
+
+    private static List<String> getAllAllowedHeaders() {
+        ArrayList<String> headers = new ArrayList<>();
+        headers.add(USERAGENT_HEADER);
+        headers.addAll(UserAgentAnalyzer.newBuilder().build().supportedClientHintHeaders());
+        return headers;
+    }
+
 
     @SuppressWarnings("unused") // The constructor MUST have this parameter list
     public Yauaa(String id, Configuration config, Context context) {
         this.id = id;
         // constructors should validate configuration options
-        sourceField = config.get(SOURCE_CONFIG);
+
         final Map<String, Object> requestedFields = config.get(FIELDS_CONFIG);
 
         if (requestedFields != null) {
             outputFields = new HashMap<>();
             requestedFields.forEach((key, value) -> outputFields.put(key, value.toString()));
+        }
+
+        fieldToHeaderMappings = new TreeMap<>();
+        Object source = config.getRawValue(SOURCE_CONFIG);
+        if (source instanceof String) {
+            if (!source.toString().trim().isEmpty()) {
+                fieldToHeaderMappings.put(source.toString(), USERAGENT_HEADER);
+            }
+        }
+        if (source instanceof Map) {
+            Map<?, ?> sourceMap = ((Map<?, ?>) source);
+            for (Map.Entry<?, ?> entry : sourceMap.entrySet()) {
+                String field = entry.getKey().toString();
+                String header = entry.getValue().toString();
+                if (isSupportedHeader(ALL_ALLOWED_HEADERS, header)) {
+                    fieldToHeaderMappings.put(field, header);
+                }
+            }
         }
 
         checkConfiguration();
@@ -95,15 +126,17 @@ public class Yauaa implements Filter {
     @Override
     public Collection<Event> filter(Collection<Event> events, FilterMatchListener filterMatchListener) {
         for (Event event : events) {
-            Object rawField = event.getField(sourceField);
-            if (rawField instanceof String) {
-                String userAgentString = (String)rawField;
-
-                UserAgent agent = userAgentAnalyzer.parse(userAgentString);
-
-                for (String fieldName : requestedFieldNames) {
-                    event.setField(outputFields.get(fieldName), agent.getValue(fieldName));
+            Map<String, String> headers = new TreeMap<>();
+            for (Map.Entry<String, String> entry : fieldToHeaderMappings.entrySet()) {
+                Object rawField = event.getField(entry.getKey());
+                if (rawField instanceof String) {
+                    headers.put(entry.getValue(), rawField.toString());
                 }
+            }
+            UserAgent agent = userAgentAnalyzer.parse(headers);
+
+            for (String fieldName : requestedFieldNames) {
+                event.setField(outputFields.get(fieldName), agent.getValue(fieldName));
             }
         }
         return events;
@@ -122,16 +155,13 @@ public class Yauaa implements Filter {
             .delayInitialization()
             .dropTests()
             .hideMatcherLoadStats()
+            .showMinimalVersion()
             .build();
 
         List<String> allFieldNames = uaa.getAllPossibleFieldNamesSorted();
 
-        if (sourceField == null) {
-            configProblems.add("The \"source\" has not been specified.\n");
-        } else {
-            if (sourceField.isEmpty()) {
-                configProblems.add("The \"source\" is empty.\n");
-            }
+        if (fieldToHeaderMappings == null || fieldToHeaderMappings.isEmpty()) {
+            configProblems.add("The \"source\" map has not been specified.\n");
         }
 
         if (outputFields == null) {
@@ -157,6 +187,9 @@ public class Yauaa implements Filter {
         for (String field: allFieldNames) {
             maxNameLength = Math.max(maxNameLength, field.length());
         }
+        for (String header: ALL_ALLOWED_HEADERS) {
+            maxNameLength = Math.max(maxNameLength, header.length());
+        }
 
         errorMessage.append("\nThe Yauaa filter config is invalid.\n");
         errorMessage.append("The problems we found:\n");
@@ -168,7 +201,17 @@ public class Yauaa implements Filter {
         errorMessage.append("\n");
         errorMessage.append("filter {\n");
         errorMessage.append("   yauaa {\n");
-        errorMessage.append("       source => \"useragent\"\n");
+        errorMessage.append("       source => {\n");
+        for (String header : ALL_ALLOWED_HEADERS) {
+            String syntheticFieldname = header.replace("-", "_").toLowerCase(Locale.ROOT).replace("sec_ch_", "");
+            errorMessage.append("           \"").append(syntheticFieldname).append("\"");
+            for (int i = syntheticFieldname.length(); i < maxNameLength; i++) {
+                errorMessage.append(' ');
+            }
+            errorMessage.append("  => \"").append(header).append("\"\n");
+        }
+
+        errorMessage.append("       }\n");
         errorMessage.append("       fields => {\n");
 
         for (String field: allFieldNames) {
@@ -187,6 +230,15 @@ public class Yauaa implements Filter {
 
         LOG.error("{}", errorMessage);
         throw new IllegalArgumentException(errorMessage.toString());
+    }
+
+    private boolean isSupportedHeader(List<String> supportedHeaders, String headerName) {
+        for (String allowedHeader : supportedHeaders) {
+            if (allowedHeader.equalsIgnoreCase(headerName)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

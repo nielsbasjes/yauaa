@@ -91,4 +91,5 @@ function checkLog() {
 }
 
 checkLog "\"logstash.version\"=>\"${ELK_VERSION}\""
-checkLog '"userAgentAgentNameVersion".*"Chrome 53.0.2785.124"'
+checkLog '"uaAANV" => "Chrome 100.0.4896.60"'
+checkLog '"uaOSNV" => "Mac OS 12.3.1"'

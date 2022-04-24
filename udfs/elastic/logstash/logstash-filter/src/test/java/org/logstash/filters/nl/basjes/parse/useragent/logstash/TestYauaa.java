@@ -30,6 +30,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Collections.singletonMap;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +44,7 @@ import static org.logstash.filters.nl.basjes.parse.useragent.logstash.Yauaa.SOUR
 class TestYauaa {
 
     @Test
-    void testNormalUse() {
+    void testNormalUseOldStyle() {
         String sourceField = "foo";
 
         Map<String, String> fieldMappings = new HashMap<>();
@@ -70,7 +72,76 @@ class TestYauaa {
         assertEquals("Desktop", e.getField("DC"));
         assertEquals("Chrome 48.0.2564.82", e.getField("ANV"));
         assertEquals("testNormalUse", filter.getId());
-        assertEquals("testNormalUse", filter.getId());
+        assertTrue(filter.configSchema().contains(SOURCE_CONFIG));
+        assertTrue(filter.configSchema().contains(FIELDS_CONFIG));
+    }
+
+    @Test
+    void testNormalUseClientHints() {
+        String sourceField = "foo";
+
+        Map<String, String> fieldMappings = new HashMap<>();
+        fieldMappings.put("DeviceClass", "DC");
+        fieldMappings.put("AgentNameVersion", "ANV");
+
+        Map<String, Object> configMap = new HashMap<>();
+        configMap.put("source", singletonMap(sourceField, USERAGENT_HEADER));
+        configMap.put("fields", fieldMappings);
+
+        Configuration config = new ConfigurationImpl(configMap);
+
+        Context context = new ContextImpl(null, null);
+        Filter  filter  = new Yauaa("testNormalUseClientHints", config, context);
+
+        Event e = new org.logstash.Event();
+        e.setField(sourceField,
+            "Mozilla/5.0 (X11; Linux x86_64) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                "Chrome/48.0.2564.82 Safari/537.36");
+
+        Collection<Event> results = filter.filter(Collections.singletonList(e), null);
+
+        assertEquals(1, results.size());
+        assertEquals("Desktop", e.getField("DC"));
+        assertEquals("Chrome 48.0.2564.82", e.getField("ANV"));
+        assertEquals("testNormalUseClientHints", filter.getId());
+        assertTrue(filter.configSchema().contains(SOURCE_CONFIG));
+        assertTrue(filter.configSchema().contains(FIELDS_CONFIG));
+    }
+
+    @Test
+    void testFullUseClientHints() {
+        Map<String, String> source = new HashMap<>();
+        source.put("ua",    USERAGENT_HEADER);
+        source.put("uap",   "Sec-CH-UA-Platform");
+        source.put("uapv",  "Sec-CH-UA-Platform-Version");
+
+        Map<String, String> fieldMappings = new HashMap<>();
+        fieldMappings.put("DeviceClass", "DC");
+        fieldMappings.put("AgentNameVersion", "ANV");
+        fieldMappings.put("OperatingSystemNameVersion", "OSNV");
+
+        Map<String, Object> configMap = new HashMap<>();
+        configMap.put("source", source);
+        configMap.put("fields", fieldMappings);
+
+        Configuration config = new ConfigurationImpl(configMap);
+
+        Context context = new ContextImpl(null, null);
+        Filter  filter  = new Yauaa("testNormalUseClientHints", config, context);
+
+        Event e = new org.logstash.Event();
+        e.setField("ua",   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36");
+        e.setField("uap",  "\"macOS\"");
+        e.setField("uapv", "\"12.3.1\"");
+
+        Collection<Event> results = filter.filter(Collections.singletonList(e), null);
+
+        assertEquals(1, results.size());
+        assertEquals("Desktop", e.getField("DC"));
+        assertEquals("Chrome 100.0.4896.60", e.getField("ANV"));
+        assertEquals("Mac OS 12.3.1", e.getField("OSNV"));
+        assertEquals("testNormalUseClientHints", filter.getId());
         assertTrue(filter.configSchema().contains(SOURCE_CONFIG));
         assertTrue(filter.configSchema().contains(FIELDS_CONFIG));
     }
@@ -86,7 +157,7 @@ class TestYauaa {
         });
         assertTrue(
             allOf(
-                containsString("The \"source\" has not been specified."),
+                containsString("The \"source\" map has not been specified."),
                 containsString("The list of needed \"fields\" has not been specified."))
                 .matches(exception.getMessage()));
     }
@@ -107,7 +178,7 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(exception.getMessage().contains("The \"source\" has not been specified."));
+        assertExceptionHasAllMessages(exception, "The \"source\" map has not been specified.");
     }
 
     @Test
@@ -127,7 +198,7 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(exception.getMessage().contains("The \"source\" is empty."));
+        assertExceptionHasAllMessages(exception, "The \"source\" map has not been specified.");
     }
 
     @Test
@@ -142,7 +213,7 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(exception.getMessage().contains("The list of needed \"fields\" has not been specified."));
+        assertExceptionHasAllMessages(exception, "The list of needed \"fields\" has not been specified.");
     }
 
     @Test
@@ -161,7 +232,7 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(exception.getMessage().contains("The list of needed \"fields\" is empty."));
+        assertExceptionHasAllMessages(exception, "The list of needed \"fields\" is empty.");
     }
 
     @Test
@@ -182,7 +253,7 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(exception.getMessage().contains("The requested field \"NoSuchField\" does not exist."));
+        assertExceptionHasAllMessages(exception, "The requested field \"NoSuchField\" does not exist.");
     }
 
     @Test
@@ -201,11 +272,9 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(
-            allOf(
-                containsString("The \"source\" has not been specified."),
-                containsString("The requested field \"NoSuchField\" does not exist."))
-                .matches(exception.getMessage()));
+        assertExceptionHasAllMessages(exception,
+            "The \"source\" map has not been specified.",
+            "The requested field \"NoSuchField\" does not exist.");
     }
 
     @Test
@@ -225,11 +294,17 @@ class TestYauaa {
             Filter  filter  = new Yauaa("bad", config, context);
             fail("Should never get here: " + filter);
         });
-        assertTrue(
-            allOf(
-                containsString("The \"source\" is empty."),
-                containsString("The requested field \"NoSuchField\" does not exist."))
-                .matches(exception.getMessage()));
+        assertExceptionHasAllMessages(exception,
+            "The \"source\" map has not been specified.",
+            "The requested field \"NoSuchField\" does not exist.");
     }
+
+    private void assertExceptionHasAllMessages(Exception exception, String... messages) {
+        String exceptionMessage = exception.getMessage();
+        for (String message : messages) {
+            assertTrue(containsString(message).matches(exceptionMessage), exceptionMessage);
+        }
+    }
+
 
 }

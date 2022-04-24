@@ -13,7 +13,24 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ## HIGH Profile release notes:
 
 ### Version 7.0.0 (Unreleased)
-- Support for using ClientHints (In the Java API and webservlet).
+- Support for using ClientHints (work in progress)
+  - Current status:
+
+| Area                | Support |              |
+|---------------------|---------|--------------|
+| Java                | ✅       |              |
+| Beam                | ✅       |              |
+| Beam SQL            | ☐       |              |
+| Drill               | ☐       |              |
+| Elastic Search 7    | ✅       |              |
+| Elastic Search 8    | ✅       |              |
+| Elastic Logstash 8  | ✅       |              |
+| Flink               | ✅       |              |
+| Flink SQL           | ☐       |              |
+| Hive                | ☐       |              |
+| Pig                 | ☐       |              |
+| LogParser           | ❌       | Not possible |
+| Web servlet         | ✅       |              |
 
 ### Main points from previous releases
 - Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.

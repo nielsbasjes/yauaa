@@ -38,30 +38,54 @@ logstash-plugin install ./udfs/logstash/target/logstash-filter-yauaa-{{%YauaaVer
 
 You need to specify
 
-1. The source field
+1. The source field which maps the fields in the record to their `original` request headers.
 2. For each Yauaa field you need the logstash field in which it needs to be placed.
 
 ```
 filter {
   yauaa {
-    source => "message"
+    source => {
+      "ua"      => "User-Agent"
+      "uap"     => "Sec-CH-UA-Platform"
+      "uapv"    => "Sec-CH-UA-Platform-Version"
+    }
     fields => {
-       DeviceClass      => "DevCls"
-       AgentNameVersion => "AgntNmVrsn"
+      "DeviceClass"                      => "uaDC"
+      "DeviceName"                       => "uaDN"
+      "DeviceBrand"                      => "uaDB"
+      "OperatingSystemClass"             => "uaOSC"
+      "OperatingSystemNameVersion"       => "uaOSNV"
+      "LayoutEngineClass"                => "uaLEC"
+      "LayoutEngineNameVersion"          => "uaLENV"
+      "AgentClass"                       => "uaAC"
+      "AgentName"                        => "uaAN"
+      "AgentNameVersion"                 => "uaAANV"
+      "AgentNameVersionMajor"            => "uaANVM"
     }
   }
 }
 ```
 
-When running this example I get output like this that has the new fields "DevCls" and "AgntNmVrsn":
+When running this example I get output like this (sorted the fields for readbility) that has the new fields:
 ```
 {
-    "@timestamp" => 2019-02-13T10:42:57.491Z,
-       "message" => "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36",
+    "@timestamp" => 2022-04-24T09:30:11.051Z,
       "@version" => "1",
-          "host" => "niels-laptop",
-    "AgntNmVrsn" => "Chrome 48.0.2564.82",
-        "DevCls" => "Desktop",
-          "path" => "/tmp/useragent.txt"
+          "host" => "b9bf088b8c92",
+       "message" => "HeartBeat event to trigger the test",
+            "ua" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36",
+           "uap" => "\"macOS\"",
+          "uapv" => "\"12.3.1\"",
+          "uaDC" => "Desktop",
+          "uaDN" => "Apple Macintosh",
+          "uaDB" => "Apple",
+         "uaOSC" => "Desktop",
+        "uaOSNV" => "Mac OS 12.3.1",
+         "uaLEC" => "Browser",
+        "uaLENV" => "Blink 100.0",
+          "uaAC" => "Browser",
+          "uaAN" => "Chrome",
+        "uaANVM" => "Chrome 100",
+        "uaAANV" => "Chrome 100.0.4896.60"
 }
 ```
