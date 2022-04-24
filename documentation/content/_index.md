@@ -16,21 +16,24 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 - Support for using ClientHints (work in progress)
   - Current status:
 
-| Area                | Support |              |
-|---------------------|---------|--------------|
-| Java                | ✅       |              |
-| Beam                | ✅       |              |
-| Beam SQL            | ☐       |              |
-| Drill               | ☐       |              |
-| Elastic Search 7    | ✅       |              |
-| Elastic Search 8    | ✅       |              |
-| Elastic Logstash 8  | ✅       |              |
-| Flink               | ✅       |              |
-| Flink SQL           | ☐       |              |
-| Hive                | ☐       |              |
-| Pig                 | ☐       |              |
-| LogParser           | ❌       | Not possible |
-| Web servlet         | ✅       |              |
+| Area               | Support |              |
+|--------------------|---------|--------------|
+| Java               | ✅       |              |
+| Beam               | ✅       |              |
+| Beam SQL           | ☐       |              |
+| Drill              | ☐       |              |
+| Elastic Search 7   | ✅       |              |
+| Elastic Search 8   | ✅       |              |
+| Elastic Logstash 8 | ✅       |              |
+| Flink              | ✅       |              |
+| Flink SQL          | ✅       |              |
+| Hive               | ☐       |              |
+| Nifi               | ☐       |              |
+| LogParser          | ❌       | Not possible |
+| Pig                | ☐       |              |
+| Snowflake          | ☐       |              |
+| Trino              | ☐       |              |
+| Web servlet        | ✅       |              |
 
 ### Main points from previous releases
 - Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.

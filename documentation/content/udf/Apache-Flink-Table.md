@@ -17,12 +17,6 @@ If you use a maven based project simply add this dependency to your project.
 </dependency>
 ```
 
-
-## IMPORTANT: Breaking API change
-In version 5.15 this function was rewritten and as a consequence the API has changed.
-
-The function now returns a `Map<String, String>` with all the requested values in one go.
-
 ## Syntax
 Assume you register this function under the name `ParseUserAgent`
 Then the generic usage in your SQL is
@@ -32,6 +26,17 @@ ParseUserAgent(<useragent>)
 ```
 
 This returns a `Map<String, String>` with all the requested values in one go.
+
+If you want to make use of the support for the `User-Agent Client Hints` you must call the function from your SQL with a list of `header name` and `value`. The header names must be the same as what a browser would send to the webserver (see: [Specification](https://wicg.github.io/ua-client-hints/#http-ua-hints)).
+
+For example:
+```sql
+ParseUserAgent(
+     'User-Agent',                   useragent,
+     'Sec-CH-UA-Platform',           chPlatform,
+     'Sec-CH-UA-Platform-Version',   chPlatformVersion
+) AS parsedUseragent
+```
 
 ## Example usage (Java)
 Assume you have either a BatchTableEnvironment or a StreamTableEnvironment in which you have defined your records as a table.

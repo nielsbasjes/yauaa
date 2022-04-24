@@ -18,7 +18,9 @@
 package nl.basjes.parse.useragent.flink.table;
 
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.api.common.typeinfo.TypeHint;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.api.java.tuple.Tuple6;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -32,95 +34,63 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestTableFunctionClientHints {
 
-    public static DataStreamSource<Tuple3<String, String, String>> getTestAgentStream(StreamExecutionEnvironment env) {
+    public static DataStreamSource<Tuple6<String, String, String, String, String, String>> getTestAgentStream(StreamExecutionEnvironment env) {
         // Useragent, Expected DeviceClass, Expected AgentNameVersionMajor
-        List<Tuple3<String, String, String>> data = new ArrayList<>();
+        List<Tuple6<String, String, String, String, String, String>> data = new ArrayList<>();
 
-        data.add(new Tuple3<>(
+        data.add(new Tuple6<>(
             "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36",
+            null,
+            null,
             "Desktop",
-            "Chrome 70"));
+            "Chrome 70",
+            "Linux ??"));
 
-        data.add(new Tuple3<>(
+        data.add(new Tuple6<>(
             "Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.57 Mobile Safari/537.36",
+            null,
+            null,
             "Phone",
-            "Chrome 70"));
+            "Chrome 70",
+            "Android 7.1.1"));
 
-        data.add(new Tuple3<>(
+        data.add(new Tuple6<>(
             "Mozilla/5.0 (Linux; U; Android 4.4.2; PE-TL20 Build/HuaweiPE-TL20) AppleWebKit/533.1 (KHTML, like Gecko)Version/4.0 " +
                 "MQQBrowser/5.4 TBS/025440 Mobile Safari/533.1 MicroMessenger/6.2.5.53_r2565f18.621 NetType/WIFI Language/zh_CN",
+            null,
+            null,
             "Phone",
-            "WeChat 6"));
+            "WeChat 6",
+            "Android 4.4.2"));
 
-        return env.fromCollection(data);
+        data.add(new Tuple6<>(
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36",
+            "\"macOS\"",
+            "\"12.3.1\"",
+            "Desktop",
+            "Chrome 100",
+            "Mac OS 12.3.1"));
+
+        return env.fromCollection(data, TypeInformation.of(new TypeHint<Tuple6<String, String, String, String, String, String>>(){}));
     }
 
     public static Schema getTestAgentStreamSchema() {
         return Schema
             .newBuilder()
             .columnByExpression("useragent", "f0")
-            .columnByExpression("expectedDeviceClass", "f1")
-            .columnByExpression("expectedAgentNameVersionMajor", "f2")
+            .columnByExpression("chPlatform", "f1")
+            .columnByExpression("chPlatformVersion", "f2")
+            .columnByExpression("expectedDeviceClass", "f3")
+            .columnByExpression("expectedAgentNameVersionMajor", "f4")
+            .columnByExpression("expectedOperatingSystemNameVersion", "f5")
             .build();
-    }
-
-    @Test
-    void testFunctionExtractDirect() throws Exception {
-        // The base execution environment
-        StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
-
-        // The table environment
-        StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
-
-        // The demo input stream
-        DataStream<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
-
-        // Give the stream a Table Name and name the fields
-        tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
-
-        // Register the function
-        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
-
-        // The downside of doing it this way is that the parsing function (i.e. parsing and converting all results into a map)
-        // is called for each field you want. So in this simple case twice.
-        String sqlQuery =
-            "SELECT useragent,"+
-            "       ParseUserAgent(useragent)['DeviceClass'          ]  as DeviceClass," +
-            "       ParseUserAgent(useragent)['AgentNameVersionMajor']  as AgentNameVersionMajor," +
-            "       expectedDeviceClass," +
-            "       expectedAgentNameVersionMajor " +
-            "FROM AgentStream";
-
-        Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
-
-        DataStream<Row> resultSet = tableEnv.toDataStream(resultTable);
-
-        resultSet.map((MapFunction<Row, String>) row -> {
-            Object useragent                      = row.getField(0);
-            Object deviceClass                    = row.getField(1);
-            Object agentNameVersionMajor          = row.getField(2);
-            Object expectedDeviceClass            = row.getField(3);
-            Object expectedAgentNameVersionMajor  = row.getField(4);
-
-            assertTrue(useragent                     instanceof String);
-            assertTrue(deviceClass                   instanceof String);
-            assertTrue(agentNameVersionMajor         instanceof String);
-            assertTrue(expectedDeviceClass           instanceof String);
-            assertTrue(expectedAgentNameVersionMajor instanceof String);
-
-            System.err.println("----- Checking: " + useragent);
-            assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
-            assertEquals(expectedAgentNameVersionMajor, agentNameVersionMajor, "Wrong AgentNameVersionMajor: " + useragent);
-            return useragent.toString();
-        });
-
-        senv.execute();
     }
 
     @Test
@@ -132,26 +102,33 @@ class TestTableFunctionClientHints {
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
         // The demo input stream
-        DataStream<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        DataStream<Tuple6<String, String, String, String, String, String>> inputStream = getTestAgentStream(senv);
 
         // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
 
         // Register the function
-        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor", "OperatingSystemNameVersion"));
 
         // Doing it this way the function is called once and then the results are picked from the map that was returned.
         String sqlQuery =
             "SELECT useragent,"+
-            "       parsedUseragent['DeviceClass']              AS deviceClass," +
-            "       parsedUseragent['AgentNameVersionMajor']    AS agentNameVersionMajor," +
+            "       parsedUseragent['DeviceClass']                   AS deviceClass," +
+            "       parsedUseragent['AgentNameVersionMajor']         AS agentNameVersionMajor," +
+            "       parsedUseragent['OperatingSystemNameVersion']    AS operatingSystemNameVersion," +
             "       expectedDeviceClass," +
-            "       expectedAgentNameVersionMajor " +
+            "       expectedAgentNameVersionMajor," +
+            "       expectedOperatingSystemNameVersion " +
             "FROM ( " +
             "   SELECT useragent," +
-            "          ParseUserAgent(useragent) AS parsedUseragent," +
+            "          ParseUserAgent(" +
+            "               'User-Agent',                   useragent,   " +
+            "               'Sec-CH-UA-Platform',           chPlatform,  " +
+            "               'Sec-CH-UA-Platform-Version',   chPlatformVersion" +
+            "          ) AS parsedUseragent," +
             "          expectedDeviceClass," +
-            "          expectedAgentNameVersionMajor " +
+            "          expectedAgentNameVersionMajor," +
+            "          expectedOperatingSystemNameVersion " +
             "   FROM   AgentStream " +
             ")";
 
@@ -160,21 +137,25 @@ class TestTableFunctionClientHints {
         DataStream<Row> resultSet = tableEnv.toDataStream(resultTable);
 
         resultSet.map((MapFunction<Row, String>) row -> {
-            Object useragent                      = row.getField(0);
-            Object deviceClass                    = row.getField(1);
-            Object agentNameVersionMajor          = row.getField(2);
-            Object expectedDeviceClass            = row.getField(3);
-            Object expectedAgentNameVersionMajor  = row.getField(4);
+            Object useragent                           = row.getField(0);
+            Object deviceClass                         = row.getField(1);
+            Object agentNameVersionMajor               = row.getField(2);
+            Object operatingSystemNameVersion          = row.getField(3);
+            Object expectedDeviceClass                 = row.getField(4);
+            Object expectedAgentNameVersionMajor       = row.getField(5);
+            Object expectedOperatingSystemNameVersion  = row.getField(6);
 
-            assertTrue(useragent                     instanceof String);
-            assertTrue(deviceClass                   instanceof String);
-            assertTrue(agentNameVersionMajor         instanceof String);
-            assertTrue(expectedDeviceClass           instanceof String);
-            assertTrue(expectedAgentNameVersionMajor instanceof String);
+            assertTrue(useragent                          instanceof String);
+            assertTrue(deviceClass                        instanceof String);
+            assertTrue(agentNameVersionMajor              instanceof String);
+            assertTrue(expectedDeviceClass                instanceof String);
+            assertTrue(expectedAgentNameVersionMajor      instanceof String);
+            assertTrue(expectedOperatingSystemNameVersion instanceof String);
 
             System.err.println("----- Checking: " + useragent);
-            assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
-            assertEquals(expectedAgentNameVersionMajor, agentNameVersionMajor, "Wrong AgentNameVersionMajor: " + useragent);
+            assertEquals(expectedDeviceClass,                deviceClass,                "Wrong DeviceClass: "           + useragent);
+            assertEquals(expectedAgentNameVersionMajor,      agentNameVersionMajor,      "Wrong AgentNameVersionMajor: " + useragent);
+            assertEquals(expectedOperatingSystemNameVersion, operatingSystemNameVersion, "Wrong OperatingSystemNameVersion: " + useragent);
             return useragent.toString();
         });
 
@@ -190,21 +171,26 @@ class TestTableFunctionClientHints {
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
 
         // The demo input stream
-        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+        DataStream<Tuple6<String, String, String, String, String, String>> inputStream = getTestAgentStream(senv);
 
         // Give the stream a Table Name and name the fields
         tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
 
         // Register the function
-        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor", "OperatingSystemNameVersion"));
 
         // Here the query returns the entire map as one thing
         String sqlQuery =
             "SELECT useragent," +
-            "       ParseUserAgent(useragent)        AS parsedUseragent," +
-            "       expectedDeviceClass              AS expectedDeviceClass," +
-            "       expectedAgentNameVersionMajor    AS expectedAgentNameVersionMajor " +
-            "FROM   AgentStream";
+            "       ParseUserAgent(" +
+            "            'User-Agent',                   useragent,   " +
+            "            'Sec-CH-UA-Platform',           chPlatform,  " +
+            "            'Sec-CH-UA-Platform-Version',   chPlatformVersion" +
+            "       ) AS parsedUseragent," +
+            "       expectedDeviceClass," +
+            "       expectedAgentNameVersionMajor," +
+            "       expectedOperatingSystemNameVersion " +
+            "FROM   AgentStream ";
 
         Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
 
@@ -215,11 +201,13 @@ class TestTableFunctionClientHints {
             Object parsedUseragent               = row.getField(1);
             Object expectedDeviceClass           = row.getField(2);
             Object expectedAgentNameVersionMajor = row.getField(3);
+            Object expectedOperatingSystemNameVersion = row.getField(4);
 
             assertTrue(useragent                     instanceof String);
             assertTrue(parsedUseragent               instanceof Map<?, ?>);
             assertTrue(expectedDeviceClass           instanceof String);
             assertTrue(expectedAgentNameVersionMajor instanceof String);
+            assertTrue(expectedOperatingSystemNameVersion instanceof String);
 
             assertEquals(
                 expectedDeviceClass,
@@ -231,6 +219,11 @@ class TestTableFunctionClientHints {
                 ((Map<?, ?>)parsedUseragent).get("AgentNameVersionMajor"),
                 "Wrong AgentNameVersionMajor: " + useragent);
 
+            assertEquals(
+                expectedOperatingSystemNameVersion,
+                ((Map<?, ?>)parsedUseragent).get("OperatingSystemNameVersion"),
+                "Wrong OperatingSystemNameVersion: " + useragent);
+
             System.err.println("----- Checking: " + useragent);
             return useragent.toString();
         });
@@ -238,45 +231,46 @@ class TestTableFunctionClientHints {
         senv.execute();
     }
 
-    private static final String USERAGENT =
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36";
+    private void verifyFunction(AnalyzeUseragentFunction function) {
+        verifyFunction(function, results -> results.size() == 3);
+    }
 
-    private void verifyFunction(AnalyzeUseragentFunction function){
+    private void verifyFunction(AnalyzeUseragentFunction function, Function<Map<String, String>, Boolean> checkSizeFunction){
         function.open(null);
-        final Map<String, String> result = function.eval(USERAGENT);
-        assertEquals(2,           result.size());
-        assertEquals("Desktop",   result.get("DeviceClass"));
-        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+        final Map<String, String> result = function.eval(
+            "User-Agent",                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36",
+            "Sec-CH-UA-Platform",           "\"macOS\"",
+            "Sec-CH-UA-Platform-Version",   "\"12.3.1\""
+        );
+        assertTrue(checkSizeFunction.apply(result));
+        assertEquals("Desktop",             result.get("DeviceClass"));
+        assertEquals("Chrome 100",          result.get("AgentNameVersionMajor"));
+        assertEquals("Mac OS 12.3.1",       result.get("OperatingSystemNameVersion"));
     }
 
     @Test
     void testMapFunctionList() {
-        verifyFunction(new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor")));
+        verifyFunction(new AnalyzeUseragentFunction(Arrays.asList("DeviceClass", "AgentNameVersionMajor", "OperatingSystemNameVersion")));
     }
 
     @Test
     void testMapFunctionListNoCache() {
-        verifyFunction(new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor")));
+        verifyFunction(new AnalyzeUseragentFunction(0, Arrays.asList("DeviceClass", "AgentNameVersionMajor", "OperatingSystemNameVersion")));
     }
 
     @Test
     void testMapFunctionArray() {
-        verifyFunction(new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+        verifyFunction(new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor", "OperatingSystemNameVersion"));
     }
 
     @Test
     void testMapFunctionArrayNoCache() {
-        verifyFunction(new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor"));
+        verifyFunction(new AnalyzeUseragentFunction(0, "DeviceClass", "AgentNameVersionMajor", "OperatingSystemNameVersion"));
     }
 
     @Test
     void testMapFunctionAskNothingGetAll() {
-        AnalyzeUseragentFunction function = new AnalyzeUseragentFunction();
-        function.open(null);
-        final Map<String, String> result = function.eval(USERAGENT);
-        assertTrue(2 <= result.size());
-        assertEquals("Desktop",   result.get("DeviceClass"));
-        assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+        verifyFunction(new AnalyzeUseragentFunction(), results -> results.size() >= 3);
     }
 
 }

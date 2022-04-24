@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
 
 public class AnalyzeUseragentFunction extends ScalarFunction {
@@ -85,5 +87,28 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
 
     public Map<String, String> eval(String userAgentString) {
         return userAgentAnalyzer.parse(userAgentString).toMap(extractedFields);
+    }
+
+    public Map<String, String> eval(String... input) {
+        if (input == null || input.length == 0) {
+            throw new IllegalArgumentException("Input may not be null or empty.");
+        }
+
+        Map<String, String> requestHeaders = new TreeMap<>();
+
+        if (input.length == 1) {
+            // One value --> it is the user agent
+            requestHeaders.put(USERAGENT_HEADER, input[0]);
+        } else {
+            // More than one we expect a key1, value1, key2, value2, etc list.
+            if (input.length % 2 != 0) {
+                throw new IllegalArgumentException("Input must be either 1 value (the User-Agent) or a key1, value1, key2, value2, etc list.");
+            }
+            for (int i = 0; i < input.length; i+=2) {
+                requestHeaders.put(input[i], input[i+1]);
+            }
+        }
+
+        return userAgentAnalyzer.parse(requestHeaders).toMap(extractedFields);
     }
 }
