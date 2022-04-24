@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
     private static transient UserAgentAnalyzer userAgentAnalyzer = null;
@@ -42,7 +43,7 @@ abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
         return userAgentAnalyzer;
     }
 
-    private static transient List<String> allFields = null;
+    private static List<String> allFields = null;
 
     protected static synchronized List<String> getAllFields() {
         if (allFields == null) {
@@ -53,5 +54,14 @@ abstract class BaseParseUserAgentUDF implements BeamSqlUdf {
         return allFields;
     }
 
+    private static List<String> allHeaders = null;
 
+    protected static synchronized List<String> getAllHeaders() {
+        if (allHeaders == null) {
+            allHeaders = new ArrayList<>();
+            allHeaders.add(USERAGENT_HEADER);
+            allHeaders.addAll(getInstance().supportedClientHintHeaders());
+        }
+        return allHeaders;
+    }
 }

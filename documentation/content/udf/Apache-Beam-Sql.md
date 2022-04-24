@@ -34,7 +34,18 @@ You can ask for all fields and return the full map with all of them in there.
 
     ParseUserAgent(userAgent)                                    AS allFields
 
-If you need multiple fields but not all of them you can speed up the analysis by only asking for those specific fields:
+If you want to make use of the support for the `User-Agent Client Hints` you must call the function from your SQL with a list of `header name` and `value`. The header names must be the same as what a browser would send to the webserver (see: [Specification](https://wicg.github.io/ua-client-hints/#http-ua-hints)).
+
+For example:
+```sql
+ParseUserAgent(
+     'User-Agent',                   useragent,
+     'Sec-CH-UA-Platform',           chPlatform,
+     'Sec-CH-UA-Platform-Version',   chPlatformVersion
+) AS parsedUseragent
+```
+
+If you need multiple fields but not all of them you can ask for only those specific fields:
 
     ParseUserAgent(userAgent, 'DeviceClass', 'AgentNameVersion') AS someFields
 
@@ -43,6 +54,31 @@ With such a map you can then extract the field you really need with SQL syntax s
     ParseUserAgent(userAgent, 'DeviceClass')['DeviceClass']      AS deviceClass
 
     ParseUserAgent(userAgent)['AgentNameVersion']                AS agentNameVersion
+
+Because a Beam SQL UDF cannot have a constructor there is no performance gain from limiting the required fields during the analysis phase. It does make the returned set smaller and thus in terms of transport and serialization a bit faster.
+
+If you als want the client hints all of these parameters can be combined like this:
+
+    ParseUserAgent(
+         'user-Agent',                   userAgent,
+         'sec-CH-UA-Platform',           chPlatform,
+         'sec-CH-UA-Platform-Version',   chPlatformVersion
+         'DeviceClass',
+         'AgentNameVersionMajor',
+         'OperatingSystemNameVersion',
+    )
+
+which is equivalent to (i.e. the ordering of the "wanted fields" and the "request headers with value" can be shuffled):
+
+    ParseUserAgent(
+         'DeviceClass',
+         'user-Agent',                   userAgent,
+         'AgentNameVersionMajor',
+         'sec-CH-UA-Platform',           chPlatform,
+         'OperatingSystemNameVersion',
+         'sec-CH-UA-Platform-Version',   chPlatformVersion
+    )
+
 
 ### Getting several values as JSon
 

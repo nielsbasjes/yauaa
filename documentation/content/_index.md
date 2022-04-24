@@ -20,7 +20,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 |--------------------|---------|--------------|
 | Java               | ✅       |              |
 | Beam               | ✅       |              |
-| Beam SQL           | ☐       |              |
+| Beam SQL           | ✅       |              |
 | Drill              | ☐       |              |
 | Elastic Search 7   | ✅       |              |
 | Elastic Search 8   | ✅       |              |
