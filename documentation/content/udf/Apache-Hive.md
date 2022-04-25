@@ -128,3 +128,25 @@ Usage example:
     | Desktop       | Linux ??                    | Chrome     | Chrome 59              |
     | Game Console  | Windows 10.0                | Edge       | Edge 13                |
     +---------------+-----------------------------+------------+------------------------+
+
+
+# ClientHints example
+
+If you pass only a single parameter it is assumed to be the "User-Agent".
+
+If you want to make use of the support for the `User-Agent Client Hints` you must call the function from your SQL with a list of `header name` and `value`. The header names must be the same as what a browser would send to the webserver (see: [Specification](https://wicg.github.io/ua-client-hints/#http-ua-hints)).
+
+Example:
+
+    SELECT 'CLIENTHINTS',
+        parsedUseragentAllFields.DeviceClass                   AS deviceClass,
+        parsedUseragentAllFields.AgentNameVersionMajor         AS agentNameVersionMajor,
+        parsedUseragentAllFields.OperatingSystemNameVersion    AS operatingSystemNameVersion
+    FROM (
+        SELECT ParseUserAgent(
+            'user-Agent',                   useragent,
+            'sec-CH-UA-Platform',           chPlatform,
+            'sec-CH-UA-Platform-Version',   chPlatformVersion
+        ) AS parsedUseragentAllFields
+        FROM   clickLogs
+    ) ParsedSubSelect;

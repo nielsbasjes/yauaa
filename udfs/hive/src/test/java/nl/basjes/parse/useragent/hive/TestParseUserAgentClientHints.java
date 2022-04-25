@@ -28,10 +28,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TestParseUserAgent {
+class TestParseUserAgentClientHints {
 
     @BeforeAll
     static void init() {
@@ -45,22 +44,33 @@ class TestParseUserAgent {
 
     @Test
     void testBasic() throws HiveException {
-        // This is an edge case where the webview fields are calulcated AND wiped again.
-        String userAgent = "Mozilla/5.0 (Linux; Android 5.1.1; KFFOWI Build/LMY47O) AppleWebKit/537.36 (KHTML, like Gecko) " +
-            "Version/4.0 Chrome/41.51020.2250.0246 Mobile Safari/537.36 cordova-amazon-fireos/3.4.0 AmazonWebAppPlatform/3.4.0;2.0";
+
+        String useragent            = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36";
+        String chPlatform           = "\"macOS\"";
+        String chPlatformVersion    = "\"12.3.1\"";
 
         ParseUserAgent parseUserAgent = new ParseUserAgent();
 
         StandardStructObjectInspector resultInspector = (StandardStructObjectInspector) parseUserAgent
             .initialize(new ObjectInspector[]{
+                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
                 PrimitiveObjectInspectorFactory.javaStringObjectInspector
             });
 
         for (int i = 0; i < 100000; i++) {
-            Object row = parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(userAgent)});
-            checkField(resultInspector, row, "DeviceClass", "Tablet");
-            checkField(resultInspector, row, "OperatingSystemNameVersion", "FireOS 3.4.0");
-            checkField(resultInspector, row, "WebviewAppName", "Unknown");
+            Object row = parseUserAgent.evaluate(
+                new DeferredObject[]{
+                    new DeferredJavaObject("user-Agent"),                   new DeferredJavaObject(useragent),
+                    new DeferredJavaObject("sec-CH-UA-Platform"),           new DeferredJavaObject(chPlatform),
+                    new DeferredJavaObject("sec-CH-UA-Platform-Version"),   new DeferredJavaObject(chPlatformVersion),
+                });
+            checkField(resultInspector, row, "DeviceClass",                 "Desktop");
+            checkField(resultInspector, row, "AgentNameVersionMajor",       "Chrome 100");
+            checkField(resultInspector, row, "OperatingSystemNameVersion",  "Mac OS 12.3.1");
         }
     }
 
@@ -68,7 +78,7 @@ class TestParseUserAgent {
         final Object result = resultInspector.getStructFieldData(row, resultInspector.getStructFieldRef(fieldName));
 
         if (result == null) {
-            assertNull(expectedValue);
+            assertEquals(expectedValue, result);
         } else {
             assertEquals(expectedValue, result.toString());
         }

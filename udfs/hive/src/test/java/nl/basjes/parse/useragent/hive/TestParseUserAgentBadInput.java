@@ -26,7 +26,6 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectIn
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestParseUserAgentBadInput {
@@ -49,10 +48,8 @@ class TestParseUserAgentBadInput {
         Exception exception = assertThrows(UDFArgumentException.class, () ->
             parseUserAgent
                 .initialize(new ObjectInspector[]{
-                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
-                    PrimitiveObjectInspectorFactory.javaStringObjectInspector
                 }));
-        assertEquals("The argument list must be exactly 1 element", exception.getMessage());
+        assertEquals("The argument list must be non empty", exception.getMessage());
     }
 
 
@@ -63,7 +60,8 @@ class TestParseUserAgentBadInput {
                 PrimitiveObjectInspectorFactory.javaStringObjectInspector
             });
 
-        assertNull(parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(null)}));
+        Object[] result = (Object[]) parseUserAgent.evaluate(new DeferredObject[]{new DeferredJavaObject(null)});
+        assertEquals("Hacker", result[0].toString());
     }
 
 }

@@ -35,6 +35,10 @@ import org.apache.hadoop.io.Text;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 /**
  * Hive UDF for parsing the UserAgent string.
@@ -73,43 +77,58 @@ import java.util.List;
         "+---------------+-----------------------------+------------------------+\n")
 public class ParseUserAgent extends GenericUDF {
 
-    private StringObjectInspector useragentOI = null;
-    private UserAgentAnalyzer userAgentAnalyzer = null;
+    private List<StringObjectInspector> argsOI = null;
+
+    private static ThreadLocal<UserAgentAnalyzer> threadLocalUserAgentAnalyzer =
+        ThreadLocal.withInitial(() ->
+            UserAgentAnalyzer
+                .newBuilder()
+                .hideMatcherLoadStats()
+                .withCache(10000)
+                // Caffeine is a Java 11+ library.
+                // This is one is Java 8 compatible.
+                .withCacheInstantiator(
+                    (CacheInstantiator) size ->
+                        Collections.synchronizedMap(new LRUMap<>(size)))
+                .withClientHintCacheInstantiator(
+                    (ClientHintsCacheInstantiator<?>) size ->
+                        Collections.synchronizedMap(new LRUMap<>(size)))
+                .immediateInitialization()
+                .build());
+
     private List<String> fieldNames = null;
+    private List<String> allHeaders = null;
+
+    @Override
+    public void close() {
+        threadLocalUserAgentAnalyzer.remove();
+    }
 
     @Override
     public ObjectInspector initialize(ObjectInspector[] args) throws UDFArgumentException {
         // ================================
         // Check the input
         // This UDF accepts one argument
-        if (args.length != 1) {
-            throw new UDFArgumentException("The argument list must be exactly 1 element");
+        if (args.length == 0) {
+            throw new UDFArgumentException("The argument list must be non empty");
         }
 
-        // The first argument must be a String
-        ObjectInspector inputOI = args[0];
-        if (!(inputOI instanceof StringObjectInspector)) {
-            throw new UDFArgumentException("The argument must be a string");
+        // All arguments must be a String
+        argsOI = new ArrayList<>();
+        for (ObjectInspector arg : args) {
+            if (!(arg instanceof StringObjectInspector)) {
+                throw new UDFArgumentException("The argument must be a string");
+            }
+            argsOI.add((StringObjectInspector) arg);
         }
-        useragentOI = (StringObjectInspector) inputOI;
 
         // ================================
-        // Initialize the parser
-        userAgentAnalyzer = UserAgentAnalyzer
-            .newBuilder()
-            .hideMatcherLoadStats()
-            .delayInitialization()
-            // Caffeine is a Java 11+ library.
-            // This is one is Java 8 compatible.
-            .withCacheInstantiator(
-                (CacheInstantiator) size ->
-                    Collections.synchronizedMap(new LRUMap<>(size)))
-            .withClientHintCacheInstantiator(
-                (ClientHintsCacheInstantiator<?>) size ->
-                    Collections.synchronizedMap(new LRUMap<>(size)))
-            .build();
+        UserAgentAnalyzer userAgentAnalyzer = threadLocalUserAgentAnalyzer.get();
 
         fieldNames = userAgentAnalyzer.getAllPossibleFieldNamesSorted();
+        allHeaders = new ArrayList<>();
+        allHeaders.add(USERAGENT_HEADER);
+        allHeaders.addAll(userAgentAnalyzer.supportedClientHintHeaders());
 
         // ================================
         // Define the output
@@ -126,13 +145,34 @@ public class ParseUserAgent extends GenericUDF {
 
     @Override
     public Object evaluate(DeferredObject[] args) throws HiveException {
-        String userAgentString = useragentOI.getPrimitiveJavaObject(args[0].get());
+        Map<String, String> requestHeaders = new TreeMap<>();
 
-        if (userAgentString == null) {
-            return null;
+        int i = 0;
+        while (i < argsOI.size()) {
+            String parameter = argsOI.get(i).getPrimitiveJavaObject(args[i].get());
+            if (parameter != null) {
+                if (allHeaders.stream().anyMatch(parameter::equalsIgnoreCase)) {
+                    String value;
+                    if (i + 1 >= argsOI.size()) {
+                        throw new IllegalArgumentException("Invalid last element in argument list (was a header name which requires a value to follow)");
+                    } else {
+                        value = argsOI.get(i + 1).getPrimitiveJavaObject(args[i + 1].get());
+                        i++;
+                    }
+                    requestHeaders.put(parameter, value);
+                    i++;
+                    continue;
+                }
+            }
+            if (i == 0) {
+                requestHeaders.put(USERAGENT_HEADER, parameter);
+                i++;
+                continue;
+            }
+            throw new IllegalArgumentException("Bad argument list for ParseUserAgent.");
         }
 
-        UserAgent userAgent = userAgentAnalyzer.parse(userAgentString);
+        UserAgent userAgent = threadLocalUserAgentAnalyzer.get().parse(requestHeaders);
         List<Object> result = new ArrayList<>(fieldNames.size());
         for (String fieldName : fieldNames) {
             String value = userAgent.getValue(fieldName);

@@ -50,6 +50,7 @@ services:
     environment:
       HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
       SERVICE_PRECONDITION: "hive-metastore:9083"
+      HADOOP_HEAPSIZE: "4321"
     depends_on:
       - hive-metastore
     ports:

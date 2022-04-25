@@ -25,7 +25,9 @@ drop table clickLogs;
 
 !echo "=-------------------------------------------------------------------------";
 create table if not exists clickLogs (
-  useragent string
+  useragent string,
+  chPlatform string,
+  chPlatformVersion string
 );
 
 !echo "=-------------------------------------------------------------------------";
@@ -33,8 +35,7 @@ describe clickLogs;
 
 !echo "=-------------------------------------------------------------------------";
 insert into clickLogs
-values ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36');
-
+values ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36', '"macOS"', '"12.3.1"');
 !echo "=-------------------------------------------------------------------------";
 select * from clickLogs;
 
@@ -77,6 +78,26 @@ FROM   clickLogs;
 !echo "=-------------------------------------------------------------------------";
 !echo "[2] Run query using direct value";
 SELECT 'PERM', ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
+!echo "==========================================================================";
+
+!echo "=-------------------------------------------------------------------------";
+!echo "[1] Run Client Hints query using table";
+SELECT 'CLIENTHINTS',
+       parsedUseragentAllFields.DeviceClass                   AS deviceClass,
+       parsedUseragentAllFields.AgentNameVersionMajor         AS agentNameVersionMajor,
+       parsedUseragentAllFields.OperatingSystemNameVersion    AS operatingSystemNameVersion
+FROM (
+   SELECT ParseUserAgent('user-Agent', useragent,
+                      'sec-CH-UA-Platform', chPlatform,
+                      'sec-CH-UA-Platform-Version', chPlatformVersion) AS parsedUseragentAllFields
+   FROM   clickLogs
+) ParsedSubSelect;
+
+!echo "=-------------------------------------------------------------------------";
+!echo "[2] Run Client Hints query using direct value";
+SELECT 'CLIENTHINTS', ParseUserAgent('user-Agent',                  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36',
+                                     'sec-CH-UA-Platform',          '"macOS"',
+                                     'sec-CH-UA-Platform-Version',  '"12.3.1"');
 !echo "==========================================================================";
 
 --

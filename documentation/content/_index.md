@@ -16,7 +16,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 - Support for using ClientHints (work in progress)
   - Current status:
 
-| Area               | Support |              |
+| Area               | Support | Notes        |
 |--------------------|---------|--------------|
 | Java               | ✅       |              |
 | Beam               | ✅       |              |
@@ -27,7 +27,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 | Elastic Logstash 8 | ✅       |              |
 | Flink              | ✅       |              |
 | Flink SQL          | ✅       |              |
-| Hive               | ☐       |              |
+| Hive               | ✅       |              |
 | Nifi               | ☐       |              |
 | LogParser          | ❌       | Not possible |
 | Pig                | ☐       |              |

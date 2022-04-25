@@ -159,17 +159,17 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
         assertThrows(RuntimeException.class, () ->
             runTestOnProvidedQuery(
                 "SELECT userAgent,"+
-                    "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
-                    "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
-                    "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
-                    "FROM ( " +
-                    "   SELECT userAgent," +
-                    "          ParseUserAgent(" +
-                    "               userAgent,   " +
-                    "               'SomethingUnsupported'" +
-                    "          ) AS parsedUseragentAllFields" +
-                    "   FROM   AgentStream " +
-                    ")"
+                "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
+                "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
+                "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
+                "FROM ( " +
+                "   SELECT userAgent," +
+                "          ParseUserAgent(" +
+                "               userAgent,   " +
+                "               'SomethingUnsupported'" +
+                "          ) AS parsedUseragentAllFields" +
+                "   FROM   AgentStream " +
+                ")"
             )
         );
     }
