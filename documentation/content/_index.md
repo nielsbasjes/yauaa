@@ -32,7 +32,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 | LogParser          | ❌       | Not possible |
 | Pig                | ☐       |              |
 | Snowflake          | ☐       |              |
-| Trino              | ☐       |              |
+| Trino              | ✅       |              |
 | Web servlet        | ✅       |              |
 
 ### Main points from previous releases

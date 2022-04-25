@@ -19,12 +19,15 @@ package nl.basjes.parse.useragent.trino;
 
 import io.trino.spi.Plugin;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public class YauaaPlugin implements Plugin {
     @Override
     public Set<Class<?>> getFunctions() {
-        return Collections.singleton(ParseUserAgentFunction.class);
+        Set<Class<?>> functions = new HashSet<>();
+        functions.add(ParseUserAgentFunction.class);
+        functions.add(ParseUserAgentFunctionClientHints.class);
+        return functions;
     }
 }

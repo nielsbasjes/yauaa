@@ -135,6 +135,29 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# Fourth test: Does the function provide the expected output when using ClientHints ?
+TEST_OUTPUT_FILE="${TARGET_IT_DIR}/OutputOfUsingTheFunction_4.log"
+
+docker exec "${CONTAINER_NAME}" \
+  bash -c "echo \"SELECT parse_user_agent(ARRAY[
+        'user-Agent',                  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36',
+        'sec-CH-UA-Platform',          '\\\"macOS\\\"',
+        'sec-CH-UA-Platform-Version',  '\\\"12.3.1\\\"' ]);\" | trino " \
+  > "${TEST_OUTPUT_FILE}"  2>&1
+
+grep -F 'Mac OS 12.3.1' "${TEST_OUTPUT_FILE}"
+RESULT=$?
+
+echo -n "Test 4: Parsing ClientHints works: "
+if [ "${RESULT}" == "0" ]; then
+  echo "PASS"
+else
+  echo "FAIL"
+  cat "${TEST_OUTPUT_FILE}"
+  exit 255
+fi
+
+# ---------------------------------------------------------------------------
 # Cleanup
 docker kill "${CONTAINER_NAME}"
 docker rm "${CONTAINER_NAME}"

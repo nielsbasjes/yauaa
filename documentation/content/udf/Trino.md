@@ -17,25 +17,29 @@ In the trino docker image this is `/usr/lib/trino/plugin/` so putting the jar in
 
 **Important note:** This directory may only contain this jar file; no other files may be present!
 
-## Example usage
-This UDF provides a single new function `parse_user_agent(<useragent>)`.
+## Usage
+This UDF provides two new functions `parse_user_agent(<useragent>)` and `parse_user_agent(array(<parameters>))`.
 
-This function needs one input which is the UserAgent string that needs to be analyzed.
+This first function needs one input which is the UserAgent string that needs to be analyzed.
 
 The return value is a `map(varchar, varchar)` which is a key value map of all possible properties.
 
-Example:
+
+The second function needs a list of `header name, value` pairs to define the headers on which the provided values were originally received.
+
+### Example : Just the User-Agent string.
 
 ```sql
-SELECT parsedUseragent['DeviceClass']              AS DeviceClass,
-       parsedUseragent['AgentNameVersionMajor']    AS AgentNameVersionMajor
+SELECT parsedUseragent['DeviceClass']                   AS DeviceClass,
+       parsedUseragent['AgentNameVersionMajor']         AS AgentNameVersionMajor,
+       parsedUseragent['OperatingSystemNameVersion']    AS OperatingSystemNameVersion
 FROM (
     SELECT  useragent,
-            parse_user_agent(useragent) AS parsedUseragent
+        parse_user_agent(useragent) AS parsedUseragent
     FROM (
         SELECT useragent
         FROM (
-            VALUES ('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36')
+            VALUES ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36')
         ) AS t (useragent)
     )
 );
@@ -43,8 +47,42 @@ FROM (
 
 Outputs:
 ```
- DeviceClass | AgentNameVersionMajor
--------------+-----------------------
- Desktop     | Chrome 98
+ DeviceClass | AgentNameVersionMajor | OperatingSystemNameVersion
+-------------+-----------------------+----------------------------
+ Desktop     | Chrome 100            | Mac OS X ??
+(1 row)
+```
+
+### Example : User-Agent string and ClientHints.
+
+```sql
+SELECT parsedUseragent['DeviceClass']                   AS DeviceClass,
+       parsedUseragent['AgentNameVersionMajor']         AS AgentNameVersionMajor,
+       parsedUseragent['OperatingSystemNameVersion']    AS OperatingSystemNameVersion
+FROM (
+    SELECT  useragent, chPlatform, chPlatformVersion,
+        parse_user_agent(
+            ARRAY[
+                'user-Agent',                  useragent,
+                'sec-CH-UA-Platform',          chPlatform,
+                'sec-CH-UA-Platform-Version',  chPlatformVersion
+            ]
+        ) AS parsedUseragent
+    FROM (
+        SELECT useragent, chPlatform, chPlatformVersion
+        FROM (
+            VALUES ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36',
+                    '"macOS"',
+                    '"12.3.1"')
+        ) AS t (useragent, chPlatform, chPlatformVersion)
+    )
+);
+```
+
+Outputs:
+```
+ DeviceClass | AgentNameVersionMajor | OperatingSystemNameVersion
+-------------+-----------------------+----------------------------
+ Desktop     | Chrome 100            | Mac OS 12.3.1
 (1 row)
 ```
