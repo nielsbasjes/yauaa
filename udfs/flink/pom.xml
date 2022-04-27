@@ -92,6 +92,20 @@
 
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>NewerThanJDK11</id>
+      <activation><jdk>[12,)</jdk></activation>
+      <!-- Under JDK 17 the tests fail during the build.                                              -->
+      <!-- So when built on JDK 17 we rely on                                                         -->
+      <!-- - The fact that the tests are also run under JDK 11                                        -->
+      <!-- - The fact that we have a docker based integration test with the JDK 17 produced artifact  -->
+      <properties>
+        <skipTests>true</skipTests>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
     <plugins>
       <plugin>

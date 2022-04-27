@@ -88,6 +88,8 @@
   <modules>
     <module>logparser</module>
     <module>pig</module>
+    <module>flink</module>
+    <module>flink-table</module>
     <module>beam</module>
     <module>beam-sql</module>
     <module>hive</module>
@@ -97,20 +99,6 @@
     <module>snowflake</module>
     <module>trino</module>
   </modules>
-
-  <profiles>
-    <profile>
-      <id>NewerThanJDK11</id>
-      <activation><jdk>[12,)</jdk></activation>
-      <!-- Under JDK 17 Flink fails during the build.          -->
-      <!-- So when built on JDK 17 we rely on                  -->
-      <!-- - The fact that the tests are also run under JDK 11 -->
-      <modules>
-        <module>flink</module>
-        <module>flink-table</module>
-      </modules>
-    </profile>
-  </profiles>
 
   <build>
     <plugins>
