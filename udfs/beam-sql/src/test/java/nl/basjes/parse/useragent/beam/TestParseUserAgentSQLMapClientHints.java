@@ -32,6 +32,7 @@ import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.Row;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -71,7 +72,7 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
     @Category(NeedsRunner.class)
     public void testClientHintSQLAllFields() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
         runTestOnProvidedQuery(
-            "SELECT userAgent,"+
+            "SELECT userAgent," +
             "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
             "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
             "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
@@ -91,7 +92,7 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
     @Category(NeedsRunner.class)
     public void testClientHintSQLSomeFields() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
         runTestOnProvidedQuery(
-            "SELECT userAgent,"+
+            "SELECT userAgent," +
             "       parsedUseragentSomeFields['DeviceClass']                   AS deviceClass," +
             "       parsedUseragentSomeFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
             "       parsedUseragentSomeFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
@@ -112,19 +113,36 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
 
     @Test
     @Category(NeedsRunner.class)
-    public void testClientHintSQLBadParameterListEmpty() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
-        assertThrows(RuntimeException.class, () ->
-            runTestOnProvidedQuery(
-                "SELECT userAgent,"+
-                    "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
-                    "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
-                    "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
-                    "FROM ( " +
-                    "   SELECT userAgent," +
-                    "          ParseUserAgent() AS parsedUseragentAllFields" +
-                    "   FROM   AgentStream " +
-                    ")"
+    public void testClientHintSQLSomeFieldsJson() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
+        // ---------------
+        // The expected test output
+        List<List<Object>> expectedList = Collections.singletonList(
+            Collections.singletonList(
+                "{\"DeviceClass\":\"Desktop\",\"AgentNameVersionMajor\":\"Chrome 100\",\"OperatingSystemNameVersion\":\"Mac OS 12.3.1\"}"
             )
+        );
+
+        List<Row> expectedRows = new ArrayList<>(expectedList.size());
+        Schema expectedSchema = Schema
+            .builder()
+            .addStringField("parsedUseragentSomeFieldsJson")
+            .build();
+
+        for(List<Object> expectedResult:expectedList) {
+            expectedRows.add(listToRow(expectedResult, expectedSchema));
+        }
+
+        runTestOnProvidedQuery(
+            "SELECT ParseUserAgentJson(" +
+            "            'DeviceClass', " +
+            "            'user-Agent',                   userAgent,   " +
+            "            'AgentNameVersionMajor', " +
+            "            'sec-CH-UA-Platform',           chPlatform,  " +
+            "            'OperatingSystemNameVersion', " +
+            "            'sec-CH-UA-Platform-Version',   chPlatformVersion" +
+            "       ) AS parsedUseragentSomeFieldsJson " +
+            "FROM   AgentStream",
+            expectedRows
         );
     }
 
@@ -133,7 +151,7 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
     public void testClientHintSQLBadParameterList1() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
         assertThrows(RuntimeException.class, () ->
             runTestOnProvidedQuery(
-                "SELECT userAgent,"+
+                "SELECT userAgent," +
                 "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
                 "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
                 "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
@@ -158,7 +176,7 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
     public void testClientHintSQLBadParameterList2() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
         assertThrows(RuntimeException.class, () ->
             runTestOnProvidedQuery(
-                "SELECT userAgent,"+
+                "SELECT userAgent," +
                 "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
                 "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
                 "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
@@ -175,24 +193,59 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
     }
 
 
-    private void runTestOnProvidedQuery(String query) { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
-        // ============================================================
+    private TestCase testAgent = new TestCase();
 
-        TestCase agent1 = new TestCase();
-        agent1.useragent                           = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36";
-        agent1.chPlatform                          = "\"macOS\"";
-        agent1.chPlatformVersion                   = "\"12.3.1\"";
-        agent1.expectedDeviceClass                 = "Desktop";
-        agent1.expectedAgentNameVersionMajor       = "Chrome 100";
-        agent1.expectedOperatingSystemNameVersion  = "Mac OS 12.3.1";
+    @Before
+    public void initTestAgent() {
+        testAgent.useragent                             = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36";
+        testAgent.chPlatform                            = "\"macOS\"";
+        testAgent.chPlatformVersion                     = "\"12.3.1\"";
+        testAgent.expectedDeviceClass                   = "Desktop";
+        testAgent.expectedAgentNameVersionMajor         = "Chrome 100";
+        testAgent.expectedOperatingSystemNameVersion    = "Mac OS 12.3.1";
+    }
+
+    private List<Row> expectedRows() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
+        // ---------------
+        // The expected test output
+        List<List<Object>> expectedList = Collections.singletonList(
+            Arrays.asList(
+                testAgent.useragent,
+                testAgent.expectedDeviceClass,
+                testAgent.expectedAgentNameVersionMajor,
+                testAgent.expectedOperatingSystemNameVersion
+            )
+        );
+
+        List<Row> expectedRows = new ArrayList<>(expectedList.size());
+        Schema expectedSchema = Schema
+            .builder()
+            .addStringField("userAgent")
+            .addStringField("deviceClass")
+            .addStringField("agentNameVersionMajor")
+            .addStringField("operatingSystemNameVersion")
+            .build();
+
+        for(List<Object> expectedResult:expectedList) {
+            expectedRows.add(listToRow(expectedResult, expectedSchema));
+        }
+        return expectedRows;
+    }
+
+    private void runTestOnProvidedQuery(String query) { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
+        runTestOnProvidedQuery(query, expectedRows());
+    }
+
+    private void runTestOnProvidedQuery(String query, List<Row> expectedRows) { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
+        // ============================================================
 
         // ---------------
         // The base test input
         List<List<Object>> inputValues = Collections.singletonList(
             Arrays.asList(
-                agent1.useragent,
-                agent1.chPlatform,
-                agent1.chPlatformVersion
+                testAgent.useragent,
+                testAgent.chPlatform,
+                testAgent.chPlatformVersion
             )
         );
 
@@ -206,30 +259,6 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
 
         for (List<Object> inputValue: inputValues) {
             inputRows.add(listToRow(inputValue, inputSchema));
-        }
-
-        // ---------------
-        // The expected test output
-        List<List<Object>> expectedList = Collections.singletonList(
-            Arrays.asList(
-                agent1.useragent,
-                agent1.expectedDeviceClass,
-                agent1.expectedAgentNameVersionMajor,
-                agent1.expectedOperatingSystemNameVersion
-            )
-        );
-
-        List<Row> expectedRows = new ArrayList<>(expectedList.size());
-        Schema expectedSchema = Schema
-            .builder()
-            .addStringField("userAgent")
-            .addStringField("deviceClass")
-            .addStringField("agentNameVersionMajor")
-            .addStringField("operatingSystemNameVersion")
-            .build();
-
-        for (List<Object> expectedResult: expectedList) {
-            expectedRows.add(listToRow(expectedResult, expectedSchema));
         }
 
         // ============================================================
@@ -256,6 +285,7 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
                     .query(query)
                     // Register each of the custom functions that must be available
                     .registerUdf("ParseUserAgent",  ParseUserAgent.class)
+                    .registerUdf("ParseUserAgentJson", ParseUserAgentJson.class)
                 );
 
         // Just to see the output of the query while debugging

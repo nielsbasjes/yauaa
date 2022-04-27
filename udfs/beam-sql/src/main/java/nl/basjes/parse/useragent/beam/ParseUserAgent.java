@@ -19,14 +19,10 @@ package nl.basjes.parse.useragent.beam;
 
 import nl.basjes.parse.useragent.UserAgent;
 import org.apache.beam.vendor.calcite.v1_28_0.org.apache.calcite.linq4j.function.Parameter;
+import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
-import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 public class ParseUserAgent extends BaseParseUserAgentUDF {
     // The eval does not support a var args list ( i.e. "String... args" ).
@@ -34,7 +30,7 @@ public class ParseUserAgent extends BaseParseUserAgentUDF {
     // CHECKSTYLE.OFF: ParameterNumber
     @SuppressWarnings("unused") // Used via reflection
     public static Map<String, String> eval(// NOSONAR java:S107 Methods should not have too many parameters
-        @Parameter(name = "Arg  0", optional = true) String arg0,
+        @Parameter(name = "Arg  0")                  String arg0,
         @Parameter(name = "Arg  1", optional = true) String arg1,
         @Parameter(name = "Arg  2", optional = true) String arg2,
         @Parameter(name = "Arg  3", optional = true) String arg3,
@@ -67,57 +63,13 @@ public class ParseUserAgent extends BaseParseUserAgentUDF {
     ) {
         // Workaround for  https://issues.apache.org/jira/browse/CALCITE-2772
         // Have a LOT of fields
-        List<String> rawInput = Arrays.asList(
+        Pair<Map<String, String>, List<String>> config = parseArguments(
             arg0,  arg1,  arg2,  arg3,  arg4,  arg5,  arg6,  arg7,  arg8,  arg9,
             arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19,
             arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29);
 
-
-        List<String> input = new ArrayList<>();
-        for (String rawInputValue : rawInput) {
-            if (rawInputValue == null) {
-                break;
-            }
-            input.add(rawInputValue);
-        }
-
-        if (input.isEmpty()) {
-            throw new IllegalArgumentException("Input may not be empty.");
-        }
-
-        Map<String, String> requestHeaders = new TreeMap<>();
-        List<String> wantedFields = new ArrayList<>();
-
-        int i = 0;
-        while (i < input.size()) {
-            String parameter = input.get(i);
-            if (parameter == null || parameter.isEmpty()) {
-                throw new IllegalArgumentException("Null/Empty argument provided to ParseUserAgent.");
-            }
-            if (getAllFields().stream().anyMatch(parameter::equalsIgnoreCase)) {
-                wantedFields.add(parameter);
-                i++;
-                continue;
-            }
-            if (getAllHeaders().stream().anyMatch(parameter::equalsIgnoreCase)) {
-                String value;
-                if (i + 1 >= input.size()) {
-                    throw new IllegalArgumentException("Invalid last element in argument list (was a header name which requires a value to follow)");
-                } else {
-                    value = input.get(i + 1);
-                    i++;
-                }
-                requestHeaders.put(parameter, value);
-                i++;
-                continue;
-            }
-            if (i == 0) {
-                requestHeaders.put(USERAGENT_HEADER, input.get(i));
-                i++;
-                continue;
-            }
-            throw new IllegalArgumentException("Bad argument list for ParseUserAgent.");
-        }
+        Map<String, String> requestHeaders  = config.getLeft();
+        List<String> wantedFields           = config.getRight();
 
         UserAgent.ImmutableUserAgent agent = getInstance().parse(requestHeaders);
         if (wantedFields.isEmpty()) {

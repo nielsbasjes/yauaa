@@ -106,6 +106,17 @@ to give
 
     {"DeviceClass":"Phone","AgentNameVersion":"Chrome 53.0.2785.124"}
 
+Note that the Client Hints model also applies here so this works too:
+
+    ParseUserAgentJson(
+         'DeviceClass',
+         'user-Agent',                   userAgent,
+         'AgentNameVersionMajor',
+         'sec-CH-UA-Platform',           chPlatform,
+         'OperatingSystemNameVersion',
+         'sec-CH-UA-Platform-Version',   chPlatformVersion
+    )
+
 ## Example usage
 Assume you have a PCollection with your records.
 
