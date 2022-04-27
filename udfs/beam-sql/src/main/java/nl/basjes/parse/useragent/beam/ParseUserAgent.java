@@ -73,7 +73,7 @@ public class ParseUserAgent extends BaseParseUserAgentUDF {
 
         UserAgent.ImmutableUserAgent agent = getInstance().parse(requestHeaders);
         if (wantedFields.isEmpty()) {
-            return agent.toMap();
+            return agent.toMap(getAllFields());
         } else {
             return agent.toMap(wantedFields);
         }

@@ -73,7 +73,7 @@ public class ParseUserAgentJson extends BaseParseUserAgentUDF {
 
         UserAgent.ImmutableUserAgent agent = getInstance().parse(requestHeaders);
         if (wantedFields.isEmpty()) {
-            return agent.toJson();
+            return agent.toJson(getAllFields());
         } else {
             return agent.toJson(wantedFields);
         }
