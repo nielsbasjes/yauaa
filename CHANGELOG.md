@@ -14,6 +14,7 @@ v7.0.0-SNAPSHOT
   - Option to show only minimal version information during startup.
 - Updated UDF dependencies
   - Apache Beam             2.38.0
+  - Apache Flink            1.15.0
   - Apache Nifi             1.16.0
   - Elastic Search          7.17.3 & 8.1.3
   - Elastic Logstash        8.1.3
