@@ -41,7 +41,7 @@ public class ParseSecChUaBitness implements CHParser {
         String input = clientHintsHeaders.get(headerName);
         String value = parseSfString(input);
         if (value != null && !value.isEmpty()) {
-            clientHints.setBitness(input);
+            clientHints.setBitness(value);
         }
         return clientHints;
     }

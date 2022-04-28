@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.clienthints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
@@ -185,6 +186,27 @@ class TestClientHintsParsing {
     @Test
     void testSecChUaArchNull() {
         assertNull(parse(SEC_CH_UA_ARCH, null).getArchitecture());
+    }
+    // ------------------------------------------
+
+    private static final String SEC_CH_UA_BITNESS = randomCase(ParseSecChUaBitness.HEADER_FIELD);
+
+    @Test
+    void testSecChUaBitness() {
+        ClientHints clientHints = parse(SEC_CH_UA_BITNESS, "\"64\"");
+        String bitnessitecture = clientHints.getBitness();
+        assertNotNull(bitnessitecture);
+        assertEquals("64", bitnessitecture);
+    }
+
+    @Test
+    void testSecChUaBitnessEmpty() {
+        assertNull(parse(SEC_CH_UA_BITNESS, "\"\"").getBitness());
+    }
+
+    @Test
+    void testSecChUaBitnessNull() {
+        assertNull(parse(SEC_CH_UA_BITNESS, null).getBitness());
     }
 
     // ------------------------------------------

@@ -24,6 +24,7 @@ import nl.basjes.parse.useragent.clienthints.parsers.BrandVersionListParser;
 import nl.basjes.parse.useragent.clienthints.parsers.CHParser;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
@@ -53,6 +54,7 @@ public class ClientHintsHeadersParser implements Serializable {
         parsers = new LinkedCaseInsensitiveMap<>();
         addParser(new ParseSecChUa()); // Ordering matters: this and the "Full version list" write to the same fields.
         addParser(new ParseSecChUaArch());
+        addParser(new ParseSecChUaBitness());
         addParser(new ParseSecChUaFullVersion()); // Deprecated header, may still be useful.
         addParser(new ParseSecChUaFullVersionList());
         addParser(new ParseSecChUaMobile());
@@ -105,6 +107,7 @@ public class ClientHintsHeadersParser implements Serializable {
         kryo.register(CHParser.class);
         kryo.register(ParseSecChUa.class);
         kryo.register(ParseSecChUaArch.class);
+        kryo.register(ParseSecChUaBitness.class);
         kryo.register(ParseSecChUaFullVersion.class);
         kryo.register(ParseSecChUaFullVersionList.class);
         kryo.register(ParseSecChUaMobile.class);
