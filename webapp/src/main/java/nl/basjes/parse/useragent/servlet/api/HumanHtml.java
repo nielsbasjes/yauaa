@@ -80,6 +80,33 @@ public class HumanHtml {
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
     }
 
+    private class HeaderSpecification {
+        String header;
+        String url;
+
+        public HeaderSpecification(String header, String url) {
+            this.header = header;
+            this.url = url;
+        }
+    }
+    private Map<String, HeaderSpecification> headerSpecifications;
+
+    public HumanHtml() {
+        headerSpecifications = new LinkedCaseInsensitiveMap<>();
+        headerSpecifications.put("User-Agent",                   new HeaderSpecification("User-Agent",                   "https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3"));
+        headerSpecifications.put("Sec-CH-UA",                    new HeaderSpecification("Sec-CH-UA",                    "https://wicg.github.io/ua-client-hints/#sec-ch-ua"));
+        headerSpecifications.put("Sec-CH-UA-Arch",               new HeaderSpecification("Sec-CH-UA-Arch",               "https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch"));
+        headerSpecifications.put("Sec-CH-UA-Bitness",            new HeaderSpecification("Sec-CH-UA-Bitness",            "https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness"));
+        headerSpecifications.put("Sec-CH-UA-Full-Version",       new HeaderSpecification("Sec-CH-UA-Full-Version",       "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version"));
+        headerSpecifications.put("Sec-CH-UA-Full-Version-List",  new HeaderSpecification("Sec-CH-UA-Full-Version-List",  "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list"));
+        headerSpecifications.put("Sec-CH-UA-Mobile",             new HeaderSpecification("Sec-CH-UA-Mobile",             "https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile"));
+        headerSpecifications.put("Sec-CH-UA-Model",              new HeaderSpecification("Sec-CH-UA-Model",              "https://wicg.github.io/ua-client-hints/#sec-ch-ua-model"));
+        headerSpecifications.put("Sec-CH-UA-Platform",           new HeaderSpecification("Sec-CH-UA-Platform",           "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform"));
+        headerSpecifications.put("Sec-CH-UA-Platform-Version",   new HeaderSpecification("Sec-CH-UA-Platform-Version",   "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version"));
+        headerSpecifications.put("Sec-CH-UA-WoW64",              new HeaderSpecification("Sec-CH-UA-WoW64",              "https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64"));
+    }
+
+
     // =============== HTML (Human usable) OUTPUT ===============
 
     @Hidden
@@ -172,8 +199,14 @@ public class HumanHtml {
                         for (String header : showHeaders) {
                             String value = requestHeaders.get(header);
                             if (value != null) {
-                                sb.append("<tr><td>")
-                                    .append(escapeHtml4(header))
+                                sb.append("<tr><td>");
+                                HeaderSpecification specification = headerSpecifications.get(header);
+                                if (specification != null) {
+                                    // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
+                                    sb.append("<a href=\"").append(specification.url).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
+                                }
+
+                                sb.append(escapeHtml4(header))
                                     .append("</td><td>")
                                     .append(escapeHtml4(value))
                                     .append("</td></tr>");
