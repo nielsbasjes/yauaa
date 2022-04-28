@@ -80,11 +80,10 @@ public class HumanHtml {
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
     }
 
-    private class HeaderSpecification {
+    private static class HeaderSpecification {
         String header;
         String url;
-
-        public HeaderSpecification(String header, String url) {
+        HeaderSpecification(String header, String url) {
             this.header = header;
             this.url = url;
         }
