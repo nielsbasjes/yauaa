@@ -25,7 +25,7 @@ import nl.basjes.collections.prefixmap.StringPrefixMap;
 import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 import nl.basjes.parse.useragent.utils.WordSplitter;
 
@@ -146,12 +146,12 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         return userAgent;
     }
 
-    private void setCHBrandVersionsList(MutableUserAgent userAgent, String baseFieldName, ArrayList<BrandVersion> brandVersions) {
-        if (brandVersions != null) {
+    private void setCHBrandVersionsList(MutableUserAgent userAgent, String baseFieldName, ArrayList<Brand> brands) {
+        if (brands != null) {
             int i = 0;
-            for (BrandVersion brandVersion : brandVersions) {
-                userAgent.set(baseFieldName + '_' + i + "_Brand",   brandVersion.getBrand(),   1);
-                userAgent.set(baseFieldName + '_' + i + "_Version", brandVersion.getVersion(), 1);
+            for (Brand brand : brands) {
+                userAgent.set(baseFieldName + '_' + i + "_Brand",   brand.getName(),   1);
+                userAgent.set(baseFieldName + '_' + i + "_Version", brand.getVersion(), 1);
                 i++;
             }
         }
@@ -327,17 +327,17 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
-        List<BrandVersion> fullVersionList = clientHints.getFullVersionList();
+        List<Brand> fullVersionList = clientHints.getFullVersionList();
         if (fullVersionList != null && !fullVersionList.isEmpty()) {
             String version;
             String majorVersion;
 
             String agentName;
-            for (BrandVersion brandVersion : fullVersionList) {
+            for (Brand brand : fullVersionList) {
                 String[] versionSplits;
-                switch (brandVersion.getBrand()) {
+                switch (brand.getName()) {
                     case "Chromium":
-                        version = brandVersion.getVersion();
+                        version = brand.getVersion();
                         versionSplits = version.split("\\.");
                         if (versionSplits.length == 4) {
                             if (!"0".equals(versionSplits[1])) {
@@ -356,7 +356,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     case "Google Chrome":
                     case "Chrome":
                         agentName = "Chrome";
-                        version = brandVersion.getVersion();
+                        version = brand.getVersion();
                         versionSplits = version.split("\\.");
                         if (versionSplits.length == 4) {
                             if (!"0".equals(versionSplits[1])) {
@@ -375,7 +375,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     case "Microsoft Edge":
                     case "Edge":
                         agentName = "Edge";
-                        version = brandVersion.getVersion();
+                        version = brand.getVersion();
                         versionSplits = version.split("\\.");
                         if (versionSplits.length == 4) {
                             if (!"0".equals(versionSplits[1])) {

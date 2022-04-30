@@ -26,9 +26,18 @@ options { tokenVocab=ClientHintsLexer; }
 // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.51", "Google Chrome";v="99.0.4844.51"
 // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.1150.30", "Microsoft Edge";v="99.0.1150.30"
 
-brandVersionList    : brandVersionEntry ( COMMA brandVersionEntry )*  ;
+brandList
+    : brandEntry ( COMMA brandEntry )*
+    ;
 
-brandVersionEntry   : ( brandVersion | greaseEntry ) ;
+brandEntry
+    : ( brand | greaseEntry )
+    ;
 
-greaseEntry    : GREASEVALUE SEMICOLON VERSION EQUALS ( VALUE | GREASEVALUE );
-brandVersion    : brand=VALUE SEMICOLON VERSION EQUALS version=VALUE;
+greaseEntry
+    : GREASEVALUE SEMICOLON VERSION EQUALS ( VALUE | GREASEVALUE )
+    ;
+
+brand
+    : name=VALUE SEMICOLON VERSION EQUALS version=VALUE
+    ;

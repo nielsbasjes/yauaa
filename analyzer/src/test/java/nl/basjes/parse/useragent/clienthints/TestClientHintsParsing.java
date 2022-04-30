@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.clienthints;
 
-import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
@@ -58,70 +58,70 @@ class TestClientHintsParsing {
     @Test
     void testSecChUa1() {
         ClientHints clientHints = parse(SEC_CH_UA, "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(2, brands.size());
-        assertEquals("Chromium",        brands.get(0).getBrand());
+        assertEquals("Chromium",        brands.get(0).getName());
         assertEquals("99",              brands.get(0).getVersion());
-        assertEquals("Google Chrome",   brands.get(1).getBrand());
+        assertEquals("Google Chrome",   brands.get(1).getName());
         assertEquals("99",              brands.get(1).getVersion());
     }
 
     @Test
     void testSecChUa2() {
         ClientHints clientHints = parse(SEC_CH_UA, "\"\\Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"85\", \"Chromium\";v=\"85\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(2, brands.size());
-        assertEquals("Google Chrome",   brands.get(0).getBrand());
+        assertEquals("Google Chrome",   brands.get(0).getName());
         assertEquals("85",              brands.get(0).getVersion());
-        assertEquals("Chromium",        brands.get(1).getBrand());
+        assertEquals("Chromium",        brands.get(1).getName());
         assertEquals("85",              brands.get(1).getVersion());
     }
 
     @Test
     void testSecChUa3() {
         ClientHints clientHints = parse(SEC_CH_UA, "\"Chrome\"; v=\"73\", \"(Not;Browser\"; v=\"12\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
-        assertEquals("Chrome",          brands.get(0).getBrand());
+        assertEquals("Chrome",          brands.get(0).getName());
         assertEquals("73",              brands.get(0).getVersion());
     }
 
     @Test
     void testSecChUa4() {
         ClientHints clientHints = parse(SEC_CH_UA, "\"Chrome\"; v=\"73\", \"(Not;Browser\"; v=\"12\", \"Chromium\"; v=\"74\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(2, brands.size());
-        assertEquals("Chrome",          brands.get(0).getBrand());
+        assertEquals("Chrome",          brands.get(0).getName());
         assertEquals("73",              brands.get(0).getVersion());
-        assertEquals("Chromium",        brands.get(1).getBrand());
+        assertEquals("Chromium",        brands.get(1).getName());
         assertEquals("74",              brands.get(1).getVersion());
     }
 
     @Test
     void testSecChUa5() {
         ClientHints clientHints = parse(SEC_CH_UA, "\"(Not;Browser\"; v=\"12\", \"Chromium\"; v=\"73\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
-        assertEquals("Chromium",        brands.get(0).getBrand());
+        assertEquals("Chromium",        brands.get(0).getName());
         assertEquals("73",              brands.get(0).getVersion());
     }
 
     @Test
     void testSecChUa6() {
         ClientHints clientHints = parse(SEC_CH_UA, "\"Chrome\"; v=\"73\", \"Xwebs mega\"; v=\"60\", \"Chromium\"; v=\"73\", \"(Not;Browser\"; v=\"12\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(3, brands.size());
-        assertEquals("Chrome",          brands.get(0).getBrand());
+        assertEquals("Chrome",          brands.get(0).getName());
         assertEquals("73",              brands.get(0).getVersion());
-        assertEquals("Xwebs mega",      brands.get(1).getBrand());
+        assertEquals("Xwebs mega",      brands.get(1).getName());
         assertEquals("60",              brands.get(1).getVersion());
-        assertEquals("Chromium",        brands.get(2).getBrand());
+        assertEquals("Chromium",        brands.get(2).getName());
         assertEquals("73",              brands.get(2).getVersion());
     }
 
@@ -129,20 +129,20 @@ class TestClientHintsParsing {
     void testSecChUa7() {
         // From https://wicg.github.io/ua-client-hints/#examples
         ClientHints clientHints = parse(SEC_CH_UA, "\"Examplary Browser\"; v=\"73\", \";Not?A.Brand\"; v=\"27\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
-        assertEquals("Examplary Browser",   brands.get(0).getBrand());
+        assertEquals("Examplary Browser",   brands.get(0).getName());
         assertEquals("73",                  brands.get(0).getVersion());
     }
 
     @Test
     void testSecChUa8() {
         ClientHints clientHints = parse(SEC_CH_UA, "\"Examplary Browser\"; v=\"73\"");
-        List<BrandVersion> brands = clientHints.getBrands();
+        List<Brand> brands = clientHints.getBrands();
         assertNotNull(brands);
         assertEquals(1, brands.size());
-        assertEquals("Examplary Browser",   brands.get(0).getBrand());
+        assertEquals("Examplary Browser",   brands.get(0).getName());
         assertEquals("73",                  brands.get(0).getVersion());
     }
 
@@ -237,24 +237,24 @@ class TestClientHintsParsing {
     @Test
     void testSecChUaFullVersionList() {
         ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"99.0.4844.51\", \"Google Chrome\";v=\"99.0.4844.51\"");
-        List<BrandVersion> brands = clientHints.getFullVersionList();
+        List<Brand> brands = clientHints.getFullVersionList();
         assertNotNull(brands);
         assertEquals(2, brands.size());
-        assertEquals("Chromium",        brands.get(0).getBrand());
+        assertEquals("Chromium",        brands.get(0).getName());
         assertEquals("99.0.4844.51",    brands.get(0).getVersion());
-        assertEquals("Google Chrome",   brands.get(1).getBrand());
+        assertEquals("Google Chrome",   brands.get(1).getName());
         assertEquals("99.0.4844.51",    brands.get(1).getVersion());
     }
 
     @Test
     void testSecChUaFullVersionListExtraSpaces() {
         ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "  \" Not A;Brand\"  ;   v=\"99.0.0.0\"  ,   \"Chromium\"  ;  v  =  \"99.0.4844.51\"   ,    \"Google Chrome\"   ;   v  =  \"99.0.4844.51\"   ");
-        List<BrandVersion> brands = clientHints.getFullVersionList();
+        List<Brand> brands = clientHints.getFullVersionList();
         assertNotNull(brands);
         assertEquals(2, brands.size());
-        assertEquals("Chromium",        brands.get(0).getBrand());
+        assertEquals("Chromium",        brands.get(0).getName());
         assertEquals("99.0.4844.51",    brands.get(0).getVersion());
-        assertEquals("Google Chrome",   brands.get(1).getBrand());
+        assertEquals("Google Chrome",   brands.get(1).getName());
         assertEquals("99.0.4844.51",    brands.get(1).getVersion());
     }
 

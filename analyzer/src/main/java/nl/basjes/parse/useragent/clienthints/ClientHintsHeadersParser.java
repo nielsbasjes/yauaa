@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.clienthints;
 import com.esotericsoftware.kryo.Kryo;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
-import nl.basjes.parse.useragent.clienthints.parsers.BrandVersionListParser;
+import nl.basjes.parse.useragent.clienthints.parsers.BrandListParser;
 import nl.basjes.parse.useragent.clienthints.parsers.CHParser;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
@@ -103,7 +103,7 @@ public class ClientHintsHeadersParser implements Serializable {
         kryo.register(ClientHintsHeadersParser.class);
         kryo.register(ClientHintsHeadersParser.DefaultClientHintsCacheInstantiator.class);
         kryo.register(ClientHints.class);
-        kryo.register(BrandVersionListParser.class);
+        kryo.register(BrandListParser.class);
         kryo.register(CHParser.class);
         kryo.register(ParseSecChUa.class);
         kryo.register(ParseSecChUaArch.class);

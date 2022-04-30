@@ -18,10 +18,11 @@
 package nl.basjes.parse.useragent.clienthints.parsers;
 
 import lombok.Getter;
-import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import nl.basjes.parse.useragent.parser.ClientHintsBaseVisitor;
 import nl.basjes.parse.useragent.parser.ClientHintsLexer;
 import nl.basjes.parse.useragent.parser.ClientHintsParser;
+import nl.basjes.parse.useragent.parser.ClientHintsParser.BrandContext;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
@@ -32,16 +33,16 @@ import org.antlr.v4.runtime.Recognizer;
 
 import java.util.ArrayList;
 
-public class BrandVersionListParser extends ClientHintsBaseVisitor<Void> implements DefaultANTLRErrorListener {
+public class BrandListParser extends ClientHintsBaseVisitor<Void> implements DefaultANTLRErrorListener {
 
-    public static ArrayList<BrandVersion> parse(String inputString) {
-        return new BrandVersionListParser(inputString).getResult();
+    public static ArrayList<Brand> parse(String inputString) {
+        return new BrandListParser(inputString).getResult();
     }
 
     @Getter
-    private ArrayList<BrandVersion> result;
+    private ArrayList<Brand> result;
 
-    public BrandVersionListParser(String inputString) {
+    public BrandListParser(String inputString) {
         result = new ArrayList<>();
         CodePointCharStream input = CharStreams.fromString(inputString);
         ClientHintsLexer lexer = new ClientHintsLexer(input);
@@ -53,19 +54,19 @@ public class BrandVersionListParser extends ClientHintsBaseVisitor<Void> impleme
         parser.removeErrorListeners();
         parser.addErrorListener(this);
 
-        ParserRuleContext brandVersionListContext = parser.brandVersionList();
+        ParserRuleContext brandVersionListContext = parser.brandList();
         visit(brandVersionListContext);
     }
 
     @Override
-    public Void visitBrandVersion(ClientHintsParser.BrandVersionContext ctx) {
-        if (ctx.brand == null || ctx.version == null) {
+    public Void visitBrand(BrandContext ctx) {
+        if (ctx.name == null || ctx.version == null) {
             return null;
         }
-        String brandText = ctx.brand.getText();
-        String versionText = ctx.version.getText();
+        String name = ctx.name.getText();
+        String version = ctx.version.getText();
 
-        result.add(new BrandVersion(brandText, versionText));
+        result.add(new Brand(name, version));
         return null;
     }
 

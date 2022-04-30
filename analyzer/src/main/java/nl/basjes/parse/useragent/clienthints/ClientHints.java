@@ -27,11 +27,11 @@ import java.util.ArrayList;
 // In call cases: null means not specified
 public class ClientHints implements Serializable {
     // See: https://wicg.github.io/ua-client-hints/#interface
-    @Getter @Setter private ArrayList<BrandVersion> brands = null;          // 3.1 https://wicg.github.io/ua-client-hints/#sec-ch-ua
+    @Getter @Setter private ArrayList<Brand> brands = null;                 // 3.1 https://wicg.github.io/ua-client-hints/#sec-ch-ua
     @Getter @Setter private String architecture = null;                     // 3.2 https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch
     @Getter @Setter private String bitness = null;                          // 3.3 https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness
     @Getter @Setter private String fullVersion = null; /* deprecated */     // 3.4 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version
-    @Getter @Setter private ArrayList<BrandVersion> fullVersionList = null; // 3.5 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
+    @Getter @Setter private ArrayList<Brand> fullVersionList = null;        // 3.5 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
     @Getter @Setter private Boolean mobile = null;                          // 3.6 https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile
     @Getter @Setter private String model = null;                            // 3.7 https://wicg.github.io/ua-client-hints/#sec-ch-ua-model
     @Getter @Setter private String platform = null;                         // 3.8 https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform
@@ -39,8 +39,8 @@ public class ClientHints implements Serializable {
     @Getter @Setter private Boolean wow64 = null;                           // 3.10 https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64
 
     @AllArgsConstructor
-    public static class BrandVersion implements Serializable {
-        @Getter @Setter private String brand;
+    public static class Brand implements Serializable {
+        @Getter @Setter private String name;
         @Getter @Setter private String version;
     }
 

@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
-import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class ParseSecChUa implements CHParser {
 
     public static final String HEADER_FIELD = "Sec-CH-UA";
 
-    private transient ConcurrentMap<String, ArrayList<BrandVersion>> cache = null;
+    private transient ConcurrentMap<String, ArrayList<Brand>> cache = null;
 
     public ParseSecChUa() {
         // Nothing to do right now
@@ -39,7 +39,7 @@ public class ParseSecChUa implements CHParser {
     @Override
     @SuppressWarnings("unchecked")
     public void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
-        cache = (ConcurrentMap<String, ArrayList<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        cache = (ConcurrentMap<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
     }
 
     @Override
@@ -80,16 +80,16 @@ public class ParseSecChUa implements CHParser {
         }
         // " Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"
 
-        ArrayList<BrandVersion> brandVersions;
+        ArrayList<Brand> brands;
         // Do we even have a cache?
         if (cache == null) {
-            brandVersions = BrandVersionListParser.parse(input);
+            brands = BrandListParser.parse(input);
         } else {
-            brandVersions = cache.computeIfAbsent(input, value -> BrandVersionListParser.parse(input));
+            brands = cache.computeIfAbsent(input, value -> BrandListParser.parse(input));
         }
 
-        if (!brandVersions.isEmpty()) {
-            clientHints.setBrands(brandVersions);
+        if (!brands.isEmpty()) {
+            clientHints.setBrands(brands);
         }
 
         return clientHints;

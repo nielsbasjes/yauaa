@@ -23,6 +23,11 @@ import nl.basjes.parse.useragent.clienthints.ClientHints;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public interface CHParser extends Serializable {
     /**
@@ -55,11 +60,13 @@ public interface CHParser extends Serializable {
             return null;
         }
         switch (value) {
-            case "?0" : return Boolean.FALSE;
-            case "?1" : return Boolean.TRUE;
+            case "?0" : return FALSE;
+            case "?1" : return TRUE;
             default   : return null;
         }
     }
+
+    Pattern SF_STRING_PATTERN = Pattern.compile("^\"(.*)\"$");
 
     /**
      * A sf-string is a String with '"' around it.
@@ -68,16 +75,18 @@ public interface CHParser extends Serializable {
      * @return The actual payload string (i.e. without the surrounding '"') or null if invalid
      */
     default String parseSfString(String value) {
-        if (value == null || value.isEmpty()) {
+        if (value == null) {
             return null;
         }
-        int length = value.length();
-        boolean startQuote = value.charAt(0) == '"';
-        boolean endQuote = value.charAt(length-1) == '"';
-        if (startQuote && endQuote) {
-            return value.substring(1, length - 1).trim();
+        Matcher matcher = SF_STRING_PATTERN.matcher(value);
+        if (matcher.find()) {
+            String result = matcher.group(1).trim();
+            if (result.isEmpty()) {
+                return null;
+            }
+            return result;
         }
-        return null; // Bad input
+        return null;
     }
 
     default void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {

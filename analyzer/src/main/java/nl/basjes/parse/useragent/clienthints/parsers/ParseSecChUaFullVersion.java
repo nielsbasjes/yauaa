@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
-import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class ParseSecChUaFullVersion implements CHParser {
 
     public static final String HEADER_FIELD = "Sec-CH-UA-Full-Version";
 
-    private transient ConcurrentMap<String, ArrayList<BrandVersion>> cache;
+    private transient ConcurrentMap<String, ArrayList<Brand>> cache;
 
     public ParseSecChUaFullVersion() {
         // Nothing to do right now
@@ -39,7 +39,7 @@ public class ParseSecChUaFullVersion implements CHParser {
     @Override
     @SuppressWarnings("unchecked")
     public void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
-        cache = (ConcurrentMap<String, ArrayList<BrandVersion>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        cache = (ConcurrentMap<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
     }
 
     @Override

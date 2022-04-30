@@ -18,7 +18,7 @@
 package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.clienthints.ClientHints;
-import nl.basjes.parse.useragent.clienthints.ClientHints.BrandVersion;
+import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -51,9 +51,9 @@ public class ParseSecChUaFullVersionList implements CHParser {
             return clientHints;
         }
         // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.51", "Google Chrome";v="99.0.4844.51"
-        ArrayList<BrandVersion> brandVersions = BrandVersionListParser.parse(input);
-        if (!brandVersions.isEmpty()) {
-            clientHints.setFullVersionList(brandVersions);
+        ArrayList<Brand> brands = BrandListParser.parse(input);
+        if (!brands.isEmpty()) {
+            clientHints.setFullVersionList(brands);
         }
         return clientHints;
     }
