@@ -91,48 +91,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- For the test loading it all dynamically inside Apache Pig -->
-    <dependency>
-      <groupId>nl.basjes.parse.httpdlog</groupId>
-      <artifactId>httpdlog-pigloader</artifactId>
-      <version>${logparser.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.pig</groupId>
-      <artifactId>pig</artifactId>
-      <version>${pig.version}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.python</groupId>
-      <artifactId>jython-standalone</artifactId>
-      <version>2.7.2</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.hadoop</groupId>
-      <artifactId>hadoop-client</artifactId>
-      <version>${hadoop.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>31.1-jre</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
   <build>

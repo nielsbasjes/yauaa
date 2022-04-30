@@ -1,6 +1,10 @@
 +++
 title = "Apache Pig"
 +++
+
+# DEPRECATED
+Apache Pig is no longer used. So with Yauaa 7 this UDF has been dropped.
+
 ## Introduction
 This is a User Defined Function for [Apache Pig](https://pig.apache.org)
 

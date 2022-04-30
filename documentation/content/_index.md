@@ -13,6 +13,8 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ## HIGH Profile release notes:
 
 ### Version 7.0.0 (Unreleased)
+- Dropping support for
+  - Apache Pig. The last release was in 2017: about 5 years ago.
 - Support for using ClientHints (work in progress)
   - Current status:
 
@@ -30,7 +32,6 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 | Hive               | ✅       |              |
 | Nifi               | ☐       |              |
 | LogParser          | ❌       | Not possible |
-| Pig                | ☐       |              |
 | Snowflake          | ☐       |              |
 | Trino              | ✅       |              |
 | Web servlet        | ✅       |              |
