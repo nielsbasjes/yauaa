@@ -35,18 +35,8 @@
     <project.build.outputEncoding>@project.build.outputEncoding@</project.build.outputEncoding>
     <maven.compiler.source>@maven.compiler.source@</maven.compiler.source>
     <maven.compiler.target>@maven.compiler.target@</maven.compiler.target>
+    <maven.compiler.release>11</maven.compiler.release>
   </properties>
-
-  <!-- Needed to allow downloading the dependencies when using maven 3.8.1-->
-  <!-- Could not transfer artifact org.kohsuke:libpam4j:pom:1.8-rev2 from/to maven-default-http-blocker (http://0.0.0.0/): -->
-  <!--   Blocked mirror for repositories: [mapr-releases (http://repository.mapr.com/maven/, default, releases)]-->
-  <repositories>
-    <repository>
-      <id>mapr</id>
-      <name>Mapr</name>
-      <url>https://repository.mapr.com/maven/</url>
-    </repository>
-  </repositories>
 
   <dependencyManagement>
     <dependencies>
@@ -100,10 +90,6 @@
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-        </exclusion>
-        <exclusion>
           <artifactId>netty-all</artifactId>
           <groupId>io.netty</groupId>
         </exclusion>
@@ -115,12 +101,6 @@
       <artifactId>drill-memory-base</artifactId>
       <version>@drill.version@</version>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
@@ -129,12 +109,6 @@
       <version>@drill.version@</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
@@ -143,12 +117,6 @@
       <version>@drill.version@</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
@@ -187,29 +155,6 @@
     </dependency>
 
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>@maven-deploy-plugin.version@</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>@spotbugs-maven-plugin.version@</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>@maven-checkstyle-plugin.version@</version>
-      </plugin>
-    </plugins>
-  </build>
 
   <licenses>
     <license>

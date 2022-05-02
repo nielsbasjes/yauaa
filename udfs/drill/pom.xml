@@ -49,10 +49,6 @@
       <scope>provided</scope>
       <exclusions>
         <exclusion>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-        </exclusion>
-        <exclusion>
           <artifactId>netty-all</artifactId>
           <groupId>io.netty</groupId>
         </exclusion>
@@ -64,12 +60,6 @@
       <artifactId>drill-memory-base</artifactId>
       <version>${drill.version}</version>
       <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>jdk.tools</groupId>
-          <artifactId>jdk.tools</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
@@ -145,6 +135,7 @@
         </executions>
       </plugin>
 
+
       <!-- All tests for this module are in an integration test (version conflict with Antlr). -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -162,7 +153,6 @@
         <version>${maven-invoker-plugin.version}</version>
         <configuration>
           <failIfNoProjects>true</failIfNoProjects>
-          <!--          <debug>true</debug>-->
           <streamLogsOnFailures>true</streamLogsOnFailures>
           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
           <pomIncludes>

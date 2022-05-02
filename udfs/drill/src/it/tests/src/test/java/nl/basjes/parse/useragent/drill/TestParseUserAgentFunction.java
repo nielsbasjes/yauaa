@@ -45,16 +45,6 @@ public class TestParseUserAgentFunction extends ClusterTest {
     // -------------------------------------------------------------------------------------------------------
 
     @Test
-    public void testAnnotation() {
-        Class<? extends DrillSimpleFunc> fnClass = ParseUserAgentFunction.class;
-        FunctionTemplate fnDefn = fnClass.getAnnotation(FunctionTemplate.class);
-        assertNotNull(fnDefn);
-        assertEquals("parse_user_agent", fnDefn.name());
-        assertEquals(FunctionTemplate.FunctionScope.SIMPLE, fnDefn.scope());
-        assertEquals(FunctionTemplate.NullHandling.INTERNAL, fnDefn.nulls());
-    }
-
-    @Test
     public void testParseUserAgentString() throws Exception {
         String query =
             "SELECT " +
