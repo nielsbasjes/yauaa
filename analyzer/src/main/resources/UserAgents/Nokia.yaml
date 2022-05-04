@@ -563,6 +563,182 @@ config:
     - 'OperatingSystemName                 :      359 :"Maemo"'
     - 'OperatingSystemVersion              :      359 :"<<<null>>>"'
 
+- matcher:
+    extract:
+      - 'DeviceClass                         :      359 :"Phone"'
+      - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
+      - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
+      - 'OperatingSystemClass                :      359 :"Mobile"'
+      - 'OperatingSystemName                 :     510 :agent.product.comments.entry="Sailfish"'
+      - 'OperatingSystemVersion              :     510 :"<<<null>>>"'
+
+- matcher:
+    variable:
+      - 'SailFish: agent.(1-2)product.comments.entry.(1)product.name="Sailfish"^'
+    extract:
+      - 'DeviceClass                         :      359 :"Phone"'
+      - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
+      - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
+      - 'OperatingSystemClass                :      359 :"Mobile"'
+      - 'OperatingSystemName                 :     511 :"Sailfish"'
+      - 'OperatingSystemVersion              :     511 :@SailFish.version'
+
+- matcher:
+    require:
+      - 'agent.product.name="SailfishBrowser"'
+    extract:
+      - 'DeviceClass                         :      359 :"Phone"'
+      - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
+      - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
+      - 'OperatingSystemClass                :      359 :"Mobile"'
+      - 'OperatingSystemName                 :     510 :"Sailfish"'
+      - 'OperatingSystemVersion              :     510 :"??"'
+
+# https://sailfishos.org/ Sailfish OS is managed and developed by Finnish company Jolla Ltd.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Maemo; Linux; U; Jolla; Sailfish; Mobile; rv:31.0) Gecko/31.0 Firefox/31.0 SailfishBrowser/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Sailfish ??'
+      OperatingSystemNameVersionMajor      : 'Sailfish ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '31.0'
+      LayoutEngineVersionMajor             : '31'
+      LayoutEngineNameVersion              : 'Gecko 31.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 31'
+      LayoutEngineBuild                    : '31.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.0'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Maemo; Linux; U; Sailfish; Mobile; rv:38.0) Gecko/38.0 Firefox/38.0 SailfishBrowser/1.2.1-3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Sailfish ??'
+      OperatingSystemNameVersionMajor      : 'Sailfish ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '38.0'
+      LayoutEngineVersionMajor             : '38'
+      LayoutEngineNameVersion              : 'Gecko 38.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 38'
+      LayoutEngineBuild                    : '38.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.2.1-3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.2.1-3'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+      AgentSecurity                        : 'Strong security'
+
+
+# From https://github.com/sailfishos/sailfish-browser/blob/master/data/ua/78.0/ua-update.json
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Android 4.4.2; U; Sailfish 3.0; rv:45.0) Gecko/45.0 Firefox/45.0 SailfishBrowser/1.0 like Safari/538.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '3.0'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Sailfish 3.0'
+      OperatingSystemNameVersionMajor      : 'Sailfish 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Gecko 45.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 45'
+      LayoutEngineBuild                    : '45.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.0'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      # The Sailfish browser is not available for Android, so this cannot be Android.
+      User-Agent: 'Mozilla/5.0 (Android 8.1.0; U; Mobile; rv:45.0) Gecko/45.0 SailfishBrowser/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Sailfish ??'
+      OperatingSystemNameVersionMajor      : 'Sailfish ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Gecko 45.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 45'
+      LayoutEngineBuild                    : '45.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.0'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Sailfish 4.0; Mobile; rv:78.0) Gecko/78.0 Firefox/78.0 SailfishBrowser/1.0 like Chrome/67.0.3396'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Sailfish 4.0'
+      OperatingSystemNameVersionMajor      : 'Sailfish 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '78.0'
+      LayoutEngineVersionMajor             : '78'
+      LayoutEngineNameVersion              : 'Gecko 78.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 78'
+      LayoutEngineBuild                    : '78.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.0'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; U; Linux armv7l; en-US; rv:1.9.2.3pre) Gecko/20100723 Firefox/3.5 Maemo Browser 1.7.4.8 RX-51 N900'

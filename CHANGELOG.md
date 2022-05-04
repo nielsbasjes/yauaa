@@ -9,6 +9,7 @@ v7.0.0-SNAPSHOT
   - Update for jackson-databind
 - New/improved detections
   - Microsoft Edge Webview
+  - Sailfish OS & Browser
 - Build
   - Use new feature in maven-shade-plugin to use the correct pom.xml in the jar.
   - Restructure integration tests and examples to run outside the maven reactor.
