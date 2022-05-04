@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v7.0.0-SNAPSHOT
 ===
+- Client Hints!
+  - Support for analyzing the User-Agent in combination with the User-Agent Client Hints.
 - Security:
   - Update for jackson-databind
 - New/improved detections
