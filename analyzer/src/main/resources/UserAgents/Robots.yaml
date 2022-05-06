@@ -55,6 +55,7 @@ config:
       'MegaIndex.ru'                 : 'MegaIndex.ru|MegaIndex.ru'
       'MetaURI API'                  : 'MetaURI|MetaURI API'
       'Netcraft Web Server Survey'   : 'Netcraft|Netcraft Web Server Survey'
+      'node.js'                      : 'OpenJS|Node.js'
       'OhDear.app'                   : 'OhDear.app|OhDear.app'
       'PingdomPageSpeed'             : 'Pingdom|PingdomPageSpeed'
       'PHP'                          : 'PHP|PHP'
@@ -10280,6 +10281,33 @@ config:
       AgentNameVersion                     : 'Buck 2.3.1'
       AgentNameVersionMajor                : 'Buck 2'
       AgentInformationUrl                  : 'https://app.hypefactors.com/media-monitoring/about.html'
+
+# NodeJS is a (serverside) JavaScript framework
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Linux x64) node.js/16.14.2 v8/9.4.146.24-node.20'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'OpenJs Node.js'
+      DeviceBrand                          : 'OpenJs'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'node.js'
+      LayoutEngineVersion                  : '16.14.2'
+      LayoutEngineVersionMajor             : '16'
+      LayoutEngineNameVersion              : 'node.js 16.14.2'
+      LayoutEngineNameVersionMajor         : 'node.js 16'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Node.js'
+      AgentVersion                         : '16.14.2'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Node.js 16.14.2'
+      AgentNameVersionMajor                : 'Node.js 16'
 
 
 # https://github.com/reactor/reactor-netty
