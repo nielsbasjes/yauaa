@@ -60,6 +60,7 @@ config:
       'PHP'                          : 'PHP|PHP'
       'Prerender'                    : 'Prerender|Prerender'
       'proximic'                     : 'proximic|proximic'
+      'ReactorNetty'                 : 'Reactor Netty|Reactor Netty'
       'RuxitSynthetic'               : 'Dynatrace|Ruxit Synthetic'
       'SEOkicks'                     : 'SEOkicks|SEOkicks'
       'SeoSiteCheckup'               : 'SeoSiteCheckup|SeoSiteCheckup'
@@ -10279,3 +10280,32 @@ config:
       AgentNameVersion                     : 'Buck 2.3.1'
       AgentNameVersionMajor                : 'Buck 2'
       AgentInformationUrl                  : 'https://app.hypefactors.com/media-monitoring/about.html'
+
+
+# https://github.com/reactor/reactor-netty
+# Reactor Netty offers non-blocking and backpressure-ready TCP/HTTP/UDP/QUIC clients & servers based on Netty framework.
+- test:
+    input:
+      User-Agent  : 'ReactorNetty/0.9.7.RELEASE'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Reactor Netty'
+      DeviceBrand                          : 'Reactor Netty'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ReactorNetty'
+      LayoutEngineVersion                  : '0.9.7.RELEASE'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'ReactorNetty 0.9.7.RELEASE'
+      LayoutEngineNameVersionMajor         : 'ReactorNetty 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ReactorNetty'
+      AgentVersion                         : '0.9.7.RELEASE'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'ReactorNetty 0.9.7.RELEASE'
+      AgentNameVersionMajor                : 'ReactorNetty 0'
