@@ -35,3 +35,23 @@ select parse_useragent('Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) A
 ```
 
 ![Using Yauaa in Snowflake](Snowflake.png)
+
+
+# Using User-Agent Client Hints
+With version 7.0.0 you are now able to do this aswell
+
+```sql
+select parse_useragent(
+    'User-Agent',                   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+    'Sec-Ch-Ua',                    '\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"',
+    'Sec-Ch-Ua-Arch',               '\"x86\"',
+    'Sec-Ch-Ua-Bitness',            '\"64\"',
+    'Sec-Ch-Ua-Full-Version',       '\"100.0.4896.127\"',
+    'Sec-Ch-Ua-Full-Version-List',  '\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"100.0.4896.127\", \"Google Chrome\";v=\"100.0.4896.127\"',
+    'Sec-Ch-Ua-Mobile',             '?0',
+    'Sec-Ch-Ua-Model',              '\"\"',
+    'Sec-Ch-Ua-Platform',           '\"Linux\"',
+    'Sec-Ch-Ua-Platform-Version',   '\"5.13.0\"',
+    'Sec-Ch-Ua-Wow64',              '?0'
+) as ua_obj, ua_obj:AgentClass::string as agent_class;
+```
