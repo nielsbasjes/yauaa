@@ -2625,3 +2625,286 @@ config:
       AgentVersionMajor                    : 'compatible'
       AgentNameVersion                     : 'iPad compatible'
       AgentNameVersionMajor                : 'iPad compatible'
+
+
+# https://github.com/Alamofire/Alamofire
+# Alamofire is an HTTP networking library written in Swift.
+# Essentially this is a library used in iOS apps for connecting to websites/servers.
+- matcher:
+    variable:
+    - 'Alamofire                           :agent.(2)product.name="Alamofire"^'
+    - 'App                                 :agent.(1)product'
+    extract:
+    - 'DeviceClass                         :       10 :"Mobile"'
+    - 'DeviceBrand                         :       10 :"Apple"'
+    - 'DeviceName                          :       10 :"iOS Device"'
+    - 'OperatingSystemClass                :       10 :"Mobile"'
+    - 'OperatingSystemName                 :       10 :"iOS"'
+    - 'OperatingSystemVersion              :       10 :agent.(1)product.comments.(3)entry.product.name="iOS"^.version'
+    - 'LayoutEngineClass                   :       10 :"Mobile App"'
+    - 'LayoutEngineName                    :       10 :"Alamofire"'
+    - 'LayoutEngineVersion                 :       10 :@Alamofire.version'
+    - 'AgentClass                          :       10 :"Mobile App"'
+    - 'AgentName                           :       10 :agent.(1)product.name'
+    - 'AgentVersion                        :       10 :agent.(1)product.version'
+    - 'AgentBuild                          :       10 :agent.(1)product.comments.(2)entry.(1)keyvalue.key="build"^.value'
+
+
+- test:
+    input:
+      User-Agent: 'Boulanger/22.3.0 (fr.boulanger.Boulanger; build:823; iOS 15.4.1) Alamofire/4.9.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '4.9.1'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Alamofire 4.9.1'
+      LayoutEngineNameVersionMajor         : 'Alamofire 4'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Boulanger'
+      AgentVersion                         : '22.3.0'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Boulanger 22.3.0'
+      AgentNameVersionMajor                : 'Boulanger 22'
+      AgentBuild                           : '823'
+
+
+# Note: funky name
+- test:
+    input:
+      User-Agent: 'Le Tour VIP 3D Tracker/1.1.4 (ntt.global.ar.arcycling; build:2020.07.22.01; iOS 15.0.1) Alamofire/4.9.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.0.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.0.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '4.9.1'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Alamofire 4.9.1'
+      LayoutEngineNameVersionMajor         : 'Alamofire 4'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Le Tour VIP 3D Tracker'
+      AgentVersion                         : '1.1.4'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Le Tour VIP 3D Tracker 1.1.4'
+      AgentNameVersionMajor                : 'Le Tour VIP 3D Tracker 1'
+      AgentBuild                           : '2020.07.22.01'
+
+
+# Note: space in agent name
+- test:
+    input:
+      User-Agent  : 'Walibi NL/4.0.15 (nl.walibi.corporate; build:254; iOS 15.4.1) Alamofire/5.5.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.5.0'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Walibi NL'
+      AgentVersion                         : '4.0.15'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Walibi NL 4.0.15'
+      AgentNameVersionMajor                : 'Walibi NL 4'
+      AgentBuild                           : '254'
+
+
+# Note: short name
+- test:
+    input:
+      User-Agent: 'OM/9.0.18 (com.c4mprod.OM; build:499; iOS 15.4.0) Alamofire/5.2.2'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.0'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.0'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.2.2'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.2.2'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'OM'
+      AgentVersion                         : '9.0.18'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'OM 9.0.18'
+      AgentNameVersionMajor                : 'OM 9'
+      AgentBuild                           : '499'
+
+
+# Note: dash in name
+- test:
+    input:
+      User-Agent: 'Beta-LaRedoute/13 (com.Redoute.RedouteIphone.beta; build:1137; iOS 13.2.2) Alamofire/5.2.2'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.2.2'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.2.2'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.2.2'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.2.2'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Beta-LaRedoute'
+      AgentVersion                         : '13'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'Beta-LaRedoute 13'
+      AgentNameVersionMajor                : 'Beta-LaRedoute 13'
+      AgentBuild                           : '1137'
+
+
+# Note: multiple spaces in name
+- test:
+    input:
+      User-Agent: 'Walibi NL halloween/4.0.12 (nl.walibi.corporate; build:189; iOS 15.4.1) Alamofire/5.4.4'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.4.4'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.4.4'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Walibi NL halloween'
+      AgentVersion                         : '4.0.12'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Walibi NL halloween 4.0.12'
+      AgentNameVersionMajor                : 'Walibi NL halloween 4'
+      AgentBuild                           : '189'
+
+
+# Note: number in name, string in version
+- test:
+    input:
+      User-Agent: 'boulanger-qua1/22.4.0-INFINITY (com.ineatconseil.boulanger.qua; build:827; iOS 15.3.1) Alamofire/5.2.2'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.3.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.2.2'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.2.2'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Boulanger-QUA1'
+      AgentVersion                         : '22.4.0-INFINITY'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Boulanger-QUA1 22.4.0-INFINITY'
+      AgentNameVersionMajor                : 'Boulanger-QUA1 22'
+      AgentBuild                           : '827'
+
+
+# Note: string in alamofire version
+- test:
+    input:
+      User-Agent: 'LM Recette/7.14.3 (com.leroymerlin.frlm-mob-LeroyMerlinRefonte-ios; build:1050; iOS 15.4.1) Alamofire/5.4.4 LMUser'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.4.4'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.4.4'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'LM Recette'
+      AgentVersion                         : '7.14.3'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'LM Recette 7.14.3'
+      AgentNameVersionMajor                : 'LM Recette 7'
+      AgentBuild                           : '1050'
+
+
+# Note: dots in build
+- test:
+    input:
+      User-Agent: 'Boulanger/20.3.1 (fr.boulanger.Boulanger; build:20.3.1.592; iOS 15.4.1) Alamofire/4.9.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '4.9.1'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Alamofire 4.9.1'
+      LayoutEngineNameVersionMajor         : 'Alamofire 4'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Boulanger'
+      AgentVersion                         : '20.3.1'
+      AgentVersionMajor                    : '20'
+      AgentNameVersion                     : 'Boulanger 20.3.1'
+      AgentNameVersionMajor                : 'Boulanger 20'
+      AgentBuild                           : '20.3.1.592'

@@ -225,11 +225,24 @@ UNASSIGNEDVARIABLE
     | SPECIALVERSIONWORDS
     ;
 
+// Some words look like a version but really are NOT.
+fragment NONVERSIONWORDS
+    : '3D' // Fixes parsing things like 'Le Tour VIP 3D Tracker/1.1.4' where '3D' must not be seen as a VERSION.
+    ;
+
 GIBBERISH
     : '@'(~[ ;)])*(~[-+_0-9a-zA-Z. ;)])+(~[ ;)])*
     ;
 
 ATSIGN : '@' ;
+
+WORD
+    // Sometimes we get '-=Some thing=-' ... because it looks cool ...?
+    : '-='? MINUS* WORDLetter+ (MINUS+ WORDLetter+ )* MINUS* '=-'?
+//    | SPACE MINUS SPACE
+    | UNASSIGNEDVARIABLE
+    | NONVERSIONWORDS
+    ;
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
@@ -241,13 +254,6 @@ fragment WORDLetter
     : (~[@0-9+;,{}()\\/ \t:=[\]"-])            // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
     | SPECIALVERSIONWORDS
-    ;
-
-WORD
-    // Sometime we get '-=Some thing=-' ... because it looks cool ...?
-    : '-='? MINUS* WORDLetter+ (MINUS+ WORDLetter+ )* MINUS* '=-'?
-//    | SPACE MINUS SPACE
-    | UNASSIGNEDVARIABLE
     ;
 
 // Base64 Encoded strings: Note we do NOT recognize the variant where the '-' is used because that conflicts with the uuid
