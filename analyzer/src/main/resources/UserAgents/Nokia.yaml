@@ -565,34 +565,35 @@ config:
 
 - matcher:
     extract:
-      - 'DeviceClass                         :      359 :"Phone"'
-      - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
-      - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
-      - 'OperatingSystemClass                :      359 :"Mobile"'
-      - 'OperatingSystemName                 :     510 :agent.product.comments.entry="Sailfish"'
-      - 'OperatingSystemVersion              :     510 :"<<<null>>>"'
+    - 'DeviceClass                         :      359 :"Phone"'
+    - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
+    - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
+    - 'OperatingSystemClass                :      359 :"Mobile"'
+    - 'OperatingSystemName                 :      510 :agent.product.comments.entry[1]="Sailfish"'
+    - 'OperatingSystemVersion              :      510 :"<<<null>>>"'
 
 - matcher:
     variable:
-      - 'SailFish: agent.(1-2)product.comments.entry.(1)product.name="Sailfish"^'
+    - 'SailFish                            :agent.(1-2)product.comments.entry.(1)product.name="Sailfish"^'
     extract:
-      - 'DeviceClass                         :      359 :"Phone"'
-      - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
-      - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
-      - 'OperatingSystemClass                :      359 :"Mobile"'
-      - 'OperatingSystemName                 :     511 :"Sailfish"'
-      - 'OperatingSystemVersion              :     511 :@SailFish.version'
+    - 'DeviceClass                         :      359 :"Phone"'
+    - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
+    - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
+    - 'OperatingSystemClass                :      359 :"Mobile"'
+    - 'OperatingSystemName                 :      511 :"Sailfish"'
+    - 'OperatingSystemVersion              :      511 :@SailFish.version'
 
 - matcher:
     require:
-      - 'agent.product.name="SailfishBrowser"'
+    - 'agent.product.name="SailfishBrowser"'
     extract:
-      - 'DeviceClass                         :      359 :"Phone"'
-      - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
-      - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
-      - 'OperatingSystemClass                :      359 :"Mobile"'
-      - 'OperatingSystemName                 :     510 :"Sailfish"'
-      - 'OperatingSystemVersion              :     510 :"??"'
+    - 'DeviceClass                         :      359 :"Phone"'
+    - 'DeviceBrand                         :      360 :"<<<null>>>"' # If SailFish then not a Nokia
+    - 'DeviceName                          :        8 :"<<<null>>>"' # If SailFish then not a N900
+    - 'OperatingSystemClass                :      359 :"Mobile"'
+    - 'OperatingSystemName                 :      510 :"Sailfish"'
+    - 'OperatingSystemVersion              :      510 :"??"'
+
 
 # https://sailfishos.org/ Sailfish OS is managed and developed by Finnish company Jolla Ltd.
 - test:
@@ -682,6 +683,7 @@ config:
       AgentNameVersionMajor                : 'SailfishBrowser 1'
       AgentSecurity                        : 'Strong security'
 
+
 - test:
     input:
       # The Sailfish browser is not available for Android, so this cannot be Android.
@@ -711,6 +713,7 @@ config:
       AgentNameVersionMajor                : 'SailfishBrowser 1'
       AgentSecurity                        : 'Strong security'
 
+
 - test:
     input:
       User-Agent: 'Mozilla/5.0 (Sailfish 4.0; Mobile; rv:78.0) Gecko/78.0 Firefox/78.0 SailfishBrowser/1.0 like Chrome/67.0.3396'
@@ -737,6 +740,91 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'SailfishBrowser 1.0'
       AgentNameVersionMajor                : 'SailfishBrowser 1'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; Sailfish OS) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.111 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Sailfish ??'
+      OperatingSystemNameVersionMajor      : 'Sailfish ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '63.0'
+      LayoutEngineVersionMajor             : '63'
+      LayoutEngineNameVersion              : 'Blink 63.0'
+      LayoutEngineNameVersionMajor         : 'Blink 63'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '63.0.3239.111'
+      AgentVersionMajor                    : '63'
+      AgentNameVersion                     : 'Chrome 63.0.3239.111'
+      AgentNameVersionMajor                : 'Chrome 63'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; U; Sailfish 3.0; Mobile; rv:52.0) Gecko/52.0 Firefox/52.0 SailfishBrowser/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '3.0'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Sailfish 3.0'
+      OperatingSystemNameVersionMajor      : 'Sailfish 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '52.0'
+      LayoutEngineVersionMajor             : '52'
+      LayoutEngineNameVersion              : 'Gecko 52.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 52'
+      LayoutEngineBuild                    : '52.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.0'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Maemo; U; Sailfish 3.0; Mobile; rv:45.0) Gecko/45.0 Firefox/45.0 SailfishBrowser/1.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Sailfish'
+      OperatingSystemVersion               : '3.0'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Sailfish 3.0'
+      OperatingSystemNameVersionMajor      : 'Sailfish 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '45.0'
+      LayoutEngineVersionMajor             : '45'
+      LayoutEngineNameVersion              : 'Gecko 45.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 45'
+      LayoutEngineBuild                    : '45.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SailfishBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SailfishBrowser 1.0'
+      AgentNameVersionMajor                : 'SailfishBrowser 1'
+      AgentSecurity                        : 'Strong security'
 
 
 - test:
