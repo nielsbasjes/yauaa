@@ -32,6 +32,5 @@ RUN mkdir -p /opt/drill/jars/3rdparty/
 COPY ./target/it/deps/*.jar /opt/drill/jars/3rdparty/
 COPY ./target/yauaa-drill-${YAUAA_VERSION}.jar /opt/drill/jars/3rdparty/
 
-# Install the Client Hints access log and related config
+# Install the Client Hints access log
 COPY ./src/it/docker/access.log /tmp/access.hints
-COPY ./src/it/docker/drill-override.conf /opt/drill/conf/
