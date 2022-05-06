@@ -127,7 +127,7 @@ public class ClientHintsHeadersParser implements Serializable {
 
         for (Map.Entry<String, String> headerEntry : requestHeaders.entrySet()) {
             String headerName = headerEntry.getKey();
-            CHParser parser = parsers.get(headerName.toLowerCase(Locale.ROOT));
+            CHParser parser = parsers.get(headerName);
             if (parser != null) {
                 parser.parse(requestHeaders, clientHints, headerName);
             }

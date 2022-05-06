@@ -36,6 +36,14 @@ You can ask for all fields and return the full map with all of them in there.
 
 If you want to make use of the support for the `User-Agent Client Hints` you must call the function from your SQL with a list of `header name` and `value`. The header names must be the same as what a browser would send to the webserver (see: [Specification](https://wicg.github.io/ua-client-hints/#http-ua-hints)).
 
+Essentially two forms are now possible:
+
+    ParseUserAgent ( <useragent> , [<header name>,<value>]+ )
+
+and the variant which requires the presense of a `User-Agent` header.
+
+    ParseUserAgent ( [<header name>,<value>]+ )
+
 For example:
 ```sql
 ParseUserAgent(

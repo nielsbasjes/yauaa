@@ -17,9 +17,9 @@
 
 package nl.basjes.parse.useragent.beam;
 
+import nl.basjes.parse.useragent.AnalyzerUtilities.ParsedArguments;
 import nl.basjes.parse.useragent.UserAgent;
 import org.apache.beam.vendor.calcite.v1_28_0.org.apache.calcite.linq4j.function.Parameter;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.Map;
@@ -30,16 +30,16 @@ public class ParseUserAgent extends BaseParseUserAgentUDF {
     // CHECKSTYLE.OFF: ParameterNumber
     @SuppressWarnings("unused") // Used via reflection
     public static Map<String, String> eval(// NOSONAR java:S107 Methods should not have too many parameters
-        @Parameter(name = "Arg  0")                  String arg0,
-        @Parameter(name = "Arg  1", optional = true) String arg1,
-        @Parameter(name = "Arg  2", optional = true) String arg2,
-        @Parameter(name = "Arg  3", optional = true) String arg3,
-        @Parameter(name = "Arg  4", optional = true) String arg4,
-        @Parameter(name = "Arg  5", optional = true) String arg5,
-        @Parameter(name = "Arg  6", optional = true) String arg6,
-        @Parameter(name = "Arg  7", optional = true) String arg7,
-        @Parameter(name = "Arg  8", optional = true) String arg8,
-        @Parameter(name = "Arg  9", optional = true) String arg9,
+        @Parameter(name = "Arg 00")                  String arg00,
+        @Parameter(name = "Arg 01", optional = true) String arg01,
+        @Parameter(name = "Arg 02", optional = true) String arg02,
+        @Parameter(name = "Arg 03", optional = true) String arg03,
+        @Parameter(name = "Arg 04", optional = true) String arg04,
+        @Parameter(name = "Arg 05", optional = true) String arg05,
+        @Parameter(name = "Arg 06", optional = true) String arg06,
+        @Parameter(name = "Arg 07", optional = true) String arg07,
+        @Parameter(name = "Arg 08", optional = true) String arg08,
+        @Parameter(name = "Arg 09", optional = true) String arg09,
         @Parameter(name = "Arg 10", optional = true) String arg10,
         @Parameter(name = "Arg 11", optional = true) String arg11,
         @Parameter(name = "Arg 12", optional = true) String arg12,
@@ -63,15 +63,13 @@ public class ParseUserAgent extends BaseParseUserAgentUDF {
     ) {
         // Workaround for  https://issues.apache.org/jira/browse/CALCITE-2772
         // Have a LOT of fields
-        Pair<Map<String, String>, List<String>> config = parseArguments(
-            arg0,  arg1,  arg2,  arg3,  arg4,  arg5,  arg6,  arg7,  arg8,  arg9,
+        ParsedArguments parseArguments = parseArguments(
+            arg00, arg01, arg02, arg03, arg04, arg05, arg06, arg07, arg08, arg09,
             arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19,
             arg20, arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29);
 
-        Map<String, String> requestHeaders  = config.getLeft();
-        List<String> wantedFields           = config.getRight();
-
-        UserAgent.ImmutableUserAgent agent = getInstance().parse(requestHeaders);
+        UserAgent.ImmutableUserAgent agent = getInstance().parse(parseArguments.getRequestHeaders());
+        List<String> wantedFields = parseArguments.getWantedFields();
         if (wantedFields.isEmpty()) {
             return agent.toMap(getAllFields());
         } else {

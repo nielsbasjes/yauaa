@@ -17,16 +17,18 @@
 
 package nl.basjes.parse.useragent.flink.table;
 
+import nl.basjes.parse.useragent.AnalyzerUtilities.ParsedArguments;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.flink.table.functions.FunctionContext;
 import org.apache.flink.table.functions.ScalarFunction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
+import static nl.basjes.parse.useragent.AnalyzerUtilities.parseArguments;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.UserAgentAnalyzer.DEFAULT_PARSE_CACHE_SIZE;
 
@@ -35,6 +37,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
 
     private final int cacheSize;
     private final List<String> extractedFields;
+    private final List<String> allAllowedHeaders;
 
     /**
      * Create a UserAgentAnalyzer that extracts only the specified fields
@@ -69,6 +72,7 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
     public AnalyzeUseragentFunction(int cacheSize, List<String> desiredFields) {
         this.cacheSize = cacheSize;
         this.extractedFields = new ArrayList<>(desiredFields);
+        this.allAllowedHeaders = new ArrayList<>();
     }
 
     @Override
@@ -83,6 +87,8 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
         if (extractedFields.isEmpty()) {
             extractedFields.addAll(userAgentAnalyzer.getAllPossibleFieldNamesSorted());
         }
+        allAllowedHeaders.add(USERAGENT_HEADER);
+        allAllowedHeaders.addAll(userAgentAnalyzer.supportedClientHintHeaders());
     }
 
     public Map<String, String> eval(String userAgentString) {
@@ -93,22 +99,8 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
         if (input == null || input.length == 0) {
             throw new IllegalArgumentException("Input may not be null or empty.");
         }
+        ParsedArguments parsedArguments = parseArguments(input, Collections.emptyList(), allAllowedHeaders);
 
-        Map<String, String> requestHeaders = new TreeMap<>();
-
-        if (input.length == 1) {
-            // One value --> it is the user agent
-            requestHeaders.put(USERAGENT_HEADER, input[0]);
-        } else {
-            // More than one we expect a key1, value1, key2, value2, etc list.
-            if (input.length % 2 != 0) {
-                throw new IllegalArgumentException("Input must be either 1 value (the User-Agent) or a key1, value1, key2, value2, etc list.");
-            }
-            for (int i = 0; i < input.length; i+=2) {
-                requestHeaders.put(input[i], input[i+1]);
-            }
-        }
-
-        return userAgentAnalyzer.parse(requestHeaders).toMap(extractedFields);
+        return userAgentAnalyzer.parse(parsedArguments.getRequestHeaders()).toMap(extractedFields);
     }
 }

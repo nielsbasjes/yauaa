@@ -148,31 +148,6 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
 
     @Test
     @Category(NeedsRunner.class)
-    public void testClientHintSQLBadParameterList1() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
-        assertThrows(RuntimeException.class, () ->
-            runTestOnProvidedQuery(
-                "SELECT userAgent," +
-                "       parsedUseragentAllFields['DeviceClass']                   AS deviceClass," +
-                "       parsedUseragentAllFields['AgentNameVersionMajor']         AS agentNameVersionMajor," +
-                "       parsedUseragentAllFields['OperatingSystemNameVersion']    AS operatingSystemNameVersion " +
-                "FROM ( " +
-                "   SELECT userAgent," +
-                "          ParseUserAgent(" +
-                "               'DeviceClass', " +
-                "               'User-Agent',                   userAgent,   " +
-                "               'AgentNameVersionMajor', " +
-                "               'Sec-CH-UA-Platform',           chPlatform,  " +
-                "               'OperatingSystemNameVersion', " +
-                "               'Sec-CH-UA-Platform-Version'" +
-                "          ) AS parsedUseragentAllFields" +
-                "   FROM   AgentStream " +
-                ")"
-            )
-        );
-    }
-
-    @Test
-    @Category(NeedsRunner.class)
     public void testClientHintSQLBadParameterList2() { // NOSONAR java:S2699 Tests should include assertions: Uses PAssert
         assertThrows(RuntimeException.class, () ->
             runTestOnProvidedQuery(
