@@ -31,7 +31,9 @@ handler='nl.basjes.parse.useragent.snowflake.ParseUserAgent.parse';
 
 3. And from there you can use it as a function in your SQL statements
 ```sql
-select parse_useragent('Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36') as ua_obj, ua_obj:AgentClass::string as agent_class;
+select parse_useragent(
+    'Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36'
+) as ua_obj, ua_obj:AgentClass::string as agent_class;
 ```
 
 ![Using Yauaa in Snowflake](Snowflake.png)
@@ -53,5 +55,7 @@ select parse_useragent(
     'Sec-Ch-Ua-Platform',           '\"Linux\"',
     'Sec-Ch-Ua-Platform-Version',   '\"5.13.0\"',
     'Sec-Ch-Ua-Wow64',              '?0'
-) as ua_obj, ua_obj:AgentClass::string as agent_class;
+) as ua_obj, ua_obj:OperatingSystemNameVersion::string as operating_system_name_version;
 ```
+
+When only examining the `User-Agent` this returns `Linux ??`, with the added information in the Client Hints you should get `Linux 5.13.0` instead.
