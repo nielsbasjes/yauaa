@@ -1,94 +1,36 @@
-<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.98.0"><meta name=description content="This is a java library that tries to parse and analyze the useragent string (and when available the User-Agent Client Hints) and extract as many relevant attributes as possible."><meta name=author content="Niels Basjes"><link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png><link rel=manifest href=/favicon/manifest.json><link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content="#2d89ef"><meta name=msapplication-TileImage content="/favicon/mstile-144x144.png"><meta name=theme-color content="#ffffff"><title>Apache Drill | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1651771317 rel=stylesheet><link href=/css/fontawesome-all.min.css?1651771317 rel=stylesheet><link href=/css/hybrid.css?1651771317 rel=stylesheet><link href=/css/featherlight.min.css?1651771317 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1651771317 rel=stylesheet><link href=/css/auto-complete.css?1651771317 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1651771317 rel=stylesheet><link href=/css/theme.css?1651771317 rel=stylesheet><link href=/css/tabs.css?1651771317 rel=stylesheet><link href=/css/hugo-theme.css?1651771317 rel=stylesheet><link href=/css/theme-yauaa.css?1651771317 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1651771317></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style><script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){t="https://wa.basjes.nl/",_paq.push(["setTrackerUrl",t+"wa.php"]),_paq.push(["setSiteId","1"]);var t,n=document,e=n.createElement("script"),s=n.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src=t+"wa.js",s.parentNode.insertBefore(e,s)}()</script></head><body data-url=/udf/apache-drill/><nav id=sidebar><div id=header-wrapper><div id=header><a id=logo href=/><p class=logo-bar>Yauaa</p></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.98.0"><meta name=description content="This is a java library that tries to parse and analyze the useragent string (and when available the User-Agent Client Hints) and extract as many relevant attributes as possible."><meta name=author content="Niels Basjes"><link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png><link rel=manifest href=/favicon/manifest.json><link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content="#2d89ef"><meta name=msapplication-TileImage content="/favicon/mstile-144x144.png"><meta name=theme-color content="#ffffff"><title>Apache Drill | Yauaa - Yet Another UserAgent Analyzer</title><link href=/css/nucleus.css?1651830630 rel=stylesheet><link href=/css/fontawesome-all.min.css?1651830630 rel=stylesheet><link href=/css/hybrid.css?1651830630 rel=stylesheet><link href=/css/featherlight.min.css?1651830630 rel=stylesheet><link href=/css/perfect-scrollbar.min.css?1651830630 rel=stylesheet><link href=/css/auto-complete.css?1651830630 rel=stylesheet><link href=/css/atom-one-dark-reasonable.css?1651830630 rel=stylesheet><link href=/css/theme.css?1651830630 rel=stylesheet><link href=/css/tabs.css?1651830630 rel=stylesheet><link href=/css/hugo-theme.css?1651830630 rel=stylesheet><link href=/css/theme-yauaa.css?1651830630 rel=stylesheet><script src=/js/jquery-3.3.1.min.js?1651830630></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}:not(pre)>code+span.copy-to-clipboard{display:none}</style><script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){t="https://wa.basjes.nl/",_paq.push(["setTrackerUrl",t+"wa.php"]),_paq.push(["setSiteId","1"]);var t,n=document,e=n.createElement("script"),s=n.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src=t+"wa.js",s.parentNode.insertBefore(e,s)}()</script></head><body data-url=/udf/apache-drill/><nav id=sidebar><div id=header-wrapper><div id=header><a id=logo href=/><p class=logo-bar>Yauaa</p></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
 <input data-search-input id=search-by type=search placeholder=Search...>
-<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/js/lunr.min.js?1651771317></script>
-<script type=text/javascript src=/js/auto-complete.js?1651771317></script>
-<script type=text/javascript>var baseurl="/"</script><script type=text/javascript src=/js/search.js?1651771317></script></div><section id=homelinks><ul><li><a class=padding href=/><i class="fas fa-home"></i> Yauaa</a></li></ul></section><div class=highlightable><ul class=topics><li data-nav-id=/expect/ title="What to expect" class=dd-item><a href=/expect/>What to expect</a><ul><li data-nav-id=/expect/fieldvalues/ title="Field values" class=dd-item><a href=/expect/fieldvalues/>Field values</a></li><li data-nav-id=/expect/performance/ title=Performance class=dd-item><a href=/expect/performance/>Performance</a></li><li data-nav-id=/expect/limitations/ title=Limitations class=dd-item><a href=/expect/limitations/>Limitations</a></li><li data-nav-id=/expect/manipulations/ title=Manipulations class=dd-item><a href=/expect/manipulations/>Manipulations</a></li><li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item><a href=/expect/tryit/>Try it!</a></li></ul></li><li data-nav-id=/using/ title="Using the analyzer" class=dd-item><a href=/using/>Using Yauaa</a><ul><li data-nav-id=/using/clienthints/ title="User-Agent Client Hints" class=dd-item><a href=/using/clienthints/>User-Agent Client Hints</a></li><li data-nav-id=/using/memoryusage/ title="Memory usage" class=dd-item><a href=/using/memoryusage/>Memory usage</a></li><li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item><a href=/using/webservlet/>Webservlet</a></li><li data-nav-id=/using/kubernetes/ title=Kubernetes class=dd-item><a href=/using/kubernetes/>Kubernetes</a></li><li data-nav-id=/using/license/ title=Licence class=dd-item><a href=/using/license/>Licence</a></li></ul></li><li data-nav-id=/udf/ title="User Defined Functions" class="dd-item
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/js/lunr.min.js?1651830630></script>
+<script type=text/javascript src=/js/auto-complete.js?1651830630></script>
+<script type=text/javascript>var baseurl="/"</script><script type=text/javascript src=/js/search.js?1651830630></script></div><section id=homelinks><ul><li><a class=padding href=/><i class="fas fa-home"></i> Yauaa</a></li></ul></section><div class=highlightable><ul class=topics><li data-nav-id=/expect/ title="What to expect" class=dd-item><a href=/expect/>What to expect</a><ul><li data-nav-id=/expect/fieldvalues/ title="Field values" class=dd-item><a href=/expect/fieldvalues/>Field values</a></li><li data-nav-id=/expect/performance/ title=Performance class=dd-item><a href=/expect/performance/>Performance</a></li><li data-nav-id=/expect/limitations/ title=Limitations class=dd-item><a href=/expect/limitations/>Limitations</a></li><li data-nav-id=/expect/manipulations/ title=Manipulations class=dd-item><a href=/expect/manipulations/>Manipulations</a></li><li data-nav-id=/expect/tryit/ title="Try it!" class=dd-item><a href=/expect/tryit/>Try it!</a></li></ul></li><li data-nav-id=/using/ title="Using the analyzer" class=dd-item><a href=/using/>Using Yauaa</a><ul><li data-nav-id=/using/clienthints/ title="User-Agent Client Hints" class=dd-item><a href=/using/clienthints/>User-Agent Client Hints</a></li><li data-nav-id=/using/memoryusage/ title="Memory usage" class=dd-item><a href=/using/memoryusage/>Memory usage</a></li><li data-nav-id=/using/webservlet/ title="The demonstration webservlet" class=dd-item><a href=/using/webservlet/>Webservlet</a></li><li data-nav-id=/using/kubernetes/ title=Kubernetes class=dd-item><a href=/using/kubernetes/>Kubernetes</a></li><li data-nav-id=/using/license/ title=Licence class=dd-item><a href=/using/license/>Licence</a></li></ul></li><li data-nav-id=/udf/ title="User Defined Functions" class="dd-item
 parent"><a href=/udf/>User Defined Functions</a><ul><li data-nav-id=/udf/apache-beam/ title="Apache Beam" class=dd-item><a href=/udf/apache-beam/>Apache Beam</a></li><li data-nav-id=/udf/apache-beam-sql/ title="Apache Beam SQL" class=dd-item><a href=/udf/apache-beam-sql/>Apache Beam SQL</a></li><li data-nav-id=/udf/apache-drill/ title="Apache Drill" class="dd-item active"><a href=/udf/apache-drill/>Apache Drill</a></li><li data-nav-id=/udf/apache-flink/ title="Apache Flink" class=dd-item><a href=/udf/apache-flink/>Apache Flink</a></li><li data-nav-id=/udf/apache-flink-table/ title="Apache Flink Table/SQL" class=dd-item><a href=/udf/apache-flink-table/>Apache Flink Table/SQL</a></li><li data-nav-id=/udf/apache-hive/ title="Apache Hive" class=dd-item><a href=/udf/apache-hive/>Apache Hive</a></li><li data-nav-id=/udf/apache-nifi/ title="Apache Nifi" class=dd-item><a href=/udf/apache-nifi/>Apache Nifi</a></li><li data-nav-id=/udf/apache-pig/ title="Apache Pig" class=dd-item><a href=/udf/apache-pig/>Apache Pig</a></li><li data-nav-id=/udf/commandline/ title="Commandline usage" class=dd-item><a href=/udf/commandline/>Commandline usage</a></li><li data-nav-id=/udf/elastic-logstash/ title="Elastic LogStash" class=dd-item><a href=/udf/elastic-logstash/>Elastic LogStash</a></li><li data-nav-id=/udf/elastic-search/ title="Elastic Search" class=dd-item><a href=/udf/elastic-search/>Elastic Search</a></li><li data-nav-id=/udf/logparser/ title=LogParser class=dd-item><a href=/udf/logparser/>LogParser</a></li><li data-nav-id=/udf/snowflake/ title=Snowflake class=dd-item><a href=/udf/snowflake/>Snowflake</a></li><li data-nav-id=/udf/snowplow/ title=Snowplow class=dd-item><a href=/udf/snowplow/>Snowplow</a></li><li data-nav-id=/udf/trino/ title=Trino class=dd-item><a href=/udf/trino/>Trino</a></li></ul></li><li data-nav-id=/developer/ title=Development class=dd-item><a href=/developer/>Development</a><ul><li data-nav-id=/developer/building/ title="Building from source" class=dd-item><a href=/developer/building/>Building from source</a></li><li data-nav-id=/developer/basedesign/ title="Base Design" class=dd-item><a href=/developer/basedesign/>Base Design</a></li><li data-nav-id=/developer/makingnewrules/ title="Making new rules" class=dd-item><a href=/developer/makingnewrules/>Making new rules</a></li><li data-nav-id=/developer/shadingdependencies/ title="Shading dependencies" class=dd-item><a href=/developer/shadingdependencies/>Shading dependencies</a></li></ul></li><li data-nav-id=/other/ title=Other class=dd-item><a href=/other/>Other</a><ul><li data-nav-id=/other/article/ title=Blogpost class=dd-item><a href=/other/article/>Blogpost</a></li><li data-nav-id=/other/relatedprojects/ title="Related projects" class=dd-item><a href=/other/relatedprojects/>Related projects</a></li></ul></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://github.com/nielsbasjes/yauaa><i class="fab fa-git-square"></i> Git repo</a></li><li><a class=padding href=https://github.com/nielsbasjes/yauaa/discussions><i class="fa fa-comment-alt"></i> Discussions</a></li><li><a class=padding href=https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md><i class="fa fa-file-alt"></i> Changelog</a></li><li><a class=padding href=https://github.com/nielsbasjes/yauaa/issues><i class="fa fa-bug"></i> Issue tracker</a></li><li><a class=padding href=https://github.com/nielsbasjes/yauaa/actions><img alt="Github actions Build status" src=https://img.shields.io/github/workflow/status/nielsbasjes/yauaa/Yauaa></a></li><li><a class=padding href=https://app.codecov.io/gh/nielsbasjes/yauaa><img alt="Coverage Status" src=https://img.shields.io/codecov/c/github/nielsbasjes/yauaa></a></li><li><a class=padding href=https://www.apache.org/licenses/LICENSE-2.0.html><img alt=License src=https://img.shields.io/:license-apache-blue.svg></a></li><li><a class=padding href=https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.basjes.parse.useragent%22><img alt="Maven Central" src=https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg></a></li><li><a class=padding href=https://github.com/nielsbasjes/yauaa/stargazers><img alt="GitHub stars" src="https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars"></a></li><li><a class=padding href=https://hub.docker.com/r/nielsbasjes/yauaa><img alt="Docker Hub" src=https://img.shields.io/docker/pulls/nielsbasjes/yauaa></a></li><li><a class=padding href=https://www.paypal.me/nielsbasjes><img alt="If this project has business value for you then dont hesitate to support me with a small donation." src=https://img.shields.io/badge/Donations-via%20Paypal-blue.svg></a></li></ul></section><section id=footer><p>&copy;2013-2022 by <a href=https://niels.basjes.nl>Niels Basjes</a></p></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=top-github-link><a class=github-link title="Edit this page" href=https://github.com/nielsbasjes/yauaa/tree/main/documentation/content/udf/Apache-Drill.md target=blank><i class="fas fa-code-branch"></i>
 <span id=top-github-link-text>Edit this page</span></a></div><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i></a></span>
 <span id=toc-menu><i class="fas fa-list-alt"></i></span>
-<span class=links><a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/udf/>User Defined Functions</a> > Apache Drill</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li></ul><ul><li><a href=#getting-the-udf>Getting the UDF</a></li><li><a href=#installation>Installation</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Apache Drill</h1><h2 id=introduction>Introduction</h2><p>This is UDF for <a href=https://drill.apache.org>Apache Drill</a>.
+<span class=links><a href=/>Yauaa: Yet Another UserAgent Analyzer</a> > <a href=/udf/>User Defined Functions</a> > Apache Drill</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#notable-changes>Notable changes</a></li><li><a href=#usage>Usage</a></li><li><a href=#installation>Installation</a></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Apache Drill</h1><h2 id=introduction>Introduction</h2><p>This is UDF for <a href=https://drill.apache.org>Apache Drill</a>.
 This function was originally created by <a href=https://github.com/cgivre>Charles S. Givre</a> and was imported into
-the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.</p><p>This function is now also packaged as part of Apache Drill itself: <a href=https://github.com/apache/drill/tree/master/contrib/udfs#user-agent-functions>documentation</a>.</p><h1 id=status--works-on-my-machine->STATUS: &mldr; Works on my machine &mldr;</h1><p>I have copied/implemented the functions</p><pre><code>parse_user_agent       ( &lt;useragent&gt; )
-parse_user_agent_field ( &lt;useragent&gt; , &lt;desired fieldname&gt; )
-</code></pre><p>Able to do basic unit test during build for the parse_user_agent_field function.
-NOT yet able to do automated testing for the parse_user_agent function.</p><p>When I run it in a local drill the things I try work for the most (see below).
-I have not yet tested this in a distributed setup.</p><p>So please try it out and report any issues and/or improvements you see.</p><h2 id=getting-the-udf>Getting the UDF</h2><p>You can get the prebuilt UDF from <a href=https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-drill/6.12/jar>maven central</a>.</p><p>If you use a maven based project simply add this dependency to your project.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-xml data-lang=xml><span style=display:flex><span><span style=color:#f92672>&lt;dependency&gt;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;groupId&gt;</span>nl.basjes.parse.useragent<span style=color:#f92672>&lt;/groupId&gt;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;artifactId&gt;</span>yauaa-drill<span style=color:#f92672>&lt;/artifactId&gt;</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>&lt;version&gt;</span>6.12<span style=color:#f92672>&lt;/version&gt;</span>
-</span></span><span style=display:flex><span><span style=color:#f92672>&lt;/dependency&gt;</span>
-</span></span></code></pre></div><h2 id=installation>Installation</h2><p>To install this function put the jar file in the <code>&lt;drill-path>/jars/3rdparty</code> directory.</p><pre><code>cp yauaa-drill-&lt;version&gt;.jar &lt;drill-path&gt;/jars/3rdparty
+the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.</p><p>This function is now also packaged as part of Apache Drill itself: <a href=https://github.com/apache/drill/tree/master/contrib/udfs#user-agent-functions>documentation</a>.</p><h2 id=notable-changes>Notable changes</h2><p>With Yauaa 7.0.0</p><ul><li>the code for this UDF has been copied back from the Drill project to ensure it keeps working as expected.</li><li>the <code>parse_user_agent_field</code> has been removed and <code>parse_user_agent</code> supports the same input/output now.</li></ul><h2 id=usage>Usage</h2><p>I have copied/implemented the functions</p><pre><code>parse_user_agent ( &lt;useragent&gt; )
+parse_user_agent ( &lt;useragent&gt; , &lt;desired fieldname&gt; )
+</code></pre><p>to support the analysis of the Client Hints it now also supports</p><pre><code>parse_user_agent ( &lt;useragent&gt; , [&lt;header name&gt;,&lt;value&gt;]+ )
+</code></pre><p>or the variant which requires the presense of a <code>User-Agent</code> header.</p><pre><code>parse_user_agent ( [&lt;header name&gt;,&lt;value&gt;]+ )
+</code></pre><h2 id=installation>Installation</h2><p>By default Apache Drill has a version of this udf built in (part of the drill-udfs-*.jar)</p><p>In order to update the version of Yauaa in your drill installation you&rsquo;ll need to replace the yauaa related jars with the latest versions. This includes not only updating yauaa-6.12.jar and yauaa-logparser-6.12.jar but also the rellevant dependencies.</p><p>Commands that may be useful in making this happen:</p><p>&ndash; FIXME: sss</p><pre><code>mvn -Dartifact=nl.basjes.parse.useragent:yauaa:5.0 dependency:copy -DoutputDirectory=&quot;./deps/&quot;
+
+mvn -DgroupId=nl.basjes.parse.useragent -DartifactId=yauaa -Dversion=6.12 dependency:get -DoutputDirectory=&quot;./deps/&quot;
+mvn -DgroupId=nl.basjes.parse.useragent -DartifactId=yauaa-logparser -Dversion=6.12 dependency:get -DoutputDirectory=&quot;./deps/&quot;
+</code></pre><p>If you want to replace it completely you&rsquo;ll also need to remove the drill-udfs-*.jar and copy the <a href=https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-drill/6.12/jar>yauaa-drill-{%YauaaVersion%}}.jar</a> and all relevant dependencies to <code>&lt;drill-path>/jars/3rdparty</code>.</p><p>Similar:</p><pre><code>mvn -DgroupId=nl.basjes.parse.useragent -DartifactId=yauaa-drill -Dversion=6.12 dependency:get -DoutputDirectory=&quot;./deps/&quot;
 </code></pre><p>Make sure you replace <code>&lt;drill-path></code> with your actual path to your drill installation.
-NOTE: You do not need the <code>yauaa-drill-&lt;version>-sources.jar</code> to run in drill.</p><h1 id=usage-and-examples>Usage and examples</h1><p>Working queries with a direct value</p><pre><code>SELECT parse_user_agent_field('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36', 'AgentNameVersion') from (values(1));
+NOTE: You do not need the <code>yauaa-drill-6.12-sources.jar</code> to run in drill.</p><h1 id=usage-and-examples>Usage and examples</h1><p>Working queries with a direct value</p><pre><code>SELECT parse_user_agent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36', 'AgentNameVersion') AS ANV from (values(1));
 
-+----------------------+
-|        EXPR$0        |
-+----------------------+
-| Chrome 48.0.2564.82  |
-+----------------------+
-</code></pre><p>This one doesn&rsquo;t work</p><pre><code>SELECT parse_user_agent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36') from (values(1));
-
-Error: PLAN ERROR: Failure while materializing expression in constant expression evaluator [PARSE_USER_AGENT('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36')].  Errors:
-Error in expression at index -1.  Error: Only ProjectRecordBatch could have complex writer function. You are using complex writer function parse_user_agent in a non-project operation!.  Full expression: --UNKNOWN EXPRESSION--.
-</code></pre><p>Assume the file <code>/tmp/testcase.tsv</code> which contains 2 lines:</p><pre><code>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36
-Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12F70 Safari/600.1.4 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
-</code></pre><p>Working queries using the input file</p><pre><code>SELECT parse_user_agent_field(columns[0], 'AgentNameVersion') AS AgentNameVersion from dfs.`/tmp/testcase.tsv`;
-
-+----------------------+
-|   AgentNameVersion   |
-+----------------------+
-| Chrome 48.0.2564.82  |
-| Googlebot 2.1        |
-+----------------------+
-</code></pre><p>and</p><pre><code>SELECT parse_user_agent(columns[0]) AS AgentNameVersion from dfs.`/tmp/testcase.tsv`;
-
-+------------------+
-| AgentNameVersion |
-+------------------+
-| {
-    &quot;DeviceClass&quot;:                   &quot;Desktop&quot;,
-    &quot;DeviceName&quot;:                    &quot;Linux Desktop&quot;,
-    &quot;DeviceBrand&quot;:                   &quot;Unknown&quot;,
-    &quot;DeviceCpu&quot;:                     &quot;Intel x86_64&quot;,
-    &quot;DeviceCpuBits&quot;:                 &quot;64&quot;,
-    &quot;OperatingSystemClass&quot;:          &quot;Desktop&quot;,
-    &quot;OperatingSystemName&quot;:           &quot;Linux&quot;,
-    &quot;OperatingSystemVersion&quot;:        &quot;??&quot;,
-    &quot;OperatingSystemNameVersion&quot;:    &quot;Linux ??&quot;,
-    &quot;LayoutEngineClass&quot;:             &quot;Browser&quot;,
-    &quot;LayoutEngineName&quot;:              &quot;Blink&quot;,
-    &quot;LayoutEngineVersion&quot;:           &quot;48.0&quot;,
-    &quot;LayoutEngineVersionMajor&quot;:      &quot;48&quot;,
-    &quot;LayoutEngineNameVersion&quot;:       &quot;Blink 48.0&quot;,
-    &quot;LayoutEngineNameVersionMajor&quot;:  &quot;Blink 48&quot;,
-    &quot;AgentClass&quot;:                    &quot;Browser&quot;,
-    &quot;AgentName&quot;:                     &quot;Chrome&quot;,
-    &quot;AgentVersion&quot;:                  &quot;48.0.2564.82&quot;,
-    &quot;AgentVersionMajor&quot;:             &quot;48&quot;,
-    &quot;AgentNameVersion&quot;:              &quot;Chrome 48.0.2564.82&quot;,
-    &quot;AgentNameVersionMajor&quot;:         &quot;Chrome 48&quot;                        } |
-| {
-    &quot;DeviceClass&quot;:                   &quot;Robot Mobile&quot;,
-    &quot;DeviceName&quot;:                    &quot;Google&quot;,
-    &quot;DeviceBrand&quot;:                   &quot;Google&quot;,
-    &quot;OperatingSystemClass&quot;:          &quot;Cloud&quot;,
-    &quot;OperatingSystemName&quot;:           &quot;Google&quot;,
-    &quot;OperatingSystemVersion&quot;:        &quot;Google&quot;,
-    &quot;OperatingSystemNameVersion&quot;:    &quot;Google&quot;,
-    &quot;LayoutEngineClass&quot;:             &quot;Robot&quot;,
-    &quot;LayoutEngineName&quot;:              &quot;Googlebot&quot;,
-    &quot;LayoutEngineVersion&quot;:           &quot;Googlebot&quot;,
-    &quot;LayoutEngineVersionMajor&quot;:      &quot;Googlebot&quot;,
-    &quot;LayoutEngineNameVersion&quot;:       &quot;Googlebot&quot;,
-    &quot;LayoutEngineNameVersionMajor&quot;:  &quot;Googlebot&quot;,
-    &quot;AgentClass&quot;:                    &quot;Robot Mobile&quot;,
-    &quot;AgentName&quot;:                     &quot;Googlebot&quot;,
-    &quot;AgentVersion&quot;:                  &quot;2.1&quot;,
-    &quot;AgentVersionMajor&quot;:             &quot;2&quot;,
-    &quot;AgentNameVersion&quot;:              &quot;Googlebot 2.1&quot;,
-    &quot;AgentNameVersionMajor&quot;:         &quot;Googlebot 2&quot;,
-    &quot;AgentInformationUrl&quot;:           &quot;http://www.google.com/bot.html&quot;   } |
-+------------------+
++---------------------+
+|         ANV         |
++---------------------+
+| Chrome 48.0.2564.82 |
++---------------------+
+</code></pre><p>Or for the entire set of all values as a Drill map</p><pre><code>SELECT parse_user_agent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36') AS UA from (values(1));
+</code></pre><p>which is shown as a JSon in the commandline client:</p><pre><code>+----------------------------------------------------------------------------------+
+|                                        UA                                        |
++----------------------------------------------------------------------------------+
+| {&quot;DeviceClass&quot;:&quot;Desktop&quot;,&quot;DeviceName&quot;:&quot;Linux Desktop&quot;,&quot;DeviceBrand&quot;:&quot;Unknown&quot;,&quot;DeviceCpu&quot;:&quot;Intel x86_64&quot;, &quot;DeviceCpuBits&quot;:&quot;64&quot;,&quot;DeviceFirmwareVersion&quot;:&quot;??&quot;,&quot;DeviceVersion&quot;:&quot;??&quot;,&quot;OperatingSystemClass&quot;:&quot;Desktop&quot;,&quot;OperatingSystemName&quot;:&quot;Linux&quot;,&quot;OperatingSystemVersion&quot;:&quot;??&quot;,&quot;OperatingSystemVersionMajor&quot;:&quot;??&quot;,&quot;OperatingSystemNameVersion&quot;:&quot;Linux ??&quot;,&quot;OperatingSystemNameVersionMajor&quot;:&quot;Linux ??&quot;,&quot;OperatingSystemVersionBuild&quot;:&quot;??&quot;,&quot;LayoutEngineClass&quot;:&quot;Browser&quot;,&quot;LayoutEngineName&quot;:&quot;Blink&quot;,&quot;LayoutEngineVersion&quot;:&quot;48.0&quot;,&quot;LayoutEngineVersionMajor&quot;:&quot;48&quot;,&quot;LayoutEngineNameVersion&quot;:&quot;Blink 48.0&quot;,&quot;LayoutEngineNameVersionMajor&quot;:&quot;Blink 48&quot;,&quot;LayoutEngineBuild&quot;:&quot;Unknown&quot;,&quot;AgentClass&quot;:&quot;Browser&quot;,&quot;AgentName&quot;:&quot;Chrome&quot;,&quot;AgentVersion&quot;:&quot;48.0.2564.82&quot;,&quot;AgentVersionMajor&quot;:&quot;48&quot;,&quot;AgentNameVersion&quot;:&quot;Chrome 48.0.2564.82&quot;,&quot;AgentNameVersionMajor&quot;:&quot;Chrome 48&quot;,&quot;AgentBuild&quot;:&quot;Unknown&quot;,&quot;AgentLanguage&quot;:&quot;Unknown&quot;,&quot;AgentLanguageCode&quot;:&quot;Unknown&quot;,&quot;AgentInformationEmail&quot;:&quot;Unknown&quot;,&quot;AgentInformationUrl&quot;:&quot;Unknown&quot;,&quot;AgentSecurity&quot;:&quot;Unknown&quot;,&quot;AgentUuid&quot;:&quot;Unknown&quot;,&quot;WebviewAppName&quot;:&quot;Unknown&quot;,&quot;WebviewAppVersion&quot;:&quot;??&quot;,&quot;WebviewAppVersionMajor&quot;:&quot;??&quot;,&quot;WebviewAppNameVersion&quot;:&quot;Unknown ??&quot;,&quot;WebviewAppNameVersionMajor&quot;:&quot;Unknown ??&quot;,&quot;FacebookCarrier&quot;:&quot;Unknown&quot;,&quot;FacebookDeviceClass&quot;:&quot;Unknown&quot;,&quot;FacebookDeviceName&quot;:&quot;Unknown&quot;,&quot;FacebookDeviceVersion&quot;:&quot;??&quot;,&quot;FacebookFBOP&quot;:&quot;Unknown&quot;,&quot;FacebookFBSS&quot;:&quot;Unknown&quot;,&quot;FacebookOperatingSystemName&quot;:&quot;Unknown&quot;,&quot;FacebookOperatingSystemVersion&quot;:&quot;??&quot;,&quot;Anonymized&quot;:&quot;Unknown&quot;,&quot;HackerAttackVector&quot;:&quot;Unknown&quot;,&quot;HackerToolkit&quot;:&quot;Unknown&quot;,&quot;KoboAffiliate&quot;:&quot;Unknown&quot;,&quot;KoboPlatformId&quot;:&quot;Unknown&quot;,&quot;IECompatibilityVersion&quot;:&quot;??&quot;,&quot;IECompatibilityVersionMajor&quot;:&quot;??&quot;,&quot;IECompatibilityNameVersion&quot;:&quot;Unknown ??&quot;,&quot;IECompatibilityNameVersionMajor&quot;:&quot;Unknown ??&quot;,&quot;Carrier&quot;:&quot;Unknown&quot;,&quot;GSAInstallationID&quot;:&quot;Unknown&quot;,&quot;NetworkType&quot;:&quot;Unknown&quot;,&quot;__SyntaxError__&quot;:&quot;false&quot;} |
++----------------------------------------------------------------------------------+
 </code></pre><p>The function returns a Drill map, so you can access any of the fields using Drill&rsquo;s table.map.key notation.
 For example, the query below illustrates how to extract a field from this map and summarize it:</p><pre><code>SELECT uadata.ua.AgentNameVersion AS Browser,
 COUNT( * ) AS BrowserCount
@@ -105,12 +47,70 @@ ORDER BY BrowserCount DESC;
 | Chrome 48.0.2564.82  | 1             |
 | Googlebot 2.1        | 1             |
 +----------------------+---------------+
-</code></pre><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1651771317></script>
-<script src=/js/perfect-scrollbar.min.js?1651771317></script>
-<script src=/js/perfect-scrollbar.jquery.min.js?1651771317></script>
-<script src=/js/jquery.sticky.js?1651771317></script>
-<script src=/js/featherlight.min.js?1651771317></script>
-<script src=/js/highlight.pack.js?1651771317></script>
-<script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1651771317></script>
-<script src=/js/learn.js?1651771317></script>
-<script src=/js/hugo-learn.js?1651771317></script></body></html>
+</code></pre><h1 id=full-example-analyzing-with-the-user-agent-client-hints>Full example analyzing with the User-Agent Client Hints</h1><p>Assume an Apache Httpd webserver with the following LogFormat config:</p><pre><code>LogFormat &quot;%a %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; \&quot;%{Sec-CH-UA}i\&quot; \&quot;%{Sec-CH-UA-Arch}i\&quot; \&quot;%{Sec-CH-UA-Bitness}i\&quot; \&quot;%{Sec-CH-UA-Full-Version}i\&quot; \&quot;%{Sec-CH-UA-Full-Version-List}i\&quot; \&quot;%{Sec-CH-UA-Mobile}i\&quot; \&quot;%{Sec-CH-UA-Model}i\&quot; \&quot;%{Sec-CH-UA-Platform}i\&quot; \&quot;%{Sec-CH-UA-Platform-Version}i\&quot; \&quot;%{Sec-CH-UA-WoW64}i\&quot; %V&quot; combinedhintsvhost
+</code></pre><p>Behind this Apache Httpd webserver is a website that returns the header</p><pre><code>Accept-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
+</code></pre><p>With all of this these are two of the lines that are found in the access log of this Apache Httpd webserver:</p><pre><code>45.138.228.54 - - [02/May/2022:12:25:10 +0200] &quot;GET / HTTP/1.1&quot; 200 16141 &quot;-&quot; &quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36&quot; &quot;\&quot; Not A;Brand\&quot;;v=\&quot;99\&quot;, \&quot;Chromium\&quot;;v=\&quot;100\&quot;, \&quot;Google Chrome\&quot;;v=\&quot;100\&quot;&quot; &quot;\&quot;x86\&quot;&quot; &quot;\&quot;64\&quot;&quot; &quot;\&quot;100.0.4896.127\&quot;&quot; &quot;\&quot; Not A;Brand\&quot;;v=\&quot;99.0.0.0\&quot;, \&quot;Chromium\&quot;;v=\&quot;100.0.4896.127\&quot;, \&quot;Google Chrome\&quot;;v=\&quot;100.0.4896.127\&quot;&quot; &quot;?0&quot; &quot;\&quot;\&quot;&quot; &quot;\&quot;Linux\&quot;&quot; &quot;\&quot;5.13.0\&quot;&quot; &quot;?0&quot; try.yauaa.basjes.nl
+45.138.228.54 - - [02/May/2022:12:25:34 +0200] &quot;GET / HTTP/1.1&quot; 200 15376 &quot;-&quot; &quot;Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Mobile Safari/537.36&quot; &quot;\&quot; Not A;Brand\&quot;;v=\&quot;99\&quot;, \&quot;Chromium\&quot;;v=\&quot;101\&quot;, \&quot;Google Chrome\&quot;;v=\&quot;101\&quot;&quot; &quot;\&quot;\&quot;&quot; &quot;-&quot; &quot;\&quot;101.0.4951.41\&quot;&quot; &quot;\&quot; Not A;Brand\&quot;;v=\&quot;99.0.0.0\&quot;, \&quot;Chromium\&quot;;v=\&quot;101.0.4951.41\&quot;, \&quot;Google Chrome\&quot;;v=\&quot;101.0.4951.41\&quot;&quot; &quot;?1&quot; &quot;\&quot;Nokia 7.2\&quot;&quot; &quot;\&quot;Android\&quot;&quot; &quot;\&quot;11.0.0\&quot;&quot; &quot;?0&quot; try.yauaa.basjes.nl
+</code></pre><p>For this example the name of this file is <code>access.hints</code></p><p>I start by doing a query on this data and ONLY use the User-Agent as the input:</p><pre><code>SELECT  uadata.ua.DeviceClass                AS DeviceClass,
+        uadata.ua.AgentNameVersionMajor      AS AgentNameVersionMajor,
+        uadata.ua.OperatingSystemNameVersion AS OperatingSystemNameVersion
+FROM (
+    SELECT
+            parse_user_agent(`request_user-agent`) AS ua
+    FROM    table(
+                dfs.`/tmp/access.hints` (
+                    type =&gt; 'httpd',
+                    logFormat =&gt; '%a %l %u %t &quot;%r&quot; %&gt;s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; &quot;%{Sec-CH-UA}i&quot; &quot;%{Sec-CH-UA-Arch}i&quot; &quot;%{Sec-CH-UA-Bitness}i&quot; &quot;%{Sec-CH-UA-Full-Version}i&quot; &quot;%{Sec-CH-UA-Full-Version-List}i&quot; &quot;%{Sec-CH-UA-Mobile}i&quot; &quot;%{Sec-CH-UA-Model}i&quot; &quot;%{Sec-CH-UA-Platform}i&quot; &quot;%{Sec-CH-UA-Platform-Version}i&quot; &quot;%{Sec-CH-UA-WoW64}i&quot; %V',
+                    flattenWildcards =&gt; true
+                )
+            )
+) AS uadata;
+</code></pre><p>which produces</p><pre><code>+-------------+-----------------------+----------------------------+
+| DeviceClass | AgentNameVersionMajor | OperatingSystemNameVersion |
++-------------+-----------------------+----------------------------+
+| Desktop     | Chrome 100            | Linux ??                   |
+| Phone       | Chrome 101            | Android ??                 |
++-------------+-----------------------+----------------------------+
+2 rows selected (0.183 seconds)
+</code></pre><p>The first example here does not have the exact version of the operating system as part of the User-Agent and this results in <code>Linux ??</code>.</p><p>The second example shows <code>Android 10</code> but was recognized as being a <code>reduced</code> variant of the <code>User-Agent</code>, this means that the version <code>10</code> is an invalid standard value that is not true. So here you see <code>Android ??</code>.</p><p>Now let&rsquo;s repeat the same and use the recorded <code>User-Agent Client Hint</code> header values:</p><pre><code>SELECT  uadata.ua.DeviceClass                AS DeviceClass,
+        uadata.ua.AgentNameVersionMajor      AS AgentNameVersionMajor,
+        uadata.ua.OperatingSystemNameVersion AS OperatingSystemNameVersion
+FROM (
+    SELECT
+            parse_user_agent(
+                'User-Agent' ,                  `request_user-agent`,
+                'sec-ch-ua',                    `request_header_sec-ch-ua`,
+                'sec-ch-ua-arch',               `request_header_sec-ch-ua-arch`,
+                'sec-ch-ua-bitness',            `request_header_sec-ch-ua-bitness`,
+                'sec-ch-ua-full-version',       `request_header_sec-ch-ua-full-version`,
+                'sec-ch-ua-full-version-list',  `request_header_sec-ch-ua-full-version-list`,
+                'sec-ch-ua-mobile',             `request_header_sec-ch-ua-mobile`,
+                'sec-ch-ua-model',              `request_header_sec-ch-ua-model`,
+                'sec-ch-ua-platform',           `request_header_sec-ch-ua-platform`,
+                'sec-ch-ua-platform-version',   `request_header_sec-ch-ua-platform-version`,
+                'sec-ch-ua-wow64',              `request_header_sec-ch-ua-wow64`
+            ) AS ua
+    FROM    table(
+                dfs.`/tmp/access.hints` (
+                    type =&gt; 'httpd',
+                    logFormat =&gt; '%a %l %u %t &quot;%r&quot; %&gt;s %b &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot; &quot;%{Sec-CH-UA}i&quot; &quot;%{Sec-CH-UA-Arch}i&quot; &quot;%{Sec-CH-UA-Bitness}i&quot; &quot;%{Sec-CH-UA-Full-Version}i&quot; &quot;%{Sec-CH-UA-Full-Version-List}i&quot; &quot;%{Sec-CH-UA-Mobile}i&quot; &quot;%{Sec-CH-UA-Model}i&quot; &quot;%{Sec-CH-UA-Platform}i&quot; &quot;%{Sec-CH-UA-Platform-Version}i&quot; &quot;%{Sec-CH-UA-WoW64}i&quot; %V',
+                    flattenWildcards =&gt; true
+                )
+            )
+) AS uadata;
+</code></pre><p>which produces</p><pre><code>+-------------+-----------------------+----------------------------+
+| DeviceClass | AgentNameVersionMajor | OperatingSystemNameVersion |
++-------------+-----------------------+----------------------------+
+| Desktop     | Chrome 100            | Linux 5.13.0               |
+| Phone       | Chrome 101            | Android 11.0.0             |
++-------------+-----------------------+----------------------------+
+2 rows selected (0.275 seconds)
+</code></pre><p>The improvement after adding the Client Hints is evident.</p><footer class=footline></footer></div></div><div id=navigation></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/js/clipboard.min.js?1651830630></script>
+<script src=/js/perfect-scrollbar.min.js?1651830630></script>
+<script src=/js/perfect-scrollbar.jquery.min.js?1651830630></script>
+<script src=/js/jquery.sticky.js?1651830630></script>
+<script src=/js/featherlight.min.js?1651830630></script>
+<script src=/js/highlight.pack.js?1651830630></script>
+<script>hljs.initHighlightingOnLoad()</script><script src=/js/modernizr.custom-3.6.0.js?1651830630></script>
+<script src=/js/learn.js?1651830630></script>
+<script src=/js/hugo-learn.js?1651830630></script></body></html>
