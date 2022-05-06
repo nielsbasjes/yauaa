@@ -40,9 +40,13 @@ import org.apache.nifi.processor.util.StandardValidators;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.nifi.ParseUserAgent.USERAGENTSTRING_ATTRIBUTENAME;
 
 @EventDriven
@@ -53,8 +57,9 @@ import static nl.basjes.parse.useragent.nifi.ParseUserAgent.USERAGENTSTRING_ATTR
 public class ParseUserAgent extends AbstractProcessor {
 
     static final String USERAGENTSTRING_ATTRIBUTENAME = "UseragentString";
-    static final String PROPERTY_PREFIX = "Extract.";
-    static final String ATTRIBUTE_PREFIX = "Useragent.";
+    static final String HEADER_PREFIX                 = "RequestHeader.";
+    static final String FIELD_PREFIX                  = "Extract.";
+    static final String ATTRIBUTE_PREFIX              = "Useragent.";
 
     public static final Relationship SUCCESS = new Relationship.Builder()
         .name("success")
@@ -63,16 +68,19 @@ public class ParseUserAgent extends AbstractProcessor {
 
     public static final Relationship MISSING = new Relationship.Builder()
         .name("missing")
-        .description("Here we route the FlowFiles that did not have the " + USERAGENTSTRING_ATTRIBUTENAME + " attribute set.")
+        .description("Here we route the FlowFiles that did not have a value for the " + USERAGENT_HEADER + " request header.")
         .build();
 
     private Set<Relationship> relationships;
 
     private UserAgentAnalyzer uaa = null;
 
-    private static final List<String>             ALL_FIELD_NAMES              = new ArrayList<>();
-    private final        List<PropertyDescriptor> supportedPropertyDescriptors = new ArrayList<>();
-    private final        List<String>             extractFieldNames            = new ArrayList<>();
+    private static final List<String>             ALL_CLIENT_HINT_HEADERS_NAMES = new ArrayList<>();
+    private static final List<String>             ALL_FIELD_NAMES               = new ArrayList<>();
+    private final        List<PropertyDescriptor> supportedPropertyDescriptors  = new ArrayList<>();
+    private final        Map<String, String>      requestHeadersProperties      = new LinkedHashMap<>(); // Map<RequestHeaderProperty, RequestHeaderName>
+    private final        Map<String, String>      requestHeadersMapping         = new TreeMap<>(); // Map<RequestHeaderName, AttributeName>
+    private final        List<String>             extractFieldNames             = new ArrayList<>();
 
     @Override
     protected void init(ProcessorInitializationContext context) {
@@ -80,23 +88,42 @@ public class ParseUserAgent extends AbstractProcessor {
 
         synchronized (ALL_FIELD_NAMES) {
             if (ALL_FIELD_NAMES.isEmpty()) {
-                ALL_FIELD_NAMES.addAll(UserAgentAnalyzer
+                UserAgentAnalyzer analyzer = UserAgentAnalyzer
                     .newBuilder()
                     .hideMatcherLoadStats()
                     .delayInitialization()
                     .dropTests()
-                    .build()
-                    .getAllPossibleFieldNamesSorted());
+                    .build();
+
+                ALL_CLIENT_HINT_HEADERS_NAMES.addAll(analyzer.supportedClientHintHeaders());
+                ALL_FIELD_NAMES.addAll(analyzer.getAllPossibleFieldNamesSorted());
             }
         }
+
         final Set<Relationship> relationshipsSet = new HashSet<>();
         relationshipsSet.add(SUCCESS);
         relationshipsSet.add(MISSING);
         this.relationships = Collections.unmodifiableSet(relationshipsSet);
 
+        requestHeadersProperties.put(HEADER_PREFIX + USERAGENT_HEADER.replaceAll("[^a-zA-Z0-9]", ""), USERAGENT_HEADER);
+        for (String headerName: ALL_CLIENT_HINT_HEADERS_NAMES) {
+            requestHeadersProperties.put(HEADER_PREFIX + headerName.replaceAll("[^a-zA-Z0-9]", ""), headerName);
+        }
+
+        for (Map.Entry<String, String> entry: requestHeadersProperties.entrySet()) {
+            PropertyDescriptor propertyDescriptor = new PropertyDescriptor.Builder()
+                .name(entry.getKey())
+                .description("Which attribute holds the value from the " + entry.getValue() + " request header?")
+                .required(USERAGENT_HEADER.equals(entry.getValue()))
+                .defaultValue(USERAGENT_HEADER.equals(entry.getValue()) ? USERAGENTSTRING_ATTRIBUTENAME : null)
+                .addValidator(StandardValidators.NON_BLANK_VALIDATOR)
+                .build();
+            supportedPropertyDescriptors.add(propertyDescriptor);
+        }
+
         for (String fieldName: ALL_FIELD_NAMES) {
             PropertyDescriptor propertyDescriptor = new PropertyDescriptor.Builder()
-                .name(PROPERTY_PREFIX + fieldName)
+                .name(FIELD_PREFIX + fieldName)
                 .description("If enabled will extract the " + fieldName + " field")
                 .required(true)
                 .allowableValues("true", "false")
@@ -131,16 +158,22 @@ public class ParseUserAgent extends AbstractProcessor {
             extractFieldNames.clear();
 
             for (PropertyDescriptor propertyDescriptor: supportedPropertyDescriptors) {
-                if (Boolean.TRUE.equals(context.getProperty(propertyDescriptor).asBoolean())) {
-                    String name = propertyDescriptor.getName();
-                    if (name.startsWith(PROPERTY_PREFIX)) { // Should always pass
-                        String fieldName = name.substring(PROPERTY_PREFIX.length());
-
+                String name = propertyDescriptor.getName();
+                if (name.startsWith(FIELD_PREFIX)) { // Do we need this field?
+                    if (Boolean.TRUE.equals(context.getProperty(propertyDescriptor).asBoolean())) {
+                        String fieldName = name.substring(FIELD_PREFIX.length());
                         builder.withField(fieldName);
                         extractFieldNames.add(fieldName);
                     }
                 }
+                if (name.startsWith(HEADER_PREFIX)) { // Do we need this field?
+                    String value = context.getProperty(propertyDescriptor).getValue();
+                    if (value != null && !value.trim().isEmpty()) {
+                        requestHeadersMapping.put(requestHeadersProperties.get(name), value);
+                    }
+                }
             }
+
             uaa = builder.build();
         }
     }
@@ -153,11 +186,20 @@ public class ParseUserAgent extends AbstractProcessor {
     @Override
     public void onTrigger(ProcessContext context, ProcessSession session) throws ProcessException { // NOSONAR: Explicitly name the exception
         FlowFile flowFile = session.get();
-        String userAgentString = flowFile.getAttribute(USERAGENTSTRING_ATTRIBUTENAME);
-        if (userAgentString == null) {
+
+        Map<String, String> requestHeaders = new TreeMap<>();
+
+        for (Map.Entry<String, String> entry : requestHeadersMapping.entrySet()) {
+            String attributeName = entry.getValue();
+            String value = flowFile.getAttribute(attributeName);
+            requestHeaders.put(entry.getKey(), value);
+        }
+
+        if (requestHeaders.get(USERAGENT_HEADER) == null) {
             session.transfer(flowFile, MISSING);
         } else {
-            UserAgent userAgent = uaa.parse(userAgentString);
+            UserAgent userAgent = uaa.parse(requestHeaders);
+
             for (String fieldName : extractFieldNames) {
                 String fieldValue = userAgent.getValue(fieldName);
                 flowFile = session.putAttribute(flowFile, ATTRIBUTE_PREFIX + fieldName, fieldValue);

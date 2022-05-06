@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import static nl.basjes.parse.useragent.nifi.ParseUserAgent.ATTRIBUTE_PREFIX;
-import static nl.basjes.parse.useragent.nifi.ParseUserAgent.PROPERTY_PREFIX;
+import static nl.basjes.parse.useragent.nifi.ParseUserAgent.FIELD_PREFIX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // CHECKSTYLE.OFF: ParenPad
@@ -51,45 +51,45 @@ class TestParseUserAgent {
         String content = "CONTENT:>>" + TEST_USER_AGENT + "<<";
 
         // Add properties
-        runner.setProperty(PROPERTY_PREFIX + "DeviceClass",                      "true");
-        runner.setProperty(PROPERTY_PREFIX + "DeviceName",                       "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemClass",             "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemName",              "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemVersion",           "true");
-        runner.setProperty(PROPERTY_PREFIX + "LayoutEngineClass",                "true");
-        runner.setProperty(PROPERTY_PREFIX + "LayoutEngineName",                 "true");
-        runner.setProperty(PROPERTY_PREFIX + "LayoutEngineVersion",              "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentClass",                       "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentName",                        "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentVersion",                     "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentVersionMajor",                "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentNameVersion",                 "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentNameVersionMajor",            "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentBuild",                       "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentInformationEmail",            "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentInformationUrl",              "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentLanguage",                    "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentSecurity",                    "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentUuid",                        "true");
-        runner.setProperty(PROPERTY_PREFIX + "Anonymized",                       "true");
-        runner.setProperty(PROPERTY_PREFIX + "DeviceBrand",                      "true");
-        runner.setProperty(PROPERTY_PREFIX + "DeviceCpu",                        "true");
-        runner.setProperty(PROPERTY_PREFIX + "DeviceFirmwareVersion",            "true");
-        runner.setProperty(PROPERTY_PREFIX + "DeviceVersion",                    "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookCarrier",                  "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookDeviceClass",              "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookDeviceName",               "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookDeviceVersion",            "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookFBOP",                     "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookFBSS",                     "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookOperatingSystemName",      "true");
-        runner.setProperty(PROPERTY_PREFIX + "FacebookOperatingSystemVersion",   "true");
-        runner.setProperty(PROPERTY_PREFIX + "HackerAttackVector",               "true");
-        runner.setProperty(PROPERTY_PREFIX + "HackerToolkit",                    "true");
-        runner.setProperty(PROPERTY_PREFIX + "KoboAffiliate",                    "true");
-        runner.setProperty(PROPERTY_PREFIX + "KoboPlatformId",                   "true");
-        runner.setProperty(PROPERTY_PREFIX + "LayoutEngineBuild",                "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemVersionBuild",      "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceClass",                      "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceName",                       "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemClass",             "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemName",              "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemVersion",           "true");
+        runner.setProperty(FIELD_PREFIX + "LayoutEngineClass",                "true");
+        runner.setProperty(FIELD_PREFIX + "LayoutEngineName",                 "true");
+        runner.setProperty(FIELD_PREFIX + "LayoutEngineVersion",              "true");
+        runner.setProperty(FIELD_PREFIX + "AgentClass",                       "true");
+        runner.setProperty(FIELD_PREFIX + "AgentName",                        "true");
+        runner.setProperty(FIELD_PREFIX + "AgentVersion",                     "true");
+        runner.setProperty(FIELD_PREFIX + "AgentVersionMajor",                "true");
+        runner.setProperty(FIELD_PREFIX + "AgentNameVersion",                 "true");
+        runner.setProperty(FIELD_PREFIX + "AgentNameVersionMajor",            "true");
+        runner.setProperty(FIELD_PREFIX + "AgentBuild",                       "true");
+        runner.setProperty(FIELD_PREFIX + "AgentInformationEmail",            "true");
+        runner.setProperty(FIELD_PREFIX + "AgentInformationUrl",              "true");
+        runner.setProperty(FIELD_PREFIX + "AgentLanguage",                    "true");
+        runner.setProperty(FIELD_PREFIX + "AgentSecurity",                    "true");
+        runner.setProperty(FIELD_PREFIX + "AgentUuid",                        "true");
+        runner.setProperty(FIELD_PREFIX + "Anonymized",                       "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceBrand",                      "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceCpu",                        "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceFirmwareVersion",            "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceVersion",                    "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookCarrier",                  "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookDeviceClass",              "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookDeviceName",               "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookDeviceVersion",            "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookFBOP",                     "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookFBSS",                     "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookOperatingSystemName",      "true");
+        runner.setProperty(FIELD_PREFIX + "FacebookOperatingSystemVersion",   "true");
+        runner.setProperty(FIELD_PREFIX + "HackerAttackVector",               "true");
+        runner.setProperty(FIELD_PREFIX + "HackerToolkit",                    "true");
+        runner.setProperty(FIELD_PREFIX + "KoboAffiliate",                    "true");
+        runner.setProperty(FIELD_PREFIX + "KoboPlatformId",                   "true");
+        runner.setProperty(FIELD_PREFIX + "LayoutEngineBuild",                "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemVersionBuild",      "true");
 
         // Add the content to the runner (just because we 'should' have some content).
         MockFlowFile flowfile = runner.enqueue(content);
@@ -157,12 +157,12 @@ class TestParseUserAgent {
         String content = "CONTENT:>>" + TEST_USER_AGENT + "<<";
 
         // Add properties
-        runner.setProperty(PROPERTY_PREFIX + "DeviceClass",                      "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemName",              "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemVersion",           "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentClass",                       "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentName",                        "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentNameVersionMajor",            "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceClass",                      "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemName",              "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemVersion",           "true");
+        runner.setProperty(FIELD_PREFIX + "AgentClass",                       "true");
+        runner.setProperty(FIELD_PREFIX + "AgentName",                        "true");
+        runner.setProperty(FIELD_PREFIX + "AgentNameVersionMajor",            "true");
 
         // Add the content to the runner (just because we 'should' have some content).
         MockFlowFile flowfile = runner.enqueue(content);
@@ -230,12 +230,12 @@ class TestParseUserAgent {
         // Content to be mock a json file
         String content = "CONTENT:>>" + TEST_USER_AGENT + "<<";
         // Add properties
-        runner.setProperty(PROPERTY_PREFIX + "DeviceClass",                      "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemName",              "true");
-        runner.setProperty(PROPERTY_PREFIX + "OperatingSystemVersion",           "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentClass",                       "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentName",                        "true");
-        runner.setProperty(PROPERTY_PREFIX + "AgentNameVersionMajor",            "true");
+        runner.setProperty(FIELD_PREFIX + "DeviceClass",                      "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemName",              "true");
+        runner.setProperty(FIELD_PREFIX + "OperatingSystemVersion",           "true");
+        runner.setProperty(FIELD_PREFIX + "AgentClass",                       "true");
+        runner.setProperty(FIELD_PREFIX + "AgentName",                        "true");
+        runner.setProperty(FIELD_PREFIX + "AgentNameVersionMajor",            "true");
 
         // Add the content to the runner (just because we 'should' have some content).
         runner.enqueue(content);

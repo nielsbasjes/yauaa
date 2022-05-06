@@ -30,7 +30,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 | Flink              | Yes          |
 | Flink SQL          | Yes          |
 | Hive               | Yes          |
-| Nifi               |              |
+| Nifi               | Yes          |
 | LogParser          | Not possible |
 | Snowflake          |              |
 | Trino              | Yes          |

@@ -34,12 +34,15 @@ After you have added this nar file you will find the ParseUserAgent processor in
 
 ## Usage and examples
 
-1. First you make sure that the FLowFile going into this processor has the attribute "UseragentString" that contains the string to be analyzed.
+1. First you make sure that the FlowFile going into this processor has the attributes needed as input.
 
-2. In the configuration enable the fields you need for analysis. By default none have been selected.
-   ![Configure Processor dialog](ApacheNifi-Configure-Processor.png)
+2. In the configuration specify which attributes contain the values of the Request Headers that were logged. The only mandatory one is `RequestHeader.UserAgent`. The other properties refer to the original [User-Agent Client Hints](https://wicg.github.io/ua-client-hints/#http-ua-hints) request header names.
+   ![Configure Processor dialog](ApacheNifi-Configure-Processor-1.png)
 
-3. The output FlowFile will now have additional attributes for all of the selected attributes that are named
+3. In the configuration enable the fields you need for analysis. By default none have been selected.
+   ![Configure Processor dialog](ApacheNifi-Configure-Processor-2.png)
+
+4. The output FlowFile will now have additional attributes for all of the selected attributes that are named
    Useragent.SelectedField.
 
        Key: 'Useragent.DeviceClass'
@@ -47,3 +50,5 @@ After you have added this nar file you will find the ParseUserAgent processor in
        Key: 'Useragent.OperatingSystemNameVersion'
                Value: 'Android 4.1.2'
 
+   In this log example the `XXsomethingXX` attributes are the input values and the `Useragent.something` are the outputs:
+   ![Output from LogAttributes](ApacheNifi-Output.png)
