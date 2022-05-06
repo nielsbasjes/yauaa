@@ -29,12 +29,14 @@ import javax.inject.Inject;
 
 public class UserAgentFunctions {
 
-    @FunctionTemplate(name = "parse_user_agent",
+    @FunctionTemplate(
+        name = "parse_user_agent",
+        isVarArg = true,
         scope = FunctionTemplate.FunctionScope.SIMPLE
     )
     public static class UserAgentFunction implements DrillSimpleFunc {
         @Param
-        org.apache.drill.exec.expr.holders.VarCharHolder input;
+        org.apache.drill.exec.expr.holders.NullableVarCharHolder[] input;
 
         @Output
         org.apache.drill.exec.vector.complex.writer.BaseWriter.ComplexWriter outWriter;
@@ -50,72 +52,25 @@ public class UserAgentFunctions {
 
         public void setup() {
             uaa = nl.basjes.parse.useragent.drill.UserAgentAnalyzerProvider.getInstance();
-            allFields = uaa.getAllPossibleFieldNamesSorted();
+            allFields = nl.basjes.parse.useragent.drill.UserAgentAnalyzerProvider.getAllFields();
         }
 
         public void eval() {
             org.apache.drill.exec.vector.complex.writer.BaseWriter.MapWriter queryMapWriter = outWriter.rootAsMap();
 
-            String userAgentString = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(input);
+            nl.basjes.parse.useragent.AnalyzerUtilities.ParsedArguments parsedArguments =
+                nl.basjes.parse.useragent.drill.UserAgentAnalyzerProvider.parseArgumentArray(input);
 
-            nl.basjes.parse.useragent.UserAgent agent = uaa.parse(userAgentString);
+            nl.basjes.parse.useragent.UserAgent agent = uaa.parse(parsedArguments.getRequestHeaders());
 
-            for (String fieldName : allFields) {
-
-                org.apache.drill.exec.expr.holders.VarCharHolder rowHolder = new org.apache.drill.exec.expr.holders.VarCharHolder();
-                String field = agent.getValue(fieldName);
-
-                byte[] rowStringBytes = field.getBytes();
-                outBuffer = outBuffer.reallocIfNeeded(rowStringBytes.length);
-                outBuffer.setBytes(0, rowStringBytes);
-
-                rowHolder.start = 0;
-                rowHolder.end = rowStringBytes.length;
-                rowHolder.buffer = outBuffer;
-
-                queryMapWriter.varChar(fieldName).write(rowHolder);
+            java.util.List<String> wantedFields = parsedArguments.getWantedFields();
+            if (wantedFields.isEmpty()) {
+                wantedFields = allFields;
             }
-        }
-    }
 
-    @FunctionTemplate(name = "parse_user_agent",
-        scope = FunctionTemplate.FunctionScope.SIMPLE
-    )
-    public static class NullableUserAgentFunction implements DrillSimpleFunc {
-        @Param
-        org.apache.drill.exec.expr.holders.NullableVarCharHolder input;
+            // org.slf4j.LoggerFactory.getLogger("UDF 1").error("RESULT UDF 1\n{}", agent.toYamlTestCase(true));
 
-        @Output
-        org.apache.drill.exec.vector.complex.writer.BaseWriter.ComplexWriter outWriter;
-
-        @Inject
-        DrillBuf outBuffer;
-
-        @Workspace
-        nl.basjes.parse.useragent.UserAgentAnalyzer uaa;
-
-        @Workspace
-        java.util.List<String> allFields;
-
-        public void setup() {
-            uaa = nl.basjes.parse.useragent.drill.UserAgentAnalyzerProvider.getInstance();
-            allFields = uaa.getAllPossibleFieldNamesSorted();
-        }
-
-        public void eval() {
-            org.apache.drill.exec.vector.complex.writer.BaseWriter.MapWriter queryMapWriter = outWriter.rootAsMap();
-            if (input.isSet == 0) {
-                // Return empty map
-                queryMapWriter.start();
-                queryMapWriter.end();
-                return;
-            }
-            String userAgentString = org.apache.drill.exec.expr.fn.impl.StringFunctionHelpers.getStringFromVarCharHolder(input);
-
-            nl.basjes.parse.useragent.UserAgent agent = uaa.parse(userAgentString);
-
-            for (String fieldName : allFields) {
-
+            for (String fieldName : wantedFields) {
                 org.apache.drill.exec.expr.holders.VarCharHolder rowHolder = new org.apache.drill.exec.expr.holders.VarCharHolder();
                 String field = agent.getValue(fieldName);
 

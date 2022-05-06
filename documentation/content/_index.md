@@ -23,7 +23,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 | Java               | Yes          |
 | Beam               | Yes          |
 | Beam SQL           | Yes          |
-| Drill              |              |
+| Drill              | Yes          |
 | Elastic Search 7   | Yes          |
 | Elastic Search 8   | Yes          |
 | Elastic Logstash 8 | Yes          |

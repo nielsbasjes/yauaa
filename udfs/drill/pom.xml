@@ -30,29 +30,18 @@
 
   <url>https://github.com/nielsbasjes/yauaa</url>
 
-  <!-- Needed to allow downloading the dependencies when using maven 3.8.1-->
-  <!-- Could not transfer artifact org.kohsuke:libpam4j:pom:1.8-rev2 from/to maven-default-http-blocker (http://0.0.0.0/): -->
-  <!--   Blocked mirror for repositories: [mapr-releases (http://repository.mapr.com/maven/, default, releases)]-->
-  <repositories>
-    <repository>
-      <id>mapr</id>
-      <name>Mapr</name>
-      <url>https://repository.mapr.com/maven/</url>
-    </repository>
-  </repositories>
-
   <dependencies>
+
+    <dependency>
+      <groupId>nl.basjes.parse.useragent</groupId>
+      <artifactId>yauaa</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.drill.exec</groupId>
       <artifactId>drill-java-exec</artifactId>
       <version>${drill.version}</version>
       <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>netty-all</artifactId>
-          <groupId>io.netty</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
@@ -62,25 +51,23 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
-    </dependency>
-
   </dependencies>
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-maven-plugin.version}</version>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
@@ -134,7 +121,6 @@
           </execution>
         </executions>
       </plugin>
-
 
       <!-- All tests for this module are in an integration test (version conflict with Antlr). -->
       <plugin>
