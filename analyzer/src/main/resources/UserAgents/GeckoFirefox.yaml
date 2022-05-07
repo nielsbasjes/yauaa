@@ -40,6 +40,14 @@ config:
     values:
     - 'Ghostery'
 
+- lookup:
+    name: 'SpecialFirefoxBrowserNames'
+    map:
+      'IceDragon'         : 'Comodo IceDragon'
+      # https://play.google.com/store/apps/details?id=com.qwant.liberty&hl=en&gl=US
+      # https://apps.apple.com/nl/app/qwant/id924470452
+      'h QwantMobile'     : 'Qwant'
+      'QwantMobile'       : 'Qwant'
 
 - matcher:
     variable:
@@ -168,14 +176,13 @@ config:
     - 'AgentName                           :     1900 :@Gecko.name'
     - 'AgentVersion                        :     1900 :@Gecko.version'
 
-# TODO: Make more generic with lookup (if needed)
 - matcher:
     variable:
-    - 'Browser                             :agent.(2-5)product.name="IceDragon"^'
+    - 'AgentTag                             :agent.(2-5)product.name?SpecialFirefoxBrowserNames'
     extract:
     - 'AgentClass                          :     2006 :"Browser"'
-    - 'AgentName                           :     2006 :"Comodo IceDragon"'
-    - 'AgentVersion                        :     2006 :@Browser^.version'
+    - 'AgentName                           :     2006 :LookUp[SpecialFirefoxBrowserNames;@AgentTag]'
+    - 'AgentVersion                        :     2006 :@AgentTag^.version'
 
 #Gecko:
 - test:
@@ -1746,3 +1753,87 @@ config:
       AgentVersionMajor                    : '90'
       AgentNameVersion                     : 'Firefox 90.0'
       AgentNameVersionMajor                : 'Firefox 90'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 10; Mobile; rv:77.0) Gecko/77.0 Firefox/77.0 h QwantMobile/4.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '77.0'
+      LayoutEngineVersionMajor             : '77'
+      LayoutEngineNameVersion              : 'Gecko 77.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 77'
+      LayoutEngineBuild                    : '77.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Qwant 4.0'
+      AgentNameVersionMajor                : 'Qwant 4'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 10; Mobile; rv:77.0) Gecko/77.0 Firefox/77.0 QwantMobile/4.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10' # FIXME: This was found on an Android 11 device !!
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '77.0'
+      LayoutEngineVersionMajor             : '77'
+      LayoutEngineNameVersion              : 'Gecko 77.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 77'
+      LayoutEngineBuild                    : '77.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Qwant 4.0'
+      AgentNameVersionMajor                : 'Qwant 4'
+
+
+# Same device, regular Firefox DOES show the right Android version.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 11; Mobile; rv:100.0) Gecko/100.0 Firefox/100.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Gecko 100.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 100'
+      LayoutEngineBuild                    : '100.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '100.0'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Firefox 100.0'
+      AgentNameVersionMajor                : 'Firefox 100'
