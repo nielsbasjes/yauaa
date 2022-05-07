@@ -33,47 +33,48 @@ config:
 - lookup:
     name: 'SpecialChromeBrowserNames'
     map:
-      "Vivaldi"         : "Vivaldi"
-      "OPR"             : "Opera"
-      "MMS"             : "Opera Neon"
-      "OPT"             : "Opera Touch"
-      "Amigo"           : "Amigo"       # https://amigo.mail.ru/
-      "MRCHROME"        : "Amigo"       # https://amigo.mail.ru/
-      "MRPULSE"         : "Pulse"       # https://amigo.mail.ru/
-      # Also matches "Ubuntu Chromium", "snap Chromium" (Chromium running from within a snap), "Raspbian Chromium", ...
-      "Chromium"        : "Chromium"
-      "CrMo"            : "Chrome"      # https://bugs.chromium.org/p/chromium/issues/detail?id=116455
-      "Epiphany"        : "Epiphany"
-      "UCBrowser"       : "UCBrowser"
-      "Viera"           : "Viera"
-      "Puffin"          : "Puffin"
-      "AvantBrowser"    : "AvantBrowser"
-      "CoolNovo"        : "CoolNovo"
-      "Iron"            : "Iron"
-      "Iridium"         : "Iridium"
-      "Quark"           : "Quark"
-      "Mxbrowser"       : "Maxthon"
-      "Brave Chrome"    : "Brave"
-      "Iron Safari"     : "Iron"
-      "Mobile Iron Safari" : "Iron"
-      "Falkon"          : "Falkon"
-      "QupZilla"        : "QupZilla" # The old name of what is now called Falkon
-      "Colibri"         : "Colibri"
-      "Midori"          : "Midori"
-      "SE"              : "Sogou Explorer"
-      "LBBROWSER"       : "Liebao Browser" # Created by Kingsoft
-      "TungstenBrowser" : "TungstenBrowser"
-      "Kinza"           : "Kinza"
-      "Avast"           : "Avast"
-      "Dragon"          : "Comodo Dragon"
-      "IceDragon"       : "Comodo IceDragon"
-      "XVast"           : "XVast"
-      "Tbrowser"        : "Tbrowser" # Used in TVs
-      "PHX"             : "Phoenix"
-      "AlohaBrowser"    : "Aloha Browser"
-      "Sleipnir"        : "Sleipnir"
-      "RockMelt"        : "RockMelt"
-      "VivoBrowser"     : "VivoBrowser"
+      'Vivaldi'         : 'Vivaldi'
+      'OPR'             : 'Opera'
+      'MMS'             : 'Opera Neon'
+      'OPT'             : 'Opera Touch'
+      'Amigo'           : 'Amigo'       # https://amigo.mail.ru/
+      'MRCHROME'        : 'Amigo'       # https://amigo.mail.ru/
+      'MRPULSE'         : 'Pulse'       # https://amigo.mail.ru/
+      # Also matches 'Ubuntu Chromium', 'snap Chromium' (Chromium running from within a snap), 'Raspbian Chromium', ...
+      'Chromium'        : 'Chromium'
+      'CrMo'            : 'Chrome'      # https://bugs.chromium.org/p/chromium/issues/detail?id=116455
+      'Epiphany'        : 'Epiphany'
+      'UCBrowser'       : 'UCBrowser'
+      'Viera'           : 'Viera'
+      'Puffin'          : 'Puffin'
+      'AvantBrowser'    : 'AvantBrowser'
+      'CoolNovo'        : 'CoolNovo'
+      'Iron'            : 'Iron'
+      'Iridium'         : 'Iridium'
+      'Quark'           : 'Quark'
+      'Mxbrowser'       : 'Maxthon'
+      'Brave Chrome'    : 'Brave'
+      'Iron Safari'     : 'Iron'
+      'Mobile Iron Safari' : 'Iron'
+      'Falkon'          : 'Falkon'
+      'QupZilla'        : 'QupZilla' # The old name of what is now called Falkon
+      'Colibri'         : 'Colibri'
+      'Midori'          : 'Midori'
+      'SE'              : 'Sogou Explorer'
+      'LBBROWSER'       : 'Liebao Browser' # Created by Kingsoft
+      'TungstenBrowser' : 'TungstenBrowser'
+      'Kinza'           : 'Kinza'
+      'Avast'           : 'Avast'
+      'Dragon'          : 'Comodo Dragon'
+      'IceDragon'       : 'Comodo IceDragon'
+      'XVast'           : 'XVast'
+      'Tbrowser'        : 'Tbrowser' # Used in TVs
+      'PHX'             : 'Phoenix'
+      'AlohaBrowser'    : 'Aloha Browser'
+      'Sleipnir'        : 'Sleipnir'
+      'RockMelt'        : 'RockMelt'
+      'VivoBrowser'     : 'VivoBrowser'
+      'HuaweiBrowser'   : 'Huawei Browser'
 
 - lookup:
     name: 'KnownWebviewAppNames'
@@ -771,27 +772,27 @@ config:
     variable:
     - 'ProductAfterChrome                  :agent.product.name="Chrome"^>'
     extract:
-    - 'AgentName                           :     2072 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
-    - 'AgentVersion                        :     2072 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :     2092 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
+    - 'AgentVersion                        :     2092 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
     - 'ProductAfterChrome                  :agent.product.name="Chrome"^>>'
     extract:
-    - 'AgentName                           :     2071 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
-    - 'AgentVersion                        :     2071 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :     2091 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
+    - 'AgentVersion                        :     2091 :@ProductAfterChrome.(1)version'
 
 - matcher:
     variable:
     - 'ProductAfterChrome                  :agent.product.name="Chrome"^>>>'
     extract:
-    - 'AgentName                           :     2070 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
-    - 'AgentVersion                        :     2070 :@ProductAfterChrome.(1)version'
+    - 'AgentName                           :     2090 :LookUp[SpecialChromeBrowserNames;@ProductAfterChrome.name]'
+    - 'AgentVersion                        :     2090 :@ProductAfterChrome.(1)version'
 
 - matcher:
     extract:
-    - 'AgentName                           :     2069 :LookUp[SpecialChromeBrowserNames;agent.text]'
-    - 'AgentVersion                        :     2069 :agent.product.name="Chrome"^.version'
+    - 'AgentName                           :     2089 :LookUp[SpecialChromeBrowserNames;agent.text]'
+    - 'AgentVersion                        :     2089 :agent.product.name="Chrome"^.version'
 
 - matcher:
     variable:
@@ -2544,11 +2545,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 67.0'
       LayoutEngineNameVersionMajor         : 'Blink 67'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Xvast'
+      AgentName                            : 'XVast'
       AgentVersion                         : '1.1.0.4'
       AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Xvast 1.1.0.4'
-      AgentNameVersionMajor                : 'Xvast 1'
+      AgentNameVersion                     : 'XVast 1.1.0.4'
+      AgentNameVersionMajor                : 'XVast 1'
 
 
 # coccoc
