@@ -42,6 +42,8 @@ config:
       # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
       'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Browser|Yahoo! JAPAN Browser'
 
+      'Safari Line' : 'Mobile App|Line'
+      'Line'        : 'Mobile App|Line'
 
 # https://user-agents.me/cfnetwork-version-list
 # If you create an iOS app and retrieve data from a webserver,
@@ -3090,3 +3092,288 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Yahoo! JAPAN Browser 1.0.19.0'
       AgentNameVersionMajor                : 'Yahoo! JAPAN Browser 1'
+
+
+# https://line.me/en/
+# https://play.google.com/store/apps/details?id=jp.naver.line.android
+# https://apps.apple.com/app/line/id443904275?platform=iphone
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/12.4.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Line'
+      AgentVersion                         : '12.4.0'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Line 12.4.0'
+      AgentNameVersionMajor                : 'Line 12'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; Android 11; SM-A025F Build/RP1A.200720.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Mobile Safari/537.36 Line/12.6.1/IAB'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A025F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.012'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '100.0.4896.127'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Chrome Webview 100.0.4896.127'
+      AgentNameVersionMajor                : 'Chrome Webview 100'
+      WebviewAppName                       : 'Line'
+      WebviewAppVersion                    : '12.6.1'
+      WebviewAppVersionMajor               : '12'
+      WebviewAppNameVersion                : 'Line 12.6.1'
+      WebviewAppNameVersionMajor           : 'Line 12'
+
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 15_0_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/12.3.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.0.2'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.0.2'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Line'
+      AgentVersion                         : '12.3.0'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Line 12.3.0'
+      AgentNameVersionMajor                : 'Line 12'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 15_0 like Mac OS X; x86) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/11.16.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'x86' # Weird but this is what is in the User-Agent
+      DeviceCpuBits                        : '32'  # Weird but this is what is in the User-Agent
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.0'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.0'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Line'
+      AgentVersion                         : '11.16.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Line 11.16.0'
+      AgentNameVersionMajor                : 'Line 11'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 15_0 like Mac OS X; x86_x64) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/11.16.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64' # Weird for an iPad, but this is what is in the User-Agent
+      DeviceCpuBits                        : '64'           # Weird for an iPad, but this is what is in the User-Agent
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.0'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.0'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Line'
+      AgentVersion                         : '11.16.0'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'Line 11.16.0'
+      AgentNameVersionMajor                : 'Line 11'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/12.4.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Line'
+      AgentVersion                         : '12.4.0'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Line 12.4.0'
+      AgentNameVersionMajor                : 'Line 12'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; AGS3-L09 Build/HUAWEIAGS3-L09; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.93 Safari/537.36 Line/10.7.1/IAB'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Huawei AGS3-L09'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'HUAWEIAGS3-L09'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '88.0.4324.93'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Chrome Webview 88.0.4324.93'
+      AgentNameVersionMajor                : 'Chrome Webview 88'
+      WebviewAppName                       : 'Line'
+      WebviewAppVersion                    : '10.7.1'
+      WebviewAppVersionMajor               : '10'
+      WebviewAppNameVersion                : 'Line 10.7.1'
+      WebviewAppNameVersionMajor           : 'Line 10'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; XQ-BT52 Build/62.0.A.3.131; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.79 Mobile Safari/537.36 Line/12.4.2/IAB'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Sony XQ-BT52'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : '62.0.A.3.131'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '100.0.4896.79'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Chrome Webview 100.0.4896.79'
+      AgentNameVersionMajor                : 'Chrome Webview 100'
+      WebviewAppName                       : 'Line'
+      WebviewAppVersion                    : '12.4.2'
+      WebviewAppVersionMajor               : '12'
+      WebviewAppNameVersion                : 'Line 12.4.2'
+      WebviewAppNameVersionMajor           : 'Line 12'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 12; ASUS_I006D Build/SKQ1.210821.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/99.0.4844.73 Mobile Safari/537.36 Line/12.3.3/IAB'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Asus I006D'
+      DeviceBrand                          : 'Asus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      OperatingSystemVersionBuild          : 'SKQ1.210821.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '99.0'
+      LayoutEngineVersionMajor             : '99'
+      LayoutEngineNameVersion              : 'Blink 99.0'
+      LayoutEngineNameVersionMajor         : 'Blink 99'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '99.0.4844.73'
+      AgentVersionMajor                    : '99'
+      AgentNameVersion                     : 'Chrome Webview 99.0.4844.73'
+      AgentNameVersionMajor                : 'Chrome Webview 99'
+      WebviewAppName                       : 'Line'
+      WebviewAppVersion                    : '12.3.3'
+      WebviewAppVersionMajor               : '12'
+      WebviewAppNameVersion                : 'Line 12.3.3'
+      WebviewAppNameVersionMajor           : 'Line 12'
