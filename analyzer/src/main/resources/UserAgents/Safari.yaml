@@ -241,6 +241,32 @@ config:
     - 'AgentName                           :       57 :@Agent.name'
     - 'AgentVersion                        :       57 :@Agent.version'
 
+- matcher:
+    variable:
+    - 'Safari                              :agent.product.name="Mobile Safari"^'
+    - 'Agent                               :@Safari>'
+    - 'AgentTag                            :LookUp[AppNamesMapping;@Agent.name]'
+    require:
+    - 'agent.product.name="Version"' # Performance trick
+    - '@Safari<.name="Version"'
+    extract:
+    - 'AgentClass                          :       58 :@AgentTag[[1]]'
+    - 'AgentName                           :       58 :@AgentTag[[2]]'
+    - 'AgentVersion                        :       58 :@Agent.version'
+
+- matcher:
+    variable:
+    - 'Safari                              :agent.product.name="Safari"^'
+    - 'Agent                               :@Safari>'
+    - 'AgentTag                            :LookUp[AppNamesMapping;@Agent.name]'
+    require:
+    - 'agent.product.name="Version"' # Performance trick
+    - '@Safari<.name="Version"'
+    extract:
+    - 'AgentClass                          :       58 :@AgentTag[[1]]'
+    - 'AgentName                           :       58 :@AgentTag[[2]]'
+    - 'AgentVersion                        :       58 :@Agent.version'
+
 # ----
 
 - matcher:
