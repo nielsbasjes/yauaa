@@ -106,6 +106,18 @@ config:
     - 'AgentName                           :       39 :@NextProduct.name?!NotAutoWalkBrowserNames'
     - 'AgentVersion                        :       39 :@NextProduct.version'
 
+
+- matcher:
+    variable:
+      - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
+    require:
+      - '@NextProduct.name?!NotAutoWalkBrowserNames'
+    extract:
+      - 'AgentClass                          :       39 :"Mobile App"'
+      - 'AgentName                           :       40 :LookUp[AppNamesMapping;@NextProduct.name]'
+      - 'AgentVersion                        :       39 :@NextProduct.version'
+
+
 - matcher:
     variable:
     - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'

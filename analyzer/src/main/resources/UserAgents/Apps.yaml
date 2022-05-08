@@ -17,6 +17,23 @@
 config:
 # Testcases for apps
 
+- lookup:
+    name: 'AppNamesMapping'
+    map:
+      # Yahoo Japan news app for IOS
+      # https://apps.apple.com/jp/app/yahoo-japan/id299147843
+      # https://www.ifreeware.net/download-jp-co-yahoo-ipn-appli.html : Yahoo! JAPAN for iPhone is a news app specially designed to be fully-featured entertainment app.
+      'YJApp-IOS jp.co.yahoo.ipn.appli'             : 'Yahoo! JAPAN'
+
+      # Yahoo Japan news app for Android
+      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.yjtop&hl=en&gl=US
+      'YJApp-ANDROID jp.co.yahoo.android.yjtop'     : 'Yahoo! JAPAN'
+
+      # Yahoo Japan Browser app for Android
+      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
+      'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Yahoo! JAPAN Browser'
+
+
 # https://user-agents.me/cfnetwork-version-list
 # If you create an iOS app and retrieve data from a webserver,
 # the app will create an default user agent as "AppName/version CFNetwork/version Darwin/version".
@@ -2710,7 +2727,7 @@ config:
 # Note: space in agent name
 - test:
     input:
-      User-Agent  : 'Walibi NL/4.0.15 (nl.walibi.corporate; build:254; iOS 15.4.1) Alamofire/5.5.0'
+      User-Agent: 'Walibi NL/4.0.15 (nl.walibi.corporate; build:254; iOS 15.4.1) Alamofire/5.5.0'
     expected:
       DeviceClass                          : 'Mobile'
       DeviceName                           : 'Apple iOS Device'
@@ -2908,3 +2925,130 @@ config:
       AgentNameVersion                     : 'Boulanger 20.3.1'
       AgentNameVersionMajor                : 'Boulanger 20'
       AgentBuild                           : '20.3.1.592'
+
+# https://apps.apple.com/jp/app/yahoo-japan/id299147843
+# https://www.ifreeware.net/download-jp-co-yahoo-ipn-appli.html : Yahoo! JAPAN for iPhone is a news app specially designed to be fully-featured entertainment app.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 YJApp-IOS jp.co.yahoo.ipn.appli/4.61.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Yahoo! JAPAN'
+      AgentVersion                         : '4.61.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Yahoo! JAPAN 4.61.0'
+      AgentNameVersionMajor                : 'Yahoo! JAPAN 4'
+
+# On iPad
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 YJApp-IOS jp.co.yahoo.ipn.appli/4.47.0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.7.1'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.7.1'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Yahoo! JAPAN'
+      AgentVersion                         : '4.47.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Yahoo! JAPAN 4.47.0'
+      AgentNameVersionMajor                : 'Yahoo! JAPAN 4'
+
+
+
+# https://www.plus-a.net/tools/user_agent_list/?q=YJApp-
+# https://play.google.com/store/apps/details?id=jp.co.yahoo.android.yjtop&hl=en&gl=US
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SC-03L Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/80.0.3987.162 Mobile Safari/537.36 YJApp-ANDROID jp.co.yahoo.android.yjtop/3.66.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SC-03L'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QP1A.190711.020'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '80.0'
+      LayoutEngineVersionMajor             : '80'
+      LayoutEngineNameVersion              : 'Blink 80.0'
+      LayoutEngineNameVersionMajor         : 'Blink 80'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '80.0.3987.162'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Chrome Webview 80.0.3987.162'
+      AgentNameVersionMajor                : 'Chrome Webview 80'
+      WebviewAppName                       : 'Yahoo! JAPAN'
+      WebviewAppVersion                    : '3.66.1'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersion                : 'Yahoo! JAPAN 3.66.1'
+      WebviewAppNameVersionMajor           : 'Yahoo! JAPAN 3'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SC-03L Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.101 Mobile Safari/537.36 YJApp-ANDROID jp.co.yahoo.android.ybrowser/3.8.8.4'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SC-03L'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QP1A.190711.020'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '87.0'
+      LayoutEngineVersionMajor             : '87'
+      LayoutEngineNameVersion              : 'Blink 87.0'
+      LayoutEngineNameVersionMajor         : 'Blink 87'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '87.0.4280.101'
+      AgentVersionMajor                    : '87'
+      AgentNameVersion                     : 'Chrome Webview 87.0.4280.101'
+      AgentNameVersionMajor                : 'Chrome Webview 87'
+      WebviewAppName                       : 'Yahoo! JAPAN Browser'
+      WebviewAppVersion                    : '3.8.8.4'
+      WebviewAppVersionMajor               : '3'
+      WebviewAppNameVersion                : 'Yahoo! JAPAN Browser 3.8.8.4'
+      WebviewAppNameVersionMajor           : 'Yahoo! JAPAN Browser 3'
