@@ -21,8 +21,8 @@ import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
-import java.util.Collections;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
@@ -70,7 +70,10 @@ public class MacOSXMajorVersionCalculator extends FieldCalculator {
 
     @Override
     public Set<String> getDependencies() {
-        return Collections.singleton(versionName);
+        Set<String> dependencies = new TreeSet<>();
+        dependencies.add(versionName);
+        dependencies.add(OPERATING_SYSTEM_NAME);
+        return dependencies;
     }
 
     @Override
