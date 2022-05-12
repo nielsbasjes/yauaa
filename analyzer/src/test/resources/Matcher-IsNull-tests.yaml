@@ -39,24 +39,24 @@ config:
       - 'NoProductAndNoURL : 1:"Matched"'
 
   - test:
+      name: 'Validating IsNull (Hacker 1)'
       input:
-        name: 'Validating IsNull (Hacker 1)'
         user_agent_string: '!(()&&!|*|*|'
       expected:
         NoNormalLetters   : 'Matched'
         NoProductAndNoURL : 'Matched'
 
   - test:
+      name: 'Validating IsNull (Hacker 2)'
       input:
-        name: 'Validating IsNull (Hacker 2)'
         user_agent_string: '!*&%^*&%&*%(()&&!|*|*|'
       expected:
         NoNormalLetters   : 'Matched'
         NoProductAndNoURL : 'Matched'
 
   - test:
+      name: 'Validating IsNull (Normal)'
       input:
-        name: 'Validating IsNull (Normal)'
         user_agent_string: 'Mozilla/1.0 (Foo) foo@example.nl'
       expected:
         NoNormalLetters   : 'Unmatched'

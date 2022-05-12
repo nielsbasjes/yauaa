@@ -270,8 +270,8 @@ config:
 
   - test:
       <<: *TEST_OPTIONS
+      name: 'Lookup Fall through match'
       input:
-        name: 'Lookup Fall through match'
         user_agent_string: 'Mozilla/5.0 (Lookup/111; Lookup/222; Lookup/333)'
       expected:
         LookupDirectTestA: "Full One"
@@ -291,8 +291,8 @@ config:
 
   - test:
       <<: *TEST_OPTIONS
+      name: 'Substring matching'
       input:
-        name: 'Substring matching'
         user_agent_string: 'Mozilla/5.0 (One/111; Two/222; Three/333; Four/444)'
       expected:
         Equals: "333"
@@ -350,8 +350,8 @@ config:
 
   - test:
       <<: *TEST_OPTIONS
+      name: 'Lookup Fall through match'
       input:
-        name: 'Lookup Fall through match'
         user_agent_string: 'Mozilla/5.0 (Lookup/111; Lookup/222; Lookup/333; Lookup/444)'
       expected:
         LookupMerged1: "Full One"

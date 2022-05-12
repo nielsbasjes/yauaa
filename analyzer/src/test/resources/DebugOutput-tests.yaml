@@ -111,8 +111,8 @@ config:
 - test:
     options:
     - 'verbose'
+    name: 'Validate Debug Output looks good'
     input:
-      name: 'Validate Debug Output looks good'
       user_agent_string: 'Word/1 ( One Two Three; One|Two|Three|Four)'
     expected:
       Name                    : 'Word'
@@ -185,8 +185,8 @@ config:
 - test:
     options:
     - 'verbose'
+    name: 'Syntax error'
     input:
-      name: 'Syntax error'
       user_agent_string: '${123+456}'
     expected:
       DeviceClass                          : 'Hacker'
@@ -246,8 +246,8 @@ config:
 - test:
     options:
       - 'verbose'
+    name: 'Double match ignore second'
     input:
-      name: 'Double match ignore second'
       user_agent_string: 'Name/1 Name/2'
     expected:
       IgnoreSecond                         : 'Name'

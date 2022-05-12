@@ -304,8 +304,8 @@ config:
   - test:
       options:
         - 'verbose'
+      name: 'Walking around'
       input:
-        name: 'Walking around'
         user_agent_string:            'One/1 Two/2 Three/3.1/3.2/3.3/3.4/3.5 Four/4 Five/5'
       expected:
         NoWalking                  :  'One/1 Two/2 Three/3.1/3.2/3.3/3.4/3.5 Four/4 Five/5'
@@ -333,8 +333,8 @@ config:
   - test:
       options:
         - 'verbose'
+      name: 'Walking around in comments'
       input:
-          name: 'Walking around in comments'
           user_agent_string:         'One/1 Two/2 (Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5) Four/4 Five/5'
       expected:
           CommentWalkLeft1         : 'Noot/2'
@@ -353,8 +353,8 @@ config:
   - test:
       options:
         - 'verbose'
+      name: 'Walking around in comments 2'
       input:
-          name: 'Walking around in comments 2'
           user_agent_string:         'One/1 Two/2 (MinusOne/-1 ; Zero/0 ; Aap/1; Noot/2 ;Mies/3 ; Wim/4;   Zus/5; Jet/6; Teun/7 ; ) Four/4 Five/5'
       expected:
           NoWalking                : 'One/1 Two/2 (MinusOne/-1 ; Zero/0 ; Aap/1; Noot/2 ;Mies/3 ; Wim/4; Zus/5; Jet/6; Teun/7 ; ) Four/4 Five/5'
@@ -382,8 +382,8 @@ config:
   - test:
       options:
         - 'verbose'
+      name: 'Special case'
       input:
-        name: 'Special case'
         user_agent_string:           'Word/1 ( One Two Three )'
       expected:
         WordMatchFlipFlop: 'Two'

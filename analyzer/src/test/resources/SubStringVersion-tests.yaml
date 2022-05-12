@@ -142,8 +142,8 @@ config:
 
   - test:
       <<: *TEST_OPTIONS
+      name: 'Extracting a substring of a version'
       input:
-        name: 'Extracting a substring of a version'
         user_agent_string           : 'one two three four five/1.2.3.4.5 (comment)'
       expected:
         VersionSplitSingle1            : '1'

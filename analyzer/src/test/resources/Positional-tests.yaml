@@ -47,10 +47,10 @@ config:
         - 'EmptyTest5:1:agent.(1)product.(1)comments.(5)entry'
 
   - test:
+      name: 'Extract Empty string'
 #      options:
 #        - 'verbose'
       input:
-        name: 'Extract Empty string'
         user_agent_string:    'Empty/1.0 (One;;   ;Four;)'
       expected:
         EmptyTest1:       'One'

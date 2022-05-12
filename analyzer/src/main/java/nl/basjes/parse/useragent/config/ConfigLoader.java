@@ -560,7 +560,7 @@ public class ConfigLoader {
                                     headers.put(USERAGENT_HEADER, getValueAsString(inputTuple, filename));
                                     break;
                                 case "name":
-                                    LOG.fatal("FOUND NAME {}", filename);
+                                    LOG.fatal("FOUND TEST NAME IN INPUT SECTION {}", filename);
                                     testName = getValueAsString(inputTuple, filename);
                                     break;
                                 default:

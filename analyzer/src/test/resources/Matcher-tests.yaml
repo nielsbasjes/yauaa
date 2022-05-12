@@ -305,8 +305,8 @@ config:
 
   - test:
       <<: *TEST_OPTIONS
+      name: 'Picking a word'
       input:
-        name: 'Picking a word'
         user_agent_string:          'One two three /1.0(One two three)'
       expected:
         FixedValue:                 'Foo bar'
@@ -349,8 +349,8 @@ config:
 
 
   - test:
+      name: 'Validating setting a value to NULL'
       input:
-        name: 'Validating setting a value to NULL'
         user_agent_string: 'Setting NULL Value'
       expected:
         TheNullValue           : 'Unknown'  # The default for non-builtin fields
@@ -368,8 +368,8 @@ config:
       - 'B                      : 20:"<<<null>>>"'
 
   - test:
+      name: 'Setting NULL value'
       input:
-        name: 'Setting NULL value'
         user_agent_string: 'Set NULL Value'
       expected:
         A : 'Three'
@@ -384,8 +384,8 @@ config:
       - 'B                      : 3:"Three"'
 
   - test:
+      name: 'Validating value wiping'
       input:
-        name: 'Validating value wiping'
         user_agent_string: 'Wiping Value'
       expected:
         A : 'Wiped'

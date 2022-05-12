@@ -163,8 +163,8 @@ config:
 
   - test:
       <<: *TEST_OPTIONS
+      name: 'Extracting a substring'
       input:
-        name: 'Extracting a substring'
         user_agent_string           : 'one two three four five/1.0 (comment)'
       expected:
         NameSplitSingle1            : 'one'
