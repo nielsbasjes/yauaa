@@ -32,7 +32,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 | Hive               | Yes          |
 | Nifi               | Yes          |
 | LogParser          | Not possible |
-| Snowflake          | Yes (untested) |
+| Snowflake          | Yes          |
 | Trino              | Yes          |
 | Web servlet        | Yes          |
 

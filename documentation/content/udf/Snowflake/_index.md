@@ -22,12 +22,15 @@ See for more information:
 
 2. Register the function in Snowflake with something like this:
 ```
-create or replace function parse_useragent(useragent VARCHAR)
+create or replace function parse_useragent(useragent ARRAY)
 returns object
 language java
 imports = ('@cs_stage/yauaa-snowflake-{{%YauaaVersion%}}-udf.jar')
 handler='nl.basjes.parse.useragent.snowflake.ParseUserAgent.parse';
 ```
+
+>**NOTE:** The argument of the UDF was in Yauaa 6 defined as a `VARCHAR`, it must now be defined as an `ARRAY`!
+
 
 3. And from there you can use it as a function in your SQL statements
 ```sql
@@ -36,15 +39,16 @@ select parse_useragent(
 ) as ua_obj, ua_obj:AgentClass::string as agent_class;
 ```
 
-![Using Yauaa in Snowflake](Snowflake.png)
-
+![Using Yauaa in Snowflake with just a UserAgent](Snowflake_OnlyUserAgent.png)
 
 # Using User-Agent Client Hints
-With version 7.0.0 you are now able to do this aswell
+With version 7.0.0 you are now able to analyze the Client Hints aswell.
+
+> **Note**: The arguments to the function are a single array of values!
 
 ```sql
 select parse_useragent(
-    'User-Agent',                   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+   ['User-Agent',                   'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
     'Sec-Ch-Ua',                    '\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"',
     'Sec-Ch-Ua-Arch',               '\"x86\"',
     'Sec-Ch-Ua-Bitness',            '\"64\"',
@@ -54,8 +58,30 @@ select parse_useragent(
     'Sec-Ch-Ua-Model',              '\"\"',
     'Sec-Ch-Ua-Platform',           '\"Linux\"',
     'Sec-Ch-Ua-Platform-Version',   '\"5.13.0\"',
-    'Sec-Ch-Ua-Wow64',              '?0'
+    'Sec-Ch-Ua-Wow64',              '?0']
 ) as ua_obj, ua_obj:OperatingSystemNameVersion::string as operating_system_name_version;
 ```
 
+![Using Yauaa in Snowflake with all Headers](Snowflake_FullHeaders.png)
+
 When only examining the `User-Agent` this returns `Linux ??`, with the added information in the Client Hints you should get `Linux 5.13.0` instead.
+
+Note that this next form is also supported (the first is the User-Agent, from there it is a list of "header name" and "value"):
+
+```sql
+select parse_useragent(
+    ['Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+    'Sec-Ch-Ua',                    '\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"',
+    'Sec-Ch-Ua-Arch',               '\"x86\"',
+    'Sec-Ch-Ua-Bitness',            '\"64\"',
+    'Sec-Ch-Ua-Full-Version',       '\"100.0.4896.127\"',
+    'Sec-Ch-Ua-Full-Version-List',  '\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"100.0.4896.127\", \"Google Chrome\";v=\"100.0.4896.127\"',
+    'Sec-Ch-Ua-Mobile',             '?0',
+    'Sec-Ch-Ua-Model',              '\"\"',
+    'Sec-Ch-Ua-Platform',           '\"Linux\"',
+    'Sec-Ch-Ua-Platform-Version',   '\"5.13.0\"',
+    'Sec-Ch-Ua-Wow64',              '?0']
+) as ua_obj, ua_obj:OperatingSystemNameVersion::string as operating_system_name_version;
+```
+
+![Using Yauaa in Snowflake with all Headers](Snowflake_UserAgent_with_ClientHintHeaders.png)
