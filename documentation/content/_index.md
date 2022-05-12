@@ -15,6 +15,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ### Version 7.0.0 (Unreleased)
 - Dropping support for
   - Apache Pig. The last release was in 2017: about 5 years ago.
+- The Major Version for "Mac OS X" / "OS X" / "macOS" 10.x.x is now 2 parts (like '10.6') instead of just '10'.
 - Support for using ClientHints (work in progress)
   - Current status:
 

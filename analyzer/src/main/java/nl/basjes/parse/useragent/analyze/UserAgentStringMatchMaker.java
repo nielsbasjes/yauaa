@@ -33,6 +33,7 @@ import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.CalculateNetworkType;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
+import nl.basjes.parse.useragent.calculate.MacOSXMajorVersionCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
@@ -711,9 +712,13 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         registerFieldCalculator(new ConcatNONDuplicatedCalculator(LAYOUT_ENGINE_NAME_VERSION,       LAYOUT_ENGINE_NAME,     LAYOUT_ENGINE_VERSION));
         registerFieldCalculator(new MajorVersionCalculator(LAYOUT_ENGINE_VERSION_MAJOR,             LAYOUT_ENGINE_VERSION));
 
+        // We use this way because of "Windows NT" ,"10.0" --> "Windows 10.0" --> "Windows 10"
         registerFieldCalculator(new MajorVersionCalculator(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION));
+        registerFieldCalculator(new MacOSXMajorVersionCalculator(OPERATING_SYSTEM_NAME_VERSION_MAJOR,     OPERATING_SYSTEM_NAME_VERSION));
+
         registerFieldCalculator(new ConcatNONDuplicatedCalculator(OPERATING_SYSTEM_NAME_VERSION,    OPERATING_SYSTEM_NAME,  OPERATING_SYSTEM_VERSION));
         registerFieldCalculator(new MajorVersionCalculator(OPERATING_SYSTEM_VERSION_MAJOR,          OPERATING_SYSTEM_VERSION));
+        registerFieldCalculator(new MacOSXMajorVersionCalculator(OPERATING_SYSTEM_VERSION_MAJOR,     OPERATING_SYSTEM_VERSION));
 
         registerFieldCalculator(new CalculateAgentClass());
         registerFieldCalculator(new CalculateAgentName());
