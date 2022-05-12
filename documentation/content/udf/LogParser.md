@@ -20,9 +20,3 @@ If you use a maven based project simply add this dependency
 
 ## Client hints
 Because the logparser can only dissect a _single_ field into multiple pieces it is impossible to extend this to support User-Agent Client Hints.
-
-## Example usage
-
-
-
-
