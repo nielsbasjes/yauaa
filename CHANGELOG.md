@@ -11,6 +11,11 @@ v7.0.0-SNAPSHOT
   - Microsoft Edge Webview
   - Sailfish OS & Browser
   - ReactorNetty, Node.JS, Alamofire
+  - Improve Apple detection/reporting
+    - "Mac OS X" / "OS X" / "macOS"
+        - The Major Version for the 10.x.x versions is now 2 parts (like '10.6') instead of just '10'.
+        - Although the marketing name has changed several times: For all versions `OperatingSystemName = 'Mac OS'` is used to ensure stable reporting.
+    - Darwin will be reported as the most likely iOS version instead.
 - Build
   - Use new feature in maven-shade-plugin to use the correct pom.xml in the jar.
   - Restructure integration tests and examples to run outside the maven reactor.
@@ -22,7 +27,9 @@ v7.0.0-SNAPSHOT
   - Apache Nifi             1.16.1
   - Elastic Search          7.17.3 & 8.1.3
   - Elastic Logstash        8.1.3
-  - Trino                   379
+  - Trino                   380
+- Dropping support for
+    - Apache Pig. The last release was in 2017: about 5 years ago.
 
 v6.12
 ===

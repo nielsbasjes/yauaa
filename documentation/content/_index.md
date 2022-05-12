@@ -15,10 +15,12 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ### Version 7.0.0 (Unreleased)
 - Dropping support for
   - Apache Pig. The last release was in 2017: about 5 years ago.
-- "Mac OS X" / "OS X" / "macOS"
-  - The Major Version for the 10.x.x versions is now 2 parts (like '10.6') instead of just '10'.
-  - Although the marketing name has changed several times: For all versions `OperatingSystemName = 'Mac OS'` is used to ensure stable reporting.
-- Support for using ClientHints
+- Support for using ClientHints in addition to the User-Agent
+- Improve Apple detection/reporting
+  - "Mac OS X" / "OS X" / "macOS"
+    - The Major Version for the 10.x.x versions is now 2 parts (like '10.6') instead of just '10'.
+    - Although the marketing name has changed several times: For all versions `OperatingSystemName = 'Mac OS'` is used to ensure stable reporting.
+  - Darwin will be reported as the most likely iOS version instead.
 
 ### Main points from previous releases
 - Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.
