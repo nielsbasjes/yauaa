@@ -42,7 +42,7 @@ public class MacOSXMajorVersionCalculator extends FieldCalculator {
 
     @Override
     public void calculate(MutableUserAgent userAgent) {
-        if (!userAgent.get(OPERATING_SYSTEM_NAME).getValue().equals("Mac OS X")) {
+        if (!userAgent.get(OPERATING_SYSTEM_NAME).getValue().equals("Mac OS")) {
             return;
         }
         AgentField agentVersionMajor = userAgent.get(majorVersionName);

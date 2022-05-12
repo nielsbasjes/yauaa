@@ -15,27 +15,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ### Version 7.0.0 (Unreleased)
 - Dropping support for
   - Apache Pig. The last release was in 2017: about 5 years ago.
-- The Major Version for "Mac OS X" / "OS X" / "macOS" 10.x.x is now 2 parts (like '10.6') instead of just '10'.
-- Support for using ClientHints (work in progress)
-  - Current status:
-
-| Area               | Support      |
-|:-------------------|:-------------|
-| Java               | Yes          |
-| Beam               | Yes          |
-| Beam SQL           | Yes          |
-| Drill              | Yes          |
-| Elastic Search 7   | Yes          |
-| Elastic Search 8   | Yes          |
-| Elastic Logstash 8 | Yes          |
-| Flink              | Yes          |
-| Flink SQL          | Yes          |
-| Hive               | Yes          |
-| Nifi               | Yes          |
-| LogParser          | Not possible |
-| Snowflake          | Yes          |
-| Trino              | Yes          |
-| Web servlet        | Yes          |
+- "Mac OS X" / "OS X" / "macOS"
+  - The Major Version for the 10.x.x versions is now 2 parts (like '10.6') instead of just '10'.
+  - Although the marketing name has changed several times: For all versions `OperatingSystemName = 'Mac OS'` is used to ensure stable reporting.
+- Support for using ClientHints
 
 ### Main points from previous releases
 - Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.

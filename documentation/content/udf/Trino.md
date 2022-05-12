@@ -49,7 +49,7 @@ Outputs:
 ```
  DeviceClass | AgentNameVersionMajor | OperatingSystemNameVersion
 -------------+-----------------------+----------------------------
- Desktop     | Chrome 100            | Mac OS X ??
+ Desktop     | Chrome 100            | Mac OS ??
 (1 row)
 ```
 

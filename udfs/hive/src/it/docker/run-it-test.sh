@@ -92,8 +92,8 @@ function ensure() {
   fi
 }
 
-ensure 'TMP'  'Desktop	Mac OS X ??	Chrome 100' "TMP  Function: Specific fields query"
-ensure 'PERM' 'Desktop	Mac OS X ??	Chrome 100' "PERM Function: Specific fields query"
+ensure 'TMP'  'Desktop	Mac OS ??	Chrome 100' "TMP  Function: Specific fields query"
+ensure 'PERM' 'Desktop	Mac OS ??	Chrome 100' "PERM Function: Specific fields query"
 ensure 'TMP'  '"devicename":"Google Nexus 6"' "TMP  Function: Map with all fields query"
 ensure 'PERM' '"devicename":"Google Nexus 6"' "PERM Function: Map with all fields query"
 ensure 'CLIENTHINTS' '"operatingsystemnameversion":"Mac OS 12.3.1"' "CLIENTHINTS Function: Map with all fields query"

@@ -157,7 +157,7 @@ config:
     - 'DeviceBrand                         :       20 :"Apple"'
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemName                 :       20 :"Mac OS"'
     - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.product.name="OS X"^.version]'
 
 - matcher:
@@ -168,7 +168,7 @@ config:
     - 'DeviceBrand                         :       20 :"Apple"'
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemName                 :       20 :"Mac OS"'
     - 'OperatingSystemVersion              :       20 :CleanVersion[agent.(1-5)product.(1)comments.entry.product.name[-3]="Mac OS X"^.version]'
 
 - matcher:
@@ -181,7 +181,7 @@ config:
     - 'DeviceName                          :       19 :"Apple Macintosh"'
     - 'DeviceCpuBits                       :       19 : "32"'
     - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
+    - 'OperatingSystemName                 :       19 :"Mac OS"'
     - 'OperatingSystemVersion              :       19 :"10.?"'
 
 - matcher:
@@ -196,7 +196,7 @@ config:
     - 'DeviceName                          :       19 :"Apple Macintosh"'
     - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
     - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
+    - 'OperatingSystemName                 :       19 :"Mac OS"'
     - 'OperatingSystemVersion              :       19 :"10.?"'
 
 - lookup:
@@ -232,7 +232,7 @@ config:
     - 'DeviceName                          :       19 :"Apple Macintosh"'
     - 'DeviceCpuBits                       :       19 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSVersion;"64"]'
     - 'OperatingSystemClass                :       19 :"Desktop"'
-    - 'OperatingSystemName                 :       19 :"Mac OS X"'
+    - 'OperatingSystemName                 :       19 :"Mac OS"'
     - 'OperatingSystemVersion              :       18 :"10.?"'
 
 - matcher:
@@ -247,7 +247,7 @@ config:
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
     - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemName                 :       20 :"Mac OS"'
     - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
 
 - matcher:
@@ -262,7 +262,7 @@ config:
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
     - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemName                 :       20 :"Mac OS"'
     - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
 
 - matcher:
@@ -277,7 +277,7 @@ config:
     - 'DeviceName                          :       20 :"Apple Macintosh"'
     - 'DeviceCpuBits                       :      110 : LookUpPrefix[MacOSXVersionCPUBits;@MacOSXVersion;"64"]'
     - 'OperatingSystemClass                :       20 :"Desktop"'
-    - 'OperatingSystemName                 :       20 :"Mac OS X"'
+    - 'OperatingSystemName                 :       20 :"Mac OS"'
     - 'OperatingSystemVersion              :       20 :CleanVersion[@MacOSXVersion]'
 
 - matcher:
@@ -1025,11 +1025,11 @@ config:
       DeviceCpu                            : 'Intel'
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemName                  : 'Mac OS'
       OperatingSystemVersion               : '10.10.2'
       OperatingSystemVersionMajor          : '10.10'
-      OperatingSystemNameVersion           : 'Mac OS X 10.10.2'
-      OperatingSystemNameVersionMajor      : 'Mac OS X 10.10'
+      OperatingSystemNameVersion           : 'Mac OS 10.10.2'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.10'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '600.3.18'
@@ -1137,11 +1137,11 @@ config:
       DeviceBrand                          : 'Apple'
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS X'
+      OperatingSystemName                  : 'Mac OS'
       OperatingSystemVersion               : '10.9.3'
       OperatingSystemVersionMajor          : '10.9'
-      OperatingSystemNameVersion           : 'Mac OS X 10.9.3'
-      OperatingSystemNameVersionMajor      : 'Mac OS X 10.9'
+      OperatingSystemNameVersion           : 'Mac OS 10.9.3'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.9'
       LayoutEngineClass                    : 'Unknown'
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
