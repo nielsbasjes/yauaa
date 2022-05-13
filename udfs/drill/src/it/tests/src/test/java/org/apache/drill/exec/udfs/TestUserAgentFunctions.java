@@ -22,7 +22,6 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.drill.categories.SqlFunctionTest;
 import org.apache.drill.categories.UnlikelyTest;
 import org.apache.drill.common.expression.ExpressionStringBuilder;
-import org.apache.drill.exec.util.JsonStringHashMap;
 import org.apache.drill.exec.util.Text;
 import org.apache.drill.test.ClusterFixture;
 import org.apache.drill.test.ClusterFixtureBuilder;
@@ -32,11 +31,12 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import static org.apache.drill.test.TestBuilder.parsePath;
+import static org.junit.Assert.assertEquals;
 
 @Category({UnlikelyTest.class, SqlFunctionTest.class})
 public class TestUserAgentFunctions extends ClusterTest {
@@ -82,56 +82,35 @@ public class TestUserAgentFunctions extends ClusterTest {
         testBuilder()
             .sqlQuery(query)
             .unOrdered()
-            .baselineColumns(
-                "DeviceClass",
-                "DeviceName",
-                "DeviceBrand",
-                "DeviceCpuBits",
-                "OperatingSystemClass",
-                "OperatingSystemName",
-                "OperatingSystemVersion",
-                "OperatingSystemVersionMajor",
-                "OperatingSystemNameVersion",
-                "OperatingSystemNameVersionMajor",
-                "LayoutEngineClass",
-                "LayoutEngineName",
-                "LayoutEngineVersion",
-                "LayoutEngineVersionMajor",
-                "LayoutEngineNameVersion",
-                "LayoutEngineBuild",
-                "AgentClass",
-                "AgentName",
-                "AgentVersion",
-                "AgentVersionMajor",
-                "AgentNameVersionMajor",
-                "AgentLanguage",
-                "AgentLanguageCode",
-                "AgentSecurity")
-            .baselineValues(
-                "Desktop",
-                "Desktop",
-                "Unknown",
-                "32",
-                "Desktop",
-                "Windows NT",
-                "XP",
-                "XP",
-                "Windows XP",
-                "Windows XP",
-                "Browser",
-                "Gecko",
-                "1.8.1.11",
-                "1",
-                "Gecko 1.8.1.11",
-                "20071127",
-                "Browser",
-                "Firefox",
-                "2.0.0.11",
-                "2",
-                "Firefox 2",
-                "English (United States)",
-                "en-us",
-                "Strong security"
+            .baselineRecords(
+                Collections.singletonList(// Singleton list because we expect 1 record
+                    expectations(
+                        "DeviceClass", "Desktop",
+                        "DeviceName", "Desktop",
+                        "DeviceBrand", "Unknown",
+                        "DeviceCpuBits", "32",
+                        "OperatingSystemClass", "Desktop",
+                        "OperatingSystemName", "Windows NT",
+                        "OperatingSystemVersion", "XP",
+                        "OperatingSystemVersionMajor", "XP",
+                        "OperatingSystemNameVersion", "Windows XP",
+                        "OperatingSystemNameVersionMajor", "Windows XP",
+                        "LayoutEngineClass", "Browser",
+                        "LayoutEngineName", "Gecko",
+                        "LayoutEngineVersion", "1.8.1.11",
+                        "LayoutEngineVersionMajor", "1",
+                        "LayoutEngineNameVersion", "Gecko 1.8.1.11",
+                        "LayoutEngineBuild", "20071127",
+                        "AgentClass", "Browser",
+                        "AgentName", "Firefox",
+                        "AgentVersion", "2.0.0.11",
+                        "AgentVersionMajor", "2",
+                        "AgentNameVersionMajor", "Firefox 2",
+                        "AgentLanguage", "English (United States)",
+                        "AgentLanguageCode", "en-us",
+                        "AgentSecurity", "Strong security"
+                    )
+                )
             )
             .go();
     }
@@ -179,7 +158,7 @@ public class TestUserAgentFunctions extends ClusterTest {
     public void testNullUserAgent() throws Exception {
         // If a null value is provided then the UserAgentAnalyzer will classify this as a Hacker because all requests normally have a User-Agent.
         UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder().showMinimalVersion().dropTests().immediateInitialization().build();
-        Map<String, String> expected = analyzer.parse((String)null).toMap(analyzer.getAllPossibleFieldNamesSorted());
+        Map<String, String> expected = analyzer.parse((String) null).toMap(analyzer.getAllPossibleFieldNamesSorted());
 
         Map<String, Text> expectedRecord = new TreeMap<>();
         for (Map.Entry<String, String> entry : expected.entrySet()) {
@@ -263,7 +242,6 @@ public class TestUserAgentFunctions extends ClusterTest {
             .go();
     }
 
-
     @Test
     public void testClientHints() throws Exception {
         String query =
@@ -312,55 +290,34 @@ public class TestUserAgentFunctions extends ClusterTest {
         testBuilder()
             .sqlQuery(query)
             .unOrdered()
-            .baselineColumns(
-                "DeviceClass",
-                "DeviceName",
-                "DeviceBrand",
-                "DeviceCpu",
-                "DeviceCpuBits",
-                "OperatingSystemClass",
-                "OperatingSystemName",
-                "OperatingSystemVersion",
-                "OperatingSystemVersionMajor",
-                "OperatingSystemNameVersion",
-                "OperatingSystemNameVersionMajor",
-                "LayoutEngineClass",
-                "LayoutEngineName",
-                "LayoutEngineVersion",
-                "LayoutEngineVersionMajor",
-                "LayoutEngineNameVersion",
-                "LayoutEngineNameVersionMajor",
-                "AgentClass",
-                "AgentName",
-                "AgentVersion",
-                "AgentVersionMajor",
-                "AgentNameVersion",
-                "AgentNameVersionMajor"
-            )
-            .baselineValues(
-                "Desktop",
-                "Linux Desktop",
-                "Unknown",
-                "Intel x86_64",
-                "64",
-                "Desktop",
-                "Linux",
-                "5.13.0",
-                "5",
-                "Linux 5.13.0",
-                "Linux 5",
-                "Browser",
-                "Blink",
-                "100.0",
-                "100",
-                "Blink 100.0",
-                "Blink 100",
-                "Browser",
-                "Chrome",
-                "100.0.4896.127",
-                "100",
-                "Chrome 100.0.4896.127",
-                "Chrome 100"
+            .baselineRecords(
+                Collections.singletonList(// Singleton list because we expect 1 record
+                    expectations(
+                        "DeviceClass", "Desktop",
+                        "DeviceName", "Linux Desktop",
+                        "DeviceBrand", "Unknown",
+                        "DeviceCpu", "Intel x86_64",
+                        "DeviceCpuBits", "64",
+                        "OperatingSystemClass", "Desktop",
+                        "OperatingSystemName", "Linux",
+                        "OperatingSystemVersion", "5.13.0",
+                        "OperatingSystemVersionMajor", "5",
+                        "OperatingSystemNameVersion", "Linux 5.13.0",
+                        "OperatingSystemNameVersionMajor", "Linux 5",
+                        "LayoutEngineClass", "Browser",
+                        "LayoutEngineName", "Blink",
+                        "LayoutEngineVersion", "100.0",
+                        "LayoutEngineVersionMajor", "100",
+                        "LayoutEngineNameVersion", "Blink 100.0",
+                        "LayoutEngineNameVersionMajor", "Blink 100",
+                        "AgentClass", "Browser",
+                        "AgentName", "Chrome",
+                        "AgentVersion", "100.0.4896.127",
+                        "AgentVersionMajor", "100",
+                        "AgentNameVersion", "Chrome 100.0.4896.127",
+                        "AgentNameVersionMajor", "Chrome 100"
+                    )
+                )
             )
             .go();
     }
@@ -416,57 +373,54 @@ public class TestUserAgentFunctions extends ClusterTest {
         testBuilder()
             .sqlQuery(query)
             .unOrdered()
-            .baselineColumns(
-                "DeviceClass",
-                "DeviceName",
-                "DeviceBrand",
-                "DeviceCpu",
-                "DeviceCpuBits",
-                "OperatingSystemClass",
-                "OperatingSystemName",
-                "OperatingSystemVersion",
-                "OperatingSystemVersionMajor",
-                "OperatingSystemNameVersion",
-                "OperatingSystemNameVersionMajor",
-                "LayoutEngineClass",
-                "LayoutEngineName",
-                "LayoutEngineVersion",
-                "LayoutEngineVersionMajor",
-                "LayoutEngineNameVersion",
-                "LayoutEngineNameVersionMajor",
-                "AgentClass",
-                "AgentName",
-                "AgentVersion",
-                "AgentVersionMajor",
-                "AgentNameVersion",
-                "AgentNameVersionMajor"
-            )
-            .baselineValues(
-                "Desktop",
-                "Linux Desktop",
-                "Unknown",
-                "Intel x86_64",
-                "64",
-                "Desktop",
-                "Linux",
-                "??",
-                "??",
-                "Linux ??",
-                "Linux ??",
-                "Browser",
-                "Blink",
-                "100.0",
-                "100",
-                "Blink 100.0",
-                "Blink 100",
-                "Browser",
-                "Chrome",
-                "100.0.4896.127",
-                "100",
-                "Chrome 100.0.4896.127",
-                "Chrome 100"
+            .baselineRecords(
+                Collections.singletonList(// Singleton list because we expect 1 record
+                    expectations(
+                        "DeviceClass", "Desktop",
+                        "DeviceName", "Linux Desktop",
+                        "DeviceBrand", "Unknown",
+                        "DeviceCpu", "Intel x86_64",
+                        "DeviceCpuBits", "64",
+                        "OperatingSystemClass", "Desktop",
+                        "OperatingSystemName", "Linux",
+                        "OperatingSystemVersion", "??",
+                        "OperatingSystemVersionMajor", "??",
+                        "OperatingSystemNameVersion", "Linux ??",
+                        "OperatingSystemNameVersionMajor", "Linux ??",
+                        "LayoutEngineClass", "Browser",
+                        "LayoutEngineName", "Blink",
+                        "LayoutEngineVersion", "100.0",
+                        "LayoutEngineVersionMajor", "100",
+                        "LayoutEngineNameVersion", "Blink 100.0",
+                        "LayoutEngineNameVersionMajor", "Blink 100",
+                        "AgentClass", "Browser",
+                        "AgentName", "Chrome",
+                        "AgentVersion", "100.0.4896.127",
+                        "AgentVersionMajor", "100",
+                        "AgentNameVersion", "Chrome 100.0.4896.127",
+                        "AgentNameVersionMajor", "Chrome 100"
+                    )
+                )
             )
             .go();
+    }
+
+    /**
+     * Converts a more readable list of keys and values into what the ClusterTest supports.
+     *
+     * @param strings List of  ["key", "value"]
+     * @return A Map of the same keys and values that is in the right format.
+     */
+    private Map<String, Object> expectations(String... strings) {
+        Map<String, Object> expectations = new LinkedHashMap<>();
+        int index = 0;
+        assertEquals("The number of arguments for 'expectations' must be even", 0, strings.length % 2);
+
+        while (index < strings.length) {
+            expectations.put(ExpressionStringBuilder.toString(parsePath(strings[index])), strings[index + 1]);
+            index += 2;
+        }
+        return expectations;
     }
 
 }

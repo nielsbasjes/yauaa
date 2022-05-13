@@ -28,19 +28,9 @@ or the variant which requires the presense of a `User-Agent` header.
     parse_user_agent ( [<header name>,<value>]+ )
 
 ## Installation
-By default Apache Drill has a version of this udf built in (part of the drill-udfs-*.jar)
+By default, Apache Drill has a version of this udf built in (part of the drill-udfs-*.jar)
 
 In order to update the version of Yauaa in your drill installation you'll need to replace the yauaa related jars with the latest versions. This includes not only updating yauaa-{{%YauaaVersion%}}.jar and yauaa-logparser-{{%YauaaVersion%}}.jar but also the rellevant dependencies.
-
-Commands that may be useful in making this happen:
-
--- FIXME: sss
-
-
-    mvn -Dartifact=nl.basjes.parse.useragent:yauaa:5.0 dependency:copy -DoutputDirectory="./deps/"
-
-    mvn -DgroupId=nl.basjes.parse.useragent -DartifactId=yauaa -Dversion={{%YauaaVersion%}} dependency:get -DoutputDirectory="./deps/"
-    mvn -DgroupId=nl.basjes.parse.useragent -DartifactId=yauaa-logparser -Dversion={{%YauaaVersion%}} dependency:get -DoutputDirectory="./deps/"
 
 If you want to replace it completely you'll also need to remove the drill-udfs-*.jar and copy the [yauaa-drill-{%YauaaVersion%}}.jar](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-drill/{{%YauaaVersion%}}/jar) and all relevant dependencies to `<drill-path>/jars/3rdparty`.
 
