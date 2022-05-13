@@ -106,7 +106,7 @@ Behind this Apache Httpd webserver is a website that returns the header
 
     Accept-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
 
-With all of this these are two of the lines that are found in the access log of this Apache Httpd webserver:
+With all of this in place: these are two of the lines that are found in the access log of this Apache Httpd webserver:
 
     45.138.228.54 - - [02/May/2022:12:25:10 +0200] "GET / HTTP/1.1" 200 16141 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36" "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"" "\"x86\"" "\"64\"" "\"100.0.4896.127\"" "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"100.0.4896.127\", \"Google Chrome\";v=\"100.0.4896.127\"" "?0" "\"\"" "\"Linux\"" "\"5.13.0\"" "?0" try.yauaa.basjes.nl
     45.138.228.54 - - [02/May/2022:12:25:34 +0200] "GET / HTTP/1.1" 200 15376 "-" "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Mobile Safari/537.36" "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"" "\"\"" "-" "\"101.0.4951.41\"" "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"101.0.4951.41\", \"Google Chrome\";v=\"101.0.4951.41\"" "?1" "\"Nokia 7.2\"" "\"Android\"" "\"11.0.0\"" "?0" try.yauaa.basjes.nl
