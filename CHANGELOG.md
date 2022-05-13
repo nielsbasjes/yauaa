@@ -1,7 +1,7 @@
 
 This is intended as an overview of the major changes
 
-v7.0.0-SNAPSHOT
+v7.0.0
 ===
 - Client Hints!
   - Support for analyzing the User-Agent in combination with the User-Agent Client Hints.
@@ -29,7 +29,7 @@ v7.0.0-SNAPSHOT
   - Elastic Logstash        8.1.3
   - Trino                   380
 - Dropping support for
-    - Apache Pig. The last release was in 2017: about 5 years ago.
+  - Apache Pig. The last release was in 2017: about 5 years ago.
 
 v6.12
 ===
