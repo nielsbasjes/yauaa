@@ -66,17 +66,18 @@
       <version>1.9</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-      <version>${commons-collections4.version}</version>
-      <scope>test</scope>
-    </dependency>
-
+    <!-- Preferred caching library, needs Java 11+ -->
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
       <version>3.1.0</version>
+    </dependency>
+
+    <!-- Used for a Java 8 compliant alternative to Caffeine. -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>${commons-collections4.version}</version>
     </dependency>
 
     <dependency>

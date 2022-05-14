@@ -55,6 +55,8 @@ public class UserAgentAnalyzerProvider {
         private static final UserAgentAnalyzer INSTANCE = UserAgentAnalyzer.newBuilder()
             .dropTests()
             .hideMatcherLoadStats()
+            // Caffeine is a Java 11+ library.
+            .useJava8CompatibleCaching()
             .immediateInitialization()
             .build();
     }

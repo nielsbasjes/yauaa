@@ -63,7 +63,8 @@ public class UserAgentDissector extends Dissector {
                 .newBuilder()
                 .delayInitialization()
                 .dropTests()
-                .hideMatcherLoadStats();
+                .hideMatcherLoadStats()
+                .useJava8CompatibleCaching();
         }
         return userAgentAnalyzerBuilder;
     }
@@ -110,7 +111,7 @@ public class UserAgentDissector extends Dissector {
         List<String> result = new ArrayList<>();
 
         // First the standard fields in the standard order, then the non-standard fields alphabetically
-        final UserAgentAnalyzerBuilder builder = UserAgentAnalyzer.newBuilder();
+        final UserAgentAnalyzerBuilder builder = UserAgentAnalyzer.newBuilder().dropTests().withoutCache();
         extraResources.forEach(builder::addResources);
 
         allPossibleFieldNames = builder.build().getAllPossibleFieldNamesSorted();

@@ -110,12 +110,7 @@ public class YauaaProcessor extends AbstractProcessor {
                 //         at java.base/java.lang.invoke.MethodHandles.privateLookupIn(MethodHandles.java:233)
                 //         at com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue.<clinit>(MpscGrowableArrayQueue.java:662)
                 // ...
-                .withCacheInstantiator(
-                    (CacheInstantiator) size ->
-                        Collections.synchronizedMap(new LRUMap<>(size)))
-                .withClientHintCacheInstantiator(
-                    (ClientHintsCacheInstantiator<?>) size ->
-                        Collections.synchronizedMap(new LRUMap<>(size)));
+                .useJava8CompatibleCaching();
 
             if (cacheSize >= 0) {
                 builder.withCache(cacheSize);

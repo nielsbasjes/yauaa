@@ -24,9 +24,11 @@ import com.esotericsoftware.kryo.io.Output;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import org.apache.commons.collections4.map.LRUMap;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
@@ -309,6 +311,23 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
             failIfAlreadyBuilt();
             uaa.setClientHintsCacheInstantiator(cacheInstantiator);
             return (B)this;
+        }
+
+        /**
+         * Disable ClientHint caching.
+         * @return the current Builder instance.
+         */
+        public B useJava8CompatibleCaching() {
+            failIfAlreadyBuilt();
+            // Caffeine is a Java 11+ library.
+            // This is one is Java 8 compatible.
+            return this
+                .withCacheInstantiator(
+                    (AbstractUserAgentAnalyzer.CacheInstantiator) size ->
+                        Collections.synchronizedMap(new LRUMap<>(size)))
+                .withClientHintCacheInstantiator(
+                    (AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator<?>) size ->
+                        Collections.synchronizedMap(new LRUMap<>(size)));
         }
 
         // ------------------------------------------

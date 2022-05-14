@@ -2,6 +2,8 @@
 This is intended as an overview of the major changes
 v7.0.1-SNAPSHOT
 ===
+- Analyzer
+  - Simplify using Java 8 compliant caching
 - New/improved detections
   - Chrome OS/Chromebooks:
     - Handle new "frozen Chrome OS" tag

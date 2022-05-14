@@ -17,11 +17,8 @@
 
 package nl.basjes.parse.useragent.hive;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.apache.commons.collections4.map.LRUMap;
 import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDFArgumentException;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
@@ -33,7 +30,6 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.StringObjectInspe
 import org.apache.hadoop.io.Text;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -86,13 +82,7 @@ public class ParseUserAgent extends GenericUDF {
                 .hideMatcherLoadStats()
                 .withCache(10000)
                 // Caffeine is a Java 11+ library.
-                // This is one is Java 8 compatible.
-                .withCacheInstantiator(
-                    (CacheInstantiator) size ->
-                        Collections.synchronizedMap(new LRUMap<>(size)))
-                .withClientHintCacheInstantiator(
-                    (ClientHintsCacheInstantiator<?>) size ->
-                        Collections.synchronizedMap(new LRUMap<>(size)))
+                .useJava8CompatibleCaching()
                 .immediateInitialization()
                 .build());
 
