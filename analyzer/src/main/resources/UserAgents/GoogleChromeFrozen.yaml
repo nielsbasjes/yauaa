@@ -816,12 +816,34 @@ config:
 - lookup:
     name: 'ChromeReducedUnifiedPlatform'
     map:
+      # https://chromium.googlesource.com/chromium/src/+/refs/heads/main/content/public/common/user_agent.h#18
+      #   namespace frozen_user_agent_strings {
+      #      const char kDesktop[] =
+      #         "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, "
+      #         "like Gecko) Chrome/%s.0.0.0 Safari/537.36";
+      #      const char kAndroid[] =
+      #         "Mozilla/5.0 (%s) "
+      #         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 %s"
+      #         "Safari/537.36";
+      #      const char kUnifiedPlatformAndroid[] = "Linux; Android 10; K";
+      #      const char kUnifiedPlatformCrOS[] = "X11; CrOS x86_64 14541.0.0";
+      #      const char kUnifiedPlatformLinux[] = "X11; Linux x86_64";
+      #      const char kUnifiedPlatformMacOS[] = "Macintosh; Intel Mac OS X 10_15_7";
+      #      const char kUnifiedPlatformWindows[] = "Windows NT 10.0; Win64; x64";
+      #   }  // namespace frozen_user_agent_strings
+
       # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'           : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT'
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'     : 'Desktop|Macintosh|Apple|Desktop|Mac OS'
-      'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Desktop|<<<null>>>|Linux'
-      'Mozilla/5.0 (X11; CrOS x86_64)'                      : 'Desktop|Chromebook|<<<null>>>|Chrome OS'
+      'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Linux Desktop|<<<null>>>|Desktop|Linux'
       'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|<<<null>>>|<<<null>>>|Mobile|Android'
+
+# In this list ChromeOS is special as it carries the version of the Chrome tag
+- lookup:
+    name: 'ChromeReducedUnifiedPlatformChromeOS'
+    map:
+      'Mozilla/5.0 (X11; CrOS x86_64)'                      : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS'
+      'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0)'            : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS'
 
 - set:
     name: 'ChromeReducedDeviceCompat'
@@ -851,8 +873,35 @@ config:
     - 'OperatingSystemVersionMajor         :   400001 :"<<<null>>>"'
     - 'OperatingSystemNameVersion          :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
     - 'OperatingSystemNameVersionMajor     :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
+    - 'OperatingSystemVersionBuild         :   400001 :"<<<null>>>"'
 
-# ============================================
+# Chrome OS specific:
+- matcher:
+    variable:
+    - 'UnifiedPlatform                     :LookUp[ChromeReducedUnifiedPlatformChromeOS;agent.(1)product]'
+    - 'ChromeVersion                       :agent.(3)product.version'
+    - 'ChromeMajorVersion                  :@ChromeVersion[1]'
+    require:
+    - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
+    - 'agent.(3)product.name="Chrome"'
+    - '@ChromeVersion[2-]="0.0.0"'
+    - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
+    - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    extract:
+    - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
+    - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
+    - 'DeviceBrand                         :   400001 :@UnifiedPlatform[[3]]'
+    - 'OperatingSystemClass                :   400001 :@UnifiedPlatform[[4]]'
+    - 'OperatingSystemName                 :   400001 :@UnifiedPlatform[[5]]'
+    - 'OperatingSystemVersion              :   400001 :@ChromeVersion[1]' # Only the major version is valid
+    - 'OperatingSystemVersionBuild         :   400001 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400001 :"<<<null>>>"'
+#      - 'OperatingSystemNameVersion          :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
+#      - 'OperatingSystemNameVersionMajor     :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
+
+
+  # ============================================
 # Desktop (user on Windows 8.1, for example)
 
 # Phase 3 UA
@@ -1612,3 +1661,123 @@ config:
       AgentVersionMajor                    : '100'
       AgentNameVersion                     : 'Chrome 100.0'
       AgentNameVersionMajor                : 'Chrome 100'
+
+
+# Normal Chrome OS
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 14150.57.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.97 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '94.0.4606.97'
+      OperatingSystemVersionMajor          : '94'
+      OperatingSystemNameVersion           : 'Chrome OS 94.0.4606.97'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 94'
+      OperatingSystemVersionBuild          : '14150.57.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '94.0'
+      LayoutEngineVersionMajor             : '94'
+      LayoutEngineNameVersion              : 'Blink 94.0'
+      LayoutEngineNameVersionMajor         : 'Blink 94'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '94.0.4606.97'
+      AgentVersionMajor                    : '94'
+      AgentNameVersion                     : 'Chrome 94.0.4606.97'
+      AgentNameVersionMajor                : 'Chrome 94'
+
+# Chrome 101 on Reduced ChromeOS without client hints (Manually constructed from the Chromium Source code) OLD version
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '101'
+      OperatingSystemVersionMajor          : '101'
+      OperatingSystemNameVersion           : 'Chrome OS 101'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 101'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '101'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Chrome 101'
+      AgentNameVersionMajor                : 'Chrome 101'
+
+# Chrome 101 on Reduced ChromeOS without client hints (Manually constructed from the Chromium Source code) NEW version
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '101'
+      OperatingSystemVersionMajor          : '101'
+      OperatingSystemNameVersion           : 'Chrome OS 101'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 101'
+      # OperatingSystemVersionBuild          : '14541.0.0' # This build tag is nonsense as it is hardcoded.
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '101'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Chrome 101'
+      AgentNameVersionMajor                : 'Chrome 101'
+
+# Chrome 101 on Normal ChromeOS without client hints (Manually constructed from the Chromium Source code) NEW version
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.123.456 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '101.0.123.456'
+      OperatingSystemVersionMajor          : '101'
+      OperatingSystemNameVersion           : 'Chrome OS 101.0.123.456'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 101'
+      OperatingSystemVersionBuild          : '14541.0.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101.0'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101.0'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '101.0.123.456'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Chrome 101.0.123.456'
+      AgentNameVersionMajor                : 'Chrome 101'

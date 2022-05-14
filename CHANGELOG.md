@@ -1,5 +1,12 @@
 
 This is intended as an overview of the major changes
+v7.0.1-SNAPSHOT
+===
+- New/improved detections
+  - Chrome OS/Chromebooks:
+    - Handle new "frozen Chrome OS" tag
+    - The DeviceBrand of a Chromebook is "Unknown" instead of Google
+    - Fixed Version and OS Build tags
 
 v7.0.0
 ===

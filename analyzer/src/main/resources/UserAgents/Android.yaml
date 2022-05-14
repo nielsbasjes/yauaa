@@ -184,21 +184,41 @@ config:
     - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
     extract:
     - 'DeviceClass                         :     2015 :"Desktop"'
-    - 'DeviceBrand                         :     2015 :"Google"'
+    - 'DeviceBrand                         :     2015 :"<<<null>>>"'
     - 'DeviceName                          :     2015 :"Chromebook"'
     - 'DeviceCpu                           :     2015 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
     - 'OperatingSystemClass                :     2015 :"Desktop"'
     - 'OperatingSystemName                 :     2015 :"Chrome OS"'
-    - 'OperatingSystemVersion              :     2015 :@CrOSProduct.(2)version'
+    - 'OperatingSystemVersion              :     2015 :agent.product.name="Chrome"^.version'
+    - 'OperatingSystemVersionBuild         :     2015 :@CrOSProduct.(2)version'
 
 - matcher:
+    variable:
+      - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
     extract:
     - 'DeviceClass                         :     2014 :"Desktop"'
-    - 'DeviceBrand                         :     2014 :"Google"'
+    - 'DeviceBrand                         :     2014 :"<<<null>>>"'
+    - 'DeviceName                          :     2014 :"Chromebook"'
+    - 'DeviceCpu                           :     2015 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
+    - 'OperatingSystemClass                :     2014 :"Desktop"'
+    - 'OperatingSystemName                 :     2014 :"Chrome OS"'
+    - 'OperatingSystemVersion              :     2014 :agent.product.name="Chrome"^.version'
+    - 'OperatingSystemVersionBuild         :     2014 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
+    - 'CrOSVersion                         :@CrOSProduct.(1)version'
+    require:
+    - 'IsNull[LookUp[CPUArchitectures;@CrOSVersion]]'
+    extract:
+    - 'DeviceClass                         :     2014 :"Desktop"'
+    - 'DeviceBrand                         :     2014 :"<<<null>>>"'
     - 'DeviceName                          :     2014 :"Chromebook"'
     - 'OperatingSystemClass                :     2014 :"Desktop"'
     - 'OperatingSystemName                 :     2014 :"Chrome OS"'
-    - 'OperatingSystemVersion              :     2014 :agent.(1)product.(1)comments.entry.(1-2)product.name="CrOS"^.(1)version'
+    - 'OperatingSystemVersion              :     2014 :agent.product.name="Chrome"^.version'
+    - 'OperatingSystemVersionBuild         :     2014 :@CrOSVersion'
 
 - test:
     input:
