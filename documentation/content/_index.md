@@ -12,6 +12,15 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 7.1.0
+- Analyzer
+  - Simplify using Java 8 compliant caching
+- New/improved detections
+  - Chrome OS/Chromebooks:
+    - Handle new "frozen Chrome OS" tag
+    - The DeviceBrand of a Chromebook is "Unknown" instead of Google
+    - Fixed Version and OS Build tags
+
 ### Version 7.0.0
 - Dropping support for
   - Apache Pig. The last release was in 2017: about 5 years ago.

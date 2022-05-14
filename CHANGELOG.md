@@ -1,6 +1,9 @@
 
 This is intended as an overview of the major changes
-v7.0.1-SNAPSHOT
+v7.1.1-SNAPSHOT
+===
+
+v7.1.0
 ===
 - Analyzer
   - Simplify using Java 8 compliant caching
