@@ -33,10 +33,7 @@ public class Demo {
             .withField("DeviceClass")
             .withAllFields()
             // Caffeine is a Java 11+ library.
-            // This is one is Java 8 compatible.
-            .withCacheInstantiator(
-                cacheSize -> Collections.synchronizedMap(new LRUMap<>(cacheSize))
-            )
+            .useJava8CompatibleCaching()
             .build();
     }
 
