@@ -36,6 +36,8 @@ class TestCaching {
 
     private static final Logger LOG = LogManager.getLogger(TestCaching.class);
 
+    private static final String USER_AGENT = "Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
+
     @Test
     void testSettingCaching() {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
@@ -120,7 +122,6 @@ class TestCaching {
 
     @Test
     void testResultFromCacheMustBeIdentical() {
-        String userAgent = "Mozilla/5.0 (compatible; coccocbot-image/1.0; +http://help.coccoc.com/searchengine)";
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .showMinimalVersion()
@@ -129,10 +130,10 @@ class TestCaching {
             .build();
 
         // First time
-        UserAgent agent1 = uaa.parse(userAgent);
+        UserAgent agent1 = uaa.parse(USER_AGENT);
 
         // Should come from cache
-        UserAgent agent2 = uaa.parse(userAgent);
+        UserAgent agent2 = uaa.parse(USER_AGENT);
 
         // Both should be the same
         assertEquals(agent1, agent2);
@@ -140,7 +141,6 @@ class TestCaching {
 
     @Test
     void testCustomCacheImplementationInline() {
-        String userAgent = "Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withCacheInstantiator(
@@ -171,10 +171,29 @@ class TestCaching {
             .build();
 
         // First time
-        UserAgent agent1 = uaa.parse(userAgent);
+        UserAgent agent1 = uaa.parse(USER_AGENT);
 
         // Should come from cache
-        UserAgent agent2 = uaa.parse(userAgent);
+        UserAgent agent2 = uaa.parse(USER_AGENT);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
+
+    @Test
+    void testJava8CacheImplementation() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .useJava8CompatibleCaching()
+            .withCache(10)
+            .hideMatcherLoadStats()
+            .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(USER_AGENT);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(USER_AGENT);
 
         // Both should be the same
         assertEquals(agent1, agent2);
@@ -228,7 +247,6 @@ class TestCaching {
 
     @Test
     void testCustomCacheImplementationClass() {
-        String userAgent = "Mozilla/5.0 (Linux; Android 8.1.0; Pixel Build/OPM4.171019.021.D1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36";
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withCacheInstantiator(new TestingCacheInstantiator())
@@ -237,10 +255,10 @@ class TestCaching {
             .build();
 
         // First time
-        UserAgent agent1 = uaa.parse(userAgent);
+        UserAgent agent1 = uaa.parse(USER_AGENT);
 
         // Should come from cache
-        UserAgent agent2 = uaa.parse(userAgent);
+        UserAgent agent2 = uaa.parse(USER_AGENT);
 
         // Both should be the same
         assertEquals(agent1, agent2);
