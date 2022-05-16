@@ -532,7 +532,7 @@ public class UserAgentStringMatchMakerTester extends AbstractUserAgentAnalyzer {
             logInfo(errorMessageReceiver, "\n\nconfig:\n{}", parseResult.toYamlTestCase(!init, failComments));
             if (init) {
                 logInfo(errorMessageReceiver, "Location of the new test.({}:{})", filename, linenumber);
-                return allPass;
+                return false; // We always FAIL in case of a test without data to avoid missing out on all tests in we have one empty one.
             }
             logInfo(errorMessageReceiver, "Location of failed test.({}:{})", filename, linenumber);
             if (!pass && !showAll) {
