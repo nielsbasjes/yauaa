@@ -51,7 +51,7 @@ class TestDeveloperTools {
             .keepTests()
             .addResources("classpath*:**/CheckNewTestcaseOutput.yaml")
             .build();
-        assertTrue(uaa.runTests(false, true));
+        assertFalse(uaa.runTests(false, true));
     }
 
     @Test
