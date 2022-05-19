@@ -32,7 +32,6 @@ import nl.basjes.parse.useragent.utils.WordSplitter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Boolean.TRUE;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
