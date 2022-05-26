@@ -4,6 +4,12 @@ v7.1.1-SNAPSHOT
 ===
 - New/improved detections
   - Chromium
+- Updated UDF dependencies
+    - Apache Beam             2.39.0
+    - Apache Nifi             1.16.2
+    - Elastic Search          7.17.4 & 8.2.1
+    - Elastic Logstash        8.2.1
+    - Trino                   382
 
 v7.1.0
 ===
