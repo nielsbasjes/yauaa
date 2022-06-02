@@ -1527,7 +1527,7 @@ config:
     variable:
     - 'Chrome                              :agent.product.name="Chrome"^'
     require:
-    - 'agent.product.name="Edg"' # Preformance trick
+    - 'agent.product.name="Edg"' # Performance trick
     - '@Chrome>>.name="Edg"'
     - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
     - '@Chrome.version[1]?!ChromeWindows10Reliable'

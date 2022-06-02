@@ -45,13 +45,13 @@ config:
     variable:
     - 'Product                             :agent.(1-2)product.comments.entry.text?WindowsDesktopOSName'
     extract:
-    - 'DeviceClass                         :      100 :"Desktop"'
-    - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :      100 :LookUpPrefix[WindowsDesktopOSCpuBits;@Product]'
-    - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@Product]'
-    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@Product]'
-    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;@Product]'
+    - 'DeviceClass                         :       99 :"Desktop"'
+    - 'DeviceName                          :       99 :"Desktop"'
+    - 'DeviceCpuBits                       :       99 :LookUpPrefix[WindowsDesktopOSCpuBits;@Product]'
+    - 'OperatingSystemClass                :       99 :"Desktop"'
+    - 'OperatingSystemName                 :       99 :LookUp[WindowsDesktopOSName;@Product]'
+    - 'OperatingSystemVersion              :       99 :LookUp[WindowsDesktopOSVersion;@Product]'
+    - 'OperatingSystemNameVersion          :       99 :LookUp[WindowsDesktopOSNameVersion;@Product]'
 
 - matcher:
     require:
@@ -97,13 +97,13 @@ config:
     variable:
     - 'OS                                  :agent.(1)product.comments.entry.(1-2)text?WindowsDesktopOSName'
     extract:
-    - 'DeviceClass                         :      100 :"Desktop"'
-    - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :      100 :LookUp[WindowsDesktopOSCpuBits;@OS]'
-    - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@OS]'
-    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@OS]'
-    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;@OS]'
+    - 'DeviceClass                         :       99 :"Desktop"'
+    - 'DeviceName                          :       99 :"Desktop"'
+    - 'DeviceCpuBits                       :       99 :LookUp[WindowsDesktopOSCpuBits;@OS]'
+    - 'OperatingSystemClass                :       99 :"Desktop"'
+    - 'OperatingSystemName                 :       99 :LookUp[WindowsDesktopOSName;@OS]'
+    - 'OperatingSystemVersion              :       99 :LookUp[WindowsDesktopOSVersion;@OS]'
+    - 'OperatingSystemNameVersion          :       99 :LookUp[WindowsDesktopOSNameVersion;@OS]'
 
 - matcher:
     variable:
@@ -661,3 +661,34 @@ config:
       AgentVersionMajor                    : '10'
       AgentNameVersion                     : 'Internet Explorer 10.0'
       AgentNameVersionMajor                : 'Internet Explorer 10'
+
+# https://github.com/nielsbasjes/yauaa/issues/594
+# The first "Windows NT" is of lower quality than the second "Windows NT 10.0". Here 'first' should not win.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT; Windows NT 10.0; fr-FR) WindowsPowerShell/5.1.19041.1237'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'WindowsPowerShell'
+      AgentVersion                         : '5.1.19041.1237'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'WindowsPowerShell 5.1.19041.1237'
+      AgentNameVersionMajor                : 'WindowsPowerShell 5'
+      AgentLanguage                        : 'French (France)'
+      AgentLanguageCode                    : 'fr-fr'
