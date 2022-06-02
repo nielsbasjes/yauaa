@@ -673,6 +673,34 @@ config:
       AgentNameVersionMajor                : 'Unknown ??'
       AgentSecurity                        : 'Strong security'
 
+- test:
+    input:
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 10; SM-G960F Build/QP1A.190711.020)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-G960F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QP1A.190711.020'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Unknown ??'
+      AgentNameVersionMajor                : 'Unknown ??'
+      AgentSecurity                        : 'Strong security'
+
 - matcher:
     extract:
     - 'DeviceClass                         :       10 :"<<<null>>>"'
