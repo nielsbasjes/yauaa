@@ -5,7 +5,8 @@ If you use a maven based project simply add this dependency to your project.
 Getting the UDF You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency to your project.
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;nl.basjes.parse.useragent&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;yauaa-beam-sql&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;7.1.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Available functions Getting a single value To get a single value from the parse result use this one:
-ParseUserAgentField(userAgent, 'DeviceClass') AS deviceClassField to give</description></item><item><title>Apache Drill</title><link>/udf/apache-drill/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-drill/</guid><description>Introduction This is UDF for Apache Drill. This function was originally created by Charles S. Givre and was imported into the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.
+ParseUserAgentField(userAgent, 'DeviceClass') AS deviceClassField to give
+Phone Getting several values as a Map (requires Apache Beam 2.</description></item><item><title>Apache Drill</title><link>/udf/apache-drill/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-drill/</guid><description>Introduction This is UDF for Apache Drill. This function was originally created by Charles S. Givre and was imported into the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.
 This function is now also packaged as part of Apache Drill itself: documentation.
 Notable changes With Yauaa 7.0.0
 the code for this UDF has been copied back from the Drill project to ensure it keeps working as expected.</description></item><item><title>Apache Flink</title><link>/udf/apache-flink/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-flink/</guid><description>Introduction This is a User Defined Function for Apache Flink
@@ -19,7 +20,8 @@ ParseUserAgent(&amp;lt;useragent&amp;gt;) This returns a Map&amp;lt;String, Stri
 Getting the UDF You can get the prebuilt UDF from maven central (yauaa-hive-7.1.0-udf.jar).
 NOTE: You MUST use the -udf.jar: yauaa-hive-7.1.0-udf.jar
 If you use a maven based project simply add this dependency
-&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;nl.basjes.parse.useragent&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;yauaa-hive&amp;lt;/artifactId&amp;gt; &amp;lt;classifier&amp;gt;udf&amp;lt;/classifier&amp;gt; &amp;lt;version&amp;gt;7.1.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Building Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:</description></item><item><title>Apache Pig</title><link>/udf/apache-pig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-pig/</guid><description>DEPRECATED Apache Pig is no longer used. So with Yauaa 7 this UDF has been dropped.
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;nl.basjes.parse.useragent&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;yauaa-hive&amp;lt;/artifactId&amp;gt; &amp;lt;classifier&amp;gt;udf&amp;lt;/classifier&amp;gt; &amp;lt;version&amp;gt;7.1.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Building Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
+mvn clean package Example usage First the jar file must be &amp;lsquo;known&amp;rsquo; Either by doing</description></item><item><title>Apache Pig</title><link>/udf/apache-pig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-pig/</guid><description>DEPRECATED Apache Pig is no longer used. So with Yauaa 7 this UDF has been dropped.
 Introduction This is a User Defined Function for Apache Pig
 Getting the UDF You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency
