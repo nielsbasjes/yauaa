@@ -7,6 +7,9 @@ assignees: nielsbasjes
 
 ---
 
+Please read this to ensure this is really a bug:
+https://yauaa.basjes.nl/developer/reportingissues/#these-are-not-bugs
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
