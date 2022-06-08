@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 WORKDIR /root
 
@@ -73,7 +73,7 @@ ENV LC_ALL en_US.UTF-8
 
 # --------------------------------
 # Install Maven
-ENV MAVEN_VERSION=3.8.3
+ENV MAVEN_VERSION=3.8.5
 RUN mkdir -p /usr/local/apache-maven
 RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 RUN cd /usr/local/ && tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
@@ -87,28 +87,21 @@ ENV MAVEN_OPTS -Xms256m -Xmx512m
 RUN wget https://raw.githubusercontent.com/juven/maven-bash-completion/master/bash_completion.bash -O /etc/bash_completion.d/maven
 
 # --------------------------------
-# Install Pig
-ENV PIG_VERSION=0.17.0
-RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/pig/pig-${PIG_VERSION}/pig-${PIG_VERSION}.tar.gz" -O "pig-${PIG_VERSION}.tar.gz"
-RUN cd /usr/local/ && tar xzf pig-${PIG_VERSION}.tar.gz
-ENV PIG_HOME /usr/local/pig-*/
-ENV PATH ${PIG_HOME}/bin:${PATH}
-RUN chmod a+rwX -R ${PIG_HOME}/bin
-
-# --------------------------------
 # Install shellcheck
+ENV SHELLCHECK_VERSION=0.8.0
 RUN cd /usr/local/bin && \
-     wget https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz && \
-     tar xJf shellcheck-stable.linux.x86_64.tar.xz && \
-     mv shellcheck-stable/shellcheck . && \
-     rm -rf shellcheck-stable*
+    wget https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
+    tar xJf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
+    mv shellcheck-v${SHELLCHECK_VERSION}/shellcheck . && \
+    rm -rf shellcheck-v${SHELLCHECK_VERSION} shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 
 # --------------------------------
 # Install Hugo
-ENV HUGO_VERSION=0.89.0
+ENV HUGO_VERSION=0.100.1
 RUN cd /usr/local/bin && \
-     wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-     tar xzf hugo_*.tar.gz
+    wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+    tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+    rm -f hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 # --------------------------------
 # Add a welcome message and environment checks.
