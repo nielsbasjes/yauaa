@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.1.1-SNAPSHOT
+v7.2.0-SNAPSHOT
+===
+- ...
+
+v7.2.0
 ===
 - New/improved detections
   - Chromium
