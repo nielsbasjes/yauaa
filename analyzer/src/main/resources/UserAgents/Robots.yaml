@@ -10337,3 +10337,41 @@ config:
       AgentVersionMajor                    : '0'
       AgentNameVersion                     : 'ReactorNetty 0.9.7.RELEASE'
       AgentNameVersionMajor                : 'ReactorNetty 0'
+
+
+- matcher:
+    variable:
+      - 'RealAgent: agent.(2)product'
+    require:
+      - 'agent.(1)url="updown.io"'
+    extract:
+      - 'AgentClass                         : 1: "Robot"'
+      - 'AgentName                          : 1: "Updown.io"'
+      - 'AgentVersion                       : 1: @RealAgent.version'
+
+- test:
+    input:
+      User-Agent                            : 'updown.io daemon 2.6'
+    expected:
+      DeviceClass                           : 'Robot'
+      DeviceName                            : 'Updown Robot'
+      DeviceBrand                           : 'Updown'
+      OperatingSystemClass                  : 'Cloud'
+      OperatingSystemName                   : 'Cloud'
+      OperatingSystemVersion                : '??'
+      OperatingSystemVersionMajor           : '??'
+      OperatingSystemNameVersion            : 'Cloud ??'
+      OperatingSystemNameVersionMajor       : 'Cloud ??'
+      LayoutEngineClass                     : 'Unknown'
+      LayoutEngineName                      : 'Unknown'
+      LayoutEngineVersion                   : '??'
+      LayoutEngineVersionMajor              : '??'
+      LayoutEngineNameVersion               : 'Unknown ??'
+      LayoutEngineNameVersionMajor          : 'Unknown ??'
+      AgentClass                            : 'Robot'
+      AgentName                             : 'Updown.io'
+      AgentVersion                          : '2.6'
+      AgentVersionMajor                     : '2'
+      AgentNameVersion                      : 'Updown.io 2.6'
+      AgentNameVersionMajor                 : 'Updown.io 2'
+      AgentInformationUrl                   : 'updown.io'

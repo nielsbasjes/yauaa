@@ -6,6 +6,7 @@ v7.1.1-SNAPSHOT
 - New/improved detections
   - Chromium
   - Improve priotities with multiple 'Windows NT' tags.
+  - Updown.io robot
 - Updated UDF dependencies
     - Apache Beam             2.39.0
     - Apache Nifi             1.16.2
