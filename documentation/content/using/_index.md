@@ -5,7 +5,7 @@ linkTitle = "Using Yauaa"
 +++
 ## Using the analyzer
 To use this analyzer you can use it either directly in your Java based applications or use one of
-the User Defined Functions that are available for many of Apache bigdata tools (Pig, Hive, Flink, Beam, ...) as described [here](../udf/).
+the User Defined Functions that are available for many of Apache bigdata tools (Hive, Flink, Beam, ...) as described [here](../udf/).
 
 ## Using in Java applications
 To use the library you must first add it as a dependency to your application.

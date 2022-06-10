@@ -4,12 +4,13 @@ title = "Apache Pig"
 
 # DEPRECATED
 Apache Pig is no longer used. So with Yauaa 7 this UDF has been dropped.
+Version 6.12 is the last released version which still has the Apache Pig in it.
 
 ## Introduction
 This is a User Defined Function for [Apache Pig](https://pig.apache.org)
 
 ## Getting the UDF
-You can get the prebuilt UDF from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-pig/{{%YauaaVersion%}}/yauaa-pig-{{%YauaaVersion%}}-udf.jar).
+You can get the prebuilt UDF from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-pig/6.12/yauaa-pig-6.12-udf.jar).
 
 If you use a maven based project simply add this dependency
 
@@ -18,7 +19,7 @@ If you use a maven based project simply add this dependency
   <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-pig</artifactId>
   <classifier>udf</classifier>
-  <version>{{%YauaaVersion%}}</version>
+  <version>6.12</version>
 </dependency>
 ```
 

@@ -8,7 +8,7 @@ This is a summary of the reasons WHY I have done the shading in this project the
 If someone has suggestions/hint on how this can be done better I'm really curious what the 'right' way of doing this is.
 
 The base structure of this project is we have a module with the functionality and a set of 'UDFs'
-that wrap this functionality so that it can be used in external processing frameworks (like Pig, Flink, Hive, etc.)
+that wrap this functionality so that it can be used in external processing frameworks (like Flink, Hive, etc.)
 
 ## Base goal
 This library and the UDFs should be easy to use for all downstream users that want to use this in their projects.

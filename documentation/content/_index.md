@@ -22,8 +22,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
     - Fixed Version and OS Build tags
 
 ### Version 7.0.0
-- Dropping support for
-  - Apache Pig. The last release was in 2017: about 5 years ago.
+- Dropping support for Apache Pig. The last release was in 2017: about 5 years ago.
 - Support for using ClientHints in addition to the User-Agent
 - Improve Apple detection/reporting
   - "Mac OS X" / "OS X" / "macOS"
