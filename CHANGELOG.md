@@ -11,7 +11,7 @@ v7.1.1-SNAPSHOT
     - Apache Nifi             1.16.2
     - Elastic Search          7.17.4 & 8.2.2
     - Elastic Logstash        8.2.2
-    - Trino                   383
+    - Trino                   385
 
 v7.1.0
 ===
