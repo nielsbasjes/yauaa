@@ -56,13 +56,18 @@
         <version>${exec-maven-plugin.version}</version>
         <executions>
           <execution>
-            <id>Check installation of git commit hooks</id>
+            <id>Setup git commit hooks</id>
             <phase>validate</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>./git-hooks/check-git-commit-hooks.sh</executable>
+              <executable>git</executable>
+              <arguments>
+                <argument>config</argument>
+                <argument>core.hooksPath</argument>
+                <argument>./devtools/git-hooks/</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
