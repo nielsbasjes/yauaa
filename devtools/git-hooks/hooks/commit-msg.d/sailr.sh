@@ -101,3 +101,5 @@ if [[ ! $START_LINE =~ $regexp ]]; then
   print_error "$START_LINE" "$regexp"
   exit 1
 fi
+
+pass "Valid commit message format: Ok"

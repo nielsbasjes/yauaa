@@ -23,7 +23,16 @@ do
   STATUS=$?
   if [ "${STATUS}" -eq 0 ];
   then
-    die "Blocking commit of generated file(s): $filename"
+    warn "YOU ARE COMMITTING GENERATED FILES: $filename"
+    warn '!!!! MAKE SURE YOU HAVE NOT DONE ANY MANUAL EDITING !!!!'
+    warn "Press any key abort or 'c' to continue"
+    read -n 1 k <&1
+    if [[ $k = c ]] ;
+    then
+      pass "Continuing with committing"
+    else
+      die "Please regenerate the updated files and try again"
+    fi
   fi
 done
 

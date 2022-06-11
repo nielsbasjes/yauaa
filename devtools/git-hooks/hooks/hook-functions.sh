@@ -31,6 +31,7 @@ export IWhite='\e[0;97m'      # White
 
 # Bold High Intensity
 export BIRed='\e[1;91m'       # Red
+export BIYellow='\e[1;93m'     # Yellow
 export BIGreen='\e[1;92m'     # Green
 export BIBlue='\e[1;94m'      # Blue
 
@@ -38,8 +39,12 @@ function pass() {
   echo -e "${Color_Off}${IWhite}[${BIGreen}PASS${IWhite}] ${Color_Off}${1}"
 }
 
+function warn() {
+  echo -e "${Color_Off}${IWhite}[${BIYellow}WARN${IWhite}] ${IYellow}${1}${Color_Off}"
+}
+
 function fail() {
-  echo -e "${Color_Off}${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}${1}${Color_Off}"
+  echo -e "${Color_Off}${IWhite}[${BIRed}FAIL${IWhite}] ${IRed}${1}${Color_Off}"
 }
 
 function die() {
