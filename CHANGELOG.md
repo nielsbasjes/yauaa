@@ -5,6 +5,7 @@ v7.2.0-SNAPSHOT
 ===
 - New/improved detections
   - Qwant browser
+  - PindomTMS Robot
 
 v7.2.0
 ===

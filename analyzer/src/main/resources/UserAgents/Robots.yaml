@@ -58,6 +58,7 @@ config:
       'node.js'                      : 'OpenJS|Node.js'
       'OhDear.app'                   : 'OhDear.app|OhDear.app'
       'PingdomPageSpeed'             : 'Pingdom|PingdomPageSpeed'
+      'PingdomTMS'                   : 'Pingdom|Pingdom TMS' # TMS = Transaction Monitoring System/Service ??
       'PHP'                          : 'PHP|PHP'
       'Prerender'                    : 'Prerender|Prerender'
       'proximic'                     : 'proximic|proximic'
@@ -3772,6 +3773,61 @@ config:
       AgentNameVersion                     : 'Pingdom.com_bot_version_1.4_ ??'
       AgentNameVersionMajor                : 'Pingdom.com_bot_version_1.4_ ??'
       AgentInformationUrl                  : 'http://www.pingdom.com/'
+
+
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) browser/2020.2.4 Chrome/78.0.3904.130 Electron/7.3.15 Safari/537.36 PingdomTMS/2020.2'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Pingdom TMS'
+      DeviceBrand                          : 'Pingdom'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PingdomTMS'
+      LayoutEngineVersion                  : '2020.2'
+      LayoutEngineVersionMajor             : '2020'
+      LayoutEngineNameVersion              : 'PingdomTMS 2020.2'
+      LayoutEngineNameVersionMajor         : 'PingdomTMS 2020'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PingdomTMS'
+      AgentVersion                         : '2020.2'
+      AgentVersionMajor                    : '2020'
+      AgentNameVersion                     : 'PingdomTMS 2020.2'
+      AgentNameVersionMajor                : 'PingdomTMS 2020'
+
+
+
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) PingdomTMS/0.8.5 Safari/534.34'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Pingdom TMS'
+      DeviceBrand                          : 'Pingdom'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PingdomTMS'
+      LayoutEngineVersion                  : '0.8.5'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'PingdomTMS 0.8.5'
+      LayoutEngineNameVersionMajor         : 'PingdomTMS 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PingdomTMS'
+      AgentVersion                         : '0.8.5'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'PingdomTMS 0.8.5'
+      AgentNameVersionMajor                : 'PingdomTMS 0'
 
 
 - test:
