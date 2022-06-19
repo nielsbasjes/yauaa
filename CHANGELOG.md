@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v7.2.0-SNAPSHOT
 ===
-- ...
+- New/improved detections
+  - Qwant browser
 
 v7.2.0
 ===

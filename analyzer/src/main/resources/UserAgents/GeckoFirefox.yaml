@@ -48,6 +48,7 @@ config:
       # https://apps.apple.com/nl/app/qwant/id924470452
       'h QwantMobile'     : 'Qwant'
       'QwantMobile'       : 'Qwant'
+      'QwantBrowser'      : 'Qwant'
 
 - matcher:
     variable:
@@ -180,9 +181,9 @@ config:
     variable:
     - 'AgentTag                             :agent.(2-5)product.name?SpecialFirefoxBrowserNames'
     extract:
-    - 'AgentClass                          :     2006 :"Browser"'
-    - 'AgentName                           :     2006 :LookUp[SpecialFirefoxBrowserNames;@AgentTag]'
-    - 'AgentVersion                        :     2006 :@AgentTag^.version'
+    - 'AgentClass                          :     2106 :"Browser"'
+    - 'AgentName                           :     2106 :LookUp[SpecialFirefoxBrowserNames;@AgentTag]'
+    - 'AgentVersion                        :     2106 :@AgentTag^.version'
 
 #Gecko:
 - test:
@@ -1808,6 +1809,63 @@ config:
       AgentVersionMajor                    : '4'
       AgentNameVersion                     : 'Qwant 4.0'
       AgentNameVersionMajor                : 'Qwant 4'
+
+
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605 (KHTML, like Gecko) Mobile/15E148 Safari/605 QwantMobile/3.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.0'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.0'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Qwant 3.0'
+      AgentNameVersionMajor                : 'Qwant 3'
+
+
+- test:
+    input:
+      User-Agent  : 'QwantMobile/3.0 (Android 9; Tablet; rv:67.0) Gecko/67.0 Firefox/65.0 QwantBrowser/67.0.4'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '67.0'
+      LayoutEngineVersionMajor             : '67'
+      LayoutEngineNameVersion              : 'Gecko 67.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 67'
+      LayoutEngineBuild                    : '67.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '67.0.4'            # TODO: Should be '3.0' instead ?
+      AgentVersionMajor                    : '67'                # TODO: Should be '3' instead ?
+      AgentNameVersion                     : 'Qwant 67.0.4'      # TODO: Should be 'Qwant 3.0' instead ?
+      AgentNameVersionMajor                : 'Qwant 67'          # TODO: Should be 'Qwant 3' instead ?
 
 
 # Same device, regular Firefox DOES show the right Android version.
