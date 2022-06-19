@@ -25,7 +25,7 @@ config:
 
 - matcher:
     variable:
-    - 'Electron                            :agent.product.name="Electron"^'
+    - 'Electron                            :agent.(4-)product.name="Electron"^'
     - 'WebApp                              :@Electron<<'
     - 'WebAppName                          :@WebApp.name'
     require:
@@ -37,7 +37,7 @@ config:
 
 - matcher:
     variable:
-    - 'Electron                            :agent.product.name="Electron"^'
+    - 'Electron                            :agent.(4-)product.name="Electron"^'
     - 'WebApp                              :@Electron<<'
     - 'WebAppName                          :@WebApp.name'
     require:
@@ -517,3 +517,31 @@ config:
       AgentNameVersionMajor                : 'Electron app 4'
 
 
+# NOTE: The reason this caused a problem is that the app is also called electron.
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) electron/1.0.0 Chrome/53.0.2785.113 Electron/1.4.3 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53.0'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53.0'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'Electron'
+      AgentVersion                         : '1.0.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Electron 1.0.0'
+      AgentNameVersionMajor                : 'Electron 1'

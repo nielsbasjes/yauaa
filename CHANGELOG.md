@@ -9,6 +9,7 @@ v7.2.0-SNAPSHOT
   - Google Docs (Google Document Conversion)
   - Facebook Messenger Lite for iOS
   - Apple watchOS
+  - Electron
 
 v7.2.0
 ===
