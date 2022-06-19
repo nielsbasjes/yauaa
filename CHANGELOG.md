@@ -11,6 +11,7 @@ v7.2.0-SNAPSHOT
   - Apple watchOS
   - Electron
   - Yahoo Robots
+  - "TV Safari" means TV
 
 v7.2.0
 ===

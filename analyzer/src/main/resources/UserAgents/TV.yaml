@@ -2650,3 +2650,37 @@ config:
       AgentVersionMajor                    : '8'
       AgentNameVersion                     : 'Safari 8.0'
       AgentNameVersionMajor                : 'Safari 8'
+
+
+- matcher:
+    require:
+      - 'agent.product.name="TV Safari"'
+    extract:
+      - 'DeviceClass                         :      100 :  "TV"'
+
+# https://github.com/nielsbasjes/yauaa/issues/612
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Linux; Tizen 2.3) AppleWebKit/538.1 (KHTML, like Gecko)Version/2.3 TV Safari/538.1'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Tizen Device'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.3'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Tizen 2.3'
+      OperatingSystemNameVersionMajor      : 'Tizen 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '538.1'
+      AgentVersionMajor                    : '538'
+      AgentNameVersion                     : 'Safari 538.1'
+      AgentNameVersionMajor                : 'Safari 538'
