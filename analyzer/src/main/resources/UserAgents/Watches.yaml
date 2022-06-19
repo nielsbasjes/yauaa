@@ -459,3 +459,39 @@ config:
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersion                : 'Android Wear Smartwatch ??'
       WebviewAppNameVersionMajor           : 'Android Wear Smartwatch ??'
+
+
+- matcher:
+    extract:
+    - 'OperatingSystemClass                : 150 : "Mobile"'
+    - 'OperatingSystemName                 : 150 : "watchOS"'
+    - 'OperatingSystemVersion              : 150 : agent.product.name="watchOS"^.version'
+    # On a watch there are really only Mobile Apps, the screen is too small for a browser.
+    - 'AgentClass                          :   6 : "Mobile App"'
+
+- test:
+    input:
+      User-Agent                           : 'atc/1.0 watchOS/7.6.2 model/Watch6,2 hwp/t8301 build/18U80 (6; dt:226)'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'Apple Watch'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'Apple Watch Series 6 44mm case (GPS)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'watchOS'
+      OperatingSystemVersion               : '7.6.2'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'watchOS 7.6.2'
+      OperatingSystemNameVersionMajor      : 'watchOS 7'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'ATC'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ATC 1.0'
+      AgentNameVersionMajor                : 'ATC 1'

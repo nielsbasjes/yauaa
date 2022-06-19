@@ -8,6 +8,7 @@ v7.2.0-SNAPSHOT
   - PindomTMS Robot
   - Google Docs (Google Document Conversion)
   - Facebook Messenger Lite for iOS
+  - Apple watchOS
 
 v7.2.0
 ===
