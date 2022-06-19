@@ -535,6 +535,16 @@ config:
 
 - test:
     input:
+      user_agent_string: '-1/**/oR/**/1=1 1/**/aND/**/1=1 -1`oR`1`=`1 1`aND`1`=`1 or 1 like ''%1'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: ':3:{s:2:\"id\";s:3:\"''/*\";s:3:\"num\";s:141:\"*/ union select 1,0x272F2A,3,4,5,6,7,8,0x7b247b24524345275d3b6469652f2a2a2f286d6435284449524543544f52595f534550415241544f5229293b2f2f7d7d,0--\";s:4:\"name\";s:3:\"ads\";}554fcae493e564ee0dc75bdf2ebf94ca" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.105 Safari/537.36'
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: 'eval(compile(''for x in range(1):\\n import time\\n time.sleep(20)'',''a'',''single''))'
     expected: *isCodeInjection
 
