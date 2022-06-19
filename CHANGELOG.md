@@ -6,6 +6,7 @@ v7.2.0-SNAPSHOT
 - New/improved detections
   - Qwant browser
   - PindomTMS Robot
+  - Google Docs (Google Document Conversion)
 
 v7.2.0
 ===
