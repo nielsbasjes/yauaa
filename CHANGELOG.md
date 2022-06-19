@@ -10,6 +10,7 @@ v7.2.0-SNAPSHOT
   - Facebook Messenger Lite for iOS
   - Apple watchOS
   - Electron
+  - Yahoo Robots
 
 v7.2.0
 ===
