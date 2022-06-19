@@ -10431,3 +10431,31 @@ config:
       AgentNameVersion                      : 'Updown.io 2.6'
       AgentNameVersionMajor                 : 'Updown.io 2'
       AgentInformationUrl                   : 'updown.io'
+
+
+- test:
+    input:
+      User-Agent                            : 'datagnionbot (+http://www.datagnion.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Datagnion BOT'
+      DeviceBrand                          : 'Datagnion'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'datagnionbot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'datagnionbot ??'
+      LayoutEngineNameVersionMajor         : 'datagnionbot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Datagnionbot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Datagnionbot ??'
+      AgentNameVersionMajor                : 'Datagnionbot ??'
+      AgentInformationUrl                  : 'http://www.datagnion.com/bot.html'
