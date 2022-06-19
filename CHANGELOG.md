@@ -7,6 +7,7 @@ v7.2.0-SNAPSHOT
   - Qwant browser
   - PindomTMS Robot
   - Google Docs (Google Document Conversion)
+  - Facebook Messenger Lite for iOS
 
 v7.2.0
 ===
