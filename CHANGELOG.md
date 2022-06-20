@@ -1,9 +1,9 @@
 
 This is intended as an overview of the major changes
 
-v7.2.0-SNAPSHOT
+v7.2.1-SNAPSHOT
 ===
-- New/improved detections
+- New/improved detections (Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases)
   - Qwant browser
   - Robots: PindomTMS, Yahoo and many http libraries.
   - Hackers: More security scanners.
