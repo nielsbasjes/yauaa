@@ -117,6 +117,9 @@ config:
       "netsparker"            : "Netsparker"
       "nmap"                  : "Nmap"
       "sqlmap"                : "Sqlmap"
+      "OpenVAS"               : "OpenVAS"
+      "OpenVAS-VT"            : "OpenVAS"
+      "GoogleSecurityScanner" : "Google Security Scanner"
 
 - matcher:
     require:
@@ -669,3 +672,64 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
 
+
+# OpenVAS – Open Vulnerability Assessment Scanner
+# https://www.openvas.org/
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 [en] (X11, U; OpenVAS-VT 9.0.3)'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerToolkit                        : 'OpenVAS'
+
+
+## https://console.cloud.google.com/security/web-scanner
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (X11; Linux x86_64; GoogleSecurityScanner Google-HTTP-Java-Client) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 (scan 4592796119236608, run 5605990237962240) To_stop_this_scan_visit_https://console.cloud.google.com/security/web-scanner'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      AgentInformationUrl                  : '//console.cloud.google.com/security/web-scanner'
+      HackerToolkit                        : 'Google Security Scanner'

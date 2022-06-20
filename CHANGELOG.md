@@ -6,6 +6,7 @@ v7.2.0-SNAPSHOT
 - New/improved detections
   - Qwant browser
   - Robots: PindomTMS, Yahoo and many http libraries.
+  - Hackers: More security scanners.
   - Google Docs (Google Document Conversion)
   - Facebook Messenger Lite for iOS
   - Apple watchOS
