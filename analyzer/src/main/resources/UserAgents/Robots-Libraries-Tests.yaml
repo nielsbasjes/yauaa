@@ -1,0 +1,569 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# These are examples of useragents we have seen that show the name of a library that is used to do the HTTP requests.
+
+config:
+
+- test:
+    input:
+      User-Agent                           : 'Jakarta Commons-HttpClient/3.1'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Jakarta Commons HttpClient'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Jakarta Commons-HttpClient'
+      LayoutEngineVersion                  : '3.1'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Jakarta Commons-HttpClient 3.1'
+      LayoutEngineNameVersionMajor         : 'Jakarta Commons-HttpClient 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Jakarta Commons-HttpClient'
+      AgentVersion                         : '3.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Jakarta Commons-HttpClient 3.1'
+      AgentNameVersionMajor                : 'Jakarta Commons-HttpClient 3'
+
+
+# REST API client library for .NET
+# https://restsharp.dev
+- test:
+    input:
+      User-Agent                           : 'RestSharp/106.11.4.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'RestSharp'
+      DeviceBrand                          : 'RestSharp'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'RestSharp'
+      LayoutEngineVersion                  : '106.11.4.0'
+      LayoutEngineVersionMajor             : '106'
+      LayoutEngineNameVersion              : 'RestSharp 106.11.4.0'
+      LayoutEngineNameVersionMajor         : 'RestSharp 106'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'RestSharp'
+      AgentVersion                         : '106.11.4.0'
+      AgentVersionMajor                    : '106'
+      AgentNameVersion                     : 'RestSharp 106.11.4.0'
+      AgentNameVersionMajor                : 'RestSharp 106'
+
+
+# Kotlin library
+# https://github.com/square/okhttp
+- test:
+    input:
+      User-Agent                           : 'okhttp/4.9.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Square Okhttp'
+      DeviceBrand                          : 'Square'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'okhttp'
+      LayoutEngineVersion                  : '4.9.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'okhttp 4.9.0'
+      LayoutEngineNameVersionMajor         : 'okhttp 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Okhttp'
+      AgentVersion                         : '4.9.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Okhttp 4.9.0'
+      AgentNameVersionMajor                : 'Okhttp 4'
+
+
+# Java library
+# https://github.com/AsyncHttpClient/async-http-client
+- test:
+    input:
+      User-Agent                           : 'AHC/2.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'AsyncHttpClient'
+      DeviceBrand                          : 'AsyncHttpClient'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'AHC'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'AHC 2.0'
+      LayoutEngineNameVersionMajor         : 'AHC 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'AHC'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'AHC 2.0'
+      AgentNameVersionMajor                : 'AHC 2'
+
+
+# Looks like the new JDK HTTP client
+# https://openjdk.java.net/groups/net/httpclient/intro.html
+- test:
+    input:
+      User-Agent                           : 'Java-http-client/17'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Oracle Java'
+      DeviceBrand                          : 'Oracle'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Java-http-client'
+      LayoutEngineVersion                  : '17'
+      LayoutEngineVersionMajor             : '17'
+      LayoutEngineNameVersion              : 'Java-http-client 17'
+      LayoutEngineNameVersionMajor         : 'Java-http-client 17'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Java-http-client'
+      AgentVersion                         : '17'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Java-http-client 17'
+      AgentNameVersionMajor                : 'Java-http-client 17'
+
+
+# Looks like the old JDK HTTP client
+- test:
+    input:
+      User-Agent                           : 'Java/9.0.4'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Oracle Java'
+      DeviceBrand                          : 'Oracle'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Java'
+      LayoutEngineVersion                  : '9.0.4'
+      LayoutEngineVersionMajor             : '9'
+      LayoutEngineNameVersion              : 'Java 9.0.4'
+      LayoutEngineNameVersionMajor         : 'Java 9'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Java'
+      AgentVersion                         : '9.0.4'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Java 9.0.4'
+      AgentNameVersionMajor                : 'Java 9'
+
+
+# The enterprise Java HTTP Client
+# https://cxf.apache.org
+- test:
+    input:
+      User-Agent                           : 'Apache-CXF/3.3.4'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache CXF'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache-CXF'
+      LayoutEngineVersion                  : '3.3.4'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Apache-CXF 3.3.4'
+      LayoutEngineNameVersionMajor         : 'Apache-CXF 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Apache-CXF'
+      AgentVersion                         : '3.3.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Apache-CXF 3.3.4'
+      AgentNameVersionMajor                : 'Apache-CXF 3'
+
+
+# Python library
+# https://pypi.org/project/requests/
+- test:
+    input:
+      User-Agent                           : 'python-requests/2.22.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Python Requests'
+      DeviceBrand                          : 'Python'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'python-requests'
+      LayoutEngineVersion                  : '2.22.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'python-requests 2.22.0'
+      LayoutEngineNameVersionMajor         : 'python-requests 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Python-Requests'
+      AgentVersion                         : '2.22.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Python-Requests 2.22.0'
+      AgentNameVersionMajor                : 'Python-Requests 2'
+
+
+# PHP library
+# https://symfony.com/doc/current/http_client.html
+- test:
+    input:
+      User-Agent                           : 'Symfony HttpClient/Native'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Symfony HttpClient'
+      DeviceBrand                          : 'Symfony'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Symfony HttpClient'
+      LayoutEngineVersion                  : 'Native'
+      LayoutEngineVersionMajor             : 'Native'
+      LayoutEngineNameVersion              : 'Symfony HttpClient Native'
+      LayoutEngineNameVersionMajor         : 'Symfony HttpClient Native'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Symfony HttpClient'
+      AgentVersion                         : 'Native'
+      AgentVersionMajor                    : 'Native'
+      AgentNameVersion                     : 'Symfony HttpClient Native'
+      AgentNameVersionMajor                : 'Symfony HttpClient Native'
+
+
+# A variant. They do talk about "PHP stream wrappers and cURL"
+# https://symfony.com/doc/current/http_client.html
+- test:
+    input:
+      User-Agent                           : 'Symfony HttpClient/Curl'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Symfony HttpClient'
+      DeviceBrand                          : 'Symfony'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Symfony HttpClient'
+      LayoutEngineVersion                  : 'Curl'
+      LayoutEngineVersionMajor             : 'Curl'
+      LayoutEngineNameVersion              : 'Symfony HttpClient Curl'
+      LayoutEngineNameVersionMajor         : 'Symfony HttpClient Curl'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Symfony HttpClient'
+      AgentVersion                         : 'Curl'
+      AgentVersionMajor                    : 'Curl'
+      AgentNameVersion                     : 'Symfony HttpClient Curl'
+      AgentNameVersionMajor                : 'Symfony HttpClient Curl'
+
+
+# The library used by postman
+# https://github.com/postmanlabs/postman-runtime
+- test:
+    input:
+      User-Agent                           : 'PostmanRuntime/7.28.2'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Postman Runtime'
+      DeviceBrand                          : 'Postman'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PostmanRuntime'
+      LayoutEngineVersion                  : '7.28.2'
+      LayoutEngineVersionMajor             : '7'
+      LayoutEngineNameVersion              : 'PostmanRuntime 7.28.2'
+      LayoutEngineNameVersionMajor         : 'PostmanRuntime 7'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PostmanRuntime'
+      AgentVersion                         : '7.28.2'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'PostmanRuntime 7.28.2'
+      AgentNameVersionMajor                : 'PostmanRuntime 7'
+
+
+# Looks like this tool from Datadog
+# https://docs.datadoghq.com/en/synthetics/
+- test:
+    input:
+      User-Agent                           : 'Datadog/Synthetics'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Datadog'
+      DeviceBrand                          : 'Datadog'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Datadog'
+      LayoutEngineVersion                  : 'Synthetics'
+      LayoutEngineVersionMajor             : 'Synthetics'
+      LayoutEngineNameVersion              : 'Datadog Synthetics'
+      LayoutEngineNameVersionMajor         : 'Datadog Synthetics'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Datadog'
+      AgentVersion                         : 'Synthetics'
+      AgentVersionMajor                    : 'Synthetics'
+      AgentNameVersion                     : 'Datadog Synthetics'
+      AgentNameVersionMajor                : 'Datadog Synthetics'
+
+
+# Apache Wink
+# https://wink.apache.org
+- test:
+    input:
+      User-Agent                           : 'Wink Client v1.1.2'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Wink'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Wink Client'
+      LayoutEngineVersion                  : 'v1.1.2'
+      LayoutEngineVersionMajor             : 'v1'
+      LayoutEngineNameVersion              : 'Wink Client v1.1.2'
+      LayoutEngineNameVersionMajor         : 'Wink Client v1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Wink Client'
+      AgentVersion                         : 'v1.1.2'
+      AgentVersionMajor                    : 'v1'
+      AgentNameVersion                     : 'Wink Client v1.1.2'
+      AgentNameVersionMajor                : 'Wink Client v1'
+
+
+# Promise based HTTP client for the browser and node.js
+# https://github.com/axios/axios
+- test:
+    input:
+      User-Agent                           : 'axios/0.19.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Axios'
+      DeviceBrand                          : 'Axios'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'axios'
+      LayoutEngineVersion                  : '0.19.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'axios 0.19.0'
+      LayoutEngineNameVersionMajor         : 'axios 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Axios'
+      AgentVersion                         : '0.19.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Axios 0.19.0'
+      AgentNameVersionMajor                : 'Axios 0'
+
+
+# HttpClient of Apache Web Components
+# https://hc.apache.org/httpcomponents-client-5.1.x/
+- test:
+    input:
+      User-Agent                           : 'Apache-HttpClient/4.5.13 (Java/11.0.10)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache HttpClient'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache-HttpClient'
+      LayoutEngineVersion                  : '4.5.13'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Apache-HttpClient 4.5.13'
+      LayoutEngineNameVersionMajor         : 'Apache-HttpClient 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Apache-HttpClient'
+      AgentVersion                         : '4.5.13'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Apache-HttpClient 4.5.13'
+      AgentNameVersionMajor                : 'Apache-HttpClient 4'
+
+
+# Human-friendly and powerful HTTP request library for Node.js
+# https://github.com/sindresorhus/got
+- test:
+    input:
+      User-Agent                           : 'got (https://github.com/sindresorhus/got)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Sindre Sorhus GOT'
+      DeviceBrand                          : 'Sindre Sorhus'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'got'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'got ??'
+      LayoutEngineNameVersionMajor         : 'got ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'GOT'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'GOT ??'
+      AgentNameVersionMajor                : 'GOT ??'
+      AgentInformationUrl                  : 'https://github.com/sindresorhus/got'
+
+
+# A light-weight module that brings Fetch API to Node.js
+# https://github.com/bitinn/node-fetch
+- test:
+    input:
+      User-Agent                           : 'node-fetch/1.0 (+https://github.com/bitinn/node-fetch)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Node-Fetch Node Fetch'
+      DeviceBrand                          : 'Node-Fetch'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'node-fetch'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'node-fetch 1.0'
+      LayoutEngineNameVersionMajor         : 'node-fetch 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Node-Fetch'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Node-Fetch 1.0'
+      AgentNameVersionMajor                : 'Node-Fetch 1'
+      AgentInformationUrl                  : 'https://github.com/bitinn/node-fetch'
+
+
+# Go library
+# https://pkg.go.dev/net/http
+- test:
+    input:
+      User-Agent                           : 'Go-http-client/1.1'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'GO Http Client'
+      DeviceBrand                          : 'GO'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Go-http-client'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Go-http-client 1.1'
+      LayoutEngineNameVersionMajor         : 'Go-http-client 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Go-http-client'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Go-http-client 1.1'
+      AgentNameVersionMajor                : 'Go-http-client 1'
+
+
+# .NET library
+# https://servicestack.net
+- test:
+    input:
+      User-Agent                           : 'ServiceStack .NET Client 5.90'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Servicestack .net Client'
+      DeviceBrand                          : 'Servicestack'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ServiceStack .NET Client'
+      LayoutEngineVersion                  : '5.90'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'ServiceStack .NET Client 5.90'
+      LayoutEngineNameVersionMajor         : 'ServiceStack .NET Client 5'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ServiceStack .NET Client'
+      AgentVersion                         : '5.90'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'ServiceStack .NET Client 5.90'
+      AgentNameVersionMajor                : 'ServiceStack .NET Client 5'

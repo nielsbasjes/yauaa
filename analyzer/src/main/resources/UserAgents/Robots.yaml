@@ -30,7 +30,7 @@ config:
       'bitlybot'                     : 'Bitly|Bitly bot'
       'Buck'                         : 'Hypefactors|Buck'
       'Catchpoint'                   : 'Catchpoint|Catchpoint Analyzer'
-      'curl'                         : 'curl|curl'
+      'curl'                         : 'Curl|curl'
       'magpie-crawler'               : 'Brandwatch|magpie-crawler ' # 'watch' causes it to be seen as a wristwatch
       'Dataprovider.com'             : 'Dataprovider.com|Dataprovider.com'
       'Daum'                         : 'Daom|Daum'
@@ -80,12 +80,51 @@ config:
       'YaK'                          : 'Linkfluence|YaK'
       'wget'                         : 'wget|wget'
       'zgrab'                        : 'zgrab|zgrab'
-      'Jakarta Commons-HttpClient'   : 'Jakarta Commons-HttpClient|Jakarta Commons-HttpClient'
+      'Jakarta Commons-HttpClient'   : 'Apache|Jakarta Commons HttpClient'
       'lwp-request'                  : 'lwp-request|lwp-request'
       'libwww-perl'                  : 'libwww-perl|libwww-perl'
       'spray-can'                    : 'spray-can|spray-can'
       'facebookcatalog'              : 'Facebook|Facebook Catalog'
       'Ask Jeeves'                   : 'Ask|Ask Jeeves'
+      'LinkedInBot'                  : 'Linkedin|LinkedInBot'
+      # https://github.com/nielsbasjes/yauaa/issues/605
+      'RestSharp'                    : 'RestSharp|RestSharp'               # REST API client library for .NET                             | https://restsharp.dev
+      'okhttp'                       : 'Square|okhttp'                     # Kotlin library                                               | https://github.com/square/okhttp
+      'AHC'                          : 'AsyncHttpClient|AsyncHttpClient'   # Java library                                                 | https://github.com/AsyncHttpClient/async-http-client
+      'Java-http-client'             : 'Oracle|Java'                       # Looks like the new JDK HTTP client                           | https://openjdk.java.net/groups/net/httpclient/intro.html
+      # EDGE CASE WITH SEPARATE RULE:     'Java'                         : 'Oracle|Java'                       # Looks like the old JDK HTTP client
+      'Apache-CXF'                   : 'Apache|CXF'                        # The enterprise Java HTTP Client                              | https://cxf.apache.org
+      'python-requests'              : 'Python|python requests'            # Python library                                               | https://pypi.org/project/requests/
+      'Symfony HttpClient'           : 'Symfony|HttpClient'                # PHP library                                                  | https://symfony.com/doc/current/http_client.html
+      'PostmanRuntime'               : 'Postman|Postman Runtime'           # The library used by postman                                  | https://github.com/postmanlabs/postman-runtime
+      'Datadog'                      : 'Datadog|Datadog'                   # Looks like this tool from Datadog                            | https://docs.datadoghq.com/en/synthetics/
+      'Wink Client'                  : 'Apache|Wink'                       # Apache Wink                                                  | https://wink.apache.org
+      'axios'                        : 'Axios|axios'                       # Promise based HTTP client for the browser and node.js        | https://github.com/axios/axios
+      'Apache-HttpClient'            : 'Apache|HttpClient'                 # HttpClient of Apache Web Components                          | https://hc.apache.org/httpcomponents-client-5.1.x/
+      'got'                          : 'Sindre Sorhus|Got'                 # Human-friendly and powerful HTTP request library for Node.js | https://github.com/sindresorhus/got
+      'node-fetch'                   : 'Node-Fetch|Node Fetch'             # A light-weight module that brings Fetch API to Node.js       | https://github.com/node-fetch/node-fetch
+      'Go-http-client'               : 'Go|Go http client'                 # Go library                                                   | https://pkg.go.dev/net/http
+      'ServiceStack .NET Client'     : 'servicestack|.NET Client'          # .NET library                                                 | https://servicestack.net
+
+
+# Edge case: Java
+- matcher:
+    variable:
+      - 'Java: agent.(1)product.name="Java"^'
+    extract:
+      - 'DeviceClass                     : 10 : "Robot"'
+      - 'DeviceName                      : 10 : "Oracle Java"'
+      - 'DeviceBrand                     : 10 : "Oracle"'
+      - 'OperatingSystemClass            : 10 : "Cloud"'
+      - 'OperatingSystemName             : 10 : "Cloud"'
+      - 'OperatingSystemVersion          : 10 : "??"'
+      - 'LayoutEngineClass               : 10 : "Robot"'
+      - 'LayoutEngineName                : 10 : "Java"'
+      - 'LayoutEngineVersion             : 10 : @Java.version'
+      - 'AgentClass                      : 10 : "Robot"'
+      - 'AgentName                       : 10 : "Java"'
+      - 'AgentVersion                    : 10 : @Java.version'
+
 
 - lookup:
     name: 'NamedSpecialLayoutEngines'
@@ -3362,21 +3401,21 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Go-http-client/1.1; +centurybot9@gmail.com)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Robot'
-      DeviceBrand                          : 'Unknown'
+      DeviceName                           : 'GO Http Client'
+      DeviceBrand                          : 'GO'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Go-http-client'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Go-http-client 1.1'
+      LayoutEngineNameVersionMajor         : 'Go-http-client 1'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Go-http-client'
       AgentVersion                         : '1.1'
       AgentVersionMajor                    : '1'
@@ -5151,17 +5190,19 @@ config:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Apache HttpClient'
       DeviceBrand                          : 'Apache'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache-HttpClient'
+      LayoutEngineVersion                  : '4.5.2'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Apache-HttpClient 4.5.2'
+      LayoutEngineNameVersionMajor         : 'Apache-HttpClient 4'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Apache-HttpClient'
       AgentVersion                         : '4.5.2'
       AgentVersionMajor                    : '4'
@@ -6269,32 +6310,6 @@ config:
       AgentNameVersion                     : 'Wget 1.17.1'
       AgentNameVersionMajor                : 'Wget 1'
 
-
-- test:
-    input:
-      user_agent_string: 'Jakarta Commons-HttpClient/3.1'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Jakarta Commons-HttpClient'
-      DeviceBrand                          : 'Jakarta Commons-HttpClient'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Jakarta Commons-HttpClient'
-      LayoutEngineVersion                  : '3.1'
-      LayoutEngineVersionMajor             : '3'
-      LayoutEngineNameVersion              : 'Jakarta Commons-HttpClient 3.1'
-      LayoutEngineNameVersionMajor         : 'Jakarta Commons-HttpClient 3'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Jakarta Commons-HttpClient'
-      AgentVersion                         : '3.1'
-      AgentVersionMajor                    : '3'
-      AgentNameVersion                     : 'Jakarta Commons-HttpClient 3.1'
-      AgentNameVersionMajor                : 'Jakarta Commons-HttpClient 3'
 
 - test:
     input:
@@ -8083,19 +8098,19 @@ config:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Apache HttpClient'
       DeviceBrand                          : 'Apache'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache-HttpClient'
+      LayoutEngineVersion                  : '4.5.7'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'Apache-HttpClient 4.5.7'
+      LayoutEngineNameVersionMajor         : 'Apache-HttpClient 4'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Apache-HttpClient'
       AgentVersion                         : '4.5.7'
       AgentVersionMajor                    : '4'
@@ -8132,22 +8147,22 @@ config:
     input:
       user_agent_string: 'okhttp/3.6.0'
     expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Square Okhttp'
+      DeviceBrand                          : 'Square'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'okhttp'
+      LayoutEngineVersion                  : '3.6.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'okhttp 3.6.0'
+      LayoutEngineNameVersionMajor         : 'okhttp 3'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Okhttp'
       AgentVersion                         : '3.6.0'
       AgentVersionMajor                    : '3'
@@ -8158,27 +8173,28 @@ config:
     input:
       user_agent_string: 'python-requests/2.19.1'
     expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Python Requests'
+      DeviceBrand                          : 'Python'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'python-requests'
+      LayoutEngineVersion                  : '2.19.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'python-requests 2.19.1'
+      LayoutEngineNameVersionMajor         : 'python-requests 2'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Python-Requests'
       AgentVersion                         : '2.19.1'
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Python-Requests 2.19.1'
       AgentNameVersionMajor                : 'Python-Requests 2'
+
 
 - matcher:
     extract:

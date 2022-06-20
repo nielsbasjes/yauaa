@@ -43,6 +43,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern TENCENT_LANGUAGE_FIX =
         Pattern.compile("(Language)/([a-z_-]+)", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern GLUED_VERSION_FIX =
+        Pattern.compile("(Java|Wazzup)([0-9])", Pattern.CASE_INSENSITIVE);
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -98,11 +101,8 @@ public final class EvilManualUseragentStringHacks {
         // So those cases we simply insert a space to avoid this match and without changing the resulting tree.
         result = AVOID_BASE64_MATCH.matcher(result).replaceAll("$1 $2");
 
-        // We have seen problem cases like "Java1.0.21.0"
-        result = replaceString(result, "Java", "Java ");
-
-        // We have seen problem cases like "Wazzup1.1.100"
-        result = replaceString(result, "Wazzup", "Wazzup ");
+        // We have seen problem cases like "Java1.0.21.0" and "Wazzup1.1.100"
+        result = GLUED_VERSION_FIX.matcher(result).replaceAll("$1 $2");
 
         // This one is a single useragent that hold significant traffic
         result = replaceString(result, " (Macintosh); ", " (Macintosh; ");

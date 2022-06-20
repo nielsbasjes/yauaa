@@ -5,12 +5,11 @@ v7.2.0-SNAPSHOT
 ===
 - New/improved detections
   - Qwant browser
-  - PindomTMS Robot
+  - Robots: PindomTMS, Yahoo and many http libraries.
   - Google Docs (Google Document Conversion)
   - Facebook Messenger Lite for iOS
   - Apple watchOS
   - Electron
-  - Yahoo Robots
   - "TV Safari" means TV
 
 v7.2.0
