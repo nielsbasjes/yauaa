@@ -128,7 +128,7 @@ class TestClassifier {
             .build();
 
         String useragent = "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Mobile Safari/537.36 (compatible; Google-Safety; +http://www.google.com/bot.html)";
-        assertEquals(ROBOT, getDeviceClass(uaa.parse(useragent)));
+        assertEquals(ROBOT_MOBILE, getDeviceClass(uaa.parse(useragent)));
         assertFalse(isHuman(uaa.parse(useragent)));
     }
 

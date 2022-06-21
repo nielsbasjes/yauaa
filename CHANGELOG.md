@@ -12,6 +12,7 @@ v7.2.1-SNAPSHOT
   - Apple watchOS
   - Electron
   - "TV Safari" means TV
+  - Improve the naming of all Google bot variants.
 
 v7.2.0
 ===
