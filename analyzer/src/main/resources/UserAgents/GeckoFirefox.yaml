@@ -50,6 +50,14 @@ config:
       'QwantMobile'       : 'Qwant'
       'QwantBrowser'      : 'Qwant'
 
+# Edge case for Qwant browser which is sometimes tagged twice
+- matcher:
+    variable:
+    - 'Qwant: agent.(1)product.name="QwantMobile"^'
+    extract:
+    - 'AgentName        :  2200                  : "Qwant"'
+    - 'AgentVersion     :  2200                  : @Qwant.version'
+
 - matcher:
     variable:
     - 'RV                                  :agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
@@ -1862,10 +1870,10 @@ config:
       LayoutEngineBuild                    : '67.0'
       AgentClass                           : 'Browser'
       AgentName                            : 'Qwant'
-      AgentVersion                         : '67.0.4'            # TODO: Should be '3.0' instead ?
-      AgentVersionMajor                    : '67'                # TODO: Should be '3' instead ?
-      AgentNameVersion                     : 'Qwant 67.0.4'      # TODO: Should be 'Qwant 3.0' instead ?
-      AgentNameVersionMajor                : 'Qwant 67'          # TODO: Should be 'Qwant 3' instead ?
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Qwant 3.0'
+      AgentNameVersionMajor                : 'Qwant 3'
 
 
 # Same device, regular Firefox DOES show the right Android version.
