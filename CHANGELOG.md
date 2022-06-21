@@ -13,6 +13,8 @@ v7.2.1-SNAPSHOT
   - Electron
   - "TV Safari" means TV
   - Improve the naming of all Google bot variants.
+- Webservlet:
+  - The input UserAgent is now also part of the output to allow easier processing.
 
 v7.2.0
 ===

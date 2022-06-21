@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 import static nl.basjes.parse.useragent.servlet.ParseService.userAgentAnalyzerIsAvailable;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
@@ -196,7 +197,10 @@ public class ApiXMLOutput {
             List<String> result = new ArrayList<>(2048);
             for (String input : splitPerFilledLine(userAgentString)) {
                 UserAgent userAgent = userAgentAnalyzer.parse(input);
-                result.add(userAgent.toXML(userAgent.getCleanedAvailableFieldNamesSorted()));
+                List<String> fieldNamesSorted = new ArrayList<>();
+                fieldNamesSorted.add(USERAGENT_FIELDNAME);
+                fieldNamesSorted.addAll(userAgent.getCleanedAvailableFieldNamesSorted());
+                result.add(userAgent.toXML(fieldNamesSorted));
             }
             return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + String.join("\n", result);
         }
