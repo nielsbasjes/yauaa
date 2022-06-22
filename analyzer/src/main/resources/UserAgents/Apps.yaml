@@ -201,6 +201,34 @@ config:
       AgentNameVersionMajor                : 'Bol.com 94'
       AgentInformationUrl                  : 'bol.com'
 
+
+- test:
+    input:
+      User-Agent                           : 'mediaserverd (unknown version) CFNetwork/1237 Darwin/20.4.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.5'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.5'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'mediaserverd'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'mediaserverd ??'
+      LayoutEngineNameVersionMajor         : 'mediaserverd ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Mediaserverd'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Mediaserverd ??'
+      AgentNameVersionMajor                : 'Mediaserverd ??'
+
+
 - test:
     input:
       user_agent_string: 'iButler-Swift/1 CFNetwork/711.3.15 Darwin/14.0.0'
