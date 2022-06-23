@@ -28,14 +28,13 @@ cd "${SCRIPTDIR}" || exit
    echo "i386"
    echo "x86_64"
    echo "arm64"
-   # We do not want the desktop class systems as these do not appear in User-Agents.
-   echo "iMac[0-9]"
-   echo "iMacPro[0-9]"
-   echo "MacBookAir[0-9]"
-   echo "MacBook[0-9]"
-   echo "MacBookPro[0-9]"
-   echo "Macmini[0-9]"
-   echo "MacPro[0-9]"
+   # We do not want these because they do not have a browser.
+   echo "AirPods[0-9]"
+   echo "iProd[0-9]"
+   echo "AirPort[0-9]"
+   echo "AirTag[0-9]"
+   echo "AppleDisplay[0-9]"
+   echo "AudioAccessory[0-9]"
    grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sort -u
 ) > __currentIds.txt
 

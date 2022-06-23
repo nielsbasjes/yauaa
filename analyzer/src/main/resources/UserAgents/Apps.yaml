@@ -56,6 +56,128 @@ config:
 # If you create an iOS app and retrieve data from a webserver,
 # the app will create a default user agent as "AppName/version CFNetwork/version Darwin/version".
 
+# https://stackoverflow.com/a/46746999/114196
+# Q: I want to know the default format for macOS (preferably with supporting documentation), and the default format for NSURLConnection as well.
+# A: It follows that same code path as the iOS one.
+#    nsurl/887 CFNetwork/887 Darwin/17.0.0 (x86_64)
+#    $(CFBundleName)/$(CFBundleVersion) CFNetwork/$(CFNetworkVersion) Darwin/$(DarwinVersion) ($(Architecture))
+#    If the program doesn't have a CFBundleName, its executable name is used instead.
+#    For missing CFBundleVersion, (unknown version) is used.
+
+- matcher:
+    variable:
+      - 'Darwin                              :agent.product.name="Darwin"^'
+      - 'AppleTag                            :@Darwin.(2)comments.(1)entry?AppleDeviceClass'
+    extract:
+      - 'DeviceClass                         :      140 :LookUp[AppleDeviceClass;@AppleTag]'
+      - 'DeviceBrand                         :      140 :"Apple"'
+      - 'DeviceName                          :      140 :LookUp[AppleDeviceName;@AppleTag]'
+      - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
+
+
+- matcher:
+    variable:
+      - 'Darwin                              :agent.product.name="Darwin"^'
+    require:
+      - 'agent.(2)product.name="CFNetwork"'
+    extract:
+      - 'DeviceClass                         :       12 :"Desktop"'
+      - 'DeviceBrand                         :       12 :"Apple"'
+      - 'DeviceName                          :       12 :"Apple Macintosh"'
+      - 'DeviceCpu                           :      115 :LookUp[CPUArchitectures;@Darwin.(1)comments.entry[1-2]]'
+      - 'OperatingSystemClass                :       12 :"Desktop"'
+      - 'OperatingSystemName                 :       12 :"Mac OS"'
+      - 'OperatingSystemVersion              :       12 :LookUpPrefix[AppleDarwinVersionToMacOSVersion; @Darwin^.version;"<<<null>>>"]'
+      - 'LayoutEngineClass                   :      141 :"Desktop App"'
+      - 'AgentClass                          :      141 :"Desktop App"'
+
+
+- lookup:
+    name: 'AppleDarwinVersionToMacOSVersion'
+    map:
+      # Based upon https://en.wikipedia.org/wiki/Darwin_(operating_system)
+
+      '1.3.1'     : '10.0.0'
+      '1.4.1'     : '10.1.0'
+      '5.'        : '10.1.?'
+      '5.1'       : '10.1.1'
+      '5.5'       : '10.1.5'
+      '6.'        : '10.2.?'
+      '6.0.1'     : '10.2.0'
+      '6.8'       : '10.2.8'
+      '7.'        : '10.3.?'
+      '7.0'       : '10.3.0'
+      '7.9'       : '10.3.9'
+      '8.'        : '10.4.?'
+      '8.0'       : '10.4.0'
+      '8.11'      : '10.4.11'
+      '9.'        : '10.5.?'
+      '9.0'       : '10.5.0'
+      '9.8'       : '10.5.8'
+      '10.'       : '10.6.?'
+      '10.0'      : '10.6.0'
+      '10.8'      : '10.6.8'
+      '11.'       : '10.7.?'
+      '11.0'      : '10.7.0'
+      '11.4'      : '10.7.5'
+      '12.'       : '10.8.?'
+      '12.0.0'    : '10.8.0'
+      '12.6.0'    : '10.8.5'
+      '13.'       : '10.9.?'
+      '13.0.0'    : '10.9.0'
+      '13.4.0'    : '10.9.5'
+      '14.'       : '10.10.?'
+      '14.0.0'    : '10.10.0'
+      '14.5.0'    : '10.10.5'
+      '15.'       : '10.11.?'
+      '15.0.0'    : '10.11.0'
+      '15.6.0'    : '10.11.6'
+      '16.'       : '10.12.?'
+      '16.0.0'    : '10.12.0'
+      '16.5.0'    : '10.12.4'
+      '16.6.0'    : '10.12.6'
+      '17.?'      : '10.13.?'
+      '17.0.0'    : '10.13.0'
+      '17.5.0'    : '10.13.4'
+      '17.6.0'    : '10.13.5'
+      '17.7.0'    : '10.13.6'
+      '18.?'      : '10.14.?'
+      '18.0.0'    : '10.14.0'
+      '18.2.0'    : '10.14.1'
+      '19.?'      : '10.15.?'
+      '19.0.0'    : '10.15.0'
+      '19.2.0'    : '10.15.2'
+      '19.3.0'    : '10.15.3'
+      '19.4.0'    : '10.15.4'
+      '19.5.0'    : '10.15.5'
+      '19.6.0'    : '10.15.6 beta 2'
+      '20.'       : '11.?'
+      '20.0.0'    : '11.0 beta 1'
+      '20.1.0'    : '11.0'
+      '20.2.0'    : '11.1'
+      '20.3.0'    : '11.2'
+      '20.4.0'    : '11.3'
+      '20.5.0'    : '11.4'
+      '20.6.0'    : '11.5 beta 2'
+      '21.'       : '12.?'
+      '21.0.0'    : '12.0 beta 1'
+      '21.0.1'    : '12.0'
+      '21.1.0'    : '12.0.1'
+      '21.2.0'    : '12.1'
+      '21.3.0'    : '12.2'
+      '21.4.0'    : '12.3'
+      '21.5.0'    : '12.4 beta'
+      '22.'       : '13.?'
+      '22.0'      : '13.0 beta 1'
+
+      # FIXME: These are just guesses !
+      '23.'       : '14.?'
+      '24.'       : '15.?'
+      '25.'       : '16.?'
+      '26.'       : '17.?'
+      '27.'       : '18.?'
+
+
 - lookup:
     name: 'AppleDarwinVersionToIOSVersion'
     map:
@@ -105,8 +227,10 @@ config:
       '21.3.'     : '15.3'
       '21.4.'     : '15.4'
 
-      # FIXME: These are just guesses !
       '22.'       : '16.?'
+      '22.0'      : '16.0 beta 1'
+
+      # FIXME: These are just guesses !
       '23.'       : '17.?'
       '24.'       : '18.?'
       '25.'       : '19.?'
@@ -285,80 +409,81 @@ config:
     input:
       user_agent_string: 'iCoreService (unknown version) CFNetwork/720.2.4 Darwin/14.1.0 (x86_64)'
     expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Apple iOS Device'
-      DeviceBrand                          : 'Apple'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '8.?'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'iOS 8.?'
-      OperatingSystemNameVersionMajor      : 'iOS 8'
-      LayoutEngineClass                    : 'Mobile App'
-      LayoutEngineName                     : 'iCoreService'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'iCoreService ??'
-      LayoutEngineNameVersionMajor         : 'iCoreService ??'
-      AgentClass                           : 'Mobile App'
-      AgentName                            : 'iCoreService'
-      AgentVersion                         : '??'
-      AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'iCoreService ??'
-      AgentNameVersionMajor                : 'iCoreService ??'
+      DeviceClass                          : 'Desktop'            #       11           | FAILED; Should be 'Mobile'
+      DeviceName                           : 'Apple Macintosh'    #       11           | FAILED; Should be 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'              #       11
+      DeviceCpu                            : 'Intel x86_64'       #      115
+      DeviceCpuBits                        : '64'                 #      115
+      OperatingSystemClass                 : 'Desktop'            #       11           | FAILED; Should be 'Mobile'
+      OperatingSystemName                  : 'Mac OS'             #       11           | FAILED; Should be 'iOS'
+      OperatingSystemVersion               : '10.10.?'            #       11           | FAILED; Should be '8.?'
+      OperatingSystemVersionMajor          : '10.10'              #       11           | FAILED; Should be '8'
+      OperatingSystemNameVersion           : 'Mac OS 10.10.?'     #       11           | FAILED; Should be 'iOS 8.?'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.10'       #       11           | FAILED; Should be 'iOS 8'
+      LayoutEngineClass                    : 'Desktop App'        #      140           | FAILED; Should be 'Mobile App'
+      LayoutEngineName                     : 'iCoreService'       #       10
+      LayoutEngineVersion                  : '??'                 #        6 [Default]
+      LayoutEngineVersionMajor             : '??'                 #        6 [Default]
+      LayoutEngineNameVersion              : 'iCoreService ??'    #       10
+      LayoutEngineNameVersionMajor         : 'iCoreService ??'    #       10
+      AgentClass                           : 'Desktop App'        #      140           | FAILED; Should be 'Mobile App'
+      AgentName                            : 'iCoreService'       #       10
+      AgentVersion                         : '??'                 #        6 [Default]
+      AgentVersionMajor                    : '??'                 #        6 [Default]
+      AgentNameVersion                     : 'iCoreService ??'    #       10
+      AgentNameVersionMajor                : 'iCoreService ??'    #       10
 
 - test:
     input:
       user_agent_string: 'MoxDocumentApplication (unknown version) CFNetwork/720.5.7 Darwin/14.5.0 (x86_64)'
     expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Apple iOS Device'
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '8.?'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'iOS 8.?'
-      OperatingSystemNameVersionMajor      : 'iOS 8'
-      LayoutEngineClass                    : 'Mobile App'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.10.5'
+      OperatingSystemVersionMajor          : '10.10'
+      OperatingSystemNameVersion           : 'Mac OS 10.10.5'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.10'
+      LayoutEngineClass                    : 'Desktop App'
       LayoutEngineName                     : 'MoxDocumentApplication'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'MoxDocumentApplication ??'
       LayoutEngineNameVersionMajor         : 'MoxDocumentApplication ??'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Desktop App'
       AgentName                            : 'MoxDocumentApplication'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'MoxDocumentApplication ??'
       AgentNameVersionMajor                : 'MoxDocumentApplication ??'
 
+
 - test:
     input:
       user_agent_string: 'com.ddeville.llwebkit.linkchecker/1 CFNetwork/760.2.6 Darwin/15.3.0 (x86_64)'
     expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Apple iOS Device'
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'iOS'
-      OperatingSystemVersion               : '9.?'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'iOS 9.?'
-      OperatingSystemNameVersionMajor      : 'iOS 9'
-      LayoutEngineClass                    : 'Mobile App'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.11.?'
+      OperatingSystemVersionMajor          : '10.11'
+      OperatingSystemNameVersion           : 'Mac OS 10.11.?'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.11'
+      LayoutEngineClass                    : 'Desktop App'
       LayoutEngineName                     : 'com.ddeville.llwebkit.linkchecker'
       LayoutEngineVersion                  : '1'
       LayoutEngineVersionMajor             : '1'
       LayoutEngineNameVersion              : 'com.ddeville.llwebkit.linkchecker 1'
       LayoutEngineNameVersionMajor         : 'com.ddeville.llwebkit.linkchecker 1'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Desktop App'
       AgentName                            : 'Com.ddeville.llwebkit.linkchecker'
       AgentVersion                         : '1'
       AgentVersionMajor                    : '1'
@@ -3598,3 +3723,65 @@ config:
       AgentVersionMajor                    : '415'
       AgentNameVersion                     : 'GiFi 415'
       AgentNameVersionMajor                : 'GiFi 415'
+
+
+# ==========================================================================
+# CFNetwork NON iOS cases
+
+# Example from https://github.com/appium/appium/issues/2329
+- test:
+    input:
+      User-Agent  : 'Appium (unknown version) CFNetwork/673.2.1 Darwin/13.1.0 (x86_64) (Macmini5,2)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple MAC Mini'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      DeviceVersion                        : 'Mac mini (2011, Intel Core i7)'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.9.?'
+      OperatingSystemVersionMajor          : '10.9'
+      OperatingSystemNameVersion           : 'Mac OS 10.9.?'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.9'
+      LayoutEngineClass                    : 'Desktop App'
+      LayoutEngineName                     : 'Appium'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Appium ??'
+      LayoutEngineNameVersionMajor         : 'Appium ??'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'Appium'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Appium ??'
+      AgentNameVersionMajor                : 'Appium ??'
+
+- test:
+    input:
+      User-Agent  : 'DVDpedia/204 CFNetwork/1128.1 Darwin/19.6.0 (x86_64)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.15.6 beta 2'
+      OperatingSystemVersionMajor          : '10.15'
+      OperatingSystemNameVersion           : 'Mac OS 10.15.6 beta 2'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.15'
+      LayoutEngineClass                    : 'Desktop App'
+      LayoutEngineName                     : 'DVDpedia'
+      LayoutEngineVersion                  : '204'
+      LayoutEngineVersionMajor             : '204'
+      LayoutEngineNameVersion              : 'DVDpedia 204'
+      LayoutEngineNameVersionMajor         : 'DVDpedia 204'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'DVDpedia'
+      AgentVersion                         : '204'
+      AgentVersionMajor                    : '204'
+      AgentNameVersion                     : 'DVDpedia 204'
+      AgentNameVersionMajor                : 'DVDpedia 204'

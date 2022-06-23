@@ -4,6 +4,7 @@ This is intended as an overview of the major changes
 v7.2.1-SNAPSHOT
 ===
 - New/improved detections (Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases)
+  - Apple CFNetwork+Darwin with CPU tag is macOS instead of iOS
   - Qwant browser
   - Robots: PindomTMS, Yahoo and many http libraries.
   - Hackers: More security scanners.
