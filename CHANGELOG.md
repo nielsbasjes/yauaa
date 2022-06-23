@@ -14,6 +14,7 @@ v7.2.1-SNAPSHOT
   - Electron
   - "TV Safari" means TV
   - Improve the naming of all Google bot variants.
+  - Apple M1 CPU (hardly ever seen)
 - Webservlet:
   - The input UserAgent is now also part of the output to allow easier processing.
 

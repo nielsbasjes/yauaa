@@ -1620,3 +1620,38 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Safari 1'
       AgentNameVersionMajor                : 'Safari 1'
+
+
+# This is one of the very few examples that show 'M1' as the CPU type.
+# Many browsers simply stick to something like "Intel" or "x86_64" regardless of the actual CPU in the system
+# https://stackoverflow.com/a/64898866/114196
+# --> https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/frame/navigator_id.cc;l=64;drc=703d3c472cf27470dad21a3f2c8972aca3732cd6
+#
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (MacBook Air; M1 Mac OS X 11_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/604.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macbook'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Apple M1'
+      DeviceCpuBits                        : '64'
+      DeviceVersion                        : 'MacBook Air'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '11.4'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Mac OS 11.4'
+      OperatingSystemNameVersionMajor      : 'Mac OS 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '14.1.1'
+      AgentVersionMajor                    : '14'
+      AgentNameVersion                     : 'Safari 14.1.1'
+      AgentNameVersionMajor                : 'Safari 14'
