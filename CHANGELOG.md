@@ -4,17 +4,19 @@ This is intended as an overview of the major changes
 v7.2.1-SNAPSHOT
 ===
 - New/improved detections (Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases)
-  - Apple CFNetwork+Darwin with CPU tag is macOS instead of iOS
+  - Apple
+    - Use information from Apple to complete the list of devices.
+    - Apple CFNetwork+Darwin with CPU tag is macOS instead of iOS
+    - Apple M1 CPU (hardly ever seen)
+    - Apple watchOS
   - Qwant browser
   - Robots: PindomTMS, Yahoo and many http libraries.
   - Hackers: More security scanners.
   - Google Docs (Google Document Conversion)
   - Facebook Messenger Lite for iOS
-  - Apple watchOS
   - Electron
   - "TV Safari" means TV
   - Improve the naming of all Google bot variants.
-  - Apple M1 CPU (hardly ever seen)
 - Webservlet:
   - The input UserAgent is now also part of the output to allow easier processing.
 

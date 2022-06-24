@@ -79,6 +79,7 @@ echo "Generating: ${OUTPUT}"
   grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    keyE=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/%2C/g')
     keyS=$(echo "${line}" | cut -d'|' -f1 | sed 's/,1//g')
     keyU=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/_/g')
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
@@ -88,6 +89,8 @@ echo "Generating: ${OUTPUT}"
     if [[ ${key} == *","* ]]; then
       echo "      \"${keyC}\" : \"${deviceClass}\""
       echo "      \"Apple-${keyC}\" : \"${deviceClass}\""
+      echo "      \"${keyE}\" : \"${deviceClass}\""
+      echo "      \"Apple-${keyE}\" : \"${deviceClass}\""
       if [[ ${keyS} != *","* ]]; then
         echo "      \"${keyS}\" : \"${deviceClass}\""
       fi
@@ -120,6 +123,7 @@ echo "Generating: ${OUTPUT}"
   grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    keyE=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/%2C/g')
     keyS=$(echo "${line}" | cut -d'|' -f1 | sed 's/,1//g')
     keyU=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/_/g')
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
@@ -129,6 +133,8 @@ echo "Generating: ${OUTPUT}"
     if [[ ${key} == *","* ]]; then
       echo "      \"${keyC}\" : \"${deviceName}\""
       echo "      \"Apple-${keyC}\" : \"${deviceName}\""
+      echo "      \"${keyE}\" : \"${deviceName}\""
+      echo "      \"Apple-${keyE}\" : \"${deviceName}\""
       if [[ ${keyS} != *","* ]]; then
         echo "      \"${keyS}\" : \"${deviceName}\""
       fi
@@ -162,6 +168,7 @@ echo "Generating: ${OUTPUT}"
   grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
+    keyE=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/%2C/g')
     keyS=$(echo "${line}" | cut -d'|' -f1 | sed 's/,1//g')
     keyU=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/_/g')
     deviceClass=$(echo "${line}" | cut -d'|' -f2)
@@ -171,6 +178,8 @@ echo "Generating: ${OUTPUT}"
     if [[ ${key} == *","* ]]; then
       echo "      \"${keyC}\" : \"${deviceVersion}\""
       echo "      \"Apple-${keyC}\" : \"${deviceVersion}\""
+      echo "      \"${keyE}\" : \"${deviceVersion}\""
+      echo "      \"Apple-${keyE}\" : \"${deviceVersion}\""
       if [[ ${keyS} != *","* ]]; then
         echo "      \"${keyS}\" : \"${deviceVersion}\""
       fi
