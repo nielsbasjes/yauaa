@@ -19,7 +19,7 @@
 # Fail if there is a DONOTCOMMIT in one of the files to be committed
 for filename in $(git diff --cached --name-only | grep -F -v git-hooks);
 do
-  grep -F "DONOTCOMMIT" $filename > /dev/null 2>&1
+  git diff --cached $filename | grep -F "DONOTCOMMIT"  > /dev/null 2>&1
   STATUS=$?
   if [ "${STATUS}" -eq 0 ];
   then
