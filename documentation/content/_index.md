@@ -12,6 +12,20 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+
+### Version 7.3.0
+- Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases used for improving this version
+- Improve Apple detection/reporting
+  - Apple
+    - Use information from Apple to complete the list of devices.
+    - Apple CFNetwork+Darwin with CPU tag is macOS instead of iOS
+    - Apple M1 CPU (hardly ever seen)
+    - Apple watchOS
+  - Many browsers, security scanners and robots.
+  - Improve the naming of all Google bot variants.
+- Webservlet:
+  - The input UserAgent is now also part of the output to allow easier processing.
+
 ### Version 7.1.0
 - Analyzer
   - Simplify using Java 8 compliant caching

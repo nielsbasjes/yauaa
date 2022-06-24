@@ -1,7 +1,12 @@
 
 This is intended as an overview of the major changes
 
-v7.2.1-SNAPSHOT
+v7.4.0-SNAPSHOT
+===
+- ...
+
+
+v7.3.0
 ===
 - New/improved detections (Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases)
   - Apple
