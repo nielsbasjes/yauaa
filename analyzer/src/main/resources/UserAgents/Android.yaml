@@ -1881,6 +1881,64 @@ config:
       AgentNameVersion                     : 'Chrome 84.0.4121.0'
       AgentNameVersionMajor                : 'Chrome 84'
 
+
+- test:
+    input:
+      User-Agent                           : '"Mozilla/5.0 (X11; Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.116 Safari/537.36 CrKey/1.56.500000"'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Google Chromecast'
+      DeviceBrand                          : 'Google'
+      DeviceVersion                        : '1.56.500000'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Fuchsia'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Fuchsia ??'
+      OperatingSystemNameVersionMajor      : 'Fuchsia ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '97.0'
+      LayoutEngineVersionMajor             : '97'
+      LayoutEngineNameVersion              : 'Blink 97.0'
+      LayoutEngineNameVersionMajor         : 'Blink 97'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '97.0.4692.116'
+      AgentVersionMajor                    : '97'
+      AgentNameVersion                     : 'Chrome 97.0.4692.116'
+      AgentNameVersionMajor                : 'Chrome 97'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Fuchsia x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3557.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Fuchsia Device'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Fuchsia'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Fuchsia ??'
+      OperatingSystemNameVersionMajor      : 'Fuchsia ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '71.0'
+      LayoutEngineVersionMajor             : '71'
+      LayoutEngineNameVersion              : 'Blink 71.0'
+      LayoutEngineNameVersionMajor         : 'Blink 71'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '71.0.3557.0'
+      AgentVersionMajor                    : '71'
+      AgentNameVersion                     : 'Chrome 71.0.3557.0'
+      AgentNameVersionMajor                : 'Chrome 71'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.3; en-us; Sensation_4G Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/5.0 Safari/533.16'
