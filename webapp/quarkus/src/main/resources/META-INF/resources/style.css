@@ -1,0 +1,302 @@
+/*
+ * Yet Another UserAgent Analyzer
+ * Copyright (C) 2013-2022 Niels Basjes
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+body {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    width: 95%;
+    margin: 1%;
+    /*border: dodgerblue;*/
+    /*border-style: solid;*/
+    /*border-radius: 20px;*/
+    align-self: center;
+    padding: 1%;
+}
+.header {
+    background-image: url(excavator.svg);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: 5px;
+    padding-left: 90px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.title {
+    font-weight: bold;
+    text-align: center;
+    vertical-align: center;
+    text-shadow: 0.05em 0.05em #aaaaaa ;
+}
+.version {
+    font-variant: small-caps;
+    text-align: center;
+}
+.speed {
+    font-variant: small-caps;
+    text-align: center;
+}
+.copyright {
+    text-align: center;
+}
+
+.hideLink {
+    text-decoration: none;
+}
+.notYetStartedBorder {
+    background-image: url("hourglass.svg");
+    background-size: 5em 5em;
+    background-repeat: no-repeat;
+    background-position: 0.5em;
+    padding: 1em 1em 1em 6em;
+    border-radius: 5px;
+    border-color: orangered;
+    border-width: 2px;
+    border-style: dashed;
+    margin: 0 auto;
+}
+.notYetStarted {
+    font-weight: bold;
+    font-size: x-large;
+    font-variant: small-caps;
+    text-align: center;
+}
+.notYetStartedAppEngine {
+    font-weight: bold;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+.failureBorder {
+    background-image: url("error-cross.svg");
+    background-size: 5em 5em;
+    background-repeat: no-repeat;
+    background-position: 0.5em;
+    padding: 1em 1em 1em 6em;
+    border-radius: 5px;
+    border-color: red;
+    border-width: 2px;
+    border-style: dashed;
+    width: 80%;
+    margin: 0 auto;
+}
+.failureContent {
+    font-weight: bold;
+    font-size: x-large;
+    font-variant: small-caps;
+    text-align: center;
+}
+
+.input {
+    font-weight: bold;
+    font-size: large;
+    font-variant: small-caps;
+    border-radius: 5px;
+    border-color: dodgerblue;
+    border-width: 2px;
+    border-style: dashed;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+}
+
+.clientHints {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border: 0 solid dodgerblue;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+}
+
+.clientHints td, .clientHints th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.clientHints tr:nth-child(even){background-color: #f2f2f2;}
+
+.clientHints tr:hover {background-color: #ddd;}
+
+.clientHints th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: dodgerblue;
+    color: white;
+}
+
+.tags {
+    background-repeat: no-repeat;
+    background-size: 3em 3em;
+    background-position: 2em;
+    padding: 2em 2em 2em 7em;
+    margin: 1em;
+
+    background-image: url(microscope.svg);
+
+    font-weight: bold;
+    font-size: large;
+    /*font-variant: small-caps;*/
+    vertical-align: center;
+
+    border-radius: 5px;
+    border-color: dodgerblue;
+    border-width: 2px;
+    border-style: dotted;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    text-shadow: 0.05em 0.05em #aaaaaa ;
+}
+
+
+#result {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border: 0 solid dodgerblue;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#result td, #result th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#result tr:nth-child(even){background-color: #f2f2f2;}
+
+#result tr:hover {background-color: #ddd;}
+
+#result th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: dodgerblue;
+    color: white;
+}
+.logobar{
+    background-repeat: no-repeat;
+    background-size: 3em 3em;
+    background-position: 0.5em;
+    padding-left: 4em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: 0;
+}
+.bug {
+    background-image: url(bug.svg);
+}
+.documentation {
+    background-image: url(book-open.svg);
+}
+.forum {
+    background-image: url(forum.svg);
+}
+.swagger {
+    background-image: url(swagger.svg);
+}
+.graphql {
+    background-image: url(graphql.svg);
+}
+.source {
+    background-image: url(git-square.svg);
+}
+.tryyourown {
+    background-image: url(microscope.svg);
+}
+.tryexample {
+    background-image: url(paper-plane.svg);
+}
+.contribute{
+    background-image: url(cc-paypal.svg);
+}
+
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: larger;
+}
+
+input[type=submit] {
+    width: 100%;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: large;
+    font-variant: small-caps;
+}
+
+.testButton {
+    background-color: blue;
+}
+
+.testButton:hover {
+    background-color: deepskyblue;
+}
+
+.demoButton {
+    background-color: blue;
+}
+
+.demoButton:hover {
+    background-color: deepskyblue;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

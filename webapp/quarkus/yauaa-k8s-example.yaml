@@ -1,0 +1,159 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+## For this demo we use a separate namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: yauaa
+
+---
+
+## [OPTIONAL] We define some custom rules... just to show how to do it.
+## This can be useful if you want to extract values from services you wrote
+## A different way of creating such a config map is by putting the config files in a folder 'foo'
+## and doing something like: kubectl create -n yauaa configmap niels-yauaa-rules --from-file=foo
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: niels-yauaa-rules
+  namespace: yauaa
+data:
+  MyCustomRules.yaml: |
+    config:
+    - matcher:
+        require:
+        - 'agent.product.name="NielsBasjes"'
+        extract:
+        - 'CustomRuleDemonstrationName    : 42 :"A Simple demonstration of a custom rule"'
+        - 'CustomRuleDemonstrationWebsite : 42 :"https://yauaa.basjes.nl"'
+    - test:
+        input:
+          user_agent_string: 'NielsBasjes/42 (https://niels.basjes.nl)'
+        expected:
+          DeviceClass                           : 'Robot'
+          DeviceName                            : 'Basjes Robot'
+          DeviceBrand                           : 'Basjes'
+          OperatingSystemClass                  : 'Cloud'
+          OperatingSystemName                   : 'Cloud'
+          OperatingSystemVersion                : '??'
+          OperatingSystemVersionMajor           : '??'
+          OperatingSystemNameVersion            : 'Cloud ??'
+          OperatingSystemNameVersionMajor       : 'Cloud ??'
+          LayoutEngineClass                     : 'Unknown'
+          LayoutEngineName                      : 'Unknown'
+          LayoutEngineVersion                   : '??'
+          LayoutEngineVersionMajor              : '??'
+          LayoutEngineNameVersion               : 'Unknown ??'
+          LayoutEngineNameVersionMajor          : 'Unknown ??'
+          AgentClass                            : 'Special'
+          AgentName                             : 'NielsBasjes'
+          AgentVersion                          : '42'
+          AgentVersionMajor                     : '42'
+          AgentNameVersion                      : 'NielsBasjes 42'
+          AgentNameVersionMajor                 : 'NielsBasjes 42'
+          AgentInformationUrl                   : 'https://niels.basjes.nl'
+          CustomRuleDemonstrationName           : 'A Simple demonstration of a custom rule'
+          CustomRuleDemonstrationWebsite        : 'https://yauaa.basjes.nl'
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yauaa
+  namespace: yauaa
+spec:
+  selector:
+    matchLabels:
+      app: yauaa
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: yauaa
+    spec:
+      volumes: ## [OPTIONAL] Bind the config map as a volume
+        - name: niels-yauaa-rules-volume
+          configMap:
+            name: niels-yauaa-rules
+      containers:
+      - name: yauaa
+        image: nielsbasjes/yauaa:latest
+        volumeMounts: ## [OPTIONAL] Mount the config map volume under /UserAgents
+          - name: niels-yauaa-rules-volume
+            # NOTE 1: The directory name MUST start with  "/UserAgents" !!
+            # NOTE 2: I MUST be exactly 1 subdirectory deep (i.e. no multi level deep)
+            # NOTE 3: You can have multiple as long as the mountPaths are all different.
+            mountPath: /UserAgents-Niels
+        ports:
+        - containerPort: 8080
+          name: yauaa
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: yauaa
+          initialDelaySeconds: 2
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: yauaa
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: yauaa
+  namespace: yauaa
+spec:
+  selector:
+    app: yauaa
+  ports:
+    - name: default
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+
+---
+
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: yauaa
+#  namespace: yauaa
+#  annotations:
+#    kubernetes.io/ingress.class: nginx
+#    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+#spec:
+#  rules:
+#    - host: yauaa.example.nl
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: yauaa
+#                port:
+#                  number: 80
