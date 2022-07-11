@@ -28,6 +28,7 @@ import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.text.StringEscapeUtils;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.reactive.RestForm;
 import org.springframework.http.HttpHeaders;
@@ -203,6 +204,7 @@ public class HumanHtml {
                     sb.append("<hr/>");
                     sb.append("<h2 class=\"title\">The UserAgent");
                     copyTestcaseToClipboard(sb, userAgent);
+                    copyGraphQLQueryToClipboard(sb, userAgent);
                     if (!useClientHints) {
                         sb
                             .append(" <a class=\"hideLink\" href=\"?ua=")
@@ -426,6 +428,22 @@ public class HumanHtml {
                     var tooltip = document.getElementById("copyTestCaseToClipboardTooltip");
                     tooltip.innerHTML = "Copy this as a testcase to clipboard";
                 }
+
+                function copyGraphQLToClipboard() {
+                   var copyText = document.getElementById("graphQLForClipboard");
+                   copyText.select();
+                   copyText.setSelectionRange(0, 99999);
+                   navigator.clipboard.writeText(copyText.value);
+
+                    var tooltip = document.getElementById("copyGraphQLToClipboardTooltip");
+                    tooltip.innerHTML = "Copied to clipboard"
+                }
+
+                function closeCopyGraphQLToClipboardTooltip() {
+                    var tooltip = document.getElementById("copyGraphQLToClipboardTooltip");
+                    tooltip.innerHTML = "Copy this as a graphQL to clipboard";
+                }
+
                 </script>""");
 
 
@@ -491,6 +509,61 @@ public class HumanHtml {
             .append("<div class=\"tooltip\">" +
                 "<p onclick=\"copyTestCaseToClipboard()\" onmouseout=\"closeCopyTestCaseToClipboardTooltip()\">" +
                 "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip\">Copy this as a testcase to clipboard</span>" +
+                "&#128203;</p>" +
+                "</div>\n");
+    }
+
+    private void copyGraphQLQueryToClipboard(StringBuilder sb, UserAgent userAgent) {
+        sb.append("<textarea style='display:none' id=\"graphQLForClipboard\">");
+        sb.append("""
+            query {
+              yauaa(requestHeaders: {
+              """);
+        Map<String, String> headers = userAgent.getHeaders();
+        // FIXME: No hardcoded lists here
+        sb.append("      userAgent              : \"").append(StringEscapeUtils.escapeJson(headers.get("User-Agent")))                  .append("\"\n");
+        sb.append("      secChUa                : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA")))                   .append("\"\n");
+        sb.append("      secChUaArch            : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Arch")))              .append("\"\n");
+        sb.append("      secChUaBitness         : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Bitness")))           .append("\"\n");
+        sb.append("      secChUaFullVersion     : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Full-Version")))      .append("\"\n");
+        sb.append("      secChUaFullVersionList : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Full-Version-List"))) .append("\"\n");
+        sb.append("      secChUaMobile          : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Mobile")))            .append("\"\n");
+        sb.append("      secChUaModel           : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Model")))             .append("\"\n");
+        sb.append("      secChUaPlatform        : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Platform")))          .append("\"\n");
+        sb.append("      secChUaPlatformVersion : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Platform-Version")))  .append("\"\n");
+        sb.append("      secChUaWoW64           : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-WoW64")))             .append("\"\n");
+        // FIXME: No hardcoded lists here
+        sb.append("""
+              }) {
+                deviceName
+                deviceBrand
+                deviceCpu
+                deviceCpuBits
+                operatingSystemClass
+                operatingSystemName
+                operatingSystemVersion
+                operatingSystemVersionMajor
+                operatingSystemNameVersion
+                operatingSystemNameVersionMajor
+                layoutEngineClass
+                layoutEngineName
+                layoutEngineVersion
+                layoutEngineVersionMajor
+                layoutEngineNameVersion
+                layoutEngineNameVersionMajor
+                agentClass
+                agentName
+                agentVersion
+                agentVersionMajor
+                agentNameVersion
+                agentNameVersionMajor
+              }
+            }
+            """);
+        sb.append("</textarea>")
+            .append("<div class=\"tooltip\">" +
+                "<p onclick=\"copyGraphQLToClipboard()\" onmouseout=\"closeCopyGraphQLToClipboardTooltip()\">" +
+                "<span class=\"tooltiptext\" id=\"copyGraphQLToClipboardTooltip\">Copy this as a GraphQL query to clipboard</span>" +
                 "&#128203;</p>" +
                 "</div>\n");
     }
