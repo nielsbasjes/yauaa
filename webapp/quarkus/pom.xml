@@ -62,11 +62,10 @@
     <slf4j.version>1.7.36</slf4j.version>
     <log4j2.version>2.17.2</log4j2.version>
 
-    <!-- Settings related to building the docker image. -->
-    <quarkus.container-image.build>true</quarkus.container-image.build>
-    <quarkus.container-image.group>nielsbasjes</quarkus.container-image.group>
-    <quarkus.container-image.image>yauaa-quarkus</quarkus.container-image.image>
+    <quarkus.package.uber-jar>true</quarkus.package.uber-jar>
+    <quarkus.package.type>legacy-jar</quarkus.package.type>
 
+    <git.commit.id>develop</git.commit.id>
   </properties>
 
   <dependencyManagement>
@@ -167,6 +166,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.2.0</version>
+        <configuration>
+          <propertiesEncoding>UTF-8</propertiesEncoding>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -276,7 +278,7 @@
         <skipITs>false</skipITs>
         <quarkus.package.type>native</quarkus.package.type>
         <quarkus.native.additional-build-args>
-          --initialize-at-run-time=nl.basjes.shaded.org.springframework.core.io.VfsUtils
+          -H:ResourceConfigurationFiles=resources-config.json, --initialize-at-run-time=nl.basjes.shaded.org.springframework.core.io.VfsUtils
         </quarkus.native.additional-build-args>
       </properties>
 

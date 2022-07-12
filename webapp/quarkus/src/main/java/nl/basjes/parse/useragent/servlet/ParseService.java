@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.servlet;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
@@ -27,7 +28,6 @@ import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
 import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.jboss.logging.Logger;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,7 +35,18 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Application;
 
 //@SpringBootApplication
-@RestController
+//@RestController
+// See https://quarkus.io/guides/cache#going-native
+@RegisterForReflection(
+    classNames = {
+        "com.github.benmanes.caffeine.cache.PSMS",
+        "com.github.benmanes.caffeine.cache.SSMS"
+    },
+    targets = {
+        org.apache.logging.log4j.message.ReusableMessageFactory.class,
+        org.apache.logging.log4j.message.DefaultFlowMessageFactory.class
+    }
+)
 @OpenAPIDefinition(
     info = @Info(
         title="Yauaa",
@@ -77,28 +88,44 @@ public class ParseService extends Application {
     public void automaticStartup() {
         if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
             initStartMoment = System.currentTimeMillis();
-            new Thread(() -> {
-                try {
-                    LOG.info("Yauaa: Starting " + YauaaVersion.getVersion());
-                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
-                        .hideMatcherLoadStats()
-                        .addOptionalResources("file:UserAgents*/*.yaml")
-                        .addOptionalResources("classpath*:UserAgents-*/*.yaml")
-                        .immediateInitialization()
-                        .keepTests()
-                        .build();
-                    userAgentAnalyzerIsAvailable = true;
-                } catch (Exception | Error e) {
-                    userAgentAnalyzerFailureMessage =
-                        e.getClass().getSimpleName() + "<br/>" +
-                            e.getMessage().replace("\n", "<br/>");
-                    LOG.error(
-                        "Fatal error during startup: "+e.getClass().getCanonicalName() + "\n" +
-                        "=======================================================\n" +
-                        e.getMessage()+
-                        "=======================================================" );
+            try {
+                LOG.info("Yauaa: Starting " + YauaaVersion.getVersion());
+                userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+                    .hideMatcherLoadStats()
+                    .addOptionalResources("file:UserAgents*/*.yaml")
+                    .addOptionalResources("classpath*:UserAgents-*/*.yaml")
+                    .immediateInitialization()
+                    .keepTests()
+                    .build();
+                userAgentAnalyzerIsAvailable = true;
+            } catch (Exception | Error e) {
+                // Extensive error logging
+                StringBuilder msgBuilder = new StringBuilder();
+
+                Throwable t = e;
+                while (t != null) {
+                    msgBuilder.append("==========================================================<br/>\n");
+                    msgBuilder.append(t.getClass().getSimpleName()).append("<br/>\n");
+
+                    String message = t.getMessage();
+                    if (message != null) {
+                        msgBuilder.append(message.replace("\n", "<br/>\n"));
+                    }
+
+                    for (StackTraceElement stackTraceElement : t.getStackTrace()) {
+                        msgBuilder.append("\tat ").append(stackTraceElement).append("<br/>\n");
+                    }
+                    t = t.getCause();
                 }
-            }).start();
+
+                userAgentAnalyzerFailureMessage = msgBuilder.toString();
+
+                LOG.error(
+                    "Fatal error during startup: "+e.getClass().getCanonicalName() + "\n" +
+                    "=======================================================\n" +
+                    userAgentAnalyzerFailureMessage.replace("<br/>","")+
+                    "=======================================================" );
+            }
         }
     }
 
@@ -120,8 +147,4 @@ public class ParseService extends Application {
             throw new YauaaIsBusyStarting(outputType);
         }
     }
-
-//    public static void main(String[] args) {
-//        SpringApplication.run(ParseService.class, args);
-//    }
 }
