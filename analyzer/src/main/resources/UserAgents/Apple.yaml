@@ -1655,3 +1655,51 @@ config:
       AgentVersionMajor                    : '14'
       AgentNameVersion                     : 'Safari 14.1.1'
       AgentNameVersionMajor                : 'Safari 14'
+
+
+# Frozen MacOS version on Safari
+# https://bugs.webkit.org/show_bug.cgi?id=216593
+# https://trac.webkit.org/changeset/267148/webkit
+
+- matcher:
+    variable:
+    - 'MacOS:agent.(1)product.(1)comments.entry.(1)product.(1)name~"Mac OS X"^'
+    require:
+      - 'agent.(1)product.name="Mozilla"'
+      - 'agent.(2)product.name="AppleWebKit"'
+      - 'agent.(3)product.name="Version"'
+      - 'agent.(4)product.name="Safari"'
+      - 'IsNull[agent.(5)product.name]'
+      - '@MacOS.version="10_15_7"'
+    extract:
+      - 'OperatingSystemName                  : 21 : "Mac OS"'
+      - 'OperatingSystemVersion               : 21 : ">=10.15.7"'
+      - 'OperatingSystemVersionMajor          : 21 : ">=10.15"'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '15.5'
+      AgentVersionMajor                    : '15'
+      AgentNameVersion                     : 'Safari 15.5'
+      AgentNameVersionMajor                : 'Safari 15'

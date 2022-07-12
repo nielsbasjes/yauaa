@@ -3,7 +3,7 @@ This is intended as an overview of the major changes
 
 v7.4.0-SNAPSHOT
 ===
-- ...
+- Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
 
 
 v7.3.0
