@@ -16,5 +16,5 @@
 # limitations under the License.
 #
 
-docker run --rm -p 8080:8080 nielsbasjes/yauaa-quarkus:latest
+docker run --rm -p 8080:8080 nielsbasjes/yauaa-quarkus:local
 

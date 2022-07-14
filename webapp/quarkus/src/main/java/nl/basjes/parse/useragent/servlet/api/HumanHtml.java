@@ -521,17 +521,17 @@ public class HumanHtml {
               """);
         Map<String, String> headers = userAgent.getHeaders();
         // FIXME: No hardcoded lists here
-        sb.append("      userAgent              : \"").append(StringEscapeUtils.escapeJson(headers.get("User-Agent")))                  .append("\"\n");
-        sb.append("      secChUa                : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA")))                   .append("\"\n");
-        sb.append("      secChUaArch            : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Arch")))              .append("\"\n");
-        sb.append("      secChUaBitness         : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Bitness")))           .append("\"\n");
-        sb.append("      secChUaFullVersion     : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Full-Version")))      .append("\"\n");
-        sb.append("      secChUaFullVersionList : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Full-Version-List"))) .append("\"\n");
-        sb.append("      secChUaMobile          : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Mobile")))            .append("\"\n");
-        sb.append("      secChUaModel           : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Model")))             .append("\"\n");
-        sb.append("      secChUaPlatform        : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Platform")))          .append("\"\n");
-        sb.append("      secChUaPlatformVersion : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-Platform-Version")))  .append("\"\n");
-        sb.append("      secChUaWoW64           : \"").append(StringEscapeUtils.escapeJson(headers.get("Sec-CH-UA-WoW64")))             .append("\"\n");
+        addRequestHeaderToGraphQL(sb, headers.get("User-Agent")                      , "userAgent             ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA")                       , "secChUa               ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Arch")                  , "secChUaArch           ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Bitness")               , "secChUaBitness        ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Full-Version")          , "secChUaFullVersion    ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Full-Version-List")     , "secChUaFullVersionList");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Mobile")                , "secChUaMobile         ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Model")                 , "secChUaModel          ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Platform")              , "secChUaPlatform       ");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Platform-Version")      , "secChUaPlatformVersion");
+        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-WoW64")                 , "secChUaWoW64          ");
         // FIXME: No hardcoded lists here
         sb.append("""
               }) {
@@ -566,6 +566,13 @@ public class HumanHtml {
                 "<span class=\"tooltiptext\" id=\"copyGraphQLToClipboardTooltip\">Copy this as a GraphQL query to clipboard</span>" +
                 "&#128203;</p>" +
                 "</div>\n");
+    }
+
+    private void addRequestHeaderToGraphQL(StringBuilder sb, String header, String gqlName) {
+        if (header == null || header.isBlank()) {
+            return;
+        }
+        sb.append("      ").append(gqlName).append(" : \"").append(StringEscapeUtils.escapeJson(header)).append("\"\n");
     }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {

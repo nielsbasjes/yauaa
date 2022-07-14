@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Yet Another UserAgent Analyzer
 # Copyright (C) 2013-2022 Niels Basjes
@@ -15,8 +16,15 @@
 # limitations under the License.
 #
 
-*
-!target/*-runner
-!target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
+(cd quarkus && mvn package)
+
+cat <<'EOF' > __tmp__TEST__DockerFile
+FROM nielsbasjes/yauaa-quarkus:local
+RUN mkdir -p UserAgents-Customized-Rules
+ADD CompanyInternalUserAgents.yaml  UserAgents-Customized-Rules
+EOF
+
+docker build -t nielsbasjes/yauaa-quarkus:local-extrarules -f __tmp__TEST__DockerFile .
+
+docker run --rm -p 8080:8080 nielsbasjes/yauaa-quarkus:local-extrarules
+

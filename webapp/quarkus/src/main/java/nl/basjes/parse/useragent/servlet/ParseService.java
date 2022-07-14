@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.servlet;
 
+import io.quarkus.runtime.Startup;
+import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
@@ -32,6 +34,7 @@ import org.jboss.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.ws.rs.core.Application;
 
 //@SpringBootApplication
@@ -58,6 +61,7 @@ import javax.ws.rs.core.Application;
             name = "Apache 2.0",
             url = "https://www.apache.org/licenses/LICENSE-2.0.html"))
 )
+@Startup
 @ApplicationScoped
 public class ParseService extends Application {
 
