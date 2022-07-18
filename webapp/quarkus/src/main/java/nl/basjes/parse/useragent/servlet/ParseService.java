@@ -18,11 +18,9 @@
 package nl.basjes.parse.useragent.servlet;
 
 import io.quarkus.runtime.Startup;
-import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
-import nl.basjes.parse.useragent.servlet.api.OutputType;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaIsBusyStarting;
 import nl.basjes.parse.useragent.utils.YauaaVersion;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
@@ -34,7 +32,6 @@ import org.jboss.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import javax.ws.rs.core.Application;
 
 //@SpringBootApplication
@@ -95,7 +92,7 @@ public class ParseService extends Application {
             try {
                 LOG.info("Yauaa: Starting " + YauaaVersion.getVersion());
                 userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
-                    .hideMatcherLoadStats()
+                    .showMatcherLoadStats()
                     .addOptionalResources("file:UserAgents*/*.yaml")
                     .addOptionalResources("classpath*:UserAgents-*/*.yaml")
                     .immediateInitialization()

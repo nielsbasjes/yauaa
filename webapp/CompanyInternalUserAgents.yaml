@@ -39,3 +39,50 @@ config:
       ApplicationInstance    : '1234'
       ApplicationGitCommit   : 'd71922715c2bfe29343644b14a4731bf5690e66e'
       ServerName             : 'node123.datacenter.example.nl'
+
+
+# query {
+#   yauaa(requestHeaders: {
+#     userAgent              : "TestApplication\/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)"
+#   }) {
+#     ApplicationGitCommit: fields(key: "ApplicationGitCommit") { value }
+#     ApplicationInstance:  fields(key: "ApplicationInstance" ) { value }
+#     ApplicationName:      fields(key: "ApplicationName"     ) { value }
+#     ApplicationVersion:   fields(key: "ApplicationVersion"  ) { value }
+#     ServerName:           fields(key: "ServerName"          ) { value }
+#   }
+# }
+
+# OUTPUT:
+
+# {
+#  "data": {
+#    "yauaa": {
+#      "ApplicationGitCommit": [
+#        {
+#          "value": "d71922715c2bfe29343644b14a4731bf5690e66e"
+#        }
+#      ],
+#      "ApplicationInstance": [
+#        {
+#          "value": "1234"
+#        }
+#      ],
+#      "ApplicationName": [
+#        {
+#          "value": "TestApplication"
+#        }
+#      ],
+#      "ApplicationVersion": [
+#        {
+#          "value": "1.2.3"
+#        }
+#      ],
+#      "ServerName": [
+#        {
+#          "value": "node123.datacenter.example.nl"
+#        }
+#      ]
+#    }
+#  }
+#}

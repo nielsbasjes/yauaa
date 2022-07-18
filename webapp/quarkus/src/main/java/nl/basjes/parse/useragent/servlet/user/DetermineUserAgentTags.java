@@ -15,28 +15,23 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api;
+package nl.basjes.parse.useragent.servlet.user;
+
+import nl.basjes.parse.useragent.UserAgent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Utils {
-    private Utils() {
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
+
+public final class DetermineUserAgentTags {
+
+    private DetermineUserAgentTags() {
+        // Utility class
     }
 
-    public static List<String> splitPerFilledLine(String input) {
-        String[] lines = input.split("\\r?\\n");
-        List<String> result = new ArrayList<>(lines.length);
-        for (String line: lines) {
-            String trimmedLine = line.trim();
-            if (!trimmedLine.isEmpty()) {
-                result.add(trimmedLine);
-            }
-        }
-        if (result.isEmpty()) {
-            // Apparently the only input was an empty string, we want to keep that.
-            result.add("");
-        }
-        return result;
-    }
+
 }

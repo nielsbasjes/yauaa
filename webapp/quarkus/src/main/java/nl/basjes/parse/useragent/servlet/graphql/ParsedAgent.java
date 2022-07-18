@@ -15,13 +15,15 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api.graphql;
+package nl.basjes.parse.useragent.servlet.graphql;
+
+import org.eclipse.microprofile.graphql.Description;
 
 import java.util.Map;
 
+@Description("The analysis results of a User-Agent and other headers.")
 public class ParsedAgent {
-    public YauaaGraphQLVersion yauaaVersion = YauaaGraphQLVersion.getInstance();
-
+    @Description("The full set of all fields in a map")
     public Map<String, String> fields;
 
     public String deviceClass                         ;
@@ -50,5 +52,6 @@ public class ParsedAgent {
     public String agentNameVersion                    ;
     public String agentNameVersionMajor               ;
 
+    @Description("The provided input can be requested back (usefull in batch analysis scenarios)")
     public RequestHeaders requestHeaders;
 }

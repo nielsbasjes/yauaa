@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.servlet.api;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.config.TestCase.TestResult;
+import nl.basjes.parse.useragent.servlet.OutputType;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaTestsFailed;
 import org.eclipse.microprofile.openapi.annotations.Operation;

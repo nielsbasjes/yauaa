@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.status;
+package nl.basjes.parse.useragent.servlet.api.status;
 
 import io.vertx.core.cli.annotations.Hidden;
+import nl.basjes.parse.useragent.servlet.OutputType;
 import nl.basjes.parse.useragent.servlet.ParseService;
-import nl.basjes.parse.useragent.servlet.api.OutputType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.ExampleObject;

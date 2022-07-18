@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api.graphql;
+package nl.basjes.parse.useragent.servlet.graphql;
 
 import nl.basjes.parse.useragent.UserAgent;
+import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -28,16 +29,17 @@ import javax.inject.Inject;
 import java.util.Map;
 
 @GraphQLApi
-public class YauaaGraphQLApi {
+public class Analyze {
 
     @Inject
     ParseService parseService;
 
-    @Query("yauaa")
-    @Description("Parse the provided headers")
+    @Query("analyze")
+    @Description("Parse and analyze the provided headers")
     public ParsedAgent parse(@Name("requestHeaders") RequestHeaders requestHeaders) {
-        UserAgent userAgent = parseService.getUserAgentAnalyzer().parse(requestHeaders.toMap());
-        Map<String, String> resultMap = userAgent.toMap();
+        UserAgentAnalyzer analyzer = parseService.getUserAgentAnalyzer();
+        UserAgent userAgent = analyzer.parse(requestHeaders.toMap());
+        Map<String, String> resultMap = userAgent.toMap(userAgent.getAvailableFieldNamesSorted());
 
         ParsedAgent result = new ParsedAgent();
         result.requestHeaders                   = requestHeaders;

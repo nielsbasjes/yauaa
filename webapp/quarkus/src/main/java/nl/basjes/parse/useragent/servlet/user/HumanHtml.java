@@ -15,14 +15,25 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api;
+package nl.basjes.parse.useragent.servlet.user;
 
 import io.quarkus.vertx.http.runtime.CurrentVertxRequest;
 import io.vertx.core.cli.annotations.Hidden;
 import io.vertx.core.http.HttpServerRequest;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -54,9 +65,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
-import static nl.basjes.parse.useragent.servlet.api.DetermineUserAgentTags.getTags;
-import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
+import static nl.basjes.parse.useragent.servlet.utils.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
 import static org.springframework.http.HttpStatus.OK;
@@ -95,32 +109,6 @@ public class HumanHtml {
         long memory = runtime.totalMemory() - runtime.freeMemory();
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
     }
-
-    private static class HeaderSpecification {
-        String header;
-        String url;
-        HeaderSpecification(String header, String url) {
-            this.header = header;
-            this.url = url;
-        }
-    }
-    private final Map<String, HeaderSpecification> headerSpecifications;
-
-    public HumanHtml() {
-        headerSpecifications = new LinkedCaseInsensitiveMap<>();
-        headerSpecifications.put("User-Agent",                   new HeaderSpecification("User-Agent",                   "https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3"));
-        headerSpecifications.put("Sec-CH-UA",                    new HeaderSpecification("Sec-CH-UA",                    "https://wicg.github.io/ua-client-hints/#sec-ch-ua"));
-        headerSpecifications.put("Sec-CH-UA-Arch",               new HeaderSpecification("Sec-CH-UA-Arch",               "https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch"));
-        headerSpecifications.put("Sec-CH-UA-Bitness",            new HeaderSpecification("Sec-CH-UA-Bitness",            "https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness"));
-        headerSpecifications.put("Sec-CH-UA-Full-Version",       new HeaderSpecification("Sec-CH-UA-Full-Version",       "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version"));
-        headerSpecifications.put("Sec-CH-UA-Full-Version-List",  new HeaderSpecification("Sec-CH-UA-Full-Version-List",  "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list"));
-        headerSpecifications.put("Sec-CH-UA-Mobile",             new HeaderSpecification("Sec-CH-UA-Mobile",             "https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile"));
-        headerSpecifications.put("Sec-CH-UA-Model",              new HeaderSpecification("Sec-CH-UA-Model",              "https://wicg.github.io/ua-client-hints/#sec-ch-ua-model"));
-        headerSpecifications.put("Sec-CH-UA-Platform",           new HeaderSpecification("Sec-CH-UA-Platform",           "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform"));
-        headerSpecifications.put("Sec-CH-UA-Platform-Version",   new HeaderSpecification("Sec-CH-UA-Platform-Version",   "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version"));
-        headerSpecifications.put("Sec-CH-UA-WoW64",              new HeaderSpecification("Sec-CH-UA-WoW64",              "https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64"));
-    }
-
 
     // =============== HTML (Human usable) OUTPUT ===============
 
@@ -225,17 +213,21 @@ public class HumanHtml {
                         for (String header : showHeaders) {
                             String value = requestHeaders.get(header);
                             if (value != null) {
-                                sb.append("<tr><td>");
-                                HeaderSpecification specification = headerSpecifications.get(header);
+                                sb.append("<tr><td class=\"tooltip\">");
+                                HeaderSpecification specification = getUserAgentAnalyzer().getAllSupportedHeaders().get(header);
                                 if (specification != null) {
                                     // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                                    sb.append("<a href=\"").append(specification.url).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
+                                    sb.append("<a href=\"").append(specification.specificationUrl).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
                                 }
-
-                                sb.append(escapeHtml4(header))
-                                    .append("</td><td>")
-                                    .append(escapeHtml4(value))
-                                    .append("</td></tr>");
+                                sb.append(escapeHtml4(header));
+                                if (specification != null) {
+                                    sb.append("<span class=\"tooltiptext\">")
+                                      .append(escapeHtml4(specification.specificationSummary))
+                                      .append("</span>");
+                                }
+                                sb.append("</td><td>")
+                                  .append(escapeHtml4(value))
+                                  .append("</td></tr>");
                             }
                         }
                         sb.append("</table>");
@@ -246,7 +238,7 @@ public class HumanHtml {
 
                     sb.append("<h2 class=\"title\">The analysis result</h2>");
 
-                    List<String> tags = getTags(userAgent);
+                    List<String> tags = getClassificationTags(userAgent);
                     sb.append("<p class=\"tags\">")
                         .append("DeviceClass : ").append(userAgent.getValue(DEVICE_CLASS)).append("<br/>")
                         .append(String.join(" - ", tags)).append("</p>");
@@ -341,6 +333,26 @@ public class HumanHtml {
         }
 
         return new ResponseEntity<>(sb.toString(), responseHeaders, OK);
+    }
+
+    private static List<String> getClassificationTags(UserAgent userAgent) {
+        List<String> tags = new ArrayList<>();
+        if (isHuman(userAgent)) {
+            tags.add("Human");
+        } else {
+            tags.add("NOT Human");
+        }
+        if (isNormalConsumerDevice(userAgent)) {
+            tags.add("Normal consumer device");
+        }
+        if (isMobile(userAgent)) {
+            tags.add("Mobile");
+        }
+        if (isDeliberateMisuse(userAgent)) {
+            tags.add("Deliberate Misuse");
+        }
+
+        return tags;
     }
 
     private void stillStartingUp(StringBuilder sb) {
@@ -506,7 +518,7 @@ public class HumanHtml {
         sb.append("<textarea style='display:none' id=\"testCaseForClipboard\">")
             .append(escapeHtml4(userAgent.toYamlTestCase())) // .replace("\"", "&quote;").replace("\n", "&#10;"))
             .append("</textarea>")
-            .append("<div class=\"tooltip\">" +
+            .append("<div class=\"tooltip inline\">" +
                 "<p onclick=\"copyTestCaseToClipboard()\" onmouseout=\"closeCopyTestCaseToClipboardTooltip()\">" +
                 "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip\">Copy this as a testcase to clipboard</span>" +
                 "&#128203;</p>" +
@@ -521,17 +533,17 @@ public class HumanHtml {
               """);
         Map<String, String> headers = userAgent.getHeaders();
         // FIXME: No hardcoded lists here
-        addRequestHeaderToGraphQL(sb, headers.get("User-Agent")                      , "userAgent             ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA")                       , "secChUa               ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Arch")                  , "secChUaArch           ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Bitness")               , "secChUaBitness        ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Full-Version")          , "secChUaFullVersion    ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Full-Version-List")     , "secChUaFullVersionList");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Mobile")                , "secChUaMobile         ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Model")                 , "secChUaModel          ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Platform")              , "secChUaPlatform       ");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-Platform-Version")      , "secChUaPlatformVersion");
-        addRequestHeaderToGraphQL(sb, headers.get("Sec-CH-UA-WoW64")                 , "secChUaWoW64          ");
+        addRequestHeaderToGraphQL(sb, headers.get(USERAGENT_HEADER)                          , "userAgent             ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUa.HEADER_FIELD)                 , "secChUa               ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaArch.HEADER_FIELD)             , "secChUaArch           ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaBitness.HEADER_FIELD)          , "secChUaBitness        ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaFullVersion.HEADER_FIELD)      , "secChUaFullVersion    ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaFullVersionList.HEADER_FIELD)  , "secChUaFullVersionList");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaMobile.HEADER_FIELD)           , "secChUaMobile         ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaModel.HEADER_FIELD)            , "secChUaModel          ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaPlatform.HEADER_FIELD)         , "secChUaPlatform       ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaPlatformVersion.HEADER_FIELD)  , "secChUaPlatformVersion");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaWoW64.HEADER_FIELD)            , "secChUaWoW64          ");
         // FIXME: No hardcoded lists here
         sb.append("""
               }) {
@@ -561,7 +573,7 @@ public class HumanHtml {
             }
             """);
         sb.append("</textarea>")
-            .append("<div class=\"tooltip\">" +
+            .append("<div class=\"tooltip inline\">" +
                 "<p onclick=\"copyGraphQLToClipboard()\" onmouseout=\"closeCopyGraphQLToClipboardTooltip()\">" +
                 "<span class=\"tooltiptext\" id=\"copyGraphQLToClipboardTooltip\">Copy this as a GraphQL query to clipboard</span>" +
                 "&#128203;</p>" +

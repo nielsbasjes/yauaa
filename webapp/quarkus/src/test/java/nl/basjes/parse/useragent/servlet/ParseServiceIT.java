@@ -18,8 +18,13 @@
 package nl.basjes.parse.useragent.servlet;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
+import org.junit.jupiter.api.BeforeEach;
 
 @QuarkusIntegrationTest
 public class ParseServiceIT extends ParseServiceTest {
-//     Execute the same tests but in native mode.
+    //     Execute the same tests but in native mode.
+    @BeforeEach
+    void disableResourceTests() {
+        runTestsThatNeedResourceFiles = false;
+    }
 }

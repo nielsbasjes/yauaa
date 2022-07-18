@@ -24,7 +24,9 @@ import java.util.Map;
 
 public class ParseSecChUaMobile implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA-Mobile";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-Mobile";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile";
+    public static final String HEADER_SPEC        = "The Sec-CH-UA-Mobile request header field gives a server information about whether or not a user agent prefers a \"mobile\" user experience.";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //

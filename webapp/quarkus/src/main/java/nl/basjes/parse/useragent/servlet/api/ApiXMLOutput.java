@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.servlet.api;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import nl.basjes.parse.useragent.servlet.OutputType;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -42,13 +43,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
-import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_JSON;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_TWO_USERAGENTS;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_USERAGENT;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_XML;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_YAML;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.TEXT_XYAML_VALUE;
+import static nl.basjes.parse.useragent.servlet.utils.Utils.splitPerFilledLine;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;

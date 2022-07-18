@@ -17,30 +17,32 @@
   -->
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <!--  <parent>-->
-  <!--    <artifactId>yauaa-parent</artifactId>-->
-  <groupId>nl.basjes.parse.useragent</groupId>
-  <version>7.3.1-SNAPSHOT</version>
-  <!--  </parent>-->
   <modelVersion>4.0.0</modelVersion>
-  <!--  <packaging>war</packaging>-->
+
+<!--  <parent>-->
+<!--    <artifactId>yauaa-parent</artifactId>-->
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <version>7.3.1-SNAPSHOT</version>
+<!--    <relativePath>../../pom.xml</relativePath>-->
+<!--  </parent>-->
 
   <artifactId>yauaa-webapp-quarkus</artifactId>
   <name>Yauaa : Web Servlet (Quarkus)</name>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <git-commit-id-maven-plugin.version>5.0.0</git-commit-id-maven-plugin.version>
 
-    <yauaa.version>7.3.0</yauaa.version>
-
-    <lombok.version>1.18.24</lombok.version>
+    <yauaa.version>${project.version}</yauaa.version>
 
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
@@ -48,13 +50,9 @@
     <spring.version>5.3.21</spring.version>
     <skipITs>true</skipITs>
 
-    <docker-maven-plugin.version>0.40.1</docker-maven-plugin.version>
     <docker.skip>false</docker.skip>
     <docker-based-package.phase>package</docker-based-package.phase>
     <docker-based-tests.skip>${skipITs}</docker-based-tests.skip>
-
-    <!-- The default port on which to expose if you do "mvn docker:run" -->
-    <yauaa.port>8080</yauaa.port>
 
     <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
     <spotbugs-maven-plugin.version>4.7.0.0</spotbugs-maven-plugin.version>
@@ -165,7 +163,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>${maven-resources-plugin.version}</version>
         <configuration>
           <propertiesEncoding>UTF-8</propertiesEncoding>
         </configuration>

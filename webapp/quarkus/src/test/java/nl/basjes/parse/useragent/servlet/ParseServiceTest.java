@@ -32,9 +32,12 @@ import static nl.basjes.parse.useragent.servlet.utils.Constants.TEXT_XYAML_VALUE
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
 class ParseServiceTest {
+
+    boolean runTestsThatNeedResourceFiles = true;
 
     private static final String BASEURL                     = "/yauaa/v1";
     private static final String NONSENSE_USER_AGENT         = "Niels Basjes/42";
@@ -221,28 +224,30 @@ class ParseServiceTest {
 
     // ------------------------------------------
 
-// FIXME: This test failes in the IT
+    @Test
+    void testCheckCustomConfigWasLoaded() {
+        assumeTrue(runTestsThatNeedResourceFiles, "Quarkus integration tests cannot use test resources");
 
-//    @Test
-//    void testCheckCustomConfigWasLoaded() {
-//        Response response =
-//            given()
-//                .header("User-Agent", "TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)")
-//            .when()
-//                .get(BASEURL + "/analyze/json")
-//            .then()
-//                .statusCode(200)
-//                .contentType(JSON)
-//                .body("[0].AgentNameVersion", equalTo("TestApplication 1.2.3"))
-//            .extract()
-//                .response();
-//        JsonPath jsonPath = response.jsonPath();
-//
-//        assertEquals("TestApplication",                              jsonPath.get("[0].ApplicationName"),       "The custom config was not applied.");
-//        assertEquals("1.2.3",                                        jsonPath.get("[0].ApplicationVersion"),    "The custom config was not applied.");
-//        assertEquals("node123.datacenter.example.nl",                jsonPath.get("[0].ServerName"),            "The custom config was not applied.");
-//        assertEquals("1234",                                         jsonPath.get("[0].ApplicationInstance"),   "The custom config was not applied.");
-//        assertEquals("d71922715c2bfe29343644b14a4731bf5690e66e",     jsonPath.get("[0].ApplicationGitCommit"),  "The custom config was not applied.");
-//    }
+        Response response =
+            given()
+                .header("User-Agent", "TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)")
+            .when()
+                .get(BASEURL + "/analyze/json")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("[0].AgentNameVersion", equalTo("TestApplication 1.2.3"))
+            .extract()
+                .response();
+        JsonPath jsonPath = response.jsonPath();
+
+        String failMsg = "The custom config was not applied: " + jsonPath.prettify();
+
+        assertEquals("TestApplication",                           jsonPath.get("[0].ApplicationName"),       failMsg);
+        assertEquals("1.2.3",                                     jsonPath.get("[0].ApplicationVersion"),    failMsg);
+        assertEquals("node123.datacenter.example.nl",             jsonPath.get("[0].ServerName"),            failMsg);
+        assertEquals("1234",                                      jsonPath.get("[0].ApplicationInstance"),   failMsg);
+        assertEquals("d71922715c2bfe29343644b14a4731bf5690e66e",  jsonPath.get("[0].ApplicationGitCommit"),  failMsg);
+    }
 
 }

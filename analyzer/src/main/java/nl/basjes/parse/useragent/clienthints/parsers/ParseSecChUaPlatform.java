@@ -24,7 +24,9 @@ import java.util.Map;
 
 public class ParseSecChUaPlatform implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA-Platform";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-Platform";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform";
+    public static final String HEADER_SPEC        = "The Sec-CH-UA-Platform request header field gives a server information about the platform on which a given user agent is executing. Its value SHOULD match one of the following common platform values: \"Android\", \"Chrome OS\", \"iOS\", \"Linux\", \"macOS\", \"Windows\", or \"Unknown\".";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //

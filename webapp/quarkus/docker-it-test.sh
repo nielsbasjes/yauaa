@@ -19,9 +19,8 @@
 #(cd quarkus && mvn package)
 
 cat <<'EOF' > __tmp__TEST__DockerFile
-FROM nielsbasjes/yauaa-quarkus:local
-RUN mkdir -p UserAgents-Customized-Rules
-ADD CompanyInternalUserAgents.yaml  UserAgents-Customized-Rules
+FROM nielsbasjes/yauaa-quarkus:7.3.1-SNAPSHOT
+COPY src/test/resources /app/resources/
 EOF
 
 docker build -t nielsbasjes/yauaa-quarkus:local-extrarules -f __tmp__TEST__DockerFile .

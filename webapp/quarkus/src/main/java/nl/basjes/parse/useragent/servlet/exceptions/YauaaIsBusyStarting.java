@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.servlet.exceptions;
 
-import nl.basjes.parse.useragent.servlet.api.OutputType;
+import nl.basjes.parse.useragent.servlet.OutputType;
 
 public class YauaaIsBusyStarting extends RuntimeException {
     private final OutputType outputType;

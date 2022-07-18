@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api;
+package nl.basjes.parse.useragent.servlet;
 
 public enum OutputType {
     YAML,

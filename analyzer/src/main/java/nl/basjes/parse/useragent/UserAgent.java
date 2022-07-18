@@ -142,7 +142,11 @@ public interface UserAgent extends Serializable {
 
     String SYNTAX_ERROR                         = "__SyntaxError__";
     String USERAGENT_FIELDNAME                  = "Useragent";
+
+    // Similar to the fields we have for all client hints
     String USERAGENT_HEADER                     = "User-Agent";
+    String USERAGENT_HEADER_SPEC_URL            = "https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3";
+    String USERAGENT_HEADER_SPEC                = "The \"User-Agent\" header field contains information about the user agent originating the request,";
 
     String NETWORK_TYPE                         = "NetworkType";
 
