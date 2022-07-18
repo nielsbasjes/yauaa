@@ -27,6 +27,14 @@ because all versions and in many places also the names of the used components ar
 
 ## Values explained
 
+**Note about the `Hacker` classification:**
+
+Security scanning tools (like nmap, nessus and openvas) are also classified as Hacker.
+My reasoning is that it is a system that someone uses to find security problems.
+With tools like this it is clear it is not a normal visitor that is interested in the content of the website.
+What is uncertain is the reason behind this: is it to fix problems or to abuse them?
+So I classify all of them as hacking oriented tools.                            |
+
 ### DeviceClass
 
 | Value | Meaning |
