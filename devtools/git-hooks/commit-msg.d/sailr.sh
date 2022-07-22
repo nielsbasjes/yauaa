@@ -61,7 +61,7 @@ function build_regex() {
     regexp="${regexp}$type|"
   done
 
-  regexp="${regexp%|})(\(.+\))?: "
+  regexp="${regexp%|})(\(.+\))?!?: "
 
   regexp="${regexp}.{$min_length,$max_length}$"
 }
