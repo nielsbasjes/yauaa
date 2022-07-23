@@ -119,7 +119,7 @@ public class RunTests {
         long start = System.nanoTime();
         List<TestResult> failedTests = testCases
             .stream()
-            .map(testCase -> testCase.verify(userAgentAnalyzer))
+            .map(testCase -> testCase.verify(userAgentAnalyzer, false))
             .filter(TestResult::testFailed)
             .toList();
         long stop = System.nanoTime();

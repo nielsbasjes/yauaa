@@ -16,36 +16,33 @@
  */
 package nl.basjes.parse.useragent.servlet;
 
+import io.restassured.RestAssured;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TestParseServlet extends AbstractParseServletTests {
+public class RunParseServletTest extends AbstractParseServletTests {
 
-    private static final Logger LOG = LogManager.getLogger(TestParseServlet.class);
+    private static final Logger LOG = LogManager.getLogger(RunParseServletTest.class);
 
     @LocalServerPort
     private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+    @BeforeEach
+    public void setUp() {
+        RestAssured.port = port;
+    }
 
     private int attemptsRemaining = 50;
 
     @Override
     int getPort() {
         return port;
-    }
-
-    @Override
-    TestRestTemplate getTestRestTemplate() {
-        return restTemplate;
     }
 }

@@ -14,24 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package nl.basjes.parse.useragent.servlet;
 
-package nl.basjes.parse.useragent.servlet.user;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
-import nl.basjes.parse.useragent.UserAgent;
+public class RunParseServletIT extends AbstractParseServletTests {
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
-import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
-import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
-import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
-
-public final class DetermineUserAgentTags {
-
-    private DetermineUserAgentTags() {
-        // Utility class
+    @Override
+    int getPort() {
+        return 8080;
     }
 
+    @BeforeAll
+    public static void setUp() {
+        RestAssured.port = 8080;
+    }
 
+    @BeforeEach
+    void disableResourceTests() {
+        runTestsThatNeedResourceFiles = false;
+    }
 }

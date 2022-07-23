@@ -103,13 +103,14 @@ public class RunTests {
         produces = TEXT_PLAIN_VALUE
     )
     public String getRunTests() {
+        ensureStartedForApis(OutputType.TXT);
         UserAgentAnalyzer userAgentAnalyzer = ParseService.getUserAgentAnalyzer();
         List<TestCase> testCases = userAgentAnalyzer.getTestCases();
 
         long start = System.nanoTime();
         List<TestResult> failedTests = testCases
             .stream()
-            .map(testCase -> testCase.verify(userAgentAnalyzer))
+            .map(testCase -> testCase.verify(userAgentAnalyzer, false))
             .filter(TestResult::testFailed)
             .collect(Collectors.toList());
         long stop = System.nanoTime();

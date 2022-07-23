@@ -14,258 +14,387 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package nl.basjes.parse.useragent.servlet;
 
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hamcrest.core.AnyOf;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.test.json.BasicJsonTester;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.ANY;
+import static io.restassured.http.ContentType.JSON;
+import static io.restassured.http.ContentType.XML;
+import static nl.basjes.parse.useragent.servlet.YamlToJsonFilter.ORIGINAL_CONTENT_TYPE_HEADER;
+import static nl.basjes.parse.useragent.servlet.utils.Constants.TEXT_XYAML_VALUE;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
-import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.APPLICATION_XML;
-import static org.springframework.http.MediaType.TEXT_HTML;
-import static org.springframework.http.MediaType.TEXT_PLAIN;
-
-public abstract class AbstractParseServletTests {
-
+abstract class AbstractParseServletTests {
     private static final Logger LOG = LogManager.getLogger(AbstractParseServletTests.class);
 
+    boolean runTestsThatNeedResourceFiles = true;
+
     abstract int getPort();
-    abstract TestRestTemplate getTestRestTemplate();
 
-    private int attemptsRemaining = 50;
+    private static int attemptsRemaining = 50;
 
+    static boolean isRunning = false;
     @Before
-    public void ensureServiceHasStarted() throws InterruptedException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(APPLICATION_JSON));
-        headers.set(USERAGENT_HEADER, "Are we there yet?");
+    public void ensureRunning() throws InterruptedException {
+        if (!isRunning) {
+            LOG.info("Status: Checking status...");
 
-        HttpEntity<String> request = new HttpEntity<>("Are we there yet?", headers);
-
-        LOG.info("Is running?");
-
-        boolean live = false;
-        boolean ready = false;
-
-        while (!live || !ready) {
-            Thread.sleep(100); // NOSONAR java:S2925 Sleeping in a while loop is safe!
-            live = this.getTestRestTemplate().exchange(getLiveURI(), GET, request, String.class).getStatusCode() == HttpStatus.OK;
-            if (live) {
-                ready = this.getTestRestTemplate().exchange(getReadyURI(), GET, request, String.class).getStatusCode() == HttpStatus.OK;
-                if (ready) {
-                    LOG.info("Status: alive and ready for processing");
-                } else {
-                    LOG.info("Status: alive and NOT ready for processing");
+            while(attemptsRemaining > 0) {
+                boolean live = given().port(getPort()).accept(TEXT_PLAIN_VALUE).get("/liveness").getBody().asString().equals("YES");
+                if (live) {
+                    break;
                 }
-            } else {
-                LOG.info("Status: Dead");
+                LOG.warn("Status: Dead");
+                // noinspection BusyWait
+                Thread.sleep(100);  // NOSONAR java:S2925 Sleeping in a while loop is safe!
+                attemptsRemaining--;
             }
-            if (--attemptsRemaining == 0) {
+
+            while(attemptsRemaining > 0) {
+                boolean ready = given().port(getPort()).accept(TEXT_PLAIN_VALUE).get("/readiness").getBody().asString().equals("YES");
+                if (ready) {
+                    break;
+                }
+                LOG.warn("Status: Alive (NOT yet ready for processing)");
+                // noinspection BusyWait
+                Thread.sleep(100);  // NOSONAR java:S2925 Sleeping in a while loop is safe!
+                attemptsRemaining--;
+            }
+
+            if (attemptsRemaining <= 0) {
+                LOG.fatal("Status: Stayed dead and not ready for too long.");
                 throw new IllegalStateException("Unable to initialize the parser.");
             }
-        }
-        LOG.info("Yes, it is running!");
-    }
 
-    private static final String USERAGENT = "Mozilla/5.0 (X11; Linux x86_64) " +
-        "AppleWebKit/537.36 (KHTML, like Gecko) " +
-        "Chrome/78.0.3904.97 Safari/537.36";
-
-    private static final String EXPECT_AGENT_NAME_VERSION = "Chrome 78.0.3904.97";
-
-    private URI getLiveURI() {
-        return getURI("/liveness");
-    }
-    private URI getReadyURI() {
-        return getURI("/readiness");
-    }
-
-    private URI getAnalyzeURI() {
-        return getURI("/yauaa/v1/analyze");
-    }
-
-    private URI getURI(String path) {
-        try {
-            return new URI("http://localhost:" + getPort() + path);
-        } catch (URISyntaxException e) {
-            return null;
+            LOG.info("Status: Alive and Ready for processing");
+            isRunning = true;
         }
     }
 
-    // ==========================================================================================
+    private static final String BASEURL                     = "/yauaa/v1";
+    private static final String NONSENSE_USER_AGENT         = "Niels Basjes/42";
+    private static final String TEST_USER_AGENT             = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36";
+    private static final String EXPECTED_AGENTNAMEVERSION   = "Chrome 84.0.4147.89";
 
-    public ResponseEntity<String> doGET(MediaType mediaType) {
-        return doGET(mediaType, getAnalyzeURI());
-    }
-
-    public ResponseEntity<String> doGET(MediaType mediaType, URI uri) {
-        return doGET(mediaType, uri, true);
-    }
-
-    public ResponseEntity<String> doGET(MediaType mediaType, URI uri, boolean withHeader) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(mediaType));
-
-        // GET: Use User-Agent header and set a dummy request body
-        if (withHeader) {
-            headers.set(USERAGENT_HEADER, USERAGENT);
-        }
-        HttpEntity<String> request = new HttpEntity<>("Niels Basjes", headers);
-
-        // Do GET
-        ResponseEntity<String> response = this.getTestRestTemplate().exchange(uri, GET, request, String.class);
-
-        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-        return response;
-    }
-
-    public ResponseEntity<String> doPOST(MediaType mediaType) {
-        return doPOST(mediaType, getAnalyzeURI());
-    }
-
-    public ResponseEntity<String> doPOST(MediaType mediaType, URI uri) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(mediaType));
-
-        // POST: NO User-Agent header and use the request body
-        headers.setContentType(TEXT_PLAIN);
-        HttpEntity<String> request = new HttpEntity<>(USERAGENT, headers);
-
-        // Do POST
-        ResponseEntity<String> response = this.getTestRestTemplate().postForEntity(uri, request, String.class);
-
-        assertThat(response.getStatusCode()).isEqualByComparingTo(HttpStatus.OK);
-        return response;
-    }
-
-    // ==========================================================================================
-    // HTML
-
-    private void assertHTML(ResponseEntity<String> response) {
-        assertThat(response.getBody()).contains("<td>Name Version</td><td>" + EXPECT_AGENT_NAME_VERSION + "</td>");
-    }
-
-    @Test
-    public void htmlGet() {
-        assertHTML(doGET(TEXT_HTML, getURI("/")));
-    }
-
-    @Test
-    public void htmlGetQueryParam() throws UnsupportedEncodingException {
-        assertHTML(doGET(TEXT_HTML, getURI("/?ua="+URLEncoder.encode(USERAGENT, StandardCharsets.UTF_8.toString())), false));
-    }
-
-    @Test
-    public void htmlPost() {
-        assertHTML(doGET(TEXT_HTML, getURI("/")));
-    }
-
-    // ==========================================================================================
+    // ------------------------------------------
     // JSON
-    private final BasicJsonTester json = new BasicJsonTester(getClass());
-
-    private void assertJSon(ResponseEntity<String> response) {
-        assertThat(json.from(response.getBody()))
-            // Uses this expression tool https://github.com/json-path/JsonPath
-            .extractingJsonPathStringValue("$[0].AgentNameVersion")
-            .isEqualTo(EXPECT_AGENT_NAME_VERSION);
+    @Test
+    public void testGetJsonUrl() {
+        given()
+            .port(getPort())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(ANY)
+            .when()
+                .get(BASEURL+"/analyze/json")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("[0].AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
     @Test
-    public void jsonGet() {
-        assertJSon(doGET(APPLICATION_JSON));
+    public void testGetJsonHeader() {
+        given()
+            .port(getPort())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(JSON)
+            .when()
+                .get(BASEURL+"/analyze")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("[0].AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
     @Test
-    public void jsonPost() {
-        assertJSon(doPOST(APPLICATION_JSON));
+    public void testPostJsonUrl() {
+        given()
+            .port(getPort())
+            .header("User-Agent", NONSENSE_USER_AGENT)
+            .accept(ANY)
+            .body(TEST_USER_AGENT)
+            .when()
+                .post(BASEURL+"/analyze/json")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("[0].AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
-    // ==========================================================================================
+    @Test
+    public void testPostJsonHeader() {
+        given()
+            .port(getPort())
+            .header("User-Agent", NONSENSE_USER_AGENT)
+            .accept(JSON)
+            .body(TEST_USER_AGENT)
+            .when()
+                .post(BASEURL+"/analyze")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("[0].AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
+    }
+
+    // ------------------------------------------
     // XML
-
-    private void assertXML(ResponseEntity<String> response) {
-        assertThat(response.getBody()).contains("<AgentNameVersion>" + EXPECT_AGENT_NAME_VERSION + "</AgentNameVersion>");
+    @Test
+    public void testGetXmlUrl() {
+        given()
+            .port(getPort())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(ANY)
+            .when()
+                .get(BASEURL+"/analyze/xml")
+            .then()
+                .statusCode(200)
+                .contentType(XML)
+                .body("Yauaa.AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
     @Test
-    public void xmlGet() {
-        assertXML(doGET(APPLICATION_XML));
+    public void testGetXmlHeader() {
+        given()
+            .port(getPort())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(XML)
+            .when()
+                .get(BASEURL+"/analyze")
+            .then()
+                .statusCode(200)
+                .contentType(XML)
+                .body("Yauaa.AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
     @Test
-    public void xmlPost() {
-        assertXML(doPOST(APPLICATION_XML));
-    }
-
-    // ==========================================================================================
-    // Yaml
-
-    private void assertYAML(ResponseEntity<String> response) {
-        assertThat(response.getBody()).contains("AgentNameVersion                     : '" + EXPECT_AGENT_NAME_VERSION + "'");
+    public void testPostXmlUrl() {
+        given()
+            .port(getPort())
+            .header("User-Agent", NONSENSE_USER_AGENT)
+            .accept(ANY)
+            .body(TEST_USER_AGENT)
+            .when()
+                .post(BASEURL+"/analyze/xml")
+            .then()
+                .statusCode(200)
+                .contentType(XML)
+                .body("Yauaa.AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
     @Test
-    public void yamlGet() {
-        assertYAML(doGET(TEXT_PLAIN));
+    public void testPostXmlHeader() {
+        given()
+            .port(getPort())
+            .header("User-Agent", NONSENSE_USER_AGENT)
+            .accept(XML)
+            .body(TEST_USER_AGENT)
+            .when()
+                .post(BASEURL+"/analyze")
+            .then()
+                .statusCode(200)
+                .contentType(XML)
+                .body("Yauaa.AgentNameVersion", equalTo(EXPECTED_AGENTNAMEVERSION));
+    }
+
+    // ------------------------------------------
+    // YAML
+    private AnyOf<String> isYamlContentType = anyOf(equalTo(TEXT_XYAML_VALUE), equalTo(TEXT_XYAML_VALUE + ";charset=UTF-8"));
+
+    @Test
+    public void testGetYamlUrl() {
+        given()
+            .port(getPort())
+            .filter(new YamlToJsonFilter())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(ANY)
+            .when()
+                .get(BASEURL+"/analyze/yaml")
+            .then()
+                .statusCode(200)
+                .header(ORIGINAL_CONTENT_TYPE_HEADER, isYamlContentType)
+//                .contentType(TEXT_XYAML_VALUE) --> Was filtered into JSON
+                .body("test.expected.AgentNameVersion[0]", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
 
     @Test
-    public void yamlPost() {
-        assertYAML(doPOST(TEXT_PLAIN));
+    public void testGetYamlHeader() {
+        given()
+            .port(getPort())
+            .filter(new YamlToJsonFilter())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(TEXT_XYAML_VALUE)
+            .when()
+                .get(BASEURL+"/analyze")
+            .then()
+                .statusCode(200)
+                .header(ORIGINAL_CONTENT_TYPE_HEADER, isYamlContentType)
+//                .contentType(TEXT_XYAML_VALUE) --> Was filtered into JSON
+                .body("test.expected.AgentNameVersion[0]", equalTo(EXPECTED_AGENTNAMEVERSION));
     }
+
+    @Test
+    public void testPostYamlUrl() {
+        given()
+            .port(getPort())
+            .filter(new YamlToJsonFilter())
+            .header("User-Agent", NONSENSE_USER_AGENT)
+            .accept(ANY)
+            .body(TEST_USER_AGENT)
+            .when()
+                .post(BASEURL+"/analyze/yaml")
+            .then()
+                .statusCode(200)
+                .header(ORIGINAL_CONTENT_TYPE_HEADER, isYamlContentType)
+//                .contentType(TEXT_XYAML_VALUE) --> Was filtered into JSON
+                .body("test.expected.AgentNameVersion[0]", equalTo(EXPECTED_AGENTNAMEVERSION));
+    }
+
+    @Test
+    public void testPostYamlHeader() {
+        given()
+            .port(getPort())
+            .filter(new YamlToJsonFilter())
+            .header("User-Agent", NONSENSE_USER_AGENT)
+            .accept(TEXT_XYAML_VALUE)
+            .body(TEST_USER_AGENT)
+            .when()
+                .post(BASEURL+"/analyze")
+            .then()
+                .statusCode(200)
+                .header(ORIGINAL_CONTENT_TYPE_HEADER, isYamlContentType)
+//                .contentType(TEXT_XYAML_VALUE) --> Was filtered into JSON
+                .body("test.expected.AgentNameVersion[0]", equalTo(EXPECTED_AGENTNAMEVERSION));
+    }
+
+    // ------------------------------------------
 
     // ==========================================================================================
     // Status checks
     @Test
     public void statusLive() {
-        assertThat(doGET(TEXT_PLAIN, getURI("/liveness")).getBody()).contains("YES");
+        given()
+            .port(getPort())
+            .accept(TEXT_PLAIN_VALUE)
+            .when()
+                .get("/liveness")
+            .then()
+                .statusCode(200)
+                .contentType(TEXT_PLAIN_VALUE)
+                .body(equalTo("YES"));
     }
 
     @Test
     public void statusReady() {
-        assertThat(doGET(TEXT_PLAIN, getURI("/readiness")).getBody()).contains("YES");
+        given()
+            .port(getPort())
+            .accept(TEXT_PLAIN_VALUE)
+            .when()
+                .get("/readiness")
+            .then()
+                .statusCode(200)
+                .contentType(TEXT_PLAIN_VALUE)
+                .body(equalTo("YES"));
     }
 
     @Test
     public void statusRunning() {
-        assertThat(doGET(TEXT_PLAIN, getURI("/running")).getBody()).contains("YES");
+        given()
+            .port(getPort())
+            .accept(TEXT_PLAIN_VALUE)
+            .when()
+                .get("/running")
+            .then()
+                .statusCode(200)
+                .contentType(TEXT_PLAIN_VALUE)
+                .body(equalTo("YES"));
     }
 
     @Test
     public void statusAppEngine() {
-        assertThat(doGET(TEXT_PLAIN, getURI("/_ah/health")).getBody()).contains("YES");
+        given()
+            .port(getPort())
+            .accept(TEXT_PLAIN_VALUE)
+            .when()
+                .get("/_ah/health")
+            .then()
+                .statusCode(200)
+                .contentType(TEXT_PLAIN_VALUE)
+                .body(equalTo("YES"));
     }
 
     // ==========================================================================================
-    // Status checks
+    // Testing endpoints
 
     @Test
     public void preheat() {
-        assertThat(doGET(APPLICATION_JSON, getURI("/yauaa/v1/preheat")).getBody()).contains("\"Ran tests\"");
+        given()
+            .port(getPort())
+            .accept(APPLICATION_JSON_VALUE)
+            .when()
+                .get(BASEURL+"/preheat")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("status", equalTo("Ran tests"));
     }
 
     @Test
     public void runtests() {
-        assertThat(doGET(TEXT_PLAIN, getURI("/yauaa/v1/runtests")).getBody()).contains("tests passed");
+        given()
+            .port(getPort())
+            .accept(TEXT_PLAIN_VALUE)
+            .when()
+                .get(BASEURL+"/runtests")
+            .then()
+                .statusCode(200)
+                .contentType(TEXT_PLAIN_VALUE)
+                .body(containsString("tests passed"));
     }
 
+    // ==========================================================================================
+    // Custom config check
+
+    @Test
+    public void testCheckCustomConfigWasLoaded() {
+        assumeTrue(runTestsThatNeedResourceFiles, "Quarkus integration tests cannot use test resources");
+
+        Response response =
+            given()
+                .port(getPort())
+                .header("User-Agent", "TestApplication/1.2.3 (node123.datacenter.example.nl; 1234; d71922715c2bfe29343644b14a4731bf5690e66e)")
+            .when()
+                .get(BASEURL + "/analyze/json")
+            .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("[0].AgentNameVersion", equalTo("TestApplication 1.2.3"))
+            .extract()
+                .response();
+        JsonPath jsonPath = response.jsonPath();
+
+        String failMsg = "The custom config was not applied: " + jsonPath.prettify();
+
+        assertEquals("TestApplication",                           jsonPath.get("[0].ApplicationName"),       failMsg);
+        assertEquals("1.2.3",                                     jsonPath.get("[0].ApplicationVersion"),    failMsg);
+        assertEquals("node123.datacenter.example.nl",             jsonPath.get("[0].ServerName"),            failMsg);
+        assertEquals("1234",                                      jsonPath.get("[0].ApplicationInstance"),   failMsg);
+        assertEquals("d71922715c2bfe29343644b14a4731bf5690e66e",  jsonPath.get("[0].ApplicationGitCommit"),  failMsg);
+    }
+
+//    abstract TestRestTemplate getTestRestTemplate();
 }
