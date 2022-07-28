@@ -1,0 +1,31 @@
+type Query {
+    bookById(id: ID): Book
+    greeting: String
+    version: Version
+}
+
+type Book {
+    id: ID
+    name: String
+    pageCount: Int
+    author: Author
+}
+
+type Author {
+    id: ID
+    firstName: String
+    lastName: String
+}
+
+type Version {
+    count: Int
+    gitCommitId: String
+    gitCommitIdDescribeShort: String
+    buildTimeStamp: String
+    projectVersion: String
+    copyright: String
+    license: String
+    url: String
+    buildJDKVersion: String
+    targetJREVersion: String
+}

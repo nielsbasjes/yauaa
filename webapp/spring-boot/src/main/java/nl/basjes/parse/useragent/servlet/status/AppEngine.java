@@ -22,16 +22,20 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
 @Tag(name = "System status")
 @RestController
 public class AppEngine {
+
+    @Autowired
+    private ParseService parseService;
 
     /**
      * <a href="https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed#health_checking">
@@ -59,7 +63,7 @@ public class AppEngine {
         produces = TEXT_PLAIN_VALUE
     )
     public String isHealthy() {
-        ensureStartedForApis(OutputType.TXT);
+        parseService.ensureStartedForApis(OutputType.TXT);
         return "YES";
     }
 

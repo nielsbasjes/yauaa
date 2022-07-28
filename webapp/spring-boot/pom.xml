@@ -121,6 +121,10 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-autoconfigure</artifactId>
         </exclusion>
+        <exclusion>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <groupId>jakarta.xml.bind</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -164,6 +168,54 @@
         </exclusion>
 
         <!-- Excluded because of dependency convergence -->
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-graphql</artifactId>
+      <version>${spring-boot.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.graphql-java</groupId>
+          <artifactId>graphql-java</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphiql-spring-boot-starter</artifactId>
+      <version>5.0.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-autoconfigure</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-text</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphql-java</artifactId>
+      <version>0.0.0-2022-06-21T14-21-24-bc82b6bc</version>
+      <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
@@ -218,6 +270,20 @@
       <artifactId>rest-assured</artifactId>
       <version>5.1.1</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>hamcrest</artifactId>
+          <groupId>org.hamcrest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-codec</artifactId>
+          <groupId>commons-codec</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>commons-lang3</artifactId>
+          <groupId>org.apache.commons</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
 
@@ -372,8 +438,8 @@
                   <time>20000</time>
                 </wait>
                 <log>
-                  <prefix>[ LOCAL TEST OF YAUAA ]::</prefix>
-                  <color>red</color>
+                  <prefix>[ LOCAL TEST OF YAUAA WITH CONFIG ]::</prefix>
+                  <color>yellow</color>
                 </log>
               </run>
             </image>
@@ -386,26 +452,30 @@
             <id>build-docker</id>
             <configuration>
               <skip>${docker.skip}</skip>
+              <removeMode>build</removeMode>
             </configuration>
             <phase>${docker-based-package.phase}</phase>
             <goals>
+              <goal>stop</goal>
+              <goal>remove</goal>
               <goal>build</goal>
             </goals>
           </execution>
 
           <execution>
-            <id>start</id>
+            <id>start-docker-before-it</id>
             <phase>pre-integration-test</phase>
             <configuration>
               <skip>${docker-based-tests.skip}</skip>
             </configuration>
             <goals>
+              <goal>stop</goal>
               <goal>start</goal>
             </goals>
           </execution>
 
           <execution>
-            <id>stop</id>
+            <id>stop-docker-after-it</id>
             <configuration>
               <skip>${docker-based-tests.skip}</skip>
             </configuration>

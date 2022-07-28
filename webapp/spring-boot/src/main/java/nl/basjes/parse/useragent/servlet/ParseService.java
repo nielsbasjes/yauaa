@@ -21,14 +21,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaIsBusyStarting;
+import nl.basjes.parse.useragent.utils.YauaaVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Map;
 
 @Tag(name = "Yauaa", description = "Analyzing the useragents")
 @SpringBootApplication
@@ -37,46 +45,37 @@ public class ParseService {
 
     private static final Logger LOG = LogManager.getLogger(ParseService.class);
 
-    private static ParseService instance;
-
-    private static void setInstance(ParseService newInstance) {
-        instance = newInstance;
-    }
-
-    public ParseService() {
-        setInstance(this);
-    }
-
     private UserAgentAnalyzer  userAgentAnalyzer               = null;
     private long               initStartMoment;
     private boolean            userAgentAnalyzerIsAvailable    = false;
     private String             userAgentAnalyzerFailureMessage = null;
 
-    public static UserAgentAnalyzer getUserAgentAnalyzer() {
-        return instance.userAgentAnalyzer;
+    public UserAgentAnalyzer getUserAgentAnalyzer() {
+        return userAgentAnalyzer;
     }
 
-    public static long getInitStartMoment() {
-        return instance.initStartMoment;
+    public long getInitStartMoment() {
+        return initStartMoment;
     }
 
-    public static boolean userAgentAnalyzerIsAvailable() {
-        return instance.userAgentAnalyzerIsAvailable;
+    public boolean userAgentAnalyzerIsAvailable() {
+        return userAgentAnalyzerIsAvailable;
     }
 
-    public static String getUserAgentAnalyzerFailureMessage() {
-        return instance.userAgentAnalyzerFailureMessage;
+    public String getUserAgentAnalyzerFailureMessage() {
+        return userAgentAnalyzerFailureMessage;
     }
 
     @PostConstruct
     public void automaticStartup() {
         if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
             initStartMoment = System.currentTimeMillis();
-            new Thread(() -> {
                 try {
+                LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
                     userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
-                        .hideMatcherLoadStats()
+                        .showMatcherLoadStats()
                         .addOptionalResources("file:UserAgents*/*.yaml")
+                        .addOptionalResources("classpath*:UserAgents-*/*.yaml")
                         .immediateInitialization()
                         .keepTests()
                         .build();
@@ -90,8 +89,7 @@ public class ParseService {
                             "{}\n" +
                             "=======================================================\n",
                             e.getClass().getCanonicalName(), e.getMessage());
-                }
-            }).start();
+            }
         }
     }
 
@@ -108,8 +106,8 @@ public class ParseService {
         }
     }
 
-    public static void ensureStartedForApis(OutputType outputType) {
-        if (!instance.userAgentAnalyzerIsAvailable) {
+    public void ensureStartedForApis(OutputType outputType) {
+        if (!userAgentAnalyzerIsAvailable) {
             throw new YauaaIsBusyStarting(outputType);
         }
     }
@@ -117,4 +115,16 @@ public class ParseService {
     public static void main(String[] args) {
         SpringApplication.run(ParseService.class, args);
     }
+
+
+    @EventListener
+    public void handleContextRefresh(ContextRefreshedEvent event) {
+        ApplicationContext applicationContext = event.getApplicationContext();
+        RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext
+            .getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
+        Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping
+            .getHandlerMethods();
+        map.forEach((key, value) -> LOG.info("xxxxxxxxxxxxxxx {} \t\t {}", key, value));
+    }
+
 }

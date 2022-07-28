@@ -23,15 +23,18 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 
 @Tag(name = "System status", description = "Checking if the servlet is running")
 @RestController
 public class StatusCheck {
+
+    @Autowired
+    ParseService parseService;
 
     private static final String KUBERNETES_CONFIG_EXAMPLE =
             "<pre>" +
@@ -116,7 +119,7 @@ public class StatusCheck {
         path = "/readiness"
     )
     public String isReady() {
-        ensureStartedForApis(OutputType.TXT);
+        parseService.ensureStartedForApis(OutputType.TXT);
         return "YES";
     }
 

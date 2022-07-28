@@ -217,12 +217,12 @@ public class HumanHtml {
                                 HeaderSpecification specification = getUserAgentAnalyzer().getAllSupportedHeaders().get(header);
                                 if (specification != null) {
                                     // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                                    sb.append("<a href=\"").append(specification.specificationUrl).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
+                                    sb.append("<a href=\"").append(specification.getSpecificationUrl()).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
                                 }
                                 sb.append(escapeHtml4(header));
                                 if (specification != null) {
                                     sb.append("<span class=\"tooltiptext\">")
-                                      .append(escapeHtml4(specification.specificationSummary))
+                                      .append(escapeHtml4(specification.getSpecificationSummary()))
                                       .append("</span>");
                                 }
                                 sb.append("</td><td>")

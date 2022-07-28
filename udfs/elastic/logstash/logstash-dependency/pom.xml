@@ -44,7 +44,20 @@
         <version>${exec-maven-plugin.version}</version>
         <executions>
           <execution>
-            <id>Download logstash dependency</id>
+            <id>Download logstash 7 dependency</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>./download-logstash.sh</executable>
+              <arguments>
+                <argument>${logstash-7.version}</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>Download logstash 8 dependency</id>
             <phase>validate</phase>
             <goals>
               <goal>exec</goal>
