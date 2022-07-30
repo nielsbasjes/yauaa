@@ -6,6 +6,7 @@ v7.4.0-SNAPSHOT
 - New/improved detections
   - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
   - New DeviceClass: "Home Appliance" (Fridges and such)
+  - Browsers that extend the Edge useragent.
 - Extra testcases
   - Fuchsia
   - Windows 9 (which does not exist)
