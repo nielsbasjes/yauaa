@@ -1,0 +1,244 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- matcher:
+    require:
+      - 'agent.product.name[-2]="Mobile VR"'
+    extract:
+      - 'DeviceClass                         :     1500 :"Virtual Reality"'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.2; Pacific Build/N2G48H) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/5.5.8.135542447 SamsungBrowser/4.0 Chrome/66.0.3359.203 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pacific'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.2'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.2'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'N2G48H'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '66.0'
+      LayoutEngineVersionMajor             : '66'
+      LayoutEngineNameVersion              : 'Blink 66.0'
+      LayoutEngineNameVersionMajor         : 'Blink 66'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome' # FIXME: OculusBrowser !
+      AgentVersion                         : '66.0.3359.203'
+      AgentVersionMajor                    : '66'
+      AgentNameVersion                     : 'Chrome 66.0.3359.203'
+      AgentNameVersionMajor                : 'Chrome 66'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; SAMSUNG SM-G920F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/3.0 Chrome/38.0.2125.102 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Samsung SM-G920F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0.1'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0.1'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      OperatingSystemVersionBuild          : 'MMB29K'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '38.0'
+      LayoutEngineVersionMajor             : '38'
+      LayoutEngineNameVersion              : 'Blink 38.0'
+      LayoutEngineNameVersionMajor         : 'Blink 38'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'SamsungBrowser 3.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 3'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-G925K Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Samsung SM-G925K'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemNameVersionMajor      : 'Android 5'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'SamsungBrowser 4.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 4'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930F Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.2 Chrome/51.0.2704.106 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Samsung SM-G930F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.2'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.2'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.0; SAMSUNG SM-G935F Build/R16NW) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.2 Chrome/51.0.2704.106 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Samsung SM-G935F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'R16NW'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.2'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.2'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; Quest 2) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/22.1.0.2.42.378269191 SamsungBrowser/4.0 Chrome/102.0.5005.99 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Quest 2'
+      DeviceBrand                          : 'Quest'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102.0'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '102.0.5005.99'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Chrome 102.0.5005.99'
+      AgentNameVersionMajor                : 'Chrome 102'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 7.1.1; Pacific) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/10.16.0.0.0.296461555 SamsungBrowser/4.0 Chrome/91.0.4472.88 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '91.0'
+      LayoutEngineVersionMajor             : '91'
+      LayoutEngineNameVersion              : 'Blink 91.0'
+      LayoutEngineNameVersionMajor         : 'Blink 91'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '91.0.4472.88'
+      AgentVersionMajor                    : '91'
+      AgentNameVersion                     : 'Chrome 91.0.4472.88'
+      AgentNameVersionMajor                : 'Chrome 91'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.0.0; SM-G930F) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/8.1.5.203450095 SamsungBrowser/4.0 Chrome/79.0.3945.126 Mobile VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Samsung SM-G930F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '79.0'
+      LayoutEngineVersionMajor             : '79'
+      LayoutEngineNameVersion              : 'Blink 79.0'
+      LayoutEngineNameVersionMajor         : 'Blink 79'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '79.0.3945.126'
+      AgentVersionMajor                    : '79'
+      AgentNameVersion                     : 'Chrome 79.0.3945.126'
+      AgentNameVersionMajor                : 'Chrome 79'

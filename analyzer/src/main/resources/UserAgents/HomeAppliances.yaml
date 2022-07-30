@@ -1,0 +1,137 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- lookup:
+    name: 'HomeAppliances'
+    map:
+      'SAMSUNG Family Hub'         : 'Fridge'   # A Samsung fridge https://www.samsung.com/us/explore/family-hub-refrigerator/overview/
+
+
+- matcher:
+    require:
+      - 'LookUp[HomeAppliances;agent.(1)product.(1)comments.entry.(1)product.name]'
+    extract:
+      - 'DeviceClass: 10000 : "Home Appliance"'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Tizen 3.0; SAMSUNG Family Hub 3.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/1.0 Chrome/47.0.2526.69 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Home Appliance'
+      DeviceName                           : 'Samsung Family HUB 3.0'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '3.0'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Tizen 3.0'
+      OperatingSystemNameVersionMajor      : 'Tizen 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '47.0'
+      LayoutEngineVersionMajor             : '47'
+      LayoutEngineNameVersion              : 'Blink 47.0'
+      LayoutEngineNameVersionMajor         : 'Blink 47'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Tizen 4.0; SAMSUNG Family Hub 4.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/1.0 Chrome/56.0.2924.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Home Appliance'
+      DeviceName                           : 'Samsung Family HUB 4.0'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Tizen 4.0'
+      OperatingSystemNameVersionMajor      : 'Tizen 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '56.0'
+      LayoutEngineVersionMajor             : '56'
+      LayoutEngineNameVersion              : 'Blink 56.0'
+      LayoutEngineNameVersionMajor         : 'Blink 56'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Tizen 4.0; SAMSUNG Family Hub 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Home Appliance'
+      DeviceName                           : 'Samsung Family HUB 5.0'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '4.0'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Tizen 4.0'
+      OperatingSystemNameVersionMajor      : 'Tizen 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '56.0'
+      LayoutEngineVersionMajor             : '56'
+      LayoutEngineNameVersion              : 'Blink 56.0'
+      LayoutEngineNameVersionMajor         : 'Blink 56'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '56.0.2924.0'
+      AgentVersionMajor                    : '56'
+      AgentNameVersion                     : 'Chrome 56.0.2924.0'
+      AgentNameVersionMajor                : 'Chrome 56'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Tizen 6.0; SAMSUNG Family Hub 6.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/1.0 Chrome/76.0.3809.146 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Home Appliance'
+      DeviceName                           : 'Samsung Family HUB 6.0'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Tizen 6.0'
+      OperatingSystemNameVersionMajor      : 'Tizen 6'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
