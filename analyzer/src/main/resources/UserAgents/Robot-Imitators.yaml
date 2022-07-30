@@ -102,6 +102,13 @@ config:
     - 'AgentName                           :   320200 : @RealAgent'
     - 'AgentVersion                        :   320200 : "<<<null>>>"'
 
+- matcher:
+    require:
+      - 'agent.(1)product.name="GoogleBot"'
+    extract:
+      - 'DeviceClass                       : 320101 : "Robot Imitator"'
+      - 'DeviceName                        : 320101 : "Googlebot Imitator"'
+      - 'DeviceBrand                       : 320101 : "Unknown"'
 
 - matcher:
     require:
@@ -881,3 +888,111 @@ config:
       AgentNameVersionMajor                : 'Openwebspider ??'
       AgentInformationUrl                  : 'http://www.openwebspider.org/'
 
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Googlebot/2.1'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'Googlebot/2.1'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot Imitator ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot Imitator 2.1'
+      AgentNameVersionMajor                : 'Googlebot Imitator 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'Googlebot'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot Imitator ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot Imitator'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Googlebot Imitator ??'
+      AgentNameVersionMajor                : 'Googlebot Imitator ??'
+
+
+- test:
+    input:
+      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Googlebot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'

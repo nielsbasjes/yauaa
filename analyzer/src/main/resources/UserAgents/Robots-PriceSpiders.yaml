@@ -101,3 +101,31 @@ config:
       user_agent_string: 'Mozilla/6.3 (Windows NT 10.0; Win64; x64 17.12; rv:39.9) Gecko/20100109 Firefox/39.9 con_aff/'
     expected: *isConAff
 
+
+- test:
+    input:
+      User-Agent                           : 'LagerHoger/1.12.2 hello@lagerhoger.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Lagerhoger Robot'
+      DeviceBrand                          : 'Lagerhoger'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'LagerHoger'
+      AgentVersion                         : '1.12.2'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'LagerHoger 1.12.2'
+      AgentNameVersionMajor                : 'LagerHoger 1'
+      AgentInformationEmail                : 'hello@lagerhoger.com'
+

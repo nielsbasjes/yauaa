@@ -76,8 +76,8 @@ config:
     - 'DeviceCpuBits                       :        1 :"32"'
     - 'OperatingSystemClass                :       50 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Windows NT"'
-    - 'OperatingSystemVersion              :        5 :@Product.version'
-    - 'OperatingSystemNameVersion          :        5 :@Product'
+    - 'OperatingSystemVersion              :        5 :CleanVersion[@Product.version]'
+    - 'OperatingSystemNameVersion          :        5 :Concat["Windows NT ";CleanVersion[@Product.version]]'
 
 - matcher:
     variable:
@@ -90,8 +90,8 @@ config:
     - 'DeviceCpuBits                       :        1 :"32"'
     - 'OperatingSystemClass                :       50 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Windows NT"'
-    - 'OperatingSystemVersion              :        5 :@Product.version'
-    - 'OperatingSystemNameVersion          :        5 :@Product'
+    - 'OperatingSystemVersion              :        5 :CleanVersion[@Product.version]'
+    - 'OperatingSystemNameVersion          :        5 :Concat["Windows NT ";CleanVersion[@Product.version]]'
 
 - matcher:
     variable:
