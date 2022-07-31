@@ -21,236 +21,28 @@ config:
     - 'agent.(1-2)product.(1)comments.entry.(1)text="masking-agent"'
     extract:
     - 'Anonymized                          :       10 :"Anonymized"'
-    - 'DeviceClass                         :       10 :"Anonymized"'
-    - 'DeviceName                          :       10 :"Anonymized"'
-    - 'OperatingSystemClass                :        1 :"Anonymized"'
-    - 'OperatingSystemName                 :        1 :"Anonymized"'
-    - 'OperatingSystemVersion              :        1 :"Anonymized"'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (masking-agent; rv:25.0) Gecko/20100101 Firefox/25.0'
-    expected:
-      Anonymized                           : 'Anonymized'
-      DeviceClass                          : 'Anonymized'
-      DeviceName                           : 'Anonymized'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Firefox OS'
-      OperatingSystemVersion               : '25.0'
-      OperatingSystemVersionMajor          : '25'
-      OperatingSystemNameVersion           : 'Firefox OS 25.0'
-      OperatingSystemNameVersionMajor      : 'Firefox OS 25'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '25.0'
-      LayoutEngineVersionMajor             : '25'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '25.0'
-      AgentVersionMajor                    : '25'
-      AgentNameVersion                     : 'Firefox 25.0'
-      AgentNameVersionMajor                : 'Firefox 25'
-      LayoutEngineBuild                    : '20100101'
-      LayoutEngineNameVersion              : 'Gecko 25.0'
-      LayoutEngineNameVersionMajor         : 'Gecko 25'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
 
 - matcher:
     require:
     - 'agent.(1)product.(1)comments.(1)entry="000000000"'
     extract:
     - 'Anonymized                          :        1 :"Anonymized"'
-    - 'DeviceClass                         :       10 :"Anonymized"'
-    - 'DeviceName                          :       10 :"Anonymized"'
-    - 'OperatingSystemClass                :       10 :"Anonymized"'
-    - 'OperatingSystemName                 :       10 :"Anonymized"'
-    - 'OperatingSystemVersion              :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
 
 - matcher:
     require:
-    - 'agent.product.name[-1]="anonymized"'
+    - 'agent~"anonymized"'
     extract:
     - 'Anonymized                          :        1 :"Anonymized"'
-    - 'DeviceClass                         :       10 :"Anonymized"'
-    - 'DeviceName                          :       10 :"Anonymized"'
-    - 'OperatingSystemClass                :       10 :"Anonymized"'
-    - 'OperatingSystemName                 :       10 :"Anonymized"'
-    - 'OperatingSystemVersion              :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
 
 - matcher:
     require:
-    - 'agent.(1)product.(1)comments.entry.(1)product.name[-1]="anonymized"'
+      - 'agent.text~"custom"'
     extract:
-    - 'Anonymized                          :        1 :"Anonymized"'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (000000000; 00000 000 00 0 000000) DDDDDDDDDDDDDDDDDDDD DDDDDDD DDDD DDDDDD DDDDDDDDDDDDD DDDDDDDDDDDDDDD'
-    expected:
-      DeviceClass                          : 'Anonymized'
-      DeviceName                           : 'Anonymized'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Anonymized'
-      OperatingSystemName                  : 'Anonymized'
-      OperatingSystemVersion               : 'Anonymized'
-      OperatingSystemVersionMajor          : 'Anonymized'
-      OperatingSystemNameVersion           : 'Anonymized'
-      OperatingSystemNameVersionMajor      : 'Anonymized'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
-      AgentName                            : '00000'
-      AgentVersion                         : '000'
-      AgentVersionMajor                    : '000'
-      AgentNameVersion                     : '00000 000'
-      AgentNameVersionMajor                : '00000 000'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:28.0) Gecko/20100101 Firefox/28.0 anonymized by Abelssoft 462766946'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '8'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'Windows 8'
-      OperatingSystemNameVersionMajor      : 'Windows 8'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '28.0'
-      LayoutEngineVersionMajor             : '28'
-      LayoutEngineNameVersion              : 'Gecko 28.0'
-      LayoutEngineNameVersionMajor         : 'Gecko 28'
-      LayoutEngineBuild                    : '20100101'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '28.0'
-      AgentVersionMajor                    : '28'
-      AgentNameVersion                     : 'Firefox 28.0'
-      AgentNameVersionMajor                : 'Firefox 28'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.22 anonymized by Abelssoft 1392034350'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '8'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'Windows 8'
-      OperatingSystemNameVersionMajor      : 'Windows 8'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '39.0'
-      LayoutEngineVersionMajor             : '39'
-      LayoutEngineNameVersion              : 'Blink 39.0'
-      LayoutEngineNameVersionMajor         : 'Blink 39'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '39.0.2171.95'
-      AgentVersionMajor                    : '39'
-      AgentNameVersion                     : 'Chrome 39.0.2171.95'
-      AgentNameVersionMajor                : 'Chrome 39'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Firefox/36.0.3 (x86 en-US); anonymized by Abelssoft 1222574064'
-    expected:
-      DeviceClass                          : 'Anonymized'
-      DeviceName                           : 'Anonymized'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'x86'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Anonymized'
-      OperatingSystemName                  : 'Anonymized'
-      OperatingSystemVersion               : 'Anonymized'
-      OperatingSystemVersionMajor          : 'Anonymized'
-      OperatingSystemNameVersion           : 'Anonymized'
-      OperatingSystemNameVersionMajor      : 'Anonymized'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '36.0.3'
-      AgentVersionMajor                    : '36'
-      AgentNameVersion                     : 'Firefox 36.0.3'
-      AgentNameVersionMajor                : 'Firefox 36'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      Anonymized                           : 'Anonymized'
-
-- test: # This one has parsing problems, this is the best possible at this moment.
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:35.0 () Gecko/20100101 Firefox/35.0 ( anonymized by Abelssoft 152378206'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '8'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'Windows 8'
-      OperatingSystemNameVersionMajor      : 'Windows 8'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'     # We would have expected Gecko/20100101 here ...
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '35.0'
-      AgentVersionMajor                    : '35'
-      AgentNameVersion                     : 'Firefox 35.0'
-      AgentNameVersionMajor                : 'Firefox 35'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; anonymized by Abelssoft 423514663; BTRS102280; GTB7.5; anonymized by Abelssoft 423514663; .NET CLR 2.0.50727; .NET4.0C; InfoPath.3; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET4.0E)'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'XP'
-      OperatingSystemVersionMajor          : 'XP'
-      OperatingSystemNameVersion           : 'Windows XP'
-      OperatingSystemNameVersionMajor      : 'Windows XP'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '4.0'
-      LayoutEngineVersionMajor             : '4'
-      LayoutEngineNameVersion              : 'Trident 4.0'
-      LayoutEngineNameVersionMajor         : 'Trident 4'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '8.0'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Internet Explorer 8.0'
-      AgentNameVersionMajor                : 'Internet Explorer 8'
-      Anonymized                           : 'Anonymized'
-
+      - 'Anonymized                          :     1002 :"Anonymized"'
+      - 'DeviceClass                         :     1002 :"Anonymized"'
 
 # Versions like 599 and 999 are an indication of some kind of manipulation
 - matcher:
@@ -261,6 +53,7 @@ config:
     - '@AppleWebKit^.version="599.0"'
     extract:
     - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
 
 - matcher:
     variable:
@@ -270,297 +63,7 @@ config:
     - '@AppleWebKit^.version="999"'
     extract:
     - 'Anonymized                          :       10 :"Anonymized"'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9'
-    expected:
-      DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Android Mobile'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '2.3'
-      OperatingSystemVersionMajor          : '2'
-      OperatingSystemNameVersion           : 'Android 2.3'
-      OperatingSystemNameVersionMajor      : 'Android 2'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '999'
-      LayoutEngineVersionMajor             : '999'
-      LayoutEngineNameVersion              : 'AppleWebKit 999'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 999'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '999.9'
-      AgentVersionMajor                    : '999'
-      AgentNameVersion                     : 'Safari 999.9'
-      AgentNameVersionMajor                : 'Safari 999'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
-
-# These have been manipulated to have multiple user agents.
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 10.0; WOW64; IA64; en) AppleWebKit/599.0+ Chrome/48.2564.0.82 Maxthon/4.9.0 QupZilla/1.8.9'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel Itanium 64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '10.0'
-      OperatingSystemVersionMajor          : '10'
-      OperatingSystemNameVersion           : 'Windows 10.0'
-      OperatingSystemNameVersionMajor      : 'Windows 10'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '48.2564'
-      LayoutEngineVersionMajor             : '48'
-      LayoutEngineNameVersion              : 'Blink 48.2564'
-      LayoutEngineNameVersionMajor         : 'Blink 48'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'QupZilla'
-      AgentVersion                         : '1.8.9'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'QupZilla 1.8.9'
-      AgentNameVersionMajor                : 'QupZilla 1'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 10.0; WOW64; IA64; en) AppleWebKit/599.0+ Chrome/55.0.2883.0.87 Maxthon/5.0.2 QupZilla/2.0.2'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel Itanium 64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '10.0'
-      OperatingSystemVersionMajor          : '10'
-      OperatingSystemNameVersion           : 'Windows 10.0'
-      OperatingSystemNameVersionMajor      : 'Windows 10'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '55.0'
-      LayoutEngineVersionMajor             : '55'
-      LayoutEngineNameVersion              : 'Blink 55.0'
-      LayoutEngineNameVersionMajor         : 'Blink 55'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'QupZilla'
-      AgentVersion                         : '2.0.2'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'QupZilla 2.0.2'
-      AgentNameVersionMajor                : 'QupZilla 2'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 5.1; U; WOW64; IA64; en) AppleWebKit/599.0+ (KHTML, like Gecko) Maxthon/3.0 Chrome/41.0.2272.89 Safari/537.36 OPR/28.0.1750.40 QupZilla/1.8.6'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel Itanium 64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'XP'
-      OperatingSystemVersionMajor          : 'XP'
-      OperatingSystemNameVersion           : 'Windows XP'
-      OperatingSystemNameVersionMajor      : 'Windows XP'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '41.0'
-      LayoutEngineVersionMajor             : '41'
-      LayoutEngineNameVersion              : 'Blink 41.0'
-      LayoutEngineNameVersionMajor         : 'Blink 41'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Opera'
-      AgentVersion                         : '28.0.1750.40'
-      AgentVersionMajor                    : '28'
-      AgentNameVersion                     : 'Opera 28.0.1750.40'
-      AgentNameVersionMajor                : 'Opera 28'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-      AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 6.1; U; WOW64; IA64; en) AppleWebKit/599.0+ (KHTML, like Gecko) Maxthon/4.4.3.4000 Chrome/39.0.2171.95 Safari/537.36 OPR/26.0.1656.60 QupZilla/1.8.4'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel Itanium 64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '7'
-      OperatingSystemVersionMajor          : '7'
-      OperatingSystemNameVersion           : 'Windows 7'
-      OperatingSystemNameVersionMajor      : 'Windows 7'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '39.0'
-      LayoutEngineVersionMajor             : '39'
-      LayoutEngineNameVersion              : 'Blink 39.0'
-      LayoutEngineNameVersionMajor         : 'Blink 39'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Opera'
-      AgentVersion                         : '26.0.1656.60'
-      AgentVersionMajor                    : '26'
-      AgentNameVersion                     : 'Opera 26.0.1656.60'
-      AgentNameVersionMajor                : 'Opera 26'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-      AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 6.1; U; WOW64; IA64; en) AppleWebKit/599.0+ (KHTML, like Gecko) Maxthon/4.4.8.1000 Chrome/48.2564.0.109 Safari/537.36 OPR/35.0.2066.37 QupZilla/1.8.9'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel Itanium 64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '7'
-      OperatingSystemVersionMajor          : '7'
-      OperatingSystemNameVersion           : 'Windows 7'
-      OperatingSystemNameVersionMajor      : 'Windows 7'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '48.2564'
-      LayoutEngineVersionMajor             : '48'
-      LayoutEngineNameVersion              : 'Blink 48.2564'
-      LayoutEngineNameVersionMajor         : 'Blink 48'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Opera'
-      AgentVersion                         : '35.0.2066.37'
-      AgentVersionMajor                    : '35'
-      AgentNameVersion                     : 'Opera 35.0.2066.37'
-      AgentNameVersionMajor                : 'Opera 35'
-      AgentLanguage                        : 'English'
-      AgentLanguageCode                    : 'en'
-      AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 6.3; U; WOW64; IA64; YB/3.5.3; Trident/8.0; rv:550) AppleWebKit/599.0+ (KHTML, like Gecko) Chrome/49.0.2612.0 Safari/537.36 OPR/36.0.2130.29 QupZilla/1.8.6'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel Itanium 64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '8.1'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'Windows 8.1'
-      OperatingSystemNameVersionMajor      : 'Windows 8'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '49.0'
-      LayoutEngineVersionMajor             : '49'
-      LayoutEngineNameVersion              : 'Blink 49.0'
-      LayoutEngineNameVersionMajor         : 'Blink 49'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Opera'
-      AgentVersion                         : '36.0.2130.29'
-      AgentVersionMajor                    : '36'
-      AgentNameVersion                     : 'Opera 36.0.2130.29'
-      AgentNameVersionMajor                : 'Opera 36'
-      AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
-
-# Version 999 ... yeah right
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Linux; U; Android; en-us) AppleWebKit/999+ (KHTML, like Gecko) Safari/999.9'
-    expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Android Mobile'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Android ??'
-      OperatingSystemNameVersionMajor      : 'Android ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'AppleWebKit'
-      LayoutEngineVersion                  : '999'
-      LayoutEngineVersionMajor             : '999'
-      LayoutEngineNameVersion              : 'AppleWebKit 999'
-      LayoutEngineNameVersionMajor         : 'AppleWebKit 999'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Safari'
-      AgentVersion                         : '999.9'
-      AgentVersionMajor                    : '999'
-      AgentNameVersion                     : 'Safari 999.9'
-      AgentNameVersionMajor                : 'Safari 999'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
-
-- matcher:
-    require:
-    - 'agent.text~"custom"'
-    extract:
-    - 'Anonymized                          :     1002 :"Anonymized"'
-    - 'DeviceClass                         :     1002 :"Anonymized"'
-    - 'DeviceName                          :     1002 :"Anonymized"'
-    - 'OperatingSystemClass                :     1002 :"Anonymized"'
-    - 'OperatingSystemName                 :     1002 :"Anonymized"'
-    - 'OperatingSystemVersion              :     1002 :"Anonymized"'
-
-- test: # This seems a bit messy, but given the input the best possible
-    input:
-      user_agent_string: 'My custom user-agent'
-    expected:
-      DeviceClass                          : 'Anonymized'
-      DeviceName                           : 'Hacker Anonymized'
-      DeviceBrand                          : 'Hacker'
-      DeviceVersion                        : 'Hacker'
-      OperatingSystemClass                 : 'Anonymized'
-      OperatingSystemName                  : 'Anonymized'
-      OperatingSystemVersion               : 'Anonymized'
-      OperatingSystemVersionMajor          : 'Anonymized'
-      OperatingSystemNameVersion           : 'Anonymized'
-      OperatingSystemNameVersionMajor      : 'Anonymized'
-      LayoutEngineClass                    : 'Hacker'
-      LayoutEngineName                     : 'Hacker'
-      LayoutEngineVersion                  : 'Hacker'
-      LayoutEngineVersionMajor             : 'Hacker'
-      LayoutEngineNameVersion              : 'Hacker'
-      LayoutEngineNameVersionMajor         : 'Hacker'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Hacker'
-      AgentVersion                         : 'Hacker'
-      AgentVersionMajor                    : 'Hacker'
-      AgentNameVersion                     : 'Hacker'
-      AgentNameVersionMajor                : 'Hacker'
-      Anonymized                           : 'Anonymized'
-      HackerAttackVector                   : 'Unknown'
-      HackerToolkit                        : 'Unknown'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
 
 
 # Google web light is a proxy intended for slow (2G) connections.
@@ -578,34 +81,47 @@ config:
     - 'DeviceName                          :    10000 :"Google Weblight"'
     - 'DeviceBrand                         :    10000 :"Google"'
 
-  # This useragent was retrieved via https://googleweblight.com/i?u=https://try.yauaa.basjes.nl
-  # using Firefox 68 on Ubuntu 16.04. Real useragent:    Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko; googleweblight) Chrome/38.0.1025.166 Mobile Safari/535.19'
-    expected:
-      DeviceClass                          : 'Anonymized'
-      DeviceName                           : 'Google Weblight'
-      DeviceBrand                          : 'Google'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '4.2.1'
-      OperatingSystemVersionMajor          : '4'
-      OperatingSystemNameVersion           : 'Android 4.2.1'
-      OperatingSystemNameVersionMajor      : 'Android 4'
-      OperatingSystemVersionBuild          : 'JOP40D'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '38.0'
-      LayoutEngineVersionMajor             : '38'
-      LayoutEngineNameVersion              : 'Blink 38.0'
-      LayoutEngineNameVersionMajor         : 'Blink 38'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '38.0.1025.166'
-      AgentVersionMajor                    : '38'
-      AgentNameVersion                     : 'Chrome 38.0.1025.166'
-      AgentNameVersionMajor                : 'Chrome 38'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      Anonymized                           : 'Anonymized'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Safari"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Mobile Safari"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Chrome"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Edg"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Firefox"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'Anonymized                          :       10 :"Anonymized"'
+    - 'DeviceClass                         :    10000 :"Anonymized"'

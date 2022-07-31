@@ -10504,9 +10504,9 @@ config:
 # TODO: Check if this is a Hacker or a Robot?
 - test:
     input:
-      User-Agent                            : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x'
+      User-Agent                           : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x'
     expected:
-      DeviceClass                          : 'Desktop'
+      DeviceClass                          : 'Anonymized'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -10532,7 +10532,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-
+      Anonymized                           : 'Anonymized'
 
 - test:
     input:

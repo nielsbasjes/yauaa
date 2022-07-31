@@ -41,6 +41,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepExtractBrandFromUrl;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepIsValidVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
@@ -62,6 +63,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,7 +92,6 @@ class TestSteps {
             return null;
         }
     };
-
 
     private final Step returnNullStep = new Step() {
         @Override
@@ -296,6 +297,54 @@ class TestSteps {
         assertEquals("1.2.3", step.walk(dummyTree, "1_2_3").getValue());
     }
 
+
+    private List<String> validVersions = Arrays.asList(
+        "123",
+        "123.4",
+        "0621100004002",
+        "9.9.0.000001",
+        "30.0.2254.121224",
+        "11.1.7-g",
+        "100.0.1185.27",
+        "v0.1.4",
+        "6.5.122794288.release",
+        "6.2.5.53_r2565f18.621",
+        "6.0.8.15804AP",
+        "6.0a2",
+        "6.1.0.66_r1062275.542",
+        "3.1-rc5",
+        "3.2a1",
+        "3.2a1pre",
+        "1.10.0-SNAPSHOT",
+        "0.8.5-i18n-misc",
+        "0.9.7.RELEASE",
+        "0.0.0-semantic-release");
+
+    List<String> invalidVersions = Arrays.asList(
+        "FOO",
+        "1234FOO"
+        );
+
+    @Test
+    void testStepIsValidVersion() {
+        Step step = new StepIsValidVersion();
+        LOG.info("Step {} --> {}", step.getClass().getSimpleName(), step);
+        for (String validVersion : validVersions) {
+            WalkResult walkResult = step.walk(dummyTree, validVersion);
+            assertNotNull(walkResult,
+                "Version string \"" + validVersion + "\" should have been classified as valid (was null).");
+            assertEquals(
+                validVersion,
+                walkResult.getValue(),
+                "Version string \"" + validVersion + "\" should have been classified as valid (was different).");
+        }
+
+        for (String invalidVersion : invalidVersions) {
+            assertNull(
+                step.walk(dummyTree, invalidVersion),
+                "Version string \"" + invalidVersion + "\" should have been classified as INvalid.");
+        }
+    }
 
     @Test
     void testStepReplaceString() {

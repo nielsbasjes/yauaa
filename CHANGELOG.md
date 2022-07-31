@@ -3,10 +3,15 @@ This is intended as an overview of the major changes
 
 v7.4.0-SNAPSHOT
 ===
+- Analyzer:
+  - IsValidVersion function to determine if a version looks like a normal version.
 - New/improved detections
   - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
   - New DeviceClass: "Home Appliance" (Fridges and such)
   - Browsers that extend the Edge useragent.
+  - Anonymization
+    - All anonymized agents have DeviceClass: 'Anonymized'
+    - More extensive anonymization by looking at version patterns
 - Extra testcases
   - Fuchsia
   - Windows 9 (which does not exist)

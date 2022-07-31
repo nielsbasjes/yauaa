@@ -43,6 +43,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepExtractBrandFromUrl;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepIsValidVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
@@ -60,6 +61,7 @@ import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatP
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherConcatPrefixContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherDefaultIfNullContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherExtractBrandFromUrlContext;
+import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherIsValidVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherNormalizeBrandContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathContext;
 import nl.basjes.parse.useragent.parser.UserAgentTreeWalkerParser.MatcherPathIsInLookupContainsContext;
@@ -455,6 +457,14 @@ public class WalkList implements Serializable {
             visit(ctx.matcher());
             fromHereItCannotBeInHashMapAnymore();
             add(new StepCleanVersion());
+            return null; // Void
+        }
+
+        @Override
+        public Void visitMatcherIsValidVersion(MatcherIsValidVersionContext ctx) {
+            visit(ctx.matcher());
+            fromHereItCannotBeInHashMapAnymore();
+            add(new StepIsValidVersion());
             return null; // Void
         }
 

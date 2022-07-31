@@ -2441,7 +2441,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:54.0) Gecko/20100101 Firefox/@PKGVER@'
     expected:
-      DeviceClass                          : 'Desktop'
+      DeviceClass                          : 'Anonymized'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -2464,6 +2464,7 @@ config:
       AgentVersionMajor                    : '@PKGVER@'
       AgentNameVersion                     : 'Firefox @PKGVER@'
       AgentNameVersionMajor                : 'Firefox @PKGVER@'
+      Anonymized                           : 'Anonymized'
 
 # Deliberately modified to ensure having too many spaces still works
 - test:

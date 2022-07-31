@@ -59,6 +59,7 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcat;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPostfix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepConcatPrefix;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepExtractBrandFromUrl;
+import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepIsValidVersion;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepNormalizeBrand;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepReplaceString;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.value.StepSegmentRange;
@@ -199,6 +200,7 @@ public final class KryoConfig {
         kryo.register(StepLookupPrefix.class);
         kryo.register(StepBackToFull.class);
         kryo.register(StepCleanVersion.class);
+        kryo.register(StepIsValidVersion.class);
         kryo.register(StepConcat.class);
         kryo.register(StepConcatPostfix.class);
         kryo.register(StepConcatPrefix.class);

@@ -81,6 +81,7 @@ matcher         : basePath                                                      
                 | 'NormalizeBrand'      BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherNormalizeBrand
                 | 'ExtractBrandFromUrl' BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherExtractBrandFromUrl
                 | 'CleanVersion'        BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherCleanVersion
+                | 'IsValidVersion'      BLOCKOPEN matcher                                                             BLOCKCLOSE #matcherIsValidVersion
                 | 'ReplaceString'       BLOCKOPEN matcher          SEMICOLON search=VALUE SEMICOLON replace=VALUE     BLOCKCLOSE #matcherReplaceString
 
                 | 'LookUp'              BLOCKOPEN lookup=VALUENAME SEMICOLON matcher (SEMICOLON defaultValue=VALUE )? BLOCKCLOSE #matcherPathLookup
