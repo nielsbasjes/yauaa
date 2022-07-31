@@ -22,7 +22,7 @@ config:
 - test:
     input:
                         # Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:1geckoversion) Gecko/1geckotrail Firefox/1firefoxversion'
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:1.2-geckoversion) Gecko/1.2-geckotrail Firefox/1.2-firefoxversion'
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -36,17 +36,17 @@ config:
       OperatingSystemNameVersionMajor      : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '1geckoversion'
-      LayoutEngineVersionMajor             : '1geckoversion'
-      LayoutEngineNameVersion              : 'Gecko 1geckoversion'
-      LayoutEngineNameVersionMajor         : 'Gecko 1geckoversion'
-      LayoutEngineBuild                    : '1geckotrail'
+      LayoutEngineVersion                  : '1.2-geckoversion'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.2-geckoversion'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '1.2-geckotrail'
       AgentClass                           : 'Browser'
       AgentName                            : 'Firefox'
-      AgentVersion                         : '1firefoxversion'
-      AgentVersionMajor                    : '1firefoxversion'
-      AgentNameVersion                     : 'Firefox 1firefoxversion'
-      AgentNameVersionMajor                : 'Firefox 1firefoxversion'
+      AgentVersion                         : '1.2-firefoxversion'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Firefox 1.2-firefoxversion'
+      AgentNameVersionMajor                : 'Firefox 1'
 
 - test:
     input:
@@ -110,7 +110,7 @@ config:
 - test:
     input:
                            #Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion appname/appversion
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:1geckoversion) Gecko/1geckotrail Firefox/1firefoxversion appname/1appversion'
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:1.2-geckoversion) Gecko/1.2-geckotrail Firefox/1.2-firefoxversion appname/1.2-appversion'
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -124,17 +124,17 @@ config:
       OperatingSystemNameVersionMajor      : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '1geckoversion'
-      LayoutEngineVersionMajor             : '1geckoversion'
-      LayoutEngineNameVersion              : 'Gecko 1geckoversion'
-      LayoutEngineNameVersionMajor         : 'Gecko 1geckoversion'
-      LayoutEngineBuild                    : '1geckotrail'
+      LayoutEngineVersion                  : '1.2-geckoversion'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.2-geckoversion'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '1.2-geckotrail'
       AgentClass                           : 'Browser'
       AgentName                            : 'Appname'
-      AgentVersion                         : '1appversion'
-      AgentVersionMajor                    : '1appversion'
-      AgentNameVersion                     : 'Appname 1appversion'
-      AgentNameVersionMajor                : 'Appname 1appversion'
+      AgentVersion                         : '1.2-appversion'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Appname 1.2-appversion'
+      AgentNameVersionMajor                : 'Appname 1'
 
 #Firefox for iOS user agent string
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#Firefox_for_iOS

@@ -1637,7 +1637,7 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:88.0) Gecko/20100101 Firefox/88.0,1,11'
+      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:88.0) Gecko/20100101 Firefox/88.0'
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -1662,15 +1662,15 @@ config:
       LayoutEngineBuild                    : '20100101'
       AgentClass                           : 'Browser'
       AgentName                            : 'Firefox'
-      AgentVersion                         : '88.0,1,11'
+      AgentVersion                         : '88.0'
       AgentVersionMajor                    : '88'
-      AgentNameVersion                     : 'Firefox 88.0,1,11'
+      AgentNameVersion                     : 'Firefox 88.0'
       AgentNameVersionMajor                : 'Firefox 88'
 
 # Firefox <88 --> Windows 10 is Windows 10
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0,1,462'
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:87.0) Gecko/20100101 Firefox/87.0'
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -1694,15 +1694,15 @@ config:
       LayoutEngineBuild                    : '20100101'
       AgentClass                           : 'Browser'
       AgentName                            : 'Firefox'
-      AgentVersion                         : '87.0,1,462'
+      AgentVersion                         : '87.0'
       AgentVersionMajor                    : '87'
-      AgentNameVersion                     : 'Firefox 87.0,1,462'
+      AgentNameVersion                     : 'Firefox 87.0'
       AgentNameVersionMajor                : 'Firefox 87'
 
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0,1,707'
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0'
     expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
@@ -1726,9 +1726,9 @@ config:
       LayoutEngineBuild                    : '20100101'
       AgentClass                           : 'Browser'
       AgentName                            : 'Firefox'
-      AgentVersion                         : '88.0,1,707'
+      AgentVersion                         : '88.0'
       AgentVersionMajor                    : '88'
-      AgentNameVersion                     : 'Firefox 88.0,1,707'
+      AgentNameVersion                     : 'Firefox 88.0'
       AgentNameVersionMajor                : 'Firefox 88'
 
 
