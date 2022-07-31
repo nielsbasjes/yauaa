@@ -85,7 +85,7 @@ public class ParseService {
                     userAgentAnalyzerFailureMessage =
                         e.getClass().getSimpleName() + "<br/>" +
                             e.getMessage().replace("\n", "<br/>");
-                    LOG.error("Fatal error during startup: {}\n" +
+                    LOG.fatal("Fatal error during startup: {}\n" +
                             "=======================================================\n" +
                             "{}\n" +
                             "=======================================================\n",

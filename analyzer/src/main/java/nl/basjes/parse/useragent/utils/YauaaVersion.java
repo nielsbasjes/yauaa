@@ -289,16 +289,16 @@ public final class YauaaVersion {
         if (libraryVersion.equals(rulesVersion)) {
             return;
         }
-        LOG.error("===============================================");
-        LOG.error("==========        FATAL ERROR       ===========");
-        LOG.error("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-        LOG.error("");
-        LOG.error("Two different Yauaa versions have been loaded:");
-        LOG.error("Runtime Library: {}", libraryVersion);
-        LOG.error("Rule sets      : {}", rulesVersion);
-        LOG.error("");
-        LOG.error("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-        LOG.error("===============================================");
+        LOG.fatal("===============================================");
+        LOG.fatal("==========        FATAL ERROR       ===========");
+        LOG.fatal("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+        LOG.fatal("");
+        LOG.fatal("Two different Yauaa versions have been loaded:");
+        LOG.fatal("Runtime Library: {}", libraryVersion);
+        LOG.fatal("Rule sets      : {}", rulesVersion);
+        LOG.fatal("");
+        LOG.fatal("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        LOG.fatal("===============================================");
 
         throw new InvalidParserConfigurationException("Two different Yauaa versions have been loaded: \n" +
             "Runtime Library: " + libraryVersion + "\n" +
