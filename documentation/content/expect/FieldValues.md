@@ -51,7 +51,7 @@ So I classify all of them as hacking oriented tools.                            
 | eReader               | Similar to a Tablet yet in most cases with an eInk screen |
 | Set-top box           | A connected device that allows interacting via a TV sized screen |
 | TV                    | Similar to Set-top box yet here this is built into the TV |
-| Home Appliance        | A (usally large) home appliances (like a Fridge) |
+| Home Appliance        | A (usally large) home appliance (like a Fridge) |
 | Game Console          | 'Fixed' game systems like the PlayStation and XBox |
 | Handheld Game Console | 'Mobile' game systems like the 3DS |
 | Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home. |
