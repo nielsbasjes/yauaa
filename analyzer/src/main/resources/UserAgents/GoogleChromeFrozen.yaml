@@ -1781,3 +1781,33 @@ config:
       AgentVersionMajor                    : '101'
       AgentNameVersion                     : 'Chrome 101.0.123.456'
       AgentNameVersionMajor                : 'Chrome 101'
+
+
+# TODO: What is SECSSOBrowserChrome ?
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36 SECSSOBrowserChrome'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '102'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Chrome 102'
+      AgentNameVersionMajor                : 'Chrome 102'
