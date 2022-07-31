@@ -3063,3 +3063,30 @@ config:
       AgentNameVersion                     : 'Chrome 1'
       AgentNameVersionMajor                : 'Chrome 1'
 
+# Clearly manipulated: Windows XP + Chrome + "Mobile Safari" --> Phone
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/5362 (KHTML, like Gecko) Chrome/39.0.852.0 Mobile Safari/5362'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemVersionMajor          : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      OperatingSystemNameVersionMajor      : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '39.0'
+      LayoutEngineVersionMajor             : '39'
+      LayoutEngineNameVersion              : 'Blink 39.0'
+      LayoutEngineNameVersionMajor         : 'Blink 39'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '39.0.852.0'
+      AgentVersionMajor                    : '39'
+      AgentNameVersion                     : 'Chrome 39.0.852.0'
+      AgentNameVersionMajor                : 'Chrome 39'

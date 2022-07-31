@@ -33,13 +33,13 @@ config:
     variable:
     - 'Product                             :agent.(1-2)product.comments.entry.product?WindowsDesktopOSName'
     extract:
-    - 'DeviceClass                         :      100 :"Desktop"'
-    - 'DeviceName                          :      100 :"Desktop"'
-    - 'DeviceCpuBits                       :      100 :LookUpPrefix[WindowsDesktopOSCpuBits;@Product]'
-    - 'OperatingSystemClass                :      100 :"Desktop"'
-    - 'OperatingSystemName                 :      100 :LookUp[WindowsDesktopOSName;@Product]'
-    - 'OperatingSystemVersion              :      100 :LookUp[WindowsDesktopOSVersion;@Product]'
-    - 'OperatingSystemNameVersion          :      100 :LookUp[WindowsDesktopOSNameVersion;@Product]'
+    - 'DeviceClass                         :      101 :"Desktop"'
+    - 'DeviceName                          :      101 :"Desktop"'
+    - 'DeviceCpuBits                       :      101 :LookUpPrefix[WindowsDesktopOSCpuBits;@Product]'
+    - 'OperatingSystemClass                :      101 :"Desktop"'
+    - 'OperatingSystemName                 :      101 :LookUp[WindowsDesktopOSName;@Product]'
+    - 'OperatingSystemVersion              :      101 :LookUp[WindowsDesktopOSVersion;@Product]'
+    - 'OperatingSystemNameVersion          :      101 :LookUp[WindowsDesktopOSNameVersion;@Product]'
 
 - matcher:
     variable:
@@ -85,8 +85,8 @@ config:
     require:
     - 'agent.(1)product.(1)comments.entry.product.name[1-2]="Tablet PC"'
     extract:
-    - 'DeviceClass                         :      101 :"Tablet"'
-    - 'DeviceName                          :      101 :"Tablet PC"'
+    - 'DeviceClass                         :      102 :"Tablet"'
+    - 'DeviceName                          :      102 :"Tablet PC"'
     - 'DeviceCpuBits                       :        1 :"32"'
     - 'OperatingSystemClass                :       50 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Windows NT"'
