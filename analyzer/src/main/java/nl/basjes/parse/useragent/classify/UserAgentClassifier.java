@@ -26,6 +26,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.HACKER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.HANDHELD_GAME_CONSOLE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.HOME_APPLIANCE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.PHONE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
@@ -56,6 +57,7 @@ public final class UserAgentClassifier {
             case "TV":                     return TV;
             case "Game Console":           return GAME_CONSOLE;
             case "Handheld Game Console":  return HANDHELD_GAME_CONSOLE;
+            case "Home Appliance":         return HOME_APPLIANCE;
             case "Robot":                  return ROBOT;
             case "Robot Mobile":           return ROBOT_MOBILE;
             case "Robot Imitator":         return ROBOT_IMITATOR;
@@ -82,6 +84,7 @@ public final class UserAgentClassifier {
             case TV:
             case GAME_CONSOLE:
             case HANDHELD_GAME_CONSOLE:
+            case HOME_APPLIANCE:
                 return true;
 
             case ANONYMIZED:
@@ -116,6 +119,7 @@ public final class UserAgentClassifier {
             case SET_TOP_BOX:
             case TV:
             case GAME_CONSOLE:
+            case HOME_APPLIANCE:
             case ANONYMIZED:
             case ROBOT:
             case ROBOT_IMITATOR:
@@ -144,6 +148,7 @@ public final class UserAgentClassifier {
             case TV:
             case GAME_CONSOLE:
             case HANDHELD_GAME_CONSOLE:
+            case HOME_APPLIANCE:
             case ANONYMIZED:
                 return true;
 
@@ -180,6 +185,7 @@ public final class UserAgentClassifier {
             case TV:
             case GAME_CONSOLE:
             case HANDHELD_GAME_CONSOLE:
+            case HOME_APPLIANCE:
             case ROBOT:
             case ROBOT_MOBILE:
             case UNKNOWN:

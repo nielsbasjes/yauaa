@@ -67,6 +67,10 @@ public enum DeviceClass {
      */
     HANDHELD_GAME_CONSOLE("Handheld Game Console"),
     /**
+     * An appliance with a browser built in (like a large Fridge).
+     */
+    HOME_APPLIANCE("Home Appliance"),
+    /**
      * Robots that visit the site.
      */
     ROBOT("Robot"),

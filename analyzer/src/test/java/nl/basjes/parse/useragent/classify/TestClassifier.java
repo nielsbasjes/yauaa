@@ -28,6 +28,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.HACKER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.HANDHELD_GAME_CONSOLE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.HOME_APPLIANCE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.PHONE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
@@ -64,6 +65,7 @@ class TestClassifier {
         verifyEnum("TV");
         verifyEnum("Game Console");
         verifyEnum("Handheld Game Console");
+        verifyEnum("Home Appliance");
         verifyEnum("Robot");
         verifyEnum("Robot Mobile");
         verifyEnum("Robot Imitator");
@@ -93,6 +95,7 @@ class TestClassifier {
         verifyDeviceClass(TV,                     true,  false,  true, false);
         verifyDeviceClass(GAME_CONSOLE,           true,  false,  true, false);
         verifyDeviceClass(HANDHELD_GAME_CONSOLE,  true,   true,  true, false);
+        verifyDeviceClass(HOME_APPLIANCE,         true,  false,  true, false);
         verifyDeviceClass(ROBOT,                 false,  false, false, false);
         verifyDeviceClass(ROBOT_MOBILE,          false,   true, false, false);
         verifyDeviceClass(ROBOT_IMITATOR,        false,  false, false,  true);
