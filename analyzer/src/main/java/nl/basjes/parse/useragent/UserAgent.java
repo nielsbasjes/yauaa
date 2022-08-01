@@ -129,8 +129,6 @@ public interface UserAgent extends Serializable {
     String FACEBOOK_OPERATING_SYSTEM_NAME       = "FacebookOperatingSystemName";
     String FACEBOOK_OPERATING_SYSTEM_VERSION    = "FacebookOperatingSystemVersion";
 
-    String ANONYMIZED                           = "Anonymized";
-
     String HACKER_ATTACK_VECTOR                 = "HackerAttackVector";
     String HACKER_TOOLKIT                       = "HackerToolkit";
 
@@ -159,6 +157,7 @@ public interface UserAgent extends Serializable {
     String UACLIENT_HINT_PLATFORM_VERSION       = "UAClientHintPlatformVersion";
     String UACLIENT_HINT_WOW_64                 = "UAClientHintWow64";
 
+    String REMARKABLE_PATTERN                   = "RemarkablePattern";
 
     String SET_ALL_FIELDS                       = "__Set_ALL_Fields__";
     String NULL_VALUE                           = "<<<null>>>";
@@ -246,7 +245,7 @@ public interface UserAgent extends Serializable {
         FACEBOOK_OPERATING_SYSTEM_NAME,
         FACEBOOK_OPERATING_SYSTEM_VERSION,
 
-        ANONYMIZED,
+        REMARKABLE_PATTERN,
 
         HACKER_ATTACK_VECTOR,
         HACKER_TOOLKIT,

@@ -13,6 +13,8 @@ v7.4.0-SNAPSHOT
   - Anonymization
     - All anonymized agents have DeviceClass: 'Anonymized'
     - More extensive anonymization detection by looking at version patterns
+  - New field "RemarkablePattern" that will hold exceptional things that were detected.
+    - The 'Anonymized' has been dropped and is now RemarkablePattern: 'Anonymized'
 - Extra testcases
   - Fuchsia
   - Windows 9 (which does not exist)

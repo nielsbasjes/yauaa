@@ -71,7 +71,6 @@ class TestParseUserAgent {
         runner.setProperty(FIELD_PREFIX + "AgentLanguage",                    "true");
         runner.setProperty(FIELD_PREFIX + "AgentSecurity",                    "true");
         runner.setProperty(FIELD_PREFIX + "AgentUuid",                        "true");
-        runner.setProperty(FIELD_PREFIX + "Anonymized",                       "true");
         runner.setProperty(FIELD_PREFIX + "DeviceBrand",                      "true");
         runner.setProperty(FIELD_PREFIX + "DeviceCpu",                        "true");
         runner.setProperty(FIELD_PREFIX + "DeviceFirmwareVersion",            "true");
@@ -127,7 +126,6 @@ class TestParseUserAgent {
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "AgentLanguage",                    "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "AgentSecurity",                    "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "AgentUuid",                        "Unknown"             );
-        result.assertAttributeEquals(ATTRIBUTE_PREFIX + "Anonymized",                       "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceBrand",                      "Unknown"             );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceCpu",                        "Intel x86_64"        );
         result.assertAttributeEquals(ATTRIBUTE_PREFIX + "DeviceFirmwareVersion",            "??"                  );
@@ -201,7 +199,6 @@ class TestParseUserAgent {
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "AgentLanguage"                   );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "AgentSecurity"                   );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "AgentUuid"                       );
-        result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "Anonymized"                      );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceBrand"                     );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceCpu"                       );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceFirmwareVersion"           );
@@ -275,7 +272,6 @@ class TestParseUserAgent {
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "AgentLanguage"                   );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "AgentSecurity"                   );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "AgentUuid"                       );
-        result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "Anonymized"                      );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceBrand"                     );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceCpu"                       );
         result.assertAttributeNotExists(ATTRIBUTE_PREFIX + "DeviceFirmwareVersion"           );

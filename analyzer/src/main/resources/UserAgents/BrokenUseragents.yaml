@@ -17,6 +17,14 @@
 config:
 
 - matcher:
+    require:
+      - 'agent.(1)product.name="Mozilla"'
+      - 'agent.(2-)product.name="Mozilla"'
+    extract:
+      - 'RemarkablePattern                   :    10000000 :"Double UserAgent"'
+
+
+- matcher:
     variable:
     - 'BeforeBrowser                       :agent.(1)product.(1)comments.entry.product.name="Browser"^<'
     require:
@@ -26,6 +34,7 @@ config:
     - 'DeviceBrand                         :     1000 :NormalizeBrand[@BeforeBrowser.name]'
     - 'DeviceName                          :     1000 :@BeforeBrowser.(1)version'
     - 'DeviceVersion                       :     1000 :@BeforeBrowser.(2)version'
+
 
 - matcher:
     require:
@@ -83,6 +92,7 @@ config:
     - 'AgentName                           :      100 : @Browser^.(1)version'
     - 'AgentVersion                        :      100 : @Browser^.(2)version'
 
+
 - matcher:
     variable:
     - 'Device                              :agent.(1)product.(1)comments.(1)entry.(1)product'
@@ -101,6 +111,7 @@ config:
     extract:
     - 'DeviceClass                         :      500 :"Phone"'
     - 'OperatingSystemClass                :      500 :"Mobile"'
+
 
 # Apparently the "Mobile/" flag is an indication it is a mobile device and not a desktop.
 # There is no reliable way to determine if this was a Phone or Tablet.

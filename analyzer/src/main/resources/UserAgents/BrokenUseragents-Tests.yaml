@@ -1769,6 +1769,7 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
+      RemarkablePattern                    : 'Hacker'
 
 
 - test:
@@ -1888,7 +1889,6 @@ config:
       AgentNameVersionMajor                : 'Firefox 31'
 
 
-
 # Copied problem case from https://github.com/before/uadetector/issues/132
 - test:
     input:
@@ -1918,6 +1918,8 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Buffer overflow'
       HackerToolkit                        : 'Unknown'
+      RemarkablePattern                    : 'Hacker'
+
 
 # Shortened variant of https://github.com/before/uadetector/issues/132
 - test:
@@ -1948,7 +1950,6 @@ config:
       AgentVersionMajor                    : '38'
       AgentNameVersion                     : 'Firefox 38.0'
       AgentNameVersionMajor                : 'Firefox 38'
-
 # Normal OWASMIME example
 - test:
     input:
@@ -2042,6 +2043,7 @@ config:
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
 
+
 # The thinkpad is an Android device ONLY. This useragent is probably modified to look like Windows.
 - test:
     input:
@@ -2074,6 +2076,7 @@ config:
       AgentLanguageCode                    : 'pl-pl'
       AgentSecurity                        : 'Strong security'
 
+
 # No Gecko version?
 - test:
     input:
@@ -2104,6 +2107,7 @@ config:
       AgentNameVersion                     : 'Fennec 9.0'
       AgentNameVersionMajor                : 'Fennec 9'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Android; Linux armv7l; rv:2.0b8) Gecko/ Firefox/4.0b8 Fennec/4.0b3'
@@ -2132,6 +2136,7 @@ config:
       AgentVersionMajor                    : '4'
       AgentNameVersion                     : 'Fennec 4.0b3'
       AgentNameVersionMajor                : 'Fennec 4'
+
 
 - test:
     input:
@@ -2192,6 +2197,7 @@ config:
       AgentNameVersion                     : 'Fennec 10.0.3'
       AgentNameVersionMajor                : 'Fennec 10'
 
+
 # Many rules do not fire because of "Android Android 6.0"
 - test:
     input:
@@ -2224,6 +2230,7 @@ config:
       WebviewAppNameVersion                : 'Firefox Focus 4.0.1'
       WebviewAppNameVersionMajor           : 'Firefox Focus 4'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android Android 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Focus/4.0.2 Chrome/43.0.2357.121 Safari/537.36'
@@ -2254,6 +2261,7 @@ config:
       WebviewAppVersionMajor               : '4'
       WebviewAppNameVersion                : 'Firefox Focus 4.0.2'
       WebviewAppNameVersionMajor           : 'Firefox Focus 4'
+
 
 - test:
     input:
@@ -2464,7 +2472,7 @@ config:
       AgentVersionMajor                    : '@PKGVER@'
       AgentNameVersion                     : 'Firefox @PKGVER@'
       AgentNameVersionMajor                : 'Firefox @PKGVER@'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 # Deliberately modified to ensure having too many spaces still works
 - test:
@@ -2728,6 +2736,7 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
+      RemarkablePattern                    : 'Hacker'
 
 
 # Broken in 2 ways:

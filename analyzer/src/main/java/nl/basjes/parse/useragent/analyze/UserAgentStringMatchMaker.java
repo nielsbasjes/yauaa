@@ -86,6 +86,7 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION_
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.PRE_SORTED_FIELDS_LIST;
+import static nl.basjes.parse.useragent.UserAgent.REMARKABLE_PATTERN;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME;
@@ -512,6 +513,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         userAgent.set(AGENT_VERSION_MAJOR,          "Hacker",  confidence);
         userAgent.set(HACKER_TOOLKIT,               "Unknown", confidence);
         userAgent.set(HACKER_ATTACK_VECTOR,         "Unknown", confidence);
+        userAgent.set(REMARKABLE_PATTERN,           "Hacker",  confidence);
     }
 
     private transient MatcherList touchedMatchers = new MatcherList(32);

@@ -148,7 +148,7 @@ config:
     - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
 #    - 'HackerToolkit                       :   999901 :"<<<null>>>"'
     - 'HackerAttackVector                  :  1000000 :LookUpContains[HackerAttackVectors;agent]'
-
+    - 'RemarkablePattern                   :  1000000 :"Hacker"'
 
 - matcher:
     extract:
@@ -170,6 +170,7 @@ config:
     - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
     - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
     - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+    - 'RemarkablePattern                   :  1000000 :"Hacker"'
 
 
 - matcher:
@@ -191,6 +192,7 @@ config:
     - 'AgentName                           :  1000000 :"Hacker"'
     - 'AgentVersion                        :  1000000 :"Hacker"'
     - 'HackerAttackVector                  :  1000000 :"Code Injection"'
+    - 'RemarkablePattern                   :  1000000 :"Hacker"'
 
 
 # If there are NO products found this is either manipulated or a Hacker.
@@ -198,7 +200,6 @@ config:
     require:
     - 'IsNull[agent.product]'
     - 'IsNull[agent.url]'
-#    - '__SyntaxError__="true"'
     extract:
     - 'DeviceClass                         :       10 :"Hacker"'
     - 'DeviceName                          :       10 :"Hacker"'
@@ -215,13 +216,13 @@ config:
     - 'AgentVersion                        :       10 :"Hacker"'
     - 'HackerAttackVector                  :       10 :"<<<null>>>"'
     - 'HackerToolkit                       :       10 :"<<<null>>>"'
+    - 'RemarkablePattern                   :       10 :"Hacker"'
 
 # If there are NO products found this is either manipulated or a Hacker.
 - matcher:
     require:
     - 'agent.(1)text'
     - 'IsNull[agent.(1)text^>]'
-#    - '__SyntaxError__="true"'
     extract:
     - 'DeviceClass                         :       10 :"Hacker"'
     - 'DeviceName                          :       10 :"Hacker"'
@@ -238,6 +239,7 @@ config:
     - 'AgentVersion                        :       10 :"Hacker"'
     - 'HackerAttackVector                  :       10 :"<<<null>>>"'
     - 'HackerToolkit                       :       10 :"<<<null>>>"'
+    - 'RemarkablePattern                   :       10 :"Hacker"'
 
 
 
@@ -260,6 +262,7 @@ config:
     - 'AgentVersion                        :       10 :"Hacker"'
     - 'HackerAttackVector                  :       10 :"<<<null>>>"'
     - 'HackerToolkit                       :       10 :"<<<null>>>"'
+    - 'RemarkablePattern                   :       10 :"Hacker"'
 
 
 # If there is ONLY a product name and nothing else then this is either manipulated or a Hacker.
@@ -285,6 +288,7 @@ config:
     - 'AgentVersion                        :       10 :"Hacker"'
     - 'HackerAttackVector                  :       10 :"<<<null>>>"'
     - 'HackerToolkit                       :       10 :"<<<null>>>"'
+    - 'RemarkablePattern                   :       10 :"Hacker"'
 
 
 - matcher:
@@ -309,6 +313,7 @@ config:
     - 'AgentVersion                        :    10000 :"Hacker"'
     - 'HackerAttackVector                  :     5000 :"<<<null>>>"'
     - 'HackerToolkit                       :     5000 :"<<<null>>>"'
+    - 'RemarkablePattern                   :    10000 :"Hacker"'
 
 
 - lookup:
@@ -344,6 +349,7 @@ config:
     - 'AgentNameVersionMajor               :        9 :"Hacker"'
     - 'HackerAttackVector                  :        9 :"Fuzzing"'
     - 'HackerToolkit                       :        9 :"<<<null>>>"'
+    - 'RemarkablePattern                   :        9 :"Hacker"'
 
 
 # https://www.cirt.net/node/89
@@ -374,6 +380,7 @@ config:
     - 'AgentVersion                        :    10000 :@Nikto^.version'
     - 'HackerAttackVector                  :    10000 :Concat["Nikto test:";@Test^.value]'
     - 'HackerToolkit                       :        1 :"Nikto"'
+    - 'RemarkablePattern                   :    10000 :"Hacker"'
 
 
 - test:
@@ -404,6 +411,7 @@ config:
       AgentNameVersionMajor                : 'Nikto 2'
       HackerAttackVector                   : 'Nikto test:map_codes'
       HackerToolkit                        : 'Nikto'
+      RemarkablePattern                    : 'Hacker'
 
 
 - test:
@@ -434,6 +442,7 @@ config:
       AgentNameVersionMajor                : 'Nikto 2'
       HackerAttackVector                   : 'Nikto test:000964'
       HackerToolkit                        : 'Nikto'
+      RemarkablePattern                    : 'Hacker'
 
 
 - test:
@@ -464,6 +473,7 @@ config:
       AgentNameVersionMajor                : 'Nikto 2'
       HackerAttackVector                   : 'Nikto test:cgi dir check'
       HackerToolkit                        : 'Nikto'
+      RemarkablePattern                    : 'Hacker'
 
 
 - test:
@@ -494,6 +504,7 @@ config:
       AgentNameVersionMajor                : 'Nikto 2'
       HackerAttackVector                   : 'Nikto test:embedded detection'
       HackerToolkit                        : 'Nikto'
+      RemarkablePattern                    : 'Hacker'
 
 
 - test:
@@ -524,6 +535,8 @@ config:
       AgentNameVersionMajor                : 'Nikto 2'
       HackerAttackVector                   : 'Nikto test:multiple_index'
       HackerToolkit                        : 'Nikto'
+      RemarkablePattern                    : 'Hacker'
+
 
 - test:
     input:
@@ -554,6 +567,8 @@ config:
       AgentInformationUrl                  : 'https://nmap.org/book/nse.html'
       HackerToolkit                        : 'Nmap'
       HackerAttackVector                   : 'Unknown'
+      RemarkablePattern                    : 'Hacker'
+
 
 # This EXACT version is really nmap
 # https://nmap.org/nsedoc/lib/anyconnect.html
@@ -577,6 +592,8 @@ config:
     - 'AgentVersion                        :  1000000 :"Hacker"'
     - 'HackerToolkit                       :  1000000 :"Nmap"'
     - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+    - 'RemarkablePattern                   :  1000000 :"Hacker"'
+
 
   # This EXACT version is really nmap
   # https://nmap.org/nsedoc/lib/anyconnect.html
@@ -607,256 +624,7 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       HackerToolkit                        : 'Nmap'
-
-
-- matcher:
-    require:
-    - 'agent.(1-2)product.comments.entry.(1-2)product.name="Windows NT"^.version[1]="9"'
-    extract:
-    - 'DeviceClass                         :    10000 : "Hacker"'
-    - 'OperatingSystemClass                :    10000 : "Hacker"'
-    - 'AgentClass                          :    10000 : "Hacker"'
-
-- test: # There is no such a thing as Windows 9 --> Hacker
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US)'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.0'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.0'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Trident 5.0'
-      LayoutEngineNameVersionMajor         : 'Trident 5'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '9.0'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'Internet Explorer 9.0'
-      AgentNameVersionMajor                : 'Internet Explorer 9'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-
-
-- test: # There is no such a thing as Windows 9 --> Hacker
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows; Windows NT 9.0; en-US)'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.0'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.0'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Windows NT'
-      AgentVersion                         : '9.0'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'Windows NT 9.0'
-      AgentNameVersionMajor                : 'Windows NT 9'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-
-
-# Note the uppercase I in 'WIndows'
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Windows; U; MSIE 9.0; WIndows NT 9.0; en-US))'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.0'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.0'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Trident'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Trident 5.0'
-      LayoutEngineNameVersionMajor         : 'Trident 5'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Internet Explorer'
-      AgentVersion                         : '9.0'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'Internet Explorer 9.0'
-      AgentNameVersionMajor                : 'Internet Explorer 9'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Windows NT 9_1_2; Win64; x64) WebKit/563.4.4 (KHTML, like Gecko) Safari/9.0.7'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.1.2'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.1.2'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'WebKit'
-      AgentVersion                         : '563.4.4'
-      AgentVersionMajor                    : '563'
-      AgentNameVersion                     : 'WebKit 563.4.4'
-      AgentNameVersionMajor                : 'WebKit 563'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Windows NT 9_0_1; Win64; x64) WebKit/576.2.3 (KHTML, like Gecko) Safari/6.0'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.0.1'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.0.1'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'WebKit'
-      AgentVersion                         : '576.2.3'
-      AgentVersionMajor                    : '576'
-      AgentNameVersion                     : 'WebKit 576.2.3'
-      AgentNameVersionMajor                : 'WebKit 576'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Windows NT 9_1; Win64; x64) AppleWebKit/541.49 (KHTML, like Gecko) Chrome/53.0.2358 Safari/537.36'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.1'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.1'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '53.0'
-      LayoutEngineVersionMajor             : '53'
-      LayoutEngineNameVersion              : 'Blink 53.0'
-      LayoutEngineNameVersionMajor         : 'Blink 53'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '53.0.2358'
-      AgentVersionMajor                    : '53'
-      AgentNameVersion                     : 'Chrome 53.0.2358'
-      AgentNameVersionMajor                : 'Chrome 53'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Windows NT 9.1.1; Win64; x64; rv:42.43.1) Gecko/20100101 Firefox/42.43.1'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.1.1'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.1.1'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '42.43.1'
-      LayoutEngineVersionMajor             : '42'
-      LayoutEngineNameVersion              : 'Gecko 42.43.1'
-      LayoutEngineNameVersionMajor         : 'Gecko 42'
-      LayoutEngineBuild                    : '20100101'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '42.43.1'
-      AgentVersionMajor                    : '42'
-      AgentNameVersion                     : 'Firefox 42.43.1'
-      AgentNameVersionMajor                : 'Firefox 42'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Windows; U; Windows NT 9.0; en-US; rv:1.9.1.11) Gecko/20100701 SeaMonkey/2.0.6'
-    expected:
-      DeviceClass                          : 'Hacker'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Hacker'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '9.0'
-      OperatingSystemVersionMajor          : '9'
-      OperatingSystemNameVersion           : 'Windows NT 9.0'
-      OperatingSystemNameVersionMajor      : 'Windows NT 9'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '1.9.1.11'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Gecko 1.9.1.11'
-      LayoutEngineNameVersionMajor         : 'Gecko 1'
-      LayoutEngineBuild                    : '20100701'
-      AgentClass                           : 'Hacker'
-      AgentName                            : 'SeaMonkey'
-      AgentVersion                         : '2.0.6'
-      AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'SeaMonkey 2.0.6'
-      AgentNameVersionMajor                : 'SeaMonkey 2'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Hacker'
 
 
 # OpenVAS – Open Vulnerability Assessment Scanner
@@ -888,6 +656,7 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       HackerToolkit                        : 'OpenVAS'
+      RemarkablePattern                    : 'Hacker'
 
 
 ## https://console.cloud.google.com/security/web-scanner
@@ -919,6 +688,7 @@ config:
       AgentNameVersionMajor                : 'Hacker'
       AgentInformationUrl                  : '//console.cloud.google.com/security/web-scanner'
       HackerToolkit                        : 'Google Security Scanner'
+      RemarkablePattern                    : 'Hacker'
 
 
 - test:
@@ -948,6 +718,8 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       HackerToolkit                        : 'Fuzz Faster U Fool'
+      RemarkablePattern                    : 'Hacker'
+
 
 - test:
     input:
@@ -976,3 +748,4 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       HackerToolkit                        : 'Fuzz Faster U Fool'
+      RemarkablePattern                    : 'Hacker'

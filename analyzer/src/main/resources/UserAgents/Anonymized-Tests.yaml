@@ -21,7 +21,6 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (masking-agent; rv:25.0) Gecko/20100101 Firefox/25.0'
     expected:
-      Anonymized                           : 'Anonymized'
       DeviceClass                          : 'Anonymized'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
@@ -35,15 +34,16 @@ config:
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '25.0'
       LayoutEngineVersionMajor             : '25'
+      LayoutEngineBuild                    : '20100101'
+      LayoutEngineNameVersion              : 'Gecko 25.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 25'
       AgentClass                           : 'Browser'
       AgentName                            : 'Firefox'
       AgentVersion                         : '25.0'
       AgentVersionMajor                    : '25'
       AgentNameVersion                     : 'Firefox 25.0'
       AgentNameVersionMajor                : 'Firefox 25'
-      LayoutEngineBuild                    : '20100101'
-      LayoutEngineNameVersion              : 'Gecko 25.0'
-      LayoutEngineNameVersionMajor         : 'Gecko 25'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -71,7 +71,7 @@ config:
       AgentVersionMajor                    : '000'
       AgentNameVersion                     : '00000 000'
       AgentNameVersionMajor                : '00000 000'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -101,7 +101,7 @@ config:
       AgentVersionMajor                    : '28'
       AgentNameVersion                     : 'Firefox 28.0'
       AgentNameVersionMajor                : 'Firefox 28'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -130,7 +130,7 @@ config:
       AgentVersionMajor                    : '39'
       AgentNameVersion                     : 'Chrome 39.0.2171.95'
       AgentNameVersionMajor                : 'Chrome 39'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -160,7 +160,7 @@ config:
       AgentNameVersionMajor                : 'Firefox 36'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test: # This one has parsing problems, this is the best possible at this moment.
@@ -189,7 +189,7 @@ config:
       AgentVersionMajor                    : '35'
       AgentNameVersion                     : 'Firefox 35.0'
       AgentNameVersionMajor                : 'Firefox 35'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -218,7 +218,7 @@ config:
       AgentVersionMajor                    : '8'
       AgentNameVersion                     : 'Internet Explorer 8.0'
       AgentNameVersionMajor                : 'Internet Explorer 8'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -249,7 +249,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 # These have been manipulated to have multiple user agents.
 - test:
@@ -281,7 +281,7 @@ config:
       AgentNameVersionMajor                : 'QupZilla 1'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 - test:
     input:
@@ -312,7 +312,7 @@ config:
       AgentNameVersionMajor                : 'QupZilla 2'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 - test:
     input:
@@ -344,7 +344,7 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 - test:
     input:
@@ -376,7 +376,7 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 - test:
     input:
@@ -408,7 +408,7 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 - test:
     input:
@@ -438,7 +438,7 @@ config:
       AgentNameVersion                     : 'Opera 36.0.2130.29'
       AgentNameVersionMajor                : 'Opera 36'
       AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 # Version 999 ... yeah right
 - test:
@@ -469,7 +469,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test: # This seems a bit messy, but given the input the best possible
@@ -498,9 +498,9 @@ config:
       AgentVersionMajor                    : 'Hacker'
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
-      Anonymized                           : 'Anonymized'
       HackerAttackVector                   : 'Unknown'
       HackerToolkit                        : 'Unknown'
+      RemarkablePattern                    : 'Anonymized'
 
 
 # This useragent was retrieved via https://googleweblight.com/i?u=https://try.yauaa.basjes.nl
@@ -533,7 +533,7 @@ config:
       AgentNameVersionMajor                : 'Chrome 38'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -563,7 +563,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'Safari 7.1.7'
       AgentNameVersionMajor                : 'Safari 7'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -593,7 +593,7 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'Safari 7.1.7'
       AgentNameVersionMajor                : 'Safari 7'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -623,7 +623,7 @@ config:
       AgentVersionMajor                    : '1DGWMNWXSSP'
       AgentNameVersion                     : 'Edge 1DGWMNWXSSP'
       AgentNameVersionMajor                : 'Edge 1DGWMNWXSSP'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -653,7 +653,7 @@ config:
       AgentVersionMajor                    : '86'
       AgentNameVersion                     : 'Chrome 86.0.7164.687'
       AgentNameVersionMajor                : 'Chrome 86'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -684,7 +684,7 @@ config:
       AgentVersionMajor                    : '5XSS'
       AgentNameVersion                     : 'Firefox 5XSS'
       AgentNameVersionMajor                : 'Firefox 5XSS'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -714,7 +714,7 @@ config:
       AgentVersionMajor                    : 'HXSS'
       AgentNameVersion                     : 'Firefox HXSS'
       AgentNameVersionMajor                : 'Firefox HXSS'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
 
 
 - test:
@@ -744,4 +744,4 @@ config:
       AgentVersionMajor                    : 'TOB7'
       AgentNameVersion                     : 'TO-Browser TOB7.68.0.2'
       AgentNameVersionMajor                : 'TO-Browser TOB7'
-      Anonymized                           : 'Anonymized'
+      RemarkablePattern                    : 'Anonymized'
