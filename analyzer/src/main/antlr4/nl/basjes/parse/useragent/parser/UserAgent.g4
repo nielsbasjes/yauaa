@@ -459,6 +459,7 @@ commentBlock
 
 commentEntry
     :   ( emptyWord )
+    | CURLYBRACEOPEN CURLYBRACECLOSE
     |   (
             UNASSIGNEDVARIABLE*
             ( commentProduct
