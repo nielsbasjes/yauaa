@@ -9,6 +9,7 @@ v7.4.0-SNAPSHOT
   - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
   - New DeviceClass: "Home Appliance" (Fridges and such)
   - Browsers that extend the Edge useragent.
+  - Oculus VR devices/OculusBrowser
   - Anonymization
     - All anonymized agents have DeviceClass: 'Anonymized'
     - More extensive anonymization by looking at version patterns

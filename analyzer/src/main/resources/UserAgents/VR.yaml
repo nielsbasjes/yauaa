@@ -18,18 +18,46 @@ config:
 
 - matcher:
     require:
-      - 'agent.product.name[-2]="Mobile VR"'
+      - 'agent.product.name="Mobile VR Safari"'
     extract:
-      - 'DeviceClass                         :     1500 :"Virtual Reality"'
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
 
+- matcher:
+    require:
+      - 'agent.product.name="VR Safari"'
+    extract:
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
+
+- matcher:
+    variable:
+      - 'Agent: agent.(3)product.name="OculusBrowser"^'
+    extract:
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
+      - 'DeviceBrand                         :      314 :"Oculus"'
+      - 'AgentName                           :     3000 :"OculusBrowser"'
+      - 'AgentVersion                        :     3000 :@Agent.version'
+
+- matcher:
+    variable:
+      - 'Agent: agent.(3)product.name="OculusBrowser"^'
+    require:
+      - 'agent.(4)product.name="SamsungBrowser"'
+      - 'agent.(5)product.name="Chrome"'
+      - 'IsNull[agent.(1)product.(1)comments.(3)entry~"BUILD"]'
+    extract:
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
+      - 'DeviceName                          :     3500 :agent.(1)product.(1)comments.(3)entry'
+      - 'DeviceBrand                         :      314 :"Oculus"'
+      - 'AgentName                           :     3000 :"OculusBrowser"'
+      - 'AgentVersion                        :     3000 :@Agent.version'
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.2; Pacific Build/N2G48H) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/5.5.8.135542447 SamsungBrowser/4.0 Chrome/66.0.3359.203 Mobile VR Safari/537.36'
     expected:
       DeviceClass                          : 'Virtual Reality'
-      DeviceName                           : 'Pacific'
-      DeviceBrand                          : 'Unknown'
+      DeviceName                           : 'Oculus Pacific'
+      DeviceBrand                          : 'Oculus'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
       OperatingSystemVersion               : '7.1.2'
@@ -44,11 +72,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 66.0'
       LayoutEngineNameVersionMajor         : 'Blink 66'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome' # FIXME: OculusBrowser !
-      AgentVersion                         : '66.0.3359.203'
-      AgentVersionMajor                    : '66'
-      AgentNameVersion                     : 'Chrome 66.0.3359.203'
-      AgentNameVersionMajor                : 'Chrome 66'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '5.5.8.135542447'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'OculusBrowser 5.5.8.135542447'
+      AgentNameVersionMajor                : 'OculusBrowser 5'
 
 
 - test:
@@ -168,8 +196,8 @@ config:
       User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; Quest 2) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/22.1.0.2.42.378269191 SamsungBrowser/4.0 Chrome/102.0.5005.99 Mobile VR Safari/537.36'
     expected:
       DeviceClass                          : 'Virtual Reality'
-      DeviceName                           : 'Quest 2'
-      DeviceBrand                          : 'Quest'
+      DeviceName                           : 'Oculus Quest 2'
+      DeviceBrand                          : 'Oculus'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
       OperatingSystemVersion               : '10'
@@ -183,11 +211,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 102.0'
       LayoutEngineNameVersionMajor         : 'Blink 102'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '102.0.5005.99'
-      AgentVersionMajor                    : '102'
-      AgentNameVersion                     : 'Chrome 102.0.5005.99'
-      AgentNameVersionMajor                : 'Chrome 102'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '22.1.0.2.42.378269191'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'OculusBrowser 22.1.0.2.42.378269191'
+      AgentNameVersionMajor                : 'OculusBrowser 22'
 
 
 - test:
@@ -195,8 +223,8 @@ config:
       User-Agent                           : 'Mozilla/5.0 (Linux; Android 7.1.1; Pacific) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/10.16.0.0.0.296461555 SamsungBrowser/4.0 Chrome/91.0.4472.88 Mobile VR Safari/537.36'
     expected:
       DeviceClass                          : 'Virtual Reality'
-      DeviceName                           : 'Android Mobile'
-      DeviceBrand                          : 'Unknown'
+      DeviceName                           : 'Oculus Pacific'
+      DeviceBrand                          : 'Oculus'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
       OperatingSystemVersion               : '7.1.1'
@@ -210,11 +238,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 91.0'
       LayoutEngineNameVersionMajor         : 'Blink 91'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '91.0.4472.88'
-      AgentVersionMajor                    : '91'
-      AgentNameVersion                     : 'Chrome 91.0.4472.88'
-      AgentNameVersionMajor                : 'Chrome 91'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '10.16.0.0.0.296461555'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'OculusBrowser 10.16.0.0.0.296461555'
+      AgentNameVersionMajor                : 'OculusBrowser 10'
 
 
 - test:
@@ -237,8 +265,66 @@ config:
       LayoutEngineNameVersion              : 'Blink 79.0'
       LayoutEngineNameVersionMajor         : 'Blink 79'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '79.0.3945.126'
-      AgentVersionMajor                    : '79'
-      AgentNameVersion                     : 'Chrome 79.0.3945.126'
-      AgentNameVersionMajor                : 'Chrome 79'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '8.1.5.203450095'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'OculusBrowser 8.1.5.203450095'
+      AgentNameVersionMajor                : 'OculusBrowser 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Quest 2) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/22.1.0.2.42.378269191 SamsungBrowser/4.0 Chrome/102.0.5005.99 VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Oculus Quest 2'
+      DeviceBrand                          : 'Oculus'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102.0'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '22.1.0.2.42.378269191'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'OculusBrowser 22.1.0.2.42.378269191'
+      AgentNameVersionMajor                : 'OculusBrowser 22'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Quest) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/22.2.0.3.39.382455783 SamsungBrowser/4.0 Chrome/102.0.5005.148 VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Oculus Quest'
+      DeviceBrand                          : 'Oculus'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102.0'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '22.2.0.3.39.382455783'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'OculusBrowser 22.2.0.3.39.382455783'
+      AgentNameVersionMajor                : 'OculusBrowser 22'
