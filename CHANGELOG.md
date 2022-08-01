@@ -12,7 +12,7 @@ v7.4.0-SNAPSHOT
   - Oculus VR devices/OculusBrowser
   - Anonymization
     - All anonymized agents have DeviceClass: 'Anonymized'
-    - More extensive anonymization by looking at version patterns
+    - More extensive anonymization detection by looking at version patterns
 - Extra testcases
   - Fuchsia
   - Windows 9 (which does not exist)

@@ -15,7 +15,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ### Version 7.4.0 (Unreleased)
 - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
 - New DeviceClass: "Home Appliance" (Fridges and such)
-
+- Oculus VR devices/OculusBrowser
+- Anonymization
+    - All anonymized agents have DeviceClass: 'Anonymized'
+    - More extensive anonymization detection by looking at version patterns
 
 ### Version 7.3.0
 - Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases used for improving this version
