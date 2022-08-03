@@ -27,6 +27,7 @@ import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.config.TestCase.TestResult;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaTestsFailed;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
@@ -42,6 +42,16 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 @RequestMapping(value = "/yauaa/v1")
 @RestController
 public class RunTests {
+
+    private final ParseService parseService;
+
+    @Autowired
+    public RunTests(ParseService parseService) {
+        this.parseService = parseService;
+    }
+
+    // -------------------------------------------------
+
     @Operation(
         description = "Fire all available test cases against the analyzer to heat up the JVM"
     )
@@ -62,8 +72,8 @@ public class RunTests {
         produces = APPLICATION_JSON_VALUE
     )
     public String getPreHeat() {
-        ensureStartedForApis(OutputType.JSON);
-        UserAgentAnalyzer userAgentAnalyzer = ParseService.getUserAgentAnalyzer();
+        parseService.ensureStartedForApis(OutputType.JSON);
+        UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
 
         final int cacheSize = userAgentAnalyzer.getCacheSize();
         userAgentAnalyzer.disableCaching();
@@ -103,13 +113,14 @@ public class RunTests {
         produces = TEXT_PLAIN_VALUE
     )
     public String getRunTests() {
-        UserAgentAnalyzer userAgentAnalyzer = ParseService.getUserAgentAnalyzer();
+        parseService.ensureStartedForApis(OutputType.TXT);
+        UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
         List<TestCase> testCases = userAgentAnalyzer.getTestCases();
 
         long start = System.nanoTime();
         List<TestResult> failedTests = testCases
             .stream()
-            .map(testCase -> testCase.verify(userAgentAnalyzer))
+            .map(testCase -> testCase.verify(userAgentAnalyzer, false))
             .filter(TestResult::testFailed)
             .collect(Collectors.toList());
         long stop = System.nanoTime();

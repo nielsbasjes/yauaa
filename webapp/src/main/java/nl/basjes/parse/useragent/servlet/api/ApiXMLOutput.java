@@ -28,6 +28,7 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
-import static nl.basjes.parse.useragent.servlet.ParseService.ensureStartedForApis;
-import static nl.basjes.parse.useragent.servlet.ParseService.userAgentAnalyzerIsAvailable;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_JSON;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_TWO_USERAGENTS;
@@ -52,10 +51,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
-@Tag(name = "Yauaa", description = "Analyzing the useragents")
+@Tag(name = "Analyze", description = "Analyzing the useragents")
 @RequestMapping(value = "/yauaa/v1")
 @RestController
 public class ApiXMLOutput {
+
+    private final ParseService parseService;
+
+    @Autowired
+    public ApiXMLOutput(ParseService parseService) {
+        this.parseService = parseService;
+    }
 
     // -------------------------------------------------
     // GET /analyze + accept --> XML
@@ -191,9 +197,9 @@ public class ApiXMLOutput {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        ensureStartedForApis(OutputType.XML);
-        if (userAgentAnalyzerIsAvailable()) {
-            UserAgentAnalyzer userAgentAnalyzer = ParseService.getUserAgentAnalyzer();
+        parseService.ensureStartedForApis(OutputType.XML);
+        if (parseService.userAgentAnalyzerIsAvailable()) {
+            UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
             List<String> result = new ArrayList<>(2048);
             for (String input : splitPerFilledLine(userAgentString)) {
                 UserAgent userAgent = userAgentAnalyzer.parse(input);

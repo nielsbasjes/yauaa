@@ -22,6 +22,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import lombok.Getter;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.Matcher;
@@ -30,11 +31,22 @@ import nl.basjes.parse.useragent.analyze.MatchesList;
 import nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.config.ConfigLoader;
 import nl.basjes.parse.useragent.utils.CheckLoggingDependencies;
 import nl.basjes.parse.useragent.utils.KryoConfig;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
@@ -49,9 +61,10 @@ import java.util.TreeSet;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.SET_ALL_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER_SPEC;
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER_SPEC_URL;
 import static nl.basjes.parse.useragent.config.ConfigLoader.DEFAULT_RESOURCES;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
-
 @DefaultSerializer(AbstractUserAgentAnalyzerDirect.KryoSerializer.class)
 public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, AnalyzerConfigHolder, AnalyzerPreHeater, Serializable {
 
@@ -204,6 +217,38 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
 
     public boolean isSupportedClientHintHeader(String header) {
         return clientHintsAnalyzer.isSupportedClientHintHeader(header);
+    }
+
+    public static class HeaderSpecification {
+        @Getter private final String headerName;
+        @Getter private final String specificationUrl;
+        @Getter private final String specificationSummary;
+
+        public HeaderSpecification(String headerName, String specificationUrl, String specificationSummary) {
+            this.headerName = headerName;
+            this.specificationUrl = specificationUrl;
+            this.specificationSummary = specificationSummary;
+        }
+    }
+
+    private static final Map<String, HeaderSpecification> HEADER_SPECIFICATIONS = new LinkedCaseInsensitiveMap<>();
+
+    static {
+        HEADER_SPECIFICATIONS.put(USERAGENT_HEADER,                          new HeaderSpecification(USERAGENT_HEADER,                          USERAGENT_HEADER_SPEC_URL,                    USERAGENT_HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUa.HEADER_FIELD,                 new HeaderSpecification(ParseSecChUa.HEADER_FIELD,                 ParseSecChUa.HEADER_SPEC_URL,                 ParseSecChUa.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaArch.HEADER_FIELD,             new HeaderSpecification(ParseSecChUaArch.HEADER_FIELD,             ParseSecChUaArch.HEADER_SPEC_URL,             ParseSecChUaArch.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaBitness.HEADER_FIELD,          new HeaderSpecification(ParseSecChUaBitness.HEADER_FIELD,          ParseSecChUaBitness.HEADER_SPEC_URL,          ParseSecChUaBitness.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaFullVersion.HEADER_FIELD,      new HeaderSpecification(ParseSecChUaFullVersion.HEADER_FIELD,      ParseSecChUaFullVersion.HEADER_SPEC_URL,      ParseSecChUaFullVersion.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaFullVersionList.HEADER_FIELD,  new HeaderSpecification(ParseSecChUaFullVersionList.HEADER_FIELD,  ParseSecChUaFullVersionList.HEADER_SPEC_URL,  ParseSecChUaFullVersionList.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaMobile.HEADER_FIELD,           new HeaderSpecification(ParseSecChUaMobile.HEADER_FIELD,           ParseSecChUaMobile.HEADER_SPEC_URL,           ParseSecChUaMobile.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaModel.HEADER_FIELD,            new HeaderSpecification(ParseSecChUaModel.HEADER_FIELD,            ParseSecChUaModel.HEADER_SPEC_URL,            ParseSecChUaModel.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaPlatform.HEADER_FIELD,         new HeaderSpecification(ParseSecChUaPlatform.HEADER_FIELD,         ParseSecChUaPlatform.HEADER_SPEC_URL,         ParseSecChUaPlatform.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaPlatformVersion.HEADER_FIELD,  new HeaderSpecification(ParseSecChUaPlatformVersion.HEADER_FIELD,  ParseSecChUaPlatformVersion.HEADER_SPEC_URL,  ParseSecChUaPlatformVersion.HEADER_SPEC));
+        HEADER_SPECIFICATIONS.put(ParseSecChUaWoW64.HEADER_FIELD,            new HeaderSpecification(ParseSecChUaWoW64.HEADER_FIELD,            ParseSecChUaWoW64.HEADER_SPEC_URL,            ParseSecChUaWoW64.HEADER_SPEC));
+    }
+
+    public Map<String, HeaderSpecification> getAllSupportedHeaders() {
+        return HEADER_SPECIFICATIONS;
     }
 
     public boolean isWantedField(String fieldName) {

@@ -24,7 +24,9 @@ import java.util.Map;
 
 public class ParseSecChUaWoW64 implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA-WoW64";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-WoW64";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64";
+    public static final String HEADER_SPEC        = "The Sec-CH-UA-WoW64 request header field gives a server information about whether or not a user agent binary is running in 32-bit mode on 64-bit Windows.";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //

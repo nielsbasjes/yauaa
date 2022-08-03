@@ -5,6 +5,8 @@ v7.4.0-SNAPSHOT
 ===
 - Analyzer:
   - IsValidVersion function to determine if a version looks like a normal version.
+- Webservlet:
+    - GraphQL support
 - New/improved detections
   - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
   - New DeviceClass: "Home Appliance" (Fridges and such)
