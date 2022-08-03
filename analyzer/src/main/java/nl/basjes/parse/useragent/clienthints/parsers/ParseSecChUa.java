@@ -28,7 +28,9 @@ import java.util.concurrent.ConcurrentMap;
 
 public class ParseSecChUa implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA";
+    public static final String HEADER_FIELD         = "Sec-CH-UA";
+    public static final String HEADER_SPEC_URL      = "https://wicg.github.io/ua-client-hints/#sec-ch-ua";
+    public static final String HEADER_SPEC          = "The Sec-CH-UA request header field gives a server information about a user agent's branding and version.";
 
     private transient ConcurrentMap<String, ArrayList<Brand>> cache = null;
 

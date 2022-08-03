@@ -28,7 +28,9 @@ import java.util.concurrent.ConcurrentMap;
 
 public class ParseSecChUaFullVersion implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA-Full-Version";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-Full-Version";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version";
+    public static final String HEADER_SPEC        = "The Sec-CH-UA-Full-Version request header field gives a server information about the user agent’s full version. Sec-CH-UA-Full-Version is deprecated and will be removed in the future. Developers should use Sec-CH-UA-Full-Version-List instead.";
 
     private transient ConcurrentMap<String, ArrayList<Brand>> cache;
 

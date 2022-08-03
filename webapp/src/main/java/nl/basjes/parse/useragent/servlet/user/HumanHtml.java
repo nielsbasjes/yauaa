@@ -15,16 +15,30 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api;
+package nl.basjes.parse.useragent.servlet.user;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.Version;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
+import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.text.StringEscapeUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,11 +62,10 @@ import java.util.Map;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
-import static nl.basjes.parse.useragent.servlet.ParseService.getInitStartMoment;
-import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzer;
-import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzerFailureMessage;
-import static nl.basjes.parse.useragent.servlet.ParseService.userAgentAnalyzerIsAvailable;
-import static nl.basjes.parse.useragent.servlet.api.DetermineUserAgentTags.getTags;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
+import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
@@ -62,6 +75,13 @@ import static org.springframework.http.HttpStatus.OK;
 @Tag(name = "Yauaa", description = "Analyzing the useragents")
 @RestController
 public class HumanHtml {
+
+    private final ParseService parseService;
+
+    @Autowired
+    public HumanHtml(ParseService parseService) {
+        this.parseService = parseService;
+    }
 
     // =============== Memory Usage ===============
 
@@ -79,32 +99,6 @@ public class HumanHtml {
         long memory = runtime.totalMemory() - runtime.freeMemory();
         return String.format("Used memory is %d MiB", bytesToMegabytes(memory));
     }
-
-    private static class HeaderSpecification {
-        String header;
-        String url;
-        HeaderSpecification(String header, String url) {
-            this.header = header;
-            this.url = url;
-        }
-    }
-    private Map<String, HeaderSpecification> headerSpecifications;
-
-    public HumanHtml() {
-        headerSpecifications = new LinkedCaseInsensitiveMap<>();
-        headerSpecifications.put("User-Agent",                   new HeaderSpecification("User-Agent",                   "https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3"));
-        headerSpecifications.put("Sec-CH-UA",                    new HeaderSpecification("Sec-CH-UA",                    "https://wicg.github.io/ua-client-hints/#sec-ch-ua"));
-        headerSpecifications.put("Sec-CH-UA-Arch",               new HeaderSpecification("Sec-CH-UA-Arch",               "https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch"));
-        headerSpecifications.put("Sec-CH-UA-Bitness",            new HeaderSpecification("Sec-CH-UA-Bitness",            "https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness"));
-        headerSpecifications.put("Sec-CH-UA-Full-Version",       new HeaderSpecification("Sec-CH-UA-Full-Version",       "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version"));
-        headerSpecifications.put("Sec-CH-UA-Full-Version-List",  new HeaderSpecification("Sec-CH-UA-Full-Version-List",  "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list"));
-        headerSpecifications.put("Sec-CH-UA-Mobile",             new HeaderSpecification("Sec-CH-UA-Mobile",             "https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile"));
-        headerSpecifications.put("Sec-CH-UA-Model",              new HeaderSpecification("Sec-CH-UA-Model",              "https://wicg.github.io/ua-client-hints/#sec-ch-ua-model"));
-        headerSpecifications.put("Sec-CH-UA-Platform",           new HeaderSpecification("Sec-CH-UA-Platform",           "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform"));
-        headerSpecifications.put("Sec-CH-UA-Platform-Version",   new HeaderSpecification("Sec-CH-UA-Platform-Version",   "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version"));
-        headerSpecifications.put("Sec-CH-UA-WoW64",              new HeaderSpecification("Sec-CH-UA-WoW64",              "https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64"));
-    }
-
 
     // =============== HTML (Human usable) OUTPUT ===============
 
@@ -159,25 +153,27 @@ public class HumanHtml {
         try {
             htmlHead(sb);
 
-            if (userAgentAnalyzerIsAvailable()) {
+            if (parseService.userAgentAnalyzerIsAvailable()) {
                 startParse = System.nanoTime();
                 List<UserAgent> userAgents = new ArrayList<>();
 
                 if (useClientHints) {
-                    userAgents.add(getUserAgentAnalyzer().parse(requestHeaders));
+                    userAgents.add(parseService.getUserAgentAnalyzer().parse(requestHeaders));
                 } else {
                     final List<String> userAgentStrings = splitPerFilledLine(userAgentString);
                     for (String ua : userAgentStrings) {
-                        userAgents.add(getUserAgentAnalyzer().parse(ua));
+                        userAgents.add(parseService.getUserAgentAnalyzer().parse(ua));
                     }
                 }
                 stopParse = System.nanoTime();
 
+                int i = 0;
                 for (UserAgent userAgent: userAgents) {
-
+                    i++;
                     sb.append("<hr/>");
                     sb.append("<h2 class=\"title\">The UserAgent");
-                    copyTestcaseToClipboard(sb, userAgent);
+                    copyTestcaseToClipboard(sb, userAgent, i);
+                    copyGraphQLQueryToClipboard(sb, userAgent, i);
                     if (!useClientHints) {
                         sb
                             .append(" <a class=\"hideLink\" href=\"?ua=")
@@ -194,18 +190,24 @@ public class HumanHtml {
                         sb.append("<tr><th>Usable header</th><th>Value</th></tr>");
                         List<String> showHeaders = new ArrayList<>();
                         showHeaders.add(USERAGENT_HEADER);
-                        showHeaders.addAll(getUserAgentAnalyzer().supportedClientHintHeaders());
+                        showHeaders.addAll(parseService.getUserAgentAnalyzer().supportedClientHintHeaders());
                         for (String header : showHeaders) {
                             String value = requestHeaders.get(header);
                             if (value != null) {
-                                sb.append("<tr><td>");
-                                HeaderSpecification specification = headerSpecifications.get(header);
+                                sb.append("<tr><td class=\"tooltip\">");
+                                HeaderSpecification specification = parseService.getUserAgentAnalyzer().getAllSupportedHeaders().get(header);
                                 if (specification != null) {
                                     // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                                    sb.append("<a href=\"").append(specification.url).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
+                                    sb.append("<a href=\"").append(specification.getSpecificationUrl()).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
                                 }
-
-                                sb.append(escapeHtml4(header))
+                                sb.append(escapeHtml4(header));
+                                if (specification != null) {
+                                    sb
+                                        .append("<span class=\"tooltiptext\">")
+                                        .append(escapeHtml4(specification.getSpecificationSummary()))
+                                        .append("</span>");
+                                }
+                                sb
                                     .append("</td><td>")
                                     .append(escapeHtml4(value))
                                     .append("</td></tr>");
@@ -219,8 +221,9 @@ public class HumanHtml {
 
                     sb.append("<h2 class=\"title\">The analysis result</h2>");
 
-                    List<String> tags = getTags(userAgent);
-                    sb.append("<p class=\"tags\">")
+                    List<String> tags = getClassificationTags(userAgent);
+                    sb
+                        .append("<p class=\"tags\">")
                         .append("DeviceClass : ").append(userAgent.getValue(DEVICE_CLASS)).append("<br/>")
                         .append(String.join(" - ", tags)).append("</p>");
 
@@ -257,10 +260,12 @@ public class HumanHtml {
                         sb.append("<tr>");
                         if (!currentGroup.equals(groupName)) {
                             currentGroup = groupName;
-                            sb.append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
+                            sb
+                                .append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
                                 .append(escapeHtml4(currentGroup)).append("</u></b></td>");
                         }
-                        sb.append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
+                        sb
+                            .append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
                             .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
                             .append("</tr>");
                     }
@@ -308,19 +313,39 @@ public class HumanHtml {
         }
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        if (userAgentAnalyzerIsAvailable()) {
-            responseHeaders.add("Accept-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
-//        responseHeaders.add("Critical-CH", String.join(", ", getUserAgentAnalyzer().supportedClientHintHeaders()));
+        if (parseService.userAgentAnalyzerIsAvailable()) {
+            responseHeaders.add("Accept-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
+//        responseHeaders.add("Critical-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
         }
 
         return new ResponseEntity<>(sb.toString(), responseHeaders, OK);
     }
 
+    private static List<String> getClassificationTags(UserAgent userAgent) {
+        List<String> tags = new ArrayList<>();
+        if (isHuman(userAgent)) {
+            tags.add("Human");
+        } else {
+            tags.add("NOT Human");
+        }
+        if (isNormalConsumerDevice(userAgent)) {
+            tags.add("Normal consumer device");
+        }
+        if (isMobile(userAgent)) {
+            tags.add("Mobile");
+        }
+        if (isDeliberateMisuse(userAgent)) {
+            tags.add("Deliberate Misuse");
+        }
+
+        return tags;
+    }
+
     private void stillStartingUp(StringBuilder sb) {
-        String userAgentAnalyzerFailureMessage = getUserAgentAnalyzerFailureMessage();
+        String userAgentAnalyzerFailureMessage = parseService.getUserAgentAnalyzerFailureMessage();
         if (userAgentAnalyzerFailureMessage == null) {
             long   now        = System.currentTimeMillis();
-            long   millisBusy = now - getInitStartMoment();
+            long   millisBusy = now - parseService.getInitStartMoment();
             String timeString = String.format("%3.1f", millisBusy / 1000.0);
             sb
                 .append("<div class=\"notYetStartedBorder\">")
@@ -350,6 +375,11 @@ public class HumanHtml {
         sb.append("</p>");
         sb.append("<p class=\"logobar swagger\">A simple Swagger based API has been created for testing purposes: " +
             "<a href=\"/swagger-ui.html\">Swagger UI</a></p>");
+        sb.append("<p class=\"logobar graphql\">A simple GraphQL based API has been created for testing purposes: " +
+            "<a href=\"/graphiql\">GraphQL UI</a> [" +
+            "<a href=\"/graphql\">Endpoint</a>, " +
+            "<a href=\"/graphql/schema\">Schema</a>]</p>"
+        );
 
         sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
             "https://github.com/nielsbasjes/yauaa</a></p>");
@@ -395,11 +425,28 @@ public class HumanHtml {
             "    var tooltip = document.getElementById(\"copyTestCaseToClipboardTooltip\");\n" +
             "    tooltip.innerHTML = \"Copy this as a testcase to clipboard\";\n" +
             "}\n" +
-            "</script>");
+            "\n" +
+            "function copyGraphQLToClipboard() {\n" +
+            "   var copyText = document.getElementById(\"graphQLForClipboard\");\n" +
+            "   copyText.select();\n" +
+            "   copyText.setSelectionRange(0, 99999);\n" +
+            "   navigator.clipboard.writeText(copyText.value);\n" +
+            "\n" +
+            "    var tooltip = document.getElementById(\"copyGraphQLToClipboardTooltip\");\n" +
+            "    tooltip.innerHTML = \"Copied to clipboard\"\n" +
+            "}\n" +
+            "\n" +
+            "function closeCopyGraphQLToClipboardTooltip() {\n" +
+            "    var tooltip = document.getElementById(\"copyGraphQLToClipboardTooltip\");\n" +
+            "    tooltip.innerHTML = \"Copy this as a graphQL to clipboard\";\n" +
+            "}\n" +
+            "\n" +
+            "</script>"
+        );
 
 
         // While initializing automatically reload the page.
-        if (!userAgentAnalyzerIsAvailable() && getUserAgentAnalyzerFailureMessage() == null) {
+        if (!parseService.userAgentAnalyzerIsAvailable() && parseService.getUserAgentAnalyzerFailureMessage() == null) {
             sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
         }
         sb.append("<link rel=\"stylesheet\" href=\"style.css?").append(CACHE_BUSTER).append("\">");
@@ -453,15 +500,73 @@ public class HumanHtml {
         return result.trim();
     }
 
-    private void copyTestcaseToClipboard(StringBuilder sb, UserAgent userAgent) {
-        sb.append("<textarea style='display:none' id=\"testCaseForClipboard\">")
+    private void copyTestcaseToClipboard(StringBuilder sb, UserAgent userAgent, int index) {
+        sb.append("<textarea style='display:none' id=\"testCaseForClipboard"+index+"\">")
             .append(escapeHtml4(userAgent.toYamlTestCase())) // .replace("\"", "&quote;").replace("\n", "&#10;"))
             .append("</textarea>")
-            .append("<div class=\"tooltip\">" +
+            .append("<div class=\"tooltip inline\">" +
                 "<p onclick=\"copyTestCaseToClipboard()\" onmouseout=\"closeCopyTestCaseToClipboardTooltip()\">" +
-                "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip\">Copy this as a testcase to clipboard</span>" +
+                "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip"+index+"\">Copy this as a testcase to clipboard</span>" +
                 "&#128203;</p>" +
                 "</div>\n");
+    }
+
+    private void copyGraphQLQueryToClipboard(StringBuilder sb, UserAgent userAgent, int index) {
+        sb.append("<textarea style='display:none' id=\"graphQLForClipboard\">");
+        sb.append("query {\n" +
+            "  analyze(requestHeaders: {\n");
+        Map<String, String> headers = userAgent.getHeaders();
+        // FIXME: No hardcoded lists here
+        addRequestHeaderToGraphQL(sb, headers.get(USERAGENT_HEADER),                           "userAgent             ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUa.HEADER_FIELD),                  "secChUa               ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaArch.HEADER_FIELD),              "secChUaArch           ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaBitness.HEADER_FIELD),           "secChUaBitness        ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaFullVersion.HEADER_FIELD),       "secChUaFullVersion    ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaFullVersionList.HEADER_FIELD),   "secChUaFullVersionList");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaMobile.HEADER_FIELD),            "secChUaMobile         ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaModel.HEADER_FIELD),             "secChUaModel          ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaPlatform.HEADER_FIELD),          "secChUaPlatform       ");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaPlatformVersion.HEADER_FIELD),   "secChUaPlatformVersion");
+        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaWoW64.HEADER_FIELD),             "secChUaWoW64          ");
+        // FIXME: No hardcoded lists here
+        sb.append("  }) {\n" +
+            "    deviceName\n" +
+            "    deviceBrand\n" +
+            "    deviceCpu\n" +
+            "    deviceCpuBits\n" +
+            "    operatingSystemClass\n" +
+            "    operatingSystemName\n" +
+            "    operatingSystemVersion\n" +
+            "    operatingSystemVersionMajor\n" +
+            "    operatingSystemNameVersion\n" +
+            "    operatingSystemNameVersionMajor\n" +
+            "    layoutEngineClass\n" +
+            "    layoutEngineName\n" +
+            "    layoutEngineVersion\n" +
+            "    layoutEngineVersionMajor\n" +
+            "    layoutEngineNameVersion\n" +
+            "    layoutEngineNameVersionMajor\n" +
+            "    agentClass\n" +
+            "    agentName\n" +
+            "    agentVersion\n" +
+            "    agentVersionMajor\n" +
+            "    agentNameVersion\n" +
+            "    agentNameVersionMajor\n" +
+            "  }\n" +
+            "}");
+        sb.append("</textarea>")
+            .append("<div class=\"tooltip inline\">" +
+                "<p onclick=\"copyGraphQLToClipboard()\" onmouseout=\"closeCopyGraphQLToClipboardTooltip()\">" +
+                "<span class=\"tooltiptext\" id=\"copyGraphQLToClipboardTooltip\">Copy this as a GraphQL query to clipboard</span>" +
+                "&#128203;</p>" +
+                "</div>\n");
+    }
+
+    private void addRequestHeaderToGraphQL(StringBuilder sb, String header, String gqlName) {
+        if (header == null || header.trim().isEmpty()) {
+            return;
+        }
+        sb.append("      ").append(gqlName).append(" : \"").append(StringEscapeUtils.escapeJson(header)).append("\"\n");
     }
 
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {

@@ -1,0 +1,127 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+#schema {
+#    query: Query
+#}
+
+"""
+YAUAA: YET ANOTHER USERAGENT ANALYZER
+
+This is a java library that tries to parse and analyze the useragent string (and when available the User-Agent Client Hints) and extract as many relevant attributes as possible.
+
+The full documentation can be found here https://yauaa.basjes.nl
+
+WARNING: This MUST be treated as an INSECURE and UNSTABLE proof of concept.
+
+"""
+type Query {
+    "Parse and analyze the provided HTTP Request Headers and return the result of this analysis"
+    analyze(requestHeaders: RequestHeadersInput!): AnalysisResult
+
+    "Return the version information of the underlying Yauaa runtime engine."
+    version: Version
+}
+
+"The version information of the underlying Yauaa runtime engine."
+type Version {
+    "The git commit id of the Yauaa engine that is used"                                gitCommitId:                String
+    "The git describe short of the Yauaa engine that is used"                           gitCommitIdDescribeShort:   String
+    "Timestamp when the engine was built."                                              buildTimeStamp:             String
+    "Version of the yauaa engine"                                                       projectVersion:             String
+    "Copyright notice of the Yauaa engine that is used"                                 copyright:                  String
+    "The software license Yauaa engine that is used"                                    license:                    String
+    "Project url"                                                                       url:                        String
+    "Yauaa was build using this JDK version"                                            buildJDKVersion:            String
+    "Yauaa was build using for this target JRE version"                                 targetJREVersion:           String
+}
+
+"The HTTP Request Headers that are to be analyzed"
+input RequestHeadersInput {
+    # The userAgent is a mandatory input field.
+    "The field for the contents of the 'User-Agent' request header"                     userAgent:                  String!
+    "The field for the contents of the 'Sec-CH-UA' request header"                      secChUa:                    String
+    "The field for the contents of the 'Sec-CH-UA-Arch' request header"                 secChUaArch:                String
+    "The field for the contents of the 'Sec-CH-UA-Bitness' request header"              secChUaBitness:             String
+    "The field for the contents of the 'Sec-CH-UA-Full-Version' request header"         secChUaFullVersion:         String
+    "The field for the contents of the 'Sec-CH-UA-Full-Version-List' request header"    secChUaFullVersionList:     String
+    "The field for the contents of the 'Sec-CH-UA-Mobile' request header"               secChUaMobile:              String
+    "The field for the contents of the 'Sec-CH-UA-Model' request header"                secChUaModel:               String
+    "The field for the contents of the 'Sec-CH-UA-Platform' request header"             secChUaPlatform:            String
+    "The field for the contents of the 'Sec-CH-UA-Platform-Version' request header"     secChUaPlatformVersion:     String
+    "The field for the contents of the 'Sec-CH-UA-WoW64' request header"                secChUaWoW64:               String
+}
+
+"The analysis results of a User-Agent and other headers."
+type AnalysisResult {
+    deviceClass:                         String
+    deviceName:                          String
+    deviceBrand:                         String
+    deviceCpu:                           String
+    deviceCpuBits:                       String
+    deviceFirmwareVersion:               String
+    deviceVersion:                       String
+    operatingSystemClass:                String
+    operatingSystemName:                 String
+    operatingSystemVersion:              String
+    operatingSystemVersionMajor:         String
+    operatingSystemNameVersion:          String
+    operatingSystemNameVersionMajor:     String
+    layoutEngineClass:                   String
+    layoutEngineName:                    String
+    layoutEngineVersion:                 String
+    layoutEngineVersionMajor:            String
+    layoutEngineNameVersion:             String
+    layoutEngineNameVersionMajor:        String
+    agentClass:                          String
+    agentName:                           String
+    agentVersion:                        String
+    agentVersionMajor:                   String
+    agentNameVersion:                    String
+    agentNameVersionMajor:               String
+    remarkablePattern:                   String
+
+    "Get the entry for a certain key (fieldName is case sensitive!)"
+    field(fieldName: String!): FieldResult!
+
+    "Get entry/entries for a certain key/s (fieldNames are case sensitive!). Empty/absent list means all fields."
+    fields(fieldNames: [String!]): [FieldResult!]
+
+    "The provided input can be requested back (useful in batch analysis scenarios)"
+    requestHeaders:                      RequestHeadersResult
+}
+
+"A single field and value which was during the analysis"
+type FieldResult {
+    fieldName: String!
+    value: String
+}
+
+"The HTTP Request Headers that we used to get to this analysis result"
+type RequestHeadersResult{
+    "The field for the contents of the 'User-Agent' request header"                     userAgent:                  String!
+    "The field for the contents of the 'Sec-CH-UA' request header"                      secChUa:                    String
+    "The field for the contents of the 'Sec-CH-UA-Arch' request header"                 secChUaArch:                String
+    "The field for the contents of the 'Sec-CH-UA-Bitness' request header"              secChUaBitness:             String
+    "The field for the contents of the 'Sec-CH-UA-Full-Version' request header"         secChUaFullVersion:         String
+    "The field for the contents of the 'Sec-CH-UA-Full-Version-List' request header"    secChUaFullVersionList:     String
+    "The field for the contents of the 'Sec-CH-UA-Mobile' request header"               secChUaMobile:              String
+    "The field for the contents of the 'Sec-CH-UA-Model' request header"                secChUaModel:               String
+    "The field for the contents of the 'Sec-CH-UA-Platform' request header"             secChUaPlatform:            String
+    "The field for the contents of the 'Sec-CH-UA-Platform-Version' request header"     secChUaPlatformVersion:     String
+    "The field for the contents of the 'Sec-CH-UA-WoW64' request header"                secChUaWoW64:               String
+}

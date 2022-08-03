@@ -26,7 +26,9 @@ import java.util.Map;
 
 public class ParseSecChUaFullVersionList implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA-Full-Version-List";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-Full-Version-List";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list";
+    public static final String HEADER_SPEC        = "The Sec-CH-UA-Full-Version-List request header field gives a server information about the full version for each brand in its brands list.";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //

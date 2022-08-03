@@ -24,7 +24,9 @@ import java.util.Map;
 
 public class ParseSecChUaArch implements CHParser {
 
-    public static final String HEADER_FIELD = "Sec-CH-UA-Arch";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-Arch";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch";
+    public static final String HEADER_SPEC        = "The Sec-CH-UA-Arch request header field gives a server information about the architecture of the platform on which a given user agent is executing.";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //

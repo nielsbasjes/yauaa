@@ -148,6 +148,10 @@ public class TestCase implements Serializable {
     }
 
     public TestResult verify(Analyzer analyzer) {
+        return verify(analyzer, true);
+    }
+
+    public TestResult verify(Analyzer analyzer, boolean failOnUnexpected) {
         UserAgent result;
         long startTime = System.nanoTime();
         result = analyzer.parse(getHeaders());
@@ -189,7 +193,9 @@ public class TestCase implements Serializable {
             if (expectedValue == null) {
                 // If we do not expect anything it is ok to get a Default value.
                 if (!result.get(key).isDefaultValue()) {
-                    passed = false;
+                    if (failOnUnexpected) {
+                        passed = false;
+                    }
                     fields.add(" --> UNEXPECTED");
                 }
             } else {

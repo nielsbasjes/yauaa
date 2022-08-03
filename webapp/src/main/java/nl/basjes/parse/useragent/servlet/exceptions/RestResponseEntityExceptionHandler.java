@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent.servlet.exceptions;
 
+import nl.basjes.parse.useragent.servlet.ParseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,8 +26,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static nl.basjes.parse.useragent.servlet.ParseService.getInitStartMoment;
-import static nl.basjes.parse.useragent.servlet.ParseService.getUserAgentAnalyzerFailureMessage;
 import static org.apache.commons.text.StringEscapeUtils.escapeJson;
 import static org.apache.commons.text.StringEscapeUtils.escapeXml10;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -34,6 +34,9 @@ import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler
     extends ResponseEntityExceptionHandler {
+
+    @Autowired
+    private ParseService parseService;
 
     @ExceptionHandler({YauaaIsBusyStarting.class})
     public ResponseEntity<Object> handleYauaaIsStarting(
@@ -50,10 +53,10 @@ public class RestResponseEntityExceptionHandler
             return new ResponseEntity<>("Got unexpected exception: " + ex.getMessage(), httpHeaders, INTERNAL_SERVER_ERROR);
         }
 
-        long timeSinceStart = System.currentTimeMillis() - getInitStartMoment();
+        long timeSinceStart = System.currentTimeMillis() - parseService.getInitStartMoment();
         String message;
 
-        String userAgentAnalyzerFailureMessage = getUserAgentAnalyzerFailureMessage();
+        String userAgentAnalyzerFailureMessage = parseService.getUserAgentAnalyzerFailureMessage();
         if (userAgentAnalyzerFailureMessage == null) {
             switch (yauaaIsBusyStarting.getOutputType()) {
                 case YAML:

@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaIsBusyStarting;
+import nl.basjes.parse.useragent.utils.YauaaVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
@@ -37,61 +38,51 @@ public class ParseService {
 
     private static final Logger LOG = LogManager.getLogger(ParseService.class);
 
-    private static ParseService instance;
-
-    private static void setInstance(ParseService newInstance) {
-        instance = newInstance;
-    }
-
-    public ParseService() {
-        setInstance(this);
-    }
-
     private UserAgentAnalyzer  userAgentAnalyzer               = null;
     private long               initStartMoment;
     private boolean            userAgentAnalyzerIsAvailable    = false;
     private String             userAgentAnalyzerFailureMessage = null;
 
-    public static UserAgentAnalyzer getUserAgentAnalyzer() {
-        return instance.userAgentAnalyzer;
+    public UserAgentAnalyzer getUserAgentAnalyzer() {
+        return userAgentAnalyzer;
     }
 
-    public static long getInitStartMoment() {
-        return instance.initStartMoment;
+    public long getInitStartMoment() {
+        return initStartMoment;
     }
 
-    public static boolean userAgentAnalyzerIsAvailable() {
-        return instance.userAgentAnalyzerIsAvailable;
+    public boolean userAgentAnalyzerIsAvailable() {
+        return userAgentAnalyzerIsAvailable;
     }
 
-    public static String getUserAgentAnalyzerFailureMessage() {
-        return instance.userAgentAnalyzerFailureMessage;
+    public String getUserAgentAnalyzerFailureMessage() {
+        return userAgentAnalyzerFailureMessage;
     }
 
     @PostConstruct
     public void automaticStartup() {
         if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
             initStartMoment = System.currentTimeMillis();
-            new Thread(() -> {
-                try {
-                    userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
-                        .hideMatcherLoadStats()
-                        .addOptionalResources("file:UserAgents*/*.yaml")
-                        .immediateInitialization()
-                        .keepTests()
-                        .build();
-                    userAgentAnalyzerIsAvailable = true;
-                } catch (Exception e) {
-                    userAgentAnalyzerFailureMessage =
-                        e.getClass().getSimpleName() + "<br/>" +
-                            e.getMessage().replace("\n", "<br/>");
-                    LOG.fatal("Fatal error during startup: {}\n" +
-                            "=======================================================\n" +
-                            "{}\n" +
-                            "=======================================================\n",
-                            e.getClass().getCanonicalName(), e.getMessage());
-                }
-            }).start();
+            try {
+                LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
+                userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+                    .showMatcherLoadStats()
+                    .addOptionalResources("file:UserAgents*/*.yaml")
+                    .addOptionalResources("classpath*:UserAgents-*/*.yaml")
+                    .immediateInitialization()
+                    .keepTests()
+                    .build();
+                userAgentAnalyzerIsAvailable = true;
+            } catch (Exception e) {
+                userAgentAnalyzerFailureMessage =
+                    e.getClass().getSimpleName() + "<br/>" +
+                        e.getMessage().replace("\n", "<br/>");
+                LOG.fatal("Fatal error during startup: {}\n" +
+                        "=======================================================\n" +
+                        "{}\n" +
+                        "=======================================================\n",
+                        e.getClass().getCanonicalName(), e.getMessage());
+            }
         }
     }
 
@@ -108,8 +99,8 @@ public class ParseService {
         }
     }
 
-    public static void ensureStartedForApis(OutputType outputType) {
-        if (!instance.userAgentAnalyzerIsAvailable) {
+    public void ensureStartedForApis(OutputType outputType) {
+        if (!userAgentAnalyzerIsAvailable) {
             throw new YauaaIsBusyStarting(outputType);
         }
     }
@@ -117,4 +108,5 @@ public class ParseService {
     public static void main(String[] args) {
         SpringApplication.run(ParseService.class, args);
     }
+
 }
