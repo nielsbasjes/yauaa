@@ -22,9 +22,10 @@ v7.4.0-SNAPSHOT
   - Apache Beam             2.40.0
   - Apache Flink            1.15.1
   - Apache Nifi             1.17.0
+  - Apache Drill            1.20.2
   - Elastic Search          7.17.5 & 8.3.2
   - Elastic Logstash        8.3.2
-  - Trino                   391
+  - Trino                   392
 
 v7.3.0
 ===
