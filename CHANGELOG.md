@@ -21,7 +21,7 @@ v7.4.0-SNAPSHOT
 - Updated UDF dependencies
   - Apache Beam             2.40.0
   - Apache Flink            1.15.1
-  - Apache Nifi             1.16.3
+  - Apache Nifi             1.17.0
   - Elastic Search          7.17.5 & 8.3.2
   - Elastic Logstash        8.3.2
   - Trino                   391
