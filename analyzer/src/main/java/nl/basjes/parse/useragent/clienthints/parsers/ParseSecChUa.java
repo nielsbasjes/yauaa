@@ -24,7 +24,6 @@ import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
 
 public class ParseSecChUa implements CHParser {
 
@@ -32,7 +31,7 @@ public class ParseSecChUa implements CHParser {
     public static final String HEADER_SPEC_URL      = "https://wicg.github.io/ua-client-hints/#sec-ch-ua";
     public static final String HEADER_SPEC          = "The Sec-CH-UA request header field gives a server information about a user agent's branding and version.";
 
-    private transient ConcurrentMap<String, ArrayList<Brand>> cache = null;
+    private transient Map<String, ArrayList<Brand>> cache = null;
 
     public ParseSecChUa() {
         // Nothing to do right now
@@ -41,7 +40,11 @@ public class ParseSecChUa implements CHParser {
     @Override
     @SuppressWarnings("unchecked")
     public void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
-        cache = (ConcurrentMap<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        if (cacheSize <= 0) {
+            cache = null;
+        } else {
+            cache = (Map<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        }
     }
 
     @Override

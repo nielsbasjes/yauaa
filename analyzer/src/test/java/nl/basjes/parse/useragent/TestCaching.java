@@ -26,11 +26,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class TestCaching {
 
@@ -64,6 +67,7 @@ class TestCaching {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .withoutCache()
+            .withoutClientHintsCache()
             .hideMatcherLoadStats()
             .withField("AgentUuid")
             .showMinimalVersion()
@@ -127,6 +131,28 @@ class TestCaching {
             .showMinimalVersion()
             .hideMatcherLoadStats()
             .withCache(10)
+            .withClientHintsCache(10)
+            .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(USER_AGENT);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(USER_AGENT);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
+
+    @Test
+    void testResultFromCacheMustBeIdenticalJava8() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .showMinimalVersion()
+            .hideMatcherLoadStats()
+            .withCache(10)
+            .withClientHintsCache(10)
+            .useJava8CompatibleCaching()
             .build();
 
         // First time
@@ -166,7 +192,31 @@ class TestCaching {
                     }
                 }
             )
-            .withCache(10)
+            .withClientHintsCache(10)
+
+            .withClientHintCacheInstantiator(
+                new ClientHintsCacheInstantiator<Serializable>() {
+                    @Override
+                    public Map<String, Serializable> instantiateCache(int cacheSize) {
+                        // The Map implementation MUST be threadsafe/synchronized
+                        return Collections.synchronizedMap(
+                            new LRUMap<String, Serializable>(cacheSize) {
+                                @Override
+                                public Serializable get(Object key) {
+                                    LOG.info("Did a GET on {}", key);
+                                    return super.get(key);
+                                }
+
+                                @Override
+                                public Serializable put(String key, Serializable value) {
+                                    LOG.info("Did a PUT on {}", key);
+                                    return super.put(key, value);
+                                }
+                            }
+                        );
+                    }
+                }
+            )
             .hideMatcherLoadStats()
             .build();
 
@@ -177,26 +227,17 @@ class TestCaching {
         UserAgent agent2 = uaa.parse(USER_AGENT);
 
         // Both should be the same
-        assertEquals(agent1, agent2);
-    }
+        assertSame(agent1, agent2);
 
-    @Test
-    void testJava8CacheImplementation() {
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
-            .newBuilder()
-            .useJava8CompatibleCaching()
-            .withCache(10)
-            .hideMatcherLoadStats()
-            .build();
-
-        // First time
-        UserAgent agent1 = uaa.parse(USER_AGENT);
+        uaa.clearCache();
 
         // Should come from cache
-        UserAgent agent2 = uaa.parse(USER_AGENT);
+        UserAgent agent3 = uaa.parse(USER_AGENT);
 
-        // Both should be the same
-        assertEquals(agent1, agent2);
+        // Both should NOT be the same but equal
+        assertNotSame(agent1, agent3);
+        assertEquals(agent1, agent3);
+
     }
 
     @Test
@@ -211,6 +252,7 @@ class TestCaching {
                 (ClientHintsCacheInstantiator<?>) size ->
                     Collections.synchronizedMap(new LRUMap<>(size)))
             .withCache(10)
+            .withClientHintsCache(10)
             .hideMatcherLoadStats()
             .build();
 

@@ -24,7 +24,6 @@ import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.ConcurrentMap;
 
 public class ParseSecChUaFullVersion implements CHParser {
 
@@ -32,7 +31,7 @@ public class ParseSecChUaFullVersion implements CHParser {
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Full-Version request header field gives a server information about the user agent’s full version. Sec-CH-UA-Full-Version is deprecated and will be removed in the future. Developers should use Sec-CH-UA-Full-Version-List instead.";
 
-    private transient ConcurrentMap<String, ArrayList<Brand>> cache;
+    private transient Map<String, ArrayList<Brand>> cache;
 
     public ParseSecChUaFullVersion() {
         // Nothing to do right now
@@ -41,7 +40,11 @@ public class ParseSecChUaFullVersion implements CHParser {
     @Override
     @SuppressWarnings("unchecked")
     public void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
-        cache = (ConcurrentMap<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        if (cacheSize <= 0) {
+            cache = null;
+        } else {
+            cache = (Map<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        }
     }
 
     @Override

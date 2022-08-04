@@ -135,6 +135,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         } else {
             parseCache = null;
         }
+        clientHintsAnalyzer.initializeCache();
     }
 
     public interface CacheInstantiator extends Serializable {
