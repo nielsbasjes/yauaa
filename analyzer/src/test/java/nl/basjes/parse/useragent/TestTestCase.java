@@ -45,6 +45,10 @@ class TestTestCase {
     void basicTestCase() {
         TestCase testCase = new TestCase(USERAGENT, "My test");
 
+        testCase.addMetadata("Metadata", "Metadata value");
+        testCase.addOption("only");
+        testCase.addOption("verbose");
+
         // The EXPLICITLY requested fields
         testCase.expect("DeviceClass",                      "Phone");
         testCase.expect("DeviceBrand",                      "Google");
@@ -75,6 +79,45 @@ class TestTestCase {
 
         TestResult testResult = testCase.verify(userAgentAnalyzer);
         assertTrue(testResult.testPassed(), testResult.getErrorReport());
+        LOG.info("{}", testResult);
+    }
+
+    @Test
+    void basicTestCaseFailOnUnexpected() {
+        TestCase testCase = new TestCase(USERAGENT, "My test");
+
+        testCase.addMetadata("Metadata", "Metadata value");
+        testCase.addOption("only");
+        testCase.addOption("verbose");
+
+        // The EXPLICITLY requested fields
+        testCase.expect("DeviceClass",                      "Phone");
+        testCase.expect("DeviceBrand",                      "Google");
+        testCase.expect("DeviceName",                       "Google Nexus 6");
+        testCase.expect("AgentNameVersionMajor",            "Chrome 53");
+
+        TestResult testResult = testCase.verify(userAgentAnalyzer);
+        assertFalse(testResult.testPassed(), testResult.getErrorReport());
+        LOG.info("{}", testResult);
+    }
+
+    @Test
+    void basicTestCaseDoNotFailOnUnexpected() {
+        TestCase testCase = new TestCase(USERAGENT, "My test");
+
+        testCase.addMetadata("Metadata", "Metadata value");
+        testCase.addOption("only");
+        testCase.addOption("verbose");
+
+        // The EXPLICITLY requested fields
+        testCase.expect("DeviceClass",                      "Phone");
+        testCase.expect("DeviceBrand",                      "Google");
+        testCase.expect("DeviceName",                       "Google Nexus 6");
+        testCase.expect("AgentNameVersionMajor",            "Chrome 53");
+
+        TestResult testResult = testCase.verify(userAgentAnalyzer, false);
+        assertTrue(testResult.testPassed(), testResult.getErrorReport());
+        LOG.info("{}", testResult);
     }
 
     @Test

@@ -203,7 +203,7 @@ public final class AnalyzerConfig implements Serializable {
         }
 
         public AnalyzerConfigBuilder withUserAgentMaxLength(int userAgentMaxLength) {
-            analyzerConfig.userAgentMaxLength = userAgentMaxLength;
+            analyzerConfig.setUserAgentMaxLength(userAgentMaxLength);
             return this;
         }
 

@@ -17,7 +17,9 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.DEFAULT_USER_AGENT_MAX_LENGTH;
@@ -63,6 +65,50 @@ class TestBasics {
         userAgentAnalyzer = UserAgentAnalyzer.newBuilder().withUserAgentMaxLength(-100).build();
         userAgentAnalyzer.loadResources("classpath*:SingleDummyMatcher.yaml");
         assertEquals(DEFAULT_USER_AGENT_MAX_LENGTH, userAgentAnalyzer.getUserAgentMaxLength(), "Incorrect default user agent max length");
+    }
+
+    @Test
+    void testUserAgentMaxLengthEnforcementNormal() {
+        UserAgentAnalyzer userAgentAnalyzer;
+
+        userAgentAnalyzer = UserAgentAnalyzer
+            .newBuilder()
+            .dropTests()
+            .dropDefaultResources()
+            .addResources("classpath*:SingleDummyMatcher.yaml")
+            .immediateInitialization()
+            .withUserAgentMaxLength(10000)
+            .build();
+
+        String userAgentString = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36 " +
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        UserAgent parsedAgent = userAgentAnalyzer.parse(userAgentString);
+
+        // The requested fields
+        assertEquals("Unknown", parsedAgent.getValue("HackerAttackVector"));
+    }
+
+    @Test
+    void testUserAgentMaxLengthEnforcementOverflow() {
+        UserAgentAnalyzer userAgentAnalyzer;
+
+        userAgentAnalyzer = UserAgentAnalyzer
+            .newBuilder()
+            .dropTests()
+            .dropDefaultResources()
+            .addResources("classpath*:SingleDummyMatcher.yaml")
+            .immediateInitialization()
+            .withUserAgentMaxLength(100)
+            .build();
+
+        String userAgentString = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36 " +
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        UserAgent parsedAgent = userAgentAnalyzer.parse(userAgentString);
+
+        // The requested fields
+        assertEquals("Buffer overflow", parsedAgent.getValue("HackerAttackVector"));
     }
 
 }
