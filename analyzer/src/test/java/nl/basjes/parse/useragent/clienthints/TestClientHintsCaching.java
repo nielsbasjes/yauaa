@@ -45,6 +45,7 @@ class TestClientHintsCaching {
         UserAgentAnalyzer analyzer = UserAgentAnalyzer
             .newBuilder()
             .withClientHintCacheInstantiator(new DefaultClientHintsCacheInstantiator<>())
+            .withoutClientHintsCache()
             .withClientHintsCache(1234)
             .withField(DEVICE_CLASS)
             .delayInitialization()

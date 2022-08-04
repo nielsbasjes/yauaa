@@ -17,10 +17,13 @@
 
 package nl.basjes.parse.useragent.analyze;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.apache.logging.log4j.LogManager;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static nl.basjes.parse.useragent.analyze.UserAgentStringMatchMaker.DEFAULT_USER_AGENT_MAX_LENGTH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -109,6 +112,18 @@ class TestBasics {
 
         // The requested fields
         assertEquals("Buffer overflow", parsedAgent.getValue("HackerAttackVector"));
+    }
+
+    @Test
+    void testHeaderSpecifications() {
+        UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder()
+            .hideMatcherLoadStats().delayInitialization().build();
+        Map<String, HeaderSpecification> allSupportedHeaders = analyzer.getAllSupportedHeaders();
+        HeaderSpecification secChUaHeaderSpec = allSupportedHeaders.get(ParseSecChUa.HEADER_FIELD);
+
+        assertEquals(ParseSecChUa.HEADER_FIELD, secChUaHeaderSpec.getHeaderName());
+        assertEquals(ParseSecChUa.HEADER_SPEC, secChUaHeaderSpec.getSpecificationSummary());
+        assertEquals(ParseSecChUa.HEADER_SPEC_URL, secChUaHeaderSpec.getSpecificationUrl());
     }
 
 }

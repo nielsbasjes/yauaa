@@ -47,8 +47,8 @@ public class ClientHintsHeadersParser implements Serializable {
     public static final Logger LOG = LogManager.getFormatterLogger("CHParser");
 
     private final Map<String, CHParser> parsers;
-    private List<String> supportedClientHintHeaders;
-    private Map<String, Boolean> isSupportedClientHintHeader;
+    private final List<String> supportedClientHintHeaders;
+    private final Map<String, Boolean> isSupportedClientHintHeader;
     public ClientHintsHeadersParser() {
         parsers = new LinkedCaseInsensitiveMap<>();
         addParser(new ParseSecChUa()); // Ordering matters: this and the "Full version list" write to the same fields.

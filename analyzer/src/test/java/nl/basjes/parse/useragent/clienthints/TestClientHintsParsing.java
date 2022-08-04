@@ -53,7 +53,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA = randomCase(ParseSecChUa.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA = new RandomizeCase(ParseSecChUa.HEADER_FIELD);
 
     @Test
     void testSecChUa1() {
@@ -168,7 +168,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_ARCH = randomCase(ParseSecChUaArch.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_ARCH = new RandomizeCase(ParseSecChUaArch.HEADER_FIELD);
 
     @Test
     void testSecChUaArch() {
@@ -189,7 +189,7 @@ class TestClientHintsParsing {
     }
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_BITNESS = randomCase(ParseSecChUaBitness.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_BITNESS = new RandomizeCase(ParseSecChUaBitness.HEADER_FIELD);
 
     @Test
     void testSecChUaBitness() {
@@ -211,7 +211,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_FULL_VERSION = randomCase(ParseSecChUaFullVersion.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_FULL_VERSION = new RandomizeCase(ParseSecChUaFullVersion.HEADER_FIELD);
 
     @Test
     void testSecChUaFullVersion() {
@@ -232,7 +232,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_FULL_VERSION_LIST = randomCase(ParseSecChUaFullVersionList.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_FULL_VERSION_LIST = new RandomizeCase(ParseSecChUaFullVersionList.HEADER_FIELD);
 
     @Test
     void testSecChUaFullVersionList() {
@@ -280,7 +280,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_MOBILE = randomCase(ParseSecChUaMobile.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_MOBILE = new RandomizeCase(ParseSecChUaMobile.HEADER_FIELD);
 
     @Test
     void testSecChUaMobileT() {
@@ -313,7 +313,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_MODEL = randomCase(ParseSecChUaModel.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_MODEL = new RandomizeCase(ParseSecChUaModel.HEADER_FIELD);
 
     @Test
     void testSecChUaModel() {
@@ -354,7 +354,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_PLATFORM = randomCase(ParseSecChUaPlatform.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_PLATFORM = new RandomizeCase(ParseSecChUaPlatform.HEADER_FIELD);
 
     @Test
     void testSecChUaPlatform() {
@@ -379,7 +379,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_PLATFORM_VERSION = randomCase(ParseSecChUaPlatformVersion.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_PLATFORM_VERSION = new RandomizeCase(ParseSecChUaPlatformVersion.HEADER_FIELD);
 
     @Test
     void testSecChUaPlatformVersion() {
@@ -404,7 +404,7 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final String SEC_CH_UA_WOW64 = randomCase(ParseSecChUaWoW64.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_WOW64 = new RandomizeCase(ParseSecChUaWoW64.HEADER_FIELD);
 
     @Test
     void testSecChUaWoW64T() {
@@ -438,7 +438,8 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private ClientHints parse(String header, String value) {
+    private ClientHints parse(Object headerobj, String value) {
+        String header = headerobj.toString();
         ClientHintsHeadersParser parser = new ClientHintsHeadersParser();
         parser.initializeCache();
         Map<String, String> headers = new TreeMap<>();
@@ -447,16 +448,26 @@ class TestClientHintsParsing {
         return parser.parse(headers);
     }
 
-    private static String randomCase(String input) {
-        StringBuilder output = new StringBuilder(input.length());
-        for (char c : input.toCharArray()) {
-            if (RANDOM.nextBoolean()) {
-                output.append(Character.toLowerCase(c));
-            } else {
-                output.append(Character.toUpperCase(c));
-            }
+    public static class RandomizeCase {
+        RandomizeCase(String baseValue) {
+            this.baseValue = baseValue;
         }
-        return output.toString();
+
+        private final String baseValue;
+
+        @Override
+        public String toString() {
+            StringBuilder output = new StringBuilder(baseValue.length());
+            for (char c : baseValue.toCharArray()) {
+                if (RANDOM.nextBoolean()) {
+                    output.append(Character.toLowerCase(c));
+                } else {
+                    output.append(Character.toUpperCase(c));
+                }
+            }
+            return output.toString();
+        }
     }
+
 
 }
