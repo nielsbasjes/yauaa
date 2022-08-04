@@ -295,6 +295,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         }
 
         Map<String, MatcherConfig> matcherConfigs = config.getMatcherConfigs();
+        userAgentMaxLength = config.getUserAgentMaxLength();
 
         if (matcherConfigs.isEmpty()) {
             throw new InvalidParserConfigurationException("No matchers were loaded at all.");
@@ -480,14 +481,6 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
     public synchronized void setVerbose(boolean newVerbose) {
         this.verbose = newVerbose;
         flattener.setVerbose(newVerbose);
-    }
-
-    public void setUserAgentMaxLength(int newUserAgentMaxLength) {
-        if (newUserAgentMaxLength <= 0) {
-            userAgentMaxLength = DEFAULT_USER_AGENT_MAX_LENGTH;
-        } else {
-            userAgentMaxLength = newUserAgentMaxLength;
-        }
     }
 
     @Override
