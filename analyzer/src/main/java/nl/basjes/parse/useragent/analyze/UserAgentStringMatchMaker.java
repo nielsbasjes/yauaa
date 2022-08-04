@@ -130,6 +130,8 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
 
     private AnalyzerConfig config;
 
+    private boolean delayInitialization;
+
     @Nonnull
     @Override
     public AnalyzerConfig getConfig() {
@@ -206,23 +208,6 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         lines.add("Testcases    : " + getTestCases().size());
 
         logVersion(lines);
-    }
-
-    private boolean delayInitialization;
-    void delayInitialization() {
-        delayInitialization = true;
-    }
-
-    void immediateInitialization() {
-        delayInitialization = false;
-    }
-
-    public void setShowMatcherStats(boolean newShowMatcherStats) {
-        this.showMatcherStats = newShowMatcherStats;
-    }
-
-    public boolean getShowMatcherStats() {
-        return showMatcherStats;
     }
 
     // --------------------------------------------
