@@ -29,22 +29,22 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern MISSING_PRODUCT_AT_START =
         Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
     private static final Pattern MISSING_SPACE =
-        Pattern.compile("(/[0-9]+\\.[0-9]+)([A-Z][a-z][a-z][a-z]+ )");
+        Pattern.compile("(/\\d+\\.\\d+)([A-Z][a-z][a-z][a-z]+ )");
     private static final Pattern MULTIPLE_SPACES =
         Pattern.compile(" {2,}");
     private static final Pattern AVOID_BASE64_MATCH =
-        Pattern.compile("(android/[0-9]+)(/)", Pattern.CASE_INSENSITIVE);
+        Pattern.compile("(android/\\d+)(/)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern ANDROID_DASH_VERSION =
-        Pattern.compile("(android)-([0-9]+)", Pattern.CASE_INSENSITIVE);
+        Pattern.compile("(android)-(\\d+)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern TENCENT_NETTYPE_FIX  =
-        Pattern.compile("(NetType)/([0-9a-z._-]+)", Pattern.CASE_INSENSITIVE);
+        Pattern.compile("(NetType)/([\\da-z._-]+)", Pattern.CASE_INSENSITIVE);
     private static final Pattern TENCENT_LANGUAGE_FIX =
         Pattern.compile("(Language)/([a-z_-]+)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern GLUED_VERSION_FIX =
-        Pattern.compile("(Java|Wazzup)([0-9])", Pattern.CASE_INSENSITIVE);
+        Pattern.compile("(Java|Wazzup)(\\d)", Pattern.CASE_INSENSITIVE);
 
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
