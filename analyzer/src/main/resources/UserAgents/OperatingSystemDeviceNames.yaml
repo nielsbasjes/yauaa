@@ -24,6 +24,29 @@ config:
     - 'CPUArchitectures'
     values:
     - 'sun4u'
+    # Tags indicating the SGI IRIX Platform used.
+    - 'IP4'
+    - 'IP6'
+    - 'IP10'
+    - 'IP12'
+    - 'IP14'
+    - 'IP17'
+    - 'IP19'
+    - 'IP20'
+    - 'IP21'
+    - 'IP22'
+    - 'IP24'
+    - 'IP25'
+    - 'IP26'
+    - 'IP27'
+    - 'IP28'
+    - 'IP30'
+    - 'IP31'
+    - 'IP32'
+    - 'IP34'
+    - 'IP35'
+    - 'IP53'
+
 - set:
     name: 'OSPatterns'
     values:
@@ -78,7 +101,13 @@ config:
     - 'BeOS'
     - 'UNIX BSD/SYSV system'
     - 'UNIX'
+    - 'RISC OS'
+    - 'IRIX'
+    - 'IRIX64'
     - 'Fuchsia'
+    - 'AmigaOS'
+    - 'OSF1'
+    - 'CP/M86'
 
 
 # =======================================================================
@@ -6143,6 +6172,362 @@ config:
 
 
 # =======================================================================
+# RISC OS
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"RISC OS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"RISC OS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"RISC OS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"RISC OS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# Two words
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-2]="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"RISC OS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-3]="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"RISC OS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"RISC OS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"RISC OS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"RISC OS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="RISC OS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"RISC OS Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"RISC OS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# IRIX
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="IRIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="IRIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="IRIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="IRIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="IRIX"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Desktop"'
+    - 'DeviceBrand                         :      108 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="IRIX"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Desktop"'
+    - 'DeviceBrand                         :      107 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"IRIX"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="IRIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="IRIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="IRIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="IRIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# IRIX64
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Desktop"'
+    - 'DeviceBrand                         :      108 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Desktop"'
+    - 'DeviceBrand                         :      107 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"IRIX"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"IRIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="IRIX64"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Silicon Graphics"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
 # Fuchsia
 
 - matcher:
@@ -6257,6 +6642,363 @@ config:
     - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      153 :"Mobile"'
     - 'OperatingSystemName                 :      153 :"Fuchsia"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# AmigaOS
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Amiga"'
+    - 'DeviceBrand                         :      112 :"Amiga"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Amiga"'
+    - 'DeviceBrand                         :      111 :"Amiga"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Amiga"'
+    - 'DeviceBrand                         :      112 :"Amiga"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Amiga"'
+    - 'DeviceBrand                         :      111 :"Amiga"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Amiga"'
+    - 'DeviceBrand                         :      108 :"Amiga"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Amiga"'
+    - 'DeviceBrand                         :      107 :"Amiga"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Amiga"'
+    - 'DeviceBrand                         :      111 :"Amiga"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Amiga"'
+    - 'DeviceBrand                         :      111 :"Amiga"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Amiga"'
+    - 'DeviceBrand                         :      111 :"Amiga"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="AmigaOS"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Amiga"'
+    - 'DeviceBrand                         :      112 :"Amiga"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"AmigaOS"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# OSF1
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OSF1"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OSF/1"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="OSF1"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OSF/1"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OSF1"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OSF/1"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="OSF1"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"OSF/1"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="OSF1"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"OSF/1"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="OSF1"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"OSF/1"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="OSF1"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OSF/1"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="OSF1"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OSF/1"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="OSF1"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"OSF/1"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="OSF1"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OSF/1 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"OSF/1"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# CP/M86
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"CP/M"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"CP/M"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"CP/M"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"CP/M"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"CP/M"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"CP/M"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"CP/M"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"CP/M"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"CP/M"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="CP/M86"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"CP/M Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"CP/M"'
     - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
 
 

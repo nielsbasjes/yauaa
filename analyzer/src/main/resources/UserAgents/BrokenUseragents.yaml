@@ -23,6 +23,31 @@ config:
     extract:
       - 'RemarkablePattern                   :    10000000 :"Double UserAgent"'
 
+- set:
+    name: 'NormalMozillaVersions'
+    values:
+      - '1.10'
+      - '1.22'
+      - '1.4'
+      - '1.5'
+      - '1.6'
+      - '1.7'
+      - '2.0'
+      - '3.0'
+      - '4.0'
+      - '4.4'
+      - '4.5'
+      - '4.6'
+      - '4.7'
+      - '4.8'
+      - '5.0'
+
+- matcher:
+    require:
+      - 'agent.(1)product.name="Mozilla"'
+      - 'IsNotInLookUpPrefix[NormalMozillaVersions;agent.(1)product.version]'
+    extract:
+      - 'RemarkablePattern                 :    10 :"Very uncommon Mozilla version"'
 
 - matcher:
     variable:

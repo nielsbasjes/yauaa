@@ -17,7 +17,6 @@
 
 config:
 
-# These are known robots that do not have words like bot, crawler, spider in their name.
 - set:
     name: 'NamedSpecials'
     values:
@@ -98,6 +97,14 @@ config:
     - 'AgentName                           :      100 :@WebKitGTK>.text'
     - 'AgentVersion                        :      100 :"<<<null>>>"'
 
+- matcher:
+    variable:
+      - 'Oregano                             :agent.(1-2)product.comments.entry.(1)product.name="Oregano"^'
+    extract:
+      - 'LayoutEngineClass                   :      100 :"Browser"'
+      - 'AgentClass                          :      100 :"Browser"'
+      - 'AgentName                           :      100 :"Oregano"'
+      - 'AgentVersion                        :      100 :@Oregano.version'
 
 # ================================
 

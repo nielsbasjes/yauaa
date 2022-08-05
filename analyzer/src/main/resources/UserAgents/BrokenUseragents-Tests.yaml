@@ -2529,6 +2529,7 @@ config:
       AgentVersionMajor                    : '6BVq0FJm9L'
       AgentNameVersion                     : 'IZShJuZST 6BVq0FJm9L'
       AgentNameVersionMajor                : 'IZShJuZST 6BVq0FJm9L'
+      RemarkablePattern                    : 'Very uncommon Mozilla version'
 
 - test:
     input:
@@ -3072,6 +3073,7 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Chrome 1'
       AgentNameVersionMajor                : 'Chrome 1'
+      RemarkablePattern                    : 'Very uncommon Mozilla version'
 
 # Clearly manipulated: Windows XP + Chrome + "Mobile Safari" --> Phone
 - test:
@@ -3100,3 +3102,164 @@ config:
       AgentVersionMajor                    : '39'
       AgentNameVersion                     : 'Chrome 39.0.852.0'
       AgentNameVersionMajor                : 'Chrome 39'
+
+
+# Missing comment braces.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/3.0 Windows x86; rv:19.0 Gecko/20061208 Firefox/52.7.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'x86'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Firefox OS'
+      OperatingSystemVersion               : '52.7.1'
+      OperatingSystemVersionMajor          : '52'
+      OperatingSystemNameVersion           : 'Firefox OS 52.7.1'
+      OperatingSystemNameVersionMajor      : 'Firefox OS 52'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '19.0'
+      LayoutEngineVersionMajor             : '19'
+      LayoutEngineNameVersion              : 'Gecko 19.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 19'
+      LayoutEngineBuild                    : '20061208'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '52.7.1'
+      AgentVersionMajor                    : '52'
+      AgentNameVersion                     : 'Firefox 52.7.1'
+      AgentNameVersionMajor                : 'Firefox 52'
+
+
+# Missing comment braces.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/3.0 ZX-81; U; CP/M86; en-US; rv:1.8.0.1 Gecko/20060728 Firefox/68.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Spectrum ZX-81'
+      DeviceBrand                          : 'Spectrum'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'CP/M'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'CP/M ??'
+      OperatingSystemNameVersionMajor      : 'CP/M ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.0.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.0.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20060728'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '68.0'
+      AgentVersionMajor                    : '68'
+      AgentNameVersion                     : 'Firefox 68.0'
+      AgentNameVersionMajor                : 'Firefox 68'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+# Missing comment braces, Windows 9.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/3.0 Windows; U; Windows NT 9.1; en-US; rv:12.9.1.11 AppleWebKit/886; (KHTML, like Gecko) Chrome/54.0.2840 Safari/537.13'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '9.1'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Windows NT 9.1'
+      OperatingSystemNameVersionMajor      : 'Windows NT 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '54.0'
+      LayoutEngineVersionMajor             : '54'
+      LayoutEngineNameVersion              : 'Blink 54.0'
+      LayoutEngineNameVersionMajor         : 'Blink 54'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '54.0.2840'
+      AgentVersionMajor                    : '54'
+      AgentNameVersion                     : 'Chrome 54.0.2840'
+      AgentNameVersionMajor                : 'Chrome 54'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Windows NT 9'
+
+
+# Missing comment braces, Windows 9.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/3.0 Windows; U; Windows NT 9.1; en-US; rv:12.9.1.11 Gecko/20101213 Firefox/69.0.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '9.1'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Windows NT 9.1'
+      OperatingSystemNameVersionMajor      : 'Windows NT 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '12.9.1.11'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'Gecko 12.9.1.11'
+      LayoutEngineNameVersionMajor         : 'Gecko 12'
+      LayoutEngineBuild                    : '20101213'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '69.0.1'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Firefox 69.0.1'
+      AgentNameVersionMajor                : 'Firefox 69'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Windows NT 9'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/3.0 Windows; U; Windows NT 6.1; ru-RU; AppleWebKit/534.16; KHTML; like Gecko; Chrome/10.0.648.11;Safari/534.16 AppleWebKit/420+ (KHTML, like Gecko) Chrome/37.0.2062 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.16'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.16'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '10.0.648.11'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Chrome 10.0.648.11'
+      AgentNameVersionMajor                : 'Chrome 10'
+      AgentLanguage                        : 'Russian (Russia)'
+      AgentLanguageCode                    : 'ru-ru'
+      AgentSecurity                        : 'Strong security'

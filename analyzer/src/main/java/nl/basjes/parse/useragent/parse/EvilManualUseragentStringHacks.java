@@ -46,6 +46,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern GLUED_VERSION_FIX =
         Pattern.compile("(Java|Wazzup)(\\d)", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern MISSING_COMMENT_BRACES =
+        Pattern.compile("^(Mozilla/[^ ]+) ([^(].*?[^)])( Gecko/| AppleWebKit/)", Pattern.CASE_INSENSITIVE);
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -67,6 +70,8 @@ public final class EvilManualUseragentStringHacks {
         if (result.charAt(0) == ' ') {
             result = result.trim();
         }
+
+        result = MISSING_COMMENT_BRACES.matcher(result).replaceAll("$1 ($2)$3");
 
         // The NetType and Language tags as used by Tencent re hard to parse.
         // Some example snippets from Tencent/Alibaba style agents:

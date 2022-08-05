@@ -23,7 +23,7 @@ LOADEDES=$(subst .ndjson,.ndjson.loaded,$(ESJSON))
 #$(info    LOADEDES  is $(LOADEDES))
 
 .PHONY: all
-all:: load
+all:: createindex load
 
 # File format: <year>\t<month>\t<day>\t<count>\t<useragent>\n
 # Example: 2022	6	1	4	Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html
@@ -32,11 +32,11 @@ all:: load
 %.ndjson: %.txt
 	@echo "Making $@ : Start"
 	@cat $< \
- 	| sed 's#^\([^\t]*\)\t\([^\t]*\)\t\([^\t]*\)\t\([^\t]*\)\t\(.*\)$$#{ "index" : { "_index" : "useragents" }}\n{ "@timestamp": "\1-\2-\3T00:00:00.000Z", "count": \4, "ua": "\5" }#g;s@-\([0-9]\)-@-0\1-@g;s@-\([0-9]\)T@-0\1T@g' \
+	| sed 's#^\([^\t]*\)\t\([^\t]*\)\t\([^\t]*\)\t\([^\t]*\)\t\(.*\)$$#{ "index" : { "_index" : "useragents" }}\n{ "@timestamp": "\1-\2-\3T00:00:00.000Z", "count": \4, "ua": "\5" }#g;s@-\([0-9]\)-@-0\1-@g;s@-\([0-9]\)T@-0\1T@g' \
 	> $@;
 	@echo "Making $@ : Done"
 
-clean::
+fullclean::
 	-@rm $(ESJSON)
 
 load:: $(LOADEDES)
@@ -45,15 +45,19 @@ load:: $(LOADEDES)
 	curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/useragents/_bulk' --data-binary @$<
 	date > $@
 
-.PHONY: recreateindex
+.PHONY: wipeindex
 
-# Flush and recreate the empty index in ES with all the settings
-recreateindex:
-	@echo -n "Define pipeline: "
-	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa' -d '{"description": "A pipeline parse the useragents","processors": [{"yauaa" : {"field_to_header_mapping" : {"ua": "User-Agent"},"target_field"  : "parsed","cacheSize" : 10000}}]}'
-	@echo ""
+wipeindex:
+	@-@rm $(LOADEDES)
 	@echo -n "Delete index: "
 	@curl -s -H 'Content-Type: application/json' -X DELETE 'localhost:9200/useragents'
+
+.PHONY: createindex
+
+# Recreate the empty index in ES with all the settings
+createindex:
+	@echo -n "Define pipeline: "
+	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa' -d '{"description": "A pipeline parse the useragents","processors": [{"yauaa" : {"field_to_header_mapping" : {"ua": "User-Agent"},"target_field"  : "parsed","cacheSize" : 10000}}]}'
 	@echo ""
 	@echo -n "Create index: "
 	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/useragents'

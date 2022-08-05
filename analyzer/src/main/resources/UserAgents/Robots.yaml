@@ -10736,3 +10736,65 @@ config:
       AgentNameVersion                     : 'Atomseobot 2.0'
       AgentNameVersionMajor                : 'Atomseobot 2'
       AgentInformationUrl                  : 'https://error404.atomseo.com/'
+
+
+- matcher:
+    require:
+    - 'agent="Mozilla/1.22 (compatible; MSIE 10.0; Windows 3.1)"'
+    extract:
+    - 'DeviceClass                        : 10000    : "Robot"'
+
+# Totally faked --> Robot
+- test:
+    input:
+      User-Agent                           : 'Mozilla/1.22 (compatible; MSIE 10.0; Windows 3.1)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '16'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows 3.x'
+      OperatingSystemVersion               : '3.1'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'Windows 3.1'
+      OperatingSystemNameVersionMajor      : 'Windows 3'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Trident'
+      LayoutEngineVersion                  : '6.0'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Trident 6.0'
+      LayoutEngineNameVersionMajor         : 'Trident 6'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Internet Explorer'
+      AgentVersion                         : '10.0'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Internet Explorer 10.0'
+      AgentNameVersionMajor                : 'Internet Explorer 10'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/2.0 (compatible; Ask Jeeves/Teoma)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'ASK Jeeves'
+      DeviceBrand                          : 'ASK'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Ask Jeeves'
+      LayoutEngineVersion                  : 'Teoma'
+      LayoutEngineVersionMajor             : 'Teoma'
+      LayoutEngineNameVersion              : 'Ask Jeeves Teoma'
+      LayoutEngineNameVersionMajor         : 'Ask Jeeves Teoma'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Ask Jeeves'
+      AgentVersion                         : 'Teoma'
+      AgentVersionMajor                    : 'Teoma'
+      AgentNameVersion                     : 'Ask Jeeves Teoma'
+      AgentNameVersionMajor                : 'Ask Jeeves Teoma'
