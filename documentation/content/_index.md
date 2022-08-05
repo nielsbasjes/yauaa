@@ -22,6 +22,8 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 - New field "RemarkablePattern" that will hold exceptional things that were detected.
   - Now: "Anonymized", "Hacker", "Double UserAgent" and "Windows NT 9"
   - The **'Anonymized' field has been dropped** and is now **RemarkablePattern: 'Anonymized'**
+- Webservlet:
+    - GraphQL support
 
 ### Version 7.3.0
 - Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases used for improving this version
