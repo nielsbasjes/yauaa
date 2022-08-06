@@ -20,6 +20,16 @@ config:
 - lookup:
     name: 'AppNamesMapping'
     map:
+      # https://line.me/en/
+      # https://play.google.com/store/apps/details?id=jp.naver.line.android
+      # https://apps.apple.com/app/line/id443904275?platform=iphone
+      'Safari Line' : 'Mobile App|Line'
+      'Line'        : 'Mobile App|Line'
+
+      # TODO: Figure out what kind of app "FABUILD" this is.
+      'fabuild-android' : 'Mobile App|Fabuild'
+      'fabuild-ios'     : 'Mobile App|Fabuild'
+
       # Yahoo Japan news app for IOS
       # https://apps.apple.com/jp/app/yahoo-japan/id299147843
       # https://www.ifreeware.net/download-jp-co-yahoo-ipn-appli.html : Yahoo! JAPAN for iPhone is a news app specially designed to be fully-featured entertainment app.
@@ -42,15 +52,34 @@ config:
       # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
       'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Browser|Yahoo! JAPAN Browser'
 
-      # https://line.me/en/
-      # https://play.google.com/store/apps/details?id=jp.naver.line.android
-      # https://apps.apple.com/app/line/id443904275?platform=iphone
-      'Safari Line' : 'Mobile App|Line'
-      'Line'        : 'Mobile App|Line'
+- lookup:
+    name: 'NONWebViewAppNamesMapping'
+    map:
+      # Apps from Google:
+      'com.google.android.youtube'            : 'Mobile App|Youtube'
+      #  https://play.google.com/store/apps/details?id=com.google.android.youtube.tv&hl=en_US&gl=US
+      'com.google.android.youtube.tv'         : 'Mobile App|Youtube for Android TV'
+      'com.google.ios.youtube'                : 'Mobile App|Youtube'
+      'com.google.android.apps.youtube.music' : 'Mobile App|Youtube Music'
+      'com.google.ios.youtubemusic'           : 'Mobile App|Youtube Music'
 
-      # TODO: Figure out what kind of app "FABUILD" this is.
-      'fabuild-android' : 'Mobile App|Fabuild'
-      'fabuild-ios'     : 'Mobile App|Fabuild'
+      'com.google.Drive.ShareExtension'       : 'Mobile App|Google Drive'
+      'com.google.Maps'                       : 'Mobile App|Google Maps'
+      'com.google.OPA'                        : 'Mobile App|Google Assistant'
+
+      # https://play.google.com/store/apps/details?id=com.google.android.apps.searchlite&hl=en&gl=US
+      'com.google.android.apps.searchlite'    : 'Mobile App|Google Go'
+
+      # https://www.webmasterworld.com/search_engine_spiders/4836796.htm
+      'com.google.GoogleMobile'               : 'Mobile App|Google Plus'
+
+- matcher:
+    variable:
+    - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
+    extract:
+    - 'AgentClass                          :       50 :@AgentTag[[1]]'
+    - 'AgentName                           :       50 :@AgentTag[[2]]'
+    - 'AgentVersion                        :       50 :@AgentTag^.version'
 
 # ht tps://user-agents.me/cfnetwork-version-list   (Original source no longer exists)
 # If you create an iOS app and retrieve data from a webserver,
@@ -409,29 +438,29 @@ config:
     input:
       user_agent_string: 'iCoreService (unknown version) CFNetwork/720.2.4 Darwin/14.1.0 (x86_64)'
     expected:
-      DeviceClass                          : 'Desktop'            #       11           | FAILED; Should be 'Mobile'
-      DeviceName                           : 'Apple Macintosh'    #       11           | FAILED; Should be 'Apple iOS Device'
-      DeviceBrand                          : 'Apple'              #       11
-      DeviceCpu                            : 'Intel x86_64'       #      115
-      DeviceCpuBits                        : '64'                 #      115
-      OperatingSystemClass                 : 'Desktop'            #       11           | FAILED; Should be 'Mobile'
-      OperatingSystemName                  : 'Mac OS'             #       11           | FAILED; Should be 'iOS'
-      OperatingSystemVersion               : '10.10.?'            #       11           | FAILED; Should be '8.?'
-      OperatingSystemVersionMajor          : '10.10'              #       11           | FAILED; Should be '8'
-      OperatingSystemNameVersion           : 'Mac OS 10.10.?'     #       11           | FAILED; Should be 'iOS 8.?'
-      OperatingSystemNameVersionMajor      : 'Mac OS 10.10'       #       11           | FAILED; Should be 'iOS 8'
-      LayoutEngineClass                    : 'Desktop App'        #      140           | FAILED; Should be 'Mobile App'
-      LayoutEngineName                     : 'iCoreService'       #       10
-      LayoutEngineVersion                  : '??'                 #        6 [Default]
-      LayoutEngineVersionMajor             : '??'                 #        6 [Default]
-      LayoutEngineNameVersion              : 'iCoreService ??'    #       10
-      LayoutEngineNameVersionMajor         : 'iCoreService ??'    #       10
-      AgentClass                           : 'Desktop App'        #      140           | FAILED; Should be 'Mobile App'
-      AgentName                            : 'iCoreService'       #       10
-      AgentVersion                         : '??'                 #        6 [Default]
-      AgentVersionMajor                    : '??'                 #        6 [Default]
-      AgentNameVersion                     : 'iCoreService ??'    #       10
-      AgentNameVersionMajor                : 'iCoreService ??'    #       10
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.10.?'
+      OperatingSystemVersionMajor          : '10.10'
+      OperatingSystemNameVersion           : 'Mac OS 10.10.?'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.10'
+      LayoutEngineClass                    : 'Desktop App'
+      LayoutEngineName                     : 'iCoreService'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'iCoreService ??'
+      LayoutEngineNameVersionMajor         : 'iCoreService ??'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'iCoreService'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'iCoreService ??'
+      AgentNameVersionMajor                : 'iCoreService ??'
 
 - test:
     input:
@@ -534,12 +563,12 @@ config:
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Com.google.ios.youtube'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
       AgentVersion                         : '2.6.0.11251'
       AgentVersionMajor                    : '2'
-      AgentNameVersion                     : 'Com.google.ios.youtube 2.6.0.11251'
-      AgentNameVersionMajor                : 'Com.google.ios.youtube 2'
+      AgentNameVersion                     : 'Youtube 2.6.0.11251'
+      AgentNameVersionMajor                : 'Youtube 2'
       AgentLanguage                        : 'Dutch (Netherlands)'
       AgentLanguageCode                    : 'nl-nl'
       AgentSecurity                        : 'Strong security'
@@ -3844,3 +3873,126 @@ config:
       AgentVersionMajor                    : '81'
       AgentNameVersion                     : 'Bookpedia 81'
       AgentNameVersionMajor                : 'Bookpedia 81'
+
+
+- test:
+    input:
+      User-Agent                           : 'WeChatShareExtensionNew/8.0.18.34 CFNetwork/1333.0.4 Darwin/21.5.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.?'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.?'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'WeChatShareExtensionNew'
+      LayoutEngineVersion                  : '8.0.18.34'
+      LayoutEngineVersionMajor             : '8'
+      LayoutEngineNameVersion              : 'WeChatShareExtensionNew 8.0.18.34'
+      LayoutEngineNameVersionMajor         : 'WeChatShareExtensionNew 8'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChatShareExtensionNew'
+      AgentVersion                         : '8.0.18.34'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'WeChatShareExtensionNew 8.0.18.34'
+      AgentNameVersionMajor                : 'WeChatShareExtensionNew 8'
+
+
+
+
+  # Cronet:
+  # https://developer.android.com/guide/topics/connectivity/cronet
+  # Cronet is the Chromium network stack made available to Android apps as a library.
+- test:
+    input:
+      user_agent_string: 'com.google.android.apps.searchlite/444785 (Linux; U; Android 10; nl_BE; moto g(7) power; Build/QPOS30.52-29-7-6; Cronet/89.0.4389.90)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto G(7) Power'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QPOS30.52-29-7-6'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Go'
+      AgentVersion                         : '444785'
+      AgentVersionMajor                    : '444785'
+      AgentNameVersion                     : 'Google Go 444785'
+      AgentNameVersionMajor                : 'Google Go 444785'
+      AgentLanguage                        : 'Dutch (Belgium)'
+      AgentLanguageCode                    : 'nl-be'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'com.google.android.apps.searchlite/444787 (Linux; U; Android 10; nl; Nokia 1 Plus; Build/QP1A.190711.020; Cronet/89.0.4389.90)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia 1 Plus'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QP1A.190711.020'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Go'
+      AgentVersion                         : '444787'
+      AgentVersionMajor                    : '444787'
+      AgentNameVersion                     : 'Google Go 444787'
+      AgentNameVersionMajor                : 'Google Go 444787'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      user_agent_string: 'com.google.android.apps.searchlite/63665 (Linux; U; Android 8.1.0; en_ZA; SM-A260F; Build/OPR6; Cronet/89.0.4389.90)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A260F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'OPR6'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Go'
+      AgentVersion                         : '63665'
+      AgentVersionMajor                    : '63665'
+      AgentNameVersion                     : 'Google Go 63665'
+      AgentNameVersionMajor                : 'Google Go 63665'
+      AgentLanguage                        : 'English (South Africa)'
+      AgentLanguageCode                    : 'en-za'
+      AgentSecurity                        : 'Strong security'

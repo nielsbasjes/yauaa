@@ -2684,3 +2684,148 @@ config:
       AgentVersionMajor                    : '538'
       AgentNameVersion                     : 'Safari 538.1'
       AgentNameVersionMajor                : 'Safari 538'
+
+
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36 OPR/46.0.2207.0 OMI/4.11.3.57.Carter2.277 HbbTV/1.4.1 (;Philips;55POS900212;107.001.140.000;_TV_MT5596_2018;)'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Philips 55POS900212'
+      DeviceBrand                          : 'Philips'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '107.001.140.000'
+      OperatingSystemVersionMajor          : '107'
+      OperatingSystemNameVersion           : 'Linux 107.001.140.000'
+      OperatingSystemNameVersionMajor      : 'Linux 107'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '59.0'
+      LayoutEngineVersionMajor             : '59'
+      LayoutEngineNameVersion              : 'Blink 59.0'
+      LayoutEngineNameVersionMajor         : 'Blink 59'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '46.0.2207.0'
+      AgentVersionMajor                    : '46'
+      AgentNameVersion                     : 'Opera 46.0.2207.0'
+      AgentNameVersionMajor                : 'Opera 46'
+
+
+# https://www.commscope.com/product-type/broadband-video-devices/video-devices/set-tops/video-devices-for-kreatv/
+# KreaTV® is a powerful software platform for set-tops that simplifies the development, deployment and support of advanced TV user experiences.
+# Other sources indicate it is/was owned by Motorola
+
+- matcher:
+    variable:
+      - 'KreaTV:agent.product.name="KreaTV"^'
+    extract:
+      - 'DeviceClass                        :     1100 :"Set-top box"'
+      - 'DeviceBrand                        :       10 :@KreaTV.comments.(1)entry'
+      - 'DeviceName                         :       10 :@KreaTV.comments.(2)entry'
+      - 'OperatingSystemClass               :     1000 :"Embedded"'
+      - 'OperatingSystemName                      :       10 :"KreaTV"'
+      - 'OperatingSystemVersion                      :       10 :@KreaTV.version'
+      - 'NetworkType                        :        1 :@KreaTV.comments.(3)entry'
+
+
+- test:
+    input:
+      User-Agent  : 'Opera/9.80 (Linux mips) Presto/2.12.407 Version/12.50 , KreaTV/15.16.08.09 (Verizon, VMS1100, wired)[0000094038813045/06.14.1]'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Verizon VMS1100'
+      DeviceBrand                          : 'Verizon'
+      DeviceCpu                            : 'Mips'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'KreaTV'
+      OperatingSystemVersion               : '15.16.08.09'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'KreaTV 15.16.08.09'
+      OperatingSystemNameVersionMajor      : 'KreaTV 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      User-Agent  : 'Opera/9.80 (Linux mips) Presto/2.12.407 Version/12.50 , KreaTV/12.36.2.2 (ARRIS, VMS1100, wired)'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Arris VMS1100'
+      DeviceBrand                          : 'Arris'
+      DeviceCpu                            : 'Mips'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'KreaTV'
+      OperatingSystemVersion               : '12.36.2.2'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'KreaTV 12.36.2.2'
+      OperatingSystemNameVersionMajor      : 'KreaTV 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      User-Agent  : 'OPR/22.0.1481.0 OMI/4.2.12.29, KreaTV/0.0.0.0 (ARRIS, IPC1100, wired)CM[00.01]'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Arris IPC1100'
+      DeviceBrand                          : 'Arris'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'KreaTV'
+      OperatingSystemVersion               : '0.0.0.0'
+      OperatingSystemVersionMajor          : '0'
+      OperatingSystemNameVersion           : 'KreaTV 0.0.0.0'
+      OperatingSystemNameVersionMajor      : 'KreaTV 0'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'  # FIXME: Opera implies ...
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '22.0.1481.0'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Opera 22.0.1481.0'
+      AgentNameVersionMajor                : 'Opera 22'
+      NetworkType                          : 'Wired'
+
+
+# FIXME: This is the YouTube app for Android TV. So this means something like TV or Set-top box.
+#- test:
+#    input:
+#      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 7.0) Cobalt/11.121419-gold (unlike Gecko) Starboard/5, _ATV_bigfish/NRD90M (FORMULER, Formuler Z8 Pro, Wired) com.google.android.youtube.tv/2.02.08'
+#
+#- test:
+#    input:
+#      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 9) Cobalt/10.82186-gold (unlike Gecko) Starboard/5, _ATV_gxl/PPR1.180610.011 (Amlogic, X96mini_RP, Wireless) com.google.android.youtube.tv/2.00.19'
+

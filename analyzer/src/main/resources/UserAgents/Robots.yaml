@@ -23,6 +23,7 @@ config:
 - lookup:
     name: 'NamedRobots'
     map:
+      'Amazon-Route53-Health-Check-Service' : 'Amazon|Route53-Health-Check-Service'
       'Apache Nifi'                  : 'Apache|Apache Nifi'
       'Apache Beam'                  : 'Apache|Apache Beam'
       'Apache_Beam_SDK_for_'         : 'Apache|Apache Beam'
@@ -87,6 +88,7 @@ config:
       'facebookcatalog'              : 'Facebook|Facebook Catalog'
       'Ask Jeeves'                   : 'Ask|Ask Jeeves'
       'LinkedInBot'                  : 'Linkedin|LinkedInBot'
+      'Y!J-'                         : 'Yahoo! Japan|Bot'
       # https://github.com/nielsbasjes/yauaa/issues/605
       'RestSharp'                    : 'RestSharp|RestSharp'               # REST API client library for .NET                             | https://restsharp.dev
       'okhttp'                       : 'Square|okhttp'                     # Kotlin library                                               | https://github.com/square/okhttp
@@ -105,6 +107,7 @@ config:
       'node-fetch'                   : 'Node-Fetch|Node Fetch'             # A light-weight module that brings Fetch API to Node.js       | https://github.com/node-fetch/node-fetch
       'Go-http-client'               : 'Go|Go http client'                 # Go library                                                   | https://pkg.go.dev/net/http
       'ServiceStack .NET Client'     : 'servicestack|.NET Client'          # .NET library                                                 | https://servicestack.net
+      'xb2.net'                      : 'Xb2|Xbase++ client'                # Xb2.NET is an Internet library for Xbase++.                  | https://www.xb2.net/xb2net/
 
 
 # Edge case: Java
@@ -3482,6 +3485,33 @@ config:
 
 - test:
     input:
+      User-Agent                           : 'Consilio (WebHare Platform 4.34.0-dev); LinkChecker)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'LinkChecker'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'LinkChecker'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'LinkChecker ??'
+      LayoutEngineNameVersionMajor         : 'LinkChecker ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'LinkChecker'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'LinkChecker ??'
+      AgentNameVersionMajor                : 'LinkChecker ??'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (compatible; Pinterestbot/1.0; +http://www.pinterest.com/bot.html)'
     expected:
       DeviceClass                          : 'Robot'
@@ -3644,6 +3674,7 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'PingdomPageSpeed 1.0'
       AgentNameVersionMajor                : 'PingdomPageSpeed 1'
+      AgentInformationUrl                  : 'http://www.pingdom.com/'
 
 - test:
     input:
@@ -6891,6 +6922,7 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'SeoSiteCheckup ??'
       AgentNameVersionMajor                : 'SeoSiteCheckup ??'
+      AgentInformationUrl                  : 'https://seositecheckup.com'
 
 
 - test:
@@ -10102,6 +10134,35 @@ config:
       AgentInformationUrl                  : 'https://discordapp.com'
 
 
+# https://xenforo.com/ = Forum software. Requests are link previews
+- test:
+    input:
+      User-Agent                           : 'XenForo/2.x (https://testdummy.yauaa.basjes.nl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Basjes Robot'
+      DeviceBrand                          : 'Basjes'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'XenForo'
+      AgentVersion                         : '2.x'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'XenForo 2.x'
+      AgentNameVersionMajor                : 'XenForo 2'
+      AgentInformationUrl                  : 'https://testdummy.yauaa.basjes.nl'
+
+
 # https://github.com/PuerkitoBio/gocrawl
 # gocrawl is a polite, slim and concurrent web crawler written in Go.
 - test:
@@ -10679,6 +10740,7 @@ config:
       AgentSecurity                        : 'Strong security'
       RemarkablePattern                    : 'Anonymized'
 
+
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; rv:20.0; OCA\Mail\Vendor\Favicon; +https://github.com/ArthurHoaro/favicon) Gecko/20100101 Firefox/32.0'
@@ -10798,3 +10860,319 @@ config:
       AgentVersionMajor                    : 'Teoma'
       AgentNameVersion                     : 'Ask Jeeves Teoma'
       AgentNameVersionMajor                : 'Ask Jeeves Teoma'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9) Gecko/2008052906 Firefox/3.0 (BrowserSpyBot/1.0) (http://browserspy.dk/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Browserspy BOT'
+      DeviceBrand                          : 'Browserspy'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BrowserSpyBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'BrowserSpyBot 1.0'
+      LayoutEngineNameVersionMajor         : 'BrowserSpyBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BrowserSpyBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BrowserSpyBot 1.0'
+      AgentNameVersionMajor                : 'BrowserSpyBot 1'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentInformationUrl                  : 'http://browserspy.dk/'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.121 Safari/537.36 Vivaldi/2.8.1664.44 MicroAdBot/1.1 (https://www.microad.co.jp/contact/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Microad BOT'
+      DeviceBrand                          : 'Microad'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MicroAdBot'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'MicroAdBot 1.1'
+      LayoutEngineNameVersionMajor         : 'MicroAdBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MicroAdBot'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'MicroAdBot 1.1'
+      AgentNameVersionMajor                : 'MicroAdBot 1'
+      AgentInformationUrl                  : 'https://www.microad.co.jp/contact/'
+
+
+#- test:
+#    input:
+#      User-Agent                           : 'com.plumanalytics'
+#
+
+- test:
+    input:
+      User-Agent                           : 'YOURLS v1.7.2 +http://yourls.org/ (running on https://testdummy.yauaa.basjes.nl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Basjes Robot'
+      DeviceBrand                          : 'Basjes'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'YOURLS'
+      AgentVersion                         : 'v1.7.2'
+      AgentVersionMajor                    : 'v1'
+      AgentNameVersion                     : 'YOURLS v1.7.2'
+      AgentNameVersionMajor                : 'YOURLS v1'
+      AgentInformationUrl                  : 'https://testdummy.yauaa.basjes.nl'
+
+
+# Yahoo! JAPAN has multiple that all start with 'Y!J-'
+- test:
+    input:
+      User-Agent                           : 'Y!J-ASR/1.0 crawler (https://support.yahoo-net.jp/PccSearch/s/article/H000007955)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yahoo! Japan Crawler'
+      DeviceBrand                          : 'Yahoo! Japan'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Y!J-ASR'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Y!J-ASR 1.0'
+      LayoutEngineNameVersionMajor         : 'Y!J-ASR 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Y!J-ASR'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Y!J-ASR 1.0'
+      AgentNameVersionMajor                : 'Y!J-ASR 1'
+      AgentInformationUrl                  : 'https://support.yahoo-net.jp/PccSearch/s/article/H000007955'
+
+- test:
+    input:
+        User-Agent                           : 'Y!J-BRW/1.0 (https://support.yahoo-net.jp/PccSearch/s/article/H000007955)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yahoo! Japan BOT'
+      DeviceBrand                          : 'Yahoo! Japan'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Y!J-BRW'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Y!J-BRW 1.0'
+      LayoutEngineNameVersionMajor         : 'Y!J-BRW 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Y!J-BRW'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Y!J-BRW 1.0'
+      AgentNameVersionMajor                : 'Y!J-BRW 1'
+      AgentInformationUrl                  : 'https://support.yahoo-net.jp/PccSearch/s/article/H000007955'
+
+- test:
+    input:
+      User-Agent                           : 'Y!J-DLC/1.0 (https://support.yahoo-net.jp/PccSearch/s/article/H000007955)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yahoo! Japan BOT'
+      DeviceBrand                          : 'Yahoo! Japan'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Y!J-DLC'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Y!J-DLC 1.0'
+      LayoutEngineNameVersionMajor         : 'Y!J-DLC 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Y!J-DLC'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Y!J-DLC 1.0'
+      AgentNameVersionMajor                : 'Y!J-DLC 1'
+      AgentInformationUrl                  : 'https://support.yahoo-net.jp/PccSearch/s/article/H000007955'
+
+
+# https://developer.wordpress.org/reference/classes/wp_rest_url_details_controller/get_remote_url/
+- test:
+    input:
+      User-Agent                           : 'WP-URLDetails/6.0 (+https://testdummy.yauaa.basjes.nl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Basjes Robot'
+      DeviceBrand                          : 'Basjes'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'WP-URLDetails'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WP-URLDetails 6.0'
+      AgentNameVersionMajor                : 'WP-URLDetails 6'
+      AgentInformationUrl                  : 'https://testdummy.yauaa.basjes.nl'
+
+
+- test:
+    input:
+      User-Agent                           : 'WP-URLDetails/6.0 (+https://testdummy.yauaa.basjes.nl/~someone/wp)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Basjes Robot'
+      DeviceBrand                          : 'Basjes'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'WP-URLDetails'
+      AgentVersion                         : '6.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'WP-URLDetails 6.0'
+      AgentNameVersionMajor                : 'WP-URLDetails 6'
+      AgentInformationUrl                  : 'https://testdummy.yauaa.basjes.nl/~someone/wp'
+
+
+- test:
+    input:
+      User-Agent                           : 'webshopchecker BOT (<a class=\"linkclass\" href=\"https://webshopchecker.nl\">https://webshopchecker.nl</a>)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Webshopchecker BOT'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'webshopchecker BOT'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'webshopchecker BOT ??'
+      LayoutEngineNameVersionMajor         : 'webshopchecker BOT ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'webshopchecker BOT'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'webshopchecker BOT ??'
+      AgentNameVersionMajor                : 'webshopchecker BOT ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Domain Re-Animator Bot (http://domainreanimator.com) - support@domainreanimator.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Domainreanimator Domain RE-Animator BOT'
+      DeviceBrand                          : 'Domainreanimator'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Domain Re-Animator Bot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Domain Re-Animator Bot ??'
+      LayoutEngineNameVersionMajor         : 'Domain Re-Animator Bot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Domain Re-Animator Bot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Domain Re-Animator Bot ??'
+      AgentNameVersionMajor                : 'Domain Re-Animator Bot ??'
+      AgentInformationEmail                : 'support@domainreanimator.com'
+      AgentInformationUrl                  : 'http://domainreanimator.com'
+
+
+- test:
+    input:
+      User-Agent                           : 'DomainStatsBot/1.0 (https://domainstats.com/pages/our-bot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Domainstats BOT'
+      DeviceBrand                          : 'Domainstats'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'DomainStatsBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'DomainStatsBot 1.0'
+      LayoutEngineNameVersionMajor         : 'DomainStatsBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'DomainStatsBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'DomainStatsBot 1.0'
+      AgentNameVersionMajor                : 'DomainStatsBot 1'
+      AgentInformationUrl                  : 'https://domainstats.com/pages/our-bot'

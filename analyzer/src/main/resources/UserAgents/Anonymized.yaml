@@ -101,12 +101,32 @@ config:
 
 - matcher:
     variable:
+    - 'AgentVersion: agent.product.name="Chromium"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'RemarkablePattern                   :      100: "Anonymized"'
+
+- matcher:
+    variable:
     - 'AgentVersion: agent.product.name="Chrome"^.version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
     - 'DeviceClass                         :    10000 :"Anonymized"'
     - 'RemarkablePattern                   :      100: "Anonymized"'
+
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Edge"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'RemarkablePattern                   :      100: "Anonymized"'
+
 
 - matcher:
     variable:
@@ -117,9 +137,50 @@ config:
     - 'DeviceClass                         :    10000 :"Anonymized"'
     - 'RemarkablePattern                   :      100: "Anonymized"'
 
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="EdgA"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'RemarkablePattern                   :      100: "Anonymized"'
+
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="EdgIOS"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'RemarkablePattern                   :      100: "Anonymized"'
+
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Firefox"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'RemarkablePattern                   :      100: "Anonymized"'
+
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="OPR"^.version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Anonymized"'
+    - 'RemarkablePattern                   :      100: "Anonymized"'
+
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Opera"^.version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:

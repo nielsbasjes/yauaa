@@ -53,10 +53,17 @@ config:
 # Edge case for Qwant browser which is sometimes tagged twice
 - matcher:
     variable:
-    - 'Qwant: agent.(1)product.name="QwantMobile"^'
+    - 'Qwant: agent.product.name="QwantMobile"^'
     extract:
     - 'AgentName        :  2200                  : "Qwant"'
     - 'AgentVersion     :  2200                  : @Qwant.version'
+
+- matcher:
+    variable:
+    - 'Qwant: agent.product.name="QwantiOS"^'
+    extract:
+    - 'AgentName        :  2201                  : "Qwant"'
+    - 'AgentVersion     :  2201                  : @Qwant.version'
 
 - matcher:
     variable:
@@ -1873,6 +1880,120 @@ config:
       AgentVersion                         : '3.0'
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'Qwant 3.0'
+      AgentNameVersionMajor                : 'Qwant 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'QwantMobile/2.0 (Android 7.0; Mobile; rv:57.0) Gecko/57.0 QwantBrowser/57.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '57.0'
+      LayoutEngineVersionMajor             : '57'
+      LayoutEngineNameVersion              : 'Gecko 57.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 57'
+      LayoutEngineBuild                    : '57.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Qwant 2.0'
+      AgentNameVersionMajor                : 'Qwant 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'QwantMobile/2.0 (iPad; CPU OS 10_3_3 like Mac OS X) AppleWebKit/603.3.8 (KHTML, like Gecko) QwantiOS/2.4.1b1 Mobile/14G60 Safari/603.3.8'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Qware QwantMobile'
+      DeviceBrand                          : 'Qware'
+      DeviceFirmwareVersion                : '14G60'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.3'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'iOS 10.3.3'
+      OperatingSystemNameVersionMajor      : 'iOS 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.3.8'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.3.8'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '2.4.1b1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Qwant 2.4.1b1'
+      AgentNameVersionMajor                : 'Qwant 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'QwantMobile/2.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) QwantiOS/2.7.0b1 Mobile/15E148 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Qware QwantMobile'
+      DeviceBrand                          : 'Qware'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '2.7.0b1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Qwant 2.7.0b1'
+      AgentNameVersionMajor                : 'Qwant 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'QwantMobile/3.3 (Android 10; Mobile; rv:68.0) Gecko/68.0 QwantBrowser Firefox/68.0.2'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '68.0'
+      LayoutEngineVersionMajor             : '68'
+      LayoutEngineNameVersion              : 'Gecko 68.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 68'
+      LayoutEngineBuild                    : '68.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '3.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Qwant 3.3'
       AgentNameVersionMajor                : 'Qwant 3'
 
 

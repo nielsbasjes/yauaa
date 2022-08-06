@@ -104,6 +104,7 @@ config:
     - 'RISC OS'
     - 'IRIX'
     - 'IRIX64'
+    - 'AIX'
     - 'Fuchsia'
     - 'AmigaOS'
     - 'OSF1'
@@ -6523,6 +6524,125 @@ config:
     - 'DeviceBrand                         :      112 :"Silicon Graphics"'
     - 'OperatingSystemClass                :      153 :"Desktop"'
     - 'OperatingSystemName                 :      153 :"IRIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# AIX
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="AIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"IBM"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="AIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"IBM"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="AIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"IBM"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="AIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"IBM"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"AIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="AIX"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Desktop"'
+    - 'DeviceBrand                         :      108 :"IBM"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"AIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="AIX"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Desktop"'
+    - 'DeviceBrand                         :      107 :"IBM"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"AIX"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="AIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"IBM"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AIX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="AIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"IBM"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"AIX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="AIX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"IBM"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"AIX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="AIX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"IBM"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"AIX"'
     - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
 
 

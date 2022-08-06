@@ -332,6 +332,7 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Windows"]'
     - 'IsNull[LookUp[MobileBrands;@DeviceModelLine]]' # Only use this if the name IS NOT exactly the brand
     extract:
+    - 'DeviceClass                         :        2 :"Mobile"'
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@DeviceModelLine]'
     - 'DeviceName                          :      313 :@DeviceModelLine'
 
@@ -343,6 +344,7 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Windows"]'
     - 'IsNull[LookUp[MobileBrands;@DeviceModelLine]]' # Only use this if the name IS NOT exactly the brand
     extract:
+    - 'DeviceClass                         :        2 :"Mobile"'
     - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
     - 'DeviceName                          :      313 :@DeviceModelLine'
 
@@ -353,6 +355,7 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.product.name[1]="Android"]'
     - 'LookUp[MobileBrands;@DeviceModelLine]' # Only use this if the name IS exactly the brand
     extract:
+    - 'DeviceClass                         :        2 :"Mobile"'
     - 'DeviceBrand                         :      324 :LookUpPrefix[MobileBrands;@DeviceModelLine]'
     - 'DeviceName                          :      324 :@DeviceModelLine^.version'
 

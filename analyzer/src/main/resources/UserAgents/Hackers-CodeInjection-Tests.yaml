@@ -813,6 +813,10 @@ config:
       user_agent_string: '$(nslookup hitogredxqaas0b70d.bxss.me||perl -e "gethostbyname(''xxxxxx.bxss.me'')")'
     expected: *isCodeInjection
 
+- test:
+    input:
+      user_agent_string: 'clh9h${\"zsz\".toString().replace(\"s\", \"l\")}o1ulc'
+    expected: *isCodeInjection
 
 - test:
     input:

@@ -1857,6 +1857,8 @@ config:
       WebviewAppNameVersionMajor           : 'DuckDuckGo 5'
 
 
+
+
 # Coc Coc Browser (focuses on the Vietnamese market):  https://en.wikipedia.org/wiki/C%E1%BB%91c_C%E1%BB%91c
 - matcher:
     extract:
@@ -3533,6 +3535,7 @@ config:
     input:
       user_agent_string: 'OneDriveMpc-Transform_Thumbnail/1.0'
     expected:
+      DeviceClass                          : 'Mobile'
       DeviceName                           : 'Unknown'
       AgentClass                           : 'Special'
       AgentName                            : 'OneDriveMpc-Transform_Thumbnail'
@@ -4560,101 +4563,6 @@ config:
       AgentVersionMajor                    : '11'
       AgentNameVersion                     : 'Internet Explorer 11.0'
       AgentNameVersionMajor                : 'Internet Explorer 11'
-
-# Cronet:
-# https://developer.android.com/guide/topics/connectivity/cronet
-# Cronet is the Chromium network stack made available to Android apps as a library.
-- test:
-    input:
-      user_agent_string: 'com.google.android.apps.searchlite/444785 (Linux; U; Android 10; nl_BE; moto g(7) power; Build/QPOS30.52-29-7-6; Cronet/89.0.4389.90)'
-    expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Motorola Moto G(7) Power'
-      DeviceBrand                          : 'Motorola'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '10'
-      OperatingSystemVersionMajor          : '10'
-      OperatingSystemNameVersion           : 'Android 10'
-      OperatingSystemNameVersionMajor      : 'Android 10'
-      OperatingSystemVersionBuild          : 'QPOS30.52-29-7-6'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Com.google.android.apps.searchlite'
-      AgentVersion                         : '444785'
-      AgentVersionMajor                    : '444785'
-      AgentNameVersion                     : 'Com.google.android.apps.searchlite 444785'
-      AgentNameVersionMajor                : 'Com.google.android.apps.searchlite 444785'
-      AgentLanguage                        : 'Dutch (Belgium)'
-      AgentLanguageCode                    : 'nl-be'
-      AgentSecurity                        : 'Strong security'
-
-- test:
-    input:
-      user_agent_string: 'com.google.android.apps.searchlite/444787 (Linux; U; Android 10; nl; Nokia 1 Plus; Build/QP1A.190711.020; Cronet/89.0.4389.90)'
-    expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Nokia 1 Plus'
-      DeviceBrand                          : 'Nokia'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '10'
-      OperatingSystemVersionMajor          : '10'
-      OperatingSystemNameVersion           : 'Android 10'
-      OperatingSystemNameVersionMajor      : 'Android 10'
-      OperatingSystemVersionBuild          : 'QP1A.190711.020'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Com.google.android.apps.searchlite'
-      AgentVersion                         : '444787'
-      AgentVersionMajor                    : '444787'
-      AgentNameVersion                     : 'Com.google.android.apps.searchlite 444787'
-      AgentNameVersionMajor                : 'Com.google.android.apps.searchlite 444787'
-      AgentLanguage                        : 'Dutch'
-      AgentLanguageCode                    : 'nl'
-      AgentSecurity                        : 'Strong security'
-
-- test:
-    input:
-      user_agent_string: 'com.google.android.apps.searchlite/63665 (Linux; U; Android 8.1.0; en_ZA; SM-A260F; Build/OPR6; Cronet/89.0.4389.90)'
-    expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Samsung SM-A260F'
-      DeviceBrand                          : 'Samsung'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '8.1.0'
-      OperatingSystemVersionMajor          : '8'
-      OperatingSystemNameVersion           : 'Android 8.1.0'
-      OperatingSystemNameVersionMajor      : 'Android 8'
-      OperatingSystemVersionBuild          : 'OPR6'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Com.google.android.apps.searchlite'
-      AgentVersion                         : '63665'
-      AgentVersionMajor                    : '63665'
-      AgentNameVersion                     : 'Com.google.android.apps.searchlite 63665'
-      AgentNameVersionMajor                : 'Com.google.android.apps.searchlite 63665'
-      AgentLanguage                        : 'English (South Africa)'
-      AgentLanguageCode                    : 'en-za'
-      AgentSecurity                        : 'Strong security'
-
-
 
 
 - test:

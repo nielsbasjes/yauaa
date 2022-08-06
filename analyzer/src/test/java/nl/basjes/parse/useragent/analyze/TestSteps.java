@@ -322,7 +322,8 @@ class TestSteps {
 
     List<String> invalidVersions = Arrays.asList(
         "FOO",
-        "1234FOO"
+        "1234FOO",
+        "43ENDRNMAP1GSITEP"
         );
 
     @Test

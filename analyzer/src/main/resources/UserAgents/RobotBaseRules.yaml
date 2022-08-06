@@ -15,6 +15,28 @@
 # limitations under the License.
 #
 config:
+
+# These are the most common normal product names
+# For some rules we want to disable matches on these.
+- set:
+    name: 'NormalProductNames'
+    values:
+#      - 'Mozilla'
+      - 'Chromium'
+      - 'Chrome'
+      - 'Firefox'
+      - 'Edge'
+      - 'EdgA'
+      - 'EdgiOS'
+      - 'Edg'
+      - 'OPR'
+      - 'Opera'
+      - 'Safari'
+      - 'Mobile Safari'
+      - 'TV Safari'
+      - 'VR Safari'
+      - 'Mobile VR Safari'
+
 # =============== Robots with "spider" in it =====================
 
 - lookup:
@@ -122,6 +144,7 @@ config:
     - 'RobotName                           :@RobotProduct.name'
     - 'RobotVersion                        :@RobotProduct.(1)version'
     require:
+    - '@RobotMatchedVersion^.name?!NormalProductNames'
     - 'IsNull[@RobotVersion.url]'
     extract:
     - 'DeviceClass                         :    10200 :"Robot"'

@@ -82,6 +82,11 @@ config:
       "typeof"                : "Code Injection"
       "load_file"             : "Code Injection"
 
+      # Java
+      "toString("             : "Code Injection"
+      "replace("              : "Code Injection"
+      "replaceAll("           : "Code Injection"
+
       # Script retrieval sites
       "bxss.me"               : "Code Injection"
       "burp"                  : "Code Injection"
@@ -151,6 +156,8 @@ config:
     - 'RemarkablePattern                   :  1000000 :"Hacker"'
 
 - matcher:
+    require:
+    - 'IsNull[agent.product.name?NormalProductNames]'
     extract:
     - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :  1000000 :"Hacker"'
@@ -171,6 +178,50 @@ config:
     - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
     - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
     - 'RemarkablePattern                   :  1000000 :"Hacker"'
+
+- matcher:
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+    - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+    - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent.product.name]'
+    - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+    - 'RemarkablePattern                   :  1000000 :"Hacker"'
+
+- matcher:
+    extract:
+      - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'DeviceClass                         :  1000000 :"Hacker"'
+      - 'DeviceBrand                         :  1000000 :"Hacker"'
+      - 'DeviceName                          :  1000000 :"Hacker"'
+      - 'DeviceVersion                       :  1000000 :"Hacker"'
+      - 'OperatingSystemClass                :  1000000 :"Hacker"'
+      - 'OperatingSystemName                 :  1000000 :"Hacker"'
+      - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+      - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+      - 'LayoutEngineName                    :  1000000 :"Hacker"'
+      - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+      - 'AgentClass                          :  1000000 :"Hacker"'
+      - 'AgentName                           :  1000000 :"Hacker"'
+      - 'AgentVersion                        :  1000000 :"Hacker"'
+      - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+      - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+      - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent.product.comments]'
+      - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
+      - 'RemarkablePattern                   :  1000000 :"Hacker"'
 
 
 - matcher:
@@ -748,4 +799,92 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       HackerToolkit                        : 'Fuzz Faster U Fool'
+      RemarkablePattern                    : 'Hacker'
+
+
+
+- test:
+    input:
+      User-Agent                           : '@@VI1wa'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      RemarkablePattern                    : 'Hacker'
+
+
+- test:
+    input:
+      User-Agent                           : '@@vpaCk'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      RemarkablePattern                    : 'Hacker'
+
+
+- test:
+    input:
+      User-Agent                           : '@@vPVIf'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
       RemarkablePattern                    : 'Hacker'
