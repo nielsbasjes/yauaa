@@ -5478,3 +5478,66 @@ config:
       AgentVersionMajor                    : '96'
       AgentNameVersion                     : 'Chrome 96.0.4664.92'
       AgentNameVersionMajor                : 'Chrome 96'
+
+
+# Virtualized environment?
+- test:
+    input:
+      User-Agent                           : 'Opera/5.0 (Linux (VirtualBox); Windows NT 7; en-us) Chrome/38.8.67.118 Safari/637.6'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows NT 7'
+      OperatingSystemNameVersionMajor      : 'Windows NT 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '38.8.67.118'
+      AgentVersionMajor                    : '38'
+      AgentNameVersion                     : 'Chrome 38.8.67.118'
+      AgentNameVersionMajor                : 'Chrome 38'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
+
+# Virtualized environment?
+- test:
+    input:
+      User-Agent                           : 'Opera/5.0 (Linux (Wine); N; Windows NT 7; en-us) Chrome/41.7.323.055'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows NT 7'
+      OperatingSystemNameVersionMajor      : 'Windows NT 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '41.7.323.055'
+      AgentVersionMajor                    : '41'
+      AgentNameVersion                     : 'Chrome 41.7.323.055'
+      AgentNameVersionMajor                : 'Chrome 41'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'No security'

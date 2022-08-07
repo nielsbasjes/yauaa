@@ -24,6 +24,7 @@
 # Field text        | OS Name       | OS Version                    | OS Name+Version    | CPU Bits (if known)
 
 # Official tags
+Windows NT 11       | Windows NT    | 11                            | Windows 11                            | 64
 Windows NT 10.0     | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows NT 6.4      | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 Windows NT 6.3      | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -39,6 +40,7 @@ Windows NT 4.0      | Windows NT    | 4.0                           | Windows NT
 Windows NT          | Windows NT    | ??                            | Windows NT ??                         | 32
 
 # Broken tags (without a space)
+Windows NT11        | Windows NT    | 11                            | Windows 11                            | 64
 Windows NT10.0      | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows NT6.4       | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 Windows NT6.3       | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -52,6 +54,7 @@ Windows NT5.0       | Windows NT    | 2000                          | Windows 20
 Windows NT4.0       | Windows NT    | 4.0                           | Windows NT 4.0                        | 32
 
 # Broken tags (without any spaces)
+WindowsNT11         | Windows NT    | 11                            | Windows 11                            | 64
 WindowsNT10.0       | Windows NT    | 10.0                          | Windows 10.0                          | 32
 WindowsNT6.4        | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 WindowsNT6.3        | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -71,6 +74,7 @@ Windows NT5         | Windows NT    | 2000                          | Windows 20
 Windows NT4         | Windows NT    | 4.0                           | Windows NT 4.0                        | 32
 
 # Broken tags (i.e. without the NT part)
+Windows 11          | Windows NT    | 11                            | Windows 11                            | 64
 Windows 10.0        | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows 6.4         | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 Windows 6.3         | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -85,6 +89,7 @@ Windows 4.0         | Windows NT    | 4.0                           | Windows NT
 Windows-NT          | Windows NT    | ??                            | Windows NT ??                         | 32
 
 # Broken tags (i.e. as a product/version )
+Windows/11          | Windows NT    | 11                            | Windows 11                            | 64
 Windows/10.0        | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows/6.4         | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 Windows/6.3         | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -107,11 +112,25 @@ Windows XP 5.1      | Windows NT    | XP                            | Windows XP
 Windows 10          | Windows NT    | 10.0                          | Windows 10.0                          | 32
 Windows 8.1         | Windows NT    | 8.1                           | Windows 8.1                           | 32
 Windows 8           | Windows NT    | 8                             | Windows 8                             | 32
+# Windows 7.2         | Windows NT    | 7.2                           | Windows 7.2                           | 32
+# Windows 7.1         | Windows NT    | 7.1                           | Windows 7.1                           | 32
 Windows 7           | Windows NT    | 7                             | Windows 7                             | 32
 Windows Vista       | Windows NT    | Vista                         | Windows Vista                         | 32
 Windows XP          | Windows NT    | XP                            | Windows XP                            | 32
 
+# Broken tags: The OS name as tag
+# Windows NT 11       | Windows NT    | 11                            | Windows 11                            | 64
+# Windows NT 10       | Windows NT    | 10                            | Windows 10                            | 32
+# Windows NT 8.1      | Windows NT    | 8.1                           | Windows 8.1                           | 32
+# Windows NT 8        | Windows NT    | 8                             | Windows 8                             | 32
+# Windows NT 7.2      | Windows NT    | 7.2                           | Windows 7.2                           | 32
+# Windows NT 7.1      | Windows NT    | 7.1                           | Windows 7.1                           | 32
+# Windows NT 7        | Windows NT    | 7                             | Windows 7                             | 32
+# Windows NT Vista    | Windows NT    | Vista                         | Windows Vista                         | 32
+# Windows NT XP       | Windows NT    | XP                            | Windows XP                            | 32
+
 # Full names as used by iTunes on Windows
+Microsoft Windows 11             | Windows NT | 11                  | Windows 11                            | 64
 Microsoft Windows 10 x64         | Windows NT | 10.0                | Windows 10.0                          | 64
 Microsoft Windows 10             | Windows NT | 10.0                | Windows 10.0                          | 32
 Microsoft Windows 8.1 x64        | Windows NT | 8.1                 | Windows 8.1                           | 64
@@ -123,7 +142,9 @@ Microsoft Windows Vista          | Windows NT | Vista               | Windows Vi
 Microsoft Windows Vista x64      | Windows NT | Vista               | Windows Vista                         | 64
 Microsoft Windows XP             | Windows NT | XP                  | Windows XP                            | 32
 Microsoft Windows XP x64         | Windows NT | XP                  | Windows XP                            | 64
+
 # Also seen as used by iTunes
+Microsoft Windows NT 11          | Windows NT | 11                  | Windows 11                            | 64
 Microsoft Windows NT 10.0        | Windows NT | 10.0                | Windows 10.0                          | 32
 Microsoft Windows NT 6.4         | Windows NT | 10 Preview          | Windows 10 Preview                    | 32
 Microsoft Windows NT 6.3         | Windows NT | 8.1                 | Windows 8.1                           | 32
@@ -157,6 +178,7 @@ Win32               | Windows 9x    | 95                            | Windows 95
 Win16               | Windows 3.x   | 3.x                           | Windows 3.x                           | 16
 
 # Yes, we even see these variants
+NT 11               | Windows NT    | 11                            | Windows 11                            | 64
 NT 10.0             | Windows NT    | 10.0                          | Windows 10.0                          | 32
 NT 6.4              | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 NT 6.3              | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -175,6 +197,7 @@ NT 3.1              | Windows NT    | 3.1                           | Windows NT
 NT                  | Windows NT    | ??                            | Windows NT ??                         | 32
 
 # Slightly longer with a space
+WinNT 11            | Windows NT    | 11                            | Windows 11                            | 64
 WinNT 10.0          | Windows NT    | 10.0                          | Windows 10.0                          | 32
 WinNT 6.4           | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 WinNT 6.3           | Windows NT    | 8.1                           | Windows 8.1                           | 32
@@ -193,6 +216,7 @@ WinNT 3.1           | Windows NT    | 3.1                           | Windows NT
 WinNT               | Windows NT    | ??                            | Windows NT ??                         | 32
 
 # Slightly longer without a space
+WinNT11             | Windows NT    | 11                            | Windows 11                            | 64
 WinNT10.0           | Windows NT    | 10.0                          | Windows 10.0                          | 32
 WinNT6.4            | Windows NT    | 10 Preview                    | Windows 10 Preview                    | 32
 WinNT6.3            | Windows NT    | 8.1                           | Windows 8.1                           | 32
