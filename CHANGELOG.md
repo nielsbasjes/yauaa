@@ -6,7 +6,7 @@ v7.4.0-SNAPSHOT
 - Analyzer:
   - IsValidVersion function to determine if a version looks like a normal version.
 - Webservlet:
-    - GraphQL support
+  - GraphQL support
 - New/improved detections
   - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
   - New DeviceClass: "Home Appliance" (Fridges and such)
@@ -18,9 +18,10 @@ v7.4.0-SNAPSHOT
     - All anonymized agents have DeviceClass: 'Anonymized'
     - More extensive anonymization detection by looking at version patterns
   - New field "RemarkablePattern" that will hold exceptional things that were detected.
-    - The 'Anonymized' has been dropped and is now RemarkablePattern: 'Anonymized'
+    - The 'Anonymized' field has been dropped and is now RemarkablePattern: 'Anonymized'
 - Extra testcases
   - Fuchsia
+  - Mobile Apps, Robots, Hackers, Modification cases
   - Windows 9 (which does not exist)
 - Updated UDF dependencies
   - Apache Beam             2.40.0
