@@ -4898,11 +4898,258 @@ config:
 
 # https://play.google.com/store/apps/details?id=com.twipemobile.nrc&hl=en&gl=US
 # NRC - Nieuws & achtergronden
-#- test:
-#    input:
-#      User-Agent                           : 'SM-G930F (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 26'
-#
-#- test:
-#    input:
-#      User-Agent                           : 'SM-G970F (compatible; Smartphone2.0) HandelsbladProduction, com.twipemobile.nrc 4.2.0 (405) / Android 31'
-#
+# Very non standard formatted UserAgent
+
+- matcher:
+    require:
+      - 'agent.(1)product.comments.entry="Mobile2.0"'
+    extract:
+      - 'DeviceClass : 10 : "Phone"'
+
+- matcher:
+    require:
+      - 'agent.(1)product.comments.entry="Smartphone2.0"'
+    extract:
+      - 'DeviceClass : 10 : "Phone"'
+
+- matcher:
+    require:
+      - 'agent.(1)product.comments.entry="Tablet2.0"'
+    extract:
+      - 'DeviceClass : 10 : "Tablet"'
+
+- matcher:
+    variable:
+    - 'Agent:agent.product.(1)name="HandelsbladProduction, com.twipemobile.nrc"^'
+    require:
+      - '@Agent.(2)version="Android"'
+    extract:
+      - 'OperatingSystemClass              :    101  :"Mobile"'
+      - 'OperatingSystemName               :    101  :"Android"'
+      - 'OperatingSystemVersion            :    101  :LookUp[AndroidAPIToVersionMap;@Agent>;"<<<null>>>"]'
+      - 'AgentClass                        :    100  :"Mobile App"'
+      - 'AgentName                         :    100  :"NRC"'
+      - 'AgentVersion                      :    100  :@Agent.(1)version'
+      - 'AgentBuild                        :    100  :@Agent.(1)comments.(1)entry'
+
+- test:
+    input:
+      User-Agent                           : 'SM-G930F (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 26'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G930F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '5.1.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NRC 5.1.1'
+      AgentNameVersionMajor                : 'NRC 5'
+      AgentBuild                           : '508'
+
+
+- test:
+    input:
+      User-Agent                           : 'moto g(50) (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 31'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Motorola Moto G'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '5.1.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NRC 5.1.1'
+      AgentNameVersionMajor                : 'NRC 5'
+      AgentBuild                           : '508'
+
+
+- test:
+    input:
+      User-Agent                           : 'moto g(6) plus (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 4.4.2 (412) / Android 28'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto G'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '4.4.2'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'NRC 4.4.2'
+      AgentNameVersionMajor                : 'NRC 4'
+      AgentBuild                           : '412'
+
+
+- test:
+    input:
+      User-Agent                           : 'DN2103 (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 30'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oneplus DN2103'
+      DeviceBrand                          : 'Oneplus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '5.1.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NRC 5.1.1'
+      AgentNameVersionMajor                : 'NRC 5'
+      AgentBuild                           : '508'
+
+
+- test:
+    input:
+      User-Agent                           : 'Lenovo TB-8704F (compatible; Tablet2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 27'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Lenovo TB-8704F'
+      DeviceBrand                          : 'Lenovo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '5.1.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NRC 5.1.1'
+      AgentNameVersionMajor                : 'NRC 5'
+      AgentBuild                           : '508'
+
+- test:
+    input:
+      User-Agent                           : 'Mi 9T Pro (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 30'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Xiaomi MI 9T'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '5.1.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NRC 5.1.1'
+      AgentNameVersionMajor                : 'NRC 5'
+      AgentBuild                           : '508'
+
+
+- test:
+    input:
+      User-Agent                           : 'SM-G970F (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.3 (510) / Android 31'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G970F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '5.1.3'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'NRC 5.1.3'
+      AgentNameVersionMajor                : 'NRC 5'
+      AgentBuild                           : '510'
+
+
+- test:
+    input:
+      User-Agent                           : 'SM-G970F (compatible; Smartphone2.0) HandelsbladProduction, com.twipemobile.nrc 4.2.0 (405) / Android 31'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G970F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC'
+      AgentVersion                         : '4.2.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'NRC 4.2.0'
+      AgentNameVersionMajor                : 'NRC 4'
+      AgentBuild                           : '405'

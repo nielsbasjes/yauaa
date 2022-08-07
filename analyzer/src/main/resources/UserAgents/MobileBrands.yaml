@@ -577,6 +577,7 @@ config:
       "E1003"                   : "OnePlus"
       "E1005"                   : "OnePlus"
       "One"                     : "OnePlus"
+      "DN21"                    : "OnePlus"
 
       "A1601"                   : "Oppo"
       "A37f"                    : "Oppo"
@@ -887,3 +888,11 @@ config:
     extract:
     - 'DeviceName                          :     3000 :LookUpPrefix[XiaomiModels;@Product[1];"Redmi 1"]'
     - 'DeviceBrand                         :     3000 :"Xiaomi"'
+
+- matcher:
+    variable:
+      - 'Product                           :agent.product.name="Mi"'
+    extract:
+      - 'DeviceClass                       :        1 :"Mobile"'
+      - 'DeviceName                        :      350 :Concat["Mi ";@Product^.version]'
+      - 'DeviceBrand                       :      350 :"Xiaomi"'
