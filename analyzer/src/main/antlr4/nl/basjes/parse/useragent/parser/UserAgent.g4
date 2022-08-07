@@ -64,7 +64,7 @@ MIME_TYPE_2:  '*/*'                -> skip;
 SPACE :       (' '| '\u2002' | '\u0220' |'\t'|'+') -> skip;
 
 fragment UserAgent
-    : [Uu][Ss][Ee][Rr]'-'*[Aa][Gg][Ee][Nn][Tt]
+    : [Uu][Ss][Ee][Rr][-_]*[Aa][Gg][Ee][Nn][Tt]
     ;
 
 // Specialtype of leading garbage (which actually happens)

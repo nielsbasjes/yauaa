@@ -66,12 +66,17 @@ config:
       'com.google.Drive.ShareExtension'       : 'Mobile App|Google Drive'
       'com.google.Maps'                       : 'Mobile App|Google Maps'
       'com.google.OPA'                        : 'Mobile App|Google Assistant'
+      'OPA'                                   : 'Mobile App|Google Assistant'
 
       # https://play.google.com/store/apps/details?id=com.google.android.apps.searchlite&hl=en&gl=US
       'com.google.android.apps.searchlite'    : 'Mobile App|Google Go'
 
       # https://www.webmasterworld.com/search_engine_spiders/4836796.htm
       'com.google.GoogleMobile'               : 'Mobile App|Google Plus'
+
+      #  https://www.yammer.com/
+      #  https://www.microsoft.com/en-us/microsoft-365/yammer/yammer-overview
+      'Yammer'                                : 'Mobile App|Yammer'
 
 - matcher:
     variable:
@@ -3996,3 +4001,908 @@ config:
       AgentLanguage                        : 'English (South Africa)'
       AgentLanguageCode                    : 'en-za'
       AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/16.30.34(Linux; U; Android 11; nl_NL; CPH2273 Build/RP1A.200720.011) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oppo CPH2273'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.011'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '16.30.34'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Youtube 16.30.34'
+      AgentNameVersionMajor                : 'Youtube 16'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/17.11.35(Linux; U; Android 11; nl_NL; SM-A515F Build/RP1A.200720.012) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A515F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.012'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.11.35'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.11.35'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/16.35.36(Linux; U; Android 11; en_US; Infinix X688B Build/RP1A.200720.011) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Infinix X688B'
+      DeviceBrand                          : 'Infinix'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.011'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '16.35.36'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Youtube 16.35.36'
+      AgentNameVersionMajor                : 'Youtube 16'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/16.19.37(Linux; U; Android 11; en_GB; SM-M127G Build/RP1A.200720.012) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-M127G'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.012'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '16.19.37'
+      AgentVersionMajor                    : '16'
+      AgentNameVersion                     : 'Youtube 16.19.37'
+      AgentNameVersionMajor                : 'Youtube 16'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/17.24.34(Linux; U; Android 12; ro_RO; SM-G985F Build/SP1A.210812.016) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-G985F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      OperatingSystemVersionBuild          : 'SP1A.210812.016'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.34'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.34'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'Romanian (Romania)'
+      AgentLanguageCode                    : 'ro-ro'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/17.24.34(Linux; U; Android 12; nl_NL; moto g(100) Build/S1RTS32.41-20-16-01-2) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto G(100)'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      OperatingSystemVersionBuild          : 'S1RTS32.41-20-16-01-2'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.34'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.34'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.youtube/17.24.34(Linux; U; Android 12; nl_NL; moto g pro Build/S0PRS32.44-11-10-02-7) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto G PRO'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      OperatingSystemVersionBuild          : 'S0PRS32.44-11-10-02-7'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.34'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.34'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test: #TODO: Language code is not picked up
+    input:
+      User-Agent                           : 'com.google.android.youtube/17.23.35(Linux; U; Android 7.0; zh_CN_#Hans; SM-A510F Build/NRD90M) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A510F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'NRD90M'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.23.35'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.23.35'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test: #TODO: Language code is not picked up
+    input:
+      User-Agent                           : 'com.google.android.youtube/17.23.35(Linux; U; Android 10; ar_IQ_#u-nu-latn; Infinix X612 Build/QP1A.190711.020) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Infinix X612'
+      DeviceBrand                          : 'Infinix'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QP1A.190711.020'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.23.35'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.23.35'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentInformationUrl                  : 'com.google.android.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.android.apps.youtube.music/5.14.53(Linux; U; Android 12; fr_BE; SM-G781B Build/SP1A.210812.016) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-G781B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      OperatingSystemVersionBuild          : 'SP1A.210812.016'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube Music'
+      AgentVersion                         : '5.14.53'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Youtube Music 5.14.53'
+      AgentNameVersionMajor                : 'Youtube Music 5'
+      AgentLanguage                        : 'French (Belgium)'
+      AgentLanguageCode                    : 'fr-be'
+      AgentInformationUrl                  : 'com.google.android.apps.youtube.music'
+      AgentSecurity                        : 'Strong security'
+
+
+- test: #TODO: Language code is not picked up
+    input:
+      User-Agent                           : 'com.google.android.apps.youtube.music/5.13.50(Linux; U; Android 11; zh_HK_#Hant; SM-A226B Build/RP1A.200720.012) gzip'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A226B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.012'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube Music'
+      AgentVersion                         : '5.13.50'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Youtube Music 5.13.50'
+      AgentNameVersionMajor                : 'Youtube Music 5'
+      AgentInformationUrl                  : 'com.google.android.apps.youtube.music'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.ios.youtube/17.24.4 (iPhone14,3; U; CPU iOS 15_5 like Mac OS X; en_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 13 Pro Max'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.4'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.4'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'English (Netherlands)'
+      AgentLanguageCode                    : 'en-nl'
+      AgentInformationUrl                  : 'com.google.ios.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.ios.youtube/17.24.4 (iPhone6,2; U; CPU iOS 12_5_5 like Mac OS X; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 5s (A1457/A1518/A1530)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.5.5'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.5.5'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.4'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.4'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'com.google.ios.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.ios.youtube/17.24.4 (iPhone9,3; U; CPU iOS 14_2 like Mac OS X; fr_BE)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 7'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.2'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.2'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.4'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.4'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'French (Belgium)'
+      AgentLanguageCode                    : 'fr-be'
+      AgentInformationUrl                  : 'com.google.ios.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.ios.youtube/17.24.4 (iPhone9,4; U; CPU iOS 15_5 like Mac OS X; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 7 Plus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube'
+      AgentVersion                         : '17.24.4'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Youtube 17.24.4'
+      AgentNameVersionMajor                : 'Youtube 17'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentInformationUrl                  : 'com.google.ios.youtube'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.ios.youtubemusic/5.07.1 (iPhone10,6; U; CPU iOS 15_5 like Mac OS X; nl_NL)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone X (A1901)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube Music'
+      AgentVersion                         : '5.07.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Youtube Music 5.07.1'
+      AgentNameVersionMajor                : 'Youtube Music 5'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 15.4.1 like Mac OS X;) AppleWebKit/601.1.46 (KHTML, like Gecko) OPA/209.0 CoreAssistant/com.google.GoogleMobile'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.4.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '601.1.46'
+      LayoutEngineVersionMajor             : '601'
+      LayoutEngineNameVersion              : 'AppleWebKit 601.1.46'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 601'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Assistant'
+      AgentVersion                         : '209.0'
+      AgentVersionMajor                    : '209'
+      AgentNameVersion                     : 'Google Assistant 209.0'
+      AgentNameVersionMajor                : 'Google Assistant 209'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU OS 12.5.5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GoogleWv/1.0 (WKWebView) OPA/1.9.33408 CoreAssistant/com.google.OPA'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '12.5.5'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'iOS 12.5.5'
+      OperatingSystemNameVersionMajor      : 'iOS 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Assistant'
+      AgentVersion                         : '1.9.33408'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Assistant 1.9.33408'
+      AgentNameVersionMajor                : 'Google Assistant 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 15.3.1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GoogleWv/1.0 (WKWebView) OPA/1.9.40904 CoreAssistant/com.google.OPA'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.3.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Assistant'
+      AgentVersion                         : '1.9.40904'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Assistant 1.9.40904'
+      AgentNameVersionMajor                : 'Google Assistant 1'
+
+# TODO: What is this?
+#  com.apple.WebKit.Networking/10603.3.8 CFNetwork/720.5.7 Darwin/14.5.0 (x86_64)
+#  com.apple.WebKit.Networking/13605.1.33.1.4 CFNetwork/897.15 Darwin/17.5.0 (x86_64)
+#  com.apple.WebKit.Networking/13605.3.8 CFNetwork/902.1 Darwin/17.7.0 (x86_64)
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.Drive.ShareExtension/4.2022.06204 iPad/14.8 hw/iPad7_5'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (6th gen, A1893)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Drive'
+      AgentVersion                         : '4.2022.06204'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Google Drive 4.2022.06204'
+      AgentNameVersionMajor                : 'Google Drive 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.Drive.ShareExtension/4.2022.22200 iPad/15.3.1 hw/iPad6_11'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (2017)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Drive'
+      AgentVersion                         : '4.2022.22200'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Google Drive 4.2022.22200'
+      AgentNameVersionMajor                : 'Google Drive 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.Drive.ShareExtension/4.2022.22200 iPhone/15.4.1 hw/iPhone14_3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 13 Pro Max'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Drive'
+      AgentVersion                         : '4.2022.22200'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Google Drive 4.2022.22200'
+      AgentNameVersionMajor                : 'Google Drive 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.Maps/6.27.0 iPhone/15.4.1 hw/iPhone13_2 (gzip)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 12'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Maps'
+      AgentVersion                         : '6.27.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Google Maps 6.27.0'
+      AgentNameVersionMajor                : 'Google Maps 6'
+
+
+- test:
+    input:
+      User-Agent                           : 'com.google.Maps/6.27.0 iPhone/15.5 hw/iPhone14_5 (gzip)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 13'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Google Maps'
+      AgentVersion                         : '6.27.0'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Google Maps 6.27.0'
+      AgentNameVersionMajor                : 'Google Maps 6'
+
+
+#  com.microsoft.rdc.androidx/1182 (Android;11.0)
+
+#  com.google.android.apps.searchlite/632506 (Linux; U; Android 10; nl_BE; moto e(7i) power; Build/QOJS30.506-7-2; Cronet/103.0.5060.42)
+#  com.google.android.apps.searchlite/63665 (Linux; U; Android 8.1.0; fr_FR; RIO_BN; Build/OPM2.171019.012; Cronet/101.0.4951.41)
+#
+#  com.google.android.youtube.player/1.14.0 com.google.android.youtube/17.28.34 com.google.android.youtube/17.28.34 (Linux; U; Android 9; nl_NL; FIG-LX1 Build/HUAWEIFIG-L31) gzip
+
+
+- matcher:
+    extract:
+      - 'AgentClass                         : 1000  : "Mobile App"'
+      - 'AgentName                          : 1000  : "DuckDuckGo"'
+      - 'AgentVersion                       : 1000  : agent.product.name="ddg_android"^.version'
+
+
+- test:
+    input:
+      User-Agent                           : 'ddg_android/5.107.0 (com.duckduckgo.mobile.android; Android API 30)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Mobile Android Mobile'
+      DeviceBrand                          : 'Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '5.107.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'DuckDuckGo 5.107.0'
+      AgentNameVersionMajor                : 'DuckDuckGo 5'
+      AgentInformationUrl                  : 'com.duckduckgo.mobile.android'
+
+
+
+- test:
+    input:
+      User-Agent                           : 'ddg_android/5.109.0 (com.duckduckgo.mobile.android; Android API 31)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Mobile Android Mobile'
+      DeviceBrand                          : 'Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '5.109.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'DuckDuckGo 5.109.0'
+      AgentNameVersionMajor                : 'DuckDuckGo 5'
+      AgentInformationUrl                  : 'com.duckduckgo.mobile.android'
+
+
+- test:
+    input:
+      User-Agent                           : 'ddg_android/5.111.0 (com.duckduckgo.mobile.android; Android API 25)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Mobile Android Mobile'
+      DeviceBrand                          : 'Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.1'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.1'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '5.111.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'DuckDuckGo 5.111.0'
+      AgentNameVersionMajor                : 'DuckDuckGo 5'
+      AgentInformationUrl                  : 'com.duckduckgo.mobile.android'
+
+
+# This is URL encoded Japanese ウイルスバスター which translates to "Virus Buster" and seems to be from TrendMicro
+- test:
+    input:
+      User-Agent                           : '%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E3%83%90%E3%82%B9%E3%82%BF%E3%83%BC%20for%20Mac/1 CFNetwork/1240.0.4 Darwin/20.6.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.7 beta 2'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.7 beta 2'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'ウイルスバスター for Mac'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'ウイルスバスター for Mac 1'
+      LayoutEngineNameVersionMajor         : 'ウイルスバスター for Mac 1'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'ウイルスバスター for Mac'
+      AgentVersion                         : '1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ウイルスバスター for Mac 1'
+      AgentNameVersionMajor                : 'ウイルスバスター for Mac 1'
+
+
+#  https://www.yammer.com/
+#  https://www.microsoft.com/en-us/microsoft-365/yammer/yammer-overview
+- test:
+    input:
+      User-Agent                           : 'Yammer/9.25.0.1810 (iPhone12,3; iOS 15.5; nl_NL; nl-NL; Scale/3.00) AppleWebKit (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 11 Pro'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Yammer'
+      AgentVersion                         : '9.25.0.1810'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Yammer 9.25.0.1810'
+      AgentNameVersionMajor                : 'Yammer 9'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+
+# https://play.google.com/store/apps/details?id=com.twipemobile.nrc&hl=en&gl=US
+# NRC - Nieuws & achtergronden
+#- test:
+#    input:
+#      User-Agent                           : 'SM-G930F (compatible; Mobile2.0) HandelsbladProduction, com.twipemobile.nrc 5.1.1 (508) / Android 26'
+#
+#- test:
+#    input:
+#      User-Agent                           : 'SM-G970F (compatible; Smartphone2.0) HandelsbladProduction, com.twipemobile.nrc 4.2.0 (405) / Android 31'
+#

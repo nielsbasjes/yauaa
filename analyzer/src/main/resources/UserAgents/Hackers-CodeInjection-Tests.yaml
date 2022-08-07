@@ -642,6 +642,26 @@ config:
 
 - test:
     input:
+      user_agent_string: '() { _; } >_[$($())] { echo Content-Type: text/plain ; echo ; echo \"bash_cve_2014_6278 Output : $((37+34))\"; }'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '() { ignored; }; echo Content-Type: text/plain ; echo ; echo \"bash_cve_2014_6271_rce Output : $((70+95))\"'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: 'eda5h{{701*381}}vwb9m'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '{{.custom_user_agent}}'
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: '"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)''+(function(){if(typeof aab4q===\""undefined\""){var a=new Date();do{var b=new Date();}while(b-a<20000);aab4q=1;}}())+''"'
     expected: *isCodeInjection
 

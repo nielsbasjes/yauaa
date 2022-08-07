@@ -37,6 +37,7 @@ config:
       "21" : "5.0" # 5.0 Lollipop (API 21)
       "23" : "6.0" # 6.0 Marshmallow (API 23)
       "24" : "7.0" # 7.0 Nougat (API 24)
+      "25" : "7.1" #
       "26" : "8.0" # 8.0 Oreo (API 26)
       "28" : "9"   # 9 Pie (API 28)
       "29" : "10"  # 10 (API 29)
@@ -44,6 +45,15 @@ config:
       "31" : "12"  # Android 12 (API levels 31, 32)
       "32" : "12"  #
       "33" : "13"  # FIXME: Guess !
+
+- matcher:
+    variable:
+      - 'Android                             :agent.(1-2)product.comments.entry.product.name="Android API"'
+    extract:
+      - 'DeviceClass                         :        1 :"Mobile"' # Classification based on device name is too hard.
+      - 'OperatingSystemClass                :     1501 :"Mobile"'
+      - 'OperatingSystemName                 :     1501 :"Android"'
+      - 'OperatingSystemVersion              :     1501 :LookUp[AndroidAPIToVersionMap;@Android^.version;"<<<null>>>"]'
 
 
 - matcher:
