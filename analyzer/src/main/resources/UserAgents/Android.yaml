@@ -18,6 +18,7 @@ config:
 
 # From https://en.wikipedia.org/wiki/Android_version_history
 # https://developer.android.com/studio/releases/platforms
+# https://source.android.com/setup/start/build-numbers
 # NOTE: Android/9 (and Android/11) is ambiguous to either being Android 9 or Android 2.3 in this lookup
 # So ONLY use this lookup if SURE this is the API version.
 - lookup:
@@ -28,6 +29,8 @@ config:
       "3"  : "1.5" # 1.5 Cupcake (API 3)
       "4"  : "1.6" # 1.6 Donut (API 4)
       "5"  : "2.0" # 2.0 Eclair (API 5)
+      "6"  : "2.0.1"
+      "7"  : "2.1"
       "8"  : "2.2" # 2.2 Froyo (API 8)
       "9"  : "2.3" # 2.3 Gingerbread (API 9)
       "10" : "2.3.3"
@@ -52,7 +55,7 @@ config:
       "29" : "10"  # 10 (API 29)
       "30" : "11"  # 11 (API 30)
       "31" : "12"  # Android 12 (API levels 31, 32)
-      "32" : "12L" # Feature drop
+      "32" : "12L" # Feature drop: Wide screens, multitasking, etc. https://developer.android.com/about/versions/12/12L
       "33" : "13"  # FIXME: Guess !
 
 - matcher:
