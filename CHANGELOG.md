@@ -13,6 +13,7 @@ v7.4.0-SNAPSHOT
   - Browsers that extend the Edge useragent.
   - Oculus VR devices/OculusBrowser
   - Some historical systems (IRIX, CP/M, RISC OS, AmigaOS, ...)
+  - Handle a lot of cases where the braces were removed.
   - Anonymization
     - All anonymized agents have DeviceClass: 'Anonymized'
     - More extensive anonymization detection by looking at version patterns

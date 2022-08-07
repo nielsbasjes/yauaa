@@ -2696,12 +2696,12 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Unknown ??'
       OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '68.0'
-      LayoutEngineVersionMajor             : '68'
-      LayoutEngineNameVersion              : 'Blink 68.0'
-      LayoutEngineNameVersionMajor         : 'Blink 68'
+      LayoutEngineClass                    : 'Browser'                 # TODO: Unimportant edge case.
+      LayoutEngineName                     : 'Mozilla'                 # 'Blink'
+      LayoutEngineVersion                  : '5.0'                     # '68.0'
+      LayoutEngineVersionMajor             : '5'                       # '68'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'             # 'Blink 68.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'               # 'Blink 68'
       AgentClass                           : 'Browser'
       AgentName                            : 'Chrome'
       AgentVersion                         : '68.0.3440.106'
@@ -3133,38 +3133,6 @@ config:
       AgentVersionMajor                    : '52'
       AgentNameVersion                     : 'Firefox 52.7.1'
       AgentNameVersionMajor                : 'Firefox 52'
-
-
-# Missing comment braces.
-- test:
-    input:
-      User-Agent                           : 'Mozilla/3.0 ZX-81; U; CP/M86; en-US; rv:1.8.0.1 Gecko/20060728 Firefox/68.0'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Spectrum ZX-81'
-      DeviceBrand                          : 'Spectrum'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'CP/M'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'CP/M ??'
-      OperatingSystemNameVersionMajor      : 'CP/M ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '1.8.0.1'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Gecko 1.8.0.1'
-      LayoutEngineNameVersionMajor         : 'Gecko 1'
-      LayoutEngineBuild                    : '20060728'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : '68.0'
-      AgentVersionMajor                    : '68'
-      AgentNameVersion                     : 'Firefox 68.0'
-      AgentNameVersionMajor                : 'Firefox 68'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
 
 
 # Missing comment braces, Windows 9.

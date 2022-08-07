@@ -899,6 +899,7 @@ config:
     extract:
       - 'DeviceName  : 200 : "ZX-81"'
       - 'DeviceBrand : 200 : "Spectrum"'
+      - 'RemarkablePattern                 :    10 :"Very uncommon"'
 
 # TODO: I expect this to be faked. ZX-81, CP/M running Chrome ... suuuuure
 - test:
@@ -929,6 +930,40 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Very uncommon'
+
+
+# Missing comment braces, and fakes in several other ways.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/3.0 ZX-81; U; CP/M86; en-US; rv:1.8.0.1 Gecko/20060728 Firefox/68.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Spectrum ZX-81'
+      DeviceBrand                          : 'Spectrum'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'CP/M'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'CP/M ??'
+      OperatingSystemNameVersionMajor      : 'CP/M ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.8.0.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.8.0.1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20060728'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '68.0'
+      AgentVersionMajor                    : '68'
+      AgentNameVersion                     : 'Firefox 68.0'
+      AgentNameVersionMajor                : 'Firefox 68'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Very uncommon'
 
 
 - test:
@@ -1919,6 +1954,7 @@ config:
       DeviceName                           : 'FreeBsd Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel i386'
+      DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'FreeBSD'
       OperatingSystemVersion               : '6'
@@ -1927,16 +1963,19 @@ config:
       OperatingSystemNameVersionMajor      : 'FreeBSD 6'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Presto'
-      LayoutEngineVersion                  : '1'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Presto 1'
-      LayoutEngineNameVersionMajor         : 'Presto 1'
+      LayoutEngineVersion                  : '2.10.289'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.10.289'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
       AgentClass                           : 'Browser'
       AgentName                            : 'Opera'
-      AgentVersion                         : '9.70'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'Opera 9.70'
-      AgentNameVersionMajor                : 'Opera 9'
+      AgentVersion                         : '57.0'
+      AgentVersionMajor                    : '57'
+      AgentNameVersion                     : 'Opera 57.0'
+      AgentNameVersionMajor                : 'Opera 57'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      AgentSecurity                        : 'Strong security'
 
 
 - test:
@@ -1947,6 +1986,7 @@ config:
       DeviceName                           : 'FreeBsd Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel i386'
+      DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'FreeBSD'
       OperatingSystemVersion               : '6'
@@ -1955,16 +1995,19 @@ config:
       OperatingSystemNameVersionMajor      : 'FreeBSD 6'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Presto'
-      LayoutEngineVersion                  : '1'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Presto 1'
-      LayoutEngineNameVersionMajor         : 'Presto 1'
+      LayoutEngineVersion                  : '2.6.31'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.6.31'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
       AgentClass                           : 'Browser'
       AgentName                            : 'Opera'
-      AgentVersion                         : '9.70'
-      AgentVersionMajor                    : '9'
-      AgentNameVersion                     : 'Opera 9.70'
-      AgentNameVersionMajor                : 'Opera 9'
+      AgentVersion                         : '67.0'
+      AgentVersionMajor                    : '67'
+      AgentNameVersion                     : 'Opera 67.0'
+      AgentNameVersionMajor                : 'Opera 67'
+      AgentLanguage                        : 'Polish'
+      AgentLanguageCode                    : 'pl'
+      AgentSecurity                        : 'Strong security'
 
 
 - test:
@@ -1975,6 +2018,7 @@ config:
       DeviceName                           : 'FreeBsd Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'FreeBSD'
       OperatingSystemVersion               : '??'

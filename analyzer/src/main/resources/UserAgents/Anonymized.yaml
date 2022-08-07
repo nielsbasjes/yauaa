@@ -65,6 +65,21 @@ config:
     - 'DeviceClass                         :    10000 :"Anonymized"'
     - 'RemarkablePattern                   :      100: "Anonymized"'
 
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="Opera"'
+      - 'agent.(1)product.(1)version="9.99"'
+    extract:
+      - 'DeviceClass                         :    10000 :"Anonymized"'
+      - 'RemarkablePattern                   :      100: "Anonymized"'
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="Opera"'
+      - 'agent.(1)product.(1)version="9.99."'
+    extract:
+      - 'DeviceClass                         :    10000 :"Anonymized"'
+      - 'RemarkablePattern                   :      100: "Anonymized"'
 
 # Google web light is a proxy intended for slow (2G) connections.
 # https://support.google.com/webmasters/answer/6211428?hl=en
