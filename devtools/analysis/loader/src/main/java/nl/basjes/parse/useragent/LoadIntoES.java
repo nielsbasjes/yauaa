@@ -135,6 +135,7 @@ public final class LoadIntoES {
                     .setEmitter(
                         (element, context, indexer) ->
                             indexer.add(createIndexRequest(element)))
+                    .useApiCompatibilityMode() // Make it compatible with ES 8
                     .build()
             );
 

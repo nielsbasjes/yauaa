@@ -20,8 +20,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 cd "${DIR}" || exit 1
 
-# NOTE: We MUST use the Elastic 7 because the Flink connector does not doe ES 8 yet.
-ELK_VERSION=$(cd .. && mvn help:evaluate -Dexpression=elasticsearch-7.version -q -DforceStdout)
+ELK_VERSION=$(cd .. && mvn help:evaluate -Dexpression=elasticsearch-8.version -q -DforceStdout)
 YAUAA_VERSION=$(cd .. && mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 docker rmi analysis_elasticsearch:latest
