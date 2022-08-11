@@ -5,6 +5,8 @@ I usually copy these to a separate "working" location out or sight of IntelliJ a
 
 I use this to find unexpected agents and patterns to base new rules upon.
 
+In the loader directory is a Flink based tool that does this by fully utilizing all CPU cores on my machine.
+
 <!--
    - Yet Another UserAgent Analyzer
    - Copyright (C) 2013-2022 Niels Basjes

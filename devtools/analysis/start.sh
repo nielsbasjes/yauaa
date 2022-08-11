@@ -20,7 +20,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 cd "${DIR}" || exit 1
 
-ELK_VERSION=$(cd .. && mvn help:evaluate -Dexpression=elasticsearch-8.version -q -DforceStdout)
+# NOTE: We MUST use the Elastic 7 because the Flink connector does not doe ES 8 yet.
+ELK_VERSION=$(cd .. && mvn help:evaluate -Dexpression=elasticsearch-7.version -q -DforceStdout)
 YAUAA_VERSION=$(cd .. && mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 docker rmi analysis_elasticsearch:latest
@@ -28,7 +29,7 @@ docker rmi analysis_elasticsearch:latest
 echo "ELK_VERSION=${ELK_VERSION}" > .env
 echo "YAUAA_VERSION=${YAUAA_VERSION}" >>.env
 
-cp ../../udfs/elastic/elasticsearch-8/target/yauaa-elasticsearch-8-${YAUAA_VERSION}.zip .
+#cp ../../udfs/elastic/elasticsearch-7/target/yauaa-elasticsearch-7-${YAUAA_VERSION}.zip .
 
 #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 # Reset

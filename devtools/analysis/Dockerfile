@@ -20,14 +20,14 @@ ARG ELK_VERSION
 # https://github.com/elastic/elasticsearch-docker
 FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
 
-COPY *.zip ./plugin/
+#COPY *.zip ./plugin/
 COPY elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
-RUN bin/elasticsearch-plugin -v -v -v install file:///$(ls /usr/share/elasticsearch/plugin/*.zip | head -1)
+#RUN bin/elasticsearch-plugin -v -v -v install file:///$(ls /usr/share/elasticsearch/plugin/*.zip | head -1)
 
 ENV ES_JAVA_OPTS "-Xmx8192m -Xms1024m"
 
-RUN ls -laF /usr/share/elasticsearch/plugin
+#RUN ls -laF /usr/share/elasticsearch/plugin
 
 EXPOSE 9200
 EXPOSE 9300

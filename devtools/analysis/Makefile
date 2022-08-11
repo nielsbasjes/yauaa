@@ -51,20 +51,22 @@ wipeindex:
 	@-@rm $(LOADEDES)
 	@echo -n "Delete index: "
 	@curl -s -H 'Content-Type: application/json' -X DELETE 'localhost:9200/useragents'
+	@echo -n "Delete pipeline: "
+	@curl -s -H 'Content-Type: application/json' -X DELETE 'localhost:9200/_ingest/pipeline/yauaa'
 
 .PHONY: createindex
 
 # Recreate the empty index in ES with all the settings
 createindex:
-	@echo -n "Define pipeline: "
-	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa' -d '{"description": "A pipeline parse the useragents","processors": [{"yauaa" : {"field_to_header_mapping" : {"ua": "User-Agent"},"target_field"  : "parsed","cacheSize" : 10000}}]}'
-	@echo ""
 	@echo -n "Create index: "
-	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/useragents'
+	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/useragents' -d '{ "settings": { "index": { "number_of_shards": 1, "number_of_replicas": 1 }}}'
 	@echo ""
-	@echo -n "Set default pipeline: "
-	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/useragents/_settings' -d '{"index" : {"default_pipeline" : "yauaa"}}'
-	@echo ""
+#	@echo -n "Define pipeline: "
+#	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/_ingest/pipeline/yauaa' -d '{"description": "A pipeline parse the useragents","processors": [{"yauaa" : {"field_to_header_mapping" : {"ua": "User-Agent"},"target_field"  : "parsed","cacheSize" : 10000}}]}'
+#	@echo ""
+#	@echo -n "Set default pipeline: "
+#	@curl -s -H 'Content-Type: application/json' -X PUT 'localhost:9200/useragents/_settings' -d '{"index" : {"default_pipeline" : "yauaa"}}'
+#	@echo ""
 
 # Do a rough first pass over the input files (stored in a different directory) and recreate the base input files from source.
 bootstrap:
