@@ -1,0 +1,312 @@
+# =============================================
+# THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
+# =============================================
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+- set:
+    name: 'NormalMozillaVersions'
+    values:
+      - '1.10'
+      - '1.22'
+      - '1.4'
+      - '1.5'
+      - '1.6'
+      - '1.7'
+      - '2.0'
+      - '3.0'
+      - '4.0'
+      - '4.4'
+      - '4.5'
+      - '4.6'
+      - '4.7'
+      - '4.8'
+      - '5.0'
+
+- matcher:
+    require:
+      - 'agent.(1)product.name="Mozilla"'
+      - 'IsNotInLookUpPrefix[NormalMozillaVersions;agent.(1)product.version]'
+    extract:
+      - 'RemarkablePattern                 :    10 :"No such version: Mozilla"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Safari"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Safari"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Mobile Safari"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Mobile Safari"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="TV Safari"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="TV Safari"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="VR Safari"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="VR Safari"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Mobile VR Safari"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Mobile VR Safari"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Chromium"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Chromium"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Chrome"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Chrome"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Edge"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Edge"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Edg"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Edg"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="EdgA"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="EdgA"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="EdgIOS"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="EdgIOS"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Firefox"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Firefox"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="OPR"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="OPR"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Opera"^.(1)version'
+    require:
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+- matcher:
+    variable:
+    - 'AgentVersion: agent.product.name="Opera"^.(2)version'
+    require:
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[IsValidVersion[@AgentVersion]]'
+    extract:
+    - 'DeviceClass                         :    10000 :"Robot"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
