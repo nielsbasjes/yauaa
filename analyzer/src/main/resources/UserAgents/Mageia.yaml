@@ -60,8 +60,8 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.0 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/531.0 (KHTML, like Gecko) Chrome/63.0.3239 Safari/1EA69'
-    expected: # TODO: Check if this is right
-      DeviceClass                          : 'Anonymized'
+    expected:
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -84,14 +84,14 @@ config:
       AgentVersionMajor                    : '63'
       AgentNameVersion                     : 'Chrome 63.0.3239'
       AgentNameVersionMajor                : 'Chrome 63'
-      RemarkablePattern                    : 'Anonymized'          #      100           | FAILED; Should be '<<absent>>'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/4.0 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/537.17 (KHTML, like Gecko) Chrome/38.0.2125 Safari/4E423F'
-    expected: # TODO: Check if this is right
-      DeviceClass                          : 'Anonymized'
+    expected:
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -114,13 +114,13 @@ config:
       AgentVersionMajor                    : '38'
       AgentNameVersion                     : 'Chrome 38.0.2125'
       AgentNameVersionMajor                : 'Chrome 38'
-      RemarkablePattern                    : 'Anonymized'          #      100           | FAILED; Should be '<<absent>>'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/4.0 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20061208 Firefox/69.0.1'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -150,7 +150,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.0 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/2008020514 Firefox/52.7.1'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -180,7 +180,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.0 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20101203 Firefox/52.2.0'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -210,7 +210,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.76 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/522.12.1 (KHTML, like Gecko) Chrome/39.0.2171 Safari/85.8'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -239,7 +239,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.76 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20061204 Opera 66.0'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -269,7 +269,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.76 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20061208 Firefox/68.6.1'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -299,7 +299,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.78 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/525.13 (KHTML, like Gecko) Chrome/80.0.3987 Safari/534.18'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -328,7 +328,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.78 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/528.4 (KHTML, like Gecko) Chrome/56.0.2924 Safari/700.13'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -357,7 +357,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.78 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/534.35 (KHTML, like Gecko) Chrome/65.0.3325 Safari/312.3'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -386,7 +386,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.78 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20060728 Opera 68.0'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -416,7 +416,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.78 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20061208 Firefox/59.0.3'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -446,7 +446,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/4.78 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/2008020514 Firefox/68.12.0'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -476,7 +476,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/312.8 (KHTML, like Gecko) Chrome/56.0.2924 Safari/534.20'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -505,7 +505,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/523.15.1 (KHTML, like Gecko) Chrome/38.0.2125 Safari/523.11'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -534,7 +534,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/523.2+ (KHTML, like Gecko) Chrome/58.0.3029 Safari/521.32.1'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -563,7 +563,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 X11; Mageia; Linux x86_64; rv:10.0.9 AppleWebKit/523.9+ (KHTML, like Gecko) Chrome/73.0.3683 Safari/534.20'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -592,7 +592,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20060728 Opera 72.0'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -622,7 +622,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 X11; Mageia; Linux x86_64; rv:10.0.9 Gecko/20060728 Firefox/56.0.1'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -652,7 +652,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; Mageia; Linux x86_64; rv:10.0.9) Gecko/20100101 Firefox/10.0.9'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'
@@ -682,7 +682,7 @@ config:
 - test:
     input:
       User-Agent                           : 'Opera/6.01 X11; Mageia; Linux x86_64; rv:10.0.9 Presto/2.8.149 Version/63.0'
-    expected: # TODO: Check if this is right
+    expected:
       DeviceClass                          : 'Desktop'
       DeviceName                           : 'Linux Desktop'
       DeviceBrand                          : 'Unknown'

@@ -249,14 +249,14 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: AppleWebKit'
 
 # These have been manipulated to have multiple user agents.
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 10.0; WOW64; IA64; en) AppleWebKit/599.0+ Chrome/48.2564.0.82 Maxthon/4.9.0 QupZilla/1.8.9'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel Itanium 64'
@@ -281,13 +281,13 @@ config:
       AgentNameVersionMajor                : 'QupZilla 1'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
-      RemarkablePattern                    : 'Anonymized'
+
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 10.0; WOW64; IA64; en) AppleWebKit/599.0+ Chrome/55.0.2883.0.87 Maxthon/5.0.2 QupZilla/2.0.2'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel Itanium 64'
@@ -312,13 +312,13 @@ config:
       AgentNameVersionMajor                : 'QupZilla 2'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
-      RemarkablePattern                    : 'Anonymized'
+
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 5.1; U; WOW64; IA64; en) AppleWebKit/599.0+ (KHTML, like Gecko) Maxthon/3.0 Chrome/41.0.2272.89 Safari/537.36 OPR/28.0.1750.40 QupZilla/1.8.6'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel Itanium 64'
@@ -344,13 +344,13 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 6.1; U; WOW64; IA64; en) AppleWebKit/599.0+ (KHTML, like Gecko) Maxthon/4.4.3.4000 Chrome/39.0.2171.95 Safari/537.36 OPR/26.0.1656.60 QupZilla/1.8.4'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel Itanium 64'
@@ -376,13 +376,13 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 6.1; U; WOW64; IA64; en) AppleWebKit/599.0+ (KHTML, like Gecko) Maxthon/4.4.8.1000 Chrome/48.2564.0.109 Safari/537.36 OPR/35.0.2066.37 QupZilla/1.8.9'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel Itanium 64'
@@ -408,13 +408,13 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+
 
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (compatible; Windows NT 6.3; U; WOW64; IA64; YB/3.5.3; Trident/8.0; rv:550) AppleWebKit/599.0+ (KHTML, like Gecko) Chrome/49.0.2612.0 Safari/537.36 OPR/36.0.2130.29 QupZilla/1.8.6'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel Itanium 64'
@@ -438,7 +438,7 @@ config:
       AgentNameVersion                     : 'Opera 36.0.2130.29'
       AgentNameVersionMajor                : 'Opera 36'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+
 
 # Version 999 ... yeah right
 - test:
@@ -469,7 +469,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: AppleWebKit'
 
 
 - test: # This seems a bit messy, but given the input the best possible
@@ -540,7 +540,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.1.7 Safari/XSSN77UVZ'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -563,14 +563,14 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'Safari 7.1.7'
       AgentNameVersionMajor                : 'Safari 7'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.1.7 Safari/CXPXSSDKA'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -593,14 +593,14 @@ config:
       AgentVersionMajor                    : '7'
       AgentNameVersion                     : 'Safari 7.1.7'
       AgentNameVersionMajor                : 'Safari 7'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.8677.505 Safari/537.36 Edg/1DGWMNWXSSP'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -623,14 +623,14 @@ config:
       AgentVersionMajor                    : '1DGWMNWXSSP'
       AgentNameVersion                     : 'Edge 1DGWMNWXSSP'
       AgentNameVersionMajor                : 'Edge 1DGWMNWXSSP'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.7164.687 Safari/DAXSSU'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -653,14 +653,14 @@ config:
       AgentVersionMajor                    : '86'
       AgentNameVersion                     : 'Chrome 86.0.7164.687'
       AgentNameVersionMajor                : 'Chrome 86'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:80.0) Gecko/20100101 Firefox/5XSS'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -684,14 +684,14 @@ config:
       AgentVersionMajor                    : '5XSS'
       AgentNameVersion                     : 'Firefox 5XSS'
       AgentNameVersionMajor                : 'Firefox 5XSS'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/HXSS'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -714,7 +714,7 @@ config:
       AgentVersionMajor                    : 'HXSS'
       AgentNameVersion                     : 'Firefox HXSS'
       AgentNameVersionMajor                : 'Firefox HXSS'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -746,12 +746,12 @@ config:
       AgentNameVersionMajor                : 'TO-Browser TOB7'
       RemarkablePattern                    : 'Anonymized'
 
-# Anonymized --> NOT Robot (bot)
+# Robot because of nonsnse version
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.2914.144 Safari/537.36 Edg/BOTXMTJFVV4'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -774,14 +774,14 @@ config:
       AgentVersionMajor                    : 'BOTXMTJFVV4'
       AgentNameVersion                     : 'Edge BOTXMTJFVV4'
       AgentNameVersionMajor                : 'Edge BOTXMTJFVV4'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
-# Anonymized --> NOT Hacker (Nmap)
+# Robot because of nonsnse version --> NOT Hacker (Nmap)
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.3555.887 Safari/NMAP4H'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -804,15 +804,15 @@ config:
       AgentVersionMajor                    : '84'
       AgentNameVersion                     : 'Chrome 84.0.3555.887'
       AgentNameVersionMajor                : 'Chrome 84'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
-  # Anonymized --> NOT Hacker (Nmap)
+# Robot because of nonsnse version --> NOT Hacker (Nmap)
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.1126.742 Safari/537.36 OPR/43ENDRNMAP1GSITEP'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -835,7 +835,7 @@ config:
       AgentVersionMajor                    : '43ENDRNMAP1GSITEP'
       AgentNameVersion                     : 'Opera 43ENDRNMAP1GSITEP'
       AgentNameVersionMajor                : 'Opera 43ENDRNMAP1GSITEP'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -865,7 +865,7 @@ config:
       AgentVersionMajor                    : '55'
       AgentNameVersion                     : 'Opera 55.0'
       AgentNameVersionMajor                : 'Opera 55'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: Opera'
 
 
 - test:
@@ -897,7 +897,7 @@ config:
       AgentNameVersionMajor                : 'Opera 11'
       AgentLanguage                        : 'Assamese (India)'
       AgentLanguageCode                    : 'as-in'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: Opera'
 
 
 - test:
@@ -927,7 +927,7 @@ config:
       AgentVersionMajor                    : '68'
       AgentNameVersion                     : 'Opera 68.0'
       AgentNameVersionMajor                : 'Opera 68'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: Opera'
 
 
 - test:
@@ -960,7 +960,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: Opera'
 
 
 - test:
@@ -991,7 +991,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: Opera'
 
 
 - test:
@@ -1022,7 +1022,7 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'No such version: Opera'
 
 
 # Windows NT 7.2 is also dodgy
@@ -1054,4 +1054,4 @@ config:
       AgentVersionMajor                    : '45'
       AgentNameVersion                     : 'Firefox 45.0'
       AgentNameVersionMajor                : 'Firefox 45'
-      RemarkablePattern                    : 'Uncommon version: Mozilla'
+      RemarkablePattern                    : 'No such version: Mozilla'

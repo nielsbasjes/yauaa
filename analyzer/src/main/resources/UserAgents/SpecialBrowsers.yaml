@@ -3769,7 +3769,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 8.1.0; One) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36/TansoDL'
     expected:
-      DeviceClass                          : 'Phone'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Oneplus ONE'
       DeviceBrand                          : 'Oneplus'
       OperatingSystemClass                 : 'Mobile'
@@ -3795,6 +3795,7 @@ config:
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersion                : 'Kode ??'
       WebviewAppNameVersionMajor           : 'Kode ??'
+      RemarkablePattern                    : 'Not a version'
 
 
 # Cake browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
@@ -4599,7 +4600,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:48.0) Gecko/20100101 Firefox/48.0@i-0bf85dffe1b8d659f'
     expected:
-      DeviceClass                          : 'Desktop'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -4623,6 +4624,7 @@ config:
       AgentVersionMajor                    : '48'
       AgentNameVersion                     : 'Firefox 48.0'
       AgentNameVersionMajor                : 'Firefox 48'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:

@@ -2449,7 +2449,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:54.0) Gecko/20100101 Firefox/@PKGVER@'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -2472,7 +2472,8 @@ config:
       AgentVersionMajor                    : '@PKGVER@'
       AgentNameVersion                     : 'Firefox @PKGVER@'
       AgentNameVersionMajor                : 'Firefox @PKGVER@'
-      RemarkablePattern                    : 'Anonymized'
+      RemarkablePattern                    : 'Not a version'
+
 
 # Deliberately modified to ensure having too many spaces still works
 - test:
@@ -2529,7 +2530,7 @@ config:
       AgentVersionMajor                    : '6BVq0FJm9L'
       AgentNameVersion                     : 'IZShJuZST 6BVq0FJm9L'
       AgentNameVersionMajor                : 'IZShJuZST 6BVq0FJm9L'
-      RemarkablePattern                    : 'Uncommon version: Mozilla'
+      RemarkablePattern                    : 'No such version: Mozilla'
 
 - test:
     input:
@@ -3073,7 +3074,7 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Chrome 1'
       AgentNameVersionMajor                : 'Chrome 1'
-      RemarkablePattern                    : 'Uncommon version: Mozilla'
+      RemarkablePattern                    : 'No such version: Mozilla'
 
 # Clearly manipulated: Windows XP + Chrome + "Mobile Safari" --> Phone
 - test:
@@ -3237,7 +3238,7 @@ config:
     input:
       User-Agent                           : '{''user_agent'': ''Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 CoRom/24.0.1312.52 Safari/537.17'', ''operating_system'': ''windows'', ''software_name'': ''chrome'', ''software_engine'': ''WebKit'', ''software_type'': ''browser -> web-browser'', ''hardware_type'': ''computer'', ''popularity'': ''uncommon''}'
     expected:
-      DeviceClass                          : 'Anonymized'
+      DeviceClass                          : 'Robot'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -3260,5 +3261,4 @@ config:
       AgentVersionMajor                    : '24'
       AgentNameVersion                     : 'CoRom 24.0.1312.52'
       AgentNameVersionMajor                : 'CoRom 24'
-      RemarkablePattern                    : 'Anonymized'
-      __SyntaxError__                      : 'true'
+      RemarkablePattern                    : 'Not a version'
