@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.4.0-SNAPSHOT
+v7.5.0-SNAPSHOT
+===
+- ..
+
+v7.4.0
 ===
 - Analyzer:
   - IsValidVersion function to determine if a version looks like a normal version.

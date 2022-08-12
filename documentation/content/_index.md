@@ -12,7 +12,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-### Version 7.4.0 (Unreleased)
+### Version 7.4.0
 - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
 - New DeviceClass: "Home Appliance" (Fridges and such)
 - Oculus VR devices/OculusBrowser
