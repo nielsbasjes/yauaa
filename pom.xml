@@ -409,12 +409,14 @@
                     <!-- verify that the current repository is not dirty -->
                     <validationProperty>
                       <name>Don't try to release if something has not yet been committed.</name>
+                      <!--suppress UnresolvedMavenProperty -->
                       <value>${git.dirty}</value>
                       <shouldMatchTo>false</shouldMatchTo>
                     </validationProperty>
                     <!-- verify that the current commit has a tag -->
                     <validationProperty>
                       <name>validating current commit has a tag</name>
+                      <!--suppress UnresolvedMavenProperty -->
                       <value>${git.closest.tag.commit.count}</value>
                       <shouldMatchTo>0</shouldMatchTo>
                     </validationProperty>
