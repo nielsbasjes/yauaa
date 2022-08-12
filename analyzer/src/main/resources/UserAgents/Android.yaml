@@ -234,11 +234,13 @@ config:
 - matcher:
     variable:
     - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
+    - 'CPU                                 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
     extract:
     - 'DeviceClass                         :     2015 :"Desktop"'
     - 'DeviceBrand                         :     2015 :"<<<null>>>"'
     - 'DeviceName                          :     2015 :"Chromebook"'
-    - 'DeviceCpu                           :     2015 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
+    - 'DeviceCpu                           :     2015 :@CPU[[1]]'
+    - 'DeviceCpuBits                       :     2015 :@CPU[[2]]'
     - 'OperatingSystemClass                :     2015 :"Desktop"'
     - 'OperatingSystemName                 :     2015 :"Chrome OS"'
     - 'OperatingSystemVersion              :     2015 :agent.product.name="Chrome"^.version'
@@ -247,11 +249,13 @@ config:
 - matcher:
     variable:
       - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
+      - 'CPU                                 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
     extract:
     - 'DeviceClass                         :     2014 :"Desktop"'
     - 'DeviceBrand                         :     2014 :"<<<null>>>"'
     - 'DeviceName                          :     2014 :"Chromebook"'
-    - 'DeviceCpu                           :     2015 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
+    - 'DeviceCpu                           :     2015 :@CPU[[1]]'
+    - 'DeviceCpuBits                       :     2015 :@CPU[[2]]'
     - 'OperatingSystemClass                :     2014 :"Desktop"'
     - 'OperatingSystemName                 :     2014 :"Chrome OS"'
     - 'OperatingSystemVersion              :     2014 :agent.product.name="Chrome"^.version'

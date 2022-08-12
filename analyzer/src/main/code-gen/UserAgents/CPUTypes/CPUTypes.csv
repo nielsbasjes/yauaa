@@ -14,98 +14,100 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-Intel      | Intel              | 32
-i386       | Intel i386         | 32
-i486       | Intel i486         | 32
-i586       | Intel i586         | 32
-i686       | Intel i686         | 32
-i786       | Intel i786         | 32
-i86pc      | i86pc              | 32
-x86        | x86                | 32
+# Tag | Name | Bits | DeviceClass(optional)
 
-x86_32     | Intel x86_32       | 32
-x86-32     | Intel x86_32       | 32
-x64_32     | Intel x86_32       | 32
-x86_x32    | Intel x86_32       | 32
-x8632      | Intel x86_32       | 32
-x6432      | Intel x86_32       | 32
-Intelx32   | Intel x86_32       | 32
+Intel      | Intel              | 32 | Desktop
+i386       | Intel i386         | 32 | Desktop
+i486       | Intel i486         | 32 | Desktop
+i586       | Intel i586         | 32 | Desktop
+i686       | Intel i686         | 32 | Desktop
+i786       | Intel i786         | 32 | Desktop
+i86pc      | i86pc              | 32 | Desktop
+x86        | x86                | 32 | Desktop
 
-x86_64     | Intel x86_64       | 64
-x86-64     | Intel x86_64       | 64
-x64_64     | Intel x86_64       | 64
-x86_x64    | Intel x86_64       | 64
-x8664      | Intel x86_64       | 64
-x6464      | Intel x86_64       | 64
-Intelx64   | Intel x86_64       | 64
+x86_32     | Intel x86_32       | 32 | Desktop
+x86-32     | Intel x86_32       | 32 | Desktop
+x64_32     | Intel x86_32       | 32 | Desktop
+x86_x32    | Intel x86_32       | 32 | Desktop
+x8632      | Intel x86_32       | 32 | Desktop
+x6432      | Intel x86_32       | 32 | Desktop
+Intelx32   | Intel x86_32       | 32 | Desktop
 
-AMD        | AMD                | 32
-amd64      | AMD64              | 64
+x86_64     | Intel x86_64       | 64 | Desktop
+x86-64     | Intel x86_64       | 64 | Desktop
+x64_64     | Intel x86_64       | 64 | Desktop
+x86_x64    | Intel x86_64       | 64 | Desktop
+x8664      | Intel x86_64       | 64 | Desktop
+x6464      | Intel x86_64       | 64 | Desktop
+Intelx64   | Intel x86_64       | 64 | Desktop
 
-x64        | Intel x86_64       | 64
-Win64      | Intel x86_64       | 64
-WOW64      | Intel x86_64       | 64
-ia64       | Intel Itanium 64   | 64
+AMD        | AMD                | 32 | Desktop
+amd64      | AMD64              | 64 | Desktop
 
-arm        | ARM                | 32
-armv5      | ARMv5              | 32
-armv5l     | ARMv5l             | 32
-armv5tel   | ARMv5tel           | 32
-armv5tejl  | ARMv5tejl          | 32
-armv6      | ARMv6              | 32
-armv6l     | ARMv6l             | 32
-armv6tel   | ARMv6tel           | 32
-armv6tejl  | ARMv6tejl          | 32
-armv7      | ARMv7              | 32
-armv71     | ARMv71             | 32
-armv7l     | ARMv7l             | 32
-armv7i     | ARMv7i             | 32
-armv7tel   | ARMv7tel           | 32
-armv7tejl  | ARMv7tejl          | 32
-arm7tdmi   | ARMv7tdmi          | 32
+x64        | Intel x86_64       | 64 | Desktop
+Win64      | Intel x86_64       | 64 | Desktop
+WOW64      | Intel x86_64       | 64 | Desktop
+ia64       | Intel Itanium 64   | 64 | Desktop
+
+arm        | ARM                | 32 | Mobile
+armv5      | ARMv5              | 32 | Mobile
+armv5l     | ARMv5l             | 32 | Mobile
+armv5tel   | ARMv5tel           | 32 | Mobile
+armv5tejl  | ARMv5tejl          | 32 | Mobile
+armv6      | ARMv6              | 32 | Mobile
+armv6l     | ARMv6l             | 32 | Mobile
+armv6tel   | ARMv6tel           | 32 | Mobile
+armv6tejl  | ARMv6tejl          | 32 | Mobile
+armv7      | ARMv7              | 32 | Mobile
+armv71     | ARMv71             | 32 | Mobile
+armv7l     | ARMv7l             | 32 | Mobile
+armv7i     | ARMv7i             | 32 | Mobile
+armv7tel   | ARMv7tel           | 32 | Mobile
+armv7tejl  | ARMv7tejl          | 32 | Mobile
+arm7tdmi   | ARMv7tdmi          | 32 | Mobile
 
 # https://developer.android.com/ndk/guides/abis
 # Application Binary Interface (ABI)
-armeabi-v7a | ARMv7             | 32
-armeabi-v7a:armeabi | ARMv7     | 32
+armeabi-v7a | ARMv7             | 32 | Mobile
+armeabi-v7a:armeabi | ARMv7     | 32 | Mobile
 
 # This is weird combination tag
-x86:armeabi | ARMv8             | 64
+x86:armeabi | ARMv8             | 64 | Mobile
 
-arm64-v8a  | ARMv8              | 64
+arm64-v8a  | ARMv8              | 64 | Mobile
 
-armv8      | ARMv8              | 64
-armv81     | ARMv81             | 64
-armv8l     | ARMv8l             | 64
-armv8i     | ARMv8i             | 64
-armv8tel   | ARMv8tel           | 64
-armv8tejl  | ARMv8tejl          | 64
-arm8tdmi   | ARMv8tdmi          | 64
+armv8      | ARMv8              | 64 | Mobile
+armv81     | ARMv81             | 64 | Mobile
+armv8l     | ARMv8l             | 64 | Mobile
+armv8i     | ARMv8i             | 64 | Mobile
+armv8tel   | ARMv8tel           | 64 | Mobile
+armv8tejl  | ARMv8tejl          | 64 | Mobile
+arm8tdmi   | ARMv8tdmi          | 64 | Mobile
 
-aarch32    | AArch32            | 32
-aarch64    | AArch64            | 64
+aarch32    | AArch32            | 32 | Mobile
+aarch64    | AArch64            | 64 | Mobile
 
-arm64      | ARM64              | 64
+arm64      | ARM64              | 64 | Mobile
 
-sparc      | Sparc              | 32
-sparc64    | Sparc 64           | 64
-powerpc    | PowerPC            | 32
-ppc        | PowerPC            | 32
-ppc native | PowerPC            | 32
-ppc64      | PowerPC 64         | 64
-alpha      | Alpha              | 32
-mips       | Mips               | 32
-sh1        | SH1                | 32
-sh2        | SH2                | 32
-sh3        | SH3                | 32
-sh4        | SH4                | 32
-sh5        | SH5                | 64
-ti8148     | Ti8148             | 32
+sparc      | Sparc              | 32 | Desktop
+sparc64    | Sparc 64           | 64 | Desktop
+powerpc    | PowerPC            | 32 | Desktop
+ppc        | PowerPC            | 32 | Desktop
+ppc native | PowerPC            | 32 | Desktop
+ppc64      | PowerPC 64         | 64 | Desktop
+alpha      | Alpha              | 32 | Desktop
+mips       | Mips               | 32 | Desktop
+sh1        | SH1                | 32 | Mobile
+sh2        | SH2                | 32 | Mobile
+sh3        | SH3                | 32 | Mobile
+sh4        | SH4                | 32 | Mobile
+sh5        | SH5                | 64 | Mobile
+ti8148     | Ti8148             | 32 | Mobile
 
-MC680x0    | Motorola 68000     | 32
-68K        | Motorola 68000     | 32
-Mac_68K    | Motorola 68000     | 32
-Mac_PowerPC| PowerPC            | 32
-Mac_Intel  | PowerPC            | 32
+MC680x0    | Motorola 68000     | 32 | Desktop
+68K        | Motorola 68000     | 32 | Desktop
+Mac_68K    | Motorola 68000     | 32 | Desktop
+Mac_PowerPC| PowerPC            | 32 | Desktop
+Mac_Intel  | PowerPC            | 32 | Desktop
 
-M1         | Apple M1           | 64
+M1         | Apple M1           | 64 | Desktop

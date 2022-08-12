@@ -21,250 +21,191 @@ config:
 
 - matcher:
     extract:
-    - 'DeviceCpu                           :      115 :LookUp[CPUArchitectures;agent.product.name="Sys_CPU"^.version]'
+      - 'DeviceCpuBits :      117 :agent.product.name="App_Bitness"^.version'
 
 - matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.product.name="Sys_CPU"^.version]'
     extract:
-    - 'DeviceCpu                           :      115 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1-2]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      114 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2-3]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      113 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3-4]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      112 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4-5]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      111 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5-6]]'
+      - 'DeviceCpu     :      116 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      116 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
 
 - matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1-2]]'
     extract:
-    - 'DeviceCpu                           :      105 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      104 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      103 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      102 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      101 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      106 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
+      - 'DeviceCpu     :      115 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      115 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
 
 - matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2-3]]'
     extract:
-    - 'DeviceCpu                           :      100 :LookUp[CPUArchitectures;agent.product.(1-2)version]'
+      - 'DeviceCpu     :      114 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      114 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3-4]]'
+    extract:
+      - 'DeviceCpu     :      113 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      113 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4-5]]'
+    extract:
+      - 'DeviceCpu     :      112 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      112 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5-6]]'
+    extract:
+      - 'DeviceCpu     :      111 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      111 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
+    extract:
+      - 'DeviceCpu     :      106 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      106 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1]]'
+    extract:
+      - 'DeviceCpu     :      105 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      105 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2]]'
+    extract:
+      - 'DeviceCpu     :      104 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      104 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3]]'
+    extract:
+      - 'DeviceCpu     :      103 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      103 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4]]'
+    extract:
+      - 'DeviceCpu     :      102 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      102 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5]]'
+    extract:
+      - 'DeviceCpu     :      101 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      101 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.product.(1-2)version]'
+    extract:
+      - 'DeviceCpu     :      100 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      100 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
 
 - lookup:
     name: 'CPUArchitectures'
     map:
-      "Intel" : "Intel"
-      "i386" : "Intel i386"
-      "i486" : "Intel i486"
-      "i586" : "Intel i586"
-      "i686" : "Intel i686"
-      "i786" : "Intel i786"
-      "i86pc" : "i86pc"
-      "x86" : "x86"
-      "x86_32" : "Intel x86_32"
-      "x86-32" : "Intel x86_32"
-      "x64_32" : "Intel x86_32"
-      "x86_x32" : "Intel x86_32"
-      "x8632" : "Intel x86_32"
-      "x6432" : "Intel x86_32"
-      "Intelx32" : "Intel x86_32"
-      "x86_64" : "Intel x86_64"
-      "x86-64" : "Intel x86_64"
-      "x64_64" : "Intel x86_64"
-      "x86_x64" : "Intel x86_64"
-      "x8664" : "Intel x86_64"
-      "x6464" : "Intel x86_64"
-      "Intelx64" : "Intel x86_64"
-      "AMD" : "AMD"
-      "amd64" : "AMD64"
-      "x64" : "Intel x86_64"
-      "Win64" : "Intel x86_64"
-      "WOW64" : "Intel x86_64"
-      "ia64" : "Intel Itanium 64"
-      "arm" : "ARM"
-      "armv5" : "ARMv5"
-      "armv5l" : "ARMv5l"
-      "armv5tel" : "ARMv5tel"
-      "armv5tejl" : "ARMv5tejl"
-      "armv6" : "ARMv6"
-      "armv6l" : "ARMv6l"
-      "armv6tel" : "ARMv6tel"
-      "armv6tejl" : "ARMv6tejl"
-      "armv7" : "ARMv7"
-      "armv71" : "ARMv71"
-      "armv7l" : "ARMv7l"
-      "armv7i" : "ARMv7i"
-      "armv7tel" : "ARMv7tel"
-      "armv7tejl" : "ARMv7tejl"
-      "arm7tdmi" : "ARMv7tdmi"
-      "armeabi-v7a" : "ARMv7"
-      "armeabi-v7a:armeabi" : "ARMv7"
-      "x86:armeabi" : "ARMv8"
-      "arm64-v8a" : "ARMv8"
-      "armv8" : "ARMv8"
-      "armv81" : "ARMv81"
-      "armv8l" : "ARMv8l"
-      "armv8i" : "ARMv8i"
-      "armv8tel" : "ARMv8tel"
-      "armv8tejl" : "ARMv8tejl"
-      "arm8tdmi" : "ARMv8tdmi"
-      "aarch32" : "AArch32"
-      "aarch64" : "AArch64"
-      "arm64" : "ARM64"
-      "sparc" : "Sparc"
-      "sparc64" : "Sparc 64"
-      "powerpc" : "PowerPC"
-      "ppc" : "PowerPC"
-      "ppc native" : "PowerPC"
-      "ppc64" : "PowerPC 64"
-      "alpha" : "Alpha"
-      "mips" : "Mips"
-      "sh1" : "SH1"
-      "sh2" : "SH2"
-      "sh3" : "SH3"
-      "sh4" : "SH4"
-      "sh5" : "SH5"
-      "ti8148" : "Ti8148"
-      "MC680x0" : "Motorola 68000"
-      "68K" : "Motorola 68000"
-      "Mac_68K" : "Motorola 68000"
-      "Mac_PowerPC" : "PowerPC"
-      "Mac_Intel" : "PowerPC"
-      "M1" : "Apple M1"
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      117 :agent.product.name="App_Bitness"^.version'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      116 :LookUp[CPUArchitecturesBits;agent.product.name="Sys_CPU"^.version]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      115 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[1-2]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      114 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[2-3]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      113 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[3-4]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      112 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[4-5]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      111 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[5-6]]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      105 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[1]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      104 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[2]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      103 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[3]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      102 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[4]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      101 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[5]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      106 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
-
-- lookup:
-    name: 'CPUArchitecturesBits'
-    map:
-      "Intel" : "32"
-      "i386" : "32"
-      "i486" : "32"
-      "i586" : "32"
-      "i686" : "32"
-      "i786" : "32"
-      "i86pc" : "32"
-      "x86" : "32"
-      "x86_32" : "32"
-      "x86-32" : "32"
-      "x64_32" : "32"
-      "x86_x32" : "32"
-      "x8632" : "32"
-      "x6432" : "32"
-      "Intelx32" : "32"
-      "x86_64" : "64"
-      "x86-64" : "64"
-      "x64_64" : "64"
-      "x86_x64" : "64"
-      "x8664" : "64"
-      "x6464" : "64"
-      "Intelx64" : "64"
-      "AMD" : "32"
-      "amd64" : "64"
-      "x64" : "64"
-      "Win64" : "64"
-      "WOW64" : "64"
-      "ia64" : "64"
-      "arm" : "32"
-      "armv5" : "32"
-      "armv5l" : "32"
-      "armv5tel" : "32"
-      "armv5tejl" : "32"
-      "armv6" : "32"
-      "armv6l" : "32"
-      "armv6tel" : "32"
-      "armv6tejl" : "32"
-      "armv7" : "32"
-      "armv71" : "32"
-      "armv7l" : "32"
-      "armv7i" : "32"
-      "armv7tel" : "32"
-      "armv7tejl" : "32"
-      "arm7tdmi" : "32"
-      "armeabi-v7a" : "32"
-      "armeabi-v7a:armeabi" : "32"
-      "x86:armeabi" : "64"
-      "arm64-v8a" : "64"
-      "armv8" : "64"
-      "armv81" : "64"
-      "armv8l" : "64"
-      "armv8i" : "64"
-      "armv8tel" : "64"
-      "armv8tejl" : "64"
-      "arm8tdmi" : "64"
-      "aarch32" : "32"
-      "aarch64" : "64"
-      "arm64" : "64"
-      "sparc" : "32"
-      "sparc64" : "64"
-      "powerpc" : "32"
-      "ppc" : "32"
-      "ppc native" : "32"
-      "ppc64" : "64"
-      "alpha" : "32"
-      "mips" : "32"
-      "sh1" : "32"
-      "sh2" : "32"
-      "sh3" : "32"
-      "sh4" : "32"
-      "sh5" : "64"
-      "ti8148" : "32"
-      "MC680x0" : "32"
-      "68K" : "32"
-      "Mac_68K" : "32"
-      "Mac_PowerPC" : "32"
-      "Mac_Intel" : "32"
-      "M1" : "64"
+      "Intel" : "Intel|32|Desktop"
+      "i386" : "Intel i386|32|Desktop"
+      "i486" : "Intel i486|32|Desktop"
+      "i586" : "Intel i586|32|Desktop"
+      "i686" : "Intel i686|32|Desktop"
+      "i786" : "Intel i786|32|Desktop"
+      "i86pc" : "i86pc|32|Desktop"
+      "x86" : "x86|32|Desktop"
+      "x86_32" : "Intel x86_32|32|Desktop"
+      "x86-32" : "Intel x86_32|32|Desktop"
+      "x64_32" : "Intel x86_32|32|Desktop"
+      "x86_x32" : "Intel x86_32|32|Desktop"
+      "x8632" : "Intel x86_32|32|Desktop"
+      "x6432" : "Intel x86_32|32|Desktop"
+      "Intelx32" : "Intel x86_32|32|Desktop"
+      "x86_64" : "Intel x86_64|64|Desktop"
+      "x86-64" : "Intel x86_64|64|Desktop"
+      "x64_64" : "Intel x86_64|64|Desktop"
+      "x86_x64" : "Intel x86_64|64|Desktop"
+      "x8664" : "Intel x86_64|64|Desktop"
+      "x6464" : "Intel x86_64|64|Desktop"
+      "Intelx64" : "Intel x86_64|64|Desktop"
+      "AMD" : "AMD|32|Desktop"
+      "amd64" : "AMD64|64|Desktop"
+      "x64" : "Intel x86_64|64|Desktop"
+      "Win64" : "Intel x86_64|64|Desktop"
+      "WOW64" : "Intel x86_64|64|Desktop"
+      "ia64" : "Intel Itanium 64|64|Desktop"
+      "arm" : "ARM|32|Mobile"
+      "armv5" : "ARMv5|32|Mobile"
+      "armv5l" : "ARMv5l|32|Mobile"
+      "armv5tel" : "ARMv5tel|32|Mobile"
+      "armv5tejl" : "ARMv5tejl|32|Mobile"
+      "armv6" : "ARMv6|32|Mobile"
+      "armv6l" : "ARMv6l|32|Mobile"
+      "armv6tel" : "ARMv6tel|32|Mobile"
+      "armv6tejl" : "ARMv6tejl|32|Mobile"
+      "armv7" : "ARMv7|32|Mobile"
+      "armv71" : "ARMv71|32|Mobile"
+      "armv7l" : "ARMv7l|32|Mobile"
+      "armv7i" : "ARMv7i|32|Mobile"
+      "armv7tel" : "ARMv7tel|32|Mobile"
+      "armv7tejl" : "ARMv7tejl|32|Mobile"
+      "arm7tdmi" : "ARMv7tdmi|32|Mobile"
+      "armeabi-v7a" : "ARMv7|32|Mobile"
+      "armeabi-v7a:armeabi" : "ARMv7|32|Mobile"
+      "x86:armeabi" : "ARMv8|64|Mobile"
+      "arm64-v8a" : "ARMv8|64|Mobile"
+      "armv8" : "ARMv8|64|Mobile"
+      "armv81" : "ARMv81|64|Mobile"
+      "armv8l" : "ARMv8l|64|Mobile"
+      "armv8i" : "ARMv8i|64|Mobile"
+      "armv8tel" : "ARMv8tel|64|Mobile"
+      "armv8tejl" : "ARMv8tejl|64|Mobile"
+      "arm8tdmi" : "ARMv8tdmi|64|Mobile"
+      "aarch32" : "AArch32|32|Mobile"
+      "aarch64" : "AArch64|64|Mobile"
+      "arm64" : "ARM64|64|Mobile"
+      "sparc" : "Sparc|32|Desktop"
+      "sparc64" : "Sparc 64|64|Desktop"
+      "powerpc" : "PowerPC|32|Desktop"
+      "ppc" : "PowerPC|32|Desktop"
+      "ppc native" : "PowerPC|32|Desktop"
+      "ppc64" : "PowerPC 64|64|Desktop"
+      "alpha" : "Alpha|32|Desktop"
+      "mips" : "Mips|32|Desktop"
+      "sh1" : "SH1|32|Mobile"
+      "sh2" : "SH2|32|Mobile"
+      "sh3" : "SH3|32|Mobile"
+      "sh4" : "SH4|32|Mobile"
+      "sh5" : "SH5|64|Mobile"
+      "ti8148" : "Ti8148|32|Mobile"
+      "MC680x0" : "Motorola 68000|32|Desktop"
+      "68K" : "Motorola 68000|32|Desktop"
+      "Mac_68K" : "Motorola 68000|32|Desktop"
+      "Mac_PowerPC" : "PowerPC|32|Desktop"
+      "Mac_Intel" : "PowerPC|32|Desktop"
+      "M1" : "Apple M1|64|Desktop"

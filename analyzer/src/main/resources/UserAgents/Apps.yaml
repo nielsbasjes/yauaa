@@ -112,13 +112,15 @@ config:
 - matcher:
     variable:
       - 'Darwin                              :agent.product.name="Darwin"^'
+      - 'CPU                                 :LookUp[CPUArchitectures;@Darwin.(1)comments.entry]'
     require:
       - 'agent.(2)product.name="CFNetwork"'
     extract:
       - 'DeviceClass                         :       12 :"Desktop"'
       - 'DeviceBrand                         :       12 :"Apple"'
       - 'DeviceName                          :       12 :"Apple Macintosh"'
-      - 'DeviceCpu                           :      115 :LookUp[CPUArchitectures;@Darwin.(1)comments.entry]'
+      - 'DeviceCpu                           :      115 :@CPU[[1]]'
+      - 'DeviceCpuBits                       :      115 :@CPU[[2]]'
       - 'OperatingSystemClass                :       12 :"Desktop"'
       - 'OperatingSystemName                 :       12 :"Mac OS"'
       - 'OperatingSystemVersion              :       12 :LookUpPrefix[AppleDarwinVersionToMacOSVersion; @Darwin^.version;"<<<null>>>"]'

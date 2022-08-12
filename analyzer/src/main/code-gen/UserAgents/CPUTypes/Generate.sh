@@ -56,46 +56,112 @@ echo "config:"
 echo "
 - matcher:
     extract:
-    - 'DeviceCpu                           :      115 :LookUp[CPUArchitectures;agent.product.name=\"Sys_CPU\"^.version]'
+      - 'DeviceCpuBits :      117 :agent.product.name=\"App_Bitness\"^.version'
 
 - matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.product.name=\"Sys_CPU\"^.version]'
     extract:
-    - 'DeviceCpu                           :      115 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1-2]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      114 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2-3]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      113 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3-4]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      112 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4-5]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      111 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5-6]]'
+      - 'DeviceCpu     :      116 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      116 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
 
 - matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1-2]]'
     extract:
-    - 'DeviceCpu                           :      105 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      104 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      103 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      102 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      101 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5]]'
-- matcher:
-    extract:
-    - 'DeviceCpu                           :      106 :LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
+      - 'DeviceCpu     :      115 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      115 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
 
 - matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2-3]]'
     extract:
-    - 'DeviceCpu                           :      100 :LookUp[CPUArchitectures;agent.product.(1-2)version]'
+      - 'DeviceCpu     :      114 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      114 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3-4]]'
+    extract:
+      - 'DeviceCpu     :      113 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      113 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4-5]]'
+    extract:
+      - 'DeviceCpu     :      112 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      112 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5-6]]'
+    extract:
+      - 'DeviceCpu     :      111 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      111 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
+    extract:
+      - 'DeviceCpu     :      106 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      106 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[1]]'
+    extract:
+      - 'DeviceCpu     :      105 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      105 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[2]]'
+    extract:
+      - 'DeviceCpu     :      104 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      104 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[3]]'
+    extract:
+      - 'DeviceCpu     :      103 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      103 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[4]]'
+    extract:
+      - 'DeviceCpu     :      102 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      102 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry[5]]'
+    extract:
+      - 'DeviceCpu     :      101 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      101 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+
+- matcher:
+    variable:
+      - 'CPUInfo:LookUp[CPUArchitectures;agent.product.(1-2)version]'
+    extract:
+      - 'DeviceCpu     :      100 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      100 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
 "
 
 echo "- lookup:"
@@ -103,64 +169,11 @@ echo "    name: 'CPUArchitectures'"
 echo "    map:"
 grep -F -v '#' "${INPUT}" | grep . | while read -r line
 do
-    cpu=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
-    value=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f2)
-    echo "      \"${cpu}\" : \"${value}\""
-done
-
-echo "
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      117 :agent.product.name=\"App_Bitness\"^.version'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      116 :LookUp[CPUArchitecturesBits;agent.product.name=\"Sys_CPU\"^.version]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      115 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[1-2]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      114 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[2-3]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      113 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[3-4]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      112 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[4-5]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      111 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[5-6]]'
-
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      105 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[1]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      104 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[2]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      103 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[3]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      102 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[4]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      101 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry[5]]'
-- matcher:
-    extract:
-    - 'DeviceCpuBits                       :      106 :LookUp[CPUArchitecturesBits;agent.(1-3)product.(1)comments.entry.(1-2)product.(1-2)version]'
-"
-
-echo "- lookup:"
-echo "    name: 'CPUArchitecturesBits'"
-echo "    map:"
-grep -F -v '#' "${INPUT}" | grep . | while read -r line
-do
-    cpu=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
-    value=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f3)
-    echo "      \"${cpu}\" : \"${value}\""
+    cpuTag=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f1)
+    name=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f2)
+    bits=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f3)
+    deviceClass=$(echo "${line}" | sed 's/ *| */|/g' | cut -d'|' -f4)
+    echo "      \"${cpuTag}\" : \"${name}|${bits}|${deviceClass}\""
 done
 
 

@@ -45,6 +45,10 @@ config:
         'Google-Safety'                : 'Google Safety'
         'Google Safety'                : 'Google Safety'
 
+        # TODO: No documentation found so far. GUESS: This is a Google thing.
+        'Google-Adwords-DisplayAds-WebRender'  : 'Google Adwords DisplayAds WebRender'
+        'Google-HotelAdsVerifier'              : 'Google Hotel Ads Verifier'
+
 - matcher:
     variable:
     - 'Google                              :agent.(1-8)product.comments.entry.(1-2)product.name[1]="Googlebot"'
@@ -1159,7 +1163,7 @@ config:
 
 - matcher:
     variable:
-    - 'BotName                             :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.entry.product.name]'
+    - 'BotName                             :LookUp[NamedGoogleRobots;agent.(1-8)product.comments.entry.(1-8)product.name]'
     extract:
     - '__Set_ALL_Fields__                  :   299930 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300030 :"Robot"'
@@ -1177,7 +1181,7 @@ config:
 
 - matcher:
     variable:
-    - 'Google                              :agent.(1-5)product.comments.entry.product.name?NamedGoogleRobots'
+    - 'Google                              :agent.(1-8)product.comments.entry.(1-8)product.name?NamedGoogleRobots'
     - 'BotVersion                          :@Google^.version'
     extract:
     - 'OperatingSystemVersion              :   300031 :@BotVersion'
@@ -1186,7 +1190,7 @@ config:
 
 - matcher:
     variable:
-    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.entry.text]'
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-8)product.comments.entry.text]'
     extract:
     - '__Set_ALL_Fields__                  :   299920 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
     - 'DeviceClass                         :   300020 :"Robot"'
@@ -1210,7 +1214,7 @@ config:
     variable:
     - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.name]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300051 :"Robot Mobile"'
 
@@ -1218,7 +1222,7 @@ config:
     variable:
     - 'Google                              :LookUp[NamedGoogleRobots;agent.text]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300041 :"Robot Mobile"'
 
@@ -1226,15 +1230,15 @@ config:
     variable:
     - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.comments.(1-5)entry.(1-2)product.name]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300031 :"Robot Mobile"'
 
 - matcher:
     variable:
-    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.(1-5)entry.text]'
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-8)product.comments.(1-5)entry.text]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300021 :"Robot Mobile"'
 
@@ -1242,7 +1246,7 @@ config:
     variable:
     - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.name]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300051 :"Robot Mobile"'
 
@@ -1250,7 +1254,7 @@ config:
     variable:
     - 'Google                              :LookUp[NamedGoogleRobots;agent.text]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300041 :"Robot Mobile"'
 
@@ -1259,15 +1263,15 @@ config:
     variable:
     - 'BotName                             :LookUp[NamedGoogleRobots;agent.product.comments.(1-5)entry.(1-2)product.name]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300031 :"Robot Mobile"'
 
 - matcher:
     variable:
-    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-5)product.comments.(1-5)entry.text]'
+    - 'Google                              :LookUp[NamedGoogleRobots;agent.(1-8)product.comments.(1-5)entry.text]'
     require:
-    - 'agent.(1-5)product.comments.entry.(1-5)product.name="Android"'
+    - 'agent.(1-8)product.comments.entry.(1-5)product.name="Android"'
     extract:
     - 'DeviceClass                         :   300021 :"Robot Mobile"'
 
@@ -1664,3 +1668,119 @@ config:
       AgentNameVersion                     : 'Google Safety ??'
       AgentNameVersionMajor                : 'Google Safety ??'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+
+# https://www.searchenginenews.com/sample/content/what-is-this-google-wireless-transcoder-in-my-stats
+# The Google Wireless Transcoder (GWT) is basically a combination of "proxy server "and "code stripper"
+# that is used for mobile search users as an option in the search results. Instead of showing your website
+# as it was intended, for some mobile users, Google loads the page then strips all javascript and other "extras"
+# like your ads (including Adsense) and finally sends a dumbed down version of the page to the mobile user.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (en-us) AppleWebKit/525.13 (KHTML, like Gecko; Google Wireless Transcoder) Version/3.1 Safari/525.13'
+    expected:
+      DeviceClass                          : 'Anonymized'
+      DeviceName                           : 'Google Wireless Transcoder'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '525.13'
+      LayoutEngineVersionMajor             : '525'
+      LayoutEngineNameVersion              : 'AppleWebKit 525.13'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 525'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '3.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Safari 3.1'
+      AgentNameVersionMajor                : 'Safari 3'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      RemarkablePattern                    : 'Anonymized'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (en-us) AppleWebKit/537.36(KHTML, like Gecko; Google-Adwords-DisplayAds-WebRender;) Chrome/102.0.5005.115Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Adwords DisplayAds Webrender'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Adwords DisplayAds WebRender'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Adwords DisplayAds WebRender ??'
+      LayoutEngineNameVersionMajor         : 'Google Adwords DisplayAds WebRender ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Adwords DisplayAds WebRender'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Adwords DisplayAds WebRender ??'
+      AgentNameVersionMajor                : 'Google Adwords DisplayAds WebRender ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Focus/1.3 Chrome/61.0.3163.81 Mobile Safari/537.36 (compatible; Google-HotelAdsVerifier/2.0)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Hotel ADS Verifier'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '2.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Google Cloud 2.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 2'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Hotel Ads Verifier'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Google Hotel Ads Verifier 2.0'
+      LayoutEngineNameVersionMajor         : 'Google Hotel Ads Verifier 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Hotel Ads Verifier'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Google Hotel Ads Verifier 2.0'
+      AgentNameVersionMajor                : 'Google Hotel Ads Verifier 2'
+
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-HotelAdsVerifier/2.0)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Hotel ADS Verifier'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '2.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Google Cloud 2.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 2'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Hotel Ads Verifier'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Google Hotel Ads Verifier 2.0'
+      LayoutEngineNameVersionMajor         : 'Google Hotel Ads Verifier 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Hotel Ads Verifier'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Google Hotel Ads Verifier 2.0'
+      AgentNameVersionMajor                : 'Google Hotel Ads Verifier 2'

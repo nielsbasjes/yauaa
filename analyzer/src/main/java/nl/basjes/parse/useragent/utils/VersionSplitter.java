@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.utils;
 
-public final class VersionSplitter extends Splitter {
-    private VersionSplitter() {
+public class VersionSplitter extends Splitter {
+    protected VersionSplitter() {
     }
 
     private static VersionSplitter instance;

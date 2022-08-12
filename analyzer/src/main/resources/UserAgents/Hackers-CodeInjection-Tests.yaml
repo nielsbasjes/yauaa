@@ -840,6 +840,16 @@ config:
 
 - test:
     input:
+      user_agent_string: ';assert(base64_decode(''cHJpbnQobWQ1KDMxMzM3KSk7''));'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      user_agent_string: '  <title>(.*?)<\/title>'
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: '''+str(__import__("time").sleep(9))+__import__("socket").gethostbyname("xxxxx."+"bxss.me")+'''
     expected:
       DeviceClass                          : 'Hacker'

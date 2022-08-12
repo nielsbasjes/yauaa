@@ -46,7 +46,7 @@ class TestCalculators {
     @Test
     void testFieldAgentNameVersionFallback() {
         MutableUserAgent userAgent = new MutableUserAgent();
-        userAgent.setForced(UserAgent.DEVICE_BRAND, "some_thing", 1);
+        userAgent.setForced(DEVICE_BRAND, "some_thing", 1);
         userAgent.setForced(AGENT_VERSION, "1.2.3", 1);
 
         new CalculateDeviceBrand().calculate(userAgent);
@@ -61,6 +61,22 @@ class TestCalculators {
         assertEquals("Some_Thing 1.2.3", userAgent.getValue(AGENT_NAME_VERSION));
         assertEquals("1", userAgent.getValue(AGENT_VERSION_MAJOR));
         assertEquals("Some_Thing 1", userAgent.getValue(AGENT_NAME_VERSION_MAJOR));
+    }
+
+    void assertMajorVersion(String input, String expectedOutput) {
+        MutableUserAgent userAgent = new MutableUserAgent();
+        userAgent.setForced("Dummy", input, 1);
+
+        new MajorVersionCalculator("Result", "Dummy").calculate(userAgent);
+        assertEquals(expectedOutput, userAgent.getValue("Result"));
+    }
+
+    @Test
+    void testMajorVersionCalulation() {
+        assertMajorVersion("Basjes 1.2.3", "Basjes 1");
+        assertMajorVersion("Windows NT 10.0", "Windows NT 10");
+        assertMajorVersion("Windows-NT 10.0", "Windows-NT 10");
+        assertMajorVersion("Windows_NT 10.0", "Windows_NT 10");
     }
 
     private static final class UrlBrandPair{

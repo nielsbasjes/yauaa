@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.calculate;
 
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import nl.basjes.parse.useragent.utils.Splitter;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
 import java.util.Collections;
@@ -39,6 +40,22 @@ public class MajorVersionCalculator extends FieldCalculator {
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private MajorVersionCalculator() { }
 
+    private static final Splitter VERSION_SPLITTER = new VersionSplitter() {
+        @Override
+        public boolean isSeparator(char c) {
+            switch (c) {
+                case '|': // Next segment
+                case '.':
+//                case '_':  --> We do NOT use this one as a separator here.
+//                case '-':  --> We do NOT use this one as a separator here.
+                case ',':
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
+
     @Override
     public void calculate(MutableUserAgent userAgent) {
         AgentField agentVersionMajor = userAgent.get(majorVersionName);
@@ -46,7 +63,7 @@ public class MajorVersionCalculator extends FieldCalculator {
             AgentField agentVersion = userAgent.get(versionName);
             String version = NULL_VALUE;
             if (!agentVersion.isDefaultValue()) {
-                version = VersionSplitter.getInstance().getSingleSplit(agentVersion.getValue(), 1);
+                version = VERSION_SPLITTER.getSingleSplit(agentVersion.getValue(), 1);
             }
             userAgent.setForced(
                 majorVersionName,

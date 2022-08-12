@@ -29,6 +29,11 @@ config:
     - 'FakeYauaaProduct'
     - 'Dalvik'
 
+- set:
+    name: 'SpecialsThatAreBrowsers'
+    values:
+      - 'AmigaVoyager'
+
 - matcher:
     require:
     - 'agent.(1)text?NamedSpecials'
@@ -44,6 +49,15 @@ config:
     extract:
     - 'AgentClass                          :        5 :"Special"'
     - 'AgentName                           :        5 :@AgentName'
+#    - 'AgentVersion                        :       15 :@AgentName^.version'
+
+- matcher:
+    variable:
+    - 'AgentName                           :agent.(1)product.name?SpecialsThatAreBrowsers'
+    extract:
+    - 'AgentClass                          :        6 :"Browser"'
+    - 'AgentName                           :        6 :@AgentName'
+    - 'AgentVersion                        :       16 :@AgentName^.version'
 
 - matcher:
     require:
@@ -577,9 +591,9 @@ config:
       AgentClass                           : 'Browser'
       AgentName                            : 'AvantBrowser'
       AgentVersion                         : 'Tri-Core'
-      AgentVersionMajor                    : 'Tri'
+      AgentVersionMajor                    : 'Tri-Core'
       AgentNameVersion                     : 'AvantBrowser Tri-Core'
-      AgentNameVersionMajor                : 'AvantBrowser Tri'
+      AgentNameVersionMajor                : 'AvantBrowser Tri-Core'
 
 - test:
     input:
@@ -703,7 +717,7 @@ config:
     - 'ProductV2                           :@Product.(2)version'
     - 'Profile                             :agent.product.name="Profile"'
     require:
-    - '@Profile^.(1)version[1]="MIDP"'
+    - '@Profile^.(1)version{"MIDP-"'
     extract:
     - 'LayoutEngineClass                   :       10 :"Browser"'
     - 'LayoutEngineName                    :       10 :@ProductV1'
@@ -2057,7 +2071,7 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Browser'
       AgentName                            : 'AmigaVoyager'
       AgentVersion                         : '3.4.4'
       AgentVersionMajor                    : '3'

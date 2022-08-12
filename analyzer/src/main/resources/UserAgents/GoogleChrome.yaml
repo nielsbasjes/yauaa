@@ -975,6 +975,35 @@ config:
       AgentNameVersion                     : 'Vivaldi 1.0.321.3'
       AgentNameVersionMajor                : 'Vivaldi 1'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (WindowsNT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.110 Safari/537.36 Vivaldi/2.7.1628.30'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Vivaldi'
+      AgentVersion                         : '2.7.1628.30'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Vivaldi 2.7.1628.30'
+      AgentNameVersionMajor                : 'Vivaldi 2'
+
+
 # Opera Neon
 - test:
     input:

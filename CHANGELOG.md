@@ -19,6 +19,7 @@ v7.4.0-SNAPSHOT
     - More extensive anonymization detection by looking at version patterns
   - New field "RemarkablePattern" that will hold exceptional things that were detected.
     - The 'Anonymized' field has been dropped and is now RemarkablePattern: 'Anonymized'
+  - Improved CPU detection performance
 - Extra testcases
   - Fuchsia
   - Mobile Apps, Robots, Hackers, Modification cases

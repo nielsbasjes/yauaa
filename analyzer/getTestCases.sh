@@ -30,4 +30,4 @@ cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
     s@\\\"@\\\\\\\"@g;
     s@^@            \"@;
     s@\$@\",\n@;
-  " | grep . > "${DIR}/target/temp-agents-list.txt"
+  " | grep . | sort -u > "${DIR}/target/temp-agents-list.txt"

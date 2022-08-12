@@ -105,10 +105,14 @@ config:
     - 'IRIX'
     - 'IRIX64'
     - 'AIX'
+    - 'HP-UX'
     - 'Fuchsia'
     - 'AmigaOS'
     - 'OSF1'
     - 'CP/M86'
+    - 'OS/2'
+    - 'OS/2 i386'
+    - 'Warp'
 
 
 # =======================================================================
@@ -6648,6 +6652,125 @@ config:
 
 
 # =======================================================================
+# HP-UX
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"HP-UX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"HP-UX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"HP-UX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"HP-UX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Desktop"'
+    - 'DeviceBrand                         :      108 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"HP-UX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Desktop"'
+    - 'DeviceBrand                         :      107 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"HP-UX"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"HP-UX"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"HP-UX"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Desktop"'
+    - 'DeviceBrand                         :      111 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"HP-UX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="HP-UX"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Desktop"'
+    - 'DeviceBrand                         :      112 :"Hewlett-Packard"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"HP-UX"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
 # Fuchsia
 
 - matcher:
@@ -7119,6 +7242,362 @@ config:
     - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      153 :"Desktop"'
     - 'OperatingSystemName                 :      153 :"CP/M"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# OS/2
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OS/2"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="OS/2"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OS/2"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="OS/2"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="OS/2"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="OS/2"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"OS/2"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="OS/2"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="OS/2"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="OS/2"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="OS/2"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# OS/2 i386
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# Two words
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-2]="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-3]="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="OS/2 i386"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"OS/2"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# Warp
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Warp"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Warp"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Warp"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="Warp"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="Warp"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="Warp"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Warp"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Warp"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Warp"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"OS/2 Warp"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Warp"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"OS/2 Warp Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"OS/2 Warp"'
     - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
 
 
