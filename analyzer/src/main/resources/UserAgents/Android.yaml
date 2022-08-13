@@ -276,6 +276,23 @@ config:
     - 'OperatingSystemVersion              :     2014 :agent.product.name="Chrome"^.version'
     - 'OperatingSystemVersionBuild         :     2014 :@CrOSVersion'
 
+# Sometimes there is no "Chrome" product
+- matcher:
+    variable:
+      - 'CrOSProduct                         :agent.(1)product.(1)comments.entry.product.name="CrOS"^'
+      - 'CPU                                 :LookUp[CPUArchitectures;@CrOSProduct.(1)version]'
+    extract:
+      - 'DeviceClass                         :     2014 :"Desktop"'
+      - 'DeviceBrand                         :     2014 :"<<<null>>>"'
+      - 'DeviceName                          :     2014 :"Chromebook"'
+      - 'DeviceCpu                           :     2015 :@CPU[[1]]'
+      - 'DeviceCpuBits                       :     2015 :@CPU[[2]]'
+      - 'OperatingSystemClass                :     2014 :"Desktop"'
+      - 'OperatingSystemName                 :     2014 :"Chrome OS"'
+      - 'OperatingSystemVersion              :     2013 :"<<<null>>>"'
+      - 'OperatingSystemVersionBuild         :     2014 :"<<<null>>>"'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36'
@@ -2054,3 +2071,33 @@ config:
       AgentLanguage                        : 'Spanish (Spain)'
       AgentLanguageCode                    : 'es-es'
       AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 13505.63.0) AppleWebKit/537.36 (KHTML, like Gecko)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Chrome OS ??'
+      OperatingSystemNameVersionMajor      : 'Chrome OS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.36'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.36'
+      AgentNameVersionMajor                : 'AppleWebKit 537'

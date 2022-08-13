@@ -843,16 +843,16 @@ config:
       User-Agent                           : 'Opera/9.99 X11; CrOS i686 3912.101.0 Presto/2.2.2 Version/55.0'
     expected:
       DeviceClass                          : 'Anonymized'
-      DeviceName                           : 'Unknown'
+      DeviceName                           : 'Chromebook'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel i686'
       DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      OperatingSystemNameVersion           : 'Chrome OS ??'
+      OperatingSystemNameVersionMajor      : 'Chrome OS ??'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Presto'
       LayoutEngineVersion                  : '2.2.2'
@@ -1055,3 +1055,41 @@ config:
       AgentNameVersion                     : 'Firefox 45.0'
       AgentNameVersionMajor                : 'Firefox 45'
       RemarkablePattern                    : 'No such version: Mozilla'
+
+
+- matcher:
+    require:
+      - 'agent.product.comments.entry[1]="X11"'
+      - 'agent.product.comments.entry[1]="Windows"'
+    extract:
+      - 'RemarkablePattern                   : 10 : "X11 and Windows"'
+
+# "chrome" in lowercase; "X11; Windows x86_64" does not make sense
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Windows x86_64) AppleWebKit/536.11 (KHTML, like Gecko) chrome/22.0.1190.0 Safari/536.11'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows ??'
+      OperatingSystemNameVersionMajor      : 'Windows ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '536.11'
+      LayoutEngineVersionMajor             : '536'
+      LayoutEngineNameVersion              : 'AppleWebKit 536.11'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 536'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '22.0.1190.0'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Chrome 22.0.1190.0'
+      AgentNameVersionMajor                : 'Chrome 22'
+      RemarkablePattern                    : 'X11 and Windows'

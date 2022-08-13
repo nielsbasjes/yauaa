@@ -41,6 +41,28 @@ config:
     - 'OperatingSystemVersion              :      101 :LookUp[WindowsDesktopOSVersion;@Product]'
     - 'OperatingSystemNameVersion          :      101 :LookUp[WindowsDesktopOSNameVersion;@Product]'
 
+# Low level fallback
+- matcher:
+    variable:
+    - 'Product                             :agent.(1-2)product.comments.entry.product.name="Windows"'
+    extract:
+    - 'DeviceClass                         :        4 :"Desktop"'
+    - 'DeviceName                          :        4 :"Desktop"'
+    - 'OperatingSystemClass                :        4 :"Desktop"'
+    - 'OperatingSystemName                 :        4 :"Windows"'
+    - 'OperatingSystemVersion              :        4 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Product                             :agent.(1-2)product.comments.entry.text="Windows"'
+    extract:
+    - 'DeviceClass                         :        4 :"Desktop"'
+    - 'DeviceName                          :        4 :"Desktop"'
+    - 'OperatingSystemClass                :        4 :"Desktop"'
+    - 'OperatingSystemName                 :        4 :"Windows"'
+    - 'OperatingSystemVersion              :        4 :"<<<null>>>"'
+
+
 - matcher:
     variable:
     - 'Product                             :agent.(1-2)product.comments.entry.text?WindowsDesktopOSName'

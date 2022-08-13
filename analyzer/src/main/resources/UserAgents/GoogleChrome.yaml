@@ -78,6 +78,7 @@ config:
       'YaBrowser'       : 'Yandex Browser'
       'EkiohFlow'       : 'Ekioh Flow'
 
+
 - lookup:
     name: 'KnownWebviewAppNames'
     merge:
@@ -89,6 +90,12 @@ config:
       'MediBangPaintTablet'  : 'Mobile App|MediBang Paint'
       'ZhihuHybrid'          : 'Mobile App|Zhihu Hybrid'
       'Cake'                 : 'Browser|Cake Browser'
+
+- matcher:
+    require:
+    - 'agent.product.name="Mobile"'
+    extract:
+    - 'DeviceClass : 11 : "Mobile"'
 
 # ================================
 # Specific browser rules
@@ -3094,3 +3101,99 @@ config:
       AgentVersionMajor                    : '91'
       AgentNameVersion                     : 'Chrome 91.0.4472.114'
       AgentNameVersionMajor                : 'Chrome 91'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Brave Browser"'
+    extract:
+    - 'DeviceClass                         :     10 : "Desktop"'
+    - 'OperatingSystemClass                :     10 : "Desktop"'
+    - 'OperatingSystemName                 :     10 : agent.(2)text'
+    - 'AgentClass                          :     10 : "Browser"'
+    - 'AgentName                           :     10 : "Brave"'
+    - 'AgentVersion                        :     10 : agent.(1)product.(1)version'
+
+
+
+- test:
+    input:
+      User-Agent                           : 'Brave Browser/88.1.19.92 Linux'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Brave'
+      AgentVersion                         : '88.1.19.92'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Brave 88.1.19.92'
+      AgentNameVersionMajor                : 'Brave 88'
+
+
+- test:
+    input:
+      User-Agent                           : 'Brave Browser/88.1.19.92 Windows'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows ??'
+      OperatingSystemNameVersionMajor      : 'Windows ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Brave'
+      AgentVersion                         : '88.1.19.92'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Brave 88.1.19.92'
+      AgentNameVersionMajor                : 'Brave 88'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11: Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/80.0.3987.149 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Brave'
+      AgentVersion                         : '80.0.3987.149'
+      AgentVersionMajor                    : '80'
+      AgentNameVersion                     : 'Brave 80.0.3987.149'
+      AgentNameVersionMajor                : 'Brave 80'
