@@ -14,6 +14,11 @@ git commit -m"docs: Updated CHANGELOG and website before release" CHANGELOG.md d
 ## Prepare the release: Make releasable version and make tag.
 mvn release:prepare
 
+# NOTE: If you get the error
+#       gpg: signing failed: No pinentry
+# then sometimes just doing this in a different terminal can resolve the problem:
+#       echo "test" | gpg --clearsign
+
 # UNDO Procedure MANUALLY:
 # mvn release:rollback    will create an extra commit to rollback the changes in the pom.xml files and remove the tag but NOT everything.
 # Using `git log` see how many commits must be removed.
