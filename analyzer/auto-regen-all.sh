@@ -20,6 +20,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 while : ;
 do
+  date
   inotifywait -e modify -r "${DIR}/src/main/code-gen";
   "${DIR}/regen-all.sh"
 done

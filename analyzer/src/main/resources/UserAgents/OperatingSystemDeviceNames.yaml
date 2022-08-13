@@ -58,6 +58,9 @@ config:
     - 'Fedora'
     - 'FoxOS'
     - 'GNU/Linux'
+    - 'Gentoo'
+    - 'Gentoo Linux'
+    - 'Linux Gentoo'
     - 'Joli OS'
     - 'JoliCloud'
     - 'Linpus'
@@ -1061,6 +1064,361 @@ config:
     - 'DeviceBrand                         :      112 :"<<<null>>>"'
     - 'OperatingSystemClass                :      153 :"Desktop"'
     - 'OperatingSystemName                 :      153 :"Linux"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# Gentoo
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# One word
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-1]="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      108 :"Desktop"'
+    - 'DeviceName                          :      108 :"Linux Desktop"'
+    - 'DeviceBrand                         :      108 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      148 :"Desktop"'
+    - 'OperatingSystemName                 :      148 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-2]="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      107 :"Desktop"'
+    - 'DeviceName                          :      107 :"Linux Desktop"'
+    - 'DeviceBrand                         :      107 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      147 :"Desktop"'
+    - 'OperatingSystemName                 :      147 :"Gentoo"'
+    - 'OperatingSystemVersion              :      148 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Gentoo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# Gentoo Linux
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# Two words
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-2]="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"Linux Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-3]="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"Linux Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Gentoo Linux"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+
+# =======================================================================
+# Linux Gentoo
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name[2]="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.(1)product.(1-2)comments.entry.(1-2)product.name="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+# Exact match
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      151 :"Desktop"'
+    - 'OperatingSystemName                 :      151 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+# Two words
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[1-2]="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"Linux Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+- matcher:
+    require:
+    - 'agent.product.(1-2)comments.entry[2-3]="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      109 :"Desktop"'
+    - 'DeviceName                          :      109 :"Linux Desktop"'
+    - 'DeviceBrand                         :      109 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      149 :"Desktop"'
+    - 'OperatingSystemName                 :      149 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+
+- matcher:
+    variable:
+    - 'OS                                  :agent.product.name="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      150 :"Desktop"'
+    - 'OperatingSystemName                 :      150 :"Gentoo"'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+
+- matcher:
+    require:
+    - 'agent.product.name[-1]="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      111 :"Desktop"'
+    - 'DeviceName                          :      111 :"Linux Desktop"'
+    - 'DeviceBrand                         :      111 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      152 :"Desktop"'
+    - 'OperatingSystemName                 :      152 :"Gentoo"'
+    - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.product.name[-2]="Linux Gentoo"'
+    extract:
+    - 'DeviceClass                         :      112 :"Desktop"'
+    - 'DeviceName                          :      112 :"Linux Desktop"'
+    - 'DeviceBrand                         :      112 :"<<<null>>>"'
+    - 'OperatingSystemClass                :      153 :"Desktop"'
+    - 'OperatingSystemName                 :      153 :"Gentoo"'
     - 'OperatingSystemVersion              :      149 :"<<<null>>>"'
 
 

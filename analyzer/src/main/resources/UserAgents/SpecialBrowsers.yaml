@@ -30,9 +30,17 @@ config:
     - 'Dalvik'
 
 - set:
+    name: 'UnwantedVersions'
+    values:
+      - 'X11'
+      - 'Compatible'
+      - 'Windows'
+
+- set:
     name: 'SpecialsThatAreBrowsers'
     values:
       - 'AmigaVoyager'
+      - 'Xombrero'
 
 - matcher:
     require:
@@ -70,7 +78,7 @@ config:
     require:
     - 'agent.(1)product.name?!UnwantedSpecials'
     extract:
-    - 'AgentVersion                        :        5 :agent.(1)product.(1)comments.(1)entry.(1)text'
+    - 'AgentVersion                        :        5 :agent.(1)product.(1)comments.(1)entry.(1)text?!UnwantedVersions'
 
 - matcher:
     require:
@@ -5586,4 +5594,95 @@ config:
       AgentVersionMajor                    : '6'
       AgentNameVersion                     : 'Ekioh Flow 6.1.0.37151'
       AgentNameVersionMajor                : 'Ekioh Flow 6'
+
+  # https://en.wikipedia.org/wiki/Xombrero
+  # https://github.com/conformal/xombrero --> Discontinued
+- test:
+    input:
+      User-Agent                           : 'Xombrero/1.6.4 (Linux amd64; en; Gentoo)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AMD64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Gentoo'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Gentoo ??'
+      OperatingSystemNameVersionMajor      : 'Gentoo ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Xombrero'
+      AgentVersion                         : '1.6.4'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Xombrero 1.6.4'
+      AgentNameVersionMajor                : 'Xombrero 1'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+- test:
+    input:
+      User-Agent                           : 'Xombrero/1.6.4 (Linux; en; Gentoo)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Gentoo'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Gentoo ??'
+      OperatingSystemNameVersionMajor      : 'Gentoo ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Xombrero'
+      AgentVersion                         : '1.6.4'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Xombrero 1.6.4'
+      AgentNameVersionMajor                : 'Xombrero 1'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+
+- test:
+    input:
+      User-Agent                           : 'Xombrero (X11; U; Gentoo Linux amd64; en-US) Webkit/2.8.5'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AMD64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Gentoo'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Gentoo ??'
+      OperatingSystemNameVersionMajor      : 'Gentoo ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Xombrero'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Xombrero ??'
+      AgentNameVersionMajor                : 'Xombrero ??'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
 
