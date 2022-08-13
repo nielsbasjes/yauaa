@@ -22,8 +22,10 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
 import nl.basjes.parse.useragent.parse.EvilManualUseragentStringHacks;
 import org.hamcrest.Matcher;
+import org.hamcrest.core.AllOf;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -288,6 +290,32 @@ class TestErrorHandling {
             startsWith("Syntax error"));
     }
 
+    @Test
+    void checkForRecursiveMergeLookup() {
+        runTest(
+            "classpath*:BadDefinitions/MergeLookup.yaml",
+            allOf(
+                containsString("Unable to merge lookup "),
+                containsString("because it is a recursive merge.")));
+    }
+
+    @Test
+    void checkForRecursiveMergeLookupIntoSet() {
+        runTest(
+            "classpath*:BadDefinitions/MergeLookupIntoSet.yaml",
+            allOf(
+                containsString("Unable to merge lookupSET "),
+                containsString("because it is a recursive merge.")));
+    }
+
+    @Test
+    void checkForRecursiveMergeSet() {
+        runTest(
+            "classpath*:BadDefinitions/MergeSet.yaml",
+            allOf(
+                containsString("Unable to merge lookupSET "),
+                containsString("because it is a recursive merge.")));
+    }
 
     @Test
     void methodInputValidation(){

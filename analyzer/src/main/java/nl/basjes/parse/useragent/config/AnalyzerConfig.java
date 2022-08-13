@@ -214,6 +214,9 @@ public final class AnalyzerConfig implements Serializable {
                         Map<String, String> theMap = analyzerConfig.lookups.get(mapName);
                         if (theMap != null) {
                             allExtraToLoad.forEach(extraToLoad -> {
+                                if (lookupMerge.containsKey(extraToLoad)) {
+                                    throw new InvalidParserConfigurationException("Unable to merge lookup '" + extraToLoad + "' into '" + mapName + "' because it is a recursive merge.");
+                                }
                                 Map<String, String> extraMap = analyzerConfig.lookups.get(extraToLoad);
                                 if (extraMap == null) {
                                     throw new InvalidParserConfigurationException("Unable to merge lookup '" + extraToLoad + "' into '" + mapName + "'.");
@@ -253,7 +256,9 @@ public final class AnalyzerConfig implements Serializable {
                             if (extralookup == null && extralookupSet == null) {
                                 throw new InvalidParserConfigurationException("Unable to merge set '" + extraToLoad + "' into '" + setName + "'.");
                             }
-
+                            if (lookupMerge.containsKey(extraToLoad) || lookupSetMerge.containsKey(extraToLoad)) {
+                                throw new InvalidParserConfigurationException("Unable to merge lookupSET '" + extraToLoad + "' into '" + setName + "' because it is a recursive merge.");
+                            }
                         });
                     }
                 });
