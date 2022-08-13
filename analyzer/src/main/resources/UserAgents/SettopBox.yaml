@@ -737,3 +737,74 @@ config:
       AgentVersionMajor                    : 'DVP-10'
       AgentNameVersion                     : 'Roku DVP-10.5'
       AgentNameVersionMajor                : 'Roku DVP-10'
+
+
+- matcher:
+    variable:
+    - 'Device: agent.(1-4)product.comments.entry.(1)product.name="Arris MediaPlayer"'
+    extract:
+    - 'DeviceClass                         :       10 :"Set-top box"'
+    - 'DeviceName                          :       10 :@Device'
+    - 'DeviceBrand                         :       10 :"Arris"'
+    - 'DeviceVersion                       :       10 :@Device^.version'
+
+
+# An Arris set top box with Ekioh TV browser
+# NOTE: It says "Safar/537.75" instead of "Safari/537.75" !!!
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; U; Linux i686; Arris MediaPlayer 2.0) AppleWebkit/537.75 (KHTML, Like Gecko) Ekioh/3.3.3 Safar/537.75'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Arris MediaPlayer'
+      DeviceBrand                          : 'Arris'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      DeviceVersion                        : '2.0'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.75'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.75'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ekioh'
+      AgentVersion                         : '3.3.3'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Ekioh 3.3.3'
+      AgentNameVersionMajor                : 'Ekioh 3'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'OPR/19.0.1325.0 OMI/4.1.4.54, KreaTV/15.99.2.1 (ARRIS, IPC1100P2, wired)'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Arris IPC1100P2'
+      DeviceBrand                          : 'Arris'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'KreaTV'
+      OperatingSystemVersion               : '15.99.2.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'KreaTV 15.99.2.1'
+      OperatingSystemNameVersionMajor      : 'KreaTV 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '19.0.1325.0'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Opera 19.0.1325.0'
+      AgentNameVersionMajor                : 'Opera 19'
+      NetworkType                          : 'Wired'

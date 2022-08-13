@@ -5,6 +5,7 @@ v7.5.0-SNAPSHOT
 ===
 - New/improved detections
   - Ekioh Flow browser
+  - Arris Set-top boxes
 
 v7.4.0
 ===
