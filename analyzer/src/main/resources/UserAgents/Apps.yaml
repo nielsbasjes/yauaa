@@ -2883,6 +2883,9 @@ config:
     extract:
     - 'OperatingSystemName                 :      200 : "iOS"'
     - 'OperatingSystemVersion              :      200 : @NRC^>.text'
+    - 'AgentClass                          :      200 : "Mobile App"'
+    - 'AgentName                           :      200 : "NRC Digitale Editie"'
+    - 'AgentVersion                        :      200 : @NRC^.version'
 
 - test:
     input:
@@ -2912,12 +2915,12 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'iPad'
-      AgentVersion                         : 'compatible'
-      AgentVersionMajor                    : 'compatible'
-      AgentNameVersion                     : 'iPad compatible'
-      AgentNameVersionMajor                : 'iPad compatible'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'NRC Digitale Editie'
+      AgentVersion                         : '9.14'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'NRC Digitale Editie 9.14'
+      AgentNameVersionMajor                : 'NRC Digitale Editie 9'
 
 
 # https://github.com/Alamofire/Alamofire
