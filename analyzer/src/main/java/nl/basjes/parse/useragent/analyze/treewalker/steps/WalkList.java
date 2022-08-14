@@ -407,10 +407,10 @@ public class WalkList implements Serializable {
 
             fromHereItCannotBeInHashMapAnymore();
 
-            String lookupName = ctx.lookup.getText();
-            Map<String, String> lookup = getLookup(lookupName);
+            String      lookupName = ctx.lookup.getText();
+            Set<String> lookupSet  = getLookupSet(lookupName);
 
-            add(new StepIsInLookupPrefix(lookupName, lookup));
+            add(new StepIsInLookupPrefix(lookupName, lookupSet));
             return null; // Void
         }
 
@@ -420,19 +420,10 @@ public class WalkList implements Serializable {
 
             fromHereItCannotBeInHashMapAnymore();
 
-            String              lookupName = ctx.lookup.getText();
-            Set<String>         lookupSet  = lookupSets.get(lookupName);
-            if (lookupSet != null) {
-                add(new StepIsNotInLookupPrefix(lookupName, lookupSet));
-            } else {
-                Map<String, String> lookup     = lookups.get(lookupName);
-                if (lookup != null) {
-                    add(new StepIsNotInLookupPrefix(lookupName, lookup));
-                } else {
-                    throw new InvalidParserConfigurationException("Missing lookup/set \"" + lookupName + "\" ");
-                }
-            }
+            String      lookupName = ctx.lookup.getText();
+            Set<String> lookupSet  = getLookupSet(lookupName);
 
+            add(new StepIsNotInLookupPrefix(lookupName, lookupSet));
             return null; // Void
         }
 

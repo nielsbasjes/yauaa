@@ -66,6 +66,14 @@ config:
     - 'AgentVersion     :  2201                  : @Qwant.version'
 
 - matcher:
+    require:
+    - 'agent.(2-5)product.name[1]="Gecko"'
+    extract:
+    - 'LayoutEngineClass                   :        9 :"Browser"'
+    - 'LayoutEngineName                    :        9 :"Gecko"'
+    - 'LayoutEngineVersion                 :        9 :"<<<null>>>"'
+
+- matcher:
     variable:
     - 'RV                                  :agent.(1)product.comments.entry.(1)keyvalue.key="rv"^.value'
     extract:
@@ -81,6 +89,17 @@ config:
     variable:
     - 'Gecko                               :agent.(2-5)product.name="Gecko"^>'
     require:
+    - 'IsInLookUpPrefix[OSPatterns;@Gecko.name]'
+    extract:
+    - 'AgentClass                          :     1999 :"Browser"'
+    - 'AgentName                           :     1999 :@Gecko.name[2-]'
+    - 'AgentVersion                        :     1999 :@Gecko.version'
+
+- matcher:
+    variable:
+    - 'Gecko                               :agent.(2-5)product.name="Gecko"^>'
+    require:
+    - 'IsNotInLookUpPrefix[OSPatterns;@Gecko.name]'
     - 'IsNull[@Gecko.name?BadGeckoNames]'
     extract:
     - 'AgentClass                          :     2000 :"Browser"'
@@ -371,11 +390,11 @@ config:
       DeviceCpu                            : 'Intel i686'
       DeviceCpuBits                        : '32'
       OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mandriva'
+      OperatingSystemName                  : 'Mandriva Linux'
       OperatingSystemVersion               : '1.5.0.8-1.1mdv2007.0'
       OperatingSystemVersionMajor          : '1'
-      OperatingSystemNameVersion           : 'Mandriva 1.5.0.8-1.1mdv2007.0'
-      OperatingSystemNameVersionMajor      : 'Mandriva 1'
+      OperatingSystemNameVersion           : 'Mandriva Linux 1.5.0.8-1.1mdv2007.0'
+      OperatingSystemNameVersionMajor      : 'Mandriva Linux 1'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Gecko'
       LayoutEngineVersion                  : '1.8.0.8'

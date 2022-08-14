@@ -25,7 +25,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class StepIsInLookupPrefix extends Step {
 
@@ -42,6 +44,12 @@ public class StepIsInLookupPrefix extends Step {
         this.lookupName = lookupName;
         this.prefixMap = new StringPrefixMap<>(false);
         this.prefixMap.putAll(prefixList);
+    }
+
+    public StepIsInLookupPrefix(String lookupName, Set<String> prefixSet) {
+        this.lookupName = lookupName;
+        this.prefixMap = new StringPrefixMap<>(false);
+        prefixSet.forEach(v -> this.prefixMap.put(v, ""));
     }
 
     @Override

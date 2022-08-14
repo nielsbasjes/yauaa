@@ -62,7 +62,6 @@ import org.junit.jupiter.api.Test;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -105,7 +104,7 @@ class TestSteps {
         lookup = new HashMap<>();
         lookup.put("foo", "FooFoo");
         lookup.put("bar", "BarBar");
-        set = new HashSet<>(Arrays.asList("foo", "bar"));
+        set = lookup.keySet();
     }
 
     @Test
