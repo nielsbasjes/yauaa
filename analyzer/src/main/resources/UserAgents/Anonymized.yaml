@@ -44,6 +44,13 @@ config:
     - 'DeviceClass                         :     1002 :"Anonymized"'
     - 'RemarkablePattern                   :      101: "Anonymized"'
 
+- matcher:
+    require:
+      - 'agent.product.comments.entry[1]="X11"'
+      - 'agent.product.comments.entry[1]="Windows"'
+    extract:
+      - 'RemarkablePattern                   : 10 : "X11 and Windows"'
+
 # Versions like 599 and 999 are an indication of some kind of manipulation
 # Except for some specific derived browsers
 

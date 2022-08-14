@@ -1057,13 +1057,6 @@ config:
       RemarkablePattern                    : 'No such version: Mozilla'
 
 
-- matcher:
-    require:
-      - 'agent.product.comments.entry[1]="X11"'
-      - 'agent.product.comments.entry[1]="Windows"'
-    extract:
-      - 'RemarkablePattern                   : 10 : "X11 and Windows"'
-
 # "chrome" in lowercase; "X11; Windows x86_64" does not make sense
 - test:
     input:
