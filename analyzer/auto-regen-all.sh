@@ -18,6 +18,8 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+"${DIR}/regen-all.sh"
+
 while : ;
 do
   date
