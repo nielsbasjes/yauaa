@@ -25,7 +25,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
