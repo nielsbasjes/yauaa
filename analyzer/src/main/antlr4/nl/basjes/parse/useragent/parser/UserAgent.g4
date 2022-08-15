@@ -117,8 +117,8 @@ EMAIL
 
 CURLYBRACEOPEN  : '{' ;
 CURLYBRACECLOSE : '}' ;
-BRACEOPEN       : '(' ;
-BRACECLOSE      : ')' ;
+BRACEOPEN       : '(' | '\\(' | '\\\\(' ;
+BRACECLOSE      : ')' | '\\)' | '\\\\)' ;
 BLOCKOPEN       : '[' ;
 BLOCKCLOSE      : ']' ;
 SEMICOLON       : ';' ;

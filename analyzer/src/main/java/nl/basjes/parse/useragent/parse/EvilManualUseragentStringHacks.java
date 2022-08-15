@@ -77,7 +77,7 @@ public final class EvilManualUseragentStringHacks {
         result = MISSING_COMMENT_BRACES.matcher(result).replaceAll("$1 ($2)$3");
         result = MISSING_COMMENT_BRACES_OPERA.matcher(result).replaceAll("$1 ($2)$3");
 
-        // The NetType and Language tags as used by Tencent re hard to parse.
+        // The NetType and Language tags as used by Tencent are hard to parse.
         // Some example snippets from Tencent/Alibaba style agents:
         //    Core/UIWebView NetType/WIFI
         //    Core/UIWebView NetType/2G

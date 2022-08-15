@@ -190,7 +190,7 @@ config:
       AgentNameVersion                     : 'Waterfox 26.0'
       AgentNameVersionMajor                : 'Waterfox 26'
 
-# Notice the SLASHES !!! Must make sure the javacode actually sees them this way !!!
+# Notice the SLASHES !!!
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 \\(iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us\\) AppleWebKit/537.51.1 \\(KHTML, like Gecko\\) Version/7.0 Mobile/11A465 Safari/9537.53'
@@ -220,6 +220,37 @@ config:
       AgentNameVersionMajor                : 'Safari 7'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
+
+# Notice the SLASHES !!!
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 \(Windows NT 10.0; WOW64; x64\) AppleWebKit/537.36 \(KHTML, like Gecko\) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      OperatingSystemVersionBuild          : '10240'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'EdgeHTML'
+      LayoutEngineVersion                  : '12'
+      LayoutEngineVersionMajor             : '12'
+      LayoutEngineNameVersion              : 'EdgeHTML 12'
+      LayoutEngineNameVersionMajor         : 'EdgeHTML 12'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '20.10240'
+      AgentVersionMajor                    : '20'
+      AgentNameVersion                     : 'Edge 20.10240'
+      AgentNameVersionMajor                : 'Edge 20'
+
 
 # Those { } gave a parse error that hid the rest.
 - test:
