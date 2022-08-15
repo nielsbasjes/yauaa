@@ -707,7 +707,7 @@ config:
     - 'DeviceBrand                         :      111 :"Roku"'
     - 'OperatingSystemClass                :      150 :"Embedded"'
     - 'OperatingSystemName                 :      150 :"Roku OS"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[@Roku.(1)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@Roku.(1)version!?UnwantedVersionValues]'
     - 'OperatingSystemVersionBuild         :      150 :@Roku.(1)comments.(1)entry'
 
 

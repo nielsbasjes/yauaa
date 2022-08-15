@@ -145,7 +145,7 @@ config:
     - 'RobotName                           :@RobotProduct.name'
     - 'RobotVersion                        :@RobotProduct.(1)version'
     require:
-    - '@RobotMatchedVersion^.name?!NormalProductNames'
+    - '@RobotMatchedVersion^.name!?NormalProductNames'
     - 'IsNull[@RobotVersion.url]'
     extract:
     - 'DeviceClass                         :    10200 :"Robot"'

@@ -757,8 +757,8 @@ config:
     variable:
     - 'Browser                             :agent.product.name?OSNamesForBrowserMatching^'
     extract:
-    - 'AgentVersion                        :     2000 : @Browser.(2)version?!OSNamesForBrowserMatching'
-    - 'AgentName                           :     2000 : @Browser.(1)version?!OSNamesForBrowserMatching'
+    - 'AgentVersion                        :     2000 : @Browser.(2)version!?OSNamesForBrowserMatching'
+    - 'AgentName                           :     2000 : @Browser.(1)version!?OSNamesForBrowserMatching'
 
 - test:
     input:

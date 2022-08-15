@@ -41,7 +41,7 @@ config:
     - 'DeviceName                          :        5 :"Linux Desktop"'
     - 'OperatingSystemClass                :        5 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        4 :agent.(1-2)product.(1)comments.entry.(1-2)product.name="Linux"^.version?!UnwantedVersionValues'
+    - 'OperatingSystemVersion              :        4 :agent.(1-2)product.(1)comments.entry.(1-2)product.name="Linux"^.version!?UnwantedVersionValues'
 
 - matcher:
     require:
@@ -51,7 +51,7 @@ config:
     - 'DeviceName                          :        5 :"Linux Desktop"'
     - 'OperatingSystemClass                :        5 :"Desktop"'
     - 'OperatingSystemName                 :        5 :"Linux"'
-    - 'OperatingSystemVersion              :        3 :agent.product.name="Linux"^.version?!UnwantedVersionValues'
+    - 'OperatingSystemVersion              :        3 :agent.product.name="Linux"^.version!?UnwantedVersionValues'
 
 - matcher:
     require:
@@ -79,7 +79,7 @@ config:
 
 - matcher:
     variable:
-    - 'LinuxVersion                        :agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version?!UnwantedVersionValues'
+    - 'LinuxVersion                        :agent.(1-2)product.(1)comments.entry.product.name="Linux"^.(1)version!?UnwantedVersionValues'
     require:
     - 'IsNull[LookUp[CPUArchitectures;@LinuxVersion]]'
     extract:
@@ -91,7 +91,7 @@ config:
     - 'Linux                               :agent.(1-2)product.(1)comments.entry.product.name="Linux"^'
     extract:
     - 'DeviceCpu                           :       15 :LookUp[CPUArchitectures;@Linux.(2)version]'
-    - 'OperatingSystemVersion              :       15 :@Linux.(1)version?!UnwantedVersionValues'
+    - 'OperatingSystemVersion              :       15 :@Linux.(1)version!?UnwantedVersionValues'
 
 - matcher:
     require:

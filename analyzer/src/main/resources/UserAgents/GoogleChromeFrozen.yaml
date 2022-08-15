@@ -201,7 +201,7 @@ config:
     - 'ChromeMajorVersion                  :@ChromeVersion[1]'
     require:
     - 'agent.(3)product.name="Chrome"'
-    - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
+    - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - '@ChromeVersion[2-]="0.0.0"'
     extract:
@@ -860,7 +860,7 @@ config:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeVersion[2-]="0.0.0"'
-    - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
+    - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
     - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     extract:
@@ -885,7 +885,7 @@ config:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeVersion[2-]="0.0.0"'
-    - '@ChromeMajorVersion?!ChromeFrozenMajorVersionsToWindows'
+    - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
     - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     extract:
@@ -1515,7 +1515,7 @@ config:
     require:
     - 'IsNull[@Chrome>>]'
     - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
-    - '@Chrome.version[1]?!ChromeWindows10Reliable'
+    - '@Chrome.version[1]!?ChromeWindows10Reliable'
     extract:
     - 'OperatingSystemName                 :      102 : "Windows NT"'
     - 'OperatingSystemVersion              :      102 : ">=10"'
@@ -1531,7 +1531,7 @@ config:
     - 'agent.product.name="Edg"' # Performance trick
     - '@Chrome>>.name="Edg"'
     - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
-    - '@Chrome.version[1]?!ChromeWindows10Reliable'
+    - '@Chrome.version[1]!?ChromeWindows10Reliable'
     extract:
     - 'OperatingSystemName                 :      102 : "Windows NT"'
     - 'OperatingSystemVersion              :      102 : ">=10"'

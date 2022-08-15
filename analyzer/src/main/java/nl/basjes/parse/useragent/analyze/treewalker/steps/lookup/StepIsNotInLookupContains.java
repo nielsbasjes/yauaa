@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class StepIsNotInLookupContains extends Step {
 
@@ -38,9 +39,13 @@ public class StepIsNotInLookupContains extends Step {
         lookupKeys = null;
     }
 
-    public StepIsNotInLookupContains(String lookupName, Map<String, String> lookup) {
+    public StepIsNotInLookupContains(String lookupName, Set<String> lookupSet) {
         this.lookupName = lookupName;
-        this.lookupKeys = new HashSet<>(lookup.keySet());
+        this.lookupKeys = new HashSet<>(lookupSet);
+    }
+
+    public StepIsNotInLookupContains(String lookupName, Map<String, String> lookup) {
+        this(lookupName, lookup.keySet());
     }
 
     @Override

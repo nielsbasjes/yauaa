@@ -53,7 +53,7 @@ config:
 
 - matcher:
     variable:
-    - 'AgentName                           :agent.(1)product.name?!UnwantedSpecials'
+    - 'AgentName                           :agent.(1)product.name!?UnwantedSpecials'
     extract:
     - 'AgentClass                          :        5 :"Special"'
     - 'AgentName                           :        5 :@AgentName'
@@ -69,20 +69,20 @@ config:
 
 - matcher:
     require:
-    - 'agent.(1)product.name?!UnwantedSpecials'
+    - 'agent.(1)product.name!?UnwantedSpecials'
     extract:
     - 'AgentClass                          :        6 :"Special"'
     - 'AgentName                           :        6 :agent.(1)product.url'
 
 - matcher:
     require:
-    - 'agent.(1)product.name?!UnwantedSpecials'
+    - 'agent.(1)product.name!?UnwantedSpecials'
     extract:
-    - 'AgentVersion                        :        5 :agent.(1)product.(1)comments.(1)entry.(1)text?!UnwantedVersions'
+    - 'AgentVersion                        :        5 :agent.(1)product.(1)comments.(1)entry.(1)text!?UnwantedVersions'
 
 - matcher:
     require:
-    - 'agent.(1)product.name?!UnwantedSpecials'
+    - 'agent.(1)product.name!?UnwantedSpecials'
     extract:
     - 'AgentVersion                        :        6 :agent.(1)product.version'
 
@@ -4113,7 +4113,7 @@ config:
 
 - matcher:
     variable:
-    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product?!UnwantedIENames]'
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product!?UnwantedIENames]'
     - 'AgentVersion                        :@Agent.version'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
@@ -4127,7 +4127,7 @@ config:
 
 #- matcher:
 #    variable:
-#    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry?!UnwantedIENames]'
+#    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry!?UnwantedIENames]'
 #    - 'AgentName                           :@Agent.text'
 #    require:
 #    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'
@@ -4139,7 +4139,7 @@ config:
 
 - matcher:
     variable:
-    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product?!UnwantedIENames]'
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product!?UnwantedIENames]'
     - 'AgentVersion                        :@Agent.version'
     require:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="Trident"'

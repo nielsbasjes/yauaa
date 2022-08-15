@@ -1406,7 +1406,7 @@ config:
     - 'agent.(1)product.(1)comments.(1)entry="Macintosh"'
     - 'agent.(1)product.(1)comments.(2)entry="Intel Mac OS X 10.15"'
     - 'agent.(3)product.name="Firefox"'
-    - 'agent.(3)product.version[1]?!FirefoxNormalMacOsVersion'
+    - 'agent.(3)product.version[1]!?FirefoxNormalMacOsVersion'
     extract:
     - 'OperatingSystemName                 :      500 : "Mac OS"'
     - 'OperatingSystemVersion              :      500 : "<<<null>>>"'
@@ -1417,7 +1417,7 @@ config:
     - 'agent.(1)product.(1)comments.(1)entry="Macintosh"'
     - 'agent.(1)product.(1)comments.(2)entry="PPC Mac OS X 10.15"'
     - 'agent.(3)product.name="Firefox"'
-    - 'agent.(3)product.version[1]?!FirefoxNormalMacOsVersion'
+    - 'agent.(3)product.version[1]!?FirefoxNormalMacOsVersion'
     extract:
     - 'OperatingSystemName                 :      500 : "Mac OS"'
     - 'OperatingSystemVersion              :      500 : "<<<null>>>"'
@@ -1652,7 +1652,7 @@ config:
     - 'Firefox                             :agent.product.name="Firefox"^'
     require:
     - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
-    - '@Firefox.version[1]?!FirefoxNormalWindowsVersion'
+    - '@Firefox.version[1]!?FirefoxNormalWindowsVersion'
     extract:
     - 'OperatingSystemName                 :      102 : "Windows NT"'
     - 'OperatingSystemVersion              :      102 : ">=10"'

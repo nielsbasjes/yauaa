@@ -153,8 +153,8 @@ config:
     variable:
       - 'Foo: agent.product.name^.name'
     extract:
-      - 'IsNotInSet            :   1 : @Foo?!MySet'
-      - 'IsNotInSet_Lookup     :   1 : @Foo?!MyLookup'
+      - 'IsNotInSet            :   1 : @Foo!?MySet'
+      - 'IsNotInSet_Lookup     :   1 : @Foo!?MyLookup'
 
 
 - matcher:

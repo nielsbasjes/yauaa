@@ -38,7 +38,7 @@ DOT             : '.'           ;
 MINUS           : '-'           ;
 STAR            : '*'           ;
 IN              : '?'           ;
-NOTIN           : '?!'          ;
+NOTIN           : '!?'          ;
 
 NUMBER          : [0-9]+        ;
 BLOCKOPEN       : '['           ;

@@ -91,7 +91,7 @@ config:
     require:
     - '@Product'
     - '@Product.(1)name?LookupSet'
-    - '@Product.(1)version?!LookupSet'
+    - '@Product.(1)version!?LookupSet'
     extract:
     - 'ConcatL : 1:Concat["-->";agent.(1)product.(1)name      ]'
     - 'ConcatR : 1:Concat[      agent.(1)product.(1)name;"<--"]'

@@ -114,7 +114,7 @@ echo "
     - 'DeviceBrand                         :      112 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version!?UnwantedVersionValues]'
 
 - matcher:
     variable:
@@ -125,7 +125,7 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version!?UnwantedVersionValues]'
 
 - matcher:
     variable:
@@ -136,7 +136,7 @@ echo "
     - 'DeviceBrand                         :      112 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version!?UnwantedVersionValues]'
 
 # Exact match
 - matcher:
@@ -243,7 +243,7 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersion              :      150 :CleanVersion[@OS^.(1)version!?UnwantedVersionValues]'
 
 - matcher:
     variable:
@@ -254,7 +254,7 @@ echo "
     - 'DeviceBrand                         :      111 :\"${devbrand}\"'
     - 'OperatingSystemClass                :      150 :\"${osclass}\"'
     - 'OperatingSystemName                 :      150 :\"${osname}\"'
-    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version?!UnwantedVersionValues]'
+    - 'OperatingSystemVersion              :      151 :CleanVersion[@OS^.(2)version!?UnwantedVersionValues]'
 
 - matcher:
     require:
