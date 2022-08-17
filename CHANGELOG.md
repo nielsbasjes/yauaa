@@ -8,6 +8,8 @@ v7.5.0-SNAPSHOT
   - Ekioh Flow browser
   - Arris Set-top boxes
   - Privoxy
+- Analyzer:
+    - Made the `NotIn` operator in the rules consistent (`?!` is now `!?`)
 
 v7.4.0
 ===
