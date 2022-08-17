@@ -4,6 +4,7 @@ This is intended as an overview of the major changes
 v7.5.0-SNAPSHOT
 ===
 - New/improved detections
+  - Report frozen Mac OS as `Mac OS >=10.15.7` for all browsers (Chrome, Firefox, etc.).
   - Ekioh Flow browser
   - Arris Set-top boxes
 

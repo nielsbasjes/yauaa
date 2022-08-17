@@ -265,7 +265,8 @@ config:
     - 'agent.(3)product.version[1]?ChromeFrozenMacOsVersion'
     extract:
     - 'OperatingSystemName                 :      500 : "Mac OS"'
-    - 'OperatingSystemVersion              :      500 : "<<<null>>>"'
+    - 'OperatingSystemVersion              :      500 : ">=10.15.7"'
+    - 'OperatingSystemVersionMajor         :      500 : ">=10.15"'
 
 # ======================================
 # Chrome 83 on Windows 10
@@ -832,11 +833,11 @@ config:
       #      const char kUnifiedPlatformWindows[] = "Windows NT 10.0; Win64; x64";
       #   }  // namespace frozen_user_agent_strings
 
-      # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'           : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT'
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'     : 'Desktop|Macintosh|Apple|Desktop|Mac OS'
-      'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Linux Desktop|<<<null>>>|Desktop|Linux'
-      'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|<<<null>>>|<<<null>>>|Mobile|Android'
+      # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName | OSVersion | OSMajorVersion| OSNameVersion | OSNameMajorVersion
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'           : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT|<<<null>>>|<<<null>>>|Windows NT ??|Windows NT ??'
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'     : 'Desktop|Macintosh|Apple|Desktop|Mac OS|>=10.15.7|>=10.15|Mac OS >=10.15.7|Mac OS >=10.15'
+      'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Linux Desktop|<<<null>>>|Desktop|Linux|<<<null>>>|<<<null>>>|Linux ??|Linux ??'
+      'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|<<<null>>>|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
 
 # In this list ChromeOS is special as it carries the version of the Chrome tag
 - lookup:
@@ -869,10 +870,10 @@ config:
     - 'DeviceBrand                         :   400001 :@UnifiedPlatform[[3]]'
     - 'OperatingSystemClass                :   400001 :@UnifiedPlatform[[4]]'
     - 'OperatingSystemName                 :   400001 :@UnifiedPlatform[[5]]'
-    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
-    - 'OperatingSystemVersionMajor         :   400001 :"<<<null>>>"'
-    - 'OperatingSystemNameVersion          :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
-    - 'OperatingSystemNameVersionMajor     :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
+    - 'OperatingSystemVersion              :   400001 :@UnifiedPlatform[[6]]'
+    - 'OperatingSystemVersionMajor         :   400001 :@UnifiedPlatform[[7]]'
+    - 'OperatingSystemNameVersion          :   400001 :@UnifiedPlatform[[8]]'
+    - 'OperatingSystemNameVersionMajor     :   400001 :@UnifiedPlatform[[9]]'
     - 'OperatingSystemVersionBuild         :   400001 :"<<<null>>>"'
 
 # Chrome OS specific:
@@ -1331,10 +1332,10 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Mac OS'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Mac OS ??'
-      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '95.0'
@@ -1360,10 +1361,10 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Mac OS'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Mac OS ??'
-      OperatingSystemNameVersionMajor      : 'Mac OS ??'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '95'

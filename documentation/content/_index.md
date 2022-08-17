@@ -12,6 +12,11 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 7.5.0 (Unreleased)
+- Report frozen `Mac OS X` versions as `Mac OS >=10.15.7` (was for all browsers (Chrome, Firefox, etc.):
+    - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
+    - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
+
 ### Version 7.4.0
 - Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
 - New DeviceClass: "Home Appliance" (Fridges and such)
