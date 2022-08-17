@@ -7,6 +7,7 @@ v7.5.0-SNAPSHOT
   - Report frozen Mac OS as `Mac OS >=10.15.7` for all browsers (Chrome, Firefox, etc.).
   - Ekioh Flow browser
   - Arris Set-top boxes
+  - Privoxy
 
 v7.4.0
 ===

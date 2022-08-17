@@ -121,3 +121,12 @@ config:
     - 'DeviceName                          :    10000 :"Google Wireless Transcoder"'
     - 'DeviceBrand                         :    10000 :"Google"'
     - 'RemarkablePattern                   :      101: "Anonymized"'
+
+
+# https://www.privoxy.org/
+- matcher:
+    require:
+      - 'agent.product.name="Privoxy"'
+    extract:
+      - 'DeviceClass                         :    10000 :"Anonymized"'
+      - 'RemarkablePattern                   :      101: "Anonymized"'
