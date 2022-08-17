@@ -34,6 +34,11 @@ public class StepCleanVersion extends Step {
 
         if (actualValue != null) {
             // Sanitize the provided value
+
+            // Sometimes we get 'Intel Mac OS X10_11_5'
+            if (actualValue.startsWith("X") || actualValue.startsWith("x")) {
+                actualValue = actualValue.substring(1);
+            }
             actualValue = replaceString(actualValue, "_", ".");
             actualValue = replaceString(actualValue, "/", " ");
             actualValue = replaceString(actualValue, ", ", ".");

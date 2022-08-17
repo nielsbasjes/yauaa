@@ -186,7 +186,7 @@ config:
 
 - matcher:
     variable:
-    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.(1)text[2-4]="Mac OS X"'
+    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.(1)text[2-3]="Mac OS"'
     - 'MacOSXVersion                       :@MacOSX@[5-]'
     require:
     - 'IsNull[@MacOSX@="like Mac OS X"]'
@@ -267,7 +267,7 @@ config:
 
 - matcher:
     variable:
-    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name[2-4]="Mac OS X"'
+    - 'MacOSX                              :agent.(1-5)product.(1)comments.entry.product.name[2-3]="Mac OS"'
     - 'MacOSXVersion                       :@MacOSX^.version'
     require:
     - 'IsNull[agent.(1-5)product.(1)comments.entry.(1)text="like Mac OS X"]'
