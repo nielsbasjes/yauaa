@@ -84,8 +84,8 @@ public final class LoadIntoES {
     public static void main(String[] args) throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        env.setMaxParallelism(8);
-        env.setParallelism(8);
+        env.setMaxParallelism(5);
+        env.setParallelism(5);
 
         File dir = new File(".");
         FileFilter fileFilter = new WildcardFileFilter("*.txt");
