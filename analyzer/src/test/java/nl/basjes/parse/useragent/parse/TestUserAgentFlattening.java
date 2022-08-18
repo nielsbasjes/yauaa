@@ -197,6 +197,23 @@ class TestUserAgentFlattening {
         // Special product names
         validateUserAgent("TextName 1 (a) Versi0nName 2 (b) em@il.name 3 (c) key=value 4 (d)"
             ,"agent=\"TextName 1 (a) Versi0nName 2 (b) em@il.name 3 (c) key=value 4 (d)\""
+            ,"agent.(1)product.(1)name=\"TextName\""
+            ,"agent.(1)product.(1)version=\"1\""
+            ,"agent.(1)product.(1)comments.(1)entry.(1)text=\"a\""
+
+            ,"agent.(2)product.(1)name=\"Versi0nName\""
+            ,"agent.(2)product.(1)version=\"2\""
+            ,"agent.(2)product.(1)comments.(1)entry.(1)text=\"b\""
+
+            ,"agent.(3)product.(1)name=\"em@il.name\""
+            ,"agent.(3)product.(1)name.(1)email=\"em@il.name\""
+            ,"agent.(3)product.(1)version=\"3\""
+            ,"agent.(3)product.(1)comments.(1)entry.(1)text=\"c\""
+
+            ,"agent.(4)product.(1)name.(1)keyvalue.(1)key=\"key\""
+            ,"agent.(4)product.(1)name.(1)keyvalue.(2)text=\"value\""
+            ,"agent.(4)product.(1)version=\"4\""
+            ,"agent.(4)product.(1)comments.(1)entry.(1)text=\"d\""
         );
 
     }
@@ -1340,6 +1357,24 @@ class TestUserAgentFlattening {
             ,"agent.(2)product.(1)comments=\"(Yadda)\""
             ,"agent.(2)product.(1)comments.(1)entry=\"Yadda\""
             ,"agent.(2)product.(1)comments.(1)entry.(1)text=\"Yadda\""
+        );
+
+    }
+
+    @Test
+    void testFlatteningSpecialVersions() {
+        validateUserAgent(
+            "Debian/1.5.dfsg+1.5.0.1-4+ Firefox/52.0.1"
+            ,"agent.(1)product.(1)name=\"Debian\""
+            ,"agent.(1)product.(1)version=\"1.5.dfsg+1.5.0.1-4\""
+            ,"agent.(2)product.(1)name=\"Firefox\""
+            ,"agent.(2)product.(1)version=\"52.0.1\""
+        );
+
+        validateUserAgent(
+            "PHP/7.1.11-1+ubuntu16.04.1+deb.sury.org+1"
+            ,"agent.(1)product.(1)name=\"PHP\""
+            ,"agent.(1)product.(1)version=\"7.1.11-1+ubuntu16.04.1+deb.sury.org+1\""
         );
 
     }

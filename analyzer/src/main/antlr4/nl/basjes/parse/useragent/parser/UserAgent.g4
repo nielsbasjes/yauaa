@@ -246,7 +246,7 @@ WORD
 
 // A version is a WORD with at least 1 number in it (and that can contain a '-').
 VERSION
-    : (~[@0-9+;{}()\\/ \t:=[\]",])*[0-9]+([,][0-9]+)?(~[@+;{}()\\/ \t:=[\]",])*
+    : (~[@0-9+;{}()\\/ \t:=[\]",])*[0-9]+([,][0-9]+)?([+]?~[@+;{}()\\/ \t:=[\]",])*
     | UNASSIGNEDVARIABLE
     ;
 

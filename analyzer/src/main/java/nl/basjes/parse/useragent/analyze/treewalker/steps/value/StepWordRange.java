@@ -20,6 +20,7 @@ package nl.basjes.parse.useragent.analyze.treewalker.steps.value;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
+import nl.basjes.parse.useragent.parser.UserAgentParser;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionContext;
 import nl.basjes.parse.useragent.parser.UserAgentParser.SingleVersionWithCommasContext;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
@@ -53,7 +54,11 @@ public class StepWordRange extends Step {
         if (tree.getChildCount() == 1 &&
             (
               tree.getChild(0) instanceof SingleVersionContext ||
-              tree.getChild(0) instanceof SingleVersionWithCommasContext)) {
+              tree.getChild(0) instanceof SingleVersionWithCommasContext ||
+              tree.getChild(0) instanceof UserAgentParser.ProductVersionContext ||
+              tree.getChild(0) instanceof UserAgentParser.ProductVersionSingleWordContext ||
+              tree.getChild(0) instanceof UserAgentParser.ProductVersionWithCommasContext
+            )) {
             filteredValue = VersionSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
         } else {
             filteredValue = WordSplitter.getInstance().getSplitRange(actualValue, firstWord, lastWord);
