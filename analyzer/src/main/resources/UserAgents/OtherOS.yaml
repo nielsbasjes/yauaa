@@ -1683,7 +1683,7 @@ config:
       AgentSecurity                        : 'Weak security'
 
 
-# FIXME: Much is incorrect
+# FIXME: Much is incorrect: Missing space in the OS tag breaks this detection.
 #- test:
 #    input:
 #      User-Agent                           : 'Mozilla/3.0 (WorldGate Gazelle 3.5.1 build 11; FreeBSD2.2.8-STABLE)'
@@ -1739,6 +1739,7 @@ config:
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
       AgentSecurity                        : 'Weak security'
+
 
 - test:
     input:
@@ -2362,6 +2363,37 @@ config:
       AgentVersionMajor                    : '58'
       AgentNameVersion                     : 'Opera 58.0'
       AgentNameVersionMajor                : 'Opera 58'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (BeOS; U; BeOS BePC; en-US; rv:1.9a1) Gecko/20060702 SeaMonkey/1.5a'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Beos/Haiku Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'BeOS/Haiku'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'BeOS/Haiku ??'
+      OperatingSystemNameVersionMajor      : 'BeOS/Haiku ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '1.9a1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Gecko 1.9a1'
+      LayoutEngineNameVersionMajor         : 'Gecko 1'
+      LayoutEngineBuild                    : '20060702'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SeaMonkey'
+      AgentVersion                         : '1.5a'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SeaMonkey 1.5a'
+      AgentNameVersionMajor                : 'SeaMonkey 1'
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
