@@ -35,8 +35,12 @@ import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 public class RestResponseEntityExceptionHandler
     extends ResponseEntityExceptionHandler {
 
+    private final ParseService parseService;
+
     @Autowired
-    private ParseService parseService;
+    public RestResponseEntityExceptionHandler(ParseService parseService) {
+        this.parseService = parseService;
+    }
 
     @ExceptionHandler({YauaaIsBusyStarting.class})
     public ResponseEntity<Object> handleYauaaIsStarting(
