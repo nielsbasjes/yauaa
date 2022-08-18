@@ -57,8 +57,8 @@ config:
     variable:
     - 'RealAgent                           :agent.(1)product.name!="Mozilla"'
     extract:
-    - 'AgentName                           :   320200 : @RealAgent'
-    - 'AgentVersion                        :   320200 : @RealAgent^.version'
+    - 'AgentName                           :   320201 : @RealAgent'
+    - 'AgentVersion                        :   320201 : @RealAgent^.version'
 
 - matcher:
     require:
@@ -969,3 +969,59 @@ config:
       AgentNameVersion                     : 'Googlebot 2.1'
       AgentNameVersionMajor                : 'Googlebot 2'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+
+- test:
+    input:
+      User-Agent                           : 'MeWeBot/1.0 (compatible; Mozilla/5.0; Googlebot/2.1; facebookexternalhit/1.1; +https://mewe.com/externalhit)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Mewe Googlebot Imitator'
+      DeviceBrand                          : 'Mewe'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot Imitator'
+      LayoutEngineVersion                  : '2.1'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Googlebot Imitator 2.1'
+      LayoutEngineNameVersionMajor         : 'Googlebot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MeWeBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'MeWeBot 1.0'
+      AgentNameVersionMajor                : 'MeWeBot 1'
+      AgentInformationUrl                  : 'https://mewe.com/externalhit'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html) Page Audit (https://page-audit.com)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Page-Audit'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Page-Audit'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Page-Audit ??'
+      AgentNameVersionMajor                : 'Page-Audit ??'
+      AgentInformationUrl                  : 'https://page-audit.com'
