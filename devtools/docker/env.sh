@@ -34,7 +34,7 @@ alias switch-jdk11="__INTERNAL__SwitchJDK 1.11.0; export JDK_VERSION=JDK-11"
 alias switch-jdk17="__INTERNAL__SwitchJDK 1.17.0 ; export JDK_VERSION=JDK-17"
 #alias switch-jdk13="__INTERNAL__SwitchJDK latest; export JDK_VERSION=JDK-13"
 
-switch-jdk11
+switch-jdk17
 
 . "/usr/lib/git-core/git-sh-prompt"
 export PS1='\['${IBlue}${On_Black}'\] \u@\['${IWhite}${On_Red}'\][Yauaa Builder \['${BWhite}${On_Blue}'\]<'\${JDK_VERSION}'>\['${IWhite}${On_Red}'\]]\['${IBlue}${On_Black}'\]:\['${Cyan}${On_Black}'\]\w$(declare -F __git_ps1 &>/dev/null && __git_ps1 " \['${BIPurple}'\]{\['${BIGreen}'\]%s\['${BIPurple}'\]}")\['${BIBlue}'\] ]\['${Color_Off}'\]\n$ '
