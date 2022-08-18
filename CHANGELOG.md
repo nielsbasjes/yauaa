@@ -10,6 +10,7 @@ v7.5.0-SNAPSHOT
   - Ekioh Flow browser
   - Arris Set-top boxes
   - Privoxy/PrivacyWall
+  - The Ask Toolbar UA modification is no longer seen as a browser.
 - Analyzer:
     - Made the `NotIn` operator in the rules consistent (`?!` is now `!?`)
     - Improve extracting versions like `PHP/7.1.11-1+ubuntu16.04.1+deb.sury.org+1`

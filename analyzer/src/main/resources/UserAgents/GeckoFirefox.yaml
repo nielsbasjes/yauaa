@@ -26,8 +26,15 @@ config:
     - 'ExactMatchMobileBrands'
     - 'BrowserPluginNames'
     - 'GenericUnwantedNames'
-#    values:
-#    - 'anonymized'
+    values:
+    - 'AppleWebKit'
+
+- set:
+    name: 'BadGeckoPrefixes'
+    merge:
+      - 'OSPatterns'
+    values:
+      - 'AskTb'  # Ask Toolbar
 
 - set:
     name: 'SpecialGeckoNames'
@@ -90,6 +97,7 @@ config:
     - 'Gecko                               :agent.(2-5)product.name="Gecko"^>'
     require:
     - 'IsInLookUpPrefix[OSPatterns;@Gecko.name]'
+    - '@Gecko.name!?OSPatterns' # It must be a PREFIX, not an exact match.
     extract:
     - 'AgentClass                          :     1999 :"Browser"'
     - 'AgentName                           :     1999 :@Gecko.name[2-]'
@@ -97,14 +105,25 @@ config:
 
 - matcher:
     variable:
+      - 'Gecko                               :agent.(2-5)product.name="Gecko"^>'
+    require:
+      - '@Gecko.name?OSPatterns' # It must be an exact match.
+    extract:
+      - 'AgentClass                          :     1999 :"Browser"'
+      - 'AgentName                           :     1999 :@Gecko.name'
+      - 'AgentVersion                        :     1999 :@Gecko.version'
+
+
+- matcher:
+    variable:
     - 'Gecko                               :agent.(2-5)product.name="Gecko"^>'
     require:
-    - 'IsNotInLookUpPrefix[OSPatterns;@Gecko.name]'
+    - 'IsNotInLookUpPrefix[BadGeckoPrefixes;@Gecko.name]'
     - 'IsNull[@Gecko.name?BadGeckoNames]'
     extract:
     - 'AgentClass                          :     2000 :"Browser"'
     - 'AgentName                           :     2000 :@Gecko.name'
-    - 'AgentVersion                        :     2000 :@Gecko.version'
+    - 'AgentVersion                        :     2000 :@Gecko.version!?BadGeckoNames'
 
 - matcher:
     variable:
@@ -115,7 +134,7 @@ config:
     extract:
     - 'AgentClass                          :     2001 :"Browser"'
     - 'AgentName                           :     2001 :@Gecko.name'
-    - 'AgentVersion                        :     2001 :@Gecko.version'
+    - 'AgentVersion                        :     2001 :@Gecko.version!?BadGeckoNames'
 
 - matcher:
     variable:
@@ -126,7 +145,7 @@ config:
     extract:
     - 'AgentClass                          :     2002 :"Browser"'
     - 'AgentName                           :     2002 :@Gecko.name'
-    - 'AgentVersion                        :     2002 :@Gecko.version'
+    - 'AgentVersion                        :     2002 :@Gecko.version!?BadGeckoNames'
 
 - matcher:
     variable:
@@ -136,7 +155,7 @@ config:
     extract:
     - 'AgentClass                          :     2002 :"Browser"'
     - 'AgentName                           :     2002 :@Gecko.name[2]="Firefox"'
-    - 'AgentVersion                        :     2002 :@Gecko.version'
+    - 'AgentVersion                        :     2002 :@Gecko.version!?BadGeckoNames'
 
 - matcher:
     variable:
@@ -174,7 +193,8 @@ config:
     require:
     - 'agent.product.name="Firefox"' # Performance trick
     - '@Browser>.name="Firefox"'
-    - 'IsNull[@Browser.name?OSPatterns]'
+    - 'IsNotInLookUpPrefix[BadGeckoPrefixes;@Browser.name]'
+    - 'IsNull[@Browser.name?BadGeckoNames]'
     - 'IsNull[@Browser.name~"toolbar"]'
     extract:
     - 'AgentClass                          :     2005 :"Browser"'
@@ -1396,9 +1416,6 @@ config:
     - '84'
     - '85'
     - '86'
-    - '87'
-    - '88'
-    - '89'
 
 
 - matcher:
