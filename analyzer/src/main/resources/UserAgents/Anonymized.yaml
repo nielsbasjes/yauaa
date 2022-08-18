@@ -129,4 +129,19 @@ config:
       - 'agent.product.name="Privoxy"'
     extract:
       - 'DeviceClass                         :    10000 :"Anonymized"'
-      - 'RemarkablePattern                   :      101: "Anonymized"'
+      - 'RemarkablePattern                   :      101 :"Anonymized"'
+
+- matcher:
+    require:
+      - 'agent.product.name="PrivacyWall"'
+    extract:
+      - 'DeviceClass                         :    10000 :"Anonymized"'
+      - 'RemarkablePattern                   :      101 :"Anonymized"'
+
+- matcher:
+    require:
+      - 'agent="Chrome Privacy Preserving Prefetch Proxy"'
+    extract:
+      - 'DeviceClass                         :   100000 :"Anonymized"'
+      - 'RemarkablePattern                   :      101 :"Anonymized"'
+

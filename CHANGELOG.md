@@ -7,7 +7,7 @@ v7.5.0-SNAPSHOT
   - Report frozen Mac OS as `Mac OS >=10.15.7` for all browsers (Chrome, Firefox, etc.).
   - Ekioh Flow browser
   - Arris Set-top boxes
-  - Privoxy
+  - Privoxy/PrivacyWall
 - Analyzer:
     - Made the `NotIn` operator in the rules consistent (`?!` is now `!?`)
     - Improve extracting versions like `PHP/7.1.11-1+ubuntu16.04.1+deb.sury.org+1`
