@@ -11,6 +11,7 @@ v7.5.0-SNAPSHOT
   - Arris Set-top boxes
   - Privoxy/PrivacyWall
   - The Ask Toolbar UA modification is no longer seen as a browser.
+  - Analyze https://cobalt.dev/ based devices
 - Analyzer:
     - Made the `NotIn` operator in the rules consistent (`?!` is now `!?`)
     - Improve extracting versions like `PHP/7.1.11-1+ubuntu16.04.1+deb.sury.org+1`

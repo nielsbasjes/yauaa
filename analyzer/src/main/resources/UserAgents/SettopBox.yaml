@@ -808,3 +808,155 @@ config:
       AgentNameVersion                     : 'Opera 19.0.1325.0'
       AgentNameVersionMajor                : 'Opera 19'
       NetworkType                          : 'Wired'
+
+
+# ==========================================
+# https://cobalt.dev/
+#    Porters enable Cobalt to work on other platforms by using Starboard, Cobalt's porting layer and OS abstraction,
+#    to implement the platform-specific functionality that Cobalt uses. Each Starboard module (memory, socket, thread, etc.)
+#    defines functions that must be implemented for the porter's platform.
+#
+# From the Cobalt code base: https://cobalt.googlesource.com/cobalt
+# ./cobalt/browser/user_agent_string.cc
+#  Cobalt's user agent contains the following sections:
+#    Mozilla/5.0 (ChromiumStylePlatform)
+#    Cobalt/Version.BuildNumber-BuildConfiguration (unlike Gecko)
+#    JavaScript Engine Name/Version
+#    Starboard/APIVersion,
+#    Device/FirmwareVersion (Brand, Model, ConnectionType)
+#
+#  In the case of Evergreen, it contains three additional sections:
+#    Evergreen/Version
+#    Evergreen-Type
+#    Evergreen-FileType
+
+# Extracted from ./cobalt/browser/user_agent_platform_info.cc
+- lookup:
+    name: "CobaltDeviceTypes"
+    map:
+      '_BDP_'       :  'Set-top box'  #  "BDP"        SystemDeviceType: BlueRayDiskPlayer
+      '_GAME_'      :  'Game Console' #  "GAME"       SystemDeviceType: GameConsole
+      '_OTT_'       :  'Set-top box'  #  "OTT"        SystemDeviceType: OverTheTopBox
+      '_STB_'       :  'Set-top box'  #  "STB"        SystemDeviceType: SetTopBox
+      '_TV_'        :  'TV'           #  "TV"         SystemDeviceType: TV
+      '_ATV_'       :  'Set-top box'  #  "ATV"        SystemDeviceType: AndroidTV
+      '_DESKTOP_'   :  'Desktop'      #  "DESKTOP"    SystemDeviceType: DesktopPC
+      '_PROJECTOR_' :  'Set-top box'  #  "PROJECTOR"  SystemDeviceType: VideoProjector
+      '_UNKNOWN_'   :  'Set-top box'  #  "UNKNOWN"    SystemDeviceType: Unknown
+
+
+- matcher:
+    variable:
+      - 'Cobalt: agent.product.name="Cobalt"^'
+      - 'Starboard: agent.product.name="Starboard"^'
+      - 'Device: @Starboard>'
+    extract:
+      - 'DeviceClass                         :     1001 :LookUpContains[CobaltDeviceTypes;@Device.name;"Set-top box"]'
+      - 'DeviceName                          :     1001 :@Device.comments.(2)entry'
+      - 'DeviceBrand                         :     1001 :@Device.comments.(1)entry'
+      - 'DeviceFirmwareVersion               :     1001 :@Device.version'
+      - 'OperatingSystemClass                :     1000 :"Embedded"'
+      - 'NetworkType                         :        1 :@Device.comments.(3)entry'
+      - 'LayoutEngineClass                   :     1001 :"Browser"'
+      - 'LayoutEngineName                    :     1001 :"Cobalt"'
+      - 'LayoutEngineVersion                 :     1001 :@Cobalt.version[1]'
+      - 'LayoutEngineBuild                   :     1001 :@Cobalt.version[2]'
+
+
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 7.0) Cobalt/11.121419-gold (unlike Gecko) Starboard/5, _ATV_bigfish/NRD90M (FORMULER, Formuler Z8 Pro, Wired) com.google.android.youtube.tv/2.02.08'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Formuler Z8 PRO'
+      DeviceBrand                          : 'Formuler'
+      DeviceCpu                            : 'ARMv7'
+      DeviceCpuBits                        : '32'
+      DeviceFirmwareVersion                : 'NRD90M'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Cobalt'
+      LayoutEngineVersion                  : '11'
+      LayoutEngineVersionMajor             : '11'
+      LayoutEngineNameVersion              : 'Cobalt 11'
+      LayoutEngineNameVersionMajor         : 'Cobalt 11'
+      LayoutEngineBuild                    : '121419'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube for Android TV'
+      AgentVersion                         : '2.02.08'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Youtube for Android TV 2.02.08'
+      AgentNameVersionMajor                : 'Youtube for Android TV 2'
+      AgentInformationUrl                  : 'com.google.android.youtube.tv'
+      NetworkType                          : 'Wired'
+
+
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 9) Cobalt/10.82186-gold (unlike Gecko) Starboard/5, _ATV_gxl/PPR1.180610.011 (Amlogic, X96mini_RP, Wireless) com.google.android.youtube.tv/2.00.19'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Amlogic X96MINI RP'
+      DeviceBrand                          : 'Amlogic'
+      DeviceCpu                            : 'ARMv7'
+      DeviceCpuBits                        : '32'
+      DeviceFirmwareVersion                : 'PPR1.180610.011'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Cobalt'
+      LayoutEngineVersion                  : '10'
+      LayoutEngineVersionMajor             : '10'
+      LayoutEngineNameVersion              : 'Cobalt 10'
+      LayoutEngineNameVersionMajor         : 'Cobalt 10'
+      LayoutEngineBuild                    : '82186'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Youtube for Android TV'
+      AgentVersion                         : '2.00.19'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Youtube for Android TV 2.00.19'
+      AgentNameVersionMajor                : 'Youtube for Android TV 2'
+      AgentInformationUrl                  : 'com.google.android.youtube.tv'
+      NetworkType                          : 'Wireless'
+
+
+# Manually created testing example:
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 42) Cobalt/44.12345-green (unlike Gecko) Starboard/5, _GAME_foo/Basjes (Sony, PS5, Carrier pigeon) nl.basjes.tvgamer/1.2.3.4'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PS5'
+      DeviceBrand                          : 'Sony'
+      DeviceCpu                            : 'ARMv7'
+      DeviceCpuBits                        : '32'
+      DeviceFirmwareVersion                : 'Basjes'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '42'
+      OperatingSystemVersionMajor          : '42'
+      OperatingSystemNameVersion           : 'Android 42'
+      OperatingSystemNameVersionMajor      : 'Android 42'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Cobalt'
+      LayoutEngineVersion                  : '44'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Cobalt 44'
+      LayoutEngineNameVersionMajor         : 'Cobalt 44'
+      LayoutEngineBuild                    : '12345'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Cobalt'
+      AgentVersion                         : '44.12345-green'
+      AgentVersionMajor                    : '44'
+      AgentNameVersion                     : 'Cobalt 44.12345-green'
+      AgentNameVersionMajor                : 'Cobalt 44'
+      NetworkType                          : 'Carrier Pigeon'

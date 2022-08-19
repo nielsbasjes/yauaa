@@ -2820,12 +2820,64 @@ config:
       NetworkType                          : 'Wired'
 
 
-# FIXME: This is the YouTube app for Android TV. So this means something like TV or Set-top box.
-#- test:
-#    input:
-#      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 7.0) Cobalt/11.121419-gold (unlike Gecko) Starboard/5, _ATV_bigfish/NRD90M (FORMULER, Formuler Z8 Pro, Wired) com.google.android.youtube.tv/2.02.08'
-#
-#- test:
-#    input:
-#      User-Agent  : 'Mozilla/5.0 (Linux armeabi-v7a; Android 9) Cobalt/10.82186-gold (unlike Gecko) Starboard/5, _ATV_gxl/PPR1.180610.011 (Amlogic, X96mini_RP, Wireless) com.google.android.youtube.tv/2.00.19'
+- test:
+    input:
+      User-Agent  : 'Opera/9.80 (Linux sh4; HbbTV/1.2.1 (; Loewe; SL21x; LOH/10.2.4.53;;) CE-HTML/1.0 Config(L:eng,CC:GBR) NETRANGEMMH) Presto/2.12.407 Version/12.50'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Loewe SL21X'
+      DeviceBrand                          : 'Loewe'
+      DeviceCpu                            : 'SH4'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'LOH'
+      OperatingSystemVersion               : '10.2.4.53'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'LOH 10.2.4.53'
+      OperatingSystemNameVersionMajor      : 'LOH 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.407'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.407'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.50'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.50'
+      AgentNameVersionMajor                : 'Opera 12'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'eng'
+
+
+- test:
+    input:
+      User-Agent  : 'Opera/9.80 (Linux sh4; HbbTV/1.2.1 (+PVR; Loewe; SL220; LOH/4.01;;) CE-HTML/1.0 Config(L:ces,CC:CZE) NETRANGEMMH) Presto/2.12.362 Version/12.10'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Loewe SL220'
+      DeviceBrand                          : 'Loewe'
+      DeviceCpu                            : 'SH4'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'LOH'
+      OperatingSystemVersion               : '4.01'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'LOH 4.01'
+      OperatingSystemNameVersionMajor      : 'LOH 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '2.12.362'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Presto 2.12.362'
+      LayoutEngineNameVersionMajor         : 'Presto 2'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '12.10'
+      AgentVersionMajor                    : '12'
+      AgentNameVersion                     : 'Opera 12.10'
+      AgentNameVersionMajor                : 'Opera 12'
+      AgentLanguage                        : 'Czech'
+      AgentLanguageCode                    : 'ces'
 
