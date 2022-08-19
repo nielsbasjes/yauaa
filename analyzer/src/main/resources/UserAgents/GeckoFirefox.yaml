@@ -169,6 +169,16 @@ config:
 
 - matcher:
     variable:
+      - 'Gecko                               :agent.(2-5)product.name="Gecko"^>'
+    require:
+      - 'agent.(3-6)product.name[4]="Firefox"' # Performance trick
+    extract:
+      - 'AgentClass                          :     2002 :"Browser"'
+      - 'AgentName                           :     2002 :@Gecko.name[4]="Firefox"'
+      - 'AgentVersion                        :     2002 :@Gecko.version'
+
+- matcher:
+    variable:
     - 'Gecko                               :agent.(2-5)product.name="Gecko"^>>'
     require:
     - 'agent.(4-7)product.name[2]="Firefox"' # Performance trick
@@ -185,6 +195,16 @@ config:
     extract:
     - 'AgentClass                          :     2003 :"Browser"'
     - 'AgentName                           :     2003 :@Gecko.name[3]="Firefox"'
+    - 'AgentVersion                        :     2003 :@Gecko.version'
+
+- matcher:
+    variable:
+    - 'Gecko                               :agent.(2-5)product.name="Gecko"^>>'
+    require:
+    - 'agent.(4-7)product.name[4]="Firefox"' # Performance trick
+    extract:
+    - 'AgentClass                          :     2003 :"Browser"'
+    - 'AgentName                           :     2003 :@Gecko.name[4]="Firefox"'
     - 'AgentVersion                        :     2003 :@Gecko.version'
 
 - matcher:
@@ -1205,36 +1225,6 @@ config:
       AgentVersionMajor                    : '78'
       AgentNameVersion                     : 'Waterfox 78.14.0'
       AgentNameVersionMajor                : 'Waterfox 78'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:94.0) Gecko/20100101 Firefox/94.0 Herring/583.19.9'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple Macintosh'
-      DeviceBrand                          : 'Apple'
-      DeviceCpu                            : 'Intel'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS'
-      OperatingSystemVersion               : '10.13'
-      OperatingSystemVersionMajor          : '10.13'
-      OperatingSystemNameVersion           : 'Mac OS 10.13'
-      OperatingSystemNameVersionMajor      : 'Mac OS 10.13'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : '94.0'
-      LayoutEngineVersionMajor             : '94'
-      LayoutEngineNameVersion              : 'Gecko 94.0'
-      LayoutEngineNameVersionMajor         : 'Gecko 94'
-      LayoutEngineBuild                    : '20100101'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Herring'
-      AgentVersion                         : '583.19.9'
-      AgentVersionMajor                    : '583'
-      AgentNameVersion                     : 'Herring 583.19.9'
-      AgentNameVersionMajor                : 'Herring 583'
 
 
 - test:

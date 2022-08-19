@@ -4108,8 +4108,8 @@ config:
     - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
     - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
     extract:
-    - 'AgentName                           :     2007 : NormalizeBrand[@AgentName.text]'
-    - 'AgentVersion                        :     2007 : "<<<null>>>"'
+    - 'AgentName                           :     2017 : NormalizeBrand[@AgentName.text]'
+    - 'AgentVersion                        :     2017 : "<<<null>>>"'
 
 - matcher:
     variable:
@@ -4122,8 +4122,8 @@ config:
     - 'IsNull[@AgentVersion.uuid]'
     - 'IsNull[@AgentVersion.keyvalue]'
     extract:
-    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.name]'
-    - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
+    - 'AgentName                           :     2019 : NormalizeBrand[@Agent.name]'
+    - 'AgentVersion                        :     2019 : CleanVersion[@AgentVersion]'
 
 #- matcher:
 #    variable:
@@ -4149,8 +4149,8 @@ config:
     - 'IsNull[@AgentVersion.uuid]'
     - 'IsNull[@AgentVersion.keyvalue]'
     extract:
-    - 'AgentName                           :     2009 : NormalizeBrand[@Agent.name]'
-    - 'AgentVersion                        :     2009 : CleanVersion[@AgentVersion]'
+    - 'AgentName                           :     2019 : NormalizeBrand[@Agent.name]'
+    - 'AgentVersion                        :     2019 : CleanVersion[@AgentVersion]'
 
 
 # GreenBrowser on Windows 10 (www.morequick.com)

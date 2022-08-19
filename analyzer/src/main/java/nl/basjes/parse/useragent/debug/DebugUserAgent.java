@@ -110,7 +110,7 @@ public class DebugUserAgent extends MutableUserAgent { // NOSONAR: No need to ov
             for (Pair<UserAgent, Matcher> pair: appliedMatcherResults) {
                 UserAgent result = pair.getLeft();
                 AgentField partialField = result.get(fieldName);
-                if (partialField != null && partialField.getConfidence() >= 0) {
+                if (partialField != null && partialField.getConfidence() > 0) {
                     String previousValue = receivedValues.get(partialField.getConfidence());
                     if (previousValue != null) {
                         if (!previousValue.equals(partialField.getValue())) {

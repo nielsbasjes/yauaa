@@ -31,6 +31,53 @@ config:
     - 'LayoutEngineName                    :   320100 : "Googlebot Imitator"'
     - 'AgentName                           :   320100 : "Googlebot Imitator"'
 
+
+- matcher:
+    require:
+      - 'agent.text[1]="null"'
+    extract:
+      - 'DeviceClass                         :   500000 :"Robot"'
+      - 'RemarkablePattern                   :   500000 :"Null: Text"'
+
+- matcher:
+    require:
+      - 'agent.product.name[1]="null"'
+    extract:
+      - 'DeviceClass                         :   500000 :"Robot"'
+      - 'RemarkablePattern                   :   500000 :"Null: Product name"'
+
+- matcher:
+    require:
+      - 'agent.product.version="null"'
+    extract:
+      - 'DeviceClass                         :   500000 :"Robot"'
+      - 'RemarkablePattern                   :   500000 :"Null: Product version"'
+
+- matcher:
+    require:
+      - 'agent.text[1]="null"'
+      - 'agent~"Googlebot"'
+    extract:
+      - 'DeviceClass                         :   500001 :"Robot Imitator"'
+      - 'RemarkablePattern                   :   500000 :"Null: Text"'
+
+- matcher:
+    require:
+      - 'agent.product.name[1]="null"'
+      - 'agent~"Googlebot"'
+    extract:
+      - 'DeviceClass                         :   500001 :"Robot Imitator"'
+      - 'RemarkablePattern                   :   500000 :"Null: Product name"'
+
+- matcher:
+    require:
+      - 'agent.product.version="null"'
+      - 'agent~"Googlebot"'
+    extract:
+      - 'DeviceClass                         :   500001 :"Robot Imitator"'
+      - 'RemarkablePattern                   :   500000 :"Null: Product version"'
+
+
 - matcher:
     require:
     - 'agent.(1-10)product.(1-2)comments.(1-8)entry.(1-4)product.name="Googlebot"'
