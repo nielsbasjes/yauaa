@@ -55,9 +55,9 @@ config:
 - test:
     <<: *TEST_OPTIONS
     input:
-      user_agent_string: 'The product name contains foo, foo and bar/5.0'
+      user_agent_string: 'The product name contains foo and bar/5.0'
     expected:
-      ReplaceString1:  "The product name contains FOO, FOO and bar"
-      ReplaceString2:  "The product name contains bar, bar and foo"
-      ReplaceString01: "The product name contains foo, foo and bar"
-      ReplaceString02: "The product name contains foo, foo and bar"
+      ReplaceString1:  "The product name contains FOO and bar"
+      ReplaceString2:  "The product name contains bar and foo"
+      ReplaceString01: "The product name contains foo and bar"
+      ReplaceString02: "The product name contains foo and bar"
