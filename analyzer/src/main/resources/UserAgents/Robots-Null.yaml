@@ -1,0 +1,743 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# These are examples of robot/spider/bot useragents we have seen.
+
+config:
+
+- matcher:
+    require:
+    - 'agent.text[1]="null"'
+    extract:
+    - 'DeviceClass                         :   500000 :"Robot"'
+    - 'RemarkablePattern                   :   500000 :"Null: Text"'
+
+- matcher:
+    require:
+    - 'agent.product.name[1]="null"'
+    extract:
+    - 'DeviceClass                         :   500000 :"Robot"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product name"'
+
+- matcher:
+    require:
+    - 'agent.product.version="null"'
+    extract:
+    - 'DeviceClass                         :   500000 :"Robot"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product version"'
+
+- matcher:
+    require:
+    - 'agent.product.comments="(null)"'
+    extract:
+    - 'DeviceClass                         :   500000 :"Robot"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1-2)product.comments="(null)"'
+    extract:
+    - 'DeviceClass                         :   500000 :"Robot"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
+
+
+
+- matcher:
+    require:
+    - 'agent.text[1]="null"'
+    - 'agent~"Googlebot"'
+    extract:
+    - 'DeviceClass                         :   500001 :"Robot Imitator"'
+    - 'RemarkablePattern                   :   500000 :"Null: Text"'
+
+- matcher:
+    require:
+    - 'agent.product.name[1]="null"'
+    - 'agent~"Googlebot"'
+    extract:
+    - 'DeviceClass                         :   500001 :"Robot Imitator"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product name"'
+
+- matcher:
+    require:
+    - 'agent.product.version="null"'
+    - 'agent~"Googlebot"'
+    extract:
+    - 'DeviceClass                         :   500001 :"Robot Imitator"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product version"'
+
+- matcher:
+    require:
+    - 'agent.product.comments="(null)"'
+    - 'agent~"Googlebot"'
+    extract:
+    - 'DeviceClass                         :   500001 :"Robot Imitator"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
+
+- matcher:
+    require:
+    - 'agent.product.comments.entry.(1-2)product.comments="(null)"'
+    - 'agent~"Googlebot"'
+    extract:
+    - 'DeviceClass                         :   500001 :"Robot Imitator"'
+    - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103.0'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103.0'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '103.0.5060.114'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Chrome 103.0.5060.114'
+      AgentNameVersionMajor                : 'Chrome 103'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '102'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Chrome 102'
+      AgentNameVersionMajor                : 'Chrome 102'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36/null/null/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '102'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Chrome 102'
+      AgentNameVersionMajor                : 'Chrome 102'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36/null/null/null/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '102'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Chrome 102'
+      AgentNameVersionMajor                : 'Chrome 102'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:101.0) Gecko/20100101 null Firefox/101.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8.1'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8.1'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '101.0'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Gecko 101.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 101'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '101.0'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Firefox 101.0'
+      AgentNameVersionMajor                : 'Firefox 101'
+      RemarkablePattern                    : 'Null: Product name'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/NULL'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '68.0'
+      LayoutEngineVersionMajor             : '68'
+      LayoutEngineNameVersion              : 'Gecko 68.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 68'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : 'NULL'  # FIXME: Low prio. '??' would be better.
+      AgentVersionMajor                    : 'NULL'
+      AgentNameVersion                     : 'Firefox NULL'
+      AgentNameVersionMajor                : 'Firefox NULL'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null Firefox/102.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Gecko 102.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 102'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '102.0'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Firefox 102.0'
+      AgentNameVersionMajor                : 'Firefox 102'
+      RemarkablePattern                    : 'Null: Product name'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null Firefox/102.0/Ipg1iqQE-51'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Gecko 102.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 102'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '102.0'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Firefox 102.0'
+      AgentNameVersionMajor                : 'Firefox 102'
+      RemarkablePattern                    : 'Null: Product name'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null null Firefox/102.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Gecko 102.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 102'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '102.0'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Firefox 102.0'
+      AgentNameVersionMajor                : 'Firefox 102'
+      RemarkablePattern                    : 'Null: Product name'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null null null Firefox/102.0/Ipg1iqQE-51'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Gecko 102.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 102'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '102.0'
+      AgentVersionMajor                    : '102'
+      AgentNameVersion                     : 'Firefox 102.0'
+      AgentNameVersionMajor                : 'Firefox 102'
+      RemarkablePattern                    : 'Null: Product name'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36 OPR/87.0.4390.58/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101.0'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101.0'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '87.0.4390.58'
+      AgentVersionMajor                    : '87'
+      AgentNameVersion                     : 'Opera 87.0.4390.58'
+      AgentNameVersionMajor                : 'Opera 87'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; CrOS aarch64 14816.99.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'AArch64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '103'
+      OperatingSystemVersionMajor          : '103'
+      OperatingSystemNameVersion           : 'Chrome OS 103'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 103'
+      OperatingSystemVersionBuild          : '14816.99.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '103'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Chrome 103'
+      AgentNameVersionMajor                : 'Chrome 103'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 13904.97.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.167 Safari/537.36/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '91.0.4472.167'
+      OperatingSystemVersionMajor          : '91'
+      OperatingSystemNameVersion           : 'Chrome OS 91.0.4472.167'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 91'
+      OperatingSystemVersionBuild          : '13904.97.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '91.0'
+      LayoutEngineVersionMajor             : '91'
+      LayoutEngineNameVersion              : 'Blink 91.0'
+      LayoutEngineNameVersionMajor         : 'Blink 91'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '91.0.4472.167'
+      AgentVersionMajor                    : '91'
+      AgentNameVersion                     : 'Chrome 91.0.4472.167'
+      AgentNameVersionMajor                : 'Chrome 91'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 13904.97.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.167 Safari/537.36/null/null'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '91.0.4472.167'
+      OperatingSystemVersionMajor          : '91'
+      OperatingSystemNameVersion           : 'Chrome OS 91.0.4472.167'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 91'
+      OperatingSystemVersionBuild          : '13904.97.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '91.0'
+      LayoutEngineVersionMajor             : '91'
+      LayoutEngineNameVersion              : 'Blink 91.0'
+      LayoutEngineNameVersionMajor         : 'Blink 91'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '91.0.4472.167'
+      AgentVersionMajor                    : '91'
+      AgentNameVersion                     : 'Chrome 91.0.4472.167'
+      AgentNameVersionMajor                : 'Chrome 91'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 14816.99.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36/null,gzip(gfe)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Chromebook'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Chrome OS'
+      OperatingSystemVersion               : '103'
+      OperatingSystemVersionMajor          : '103'
+      OperatingSystemNameVersion           : 'Chrome OS 103'
+      OperatingSystemNameVersionMajor      : 'Chrome OS 103'
+      OperatingSystemVersionBuild          : '14816.99.0'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '103'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Chrome 103'
+      AgentNameVersionMajor                : 'Chrome 103'
+      RemarkablePattern                    : 'Null: Product version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.1.7 Safari/NULLVPKYS'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.9.3'
+      OperatingSystemVersionMajor          : '10.9'
+      OperatingSystemNameVersion           : 'Mac OS 10.9.3'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.75.14'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.75.14'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '7.1.7'
+      AgentVersionMajor                    : '7'
+      AgentNameVersion                     : 'Safari 7.1.7'
+      AgentNameVersionMajor                : 'Safari 7'
+      RemarkablePattern                    : 'Not a version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.3490.239 Safari/28NULL'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.15.6'
+      OperatingSystemVersionMajor          : '10.15'
+      OperatingSystemNameVersion           : 'Mac OS 10.15.6'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '86.0'
+      LayoutEngineVersionMajor             : '86'
+      LayoutEngineNameVersion              : 'Blink 86.0'
+      LayoutEngineNameVersionMajor         : 'Blink 86'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '86.0.3490.239'
+      AgentVersionMajor                    : '86'
+      AgentNameVersion                     : 'Chrome 86.0.3490.239'
+      AgentNameVersionMajor                : 'Chrome 86'
+      RemarkablePattern                    : 'Not a version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS (null) like Mac OS X) AppleWebKit/(null) (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '13B143'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '9.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Safari 9.0'
+      AgentNameVersionMajor                : 'Safari 9'
+      RemarkablePattern                    : 'Null: Product comment'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac OS X) AppleWebKit/(null) (KHTML, like Gecko) Version/(null) Mobile/(null) Safari/(null)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.3'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'iOS 10.3.3'
+      OperatingSystemNameVersionMajor      : 'iOS 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Safari ??'
+      AgentNameVersionMajor                : 'Safari ??'
+      RemarkablePattern                    : 'Null: Product comment'
+
+
+- test:
+    input:
+      User-Agent                           : '(null) Safari/604.1 [Pinterest/iOS]'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Pinterest'
+      AgentVersion                         : 'iOS'
+      AgentVersionMajor                    : 'iOS'
+      AgentNameVersion                     : 'Pinterest iOS'
+      AgentNameVersionMajor                : 'Pinterest iOS'
+      RemarkablePattern                    : 'Null: Product comment'
+
+
+- test:
+    input:
+      User-Agent                           : '(null) LightSpeed [FBAN/MessengerLiteForiOS;FBAV/296.0.0.40.116;FBBV/268496502;FBDV/iPad2,5;FBMD/iPad;FBSN/iPhone OS;FBSV/9.3.5;FBSS/1;FBCR/;FBID/tablet;FBLC/nl;FBOP/0]'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad mini (Wi-Fi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '9.3.5'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'iOS 9.3.5'
+      OperatingSystemNameVersionMajor      : 'iOS 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'UIWebView ??'
+      AgentNameVersionMajor                : 'UIWebView ??'
+      AgentBuild                           : '268496502'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      WebviewAppName                       : 'Facebook Messenger Lite for iOS'
+      WebviewAppVersion                    : '296.0.0.40.116'
+      WebviewAppVersionMajor               : '296'
+      WebviewAppNameVersion                : 'Facebook Messenger Lite for iOS 296.0.0.40.116'
+      WebviewAppNameVersionMajor           : 'Facebook Messenger Lite for iOS 296'
+      FacebookDeviceClass                  : 'tablet'
+      FacebookDeviceName                   : 'iPad'
+      FacebookDeviceVersion                : 'iPad2,5'
+      FacebookFBOP                         : '0'
+      FacebookFBSS                         : '1'
+      FacebookOperatingSystemName          : 'iPhone OS'
+      FacebookOperatingSystemVersion       : '9.3.5'
+      RemarkablePattern                    : 'Null: Product comment'

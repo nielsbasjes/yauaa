@@ -464,7 +464,7 @@ config:
     input:
       user_agent_string: '(null) [FBAN/FBIOS;FBAV/50.0.0.47.191;FBBV/23973043;FBDV/iPad4,4;FBMD/iPad;FBSN/iPhone OS;FBSV/8.0.2;FBSS/2; FBCR/;FBID/tablet;FBLC/nl_NL;FBOP/1]'
     expected:
-      DeviceClass                          : 'Tablet'
+      DeviceClass                          : 'Robot'  # Normal useragents do NOT have a '(null)' comment.
       DeviceName                           : 'Apple iPad'
       DeviceBrand                          : 'Apple'
       DeviceVersion                        : 'iPad mini 2 (Wi-Fi)'
@@ -501,6 +501,8 @@ config:
       WebviewAppVersionMajor               : '50'
       WebviewAppNameVersion                : 'Facebook App for iOS 50.0.0.47.191'
       WebviewAppNameVersionMajor           : 'Facebook App for iOS 50'
+      RemarkablePattern                    : 'Null: Product comment'
+
 
 - test:
     input:

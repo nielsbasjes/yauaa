@@ -31,6 +31,33 @@ config:
 
 - matcher:
     variable:
+    - 'AppleWebKit                         :agent.product.name="AppleWebKit"^'
+    require:
+    - 'IsNull[@AppleWebKit.version]'
+    extract:
+    - 'LayoutEngineClass                   :        4 :"Browser"'
+    - 'LayoutEngineName                    :        4 :"AppleWebKit"'
+    - 'LayoutEngineVersion                 :        4 :"<<<null>>>"'
+    - 'AgentClass                          :        4 :"Browser"'
+    - 'AgentName                           :        4 :"Safari"'
+    - 'AgentVersion                        :        4 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'Safari                         :agent.product.name="Safari"^'
+    require:
+    - 'IsNull[@Safari.version]'
+    extract:
+    - 'LayoutEngineClass                   :        4 :"Browser"'
+    - 'LayoutEngineName                    :        4 :"AppleWebKit"'
+    - 'LayoutEngineVersion                 :        4 :"<<<null>>>"'
+    - 'AgentClass                          :        4 :"Browser"'
+    - 'AgentName                           :        4 :"Safari"'
+    - 'AgentVersion                        :        4 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
     - 'Product                             :agent.product.name="AppleWebKit"^>'
     extract:
     - 'AgentClass                          :       14 :"Browser"'
@@ -41,6 +68,8 @@ config:
     variable:
     - 'Product                             :agent.(1)product.(1)comments.entry.(1)product'
     require:
+    - 'IsNull[@Product.name[2-3]="iPhone OS"]'
+    - 'IsNull[@Product.name[2-3]="iPad OS"]'
     - 'agent.(1)product.name="Mozilla"'
     - 'agent.(1)product.(1)version="5.0"'
     extract:

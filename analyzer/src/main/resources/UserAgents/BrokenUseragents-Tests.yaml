@@ -1105,7 +1105,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15 MOBILE-LEQUIPE/IOS/PHONE/6.9.3/(null)'
     expected:
-      DeviceClass                          : 'Phone'
+      DeviceClass                          : 'Robot'  # Normal useragents do NOT have a '(null)' comment.
       DeviceName                           : 'Apple iPhone'
       DeviceBrand                          : 'Apple'
       DeviceFirmwareVersion                : '13D15'
@@ -1128,6 +1128,8 @@ config:
       AgentVersionMajor                    : 'IOS'
       AgentNameVersion                     : 'MOBILE-LEQUIPE IOS'
       AgentNameVersionMajor                : 'MOBILE-LEQUIPE IOS'
+      RemarkablePattern                    : 'Null: Product comment'
+
 
 # Multiple different browser names... eenie meenie minie moe
 - test:
@@ -2703,17 +2705,17 @@ config:
       OperatingSystemNameVersion           : 'Mac OS 10.?'
       OperatingSystemNameVersionMajor      : 'Mac OS 10.?'
       LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Netscape'
-      AgentVersion                         : '5.0'
-      AgentVersionMajor                    : '5'
-      AgentNameVersion                     : 'Netscape 5.0'
-      AgentNameVersionMajor                : 'Netscape 5'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Safari ??'
+      AgentNameVersionMajor                : 'Safari ??'
 
 
 - test:
