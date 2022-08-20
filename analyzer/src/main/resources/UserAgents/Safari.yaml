@@ -77,11 +77,20 @@ config:
     - 'AgentName                           :       10 :@Product.name'
     - 'AgentVersion                        :       10 :@Product.(1)version'
 
+
+- set:
+    name: 'HardwareTags'
+    values:
+      - 'CrKey'
+      - 'Touchpad'
+      - 'SmartTV'
+      - 'Tesla' # The car
+
 - set:
     name: 'NotAutoWalkBrowserNames'
     merge:
     - 'MobileBrands'
-#      - 'MobileBrandPrefixes'
+    - 'HardwareTags'
     - 'ExactMatchMobileBrands'
     values:
     - 'AppleWebKit'
@@ -89,7 +98,6 @@ config:
     - 'Mobile Safari'
     - 'Safari'
     - 'Version'
-    - 'Touchpad'
     - 'osmeta'
 
 - matcher:
