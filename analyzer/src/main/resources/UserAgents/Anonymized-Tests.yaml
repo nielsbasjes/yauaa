@@ -73,7 +73,8 @@ config:
       AgentNameVersionMajor                : '00000 000'
       RemarkablePattern                    : 'Anonymized'
 
-
+# https://www.abelssoft.de/en/windows/security-privacy/antibrowserspy#functions
+# The UserAgent text is changed regularly so that the "browser fingerprint" can no longer be assigned.
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.2; rv:28.0) Gecko/20100101 Firefox/28.0 anonymized by Abelssoft 462766946'
@@ -1291,4 +1292,62 @@ config:
       AgentNameVersion                     : 'http://Anonymouse.org/ Unix'
       AgentNameVersionMajor                : 'http://Anonymouse.org/ Unix'
       AgentInformationUrl                  : 'http://Anonymouse.org/'
+      RemarkablePattern                    : 'Anonymized'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/96.0.1054.57 Safari/537.22 anonymized by Abelssoft 31159949 GLS/91.10.4119.20'
+    expected:
+      DeviceClass                          : 'Anonymized'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '96.0.1054.57'
+      AgentVersionMajor                    : '96'
+      AgentNameVersion                     : 'Chrome 96.0.1054.57'
+      AgentNameVersionMajor                : 'Chrome 96'
+      RemarkablePattern                    : 'Anonymized'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/537.22 (KHTML, like Gecko) Chrome/96.0.1054.57 Safari/537.22 anonymized by Abelssoft 31159949 OpenWave/92.4.5283.84'
+    expected:
+      DeviceClass                          : 'Anonymized'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Windows 8'
+      OperatingSystemNameVersionMajor      : 'Windows 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '96.0.1054.57'
+      AgentVersionMajor                    : '96'
+      AgentNameVersion                     : 'Chrome 96.0.1054.57'
+      AgentNameVersionMajor                : 'Chrome 96'
       RemarkablePattern                    : 'Anonymized'
