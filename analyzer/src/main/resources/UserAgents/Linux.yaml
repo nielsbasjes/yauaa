@@ -64,6 +64,17 @@ config:
     - 'OperatingSystemName                 :        5 :"Linux"'
     - 'OperatingSystemVersion              :        1 :"<<<null>>>"'
 
+- matcher:
+    require:
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)text="Android"]'
+    - 'agent.(1-2)product.(1)comments.entry.(1-2)product.name[1]="Linux"'
+    extract:
+    - 'DeviceClass                         :        5 :"Desktop"'
+    - 'DeviceName                          :        5 :"Linux Desktop"'
+    - 'OperatingSystemClass                :        5 :"Desktop"'
+    - 'OperatingSystemName                 :        5 :"Linux"'
+    - 'OperatingSystemVersion              :        1 :"<<<null>>>"'
+
 # Very rare edge case.
 - matcher:
     require:
