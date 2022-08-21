@@ -135,7 +135,7 @@ public class TestParseUserAgentSQL implements Serializable {
                     "\"FacebookFBSS\":\"Unknown\"," +
                     "\"FacebookOperatingSystemName\":\"Unknown\"," +
                     "\"FacebookOperatingSystemVersion\":\"??\"," +
-                    "\"RemarkablePattern\":\"Unknown\"," +
+                    "\"RemarkablePattern\":\"Nothing remarkable found\"," +
                     "\"HackerAttackVector\":\"Unknown\"," +
                     "\"HackerToolkit\":\"Unknown\"," +
                     "\"KoboAffiliate\":\"Unknown\"," +
@@ -270,7 +270,7 @@ public class TestParseUserAgentSQL implements Serializable {
                    "\"FacebookFBSS\":\"Unknown\"," +
                    "\"FacebookOperatingSystemName\":\"Unknown\"," +
                    "\"FacebookOperatingSystemVersion\":\"??\"," +
-                   "\"RemarkablePattern\":\"Unknown\"," +
+                   "\"RemarkablePattern\":\"Nothing remarkable found\"," +
                    "\"HackerAttackVector\":\"Unknown\"," +
                    "\"HackerToolkit\":\"Unknown\"," +
                    "\"KoboAffiliate\":\"Unknown\"," +
