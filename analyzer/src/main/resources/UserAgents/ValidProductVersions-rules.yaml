@@ -50,6 +50,14 @@ config:
 
 - matcher:
     variable:
+    - 'Product                             :agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    require:
+    - '@Product[-4]!?WindowsDesktopOSName'
+    extract:
+    - 'RemarkablePattern                   :       20 :"No such version: Windows NT"'
+
+- matcher:
+    variable:
     - 'AgentVersion: agent.product.name="Safari"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'

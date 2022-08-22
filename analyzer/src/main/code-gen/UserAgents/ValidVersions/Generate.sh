@@ -84,6 +84,14 @@ cat <<End-of-message
     extract:
       - 'RemarkablePattern                 :    10 :"No such version: Mozilla"'
 
+- matcher:
+    variable:
+    - 'Product                             :agent.(1)product.(1)comments.entry.product.name="Windows NT"^'
+    require:
+    - '@Product[-4]!?WindowsDesktopOSName'
+    extract:
+    - 'RemarkablePattern                   :       20 :"No such version: Windows NT"'
+
 End-of-message
 
 grep -F -v '#' "${INPUT}" | grep . | while read -r name
