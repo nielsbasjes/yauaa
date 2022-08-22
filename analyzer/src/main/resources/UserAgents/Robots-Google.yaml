@@ -294,6 +294,7 @@ config:
       AgentNameVersionMajor                : 'Googlebot 2'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Safari/537.36'
@@ -320,6 +321,67 @@ config:
       AgentNameVersion                     : 'Googlebot 2.1'
       AgentNameVersionMajor                : 'Googlebot 2'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+
+# https://developers.google.com/search/docs/advanced/crawling/overview-google-crawlers?hl=en
+# Googlebot Desktop
+# Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/W.X.Y.Z Safari/537.36
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/75.0.3761.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/105.0.5158.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
 
 - test:
     input:
