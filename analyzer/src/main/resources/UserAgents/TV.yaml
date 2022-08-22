@@ -109,17 +109,19 @@ config:
 
 - matcher:
     variable:
-    - 'Language                            :agent.(1)product.(1)comments.(1-5)entry.(1-5)product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
+    - 'LanguageTag                         :agent.(1)product.(1)comments.(1-5)entry.(1-5)product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
+    - 'Language                            :LookUp[ISOLanguageCodesAll;@LanguageTag]'
     extract:
-    - 'AgentLanguageCode                   :   501000 :LookUp[ISOLanguageCodesAll;@Language]'
-    - 'AgentLanguage                       :   501000 :LookUp[ISOLanguageCodesNameAll;@Language]'
+    - 'AgentLanguageCode                   :   501000 :@Language[[1]]'
+    - 'AgentLanguage                       :   501000 :@Language[[2]]'
 
 - matcher:
     variable:
-    - 'Language                            :agent.product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
+    - 'LanguageTag                         :agent.product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
+    - 'Language                            :LookUp[ISOLanguageCodesAll;@LanguageTag]'
     extract:
-    - 'AgentLanguageCode                   :   501000 :LookUp[ISOLanguageCodesAll;@Language]'
-    - 'AgentLanguage                       :   501000 :LookUp[ISOLanguageCodesNameAll;@Language]'
+    - 'AgentLanguageCode                   :   501000 :@Language[[1]]'
+    - 'AgentLanguage                       :   501000 :@Language[[2]]'
 
 - matcher:
     require:

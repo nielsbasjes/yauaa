@@ -46,6 +46,7 @@ public final class WordSplitter extends Splitter {
             case '<':
             case '>':
             case '~':
+            case '#': // Occurs on some language fields.
             case '(': // EndOfString marker
             case ')': // EndOfString marker
                 return true;

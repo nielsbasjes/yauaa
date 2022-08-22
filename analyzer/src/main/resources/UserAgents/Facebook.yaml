@@ -218,16 +218,17 @@ config:
 - matcher:
     variable:
     - 'FBLC                                :agent.product.(1-2)comments.entry.(1)product.name="FBLC"^.version'
+    - 'Language                            :LookUp[ISOLanguageCodes;@FBLC]'
     extract:
-    - 'AgentLanguage                       :   500200 :LookUp[ISOLanguageCodesName;@FBLC]'
-    - 'AgentLanguageCode                   :   500200 :LookUp[ISOLanguageCodes;@FBLC]'
+    - 'AgentLanguageCode                   :   500200 :@Language[[1]]'
+    - 'AgentLanguage                       :   500200 :@Language[[2]]'
 
 - matcher:
     variable:
     - 'FBLC                                :agent.product.(1-2)comments.entry.(1)product.name="FBLC"^.version'
     extract:
-    - 'AgentLanguage                       :   500100 :@FBLC'
     - 'AgentLanguageCode                   :   500100 :@FBLC'
+    - 'AgentLanguage                       :   500100 :@FBLC'
 
 - matcher:
     variable:

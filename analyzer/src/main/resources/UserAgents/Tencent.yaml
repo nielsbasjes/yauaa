@@ -1073,34 +1073,38 @@ config:
 - matcher:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/WIFI Language".(2)version'
+    - 'Language                            :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
     extract:
-    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :@Language[[1]]'
+    - 'AgentLanguage                       :     3000 :@Language[[2]]'
 
 - matcher:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/WIFI Language">'
+    - 'Language                            :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
     require:
     - 'IsNull[@AgentLanguageCode.(2)version]'
     extract:
-    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :@Language[[1]]'
+    - 'AgentLanguage                       :     3000 :@Language[[2]]'
 
 - matcher:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/cmnet Language".(2)version'
+    - 'Language                            :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
     extract:
-    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :@Language[[1]]'
+    - 'AgentLanguage                       :     3000 :@Language[[2]]'
 
 - matcher:
     variable:
     - 'AgentLanguageCode                   :agent.product[-3]="NetType/cmnet Language">'
+    - 'Language                            :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
     require:
     - 'IsNull[@AgentLanguageCode.(2)version]'
     extract:
-    - 'AgentLanguage                       :     3000 :LookUp[ISOLanguageCodesName;@AgentLanguageCode]'
-    - 'AgentLanguageCode                   :     3000 :LookUp[ISOLanguageCodes;@AgentLanguageCode]'
+    - 'AgentLanguageCode                   :     3000 :@Language[[1]]'
+    - 'AgentLanguage                       :     3000 :@Language[[2]]'
 
 
 - test:

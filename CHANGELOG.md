@@ -15,6 +15,7 @@ v7.5.0-SNAPSHOT
   - Robots with `null`.
   - Better classify `AppleWebKit` and `Safari` without a version.
   - Extract the Agent name which was appended to a normal UA.
+  - Optimized the Language detection (less recursion & lookups needed)
 - Analyzer:
     - Made the `NotIn` operator in the rules consistent (`?!` is now `!?`)
     - Improve extracting versions like `PHP/7.1.11-1+ubuntu16.04.1+deb.sury.org+1`
