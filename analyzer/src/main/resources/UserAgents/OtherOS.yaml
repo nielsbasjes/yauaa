@@ -2397,3 +2397,32 @@ config:
       AgentLanguage                        : 'English (United States)'
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/4.1 (compatible; MSIE 5.0; Symbian OS; Nokia 6600;452) Opera 6.20 [en-US]'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 6600'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'SymbianOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'SymbianOS ??'
+      OperatingSystemNameVersionMajor      : 'SymbianOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Presto'
+      LayoutEngineVersion                  : '1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Presto 1'
+      LayoutEngineNameVersionMajor         : 'Presto 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera'
+      AgentVersion                         : '6.20'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Opera 6.20'
+      AgentNameVersionMajor                : 'Opera 6'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
