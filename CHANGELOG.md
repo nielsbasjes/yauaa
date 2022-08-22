@@ -7,7 +7,7 @@ v7.5.0-SNAPSHOT
   - Because of dependencies and plugins the build now requires Java 17.
 - New/improved detections
   - Report frozen Mac OS as `Mac OS >=10.15.7` for all browsers (Chrome, Firefox, etc.).
-  - Ekioh Flow browser
+  - Browsers: Ekioh Flow, Aoyou
   - Arris Set-top boxes
   - Privoxy/PrivacyWall
   - The Ask Toolbar UA modification is no longer seen as a browser.

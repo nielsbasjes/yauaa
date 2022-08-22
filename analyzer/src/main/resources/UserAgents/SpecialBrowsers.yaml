@@ -6288,3 +6288,160 @@ config:
       AgentLanguage                        : 'Greek'
       AgentLanguageCode                    : 'el'
       AgentSecurity                        : 'Strong security'
+
+
+#  Aoyou seems a Chinese Browser (Seems to mean Travel in Chinese).
+#  The real version field looks (and usually decodes) as a BASE64 encoded binary.
+#  Seems like a tracking thing
+#  In these tests I have manually changed these versions to avoid identifying the real user.
+- matcher:
+    require:
+    - 'agent.product.name="Aoyou"'
+    extract:
+    - 'AgentName        : 10000 :"Aoyou"'
+    - 'AgentVersion     : 10000 :"<<<null>>>"'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.124 Safari/537.36 Edg/102.0.1245.44 Aoyou/aHR0cHM6Ly95YXVhYS5iYXNqZXMubmw='
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102.0'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aoyou'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Aoyou ??'
+      AgentNameVersionMajor                : 'Aoyou ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Safari/537.36 Edg/103.0.1264.44 Aoyou/aHR0cHM6Ly95YXVhYS5iYXNqZXMubmw='
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103.0'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103.0'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aoyou'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Aoyou ??'
+      AgentNameVersionMajor                : 'Aoyou ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 OPR/77.0.4054.203 Aoyou/aHR0cHM6Ly95YXVhYS5iYXNqZXMubmw='
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '91.0'
+      LayoutEngineVersionMajor             : '91'
+      LayoutEngineNameVersion              : 'Blink 91.0'
+      LayoutEngineNameVersionMajor         : 'Blink 91'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aoyou'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Aoyou ??'
+      AgentNameVersionMajor                : 'Aoyou ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36 Aoyou/aHR0cHM6Ly95YXVhYS5iYXNqZXMubmw='
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aoyou'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Aoyou ??'
+      AgentNameVersionMajor                : 'Aoyou ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36 Aoyou/aHR0cHM6Ly95YXVhYS5iYXNqZXMubmw='
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.14.6'
+      OperatingSystemVersionMajor          : '10.14'
+      OperatingSystemNameVersion           : 'Mac OS 10.14.6'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '102.0'
+      LayoutEngineVersionMajor             : '102'
+      LayoutEngineNameVersion              : 'Blink 102.0'
+      LayoutEngineNameVersionMajor         : 'Blink 102'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aoyou'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Aoyou ??'
+      AgentNameVersionMajor                : 'Aoyou ??'

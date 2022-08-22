@@ -261,7 +261,7 @@ fragment WORDLetter
 // So I came up with some silly (and incorrect) boundaries between "base64" and "not base64":
 // - It may not start with a special character (like '/' )
 fragment B64LetterBase      : [a-zA-Z0-9];
-fragment B64LetterSpecial   : [+?_/];
+fragment B64LetterSpecial   : [+?_];
 fragment B64Letter          : B64LetterBase | B64LetterSpecial;
 fragment B64FirstChunk      : B64LetterBase B64Letter B64Letter B64Letter;
 
