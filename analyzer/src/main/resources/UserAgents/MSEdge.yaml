@@ -1182,7 +1182,7 @@ config:
     - 'AgentVersion                        :     3001 : Concat[@EdgeVersion[2];".0"]' # Losing the last two version parts.
 
 
-  # Edge 99 on Linux with edge://flags/#force-major-version-to-minor enabled
+# Edge 99 on Linux with edge://flags/#force-major-version-to-minor enabled
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.99.1150.25 Safari/537.36 Edg/99.99.1150.25'
@@ -1239,7 +1239,7 @@ config:
       AgentNameVersionMajor                : 'Edge 99'
 
 
-  # Predicted Edge 123 on Linux with edge://flags/#force-major-version-to-minor enabled
+# Predicted Edge 123 on Linux with edge://flags/#force-major-version-to-minor enabled
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.123.1150.25 Safari/537.36 Edg/99.123.1150.25'
@@ -1446,7 +1446,7 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
 
 
-  # Edge 100 on Windows 7 (Normal)
+# Edge 100 on Windows 7 (Normal)
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36 Edg/100.0.1185.29'
@@ -1476,7 +1476,7 @@ config:
       AgentNameVersionMajor                : 'Edge 100'
 
 
-  # Edge 100 on Windows 7 (Major version in minor version)
+# Edge 100 on Windows 7 (Major version in minor version)
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.100.1185.29 Safari/537.36 Edg/99.100.1185.29'
@@ -1506,3 +1506,118 @@ config:
       AgentNameVersionMajor                : 'Edge 100'
 
 
+# TODO: Edge with EdgeBar plugin ?
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Mobile Safari/537.36 Edg/103.0.1264.44 (EdgeBar)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 5'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      OperatingSystemVersionBuild          : 'MRA58N'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103.0'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103.0'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '103.0.1264.44'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Edge 103.0.1264.44'
+      AgentNameVersionMajor                : 'Edge 103'
+
+
+# TODO: Edge with PwaMiniCanvas plugin ?
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Mobile Safari/537.36 Edg/103.0.1264.44 (PwaMiniCanvas)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 5'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      OperatingSystemVersionBuild          : 'MRA58N'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103.0'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103.0'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '103.0.1264.44'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Edge 103.0.1264.44'
+      AgentNameVersionMajor                : 'Edge 103'
+
+
+# TODO: Edge with plugin ?
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Mobile Safari/537.36 Edg/103.0.1264.44 (PwaMiniCanvas) (Discover)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 5'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '6.0'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'Android 6.0'
+      OperatingSystemNameVersionMajor      : 'Android 6'
+      OperatingSystemVersionBuild          : 'MRA58N'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103.0'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103.0'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '103.0.1264.44'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Edge 103.0.1264.44'
+      AgentNameVersionMajor                : 'Edge 103'
+
+
+# TODO: Edge with plugin ?
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.49 (MiniCanvas)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103.0'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103.0'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '103.0.1264.49'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Edge 103.0.1264.49'
+      AgentNameVersionMajor                : 'Edge 103'
