@@ -3361,3 +3361,32 @@ config:
       AgentNameVersion                     : 'Chrome 75.0.3770.142'
       AgentNameVersionMajor                : 'Chrome 75'
       RemarkablePattern                    : 'Double UserAgent'
+
+# So fake the result is not very good.
+- test:
+    input:
+      User-Agent                           : 'Browser/0.0 (Windows 1.0) AppleWebKit/36.0 (KHTML, like Gecko) Chromium/dev Safari/10'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Browser'
+      DeviceBrand                          : 'Unknown'
+      DeviceVersion                        : '0.0'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows ??'
+      OperatingSystemNameVersionMajor      : 'Windows ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '36.0'
+      LayoutEngineVersionMajor             : '36'
+      LayoutEngineNameVersion              : 'AppleWebKit 36.0'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 36'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : 'dev Safari'
+      AgentVersionMajor                    : 'dev Safari'
+      AgentNameVersion                     : 'Chromium dev Safari'
+      AgentNameVersionMajor                : 'Chromium dev Safari'
+      RemarkablePattern                    : 'Not a version'
