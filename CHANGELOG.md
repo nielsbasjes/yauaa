@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.5.0-SNAPSHOT
+v7.6.0-SNAPSHOT
+===
+...
+
+v7.5.0
 ===
 - Build
   - Because of dependencies and plugins the build now requires Java 17.
