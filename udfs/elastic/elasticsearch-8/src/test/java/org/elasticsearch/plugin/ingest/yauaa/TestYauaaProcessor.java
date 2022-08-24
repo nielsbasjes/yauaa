@@ -61,7 +61,7 @@ class TestYauaaProcessor {
         fieldToHeaderMapping.put(PLATFORM_FIELD, "Sec-CH-UA-Platform");
         fieldToHeaderMapping.put(PLATFORM_VERSION_FIELD, "Sec-CH-UA-Platform-Version");
 
-        IngestDocument ingestDocument = new IngestDocument("index", "id", null, 42L, VersionType.EXTERNAL, document);
+        IngestDocument ingestDocument = new IngestDocument("index", "id", 42L, "Somewhere", VersionType.EXTERNAL, document);
 
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder().build();
         YauaaProcessor      processor = new YauaaProcessor("tag", "description", fieldToHeaderMapping, TARGET_FIELD, userAgentAnalyzer);
@@ -116,7 +116,7 @@ class TestYauaaProcessor {
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
-        IngestDocument ingestDocument = new IngestDocument("index", "id", null, 42L, VersionType.EXTERNAL, document);
+        IngestDocument ingestDocument = new IngestDocument("index", "id", 42L, "Somewhere", VersionType.EXTERNAL, document);
 
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
             .withFields(Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName"))
@@ -197,7 +197,7 @@ class TestYauaaProcessor {
             "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
                 "AppleWebKit/537.36 (KHTML, like Gecko) " +
                 "Chrome/53.0.2785.124 Mobile Safari/537.36");
-        IngestDocument ingestDocument = new IngestDocument("index", "id", null, 42L, VersionType.EXTERNAL, document);
+        IngestDocument ingestDocument = new IngestDocument("index", "id", 42L, "Somewhere", VersionType.EXTERNAL, document);
 
         Map<String, Object> data      = processor.execute(ingestDocument).getSourceAndMetadata();
 

@@ -3,7 +3,9 @@ This is intended as an overview of the major changes
 
 v7.6.0-SNAPSHOT
 ===
-...
+- Updated UDF dependencies
+  - Elastic Search          7.17.6 & 8.4.0
+  - Elastic Logstash        8.4.0
 
 v7.5.0
 ===
