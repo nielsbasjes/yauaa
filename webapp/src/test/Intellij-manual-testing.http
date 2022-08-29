@@ -1,42 +1,46 @@
-### -----------------------------------------
 ### Is it running?
 GET http://localhost:8080/running
 
-### -----------------------------------------
-###  Is it running?
+
+### Is it running (_AH)?
 GET http://localhost:8080/_ah/health
 
-### -----------------------------------------
+
 ### Analyze and retrieve as JSON
 POST http://localhost:8080/yauaa/v1/analyze/json
 Content-Type: text/plain
 
 Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36
 
-### -----------------------------------------
+
 ### Analyze and retrieve as XML
 POST http://localhost:8080/yauaa/v1/analyze/xml
 Content-Type: text/plain
 
 Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36
 
-### -----------------------------------------
+
 ### Analyze and retrieve as YAML
 POST http://localhost:8080/yauaa/v1/analyze/yaml
 Content-Type: text/plain
 
 Mozilla/5.0 (Linux; Android 10; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.93 Mobile Safari/537.36
 
-### -----------------------------------------
+
 ### Run preheat
 GET http://localhost:8080/yauaa/v1/preheat
 
-### -----------------------------------------
+
 ### Run all tests
 GET http://localhost:8080/yauaa/v1/runtests
 
 
+### Run GraphQL Query
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Accept: application/json
 
+{ "query":"query {  analyze(requestHeaders: {      userAgent              : \"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/104.0.0.0 Safari\\/537.36\"      secChUa                : \"\\\"Chromium\\\";v=\\\"104\\\", \\\" Not A;Brand\\\";v=\\\"99\\\", \\\"Google Chrome\\\";v=\\\"104\\\"\"      secChUaArch            : \"\\\"x86\\\"\"      secChUaBitness         : \"\\\"64\\\"\"      secChUaFullVersion     : \"\\\"104.0.5112.101\\\"\"      secChUaFullVersionList : \"\\\"Chromium\\\";v=\\\"104.0.5112.101\\\", \\\" Not A;Brand\\\";v=\\\"99.0.0.0\\\", \\\"Google Chrome\\\";v=\\\"104.0.5112.101\\\"\"      secChUaMobile          : \"?0\"      secChUaModel           : \"\\\"\\\"\"      secChUaPlatform        : \"\\\"Linux\\\"\"      secChUaPlatformVersion : \"\\\"5.15.0\\\"\"      secChUaWoW64           : \"?0\"  }) {    deviceName    deviceBrand    operatingSystemClass    operatingSystemNameVersion    agentClass    agentNameVersionMajor    someFields:fields(fieldNames: [        \"DeviceClass\",        \"AgentName\"]){        fieldName        value    }  }    version {    gitCommitId    buildTimeStamp    buildJDKVersion  }}", "variables":{}}
 
 ### -----------------------------------------
 ###
