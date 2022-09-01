@@ -98,7 +98,7 @@ spec:
         volumeMounts: ## [OPTIONAL] Mount the config map volume under /UserAgents
           - name: niels-yauaa-rules-volume
             # NOTE 1: The directory name MUST start with  "/UserAgents" !!
-            # NOTE 2: I MUST be exactly 1 subdirectory deep (i.e. no multi level deep)
+            # NOTE 2: It MUST be exactly 1 subdirectory deep (i.e. no multi level deep)
             # NOTE 3: You can have multiple as long as the mountPaths are all different.
             mountPath: /UserAgents-Niels
         ports:

@@ -155,9 +155,10 @@ spec:
       - name: yauaa
         image: nielsbasjes/yauaa:{{%YauaaVersion%}}
         volumeMounts:
-          # NOTE 1: The directory name MUST start with  "/UserAgents" !!
-          # NOTE 2: You can have multiple as long as the mountPaths are all different.
           - name: niels-yauaa-rules-volume
+            # NOTE 1: The directory name MUST start with  "/UserAgents" !!
+            # NOTE 2: It MUST be exactly 1 subdirectory deep (i.e. no multi level deep)
+            # NOTE 3: You can have multiple as long as the mountPaths are all different.
             mountPath: /UserAgents-Niels
         ports:
         - containerPort: 8080
@@ -188,7 +189,7 @@ I have been able to get it working with the helm chart for `stable/nginx-ingress
 Simply putting up an `Ingress` works something like this
 
 ```yaml
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: yauaa
@@ -200,10 +201,13 @@ spec:
     - host: yauaa.example.nl
       http:
         paths:
-          - backend:
-              serviceName: yauaa
-              servicePort: 80
-            path: /
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: yauaa
+                port:
+                  number: 80
 ```
 
 ## Available outside the cluster (HTTPS)
