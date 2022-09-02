@@ -92,32 +92,41 @@
 
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>NewerThanJDK11</id>
-      <activation><jdk>[12,)</jdk></activation>
-      <!-- Under JDK 17 the tests fail during the build.                                              -->
-      <!-- So when built on JDK 17 we rely on                                                         -->
-      <!-- - The fact that the tests are also run under JDK 11                                        -->
-      <!-- - The fact that we have a docker based integration test with the JDK 17 produced artifact  -->
-      <properties>
-        <skipTests>true</skipTests>
-      </properties>
-    </profile>
-  </profiles>
-
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-toolchains-plugin</artifactId>
+        <version>${maven-toolchains-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>toolchain</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <toolchains>
+            <jdk>
+              <version>11</version>
+            </jdk>
+          </toolchains>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${maven-checkstyle-plugin.version}</version>
       </plugin>
+
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
       </plugin>
+
     </plugins>
   </build>
 

@@ -142,6 +142,7 @@
     <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
+    <maven-toolchains-plugin.version>3.1.0</maven-toolchains-plugin.version>
     <maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
     <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
 
@@ -362,28 +363,6 @@
             </executions>
           </plugin>
 
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <version>${maven-enforcer-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>A release MUST be built under JDK 17</id>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <requireJavaVersion>
-                      <version>[17,)</version>
-                      <message>Although the target JVM is JRE 8, a release MUST be done with JDK 17 because some UDFs require it.</message>
-                    </requireJavaVersion>
-                  </rules>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
         </plugins>
       </build>
     </profile>
@@ -422,28 +401,6 @@
                     </validationProperty>
                   </validationProperties>
                   <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-enforcer-plugin</artifactId>
-            <version>${maven-enforcer-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>A release MUST be built under JDK 17</id>
-                <goals>
-                  <goal>enforce</goal>
-                </goals>
-                <configuration>
-                  <rules>
-                    <requireJavaVersion>
-                      <version>[17,)</version>
-                      <message>Although the target JVM is JRE 8, a release MUST be done with JDK 17 because some UDFs require it.</message>
-                    </requireJavaVersion>
-                  </rules>
                 </configuration>
               </execution>
             </executions>
@@ -499,6 +456,26 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-toolchains-plugin</artifactId>
+        <version>${maven-toolchains-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>toolchain</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <toolchains>
+            <jdk>
+              <version>17</version>
+            </jdk>
+          </toolchains>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>${maven-source-plugin.version}</version>
         <executions>
@@ -523,10 +500,6 @@
             </goals>
             <configuration>
               <rules>
-                <requireJavaVersion>
-                  <version>[11,)</version>
-                  <message>Although the target JVM is JRE 8, the build MUST be done with JDK 11 or higher.</message>
-                </requireJavaVersion>
                 <requireMavenVersion>
                   <version>[${maven.minimal.version},)</version>
                   <message>You must use Maven version ${maven.minimal.version} or newer to build this project.</message>

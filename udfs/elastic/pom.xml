@@ -32,20 +32,58 @@
 
   <url>https://yauaa.basjes.nl</url>
 
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-toolchains-plugin</artifactId>
+        <version>${maven-toolchains-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>toolchain</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <toolchains>
+            <jdk>
+              <version>17</version>
+            </jdk>
+          </toolchains>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <!-- This is because of a problem of surefire in parallel mode in combination with a different toolchain. -->
+          <forkCount>1</forkCount>
+          <failIfNoTests>true</failIfNoTests>
+        </configuration>
+      </plugin>
+
+
+    </plugins>
+  </build>
+
   <modules>
     <module>elasticsearch-7</module>
+    <module>elasticsearch-8</module>
   </modules>
 
   <profiles>
-    <profile>
-      <id>JDK17</id>
-      <activation><jdk>[17,)</jdk></activation>
-      <!-- ES 8 requires JDK 17 to build. -->
-      <modules>
-        <module>elasticsearch-8</module>
-      </modules>
-    </profile>
-
     <profile>
       <id>buildRuby</id>
       <activation>

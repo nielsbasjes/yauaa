@@ -156,6 +156,7 @@ docker run --rm=true ${DOCKER_INTERACTIVE}                      \
        -u "${USER_NAME}"                                        \
        -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}${V_OPTS:-}" \
        -v "${HOME}/.m2:/home/${USER_NAME}/.m2${V_OPTS:-}"       \
+       -v "${PWD}/devtools/docker/toolchains.xml:/home/${USER_NAME}/.m2/toolchains.xml" \
        -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg${V_OPTS:-}" \
        ${DOCKER_SOCKET_MOUNT}                                   \
        -w "/home/${USER}/${PROJECTNAME}"                        \
