@@ -97,8 +97,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
     @AllArgsConstructor
     private static class OSFields implements Serializable {
-        @Getter
-        String name;                      // Windows NT
+        @Getter String name;              // Windows NT
         @Getter String version;           // 8.1
         @Getter String versionMajor;      // 8
         @Getter String nameVersion;       // Windows 8.1
