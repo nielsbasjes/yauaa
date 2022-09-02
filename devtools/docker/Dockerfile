@@ -97,7 +97,7 @@ RUN cd /usr/local/bin && \
 
 # --------------------------------
 # Install Hugo
-ENV HUGO_VERSION=0.100.1
+ENV HUGO_VERSION=0.102.3
 RUN cd /usr/local/bin && \
     wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
     tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
