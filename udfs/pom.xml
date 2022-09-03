@@ -123,6 +123,33 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- FIXME: Explicitly disabling the -Werror option because of this (unsolved) problem. -->
+      <!-- [INFO] - maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ yauaa-flink-table -                                                      -->
+      <!-- [INFO] Toolchain in maven-compiler-plugin: JDK[/usr/lib/jvm/java-11-openjdk-amd64]                                                                 -->
+      <!-- [INFO] Changes detected - recompiling the module!                                                                                                  -->
+      <!-- [INFO] Compiling 3 source files to /home/nbasjes/workspace/Prive/yauaa/udfs/flink-table/target/test-classes                                        -->
+      <!-- [WARNING] [path] bad path element "/home/nbasjes/.m2/repository/org/scala-lang/scala-compiler/2.12.7/scala-reflect.jar": no such file or directory -->
+      <!-- [WARNING] [path] bad path element "/home/nbasjes/.m2/repository/org/scala-lang/scala-compiler/2.12.7/scala-library.jar": no such file or directory -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <compilerArgs>
+            <!-- Enable almost all warnings.-->
+            <!-- Ignore 'classfile' to allow leaving Kryo out. -->
+            <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
+            <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
+            <arg>-Xlint:all,-classfile,-processing,-serial</arg>
+            <!-- <arg>-Werror</arg>-->
+            <arg>-implicit:class</arg>
+          </compilerArgs>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
