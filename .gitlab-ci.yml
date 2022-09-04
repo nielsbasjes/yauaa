@@ -15,7 +15,8 @@
 # limitations under the License.
 #
 
-image: maven:3.8.6-eclipse-temurin-17
+# Use Ubuntu 20.04 LTS with Java 17 and Maven 3.8.6 as the base.
+image: maven:3.8.6-eclipse-temurin-17-focal
 
 stages:
   - build
@@ -23,4 +24,8 @@ stages:
 maven-build:
   stage: build
   script:
-    - mvn clean verify -PdisableDockerHubUsages -DDisableRuby=true -B
+    # Install the 3 needed LTS JDKs that can be used by toolchains
+    - apt-get update && apt-get install -y ruby openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk
+    - mkdir -p ${HOME}/.m2 && cp toolchains.xml ${HOME}/.m2/
+    # And build it.
+    - mvn clean verify -PdisableDockerHubUsages -B
