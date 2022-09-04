@@ -534,11 +534,17 @@
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <compilerArgs>
-            <!-- Enable almost all warnings.-->
-            <!-- Ignore 'classfile' to allow leaving Kryo out. -->
-            <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places. -->
-            <!-- Ignore 'serial' warnings about not having a serialVersionUID -->
-            <arg>-Xlint:all,-classfile,-processing,-serial</arg>
+            <!-- Enable almost all warnings.                                                                      -->
+            <!-- Ignore 'classfile' to allow leaving Kryo out.                                                    -->
+            <!-- Ignore 'processing' to avoid "No processor claimed any of these annotations" in several places.  -->
+            <!-- Ignore 'serial' warnings about not having a serialVersionUID                                     -->
+            <!-- Ignore 'path' warnings (some dependencies have a bad classpath in their MANIFEST.MF)             -->
+            <!--   [WARNING] [path] bad path element                                                              -->
+            <!--     "/home/nbasjes/.m2/repository/org/scala-lang/scala-compiler/2.12.7/scala-reflect.jar":       -->
+            <!--     no such file or directory                                                                    -->
+            <!--   https://stackoverflow.com/questions/41944939/maven-build-failure-involving-manifest-mf-classpath-in-dependency-jars  -->
+            <!--   https://stackoverflow.com/questions/1344202/bad-path-warning-where-is-it-coming-from                                 -->
+            <arg>-Xlint:all,-classfile,-processing,-serial,-path</arg>
             <arg>-Werror</arg>
             <arg>-implicit:class</arg>
           </compilerArgs>
