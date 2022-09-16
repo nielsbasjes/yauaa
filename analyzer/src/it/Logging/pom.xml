@@ -21,7 +21,7 @@
   <packaging>pom</packaging>
 
   <groupId>nl.basjes.parse.useragent</groupId>
-  <artifactId>yauaa-integration-tests-serialization-parent</artifactId>
+  <artifactId>yauaa-integration-tests-logging-parent</artifactId>
   <version>1.0.0</version>
 
   <name>Yauaa : IT : Serialization : </name>
@@ -62,30 +62,6 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- The default logging implementation for Yauaa -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jcl</artifactId>
-      <version>${spring.version}</version>
-      <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>

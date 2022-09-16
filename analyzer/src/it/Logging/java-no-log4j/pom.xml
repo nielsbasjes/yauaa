@@ -19,48 +19,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>nl.basjes.parse.useragent</groupId>
+  <parent>
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <artifactId>yauaa-integration-tests-logging-parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
   <artifactId>yauaa-integration-tests-logging-java-no-log4j</artifactId>
-  <version>1.0.0</version>
 
   <packaging>jar</packaging>
 
   <name>Yauaa : IT : Logging : No Log4j</name>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.compiler.release>8</maven.compiler.release>
-
-    <yauaa.version>@project.version@</yauaa.version>
-
-    <maven-compiler-plugin.version>@maven-compiler-plugin.version@</maven-compiler-plugin.version>
-    <maven-failsafe-plugin.version>@maven-failsafe-plugin.version@</maven-failsafe-plugin.version>
-    <maven-surefire-plugin.version>@maven-surefire-plugin.version@</maven-surefire-plugin.version>
-    <docker-maven-plugin.version>@docker-maven-plugin.version@</docker-maven-plugin.version>
-    <junit5.version>@junit5.version@</junit5.version>
-    <hamcrest-core.version>@hamcrest-core.version@</hamcrest-core.version>
-
-    <log4j2.version>@log4j2.version@</log4j2.version>
-    <maven-jar-plugin.version>@maven-jar-plugin.version@</maven-jar-plugin.version>
-    <kryo4.version>@kryo4.version@</kryo4.version>
-    <kryo5.version>@kryo5.version@</kryo5.version>
-  </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>${junit5.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
+
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
@@ -91,58 +63,6 @@
     <!--      <scope>test</scope>-->
     <!--    </dependency>-->
 
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.hamcrest</groupId>
-          <artifactId>hamcrest-core</artifactId>
-        </exclusion>
-      </exclusions>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>${hamcrest-core.version}</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin.version}</version>
-        <executions>
-          <execution>
-            <!-- Since these tests do not create any normal jar we disable 'default-jar' -->
-            <id>default-jar</id>
-            <phase>none</phase>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <configuration>
-          <failIfNoTests>true</failIfNoTests>
-        </configuration>
-      </plugin>
-
-    </plugins>
-  </build>
 
 </project>
