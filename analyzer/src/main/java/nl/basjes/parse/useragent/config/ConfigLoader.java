@@ -192,7 +192,6 @@ public class ConfigLoader {
         Map<String, Resource> resources = findAllResources(resourceString, showLoadMessages, areOptional, loadingDefaultResources);
 
         doingOnlyASingleTest = false;
-        int maxFilenameLength = 0;
 
         // When using a framework like Quarkus loading resources can fail in mysterious ways.
         // Just trying to open a stream for one of the resources is enough to see if we can continue.
@@ -260,7 +259,6 @@ public class ConfigLoader {
                 Resource resource = resourceEntry.getValue();
                 String filename = resource.getFilename();
                 if (filename != null) {
-                    maxFilenameLength = Math.max(maxFilenameLength, filename.length());
                     String yamlString;
                     try (InputStreamReader inputStreamReader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
                         try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
