@@ -32,9 +32,10 @@ public class TestParseUserAgentFunctionClientHints extends AbstractTestFunctions
 
     @BeforeClass
     public void setUp() {
-        functionAssertions.installPlugin(new YauaaPlugin());
+        installPlugin(new YauaaPlugin());
     }
 
+    @SuppressWarnings("deprecation") // FIXME: The assertFunction has been deprecated.
     @Test
     public void testNormalUsage() {
         UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder().showMinimalVersion().build();
@@ -46,6 +47,7 @@ public class TestParseUserAgentFunctionClientHints extends AbstractTestFunctions
         requestHeaders.put("sec-CH-UA-Platform-Version",  "\"12.3.1\"");
         Map<String, String> expected = analyzer.parse(requestHeaders).toMap(analyzer.getAllPossibleFieldNamesSorted());
 
+        // FIXME: The assertFunction has been deprecated.
         assertFunction(
             "parse_user_agent( " +
             "    ARRAY[" +

@@ -31,9 +31,10 @@ public class TestParseUserAgentFunction extends AbstractTestFunctions {
 
     @BeforeClass
     public void setUp() {
-        functionAssertions.installPlugin(new YauaaPlugin());
+        installPlugin(new YauaaPlugin());
     }
 
+    @SuppressWarnings("deprecation") // FIXME: The assertFunction has been deprecated.
     @Test
     public void testNormalUsage() {
 
@@ -43,6 +44,7 @@ public class TestParseUserAgentFunction extends AbstractTestFunctions {
         // To avoid the need to update this with new features we simply use the analyzer to determine what the outcome should be.
         Map<String, String> expected = analyzer.parse(useragent).toMap(analyzer.getAllPossibleFieldNamesSorted());
 
+        // FIXME: The assertFunction has been deprecated.
         assertFunction("parse_user_agent('"+ useragent +"')", new MapType(VARCHAR, VARCHAR,  new TypeOperators()), expected);
     }
 
