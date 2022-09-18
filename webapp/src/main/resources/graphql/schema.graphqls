@@ -15,10 +15,6 @@
 # limitations under the License.
 #
 
-#schema {
-#    query: Query
-#}
-
 """
 YAUAA: YET ANOTHER USERAGENT ANALYZER
 
@@ -68,32 +64,8 @@ input RequestHeadersInput {
 
 "The analysis results of a User-Agent and other headers."
 type AnalysisResult {
-    deviceClass:                         String
-    deviceName:                          String
-    deviceBrand:                         String
-    deviceCpu:                           String
-    deviceCpuBits:                       String
-    deviceFirmwareVersion:               String
-    deviceVersion:                       String
-    operatingSystemClass:                String
-    operatingSystemName:                 String
-    operatingSystemVersion:              String
-    operatingSystemVersionMajor:         String
-    operatingSystemNameVersion:          String
-    operatingSystemNameVersionMajor:     String
-    layoutEngineClass:                   String
-    layoutEngineName:                    String
-    layoutEngineVersion:                 String
-    layoutEngineVersionMajor:            String
-    layoutEngineNameVersion:             String
-    layoutEngineNameVersionMajor:        String
-    agentClass:                          String
-    agentName:                           String
-    agentVersion:                        String
-    agentVersionMajor:                   String
-    agentNameVersion:                    String
-    agentNameVersionMajor:               String
-    remarkablePattern:                   String
+    "'true' if there was a parse error in the User-Agent"
+    syntaxError: String
 
     "Get the entry for a certain key (fieldName is case sensitive!)"
     field(fieldName: String!): FieldResult!
