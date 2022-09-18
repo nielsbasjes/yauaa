@@ -5,6 +5,8 @@ v7.7.0-SNAPSHOT
 ===
 - Added development utility to convert access logs into testcases.
 - Improve detecting duplicate tests.
+- Webservlet:
+  - The GraphQL fields are now generated dynamically based on the available rules.
 
 v7.6.0
 ===

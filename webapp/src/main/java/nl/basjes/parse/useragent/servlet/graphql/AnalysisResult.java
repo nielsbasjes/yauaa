@@ -27,7 +27,7 @@ import java.util.TreeMap;
 //@Description("The analysis results of a User-Agent and other headers.")
 public class AnalysisResult {
 
-    private UserAgent userAgent;
+    private final UserAgent userAgent;
 
     public AnalysisResult(UserAgent userAgent) {
         this.userAgent = userAgent;
@@ -35,6 +35,14 @@ public class AnalysisResult {
 
     public UserAgent getUserAgent() {
         return userAgent;
+    }
+
+    public String getValue(String fieldName) {
+        return userAgent.getValue(fieldName);
+    }
+
+    public Boolean getSyntaxError() {
+        return Boolean.parseBoolean(userAgent.getValue("__SyntaxError__"));
     }
 
     private Map<String, FieldResult> fieldsMap = null;
@@ -47,85 +55,6 @@ public class AnalysisResult {
             }
         }
         return fieldsMap;
-    }
-
-    public String getDeviceClass()                     {
-        return userAgent.getValue("DeviceClass");
-    }
-    public String getDeviceName()                      {
-        return userAgent.getValue("DeviceName");
-    }
-    public String getDeviceBrand()                     {
-        return userAgent.getValue("DeviceBrand");
-    }
-    public String getDeviceCpu()                       {
-        return userAgent.getValue("DeviceCpu");
-    }
-    public String getDeviceCpuBits()                   {
-        return userAgent.getValue("DeviceCpuBits");
-    }
-    public String getDeviceFirmwareVersion()           {
-        return userAgent.getValue("DeviceFirmwareVersion");
-    }
-    public String getDeviceVersion()                   {
-        return userAgent.getValue("DeviceVersion");
-    }
-    public String getOperatingSystemClass()            {
-        return userAgent.getValue("OperatingSystemClass");
-    }
-    public String getOperatingSystemName()             {
-        return userAgent.getValue("OperatingSystemName");
-    }
-    public String getOperatingSystemVersion()          {
-        return userAgent.getValue("OperatingSystemVersion");
-    }
-    public String getOperatingSystemVersionMajor()     {
-        return userAgent.getValue("OperatingSystemVersionMajor");
-    }
-    public String getOperatingSystemNameVersion()      {
-        return userAgent.getValue("OperatingSystemNameVersion");
-    }
-    public String getOperatingSystemNameVersionMajor() {
-        return userAgent.getValue("OperatingSystemNameVersionMajor");
-    }
-    public String getLayoutEngineClass()               {
-        return userAgent.getValue("LayoutEngineClass");
-    }
-    public String getLayoutEngineName()                {
-        return userAgent.getValue("LayoutEngineName");
-    }
-    public String getLayoutEngineVersion()             {
-        return userAgent.getValue("LayoutEngineVersion");
-    }
-    public String getLayoutEngineVersionMajor()        {
-        return userAgent.getValue("LayoutEngineVersionMajor");
-    }
-    public String getLayoutEngineNameVersion()         {
-        return userAgent.getValue("LayoutEngineNameVersion");
-    }
-    public String getLayoutEngineNameVersionMajor()    {
-        return userAgent.getValue("LayoutEngineNameVersionMajor");
-    }
-    public String getAgentClass()                      {
-        return userAgent.getValue("AgentClass");
-    }
-    public String getAgentName()                       {
-        return userAgent.getValue("AgentName");
-    }
-    public String getAgentVersion()                    {
-        return userAgent.getValue("AgentVersion");
-    }
-    public String getAgentVersionMajor()               {
-        return userAgent.getValue("AgentVersionMajor");
-    }
-    public String getAgentNameVersion()                {
-        return userAgent.getValue("AgentNameVersion");
-    }
-    public String getAgentNameVersionMajor()           {
-        return userAgent.getValue("AgentNameVersionMajor");
-    }
-    public String getRemarkablePattern()               {
-        return userAgent.getValue("RemarkablePattern");
     }
 
 //    @Description("The provided input can be requested back (useful in batch analysis scenarios)")
