@@ -16,46 +16,65 @@
  */
 package nl.basjes.parse.useragent.trino;
 
+import io.trino.metadata.InternalFunctionBundle;
 import io.trino.operator.scalar.AbstractTestFunctions;
 import io.trino.spi.type.MapType;
 import io.trino.spi.type.TypeOperators;
+import io.trino.sql.query.QueryAssertions;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 import static io.trino.spi.type.VarcharType.VARCHAR;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
+@TestInstance(PER_CLASS)
 public class TestParseUserAgentFunctionClientHints extends AbstractTestFunctions {
 
-    @BeforeClass
+    private QueryAssertions assertions;
+
+    @BeforeAll
     public void setUp() {
-        installPlugin(new YauaaPlugin());
+        assertions = new QueryAssertions();
+        assertions.addFunctions(InternalFunctionBundle.extractFunctions(new YauaaPlugin().getFunctions()));
     }
 
-    @SuppressWarnings("deprecation") // FIXME: The assertFunction has been deprecated.
+    @AfterAll
+    public void teardown() {
+        assertions.close();
+        assertions = null;
+    }
+
     @Test
     public void testNormalUsage() {
         UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder().showMinimalVersion().build();
 
+        String useragent                = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36";
+        String secChUaPlatform          = "\"macOS\"";
+        String secChUaPlatformVersion   = "\"12.3.1\"";
+
         // To avoid the need to update this with new features we simply use the analyzer to determine what the outcome should be.
         Map<String, String> requestHeaders = new TreeMap<>();
-        requestHeaders.put("user-Agent",                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36");
-        requestHeaders.put("sec-CH-UA-Platform",          "\"macOS\"");
-        requestHeaders.put("sec-CH-UA-Platform-Version",  "\"12.3.1\"");
+        requestHeaders.put("user-Agent",                  useragent);
+        requestHeaders.put("sec-CH-UA-Platform",          secChUaPlatform);
+        requestHeaders.put("sec-CH-UA-Platform-Version",  secChUaPlatformVersion);
         Map<String, String> expected = analyzer.parse(requestHeaders).toMap(analyzer.getAllPossibleFieldNamesSorted());
 
         // FIXME: The assertFunction has been deprecated.
-        assertFunction(
-            "parse_user_agent( " +
+        assertThat(assertions.function("parse_user_agent",
             "    ARRAY[" +
-            "       'user-Agent',                  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36'," +
-            "       'sec-CH-UA-Platform',          '\"macOS\"'," +
-            "       'sec-CH-UA-Platform-Version',  '\"12.3.1\"'" +
-            "    ]" +
-            ")", new MapType(VARCHAR, VARCHAR,  new TypeOperators()), expected);
+            "       'user-Agent',                  '" + useragent              + "'," +
+            "       'sec-CH-UA-Platform',          '" + secChUaPlatform        + "'," +
+            "       'sec-CH-UA-Platform-Version',  '" + secChUaPlatformVersion + "'" +
+            "    ]"))
+            .hasType(new MapType(VARCHAR, VARCHAR,  new TypeOperators()))
+            .isEqualTo(expected);
     }
 
 }

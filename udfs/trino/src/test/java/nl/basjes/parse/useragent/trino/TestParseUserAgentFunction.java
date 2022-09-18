@@ -16,36 +16,50 @@
  */
 package nl.basjes.parse.useragent.trino;
 
-import io.trino.operator.scalar.AbstractTestFunctions;
+import io.trino.metadata.InternalFunctionBundle;
 import io.trino.spi.type.MapType;
 import io.trino.spi.type.TypeOperators;
+import io.trino.sql.query.QueryAssertions;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.Map;
 
 import static io.trino.spi.type.VarcharType.VARCHAR;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
-public class TestParseUserAgentFunction extends AbstractTestFunctions {
+@TestInstance(PER_CLASS)
+class TestParseUserAgentFunction {
 
-    @BeforeClass
+    private QueryAssertions assertions;
+
+    @BeforeAll
     public void setUp() {
-        installPlugin(new YauaaPlugin());
+        assertions = new QueryAssertions();
+        assertions.addFunctions(InternalFunctionBundle.extractFunctions(new YauaaPlugin().getFunctions()));
     }
 
-    @SuppressWarnings("deprecation") // FIXME: The assertFunction has been deprecated.
-    @Test
-    public void testNormalUsage() {
+    @AfterAll
+    public void teardown() {
+        assertions.close();
+        assertions = null;
+    }
 
+    @Test
+    void testNormalUsage() {
         UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder().showMinimalVersion().build();
 
         String useragent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36";
         // To avoid the need to update this with new features we simply use the analyzer to determine what the outcome should be.
         Map<String, String> expected = analyzer.parse(useragent).toMap(analyzer.getAllPossibleFieldNamesSorted());
 
-        // FIXME: The assertFunction has been deprecated.
-        assertFunction("parse_user_agent('"+ useragent +"')", new MapType(VARCHAR, VARCHAR,  new TypeOperators()), expected);
+        assertThat(assertions.function("parse_user_agent", "'"+useragent+"'"))
+            .hasType(new MapType(VARCHAR, VARCHAR,  new TypeOperators()))
+            .isEqualTo(expected);
     }
 
 }

@@ -17,16 +17,18 @@
 
 package nl.basjes.parse.useragent.trino;
 
-import io.trino.operator.scalar.AbstractTestFunctions;
-import io.trino.spi.Plugin;
+import io.trino.metadata.InternalFunctionBundle;
 import io.trino.spi.type.MapType;
 import io.trino.spi.type.TypeOperators;
+import io.trino.sql.query.QueryAssertions;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import static io.trino.spi.type.VarcharType.VARCHAR;
@@ -34,18 +36,19 @@ import static nl.basjes.parse.useragent.UserAgent.SYNTAX_ERROR;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VERSION;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class TestParseFunction
-    extends AbstractTestFunctions {
+@TestInstance(PER_CLASS)
+class TestParseFunction {
 
-    List<String> allPossibleFieldNamesSorted;
+    private QueryAssertions assertions;
+    private List<String> allPossibleFieldNamesSorted;
 
     @BeforeAll
     public void setUp() {
-        initTestFunctions();
-        Plugin plugin = new YauaaPlugin();
-        plugin.getFunctions().forEach(this::registerScalar);
+        assertions = new QueryAssertions();
+        assertions.addFunctions(InternalFunctionBundle.extractFunctions(new YauaaPlugin().getFunctions()));
 
         allPossibleFieldNamesSorted = UserAgentAnalyzer
             .newBuilder()
@@ -56,9 +59,18 @@ class TestParseFunction
             .getAllPossibleFieldNamesSorted();
     }
 
+    @AfterAll
+    public void teardown() {
+        assertions.close();
+        assertions = null;
+    }
+
     private static String getDefaultValueForField(String fieldName) {
         if (fieldName.equals(SYNTAX_ERROR)) {
             return "false";
+        }
+        if (fieldName.equals("RemarkablePattern")) {
+            return "Nothing remarkable found";
         }
         if (fieldName.contains("NameVersion")) {
             return UNKNOWN_NAME_VERSION;
@@ -71,12 +83,14 @@ class TestParseFunction
 
     @Test
     void testParser() {
-        TreeMap<String, String> expected = new TreeMap<>();
+        Map<String, String> expected = new TreeMap<>();
 
         // We will get ALL possible fields, most are effectively "Unknown"
         for (String fieldName : allPossibleFieldNamesSorted) {
             expected.put(fieldName, getDefaultValueForField(fieldName));
         }
+
+        String useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36";
 
         expected.put("DeviceClass",                     "Desktop");
         expected.put("DeviceName",                      "Linux Desktop");
@@ -105,7 +119,8 @@ class TestParseFunction
         expected.put("AgentNameVersion",                "Chrome 98.0.4758.102");
         expected.put("AgentNameVersionMajor",           "Chrome 98");
 
-        assertFunction("parse_user_agent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36')",
-            new MapType(VARCHAR, VARCHAR, new TypeOperators()), expected);
+        assertThat(assertions.function("parse_user_agent", "'"+useragent+"'"))
+            .hasType(new MapType(VARCHAR, VARCHAR,  new TypeOperators()))
+            .isEqualTo(expected);
     }
 }

@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>nl.basjes.parse.useragent</groupId>
-  <artifactId>yauaa-trino</artifactId>
+  <artifactId>yauaa-trino-it-test</artifactId>
   <version>@project.version@</version>
 
   <name>Yauaa : UDF : Trino (a.k.a. Presto SQL)</name>
@@ -30,13 +30,16 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
   </properties>
 
   <dependencies>
 
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
-      <artifactId>yauaa</artifactId>
+      <artifactId>yauaa-trino</artifactId>
       <version>@project.version@</version>
     </dependency>
 
@@ -76,7 +79,33 @@
     <dependency>
       <groupId>io.trino</groupId>
       <artifactId>trino-testing</artifactId>
-      <version>@trino.version@</version>
+      <version>396</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>@junit5.version@</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.hamcrest</groupId>
+          <artifactId>hamcrest-core</artifactId>
+        </exclusion>
+      </exclusions>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+      <version>@hamcrest-core.version@</version>
       <scope>test</scope>
     </dependency>
 
@@ -104,6 +133,16 @@
           </toolchains>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>@maven-surefire-plugin.version@</version>
+        <configuration>
+          <failIfNoTests>true</failIfNoTests>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
