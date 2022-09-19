@@ -45,6 +45,7 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
     // ------------------------------------------
     @Test
     public void testVersion() {
+        LOG.info("Testing GraphQL: version");
         getGraphQLResponse(
             "{" +
             "  version {" +
@@ -64,6 +65,7 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
 
     @Test
     public void testAnalyzeDirectField() {
+        LOG.info("Testing GraphQL: direct field");
         getGraphQLResponse(
             "{" +
             "  analyze(requestHeaders: {userAgent: \""+TEST_USER_AGENT+"\"}) {" +
@@ -77,6 +79,7 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
 
     @Test
     public void testAnalyzeField() {
+        LOG.info("Testing GraphQL: single field");
         getGraphQLResponse(
                 "{" +
                 "  analyze(requestHeaders: {userAgent: \""+TEST_USER_AGENT+"\"}) {" +
@@ -100,6 +103,7 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
 
     @Test
     public void testAnalyzeFields() {
+        LOG.info("Testing GraphQL: array fields");
         getGraphQLResponse(
             "{" +
             "  analyze(requestHeaders: {userAgent: \""+TEST_USER_AGENT+"\"}) {" +
@@ -119,6 +123,7 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
     public void testCheckCustomConfigWasLoaded() {
         assumeTrue(runTestsThatNeedResourceFiles, "Some integration tests cannot use test resources");
 
+        LOG.info("Testing GraphQL: Custom resources");
         getGraphQLResponse(
             "{" +
             "    analyze(requestHeaders: {" +

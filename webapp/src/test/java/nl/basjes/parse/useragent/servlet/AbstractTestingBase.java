@@ -25,7 +25,7 @@ import static io.restassured.RestAssured.given;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
 abstract class AbstractTestingBase {
-    private static final Logger LOG = LogManager.getLogger(AbstractTestingBase.class);
+    protected static final Logger LOG = LogManager.getLogger(AbstractTestingBase.class);
 
     boolean runTestsThatNeedResourceFiles = true;
 
