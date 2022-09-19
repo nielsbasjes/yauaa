@@ -12,6 +12,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+### Version 7.6.0
+- New/improved detections
+  - Opera with reduced UserAgent now reports the correct agent version.
+
 ### Version 7.5.0
 - Report frozen `Mac OS X` versions as `Mac OS >=10.15.7` (was `??`) for all browsers (Chrome, Firefox, etc.):
     - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.

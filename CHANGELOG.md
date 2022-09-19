@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.6.0-SNAPSHOT
+v7.7.0-SNAPSHOT
+===
+- ...
+
+v7.6.0
 ===
 - Build
   - Require JDK 8, 11 and 17 installed and the appropriate toolchains.xml.
