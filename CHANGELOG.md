@@ -5,10 +5,12 @@ v7.6.0-SNAPSHOT
 ===
 - Build
   - Require JDK 8, 11 and 17 installed and the appropriate toolchains.xml.
+- New/improved detections
+  - Opera with reduced UserAgent now reports the correct agent version.
 - Updated UDF dependencies
   - Elastic Search          7.17.6 & 8.4.1
   - Elastic Logstash        8.4.1
-  - Trino                   394
+  - Trino                   396
 
 
 v7.5.0
