@@ -20,11 +20,13 @@ package nl.basjes.parse.useragent.clienthints;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 // In call cases: null means not specified
+@ToString
 public class ClientHints implements Serializable {
     // See: https://wicg.github.io/ua-client-hints/#interface
     @Getter @Setter private ArrayList<Brand> brands = null;                 // 3.1 https://wicg.github.io/ua-client-hints/#sec-ch-ua
@@ -39,6 +41,7 @@ public class ClientHints implements Serializable {
     @Getter @Setter private Boolean wow64 = null;                           // 3.10 https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64
 
     @AllArgsConstructor
+    @ToString
     public static class Brand implements Serializable {
         @Getter @Setter private String name;
         @Getter @Setter private String version;
