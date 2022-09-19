@@ -5,7 +5,7 @@ linkTitle = "Using Yauaa"
 +++
 ## Using the analyzer
 To use this analyzer you can use it either directly in your Java based applications or use one of
-the User Defined Functions that are available for many of Apache bigdata tools (Hive, Flink, Beam, ...) as described [here](../udf/).
+the User Defined Functions that are available for many of Apache bigdata tools (Hive, Flink, Beam, ...) as described [here](../udf/_index.md).
 
 ## Using in Java applications
 To use the library you must first add it as a dependency to your application.
@@ -21,7 +21,14 @@ If you use a maven based project simply add this dependency to your project.
 </dependency>
 ```
 
-and in your application you can use it as simple as this
+To actually use it in your application you need to create an instance of the `UserAgentAnalyzer`.
+
+Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds and uses a few hundred MiB of memory to store all the analysis datastructures.
+
+This analyzer can only do a single analysis at a time and to ensure correct working the main method is synchronized. If you have a high load you should simply create multiple instances and spread the load over those instances.
+When running in a framework (like [Apache Flink](../udf/Apache-Flink.md) or [Apache Beam](../udf/Apache-Beam.md)) this is usually automatically managed by these frameworks. In other systems may choose something like a threadpool to do that.
+
+Note that if you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those (or serialize an instance and deserialize it multiple times).
 
     UserAgentAnalyzer uaa = UserAgentAnalyzer
                 .newBuilder()
@@ -29,16 +36,15 @@ and in your application you can use it as simple as this
                 .withCache(10000)
                 .build();
 
+Then for each useragent (or set of request headers) you call the `parse` method to give you the desired result:
+
     UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
 
     for (String fieldName: agent.getAvailableFieldNamesSorted()) {
         System.out.println(fieldName + " = " + agent.getValue(fieldName));
     }
 
-Please instantiate a new UserAgentAnalyzer as few times as possible because the initialization step for a full UserAgentAnalyzer (i.e. all fields) usually takes something in the range of 2-5 seconds.
-If you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those.
-
-Note that not all fields are available after every parse. So be prepared to receive a 'null' or "Unknown" if you extract a specific name.
+Note that not all fields are available after every parse. So be prepared to receive a `null`, `Unknown` or another field specific default.
 
 ## Custom caching implementation
 Since version 6.7 you can specify a custom implementation for the cache by providing an instance of the factory interface `CacheInstantiator`.
@@ -69,7 +75,7 @@ A custom implementation can be specified via the `Builder` using the `withCacheI
         .build();
 
 ## Running on Java 8
-Yauaa 6.x still allows running on Java 8, yet the default caching library needs Java 11.
+Yauaa 7.x still allows running on Java 8, yet the default caching library needs Java 11.
 
 If you are still using Java 8 then you can fix this problem by using the `LRUMap` caching implementation that is part of the Apache commons-collections library and do something like this:
 
@@ -191,7 +197,7 @@ If your project does not use Kryo and you have this warning then there are sever
 <dependency>
     <groupId>com.esotericsoftware</groupId>
     <artifactId>kryo</artifactId>
-    <version>5.2.1</version>
+    <version>5.3.0</version>
     <scope>provided</scope>
 </dependency>
 ```
