@@ -1074,6 +1074,48 @@ config:
 
 
 - test:
+    name: 'Opera 91 on Windows (Reduced, Standard Client Hints)'
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 OPR/91.0.4516.16'
+      Sec-CH-UA                                  : '"Not-A.Brand";v="99", "Opera";v="91", "Chromium";v="105"'
+      Sec-CH-UA-Mobile                           : '?0'
+      Sec-CH-UA-Platform                         : '"Windows"'
+    expected:
+      DeviceClass                                : 'Desktop'
+      DeviceName                                 : 'Desktop'
+      DeviceBrand                                : 'Unknown'
+      DeviceCpu                                  : 'Intel x86_64'
+      DeviceCpuBits                              : '64'
+      OperatingSystemClass                       : 'Desktop'
+      OperatingSystemName                        : 'Windows NT'
+      OperatingSystemVersion                     : '??'
+      OperatingSystemVersionMajor                : '??'
+      OperatingSystemNameVersion                 : 'Windows NT ??'
+      OperatingSystemNameVersionMajor            : 'Windows NT ??'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '105'
+      LayoutEngineVersionMajor                   : '105'
+      LayoutEngineNameVersion                    : 'Blink 105'
+      LayoutEngineNameVersionMajor               : 'Blink 105'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Opera'
+      AgentVersion                               : '91.0.4516.16'
+      AgentVersionMajor                          : '91'
+      AgentNameVersion                           : 'Opera 91.0.4516.16'
+      AgentNameVersionMajor                      : 'Opera 91'
+
+      UAClientHintBrands_0_Brand                 : 'Not-A.Brand'
+      UAClientHintBrands_0_Version               : '99'
+      UAClientHintBrands_1_Brand                 : 'Opera'
+      UAClientHintBrands_1_Version               : '91'
+      UAClientHintBrands_2_Brand                 : 'Chromium'
+      UAClientHintBrands_2_Version               : '105'
+      UAClientHintMobile                         : 'false'
+      UAClientHintPlatform                       : 'Windows'
+
+
+- test:
     input:
       User-Agent                                 : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 OPR/91.0.4516.16'
       Sec-Ch-Ua                                  : '"Not-A.Brand";v="99", "Opera";v="91", "Chromium";v="105"'
