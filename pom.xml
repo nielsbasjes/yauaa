@@ -198,6 +198,8 @@
     <docker-based-tests.skip>true</docker-based-tests.skip>
 
     <docker-based-package.phase>package</docker-based-package.phase>
+
+    <WerrorFlag>-Werror</WerrorFlag>
   </properties>
 
   <dependencyManagement>
@@ -449,6 +451,16 @@
       </properties>
     </profile>
 
+    <profile>
+      <id>EnableThisWhenRunningInIntelliJIDEA</id>
+      <!-- In Intellij IDEA I get consistent failures over                                   -->
+      <!-- java: Field value processing of @ConfigurationProperty meta-data is not supported -->
+      <!-- which fails the build because we do by default '-Werror'.                         -->
+      <properties>
+        <WerrorFlag/>
+      </properties>
+    </profile>
+
   </profiles>
 
   <build>
@@ -545,7 +557,7 @@
             <!--   https://stackoverflow.com/questions/41944939/maven-build-failure-involving-manifest-mf-classpath-in-dependency-jars  -->
             <!--   https://stackoverflow.com/questions/1344202/bad-path-warning-where-is-it-coming-from                                 -->
             <arg>-Xlint:all,-classfile,-processing,-serial,-path</arg>
-            <arg>-Werror</arg>
+            <arg>${WerrorFlag}</arg>
             <arg>-implicit:class</arg>
           </compilerArgs>
           <showWarnings>true</showWarnings>
