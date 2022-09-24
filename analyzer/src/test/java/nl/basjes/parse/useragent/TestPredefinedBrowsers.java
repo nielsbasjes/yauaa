@@ -26,12 +26,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -161,45 +162,104 @@ class TestPredefinedBrowsers {
         uaa.destroy();
     }
 
+    private static final class FileNameComparator implements Comparator<TestCase> {
+
+        Map<String, Long> sortMap;
+
+        FileNameComparator(Map<String, Long> sortMap) {
+            this.sortMap = sortMap;
+        }
+
+        @Override
+        public int compare(TestCase o1, TestCase o2) {
+            long o1Score = sortMap.getOrDefault(o1.getMetadata().get("filename"), -1L);
+            long o2Score = sortMap.getOrDefault(o2.getMetadata().get("filename"), -1L);
+            if (o1Score < o2Score) {
+                return 1;
+            }
+            return (o1Score == o2Score) ? 0 : -1;
+        }
+    }
+
+    private static class Duplicated implements Comparable<Duplicated> {
+        // The sorted list of tests that have duplicates
+        private final List<TestCase>    duplicateTests;
+
+        Duplicated(List<TestCase> duplicateTests, Map<String, Long> filesWithDuplicatesCounts) {
+            this.duplicateTests            = duplicateTests;
+            this.duplicateTests.sort(new FileNameComparator(filesWithDuplicatesCounts));
+        }
+
+        private String getFirstLocation(Duplicated duplicated) {
+            TestCase testCase = duplicated.duplicateTests.get(0);
+            String filename = testCase.getMetadata().get("filename");
+            String linenumber = testCase.getMetadata().get("fileline");
+            return filename + ':' + linenumber;
+        }
+
+        @Override
+        public int compareTo(Duplicated other) {
+            String myFirst    = getFirstLocation(this);
+            String otherFirst = getFirstLocation(other);
+            return myFirst.compareTo(otherFirst);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb
+                .append("======================================================\n")
+                .append("Testcase > ").append(duplicateTests.get(0).getHeaders().toString()).append("\n");
+            int count = 0;
+
+            for (TestCase testCase: duplicateTests) {
+                Map<String, String> metadata = testCase.getMetadata();
+                String location = metadata.get("filename") + ":" + metadata.get("fileline");
+                sb.append(">Location ").append(++count).append(".(").append(location).append(")\n");
+            }
+            return sb.toString();
+        }
+    }
 
     @Test
     void makeSureWeDoNotHaveDuplicateTests() {
-        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().build();
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().delayInitialization().build();
 
-        Map<String, List<String>> allTestInputs = new HashMap<>(2000);
-        Set<String> duplicates = new HashSet<>();
+        Map<String, List<TestCase>> allTestCases = new TreeMap<>();
+        // Group all testcases by their inputs
         for (TestCase testCase: uaa.getTestCases()) {
-
-            Map<String, String> inputHeaders = new TreeMap<>(testCase.getHeaders());
-            String input = inputHeaders.toString();
-            String location = testCase.getMetadata().get("filename") + ":" + testCase.getMetadata().get("fileline");
-            List<String> locations = allTestInputs.get(input);
-            if (locations == null) {
-                locations = new ArrayList<>();
-            }
-            locations.add(location);
-
-            if (locations.size()>1) {
-                duplicates.add(input);
-            }
-            allTestInputs.put(input, locations);
+            String testInput = new TreeMap<>(testCase.getHeaders()).toString();
+            allTestCases.computeIfAbsent(testInput, key -> new ArrayList<>()).add(testCase);
         }
 
-        if (duplicates.size() == 0) {
+        List<List<TestCase>> duplicatedTestCases = allTestCases
+            .values()
+            .stream()
+            .filter(testCases -> testCases.size() > 1)
+            .collect(Collectors.toList());
+
+        if (duplicatedTestCases.size() == 0) {
             LOG.info("No duplicate tests were found.");
             return; // We're done and all is fine.
         }
 
-        StringBuilder sb = new StringBuilder(1024);
-        for (String duplicate: duplicates) {
-            sb
-                .append("======================================================\n")
-                .append("Testcase > ").append(duplicate).append("\n");
-            int count = 0;
-            for (String location: allTestInputs.get(duplicate)) {
-                sb.append(">Location ").append(++count).append(".(").append(location).append(")\n");
-            }
-        }
-        fail("Found "+ duplicates.size()+ " testcases multiple times: \n" + sb);
+        // Now we have the ones that are duplicated we are sorting this all for easier handling a larger number.
+
+        // First determine which file has the most duplicates (used to sort the output)
+        Map<String, Long> filesWithDuplicatesCounts = new TreeMap<>(
+            duplicatedTestCases
+                .stream()
+                .flatMap(Collection::stream)
+                .map(testCase -> testCase.getMetadata().get("filename"))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())));
+
+        fail("Found "+ duplicatedTestCases.size() + " testcases multiple times: \n" +
+            duplicatedTestCases
+                .stream()
+                .map(list -> new Duplicated(list, filesWithDuplicatesCounts))
+                .sorted(Comparator.naturalOrder())
+                .map(Duplicated::toString)
+                .collect(Collectors.joining()));
+
     }
 }

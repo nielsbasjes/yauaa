@@ -4,6 +4,7 @@ This is intended as an overview of the major changes
 v7.7.0-SNAPSHOT
 ===
 - Added development utility to convert access logs into testcases.
+- Improve detecting duplicate tests.
 
 v7.6.0
 ===
