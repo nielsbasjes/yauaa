@@ -40,6 +40,8 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU_BITS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
@@ -140,6 +142,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 //        detectVersionMismatchRobots(userAgent, clientHints); FIXME: This breaks too much.
         improveMobileDeviceClass(userAgent, clientHints);
         improveDeviceBrandName(userAgent, clientHints);
+        improveDeviceCPU(userAgent, clientHints);
         improveOperatingSystem(userAgent, clientHints);
         improveLayoutEngineAndAgentInfo(userAgent, clientHints);
         return userAgent;
@@ -193,6 +196,37 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                 overrideValue(deviceBrand, WordSplitter.getInstance().getSingleSplit(clientHints.getModel(), 1));
                 overrideValue(deviceName, clientHints.getModel());
             }
+        }
+    }
+
+    public void improveDeviceCPU(MutableUserAgent userAgent, ClientHints clientHints) {
+        // Improve the Device CPU has a better value.
+        String architecture = clientHints.getArchitecture();
+        String bitness = clientHints.getBitness();
+
+        if (bitness != null && !bitness.isEmpty()) {
+            overrideValue(userAgent.get(DEVICE_CPU_BITS), bitness);
+        }
+
+        if (architecture != null) {
+            String newArchitecture;
+            switch (architecture) {
+                case "x86":
+                    newArchitecture = "Intel x86_64";
+                    if ("32".equals(bitness)) {
+                        newArchitecture = "Intel x86";
+                    }
+                    break;
+                case "arm":
+                    newArchitecture = "ARM";
+                    break;
+                default:
+                    newArchitecture = architecture;
+                    break;
+            }
+
+            MutableAgentField deviceCpu = userAgent.get(DEVICE_CPU);
+            overrideValue(deviceCpu, newArchitecture);
         }
     }
 

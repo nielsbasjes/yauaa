@@ -12,6 +12,13 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
+v7.7.0-SNAPSHOT
+===
+- New/improved detections
+    - If the clienthints are available it is now possible to detect difference between Intel and ARM (M1/M2) on Apple laptops.
+- Webservlet:
+    - The GraphQL fields are now generated dynamically based on the available rules (The available fields with now also expose any custom fields).
+
 ### Version 7.6.0
 - New/improved detections
   - Opera with reduced UserAgent now reports the correct agent version.

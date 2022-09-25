@@ -3,10 +3,13 @@ This is intended as an overview of the major changes
 
 v7.7.0-SNAPSHOT
 ===
-- Added development utility to convert access logs into testcases.
-- Improve detecting duplicate tests.
+- New/improved detections
+  - If the clienthints are available it is now possible to detect difference between Intel and ARM (M1/M2) on Apple laptops.
 - Webservlet:
   - The GraphQL fields are now generated dynamically based on the available rules.
+- Devtools
+    - Added development utility to convert access logs into testcases.
+    - Improve detecting duplicate tests.
 
 v7.6.0
 ===
