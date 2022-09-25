@@ -13,10 +13,26 @@ Take for example these two (both were found exactly as shown here in the logs of
 
 The difference between "Mobile Safari" and "Safari" has been defined for Google Chrome as the difference between "Phone" and "Tablet" (see the [Chrome documentation](https://developer.chrome.com/multidevice/user-agent) on this).
 
-And as you can see in this example: we sometimes get it wrong.
+And as you can see in this example: we sometimes get it wrong (The `Samsung T805s` is in reality a Tablet).
 The impact in this case is however very limited: Of the 445 visitors I found using this device only 2 were classified wrong all others were correct.
 
-A second example is when the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6):
+## Unexpected differences
+Some cases that seem very similar to the previous example are in a way correct.
+
+Take for example the Samsung Galaxy S8 (SM-G950F) which is a Phone.
+
+In normal use the Useragent looks like this:
+
+    Mozilla/5.0 (Linux; Android 9; SM-G950F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Mobile Safari/537.36
+
+when this device is connected to a computer screen then "Samsung Dex" (Dex = Desktop Experience) takes over and the screen layout and usage of the phone changes dramatically.
+
+    Mozilla/5.0 (Linux; Android 9; SM-G950F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36
+
+This time the change (from `Mobile Safari` to just `Safari`) indicates the device is to be treated as a `Tablet` because the screen size and ways of interacting have changed.
+
+## Some are simply incorrect
+When the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6) you get this:
 
     Mozilla/5.0 (Linux; Android 7.0; SAMSUNG Nexus 6 Build/NBD92G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36
 
