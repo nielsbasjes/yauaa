@@ -35,7 +35,7 @@ mvn release:perform
 RELEASEVERSION=$(cat documentation/layouts/shortcodes/YauaaVersion.md)
 
 git push
-git push origin v${RELEASEVERSION}
+git push --tags
 
 # Publish the docker image
 docker push nielsbasjes/yauaa:${RELEASEVERSION}

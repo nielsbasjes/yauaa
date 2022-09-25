@@ -21,5 +21,5 @@ JAR=$(ls target/yauaa-*.jar | fgrep -v source)
 
 FORMAT="%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V"
 
-java -jar "${JAR}" "${FORMAT}" __logs/access_clienthints_log*
+java -jar "${JAR}" "${FORMAT}" __logs/access_clienthints_log-20220925
 
