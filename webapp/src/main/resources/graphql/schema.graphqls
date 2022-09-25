@@ -48,18 +48,42 @@ type Version {
 
 "The HTTP Request Headers that are to be analyzed"
 input RequestHeadersInput {
-    # The userAgent is a mandatory input field.
-    "The field for the contents of the 'User-Agent' request header"                     userAgent:                  String!
-    "The field for the contents of the 'Sec-CH-UA' request header"                      secChUa:                    String
-    "The field for the contents of the 'Sec-CH-UA-Arch' request header"                 secChUaArch:                String
-    "The field for the contents of the 'Sec-CH-UA-Bitness' request header"              secChUaBitness:             String
-    "The field for the contents of the 'Sec-CH-UA-Full-Version' request header"         secChUaFullVersion:         String
-    "The field for the contents of the 'Sec-CH-UA-Full-Version-List' request header"    secChUaFullVersionList:     String
-    "The field for the contents of the 'Sec-CH-UA-Mobile' request header"               secChUaMobile:              String
-    "The field for the contents of the 'Sec-CH-UA-Model' request header"                secChUaModel:               String
-    "The field for the contents of the 'Sec-CH-UA-Platform' request header"             secChUaPlatform:            String
-    "The field for the contents of the 'Sec-CH-UA-Platform-Version' request header"     secChUaPlatformVersion:     String
-    "The field for the contents of the 'Sec-CH-UA-WoW64' request header"                secChUaWoW64:               String
+    #The 'User-Agent' header field contains information about the user agent originating the request.
+    #See also https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3
+    userAgent:                  String!
+    #The Sec-CH-UA request header field gives a server information about a user agent's branding and version.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua
+    secChUa:                    String
+    #The Sec-CH-UA-Arch request header field gives a server information about the architecture of the platform on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch
+    secChUaArch:                String
+    #The Sec-CH-UA-Bitness request header field gives a server information about the bitness of the architecture of the platform on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness
+    secChUaBitness:             String
+    #The Sec-CH-UA-Full-Version request header field gives a server information about the user agent’s full version.
+    #Sec-CH-UA-Full-Version is deprecated and will be removed in the future.
+    #Developers should use Sec-CH-UA-Full-Version-List instead.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version
+    secChUaFullVersion:         String
+    #The Sec-CH-UA-Full-Version-List request header field gives a server information about the full version for each brand in its brands list.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
+    secChUaFullVersionList:     String
+    #The Sec-CH-UA-Mobile request header field gives a server information about whether or not a user agent prefers a 'mobile' user experience.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile
+    secChUaMobile:              String
+    #The Sec-CH-UA-Model request header field gives a server information about the device on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-model
+    secChUaModel:               String
+    #The Sec-CH-UA-Platform request header field gives a server information about the platform on which a given user agent is executing.
+    #Its value SHOULD match one of the following common platform values: 'Android', 'Chrome OS', 'iOS', 'Linux', 'macOS', 'Windows', or 'Unknown'.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform
+    secChUaPlatform:            String
+    #The Sec-CH-UA-Platform-Version request header field gives a server information about the platform version on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version
+    secChUaPlatformVersion:     String
+    #The Sec-CH-UA-WoW64 request header field gives a server information about whether or not a user agent binary is running in 32-bit mode on 64-bit Windows.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64
+    secChUaWoW64:               String
 }
 
 "The analysis results of a User-Agent and other headers."
@@ -85,15 +109,40 @@ type FieldResult {
 
 "The HTTP Request Headers that we used to get to this analysis result"
 type RequestHeadersResult{
-    "The field for the contents of the 'User-Agent' request header"                     userAgent:                  String!
-    "The field for the contents of the 'Sec-CH-UA' request header"                      secChUa:                    String
-    "The field for the contents of the 'Sec-CH-UA-Arch' request header"                 secChUaArch:                String
-    "The field for the contents of the 'Sec-CH-UA-Bitness' request header"              secChUaBitness:             String
-    "The field for the contents of the 'Sec-CH-UA-Full-Version' request header"         secChUaFullVersion:         String
-    "The field for the contents of the 'Sec-CH-UA-Full-Version-List' request header"    secChUaFullVersionList:     String
-    "The field for the contents of the 'Sec-CH-UA-Mobile' request header"               secChUaMobile:              String
-    "The field for the contents of the 'Sec-CH-UA-Model' request header"                secChUaModel:               String
-    "The field for the contents of the 'Sec-CH-UA-Platform' request header"             secChUaPlatform:            String
-    "The field for the contents of the 'Sec-CH-UA-Platform-Version' request header"     secChUaPlatformVersion:     String
-    "The field for the contents of the 'Sec-CH-UA-WoW64' request header"                secChUaWoW64:               String
+    #The 'User-Agent' header field contains information about the user agent originating the request.
+    #See also https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3
+    userAgent:                  String!
+    #The Sec-CH-UA request header field gives a server information about a user agent's branding and version.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua
+    secChUa:                    String
+    #The Sec-CH-UA-Arch request header field gives a server information about the architecture of the platform on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch
+    secChUaArch:                String
+    #The Sec-CH-UA-Bitness request header field gives a server information about the bitness of the architecture of the platform on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness
+    secChUaBitness:             String
+    #The Sec-CH-UA-Full-Version request header field gives a server information about the user agent’s full version.
+    #Sec-CH-UA-Full-Version is deprecated and will be removed in the future.
+    #Developers should use Sec-CH-UA-Full-Version-List instead.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version
+    secChUaFullVersion:         String
+    #The Sec-CH-UA-Full-Version-List request header field gives a server information about the full version for each brand in its brands list.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
+    secChUaFullVersionList:     String
+    #The Sec-CH-UA-Mobile request header field gives a server information about whether or not a user agent prefers a 'mobile' user experience.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile
+    secChUaMobile:              String
+    #The Sec-CH-UA-Model request header field gives a server information about the device on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-model
+    secChUaModel:               String
+    #The Sec-CH-UA-Platform request header field gives a server information about the platform on which a given user agent is executing.
+    #Its value SHOULD match one of the following common platform values: 'Android', 'Chrome OS', 'iOS', 'Linux', 'macOS', 'Windows', or 'Unknown'.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform
+    secChUaPlatform:            String
+    #The Sec-CH-UA-Platform-Version request header field gives a server information about the platform version on which a given user agent is executing.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version
+    secChUaPlatformVersion:     String
+    #The Sec-CH-UA-WoW64 request header field gives a server information about whether or not a user agent binary is running in 32-bit mode on 64-bit Windows.
+    #See also https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64
+    secChUaWoW64:               String
 }
