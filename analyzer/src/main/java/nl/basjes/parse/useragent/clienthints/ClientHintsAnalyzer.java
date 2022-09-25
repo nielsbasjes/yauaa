@@ -191,10 +191,11 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         if (clientHints.getModel() != null) {
             MutableAgentField deviceBrand = userAgent.get(DEVICE_BRAND);
             MutableAgentField deviceName = userAgent.get(DEVICE_NAME);
-            if (UNKNOWN_VALUE.equals(deviceBrand.getValue()) ||
-                UNKNOWN_VALUE.equals(deviceName.getValue())) {
-                overrideValue(deviceBrand, WordSplitter.getInstance().getSingleSplit(clientHints.getModel(), 1));
+            if (UNKNOWN_VALUE.equals(deviceName.getValue())) {
                 overrideValue(deviceName, clientHints.getModel());
+                if (UNKNOWN_VALUE.equals(deviceBrand.getValue())) {
+                    overrideValue(deviceBrand, WordSplitter.getInstance().getSingleSplit(clientHints.getModel(), 1));
+                }
             }
         }
     }
