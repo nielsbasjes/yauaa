@@ -10,6 +10,7 @@ v7.7.0-SNAPSHOT
 - Devtools
     - Added development utility to convert access logs into testcases.
     - Improve detecting duplicate tests.
+    - Drop obsolete versions-maven-plugin
 
 v7.6.0
 ===
