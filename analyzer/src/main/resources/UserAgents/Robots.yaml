@@ -11981,3 +11981,31 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
       RemarkablePattern                    : 'Windows NT 9'
+
+
+- test:
+    input:
+      User-Agent                           : 'webprosbot/2.0 (+mailto:abuse-6337@webpros.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Webpros BOT'
+      DeviceBrand                          : 'Webpros'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'webprosbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'webprosbot 2.0'
+      LayoutEngineNameVersionMajor         : 'webprosbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Webprosbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Webprosbot 2.0'
+      AgentNameVersionMajor                : 'Webprosbot 2'
+      AgentInformationEmail                : 'abuse-6337@webpros.com'
