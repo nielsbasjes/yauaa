@@ -317,12 +317,12 @@ config:
     - 'AgentVersion                        :    10000 :@RobotName'
 
 
-
-
-
 - matcher:
     variable:
     - 'RobotName                           :IsInLookUpContains[RobotStringsExtra;agent.text]'
+    require:
+    - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
     - 'DeviceClass                         :    10100 :"Robot"'
     - 'DeviceName                          :    10100 :@RobotName'

@@ -94,7 +94,8 @@ So I classify all of them as hacking oriented tools.                            
 | Mobile App        | A mobile app                                                                                           |
 | Robot             | A robot that wants to be treated as a desktop device                                                   |
 | Robot Mobile      | A robot that wants to be treated as a mobile device                                                    |
-| Cloud Application | Something running in a cloud (but not a regular robot)                                                 |
+| Cloud Application | Something running in a cloud that is intended to be Human facing (so not a regular robot)              |
+| Server            | Something running in a cloud that is intended to be Server-to-Server (so not a regular robot)          |
 | Email Client      | This is an email application that did the request                                                      |
 | Voice             | A voice driven 'browser' (i.e. ask a question and the page is read aloud). Like Alexa and Google Home. |
 | Special           | Something special we cannot fully classify                                                             |

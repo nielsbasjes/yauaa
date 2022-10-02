@@ -1,0 +1,834 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- lookup:
+    name: 'FederatedSocialServers'
+    map:
+      # Tag : 'NetworkName | Server Software Name'
+      'Dendrite' : 'Mastodon|Dendrite'
+      'Synapse'  : 'Mastodon|Synapse'
+      'Mastodon' : 'Mastodon|Mastodon'
+      'Friendica': 'Friendica|Friendica'
+      'Pleroma'  : 'Mastodon|Pleroma' # Actually many federated social networks
+
+- lookup:
+    name: 'FederatedSocialClients'
+    map:
+      # Tag : 'NetworkName | Client Software Name'
+      'MastodonAndroid' : 'Mastodon|Mastodon'
+      'Tusky'           : 'Mastodon|Tusky'
+      'Element'         : 'Matrix|Element'
+
+- matcher:
+    variable:
+    - 'ServerTag  : agent.product.name[1]?FederatedSocialServers'
+    - 'ServerInfo : LookUp[FederatedSocialServers;@ServerTag]'
+    extract:
+    - 'DeviceClass            : 1000 : "Cloud"'
+    - 'DeviceName             : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'DeviceBrand            : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'LayoutEngineClass      : 1000 : "<<<null>>>"'
+    - 'LayoutEngineName       : 1000 : "<<<null>>>"'
+    - 'LayoutEngineVersion    : 1000 : "<<<null>>>"'
+    - 'AgentClass             : 1000 : "Server"'
+    - 'AgentName              : 1000 : @ServerInfo[[2]]'
+    - 'AgentVersion           : 1000 : @ServerTag^.version'
+    - 'FederatedSocialNetwork : 1000 : @ServerInfo[[1]]'
+
+- matcher:
+    variable:
+    - 'ServerTag  : agent.(1-2)product.comments.entry.(1-2)product.name[1]?FederatedSocialServers'
+    - 'ServerInfo : LookUp[FederatedSocialServers;@ServerTag]'
+    extract:
+    - 'DeviceClass            : 1000 : "Cloud"'
+    - 'DeviceName             : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'DeviceBrand            : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'LayoutEngineClass      : 1000 : "<<<null>>>"'
+    - 'LayoutEngineName       : 1000 : "<<<null>>>"'
+    - 'LayoutEngineVersion    : 1000 : "<<<null>>>"'
+    - 'AgentClass             : 1000 : "Server"'
+    - 'AgentName              : 1000 : @ServerInfo[[2]]'
+    - 'AgentVersion           : 1000 : @ServerTag^.version'
+    - 'FederatedSocialNetwork : 1000 : @ServerInfo[[1]]'
+
+- matcher:
+    variable:
+    - 'ClientTag  : agent.product.name?FederatedSocialClients'
+    - 'ClientInfo : LookUp[FederatedSocialClients;@ClientTag]'
+    extract:
+#    - 'DeviceClass            : 1000 : "Cloud"'
+    - 'LayoutEngineClass      :  100 : "<<<null>>>"'
+    - 'LayoutEngineName       :  100 : "<<<null>>>"'
+    - 'LayoutEngineVersion    :  100 : "<<<null>>>"'
+    - 'AgentClass             : 1000 : "Mobile App"'
+    - 'AgentName              : 1000 : @ClientInfo[[2]]'
+    - 'AgentVersion           : 1000 : @ClientTag^.version'
+    - 'FederatedSocialNetwork : 1000 : @ClientInfo[[1]]'
+
+# MATRIX SERVERS
+- test:
+    input:
+      User-Agent                           : 'Dendrite/0.10.1'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Dendrite'
+      AgentVersion                         : '0.10.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Dendrite 0.10.1'
+      AgentNameVersionMajor                : 'Dendrite 0'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Dendrite/0.8.7+f41931b5'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Dendrite'
+      AgentVersion                         : '0.8.7+f41931b5'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Dendrite 0.8.7+f41931b5'
+      AgentNameVersionMajor                : 'Dendrite 0'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Synapse/1.68.0 (b=HEAD,t=v1.68.0,3853011d0)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Synapse'
+      AgentVersion                         : '1.68.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Synapse 1.68.0'
+      AgentNameVersionMajor                : 'Synapse 1'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Synapse/1.68.0 (b=matrix-org-hotfixes,a2b6ee7b00,dirty)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Synapse'
+      AgentVersion                         : '1.68.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Synapse 1.68.0'
+      AgentNameVersionMajor                : 'Synapse 1'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Element/1.5.1 (Linux; U; Android 11; Nokia 7.2 Build/RKQ1.210607.00; Flavour GooglePlay; MatrixAndroidSdk2 1.5.1)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RKQ1.210607.00'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Element'
+      AgentVersion                         : '1.5.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Element 1.5.1'
+      AgentNameVersionMajor                : 'Element 1'
+      AgentSecurity                        : 'Strong security'
+      FederatedSocialNetwork               : 'Matrix'
+
+# Mastodon BOT
+- test:
+    input:
+      User-Agent                           : 'FediDB/0.5.0; +https://fedidb.org/crawler.html'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Fedidb'
+      DeviceBrand                          : 'Fedidb'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Fedidb'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Fedidb ??'
+      LayoutEngineNameVersionMajor         : 'Fedidb ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Fedidb'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Fedidb ??'
+      AgentNameVersionMajor                : 'Fedidb ??'
+      AgentInformationUrl                  : 'https://fedidb.org/crawler.html'
+
+
+- test:
+    input:
+      User-Agent                           : 'FediList agent (https://fedilist.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Fedilist Robot'
+      DeviceBrand                          : 'Fedilist'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'FediList agent'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'FediList agent ??'
+      AgentNameVersionMajor                : 'FediList agent ??'
+      AgentInformationUrl                  : 'https://fedilist.com/'
+
+
+- test:
+    input:
+      User-Agent                           : 'fediverse.network crawler [dev] (https://fediverse.network/about  root@fediverse.network)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Fediverse Crawler'
+      DeviceBrand                          : 'Fediverse'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'crawler ??'
+      LayoutEngineNameVersionMajor         : 'crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Crawler ??'
+      AgentNameVersionMajor                : 'Crawler ??'
+      AgentInformationEmail                : 'root@fediverse.network'
+      AgentInformationUrl                  : 'https://fediverse.network/about'
+
+
+- test:
+    input:
+      User-Agent                           : 'fediverse''s servers stats (fediverse@mastodont.cat)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Mastodont Robot'
+      DeviceBrand                          : 'Mastodont'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Fediverse''s Servers Stats'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Fediverse''s Servers Stats ??'
+      AgentNameVersionMajor                : 'Fediverse''s Servers Stats ??'
+      AgentInformationEmail                : 'fediverse@mastodont.cat'
+
+
+- test:
+    input:
+      User-Agent                           : 'fediverse''s stats (fediverse@mastodont.cat)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Mastodont Robot'
+      DeviceBrand                          : 'Mastodont'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Fediverse''s Stats'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Fediverse''s Stats ??'
+      AgentNameVersionMajor                : 'Fediverse''s Stats ??'
+      AgentInformationEmail                : 'fediverse@mastodont.cat'
+
+
+# MASTODON
+
+# Clients:
+- test:
+    input:
+      User-Agent                           : 'MastodonAndroid/1.1.3'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '1.1.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Mastodon 1.1.3'
+      AgentNameVersionMajor                : 'Mastodon 1'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+# The OkHttp is seen as a Robot but in this case it is clearly a Mobile App.
+- test:
+    input:
+      User-Agent                           : 'Tusky/17.0 Android/11 OkHttp/4.9.3'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Tusky'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Tusky 17.0'
+      AgentNameVersionMajor                : 'Tusky 17'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'http.rb/4.4.1 (Mastodon/3.4.6; +https://yauaa.basjes.nl/)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '3.4.6'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Mastodon 3.4.6'
+      AgentNameVersionMajor                : 'Mastodon 3'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl/'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'http.rb/5.0.4 (Mastodon/1.0.6+3.5.2; +https://yauaa.basjes.nl/)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '1.0.6+3.5.2'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Mastodon 1.0.6+3.5.2'
+      AgentNameVersionMajor                : 'Mastodon 1'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl/'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'http.rb/5.0.4 (Mastodon/3.5.2+glitch; +https://yauaa.basjes.nl/)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '3.5.2+glitch'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Mastodon 3.5.2+glitch'
+      AgentNameVersionMajor                : 'Mastodon 3'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl/'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'http.rb/5.0.4 (Mastodon/3.5.2~wxw; +https://yauaa.basjes.nl/)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '3.5.2~wxw'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Mastodon 3.5.2~wxw'
+      AgentNameVersionMajor                : 'Mastodon 3'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl/'
+      FederatedSocialNetwork               : 'Mastodon'
+
+# Problematic because of the 'BOT' word
+- test:
+    input:
+      User-Agent                           : 'http.rb/5.0.4 (Mastodon/1.0.6+3.5.2; +https://yauaa.basjes.nl/) Bot'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '1.0.6+3.5.2'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Mastodon 1.0.6+3.5.2'
+      AgentNameVersionMajor                : 'Mastodon 1'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl/'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+# FRIENDICA
+# NOTE: Friendica puts the hostname of the server in the UA. I replaced all of them with a dummy url.
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''Siberian Iris'' 2022.03-1452; https://yauaa.basjes.nl'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2022.03-1452'
+      AgentVersionMajor                    : '2022'
+      AgentNameVersion                     : 'Friendica 2022.03-1452'
+      AgentNameVersionMajor                : 'Friendica 2022'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''Asparagus'' 3.5.2-1227; https://yauaa.basjes.nl'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '3.5.2-1227'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Friendica 3.5.2-1227'
+      AgentNameVersionMajor                : 'Friendica 3'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''Giant Rhubarb'' 2022.09-dev-1469; https://yauaa.basjes.nl'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2022.09-dev-1469'
+      AgentVersionMajor                    : '2022'
+      AgentNameVersion                     : 'Friendica 2022.09-dev-1469'
+      AgentNameVersionMajor                : 'Friendica 2022'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''Siberian Iris'' 2021.12-rc-1445; https://yauaa.basjes.nl'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2021.12-rc-1445'
+      AgentVersionMajor                    : '2021'
+      AgentNameVersion                     : 'Friendica 2021.12-rc-1445'
+      AgentNameVersionMajor                : 'Friendica 2021'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''The Tazmans Flax-lily'' 2018.09-1283; https://yauaa.basjes.nl'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2018.09-1283'
+      AgentVersionMajor                    : '2018'
+      AgentNameVersion                     : 'Friendica 2018.09-1283'
+      AgentNameVersionMajor                : 'Friendica 2018'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Friendica'
+
+# Pleroma
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.0-168-g4889a7b1-production; https://yauaa.basjes.nl <example@example.nl>; Bot'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.0-168-g4889a7b1-production'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.0-168-g4889a7b1-production'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.3; https://yauaa.basjes.nl <example@example.nl>; Bot'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.3'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.3'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.51-468-gd7c53da7-develop; https://yauaa.basjes.nl <example@example.nl>; Bot'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.51-468-gd7c53da7-develop'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.51-468-gd7c53da7-develop'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.52-1299-g78dd3bdb.develop+soapbox; https://yauaa.basjes.nl <example@example.nl>; Bot'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.52-1299-g78dd3bdb.develop+soapbox'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.52-1299-g78dd3bdb.develop+soapbox'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://yauaa.basjes.nl'
+      FederatedSocialNetwork               : 'Mastodon'

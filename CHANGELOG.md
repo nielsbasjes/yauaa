@@ -6,12 +6,13 @@ v7.7.0-SNAPSHOT
 - New/improved detections
   - If the clienthints are available it is now possible to detect difference between Intel and ARM (M1/M2) on Apple laptops.
   - Dropping the word `bot` as a language code.
+  - Several Federated Social Network related servers and clients.
 - Webservlet:
   - The GraphQL fields are now generated dynamically based on the available rules.
 - Devtools
-    - Added development utility to convert access logs into testcases.
-    - Improve detecting duplicate tests.
-    - Drop obsolete versions-maven-plugin
+  - Added development utility to convert access logs into testcases.
+  - Improve detecting duplicate tests.
+  - Drop obsolete versions-maven-plugin
 
 v7.6.0
 ===

@@ -145,6 +145,7 @@ public class TestParseUserAgentSQL implements Serializable {
                     "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
                     "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
                     "\"Carrier\":\"Unknown\"," +
+                    "\"FederatedSocialNetwork\":\"Unknown\"," +
                     "\"GSAInstallationID\":\"Unknown\"," +
                     "\"NetworkType\":\"Unknown\","+
                     "\"__SyntaxError__\":\"false\"}",
@@ -280,6 +281,7 @@ public class TestParseUserAgentSQL implements Serializable {
                    "\"IECompatibilityNameVersion\":\"Unknown ??\"," +
                    "\"IECompatibilityNameVersionMajor\":\"Unknown ??\"," +
                    "\"Carrier\":\"Unknown\"," +
+                   "\"FederatedSocialNetwork\":\"Unknown\"," +
                    "\"GSAInstallationID\":\"Unknown\"," +
                    "\"NetworkType\":\"Unknown\"," +
                    "\"__SyntaxError__\":\"false\"}",
