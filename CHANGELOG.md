@@ -5,6 +5,7 @@ v7.7.0-SNAPSHOT
 ===
 - New/improved detections
   - If the clienthints are available it is now possible to detect difference between Intel and ARM (M1/M2) on Apple laptops.
+  - Dropping the word `bot` as a language code.
 - Webservlet:
   - The GraphQL fields are now generated dynamically based on the available rules.
 - Devtools
