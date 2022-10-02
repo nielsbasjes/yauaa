@@ -37,77 +37,77 @@ So I classify all of them as hacking oriented tools.                            
 
 ### DeviceClass
 
-| Value | Meaning |
-| --- | --- |
-| Desktop               | The device is assessed as a Desktop/Laptop class device |
-| Anonymized            | In some cases the useragent has been altered by anonymization software |
-| Unknown               | We really don't know, these are usually useragents that look normal yet contain almost no information about the device |
-| Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch |
-| Tablet                | A mobile device with a rather large screen (common > 7") |
-| Phone                 | A mobile device with a small screen (common < 7") |
-| Watch                 | A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device. |
-| Augmented Reality     | A mobile device with a AR capabilities (like Google Glass) |
-| Virtual Reality       | A mobile device with a VR capabilities |
-| eReader               | Similar to a Tablet yet in most cases with an eInk screen |
-| Set-top box           | A connected device that allows interacting via a TV sized screen |
-| TV                    | Similar to Set-top box yet here this is built into the TV |
-| Home Appliance        | A (usally large) home appliance (like a Fridge) |
-| Game Console          | 'Fixed' game systems like the PlayStation and XBox |
-| Handheld Game Console | 'Mobile' game systems like the 3DS |
-| Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home. |
-| Car                   | A Car based browser as found in for example the Tesla vehicles |
-| Robot                 | Robots that visit the site |
-| Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor |
+| Value                 | Meaning                                                                                                                       |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| Desktop               | The device is assessed as a Desktop/Laptop class device                                                                       |
+| Anonymized            | In some cases the useragent has been altered by anonymization software                                                        |
+| Unknown               | We really don't know, these are usually useragents that look normal yet contain almost no information about the device        |
+| Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch                                           |
+| Tablet                | A mobile device with a rather large screen (common > 7")                                                                      |
+| Phone                 | A mobile device with a small screen (common < 7")                                                                             |
+| Watch                 | A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device.     |
+| Augmented Reality     | A mobile device with a AR capabilities (like Google Glass)                                                                    |
+| Virtual Reality       | A mobile device with a VR capabilities                                                                                        |
+| eReader               | Similar to a Tablet yet in most cases with an eInk screen                                                                     |
+| Set-top box           | A connected device that allows interacting via a TV sized screen                                                              |
+| TV                    | Similar to Set-top box yet here this is built into the TV                                                                     |
+| Home Appliance        | A (usally large) home appliance (like a Fridge)                                                                               |
+| Game Console          | 'Fixed' game systems like the PlayStation and XBox                                                                            |
+| Handheld Game Console | 'Mobile' game systems like the 3DS                                                                                            |
+| Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home.                           |
+| Car                   | A Car based browser as found in for example the Tesla vehicles                                                                |
+| Robot                 | Robots that visit the site                                                                                                    |
+| Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor                                                |
 | Robot Imitator        | Robots that visit the site pretending they are robots like google, but they are not. Note that in most cases they ARE Robots. |
-| Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations |
+| Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations                              |
 
 ### OperatingSystemClass
 
-| Value | Meaning |
-| --- | --- |
-| Desktop      | The type of OS you would run on a Desktop or Laptop |
+| Value        | Meaning                                                  |
+|--------------|----------------------------------------------------------|
+| Desktop      | The type of OS you would run on a Desktop or Laptop      |
 | Mobile       | The type of OS you would run on a Phone, Tablet or Watch |
-| Cloud        | Looks like a thing that runs in a cloud environment |
-| Embedded     | Apparently embedded into something like a TV |
-| Game Console | A game console like PS4, Xbox |
-| Hacker       | A hacker, so it can really be anything. |
-| Anonymized   | It was explicitly hidden |
-| Unknown      | We don't know |
+| Cloud        | Looks like a thing that runs in a cloud environment      |
+| Embedded     | Apparently embedded into something like a TV             |
+| Game Console | A game console like PS4, Xbox                            |
+| Hacker       | A hacker, so it can really be anything.                  |
+| Anonymized   | It was explicitly hidden                                 |
+| Unknown      | We don't know                                            |
 
 ### LayoutEngineClass
 
-| Value | Meaning |
-| --- | --- |
-| Browser    | A regular browser |
-| Mobile App | A mobile app which probably includes a regular webbrowser |
-| Hacker     | A hacker, so it can really be anything. |
-| Robot      | A robot spidering the site |
-| Special    | Something special we cannot fully classify |
-| Unknown    | We don't know |
+| Value       | Meaning                                                   |
+|-------------|-----------------------------------------------------------|
+| Browser     | A regular browser                                         |
+| Mobile App  | A mobile app which probably includes a regular webbrowser |
+| Hacker      | A hacker, so it can really be anything.                   |
+| Robot       | A robot spidering the site                                |
+| Special     | Something special we cannot fully classify                |
+| Unknown     | We don't know                                             |
 
 ### AgentClass
 
-| Value | Meaning |
-| --- | --- |
-| Browser           | A regular browser |
-| Browser Webview   | A regular browser being used as part of a mobile app |
-| Mobile App        | A mobile app |
-| Robot             | A robot that wants to be treated as a desktop device |
-| Robot Mobile      | A robot that wants to be treated as a mobile device |
-| Cloud Application | Something running in a cloud (but not a regular robot) |
-| Email Client      | This is an email application that did the request |
+| Value             | Meaning                                                                                                |
+|-------------------|--------------------------------------------------------------------------------------------------------|
+| Browser           | A regular browser                                                                                      |
+| Browser Webview   | A regular browser being used as part of a mobile app                                                   |
+| Mobile App        | A mobile app                                                                                           |
+| Robot             | A robot that wants to be treated as a desktop device                                                   |
+| Robot Mobile      | A robot that wants to be treated as a mobile device                                                    |
+| Cloud Application | Something running in a cloud (but not a regular robot)                                                 |
+| Email Client      | This is an email application that did the request                                                      |
 | Voice             | A voice driven 'browser' (i.e. ask a question and the page is read aloud). Like Alexa and Google Home. |
-| Special           | Something special we cannot fully classify |
-| Testclient        | A website testing tool |
-| Hacker            | A hacker, so it can really be anything. |
-| Unknown           | We don't know |
+| Special           | Something special we cannot fully classify                                                             |
+| Testclient        | A website testing tool                                                                                 |
+| Hacker            | A hacker, so it can really be anything.                                                                |
+| Unknown           | We don't know                                                                                          |
 
 ### AgentSecurity
 
-| Value | Meaning |
-| --- | --- |
+| Value           | Meaning                                                                                               |
+|-----------------|-------------------------------------------------------------------------------------------------------|
 | Weak security   | Indicated to use deliberately weakened encryption (usually due to export restrictions or local laws). |
-| Strong security | Indicated to use strong (normal) encryption. |
-| Unknown         | It was not specified (very common) |
-| Hacker          | A hacker, so it can really be anything. |
+| Strong security | Indicated to use strong (normal) encryption.                                                          |
+| Unknown         | It was not specified (very common)                                                                    |
+| Hacker          | A hacker, so it can really be anything.                                                               |
 
