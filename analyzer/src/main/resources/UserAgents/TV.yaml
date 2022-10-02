@@ -2916,3 +2916,31 @@ config:
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersion                : 'Unknown Webview App ??'
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+# Samsung Smart TV: UE32K5600 (~2016)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.4.0) AppleWebkit/538.1 (KHTML, like Gecko) SamsungBrowser/1.1 TV Safari/538.1'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.4.0'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Tizen 2.4.0'
+      OperatingSystemNameVersionMajor      : 'Tizen 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.1'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.1'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.1'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
