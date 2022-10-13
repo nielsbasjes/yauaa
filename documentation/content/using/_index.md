@@ -81,7 +81,7 @@ If you are still using Java 8 then you can fix this problem by using the `LRUMap
 
     UserAgentAnalyzer uaa = UserAgentAnalyzer
         .newBuilder()
-        .useJava8CompliantCaching()
+        .useJava8CompatibleCaching()
         .withCache(10000)
         .build();
 
