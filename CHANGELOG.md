@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.7.0-SNAPSHOT
+v7.8.0-SNAPSHOT
+===
+- ...
+
+v7.7.0
 ===
 - Security:
   - Updated Apache Commons Text to 1.10.0 (CVE-2022-42889)

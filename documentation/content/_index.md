@@ -12,7 +12,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-v7.7.0-SNAPSHOT
+v7.7.0
 ===
 - Security:
     - Updated Apache Commons Text to 1.10.0 (CVE-2022-42889)
