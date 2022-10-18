@@ -14,6 +14,8 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 v7.7.0-SNAPSHOT
 ===
+- Security:
+    - Updated Apache Commons Text to 1.10.0 (CVE-2022-42889)
 - New/improved detections
     - If the clienthints are available it is now possible to detect difference between Intel and ARM (M1/M2) on Apple laptops.
     - Several Federated Social Network related servers and clients.
