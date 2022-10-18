@@ -94,6 +94,7 @@ import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer.extraDependenciesNeededByClientCalculator;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
 @DefaultSerializer(UserAgentStringMatchMaker.KryoSerializer.class)
@@ -711,6 +712,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         verifyCalculatorDependencyOrdering();
 
         if (this.wantedFieldNames != null && !this.wantedFieldNames.isEmpty()) {
+            this.wantedFieldNames.addAll(extraDependenciesNeededByClientCalculator(this.wantedFieldNames));
             this.wantedFieldNames.addAll(dependenciesNeededByCalculators);
         }
 

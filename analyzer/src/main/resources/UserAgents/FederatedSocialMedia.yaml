@@ -223,6 +223,45 @@ config:
       AgentSecurity                        : 'Strong security'
       FederatedSocialNetwork               : 'Matrix'
 
+# The Element desktop app on Linux
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Element/1.11.5 Chrome/104.0.5112.81 Electron/20.0.3 Safari/537.36'
+      Sec-Ch-Ua                            : '" Not A;Brand";v="99", "Chromium";v="104"'
+      Sec-Ch-Ua-Mobile                     : '?0'
+      Sec-Ch-Ua-Platform                   : '"Linux"'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '104'
+      LayoutEngineVersionMajor             : '104'
+      LayoutEngineNameVersion              : 'Blink 104'
+      LayoutEngineNameVersionMajor         : 'Blink 104'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'Element'
+      AgentVersion                         : '1.11.5'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Element 1.11.5'
+      AgentNameVersionMajor                : 'Element 1'
+      FederatedSocialNetwork               : 'Matrix'
+
+      UAClientHintBrands_0_Brand           : 'Chromium'
+      UAClientHintBrands_0_Version         : '104'
+      UAClientHintMobile                   : 'false'
+      UAClientHintPlatform                 : 'Linux'
+
+
 # Mastodon BOT
 - test:
     input:

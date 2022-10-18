@@ -31,7 +31,12 @@ import nl.basjes.parse.useragent.utils.WordSplitter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import static java.lang.Boolean.TRUE;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
@@ -139,7 +144,6 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         setCHString(userAgent,            UACLIENT_HINT_PLATFORM_VERSION,   clientHints.getPlatformVersion());
         setCHBoolean(userAgent,           UACLIENT_HINT_WOW_64,             clientHints.getWow64());
 
-//        detectVersionMismatchRobots(userAgent, clientHints); FIXME: This breaks too much.
         improveMobileDeviceClass(userAgent, clientHints);
         improveDeviceBrandName(userAgent, clientHints);
         improveDeviceCPU(userAgent, clientHints);
@@ -293,6 +297,12 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         }
     }
 
+    private static final Set<String> CHROMIUM = new HashSet<>();
+    static {
+        CHROMIUM.add("Chromium");
+        CHROMIUM.add("Chrome");
+    }
+
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
         List<Brand> fullVersionList = clientHints.getFullVersionList();
@@ -322,13 +332,15 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
                         if (fullVersionList.size() == 1) { // NOTE: The grease was filtered out !
                             // So we have "Chromium" and not "Chrome" or "Edge" or something else
-                            agentName = "Chromium";
-                            version = brand.getVersion();
-                            overrideValue(userAgent.get(AGENT_NAME), agentName);
-                            overrideValue(userAgent.get(AGENT_VERSION), version);
-                            overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
-                            overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
-                            overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
+                            if (CHROMIUM.contains(userAgent.getValue(AGENT_NAME))) {
+                                agentName = "Chromium";
+                                version = brand.getVersion();
+                                overrideValue(userAgent.get(AGENT_NAME), agentName);
+                                overrideValue(userAgent.get(AGENT_VERSION), version);
+                                overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
+                                overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
+                                overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
+                            }
                         }
 
                         break;
@@ -392,15 +404,42 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR), version);
                     overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), "Blink "+ version);
 
-                    overrideValue(userAgent.get(AGENT_NAME), "Chromium");
-                    overrideValue(userAgent.get(AGENT_VERSION), version);
-                    overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium" + " " + version);
-                    overrideValue(userAgent.get(AGENT_VERSION_MAJOR), version);
-                    overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium" + " " + version);
+                    // So we have "Chromium" and not "Chrome" or "Edge" or something else
+                    if (CHROMIUM.contains(userAgent.getValue(AGENT_NAME))) {
+                        overrideValue(userAgent.get(AGENT_NAME), "Chromium");
+                        overrideValue(userAgent.get(AGENT_VERSION), version);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium" + " " + version);
+                        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), version);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium" + " " + version);
+                    }
                 }
             }
-
         }
+    }
+
+    // In the above calculations there are fields that require additional input fields.
+    private static final Map<String, Set<String>> EXTRA_FIELD_DEPENDENCIES = new TreeMap<>();
+    static {
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION,            Collections.singleton(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION,       Collections.singleton(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION_MAJOR,      Collections.singleton(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION_MAJOR, Collections.singleton(AGENT_NAME));
+    }
+
+    public static Set<String> extraDependenciesNeededByClientCalculator(Set<String> wantedFieldNames) {
+        if (wantedFieldNames == null || wantedFieldNames.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        HashSet<String> result = new HashSet<>();
+
+        for (String wantedFieldName : wantedFieldNames) {
+            Set<String> extraDependencies = EXTRA_FIELD_DEPENDENCIES.get(wantedFieldName);
+            if (extraDependencies != null) {
+                result.addAll(extraDependencies);
+            }
+        }
+        return result;
     }
 
     private void overrideValue(MutableAgentField field, String newValue) {

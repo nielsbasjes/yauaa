@@ -522,6 +522,7 @@ class TestBuilder {
         Set<String> expectedWantedFields = fields(
             DEVICE_CLASS,
             OPERATING_SYSTEM_NAME,
+            AGENT_NAME,
             AGENT_VERSION,
             SET_ALL_FIELDS);
         assertEquals(expectedWantedFields, uaa.getWantedFieldNames());
@@ -530,6 +531,7 @@ class TestBuilder {
             SYNTAX_ERROR,
             DEVICE_CLASS,
             OPERATING_SYSTEM_NAME,
+            AGENT_NAME,
             AGENT_VERSION);
         assertEquals(expectedPossibleFields, uaa.getAllPossibleFieldNames());
 
