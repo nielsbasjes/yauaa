@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.clienthints.parsers;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,7 @@ public class ParseSecChUaMobile implements CHParser {
     public static final String HEADER_FIELD       = "Sec-CH-UA-Mobile";
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Mobile request header field gives a server information about whether or not a user agent prefers a \"mobile\" user experience.";
+    public static final String FIELD_NAME         = "secChUaMobile";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //
@@ -57,6 +59,10 @@ public class ParseSecChUaMobile implements CHParser {
     @Override
     public String inputField() {
         return HEADER_FIELD;
+    }
+
+    public static HeaderSpecification getHeaderSpecification() {
+        return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
     }
 
 }

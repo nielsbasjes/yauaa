@@ -29,6 +29,9 @@ import org.springframework.stereotype.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
+import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 @Controller
 public class Analyze {
@@ -41,9 +44,16 @@ public class Analyze {
     }
 
     @QueryMapping
-    public AnalysisResult analyze(@Argument RequestHeaders requestHeaders) {
+    public AnalysisResult analyze(@Argument RequestHeaders requestHeaders, @Argument String userAgentString) {
         UserAgentAnalyzer analyzer = parseService.getUserAgentAnalyzer();
-        UserAgent userAgent = analyzer.parse(requestHeaders.toMap());
+        Map<String, String> inputHeaders = new TreeMap<>();
+        if (requestHeaders != null) {
+            inputHeaders.putAll(requestHeaders.toMap());
+        }
+        if (userAgentString != null) {
+            inputHeaders.put(USERAGENT_HEADER, userAgentString);
+        }
+        UserAgent userAgent = analyzer.parse(inputHeaders);
         AnalysisResult result = new AnalysisResult(userAgent);
         result.setRequestHeaders(requestHeaders);
         return result;

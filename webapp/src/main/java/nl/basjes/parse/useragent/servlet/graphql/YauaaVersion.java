@@ -17,29 +17,81 @@
 
 package nl.basjes.parse.useragent.servlet.graphql;
 
-import lombok.Getter;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.stereotype.Controller;
+import graphql.Scalars;
+import graphql.schema.DataFetcher;
+import graphql.schema.FieldCoordinates;
+import graphql.schema.GraphQLCodeRegistry;
+import graphql.schema.GraphQLFieldDefinition;
+import graphql.schema.GraphQLObjectType;
+import graphql.schema.GraphQLSchemaElement;
+import graphql.schema.GraphQLTypeVisitor;
+import graphql.schema.GraphQLTypeVisitorStub;
+import graphql.util.TraversalControl;
+import graphql.util.TraverserContext;
+import nl.basjes.parse.useragent.Version;
+import org.apache.logging.log4j.LogManager;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Controller
-public class YauaaVersion {
+import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
+import static graphql.util.TraversalControl.CONTINUE;
 
-//    @Query("version")
-//    @Description("Get the version information of the Yauaa engine that is used")
-    @QueryMapping
-    public Version version() {
-        return new Version();
+@Configuration(proxyBeanMethods = false)
+public class YauaaVersion extends GraphQLTypeVisitorStub {
+
+    // References on how this works (thanks to Brad Baker https://github.com/bbakerman):
+    // https://github.com/spring-projects/spring-graphql/issues/452#issuecomment-1256798212
+    // https://www.graphql-java.com/documentation/schema/#changing-schema
+
+    @Bean
+    GraphQLTypeVisitor addYauaaVersionToGraphQLSchema() {
+        return this;
     }
 
-    public static final class Version {
-        /* @Description("The git commit id of the Yauaa engine that is used")       */  @Getter private final String gitCommitId =              nl.basjes.parse.useragent.Version.GIT_COMMIT_ID;
-        /* @Description("The git describe short of the Yauaa engine that is used")  */  @Getter private final String gitCommitIdDescribeShort = nl.basjes.parse.useragent.Version.GIT_COMMIT_ID_DESCRIBE_SHORT;
-        /* @Description("Timestamp when the engine was built.")                     */  @Getter private final String buildTimeStamp =           nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
-        /* @Description("Version of the yauaa engine")                              */  @Getter private final String projectVersion =           nl.basjes.parse.useragent.Version.PROJECT_VERSION;
-        /* @Description("Copyright notice of the Yauaa engine that is used")        */  @Getter private final String copyright =                nl.basjes.parse.useragent.Version.COPYRIGHT;
-        /* @Description("The software license Yauaa engine that is used")           */  @Getter private final String license =                  nl.basjes.parse.useragent.Version.LICENSE;
-        /* @Description("Project url")                                              */  @Getter private final String url =                      nl.basjes.parse.useragent.Version.URL;
-        /* @Description("Yauaa was build using this JDK version")                   */  @Getter private final String buildJDKVersion =          nl.basjes.parse.useragent.Version.BUILD_JDK_VERSION;
-        /* @Description("Yauaa was build using for this target JRE version")        */  @Getter private final String targetJREVersion =         nl.basjes.parse.useragent.Version.TARGET_JRE_VERSION;
+    private GraphQLFieldDefinition newField(String name, String description) {
+        return newFieldDefinition().name(name).description(description).type(Scalars.GraphQLString).build();
+    }
+
+    @Override
+    public TraversalControl visitGraphQLObjectType(GraphQLObjectType objectType, TraverserContext<GraphQLSchemaElement> context) {
+        GraphQLCodeRegistry.Builder codeRegistry = context.getVarFromParents(GraphQLCodeRegistry.Builder.class);
+
+        if (objectType.getName().equals("Query")) {
+            LogManager.getLogger(YauaaVersion.class).info("Adding the `version` to the GraphQL Query.");
+
+            // New type
+            GraphQLObjectType version = GraphQLObjectType
+                .newObject()
+                .name("Version")
+                .description("The version information of the underlying Yauaa runtime engine.")
+                .field(newField("gitCommitId",                "The git commit id of the Yauaa engine that is used"))
+                .field(newField("gitCommitIdDescribeShort",   "The git describe short of the Yauaa engine that is used"))
+                .field(newField("buildTimeStamp",             "Timestamp when the engine was built."))
+                .field(newField("projectVersion",             "Version of the yauaa engine"))
+                .field(newField("copyright",                  "Copyright notice of the Yauaa engine that is used"))
+                .field(newField("license",                    "The software license Yauaa engine that is used"))
+                .field(newField("url",                        "Project url"))
+                .field(newField("buildJDKVersion",            "Yauaa was build using this JDK version"))
+                .field(newField("targetJREVersion",           "Yauaa was build using for this target JRE version"))
+                .build();
+
+            // NOTE: All data fetchers are the default getters of the Version instance.
+
+            // New "field" to be put in Query
+            GraphQLFieldDefinition getVersion = newFieldDefinition()
+                .name("version")
+                .description("Returns the version information of the underlying Yauaa runtime engine.")
+                .type(version)
+                .build();
+
+            // Adding an extra field with a type and a data fetcher
+            GraphQLObjectType updatedQuery = objectType.transform(builder -> builder.field(getVersion));
+
+            FieldCoordinates coordinates = FieldCoordinates.coordinates(objectType.getName(), getVersion.getName());
+            codeRegistry.dataFetcher(coordinates, (DataFetcher<?>)(env -> Version.getInstance()));
+            return changeNode(context, updatedQuery);
+        }
+
+        return CONTINUE;
     }
 }

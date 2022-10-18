@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.clienthints.parsers;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,7 @@ public class ParseSecChUaPlatformVersion implements CHParser {
     public static final String HEADER_FIELD       = "Sec-CH-UA-Platform-Version";
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Platform-Version request header field gives a server information about the platform version on which a given user agent is executing.";
+    public static final String FIELD_NAME         = "secChUaPlatformVersion";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //
@@ -56,4 +58,9 @@ public class ParseSecChUaPlatformVersion implements CHParser {
     public String inputField() {
         return HEADER_FIELD;
     }
+
+    public static HeaderSpecification getHeaderSpecification() {
+        return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
+    }
+
 }

@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.clienthints.parsers;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
@@ -29,6 +30,7 @@ public class ParseSecChUaFullVersionList implements CHParser {
     public static final String HEADER_FIELD       = "Sec-CH-UA-Full-Version-List";
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Full-Version-List request header field gives a server information about the full version for each brand in its brands list.";
+    public static final String FIELD_NAME         = "secChUaFullVersionList";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //
@@ -65,4 +67,9 @@ public class ParseSecChUaFullVersionList implements CHParser {
     public String inputField() {
         return HEADER_FIELD;
     }
+
+    public static HeaderSpecification getHeaderSpecification() {
+        return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
+    }
+
 }

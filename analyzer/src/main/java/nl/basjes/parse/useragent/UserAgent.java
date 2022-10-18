@@ -147,6 +147,8 @@ public interface UserAgent extends Serializable {
     String USERAGENT_HEADER                     = "User-Agent";
     String USERAGENT_HEADER_SPEC_URL            = "https://datatracker.ietf.org/doc/html/rfc7231#section-5.5.3";
     String USERAGENT_HEADER_SPEC                = "The \"User-Agent\" header field contains information about the user agent originating the request,";
+    String USERAGENT_HEADER_FIELDNAME           = "userAgent";
+
     String NETWORK_TYPE                         = "NetworkType";
 
     String UACLIENT_HINT_BRANDS                 = "UAClientHintBrands";

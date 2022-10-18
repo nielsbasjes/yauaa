@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.servlet.graphql;
 
 import lombok.Getter;
 import lombok.Setter;
+import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent;
 
 import java.util.Map;
@@ -39,6 +40,9 @@ public class AnalysisResult {
 
     public String getValue(String fieldName) {
         return userAgent.getValue(fieldName);
+    }
+    public AgentField get(String fieldName) {
+        return userAgent.get(fieldName);
     }
 
     public Boolean getSyntaxError() {

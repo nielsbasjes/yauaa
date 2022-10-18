@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.clienthints.parsers;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,7 @@ public class ParseSecChUaWoW64 implements CHParser {
     public static final String HEADER_FIELD       = "Sec-CH-UA-WoW64";
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-WoW64 request header field gives a server information about whether or not a user agent binary is running in 32-bit mode on 64-bit Windows.";
+    public static final String FIELD_NAME         = "secChUaWoW64";
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //
@@ -58,4 +60,9 @@ public class ParseSecChUaWoW64 implements CHParser {
     public String inputField() {
         return HEADER_FIELD;
     }
+
+    public static HeaderSpecification getHeaderSpecification() {
+        return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
+    }
+
 }

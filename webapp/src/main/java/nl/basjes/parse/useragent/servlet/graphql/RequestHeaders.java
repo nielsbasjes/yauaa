@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.servlet.graphql;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
@@ -34,6 +35,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 //@Description("The values of the HTTP request Headers that need to be analyzed.")
+@Accessors(chain = true)
 public class RequestHeaders {
 
     @Getter @Setter /* @Description(USERAGENT_HEADER                           + ": " + USERAGENT_HEADER_SPEC                     + " See also " + USERAGENT_HEADER_SPEC_URL)                    */  private String userAgent;               // User-Agent
@@ -50,21 +52,21 @@ public class RequestHeaders {
 
     public Map<String, String> toMap() {
         Map<String, String> result = new TreeMap<>();
-        result.put("User-Agent",                                       userAgent);
-        putfNotNull(result, ParseSecChUa.HEADER_FIELD,                 secChUa);
-        putfNotNull(result, ParseSecChUaArch.HEADER_FIELD,             secChUaArch);
-        putfNotNull(result, ParseSecChUaBitness.HEADER_FIELD,          secChUaBitness);
-        putfNotNull(result, ParseSecChUaFullVersion.HEADER_FIELD,      secChUaFullVersion);
-        putfNotNull(result, ParseSecChUaFullVersionList.HEADER_FIELD,  secChUaFullVersionList);
-        putfNotNull(result, ParseSecChUaMobile.HEADER_FIELD,           secChUaMobile);
-        putfNotNull(result, ParseSecChUaModel.HEADER_FIELD,            secChUaModel);
-        putfNotNull(result, ParseSecChUaPlatform.HEADER_FIELD,         secChUaPlatform);
-        putfNotNull(result, ParseSecChUaPlatformVersion.HEADER_FIELD,  secChUaPlatformVersion);
-        putfNotNull(result, ParseSecChUaWoW64.HEADER_FIELD,            secChUaWoW64);
+        result.put("User-Agent",                                        userAgent);
+        putIfNotNull(result, ParseSecChUa.HEADER_FIELD,                 secChUa);
+        putIfNotNull(result, ParseSecChUaArch.HEADER_FIELD,             secChUaArch);
+        putIfNotNull(result, ParseSecChUaBitness.HEADER_FIELD,          secChUaBitness);
+        putIfNotNull(result, ParseSecChUaFullVersion.HEADER_FIELD,      secChUaFullVersion);
+        putIfNotNull(result, ParseSecChUaFullVersionList.HEADER_FIELD,  secChUaFullVersionList);
+        putIfNotNull(result, ParseSecChUaMobile.HEADER_FIELD,           secChUaMobile);
+        putIfNotNull(result, ParseSecChUaModel.HEADER_FIELD,            secChUaModel);
+        putIfNotNull(result, ParseSecChUaPlatform.HEADER_FIELD,         secChUaPlatform);
+        putIfNotNull(result, ParseSecChUaPlatformVersion.HEADER_FIELD,  secChUaPlatformVersion);
+        putIfNotNull(result, ParseSecChUaWoW64.HEADER_FIELD,            secChUaWoW64);
         return result;
     }
 
-    private void putfNotNull(Map<String, String> result, String key, String value) {
+    private void putIfNotNull(Map<String, String> result, String key, String value) {
         if (value != null) {
             result.put(key, value);
         }

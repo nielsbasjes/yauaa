@@ -22,16 +22,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.Version;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -50,7 +40,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,6 +48,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.STANDARD_FIELDS;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
@@ -67,6 +57,8 @@ import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isHuman;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isMobile;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalConsumerDevice;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
+import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getAllFieldsForGraphQL;
+import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getSchemaFieldName;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
@@ -501,14 +493,16 @@ public class HumanHtml {
     }
 
     private void copyTestcaseToClipboard(StringBuilder sb, UserAgent userAgent, int index) {
-        sb.append("<textarea style='display:none' id=\"testCaseForClipboard"+index+"\">")
+        // .replace("\"", "&quote;").replace("\n", "&#10;"))
+        sb
+            .append("<textarea style='display:none' id=\"testCaseForClipboard").append(index).append("\">")
             .append(escapeHtml4(userAgent.toYamlTestCase())) // .replace("\"", "&quote;").replace("\n", "&#10;"))
             .append("</textarea>")
             .append("<div class=\"tooltip inline\">" +
                 "<p onclick=\"copyTestCaseToClipboard()\" onmouseout=\"closeCopyTestCaseToClipboardTooltip()\">" +
-                "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip"+index+"\">Copy this as a testcase to clipboard</span>" +
-                "&#128203;</p>" +
-                "</div>\n");
+                "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip").append(index).append("\">Copy this as a testcase to clipboard</span>")
+            .append("&#128203;</p>")
+            .append("</div>\n");
     }
 
     private void copyGraphQLQueryToClipboard(StringBuilder sb, UserAgent userAgent, int index) {
@@ -516,44 +510,22 @@ public class HumanHtml {
         sb.append("query {\n" +
             "  analyze(requestHeaders: {\n");
         Map<String, String> headers = userAgent.getHeaders();
-        // FIXME: No hardcoded lists here
-        addRequestHeaderToGraphQL(sb, headers.get(USERAGENT_HEADER),                           "userAgent             ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUa.HEADER_FIELD),                  "secChUa               ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaArch.HEADER_FIELD),              "secChUaArch           ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaBitness.HEADER_FIELD),           "secChUaBitness        ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaFullVersion.HEADER_FIELD),       "secChUaFullVersion    ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaFullVersionList.HEADER_FIELD),   "secChUaFullVersionList");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaMobile.HEADER_FIELD),            "secChUaMobile         ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaModel.HEADER_FIELD),             "secChUaModel          ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaPlatform.HEADER_FIELD),          "secChUaPlatform       ");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaPlatformVersion.HEADER_FIELD),   "secChUaPlatformVersion");
-        addRequestHeaderToGraphQL(sb, headers.get(ParseSecChUaWoW64.HEADER_FIELD),             "secChUaWoW64          ");
-        // FIXME: No hardcoded lists here
-        sb.append("  }) {\n" +
-            "    deviceName\n" +
-            "    deviceBrand\n" +
-            "    deviceCpu\n" +
-            "    deviceCpuBits\n" +
-            "    operatingSystemClass\n" +
-            "    operatingSystemName\n" +
-            "    operatingSystemVersion\n" +
-            "    operatingSystemVersionMajor\n" +
-            "    operatingSystemNameVersion\n" +
-            "    operatingSystemNameVersionMajor\n" +
-            "    layoutEngineClass\n" +
-            "    layoutEngineName\n" +
-            "    layoutEngineVersion\n" +
-            "    layoutEngineVersionMajor\n" +
-            "    layoutEngineNameVersion\n" +
-            "    layoutEngineNameVersionMajor\n" +
-            "    agentClass\n" +
-            "    agentName\n" +
-            "    agentVersion\n" +
-            "    agentVersionMajor\n" +
-            "    agentNameVersion\n" +
-            "    agentNameVersionMajor\n" +
-            "  }\n" +
-            "}");
+
+        for (HeaderSpecification headerSpecification : parseService
+            .getUserAgentAnalyzer()
+            .getAllSupportedHeaders()
+            .values()) {
+            addRequestHeaderToGraphQL(sb,
+                headers.get(headerSpecification.getHeaderName()),
+                headerSpecification.getFieldName());
+        }
+
+        sb.append("  }) {\n");
+        for (String fieldName : getAllFieldsForGraphQL(parseService)) {
+            sb.append("    ").append(getSchemaFieldName(fieldName)).append('\n');
+        }
+        sb.append("  }\n");
+        sb.append("}");
         sb.append("</textarea>")
             .append("<div class=\"tooltip inline\">" +
                 "<p onclick=\"copyGraphQLToClipboard()\" onmouseout=\"closeCopyGraphQLToClipboardTooltip()\">" +
@@ -572,21 +544,17 @@ public class HumanHtml {
     private void addBugReportButton(StringBuilder sb, UserAgent userAgent) {
         // https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=bar
 
-        try {
-            StringBuilder reportUrl = new StringBuilder("https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
+        StringBuilder reportUrl = new StringBuilder("https://github.com/nielsbasjes/yauaa/issues/new?title=Bug%20report&body=");
 
-            String report = "I found a problem with this useragent.\n" +
-                "[Please update the output below to match what you expect it should be]\n" +
-                "\n```\n" +
-                userAgent.toYamlTestCase().replaceAll(" +:", "  :") +
-                "\n```\n";
+        String report = "I found a problem with this useragent.\n" +
+            "[Please update the output below to match what you expect it should be]\n" +
+            "\n```\n" +
+            userAgent.toYamlTestCase().replaceAll(" +:", "  :") +
+            "\n```\n";
 
-            reportUrl.append(URLEncoder.encode(report, "UTF-8"));
-            String githubUrl = "https://github.com/login?return_to=" + URLEncoder.encode(reportUrl.toString(), "UTF-8");
-            sb.append("If you find a problem with this result then please report a bug here: " +
-                "<a href=\"").append(githubUrl).append("\">Yauaa issue report</a>");
-        } catch (UnsupportedEncodingException e) {
-            // Never happens.
-        }
+        reportUrl.append(URLEncoder.encode(report, UTF_8));
+        String githubUrl = "https://github.com/login?return_to=" + URLEncoder.encode(reportUrl.toString(), UTF_8);
+        sb.append("If you find a problem with this result then please report a bug here: " +
+            "<a href=\"").append(githubUrl).append("\">Yauaa issue report</a>");
     }
 }

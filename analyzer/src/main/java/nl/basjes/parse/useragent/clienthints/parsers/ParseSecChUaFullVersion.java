@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
@@ -30,6 +31,7 @@ public class ParseSecChUaFullVersion implements CHParser {
     public static final String HEADER_FIELD       = "Sec-CH-UA-Full-Version";
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Full-Version request header field gives a server information about the user agent’s full version. Sec-CH-UA-Full-Version is deprecated and will be removed in the future. Developers should use Sec-CH-UA-Full-Version-List instead.";
+    public static final String FIELD_NAME         = "secChUaFullVersion";
 
     private transient Map<String, ArrayList<Brand>> cache;
 
@@ -84,4 +86,9 @@ public class ParseSecChUaFullVersion implements CHParser {
     public String inputField() {
         return HEADER_FIELD;
     }
+
+    public static HeaderSpecification getHeaderSpecification() {
+        return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
+    }
+
 }

@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.clienthints.parsers;
 
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
@@ -30,6 +31,7 @@ public class ParseSecChUa implements CHParser {
     public static final String HEADER_FIELD         = "Sec-CH-UA";
     public static final String HEADER_SPEC_URL      = "https://wicg.github.io/ua-client-hints/#sec-ch-ua";
     public static final String HEADER_SPEC          = "The Sec-CH-UA request header field gives a server information about a user agent's branding and version.";
+    public static final String FIELD_NAME           = "secChUa";
 
     private transient Map<String, ArrayList<Brand>> cache = null;
 
@@ -104,5 +106,9 @@ public class ParseSecChUa implements CHParser {
     @Override
     public String inputField() {
         return HEADER_FIELD;
+    }
+
+    public static HeaderSpecification getHeaderSpecification() {
+        return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
     }
 }
