@@ -18,6 +18,8 @@ mvn release:prepare
 #       gpg: signing failed: No pinentry
 # then sometimes just doing this in a different terminal can resolve the problem:
 #       echo "test" | gpg --clearsign
+# or even this
+#       while : ; do sleep 10s ; date ; echo "test" | gpg --clearsign ; done
 
 # UNDO Procedure MANUALLY:
 # mvn release:rollback    will create an extra commit to rollback the changes in the pom.xml files and remove the tag but NOT everything.
