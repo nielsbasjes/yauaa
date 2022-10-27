@@ -389,8 +389,11 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         } else {
             // No full versions available, only the major versions
             ArrayList<Brand> brands = clientHints.getBrands();
+            if (brands == null) {
+                return;
+            }
 
-            if (brands != null && brands.size() == 1) { // NOTE: The grease was filtered out !
+            if (brands.size() == 1) { // NOTE: The grease was filtered out !
                 Brand brand = brands.get(0);
                 if ("Chromium".equals(brand.getName())) {
                     // So we have "Chromium" and not "Chrome", "Edge", "Opera" or something else
@@ -402,16 +405,45 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION), version);
                     overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION), "Blink " + version);
                     overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR), version);
-                    overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), "Blink "+ version);
+                    overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), "Blink " + version);
 
                     // So we have "Chromium" and not "Chrome" or "Edge" or something else
                     if (CHROMIUM.contains(userAgent.getValue(AGENT_NAME))) {
                         overrideValue(userAgent.get(AGENT_NAME), "Chromium");
                         overrideValue(userAgent.get(AGENT_VERSION), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium" + " " + version);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium " + version);
                         overrideValue(userAgent.get(AGENT_VERSION_MAJOR), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium" + " " + version);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium " + version);
                     }
+                }
+                return;
+            }
+
+            for (Brand brand : brands) {
+                String[] versionSplits;
+                switch (brand.getName()) {
+                    case "Microsoft Edge":
+                    case "Edge":
+                        MutableAgentField agentName = userAgent.get(AGENT_NAME);
+                        if (agentName.getValue().equals("Edge")) {
+                            continue;
+                        }
+                        String version = brand.getVersion();
+                        versionSplits = version.split("\\.");
+                        if (versionSplits.length == 4) {
+                            if (!"0".equals(versionSplits[1])) {
+                                continue;
+                            }
+                        }
+                        String majorVersion = versionSplits[0];
+
+                        overrideValue(agentName, "Edge");
+                        overrideValue(userAgent.get(AGENT_VERSION), version);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Edge " + version);
+                        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Edge " + majorVersion);
+                        break;
+                    default:
                 }
             }
         }

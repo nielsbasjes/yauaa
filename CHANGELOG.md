@@ -6,6 +6,7 @@ v7.8.0-SNAPSHOT
 - New/improved detections
   - Samsung Browser: DeviceBrand & WebViews.
   - Smart TV Linux version
+  - Microsoft Edge with only partial information and minimal client hints
 
 v7.7.0
 ===
