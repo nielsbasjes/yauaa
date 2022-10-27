@@ -211,6 +211,30 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="TV Safari"'
+    extract:
+    - 'AgentClass                          :       55 :"Browser"'
+    - 'AgentName                           :       55 :"Safari"'
+    - 'AgentVersion                        :       55 :agent.product.name="Version"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="Mobile VR Safari"'
+    extract:
+    - 'AgentClass                          :       55 :"Browser"'
+    - 'AgentName                           :       55 :"Safari"'
+    - 'AgentVersion                        :       55 :agent.product.name="Version"^.version'
+
+- matcher:
+    require:
+    - 'agent.product.name="VR Safari"'
+    extract:
+    - 'AgentClass                          :       55 :"Browser"'
+    - 'AgentName                           :       55 :"Safari"'
+    - 'AgentVersion                        :       55 :agent.product.name="Version"^.version'
+
+- matcher:
+    require:
     - 'agent.product.name="Safari"'
     extract:
     - 'AgentClass                          :       55 :"Browser"'

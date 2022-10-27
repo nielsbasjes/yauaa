@@ -626,22 +626,869 @@ config:
       AgentNameVersion                     : 'TizenBrowser ??'
       AgentNameVersionMajor                : 'TizenBrowser ??'
 
-# TODO: The SamsungBrowser on a Desktop ???
+
+# https://developer.samsung.com/internet/user-agent-string-format.html
+#   Mozilla/$(MOZILA_VER) ($(DEVICE_TYPE); $(OS); $(PLATFORM) $(PLATFORM_VER);
+#         SAMSUNG $(MODEL_NAME) Build/$(BUILD_TAG)) AppleWebKit/$(APPLEWEBKIT_VER)
+#         (KHTML, like Gecko) $(APP_NAME)/$(APP_VER) (Chrome/$(CHROME_VER))
+#         $(UX RECOMMEND) Safari/$(SAFARI_VER)
+#
+# - $(DEVICE\_TYPE)
+#       “SMART-TV” is used for Samsung Smart TV. Mobile devices do not use this field.
+#       Optional
+# - $(PLATFORM)
+#   $(PLATFORM\_VER)
+#       “Tizen” is used for Samsung Smart TV 2015 new models (and later), and for Tizen Mobile.
+#       Mandatory
+# - SAMSUNG
+#       Company name
+#       Optional
+# - $(MODEL\_NAME)
+#       Mobile devices use MODEL\_NAME field for each device. Smart TV currently does not use this field. This Field will be possibly used in the future.
+#       Optional
+# - Build/$(BUILD\_TAG))
+#       Platform Build Tag is used on Android devices. Currently, Tizen devices do not use this field. It may be possibly used in the future.
+#       Optional
+# - $(APP\_NAME)/$(APP\_VER)
+#       Web Browsers on Samsung devices (Mobile and Smart TV) use “SamsungBrowser/version”.
+#       Mandatory
+# - (Chrome/$(CHROME\_VER))
+#       This field is presented in a Chrome-based web browser only.
+#       Android Browser is currently presented this way whereas, Tizen Samsung Browser is not as it is based on webkit.
+#       This will also reflect on the Tizen Samsung Browser if it will be based on Chrome in the future.
+#       Optional
+# - $(UX\_RECOMMEND)
+#       Mobile devices with small screens (e.g. less than 7") use “Mobile”.
+#       Smart TVs use “TV”. For devices supporting Virtual Reality contents, use “VR”.
+#       If PC UX is appropriate for the device, this field is empty.
+#       Optional
+#
+
+# Webviews:
+#   Mozilla/$(MOZILA_VER) ($(DEVICE_TYPE); $(OS); $(PLATFORM) $(PLATFORM_VER);
+#       SAMSUNG $(MODEL_NAME) Build/$(BUILD_TAG)) AppleWebKit/$(APPLEWEBKIT_VER)
+#       (KHTML, like Gecko) Version/$(PLATFORM_VER) (Chrome/$(CHROME_VER))
+#       $(UX RECOMMEND) Safari/$(SAFARI_VER)
+
+# - Version/$(PLATFORM\_VER)
+#        Web Application using the platform’s webView, have Version/OS’s Version instead of $(APP\_NAME)/$((APP\_VER)
+#        Mandatory
+#   if the $(PLATFORM\_VER) is less than 4.0, than it is not a Web Application.
+
+# Testcases from their website (not already in Yauaa):
+
+# TVs:
 - test:
     input:
-      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Safari/537.36'
+      User-Agent                           : 'Mozilla/5.0 (SMART-TV; X11; Linux armv7l) AppleWebkit/537.42 (KHTML, like Gecko) Safari/537.42'
     expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Samsung Browser'
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
       DeviceBrand                          : 'Samsung'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
       OperatingSystemName                  : 'Linux'
       OperatingSystemVersion               : '??'
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Linux ??'
       OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.42'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.42'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '537.42'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'Safari 537.42'
+      AgentNameVersionMajor                : 'Safari 537'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (SMART-TV;X11; Linux i686) AppleWebkit/535.20+ (KHTML, like Gecko) Version/5.0 Safari/535.20+'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '535.20'
+      LayoutEngineVersionMajor             : '535'
+      LayoutEngineNameVersion              : 'AppleWebKit 535.20'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 535'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.0'
+      AgentNameVersionMajor                : 'Safari 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (SMART-TV; X11; Linux i686) AppleWebKit/534.7 (KHTML, like Gecko) Version/5.0 Safari/534.7'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'Intel i686'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.7'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Safari 5.0'
+      AgentNameVersionMajor                : 'Safari 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/SmartTV) AppleWebKit/531.2 (KHTML, like Gecko) Web Browser/1.0 SmartTV Safari/531.2+'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : 'SmartTV'
+      OperatingSystemVersionMajor          : 'SmartTV'
+      OperatingSystemNameVersion           : 'Linux SmartTV'
+      OperatingSystemNameVersionMajor      : 'Linux SmartTV'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '531.2'
+      LayoutEngineVersionMajor             : '531'
+      LayoutEngineNameVersion              : 'AppleWebKit 531.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 531'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Web Browser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Web Browser 1.0'
+      AgentNameVersionMajor                : 'Web Browser 1'
+      AgentSecurity                        : 'Strong security'
+
+#Samsung Internet for Android
+#Samsung Galaxy Note Edge
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 4.4.4; en-au; SAMSUNG SM-N915G Build/KTU84P) AppleWebKit/537.36 (KTHML, like Gecko) Version/2.0 Chrome/34.0.1847.76 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-N915G'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '4.4.4'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'Android 4.4.4'
+      OperatingSystemNameVersionMajor      : 'Android 4'
+      OperatingSystemVersionBuild          : 'KTU84P'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '34.0'
+      LayoutEngineVersionMajor             : '34'
+      LayoutEngineNameVersion              : 'Blink 34.0'
+      LayoutEngineNameVersionMajor         : 'Blink 34'
+      # Version/2.0 --> less than 4 --> NOT a webview
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '34.0.1847.76'
+      AgentVersionMajor                    : '34'
+      AgentNameVersion                     : 'Chrome 34.0.1847.76'
+      AgentNameVersionMajor                : 'Chrome 34'
+      AgentLanguage                        : 'English (Australia)'
+      AgentLanguageCode                    : 'en-au'
+
+
+# Current (Samsung Internet for Android 4.0):
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 5.0.2; SAMSUNG SM-G925F Build/LRX22G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/44.0.2403.133 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-G925F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.2'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Android 5.0.2'
+      OperatingSystemNameVersionMajor      : 'Android 5'
+      OperatingSystemVersionBuild          : 'LRX22G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '44.0'
+      LayoutEngineVersionMajor             : '44'
+      LayoutEngineNameVersion              : 'Blink 44.0'
+      LayoutEngineNameVersionMajor         : 'Blink 44'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'SamsungBrowser 4.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 4'
+
+#Tizen Mobile Web Application
+# Broken testcase; they say it is a Web Application, yet Version/2.3 --> less than 4 --> NOT a Web Application(webview)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Tizen 2.3; SAMSUNG SM-Z130H) AppleWebKit/537.3 (KHTML, like Gecko) Version/2.3 Mobile Safari/537.3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-Z130H'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.3'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Tizen 2.3'
+      OperatingSystemNameVersionMajor      : 'Tizen 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.3'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.3'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '2.3'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Safari 2.3'
+      AgentNameVersionMajor                : 'Safari 2'
+
+
+#Tizen TV Web Application
+# Broken testcase; they say it is a Web Application, yet Version/2.2 --> less than 4 --> NOT a Web Application(webview)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (SMART-TV; Linux; Tizen 2.2; SAMSUNG SM-Z910F) AppleWebKit/537.3 (KHTML, like Gecko) Version/2.2 TV Safari/538.1'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'Samsung Smart TV'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Tizen'
+      OperatingSystemVersion               : '2.2'
+      OperatingSystemVersionMajor          : '2'
+      OperatingSystemNameVersion           : 'Tizen 2.2'
+      OperatingSystemNameVersionMajor      : 'Tizen 2'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.3'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.3'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '2.2'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Safari 2.2'
+      AgentNameVersionMajor                : 'Safari 2'
+
+# Request for PC Content
+#    Users can explicitly request PC content from Samsung Internet for Android via the "More > Desktop version".
+#    User agent string format for desktop version request is as follows.
+#    Mozilla/$(MOZILA\_VER) (X11; Linux x86\_64) AppleWebKit/$(APPLEWEBKIT\_VER) (KHTML, like Gecko) $(APP\_NAME)/$(APP\_VER) (Chrome/$(CHROME\_VER)) Safari/$(SAFARI\_VER)
+# Example:
+#    Mozilla/5.0 (X11; Linux x86\_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.2 Chrome/51.0.2704.106 Safari/537.36
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung Browser'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+# ---------------------------------
+
+# The "Request for PC Content" option only exists for the Android version of the Samsung Browser
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(1)product.comments.entry="Linux x86_64"'
+    - 'agent.(2)product.(1)name="AppleWebKit"'
+    - 'agent.(3)product.(1)name="SamsungBrowser"'
+    - 'agent.(4)product.(1)name="Chrome"'
+    - 'agent.(5)product.(1)name="Safari"'
+    extract:
+    - 'DeviceClass                        : 100  : "Mobile"'
+    - 'OperatingSystemClass               : 100  : "Mobile"'
+    - 'OperatingSystemName                : 100  : "Android"'
+    - 'OperatingSystemVersion             : 100  : "??"'
+
+
+- matcher:
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    extract:
+    - 'DeviceName   : 3000: @DeviceTag'
+#    - 'DeviceBrand  :  400 :"<<<null>>>"' # Wipe the 'Samsung' brand because that is almost always fake.
+
+- matcher:
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    extract:
+    - 'DeviceBrand  : 3003 :LookUpPrefix[MobileBrands;@DeviceTag]'
+
+- matcher:
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    extract:
+    - 'DeviceBrand  : 3004 :LookUpPrefix[MobileBrandPrefixes;@DeviceTag]'
+
+# NOTE: Pixel is an edge case
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[1]="Pixel"'
+    extract:
+    - 'DeviceBrand  : 3003 :"Google"'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag!~"Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[2]="Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag[-1]'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[3]="Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag[-2]'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[4]="Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag[-3]'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[5]="Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag[-4]'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[6]="Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag[-5]'
+
+- matcher:
+    variable:
+    - 'DeviceTag: agent.(1)product.(1)comments.entry[1]="SAMSUNG"@[2-]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - '@DeviceTag[7]="Build"'
+    extract:
+    - 'DeviceName   : 3001: @DeviceTag[-6]'
+
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 7.0; SAMSUNG Nexus 6 Build/NBD92G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Nexus 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      OperatingSystemVersionBuild          : 'NBD92G'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.4'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.4'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
+
+# https://github.com/nielsbasjes/yauaa/issues/783
+# Notes: Extra . in the version of SamsungBrowser, Chopped Chrome version, missing Safari product.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; SAMSUNG Google Pixel Watch) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/1.2. Chrome/90'
+    expected:
+      DeviceClass                          : 'Watch'
+      DeviceName                           : 'Google Pixel Watch'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '1.2.'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'SamsungBrowser 1.2.'
+      AgentNameVersionMajor                : 'SamsungBrowser 1'
+
+# Samsung devices
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 5.0.1; SAMSUNG SCH-I545 4G Build/LRX22C) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/2.1 Chrome/34.0.1847.76 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SCH-I545 4G'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.0.1'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Android 5.0.1'
+      OperatingSystemNameVersionMajor      : 'Android 5'
+      OperatingSystemVersionBuild          : 'LRX22C'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '34.0'
+      LayoutEngineVersionMajor             : '34'
+      LayoutEngineNameVersion              : 'Blink 34.0'
+      LayoutEngineNameVersionMajor         : 'Blink 34'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'SamsungBrowser 2.1'
+      AgentNameVersionMajor                : 'SamsungBrowser 2'
+
+
+# Examples of **NON** Samsung devices
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; SAMSUNG CPH1941) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/13.2 Chrome/83.0.4103.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oppo CPH1941'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '83.0'
+      LayoutEngineVersionMajor             : '83'
+      LayoutEngineNameVersion              : 'Blink 83.0'
+      LayoutEngineNameVersionMajor         : 'Blink 83'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '13.2'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'SamsungBrowser 13.2'
+      AgentNameVersionMajor                : 'SamsungBrowser 13'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SAMSUNG Lenovo TB-X505F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Lenovo TB-X505F'
+      DeviceBrand                          : 'Lenovo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SAMSUNG Mi Note 10 Lite) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi MI Note 10 Lite'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SAMSUNG moto e(7) plus) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Motorola Moto E'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SAMSUNG Redmi Note 9 Pro) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Xiaomi Redmi Note 9 PRO'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; SAMSUNG VOG-L29) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei VOG-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; SAMSUNG Nokia 5.3) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 5.3'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 5.1; SAMSUNG HUAWEI CUN-L21 Build/HUAWEICUN-L21) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/6.2 Chrome/56.0.2924.87 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei CUN-L21'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '5.1'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'Android 5.1'
+      OperatingSystemNameVersionMajor      : 'Android 5'
+      OperatingSystemVersionBuild          : 'HUAWEICUN-L21'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '56.0'
+      LayoutEngineVersionMajor             : '56'
+      LayoutEngineNameVersion              : 'Blink 56.0'
+      LayoutEngineNameVersionMajor         : 'Blink 56'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '6.2'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'SamsungBrowser 6.2'
+      AgentNameVersionMajor                : 'SamsungBrowser 6'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.0; SAMSUNG WAS-LX1A Build/HUAWEIWAS-LX1A) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei WAS-LX1A'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'HUAWEIWAS-LX1A'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.4'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.4'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.1.0; SAMSUNG Lenovo TB-X104F) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Lenovo TB-X104F'
+      DeviceBrand                          : 'Lenovo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.1.0; SAMSUNG ONEPLUS A6003) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oneplus A6003'
+      DeviceBrand                          : 'Oneplus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '96.0'
+      LayoutEngineVersionMajor             : '96'
+      LayoutEngineNameVersion              : 'Blink 96.0'
+      LayoutEngineNameVersionMajor         : 'Blink 96'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '17.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'SamsungBrowser 17.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 9.0; SAMSUNG ANE-LX1 Build/HUAWEIANE-L21) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2704.106 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ANE-LX1'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9.0'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9.0'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'HUAWEIANE-L21'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '51.0'
+      LayoutEngineVersionMajor             : '51'
+      LayoutEngineNameVersion              : 'Blink 51.0'
+      LayoutEngineNameVersionMajor         : 'Blink 51'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '5.4'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'SamsungBrowser 5.4'
+      AgentNameVersionMajor                : 'SamsungBrowser 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 9; SAMSUNG SCV38) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SCV38'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '96.0'

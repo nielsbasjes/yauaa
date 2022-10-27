@@ -3,7 +3,9 @@ This is intended as an overview of the major changes
 
 v7.8.0-SNAPSHOT
 ===
-- ...
+- New/improved detections
+  - Samsung Browser: DeviceBrand & WebViews.
+  - Smart TV Linux version
 
 v7.7.0
 ===
