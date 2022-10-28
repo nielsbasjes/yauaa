@@ -169,7 +169,7 @@ public class HumanHtml {
                     if (!useClientHints) {
                         sb
                             .append(" <a class=\"hideLink\" href=\"?ua=")
-                            .append(URLEncoder.encode(userAgent.getUserAgentString(), "UTF-8"))
+                            .append(URLEncoder.encode(userAgent.getUserAgentString(), UTF_8))
                             // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
                             .append("\">\uD83D\uDD17</a>");
                     }
@@ -401,42 +401,6 @@ public class HumanHtml {
         insertFavIcons(sb);
         sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
-        sb.append(
-            "<script>\n" +
-            "function copyTestCaseToClipboard() {\n" +
-            "   var copyText = document.getElementById(\"testCaseForClipboard\");\n" +
-            "   copyText.select();\n" +
-            "   copyText.setSelectionRange(0, 99999);\n" +
-            "   navigator.clipboard.writeText(copyText.value);\n" +
-            "\n" +
-            "    var tooltip = document.getElementById(\"copyTestCaseToClipboardTooltip\");\n" +
-            "    tooltip.innerHTML = \"Copied to clipboard\"\n" +
-            "}\n" +
-            "\n" +
-            "function closeCopyTestCaseToClipboardTooltip() {\n" +
-            "    var tooltip = document.getElementById(\"copyTestCaseToClipboardTooltip\");\n" +
-            "    tooltip.innerHTML = \"Copy this as a testcase to clipboard\";\n" +
-            "}\n" +
-            "\n" +
-            "function copyGraphQLToClipboard() {\n" +
-            "   var copyText = document.getElementById(\"graphQLForClipboard\");\n" +
-            "   copyText.select();\n" +
-            "   copyText.setSelectionRange(0, 99999);\n" +
-            "   navigator.clipboard.writeText(copyText.value);\n" +
-            "\n" +
-            "    var tooltip = document.getElementById(\"copyGraphQLToClipboardTooltip\");\n" +
-            "    tooltip.innerHTML = \"Copied to clipboard\"\n" +
-            "}\n" +
-            "\n" +
-            "function closeCopyGraphQLToClipboardTooltip() {\n" +
-            "    var tooltip = document.getElementById(\"copyGraphQLToClipboardTooltip\");\n" +
-            "    tooltip.innerHTML = \"Copy this as a graphQL to clipboard\";\n" +
-            "}\n" +
-            "\n" +
-            "</script>"
-        );
-
-
         // While initializing automatically reload the page.
         if (!parseService.userAgentAnalyzerIsAvailable() && parseService.getUserAgentAnalyzerFailureMessage() == null) {
             sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
@@ -493,20 +457,65 @@ public class HumanHtml {
     }
 
     private void copyTestcaseToClipboard(StringBuilder sb, UserAgent userAgent, int index) {
-        // .replace("\"", "&quote;").replace("\n", "&#10;"))
+        String baseScript =
+            """
+                <script>
+                function copyTestCaseToClipboard{INDEX}() {
+                   var copyText = document.getElementById("testCaseForClipboard{INDEX}");
+                   copyText.select();
+                   copyText.setSelectionRange(0, 99999);
+                   navigator.clipboard.writeText(copyText.value);
+
+                    var tooltip = document.getElementById("copyTestCaseToClipboardTooltip{INDEX}");
+                    tooltip.innerHTML = "Copied to clipboard"
+                }
+
+                function closeCopyTestCaseToClipboardTooltip{INDEX}() {
+                    var tooltip = document.getElementById("copyTestCaseToClipboardTooltip{INDEX}");
+                    tooltip.innerHTML = "Copy this as a testcase to clipboard";
+                }
+                </script>
+            """;
+
+        sb.append(baseScript.replace("{INDEX}", String.valueOf(index)));
         sb
             .append("<textarea style='display:none' id=\"testCaseForClipboard").append(index).append("\">")
             .append(escapeHtml4(userAgent.toYamlTestCase())) // .replace("\"", "&quote;").replace("\n", "&#10;"))
             .append("</textarea>")
-            .append("<div class=\"tooltip inline\">" +
-                "<p onclick=\"copyTestCaseToClipboard()\" onmouseout=\"closeCopyTestCaseToClipboardTooltip()\">" +
-                "<span class=\"tooltiptext\" id=\"copyTestCaseToClipboardTooltip").append(index).append("\">Copy this as a testcase to clipboard</span>")
+            .append(
+                """
+                <div class="tooltip inline">
+                <p onclick="copyTestCaseToClipboard{INDEX}()" onmouseout="closeCopyTestCaseToClipboardTooltip{INDEX}()">
+                <span class="tooltiptext" id="copyTestCaseToClipboardTooltip{INDEX}">Copy this as a testcase to clipboard</span>
+                """
+                .replace("{INDEX}", String.valueOf(index)))
             .append("&#128203;</p>")
             .append("</div>\n");
     }
 
     private void copyGraphQLQueryToClipboard(StringBuilder sb, UserAgent userAgent, int index) {
-        sb.append("<textarea style='display:none' id=\"graphQLForClipboard\">");
+        String baseScript =
+            """
+            <script>
+            function copyGraphQLToClipboard{INDEX}() {
+               var copyText = document.getElementById("graphQLForClipboard{INDEX}");
+               copyText.select();
+               copyText.setSelectionRange(0, 99999);
+               navigator.clipboard.writeText(copyText.value);
+
+                var tooltip = document.getElementById("copyGraphQLToClipboardTooltip{INDEX}");
+                tooltip.innerHTML = "Copied to clipboard"
+            }
+
+            function closeCopyGraphQLToClipboardTooltip{INDEX}() {
+                var tooltip = document.getElementById("copyGraphQLToClipboardTooltip{INDEX}");
+                tooltip.innerHTML = "Copy this as a graphQL to clipboard";
+            }
+            </script>
+            """;
+
+        sb.append(baseScript.replace("{INDEX}", String.valueOf(index)));
+        sb.append("<textarea style='display:none' id=\"graphQLForClipboard").append(index).append("\">");
         sb.append("query {\n" +
             "  analyze(requestHeaders: {\n");
         Map<String, String> headers = userAgent.getHeaders();
@@ -526,12 +535,14 @@ public class HumanHtml {
         }
         sb.append("  }\n");
         sb.append("}");
-        sb.append("</textarea>")
-            .append("<div class=\"tooltip inline\">" +
-                "<p onclick=\"copyGraphQLToClipboard()\" onmouseout=\"closeCopyGraphQLToClipboardTooltip()\">" +
-                "<span class=\"tooltiptext\" id=\"copyGraphQLToClipboardTooltip\">Copy this as a GraphQL query to clipboard</span>" +
-                "&#128203;</p>" +
-                "</div>\n");
+        sb.append("</textarea>");
+        sb.append(
+            """
+            <div class="tooltip inline">
+            <p onclick="copyGraphQLToClipboard{INDEX}()" onmouseout="closeCopyGraphQLToClipboardTooltip{INDEX}()">
+            <span class="tooltiptext" id="copyGraphQLToClipboardTooltip{INDEX}">Copy this as a GraphQL query to clipboard</span>&#128203;</p>
+            </div>
+            """ .replace("{INDEX}", String.valueOf(index)));
     }
 
     private void addRequestHeaderToGraphQL(StringBuilder sb, String header, String gqlName) {
