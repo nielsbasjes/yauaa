@@ -12,8 +12,13 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ---
 ## HIGH Profile release notes:
 
-v7.7.0
-===
+### Version 7.8.0
+- New/improved detections
+  - Samsung Browser: DeviceBrand & WebViews.
+  - Smart TV Linux version
+  - Microsoft Edge with only partial information and minimal client hints
+
+### Version 7.7.0
 - Security:
     - Updated Apache Commons Text to 1.10.0 (CVE-2022-42889)
 - New/improved detections

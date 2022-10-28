@@ -1,12 +1,23 @@
 
 This is intended as an overview of the major changes
 
-v7.8.0-SNAPSHOT
+v7.9.0-SNAPSHOT
+===
+- New/improved detections
+  - ...
+
+v7.8.0
 ===
 - New/improved detections
   - Samsung Browser: DeviceBrand & WebViews.
   - Smart TV Linux version
   - Microsoft Edge with only partial information and minimal client hints
+- Webservlet:
+    - Copy to clipboard works again.
+- Updated UDF dependencies
+    - Elastic Search          7.17.7
+    - Apache Flink            1.16.0
+    - Trino                   401
 
 v7.7.0
 ===
