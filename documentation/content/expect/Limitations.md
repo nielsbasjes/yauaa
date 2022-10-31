@@ -39,6 +39,8 @@ When the Samsung Browser is installed on a non-Samsung device (in this example a
 As you can see this browser assumes it is only installed on Samsung devices so they 'force' the word Samsung in there.
 In this case you will see this being reported as a "Samsung Nexus 6", which is obviously wrong.
 
+Note that this specific case with the `SamsungBrowser` has now been fixed with a set of additional rules so this one is now correctly reported as a `Google Nexus 6`.
+
 ## Device Name and Device Brand
 The detection of the brand and name of the device are the most brittle and unreliable part of the output.
 
