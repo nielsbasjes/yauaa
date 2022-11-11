@@ -68,10 +68,15 @@ class TestYamlBasedExpressions {
         assertTrue(uaa.runTests(false, false));
     }
 
-
     @Test
     void runLookupTests() {
         UserAgentAnalyzerTester uaa = createTester("Lookup-tests.yaml");
+        assertTrue(uaa.runTests(false, false));
+    }
+
+    @Test
+    void runLookupMergingTests() {
+        UserAgentAnalyzerTester uaa = createTester("Lookup-merging.yaml");
         assertTrue(uaa.runTests(false, false));
     }
 

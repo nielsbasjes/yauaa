@@ -140,7 +140,26 @@ public final class AnalyzerConfig implements Serializable {
          * @param values The additional keys and values for this lookup.
          */
         public AnalyzerConfigBuilder putLookup(String name, Map<String, String> values) {
-            analyzerConfig.lookups.put(name, values);
+            Map<String, String> existing = analyzerConfig.lookups.get(name);
+            if (existing == null) {
+                analyzerConfig.lookups.put(name, values);
+            } else {
+                // Perhaps we are overwriting an existing value
+                // So we must do one by one and fail if already there
+                for (Map.Entry<String, String> valueEntry : values.entrySet()) {
+                    String existingValue = existing.get(valueEntry.getKey());
+                    if (existingValue != null) {
+                        if (existingValue.equals(valueEntry.getValue())) {
+                            continue; // Ignore this one.
+                        }
+                        throw new InvalidParserConfigurationException(
+                            "For lookup \"" + name + "\" a multiple different values for " +
+                                "the key \"" + valueEntry.getKey() + "\" were found from " +
+                                "separate definitions of this lookup.");
+                    }
+                    existing.put(valueEntry.getKey(), valueEntry.getValue());
+                }
+            }
             return this;
         }
 
@@ -148,8 +167,9 @@ public final class AnalyzerConfig implements Serializable {
          * @param newLookups The additional lookups.
          */
         public AnalyzerConfigBuilder putLookups(Map<String, Map<String, String>> newLookups) {
-            // FIXME: Handle lookupnames that already exist
-            analyzerConfig.lookups.putAll(newLookups);
+            for (Map.Entry<String, Map<String, String>> entry : newLookups.entrySet()) {
+                putLookup(entry.getKey(), entry.getValue());
+            }
             return this;
         }
 
@@ -169,7 +189,12 @@ public final class AnalyzerConfig implements Serializable {
          * @param values The additional keys and values for this lookup.
          */
         public AnalyzerConfigBuilder putLookupSets(String name, Set<String> values) {
-            analyzerConfig.lookupSets.put(name, values);
+            Set<String> existing = analyzerConfig.lookupSets.get(name);
+            if (existing == null) {
+                analyzerConfig.lookupSets.put(name, values);
+            } else {
+                existing.addAll(values); // This automatically de-duplicates
+            }
             return this;
         }
 
@@ -177,8 +202,9 @@ public final class AnalyzerConfig implements Serializable {
          * @param newLookupSets The additional lookup sets.
          */
         public AnalyzerConfigBuilder putLookupSets(Map<String, Set<String>> newLookupSets) {
-            // FIXME: Handle lookupnames that already exist
-            analyzerConfig.lookupSets.putAll(newLookupSets);
+            for (Map.Entry<String, Set<String>> entry : newLookupSets.entrySet()) {
+                putLookupSets(entry.getKey(), entry.getValue());
+            }
             return this;
         }
 

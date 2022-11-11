@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v7.9.0-SNAPSHOT
 ===
+- Analyzer:
+  - Support having multiple places to define a lookup or set which are then merged.
 - New/improved detections
   - ...
 

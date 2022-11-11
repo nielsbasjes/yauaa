@@ -147,6 +147,13 @@ class TestErrorHandling {
             containsString("appears multiple times"));
     }
 
+    @Test
+    void checkLookupDuplicateKeyMerge() {
+        runTest(
+            "classpath*:BadDefinitions/LookupDuplicateKey-merge.yaml",
+            containsString("multiple different values"));
+    }
+
     @Test void checkFixedStringFailIfFound() {
         runTest(
             "classpath*:BadDefinitions/FixedStringFailIfFound.yaml",
