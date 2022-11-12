@@ -23,6 +23,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestYamlBasedExpressions {
+    @Test
+    void testMergingExtraDeviceTags() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .keepTests()
+            .addResources("classpath*:LookupMergingOppo.yaml")
+            .build();
+        assertTrue(uaa.runTests(false, true));
+    }
+
     private UserAgentAnalyzerTester createTester(String filename){
         return UserAgentAnalyzerTester
             .newBuilder()

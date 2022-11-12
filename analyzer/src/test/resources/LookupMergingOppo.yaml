@@ -1,0 +1,69 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2022 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+# Many brands (like the Oppo example below) have device IDs that are for a large part completely random
+# and have no pattern to easily classify them.
+# So I choose NOT to include all of them; there are simply too many and also many overlap with
+# device ids of other brands.
+# https://yauaa.basjes.nl/expect/limitations/#device-name-and-device-brand
+# The example below would normally result in: DeviceBrand : 'Unknown'
+
+# Since 7.9.0 you can extend an existing lookup so this allows for adding extra tag
+# prefixes that are then mapped to a brand.
+# This allows users to maintain their own list of all device tags they find important.
+# This is just a quick demonstration to show this can work.
+
+# NOTE to self: This must remain working for others.
+- lookup:
+    name: 'MobileBrandPrefixes'
+    map:
+      "PCHM10"                             : "Oppo"
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; PCHM10 Build/RKQ1.200903.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/88.0.4324.181 Mobile Safari/537.36 JsSdk/2 NewsArticle/1.6.2 GoldBrowser/1.6.2 NetType/wifi TTWebView/0881130043405'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oppo PCHM10'
+      DeviceBrand                          : 'Oppo'        # Without the above lookup it would have been Unknown.
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RKQ1.200903.002'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '88.0.4324.181'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Chrome Webview 88.0.4324.181'
+      AgentNameVersionMajor                : 'Chrome Webview 88'
+      WebviewAppName                       : 'Jssdk'
+      WebviewAppVersion                    : '2'
+      WebviewAppVersionMajor               : '2'
+      WebviewAppNameVersion                : 'Jssdk 2'
+      WebviewAppNameVersionMajor           : 'Jssdk 2'
+      NetworkType                          : 'Wifi'
