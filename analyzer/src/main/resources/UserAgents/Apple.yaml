@@ -1792,3 +1792,38 @@ config:
       AgentVersionMajor                    : '103'
       AgentNameVersion                     : 'Chrome 103'
       AgentNameVersionMajor                : 'Chrome 103'
+
+# This is most likely a jailbroken Apple iPad.
+# https://getzbra.com/
+# https://github.com/zbrateam/Zebra
+- test:
+    input:
+      User-Agent                           : 'zebra/21310 Mozilla/5.0 (iPad mini 5th generation; CPU OS 14_7_1 like Mac OS X; ZEBRA_APP_STORE) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.7.1'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.7.1'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'UIWebView'
+      AgentVersion                         : '605.1.15'
+      AgentVersionMajor                    : '605'
+      AgentNameVersion                     : 'UIWebView 605.1.15'
+      AgentNameVersionMajor                : 'UIWebView 605'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'

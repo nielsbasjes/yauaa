@@ -17,12 +17,11 @@
 config:
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)text="iPhone"'
+    - 'agent.product.comments.entry[1]="iPhone"'
     extract:
-    - 'DeviceBrand                         :      120 :"Apple"'
-    - 'DeviceClass                         :      120 :"Phone"'
-    - 'DeviceName                          :      120 :"iPhone"'
-    - 'DeviceVersion                       :       99 :"iPhone"'
+    - 'DeviceBrand                         :      105 :"Apple"'
+    - 'DeviceClass                         :      105 :"Phone"'
+    - 'DeviceName                          :      105 :"iPhone"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
@@ -44,7 +43,6 @@ config:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPhone"'
-    - 'DeviceVersion                       :      121 :"iPhone"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
@@ -56,19 +54,17 @@ config:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPhone"'
-    - 'DeviceVersion                       :      121 :"iPhone"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)text="iPad"'
+    - 'agent.product.comments.entry[1]="iPad"'
     extract:
-    - 'DeviceBrand                         :      120 :"Apple"'
-    - 'DeviceClass                         :      120 :"Tablet"'
-    - 'DeviceName                          :      120 :"iPad"'
-    - 'DeviceVersion                       :      120 :"iPad"'
+    - 'DeviceBrand                         :      105 :"Apple"'
+    - 'DeviceClass                         :      105 :"Tablet"'
+    - 'DeviceName                          :      105 :"iPad"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
@@ -90,7 +86,6 @@ config:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Tablet"'
     - 'DeviceName                          :      121 :"iPad"'
-    - 'DeviceVersion                       :      121 :"iPad"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
@@ -102,19 +97,17 @@ config:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Tablet"'
     - 'DeviceName                          :      121 :"iPad"'
-    - 'DeviceVersion                       :      121 :"iPad"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)text="iPod"'
+    - 'agent.product.comments.entry[1]="iPod"'
     extract:
-    - 'DeviceBrand                         :      120 :"Apple"'
-    - 'DeviceClass                         :      120 :"Phone"'
-    - 'DeviceName                          :      120 :"iPod"'
-    - 'DeviceVersion                       :      120 :"iPod"'
+    - 'DeviceBrand                         :      105 :"Apple"'
+    - 'DeviceClass                         :      105 :"Phone"'
+    - 'DeviceName                          :      105 :"iPod"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
@@ -136,7 +129,6 @@ config:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPod"'
-    - 'DeviceVersion                       :      121 :"iPod"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
@@ -148,19 +140,17 @@ config:
     - 'DeviceBrand                         :      121 :"Apple"'
     - 'DeviceClass                         :      121 :"Phone"'
     - 'DeviceName                          :      121 :"iPod"'
-    - 'DeviceVersion                       :      121 :"iPod"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
 
 - matcher:
     require:
-    - 'agent.product.comments.entry.(1)text="iPod touch"'
+    - 'agent.product.comments.entry[-2]="iPod touch"'
     extract:
-    - 'DeviceBrand                         :      120 :"Apple"'
-    - 'DeviceClass                         :      120 :"Phone"'
-    - 'DeviceName                          :      120 :"iPod touch"'
-    - 'DeviceVersion                       :      120 :"iPod touch"'
+    - 'DeviceBrand                         :      121 :"Apple"'
+    - 'DeviceClass                         :      121 :"Phone"'
+    - 'DeviceName                          :      121 :"iPod touch"'
     - 'OperatingSystemClass                :        9 :"Mobile"'
     - 'OperatingSystemName                 :        9 :"iOS"'
     - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
