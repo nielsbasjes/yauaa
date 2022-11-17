@@ -32,6 +32,13 @@
       "enabled": false
     },
     {
+      "description": "Disable major updates for Spring Framework 5.x to 6 (because 6 requires Java 17)",
+      "matchPackagePrefixes": ["org.springframework"],
+      "matchCurrentVersion": "[5.0.0,6.0.0)",
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "description": "Disable strange versions of graphql-java",
       "matchPackageNames": ["com.graphql-java:graphql-java"],
       "allowedVersions": "/^[0-9]{1,3}\\.[0-9]{1,3}(?:\\.[0-9]{1,3})?$/"
