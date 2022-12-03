@@ -458,6 +458,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     // In the above calculations there are fields that require additional input fields.
     private static final Map<String, Set<String>> EXTRA_FIELD_DEPENDENCIES = new TreeMap<>();
     static {
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME,               Collections.singleton(AGENT_VERSION));
         EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION,            Collections.singleton(AGENT_NAME));
         EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION,       Collections.singleton(AGENT_NAME));
         EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION_MAJOR,      Collections.singleton(AGENT_NAME));
