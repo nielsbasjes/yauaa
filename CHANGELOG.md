@@ -6,10 +6,11 @@ v7.9.0-SNAPSHOT
 - Analyzer:
   - Support having multiple places to define a lookup or set which are then merged.
 - New/improved detections
-  - Non standard Apple device tags.
+  - Non standard Apple device tags
   - Ignore the tags created by Kamo
   - Slightly better analysis of the Client Hints
-  - Correctly classify Googlebot variant.
+  - Detect Brave from Client Hints
+  - Correctly classify Googlebot variant
 
 v7.8.0
 ===
