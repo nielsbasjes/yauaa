@@ -297,154 +297,160 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         }
     }
 
-    private static final Set<String> CHROMIUM = new HashSet<>();
-    static {
-        CHROMIUM.add("Chromium");
-        CHROMIUM.add("Chrome");
+    private boolean newVersionIsBetter(MutableAgentField currentVersion, String version) {
+        boolean currentVersionHasMinor = currentVersion.getValue().contains(".");
+        boolean versionHasMinor = version.contains(".");
+        return currentVersion.isDefaultValue() ||
+            (!versionHasMinor && !currentVersionHasMinor) ||
+            (versionHasMinor);
     }
 
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
-        List<Brand> fullVersionList = clientHints.getFullVersionList();
-        if (fullVersionList != null && !fullVersionList.isEmpty()) {
-            String version;
-            String majorVersion;
+        boolean usingFullVersions = true;
+        List<Brand> versionList = clientHints.getFullVersionList();
+        if (versionList == null) {
+            versionList = clientHints.getBrands();
+            usingFullVersions = false;
+        }
 
-            String agentName;
-            for (Brand brand : fullVersionList) {
-                String[] versionSplits;
-                switch (brand.getName()) {
-                    case "Chromium":
-                        version = brand.getVersion();
-                        versionSplits = version.split("\\.");
-                        if (versionSplits.length == 4) {
-                            if (!"0".equals(versionSplits[1])) {
-                                continue;
-                            }
-                        }
-                        version = versionSplits[0] + '.' + versionSplits[1];
-                        majorVersion = versionSplits[0];
-                        overrideValue(userAgent.get(LAYOUT_ENGINE_NAME), "Blink");
-                        overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION), version);
-                        overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION), "Blink " + version);
-                        overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR), majorVersion);
-                        overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), "Blink "+ majorVersion);
+        if (versionList == null) {
+            return; // Nothing to do
+        }
 
-                        if (fullVersionList.size() == 1) { // NOTE: The grease was filtered out !
-                            // So we have "Chromium" and not "Chrome" or "Edge" or something else
-                            if (CHROMIUM.contains(userAgent.getValue(AGENT_NAME))) {
-                                agentName = "Chromium";
-                                version = brand.getVersion();
-                                overrideValue(userAgent.get(AGENT_NAME), agentName);
-                                overrideValue(userAgent.get(AGENT_VERSION), version);
-                                overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
-                                overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
-                                overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
-                            }
-                        }
+        final Map<String, Brand> versionMap = new TreeMap<>();
+        versionList.forEach(v -> versionMap.put(v.getName(), v));
 
-                        break;
+        // ========================
+        Brand chromium = versionMap.get("Chromium");
+        if (chromium != null) {
+            String version = chromium.getVersion();
+            String[] versionSplits = version.split("\\.");
+            String majorVersion = versionSplits[0];
 
-                    case "Google Chrome":
-                    case "Chrome":
-                        agentName = "Chrome";
-                        version = brand.getVersion();
-                        versionSplits = version.split("\\.");
-                        if (versionSplits.length == 4) {
-                            if (!"0".equals(versionSplits[1])) {
-                                continue;
-                            }
-                        }
-                        majorVersion = versionSplits[0];
-
-                        overrideValue(userAgent.get(AGENT_NAME), agentName);
-                        overrideValue(userAgent.get(AGENT_VERSION), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
-                        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
-                        break;
-
-                    case "Microsoft Edge":
-                    case "Edge":
-                        agentName = "Edge";
-                        version = brand.getVersion();
-                        versionSplits = version.split("\\.");
-                        if (versionSplits.length == 4) {
-                            if (!"0".equals(versionSplits[1])) {
-                                continue;
-                            }
-                        }
-                        majorVersion = versionSplits[0];
-
-                        overrideValue(userAgent.get(AGENT_NAME), agentName);
-                        overrideValue(userAgent.get(AGENT_VERSION), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
-                        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
-                        break;
-                    default:
-                        // Ignore
-                }
-            }
-        } else {
-            // No full versions available, only the major versions
-            ArrayList<Brand> brands = clientHints.getBrands();
-            if (brands == null) {
-                return;
+            // Work around the major in minor hack/feature of Chrome ~v99
+            if (versionSplits.length==4 && !"0".equals(versionSplits[1])) {
+                version = versionSplits[1] + ".0." + versionSplits[2] + '.' + versionSplits[3];
+                majorVersion = versionSplits[1];
             }
 
-            if (brands.size() == 1) { // NOTE: The grease was filtered out !
-                Brand brand = brands.get(0);
-                if ("Chromium".equals(brand.getName())) {
-                    // So we have "Chromium" and not "Chrome", "Edge", "Opera" or something else
-                    String version = brand.getVersion();
-                    // NOTE: No full version available, only the major version
-                    // We trust the Client hints more than the version we derived from the User-Agent.
+            // ==== Blink ?
+            MutableAgentField engineName = userAgent.get(LAYOUT_ENGINE_NAME);
+            if (engineName.isDefaultValue() || !"Blink".equals(engineName.getValue())) {
+                overrideValue(engineName, "Blink");
+            }
+            MutableAgentField engineVersion = userAgent.get(LAYOUT_ENGINE_VERSION);
+            MutableAgentField engineMajorVersion = userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR);
+            String blinkVersion = majorVersion;
+            if (versionSplits.length>1) {
+                blinkVersion = majorVersion + ".0";
+            }
+            if (newVersionIsBetter(engineVersion, blinkVersion)) {
+                overrideValue(engineVersion, blinkVersion);
+                overrideValue(engineMajorVersion, majorVersion);
+            }
 
-                    overrideValue(userAgent.get(LAYOUT_ENGINE_NAME), "Blink");
-                    overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION), version);
-                    overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION), "Blink " + version);
-                    overrideValue(userAgent.get(LAYOUT_ENGINE_VERSION_MAJOR), version);
-                    overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), "Blink " + version);
+            overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION), engineName.getValue() + " " + engineVersion.getValue());
+            overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), engineName.getValue() + " " + engineMajorVersion.getValue());
 
-                    // So we have "Chromium" and not "Chrome" or "Edge" or something else
-                    if (CHROMIUM.contains(userAgent.getValue(AGENT_NAME))) {
+            // ===== Chromium browser?
+            if (versionList.size() == 1) { // NOTE: The grease was filtered out !
+                // So we have "Chromium" and not "Chrome" or "Edge" or something else
+                MutableAgentField currentVersion = userAgent.get(AGENT_VERSION);
+                if (newVersionIsBetter(currentVersion, version)) {
+                    overrideValue(userAgent.get(AGENT_NAME), "Chromium");
+                    overrideValue(userAgent.get(AGENT_VERSION), version);
+                    overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium " + version);
+                    overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
+                    overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium " + majorVersion);
+                } else {
+                    // We ONLY update the name of the agent to Chromium in some cases
+                    if ("Chrome".equals(userAgent.getValue(AGENT_NAME))) {
                         overrideValue(userAgent.get(AGENT_NAME), "Chromium");
-                        overrideValue(userAgent.get(AGENT_VERSION), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium " + version);
-                        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium " + version);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chromium " + currentVersion.getValue());
+
+                        String currentMajorVersion = userAgent.getValue(AGENT_VERSION_MAJOR);
+                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chromium " + currentMajorVersion);
                     }
                 }
+
                 return;
             }
+        }
+        versionMap.remove("Chromium");
 
-            for (Brand brand : brands) {
-                String[] versionSplits;
-                switch (brand.getName()) {
-                    case "Microsoft Edge":
-                    case "Edge":
-                        MutableAgentField agentName = userAgent.get(AGENT_NAME);
-                        if (agentName.getValue().equals("Edge")) {
-                            continue;
-                        }
-                        String version = brand.getVersion();
-                        versionSplits = version.split("\\.");
-                        if (versionSplits.length == 4) {
-                            if (!"0".equals(versionSplits[1])) {
-                                continue;
-                            }
-                        }
-                        String majorVersion = versionSplits[0];
+        // ========================
+        Brand chrome = versionMap.get("Chrome");
+        if (chrome == null) {
+            chrome = versionMap.get("Google Chrome");
+        }
+        if (chrome != null) {
+            if (versionMap.size() == 1) {
+                // So we have "Chrome" and nothing else
+                MutableAgentField currentVersion = userAgent.get(AGENT_VERSION);
+                String version = chrome.getVersion();
+                String[] versionSplits = version.split("\\.");
+                String majorVersion = versionSplits[0];
 
-                        overrideValue(agentName, "Edge");
-                        overrideValue(userAgent.get(AGENT_VERSION), version);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION), "Edge " + version);
-                        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
-                        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Edge " + majorVersion);
-                        break;
-                    default:
+                // Work around the major in minor hack/feature of Chrome ~v99
+                // 99.100.x.y is really 100.0.x.y
+                if (versionSplits.length==4 && !"0".equals(versionSplits[1])) {
+                    version = versionSplits[1] + ".0." + versionSplits[2] + '.' + versionSplits[3];
+                    majorVersion = versionSplits[1];
                 }
+
+//                if (currentVersion.isDefaultValue()  ||
+//                    (!currentVersion.getValue().contains(".") && usingFullVersions)) {
+                if (newVersionIsBetter(currentVersion, version)) {
+                    overrideValue(userAgent.get(AGENT_NAME), "Chrome");
+                    overrideValue(currentVersion, version);
+                    overrideValue(userAgent.get(AGENT_NAME_VERSION), "Chrome " + version);
+                    overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
+                    overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), "Chrome " + majorVersion);
+                    return;
+                }
+            }
+        }
+        versionMap.remove("Chrome");
+        versionMap.remove("Google Chrome");
+        // ========================
+
+        // If anything remains then (we think) THAT is the truth...
+        for (Map.Entry<String, Brand> brandEntry : versionMap.entrySet()) {
+            Brand brand = brandEntry.getValue();
+            String rawBrandName = brand.getName();
+            String agentName = rawBrandName;
+
+            // Sanitize the common yet unwanted names
+            switch (rawBrandName) {
+                case "Microsoft Edge":
+                    agentName = "Edge";
+                    break;
+                default:
+            }
+
+            MutableAgentField agentNameField = userAgent.get(AGENT_NAME);
+            MutableAgentField agentVersionField = userAgent.get(AGENT_VERSION);
+
+            switch (agentName) {
+                case "Opera":
+                    // There is a bug in Opera which puts the wrong version in the client hints.
+                    break;
+
+                default:
+                    // Only do this if the existing in only a major version, and we have received full versions
+                    if (agentVersionField.getValue().contains(".") && !usingFullVersions){
+                        continue;
+                    }
+                    // In all other cases the client hint is expected to be "more" true.
+                    String version = brand.getVersion();
+                    String majorVersion = version.split("\\.")[0];
+                    overrideValue(agentNameField, agentName);
+                    overrideValue(userAgent.get(AGENT_VERSION), version);
+                    overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
+                    overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
+                    overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
+                    break;
             }
         }
     }

@@ -7,6 +7,8 @@ v7.9.0-SNAPSHOT
   - Support having multiple places to define a lookup or set which are then merged.
 - New/improved detections
   - Non standard Apple device tags.
+  - Ignore the tags created by Kamo
+  - Slightly better analysis of the Client Hints
 
 v7.8.0
 ===
