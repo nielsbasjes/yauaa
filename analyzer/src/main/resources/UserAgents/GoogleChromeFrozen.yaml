@@ -864,6 +864,7 @@ config:
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
     - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     extract:
     - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
     - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
@@ -889,6 +890,7 @@ config:
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
     - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     extract:
     - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
     - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
@@ -1273,10 +1275,10 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Windows NT ??'
-      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '93'
@@ -1868,6 +1870,37 @@ config:
       UAClientHintWow64                          : 'false'
 
 
+# Edge on Windows 7
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '107'
+      LayoutEngineVersionMajor             : '107'
+      LayoutEngineNameVersion              : 'Blink 107'
+      LayoutEngineNameVersionMajor         : 'Blink 107'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '107'
+      AgentVersionMajor                    : '107'
+      AgentNameVersion                     : 'Edge 107'
+      AgentNameVersionMajor                : 'Edge 107'
+
+
+# Edge on Windows 10/11
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.52'
@@ -1882,10 +1915,10 @@ config:
       DeviceCpuBits                        : '64'
       OperatingSystemClass                 : 'Desktop'
       OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Windows NT ??'
-      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
       LayoutEngineVersion                  : '107'

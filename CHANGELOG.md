@@ -12,6 +12,7 @@ v7.9.0-SNAPSHOT
   - Detect Brave from Client Hints
   - Correctly classify Googlebot variant
   - Problematic cases of Quant browser
+  - Correct Windows version reported for Edge
 
 v7.8.0
 ===
