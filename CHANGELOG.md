@@ -13,6 +13,7 @@ v7.9.0-SNAPSHOT
   - Correctly classify Googlebot variant
   - Problematic cases of Quant browser
   - Correct Windows version reported for Edge
+  - Improve headless browsers ( AgentClass=Robot , AgentName="Chrome"/"Edge" )
 
 v7.8.0
 ===

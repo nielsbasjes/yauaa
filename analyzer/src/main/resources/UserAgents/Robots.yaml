@@ -6924,8 +6924,20 @@ config:
     - 'LayoutEngineName                    :   310000 : "Blink"'
     - 'LayoutEngineVersion                 :   310000 : @HeadlessChrome^.version[-2]'
     - 'AgentClass                          :   210000 : "Robot"'
-    - 'AgentName                           :   210000 : "HeadlessChrome"'
+    - 'AgentName                           :   210000 : "Chrome"'
     - 'AgentVersion                        :   210000 : @HeadlessChrome^.version'
+
+# Similar: Headless Edge
+- matcher:
+    variable:
+    - 'Edge                      :agent.product.name="Edg"'
+    require:
+    -  'agent.product.name="HeadlessChrome"'
+    extract:
+    - 'AgentClass                          :   210001 : "Robot"'
+    - 'AgentName                           :   210001 : "Edge"'
+    - 'AgentVersion                        :   210001 : @Edge^.version'
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/68.0.3440.106 Safari/537.36'
@@ -6948,11 +6960,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 68.0'
       LayoutEngineNameVersionMajor         : 'Blink 68'
       AgentClass                           : 'Robot'
-      AgentName                            : 'HeadlessChrome'
+      AgentName                            : 'Chrome'
       AgentVersion                         : '68.0.3440.106'
       AgentVersionMajor                    : '68'
-      AgentNameVersion                     : 'HeadlessChrome 68.0.3440.106'
-      AgentNameVersionMajor                : 'HeadlessChrome 68'
+      AgentNameVersion                     : 'Chrome 68.0.3440.106'
+      AgentNameVersionMajor                : 'Chrome 68'
 
 
 - test:
@@ -6977,11 +6989,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 78.0'
       LayoutEngineNameVersionMajor         : 'Blink 78'
       AgentClass                           : 'Robot'
-      AgentName                            : 'HeadlessChrome'
+      AgentName                            : 'Chrome'
       AgentVersion                         : '78.0.3904.70'
       AgentVersionMajor                    : '78'
-      AgentNameVersion                     : 'HeadlessChrome 78.0.3904.70'
-      AgentNameVersionMajor                : 'HeadlessChrome 78'
+      AgentNameVersion                     : 'Chrome 78.0.3904.70'
+      AgentNameVersionMajor                : 'Chrome 78'
 
 
 - test:
@@ -7006,11 +7018,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 71.0'
       LayoutEngineNameVersionMajor         : 'Blink 71'
       AgentClass                           : 'Robot'
-      AgentName                            : 'HeadlessChrome'
+      AgentName                            : 'Chrome'
       AgentVersion                         : '71.0.3578.80'
       AgentVersionMajor                    : '71'
-      AgentNameVersion                     : 'HeadlessChrome 71.0.3578.80'
-      AgentNameVersionMajor                : 'HeadlessChrome 71'
+      AgentNameVersion                     : 'Chrome 71.0.3578.80'
+      AgentNameVersionMajor                : 'Chrome 71'
 
 
 - test:
@@ -7035,11 +7047,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 6.6'
       LayoutEngineNameVersionMajor         : 'Blink 6'
       AgentClass                           : 'Robot'
-      AgentName                            : 'HeadlessChrome'
+      AgentName                            : 'Chrome'
       AgentVersion                         : '6.6.6'
       AgentVersionMajor                    : '6'
-      AgentNameVersion                     : 'HeadlessChrome 6.6.6'
-      AgentNameVersionMajor                : 'HeadlessChrome 6'
+      AgentNameVersion                     : 'Chrome 6.6.6'
+      AgentNameVersionMajor                : 'Chrome 6'
 
 - test:
     input:
@@ -7063,11 +7075,11 @@ config:
       LayoutEngineNameVersion              : 'Blink 71.0'
       LayoutEngineNameVersionMajor         : 'Blink 71'
       AgentClass                           : 'Robot'
-      AgentName                            : 'HeadlessChrome'
+      AgentName                            : 'Chrome'
       AgentVersion                         : '71.0.3563.0'
       AgentVersionMajor                    : '71'
-      AgentNameVersion                     : 'HeadlessChrome 71.0.3563.0'
-      AgentNameVersionMajor                : 'HeadlessChrome 71'
+      AgentNameVersion                     : 'Chrome 71.0.3563.0'
+      AgentNameVersionMajor                : 'Chrome 71'
 
 
 - test:
