@@ -157,6 +157,34 @@ config:
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
 
 
+# https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers#googlebot-desktop
+- test:
+    input:
+      user_agent_string: 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google BOT'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Googlebot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Googlebot ??'
+      LayoutEngineNameVersionMajor         : 'Googlebot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Googlebot'
+      AgentVersion                         : '2.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Googlebot 2.1'
+      AgentNameVersionMajor                : 'Googlebot 2'
+      AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
 # ------------------------------------------------------------
 
 - test:
