@@ -11,6 +11,7 @@ v7.9.0-SNAPSHOT
   - Slightly better analysis of the Client Hints
   - Detect Brave from Client Hints
   - Correctly classify Googlebot variant
+  - Problematic cases of Quant browser
 
 v7.8.0
 ===

@@ -54,6 +54,7 @@ config:
       # https://play.google.com/store/apps/details?id=com.qwant.liberty&hl=en&gl=US
       # https://apps.apple.com/nl/app/qwant/id924470452
       'h QwantMobile'     : 'Qwant'
+      'h  QwantMobile'     : 'Qwant' # Needed because of String replace in Evil hacks code
       'QwantMobile'       : 'Qwant'
       'QwantBrowser'      : 'Qwant'
 
@@ -1936,6 +1937,33 @@ config:
       AgentNameVersion                     : 'Qwant 2.0'
       AgentNameVersionMajor                : 'Qwant 2'
 
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 10; Mobile; rv:100.0) Gecko/100.0 Firefox/100.0QwantMobile/4.2'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Gecko 100.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 100'
+      LayoutEngineBuild                    : '100.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Qwant'
+      AgentVersion                         : '4.2'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Qwant 4.2'
+      AgentNameVersionMajor                : 'Qwant 4'
 
 - test:
     input:
