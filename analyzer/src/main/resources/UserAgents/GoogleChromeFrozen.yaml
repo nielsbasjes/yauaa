@@ -1526,10 +1526,41 @@ config:
     - 'OperatingSystemNameVersion          :      102 : "Windows >=10"'
     - 'OperatingSystemNameVersionMajor     :      102 : "Windows >=10"'
 
+# Headless Chrome
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="HeadlessChrome"^'
+    require:
+    - 'IsNull[@Chrome>>]'
+    - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
+    - '@Chrome.version[1]!?ChromeWindows10Reliable'
+    extract:
+    - 'OperatingSystemName                 :      102 : "Windows NT"'
+    - 'OperatingSystemVersion              :      102 : ">=10"'
+    - 'OperatingSystemVersionMajor         :      102 : ">=10"'
+    - 'OperatingSystemNameVersion          :      102 : "Windows >=10"'
+    - 'OperatingSystemNameVersionMajor     :      102 : "Windows >=10"'
+
 # Edge
 - matcher:
     variable:
     - 'Chrome                              :agent.product.name="Chrome"^'
+    require:
+    - 'agent.product.name="Edg"' # Performance trick
+    - '@Chrome>>.name="Edg"'
+    - 'agent.(1)product.(1)comments.entry="Windows NT 10.0"'
+    - '@Chrome.version[1]!?ChromeWindows10Reliable'
+    extract:
+    - 'OperatingSystemName                 :      102 : "Windows NT"'
+    - 'OperatingSystemVersion              :      102 : ">=10"'
+    - 'OperatingSystemVersionMajor         :      102 : ">=10"'
+    - 'OperatingSystemNameVersion          :      102 : "Windows >=10"'
+    - 'OperatingSystemNameVersionMajor     :      102 : "Windows >=10"'
+
+# Headless Edge
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="HeadlessChrome"^'
     require:
     - 'agent.product.name="Edg"' # Performance trick
     - '@Chrome>>.name="Edg"'

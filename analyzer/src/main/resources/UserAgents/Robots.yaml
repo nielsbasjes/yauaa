@@ -7082,6 +7082,65 @@ config:
       AgentNameVersionMajor                : 'Chrome 71'
 
 
+# Headless Edge testcases
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/107.0.1418.42 Safari/537.36 Edg/107.0.1418.42'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '107.0'
+      LayoutEngineVersionMajor             : '107'
+      LayoutEngineNameVersion              : 'Blink 107.0'
+      LayoutEngineNameVersionMajor         : 'Blink 107'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '107.0.1418.42'
+      AgentVersionMajor                    : '107'
+      AgentNameVersion                     : 'Edge 107.0.1418.42'
+      AgentNameVersionMajor                : 'Edge 107'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/107.0.5304.110 Safari/537.36 Edg/107.0.1418.56'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.15.7'
+      OperatingSystemVersionMajor          : '10.15'
+      OperatingSystemNameVersion           : 'Mac OS 10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '107.0'
+      LayoutEngineVersionMajor             : '107'
+      LayoutEngineNameVersion              : 'Blink 107.0'
+      LayoutEngineNameVersionMajor         : 'Blink 107'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '107.0.1418.56'
+      AgentVersionMajor                    : '107'
+      AgentNameVersion                     : 'Edge 107.0.1418.56'
+      AgentNameVersionMajor                : 'Edge 107'
+
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/60.0.3095.0 Safari/537.36 SeoSiteCheckup (https://seositecheckup.com)'
