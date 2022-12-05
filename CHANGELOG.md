@@ -1,7 +1,12 @@
 
 This is intended as an overview of the major changes
 
-v7.9.0-SNAPSHOT
+v7.10.0-SNAPSHOT
+===
+- New/improved detections
+  - ...
+
+v7.9.0
 ===
 - Analyzer:
   - Support having multiple places to define a lookup or set which are then merged.
