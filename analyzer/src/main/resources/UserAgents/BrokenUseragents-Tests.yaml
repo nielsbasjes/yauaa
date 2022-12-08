@@ -3393,6 +3393,9 @@ config:
 
 # https://github.com/nielsbasjes/yauaa/issues/842
 # Caused an ArrayIndexOutOfBoundsException in Yauaa 7.0.0 - 7.8.0
+# Specifically: in the Full-Version-List the version for Chromium is only a major version.
+# This problem was reported as CVE-2022-23496
+# https://github.com/nielsbasjes/yauaa/security/advisories/GHSA-c4pm-63cg-9j7h
 - test:
     input:
       User-Agent                                 : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'
