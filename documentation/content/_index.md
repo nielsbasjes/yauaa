@@ -10,6 +10,11 @@ Works with Java, Scala, Kotlin and provides ready for use UDFs for several proce
 The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa.basjes.nl)
 
 ---
+
+# ALL USERS OF THE CLIENTHINTS FEATURE ARE URGED TO UPDATE TO 7.9.0
+See this [Security Advisory](https://github.com/nielsbasjes/yauaa/security/advisories/GHSA-c4pm-63cg-9j7h)
+
+
 ## HIGH Profile release notes:
 
 ### Version 7.8.0
