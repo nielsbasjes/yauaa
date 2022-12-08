@@ -14,7 +14,7 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 ## ALL USERS OF THE CLIENTHINTS ANALYSIS FEATURE ARE URGED TO UPDATE TO 7.9.0
 In a specific case of bad data in the Client Hints yauaa 7.0.0-7.8.0 will throw an ArrayIndexOutOfBoundsException.
 
-See [Security Advisory: CVE-2022-23496](https://githubcom/nielsbasjes/yauaa/security/advisories/GHSA-c4pm-63cg-9j7h)
+See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/security/advisories/GHSA-c4pm-63cg-9j7h)
 
 
 ## HIGH Profile release notes:
