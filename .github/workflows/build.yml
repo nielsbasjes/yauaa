@@ -46,46 +46,45 @@ jobs:
         distribution: 'adopt'
         java-version: |
           8
-          11.0.16
           11
           17
 
-    - name: 'Setup: Create toolchains.xml'
-      shell: bash
-      run: |
-        mkdir -p $HOME/.m2 \
-        && cat << EOF > $HOME/.m2/toolchains.xml
-        <?xml version="1.0" encoding="UTF8"?>
-        <toolchains>
-            <toolchain>
-                <type>jdk</type>
-                <provides>
-                    <version>8</version>
-                </provides>
-                <configuration>
-                    <jdkHome>${{ env.JAVA_HOME_8_X64 }}</jdkHome>
-                </configuration>
-            </toolchain>
-            <toolchain>
-                <type>jdk</type>
-                <provides>
-                    <version>11</version>
-                </provides>
-                <configuration>
-                    <jdkHome>${{ env.JAVA_HOME_11_X64 }}</jdkHome>
-                </configuration>
-            </toolchain>
-            <toolchain>
-                <type>jdk</type>
-                <provides>
-                    <version>17</version>
-                </provides>
-                <configuration>
-                    <jdkHome>${{ env.JAVA_HOME_17_X64 }}</jdkHome>
-                </configuration>
-            </toolchain>
-        </toolchains>
-        EOF
+#    - name: 'Setup: Create toolchains.xml'
+#      shell: bash
+#      run: |
+#        mkdir -p $HOME/.m2 \
+#        && cat << EOF > $HOME/.m2/toolchains.xml
+#        <?xml version="1.0" encoding="UTF8"?>
+#        <toolchains>
+#            <toolchain>
+#                <type>jdk</type>
+#                <provides>
+#                    <version>8</version>
+#                </provides>
+#                <configuration>
+#                    <jdkHome>${{ env.JAVA_HOME_8_X64 }}</jdkHome>
+#                </configuration>
+#            </toolchain>
+#            <toolchain>
+#                <type>jdk</type>
+#                <provides>
+#                    <version>11</version>
+#                </provides>
+#                <configuration>
+#                    <jdkHome>${{ env.JAVA_HOME_11_X64 }}</jdkHome>
+#                </configuration>
+#            </toolchain>
+#            <toolchain>
+#                <type>jdk</type>
+#                <provides>
+#                    <version>17</version>
+#                </provides>
+#                <configuration>
+#                    <jdkHome>${{ env.JAVA_HOME_17_X64 }}</jdkHome>
+#                </configuration>
+#            </toolchain>
+#        </toolchains>
+#        EOF
 
     - name: 'Setup: Verify'
       shell: bash
