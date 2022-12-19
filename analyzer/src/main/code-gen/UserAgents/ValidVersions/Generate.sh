@@ -104,7 +104,7 @@ do
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
     - 'DeviceClass                         :    10000 :"Robot"'
-    - 'RemarkablePattern                   :      100: "Not a version"'
+    - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
     variable:
@@ -114,8 +114,7 @@ do
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
-    - 'RemarkablePattern                   :      100: "Not a version"'
+    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
 End-of-message
 done
 

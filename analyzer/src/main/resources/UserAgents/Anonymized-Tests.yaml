@@ -747,7 +747,7 @@ config:
       AgentNameVersionMajor                : 'TO-Browser TOB7'
       RemarkablePattern                    : 'Anonymized'
 
-# Robot because of nonsnse version
+# Robot because of nonsense version
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.2914.144 Safari/537.36 Edg/BOTXMTJFVV4'
@@ -777,7 +777,7 @@ config:
       AgentNameVersionMajor                : 'Edge BOTXMTJFVV4'
       RemarkablePattern                    : 'Not a version'
 
-# Robot because of nonsnse version --> NOT Hacker (Nmap)
+# Robot because of nonsense version --> NOT Hacker (Nmap)
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.3555.887 Safari/NMAP4H'
@@ -808,7 +808,7 @@ config:
       RemarkablePattern                    : 'Not a version'
 
 
-# Robot because of nonsnse version --> NOT Hacker (Nmap)
+# Robot because of nonsense version --> NOT Hacker (Nmap)
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.1126.742 Safari/537.36 OPR/43ENDRNMAP1GSITEP'
@@ -1351,3 +1351,213 @@ config:
       AgentNameVersion                     : 'Chrome 96.0.1054.57'
       AgentNameVersionMajor                : 'Chrome 96'
       RemarkablePattern                    : 'Anonymized'
+
+
+# https://github.com/nielsbasjes/yauaa/issues/848
+# A messy second version is usually a normal client combined with an anti fingerprinting tool.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; ANA-LX4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.110 Mobile Safari/537.36/quickapp))'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ANA-LX4'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '86.0'
+      LayoutEngineVersionMajor             : '86'
+      LayoutEngineNameVersion              : 'Blink 86.0'
+      LayoutEngineNameVersionMajor         : 'Blink 86'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '86.0.4240.110'
+      AgentVersionMajor                    : '86'
+      AgentNameVersion                     : 'Chrome 86.0.4240.110'
+      AgentNameVersionMajor                : 'Chrome 86'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36/AbXJL0Fq5KNyln588U7'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '100.0.4896.88'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Chrome 100.0.4896.88'
+      AgentNameVersionMajor                : 'Chrome 100'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36/EAWinDTe5'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '103'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Chrome 103'
+      AgentNameVersionMajor                : 'Chrome 103'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.56/UHYlQ2yl-59'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '107'
+      LayoutEngineVersionMajor             : '107'
+      LayoutEngineNameVersion              : 'Blink 107'
+      LayoutEngineNameVersionMajor         : 'Blink 107'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Edge'
+      AgentVersion                         : '107'
+      AgentVersionMajor                    : '107'
+      AgentNameVersion                     : 'Edge 107'
+      AgentNameVersionMajor                : 'Edge 107'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36/8vGeL2cj-43'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36/LfbJP46o-14'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '76.0'
+      LayoutEngineVersionMajor             : '76'
+      LayoutEngineNameVersion              : 'Blink 76.0'
+      LayoutEngineNameVersionMajor         : 'Blink 76'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '76.0.3809.100'
+      AgentVersionMajor                    : '76'
+      AgentNameVersion                     : 'Chrome 76.0.3809.100'
+      AgentNameVersionMajor                : 'Chrome 76'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36/Ggaxc2uX-3'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Blink 75.0'
+      LayoutEngineNameVersionMajor         : 'Blink 75'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '75.0.3770.142'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Chrome 75.0.3770.142'
+      AgentNameVersionMajor                : 'Chrome 75'
+      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
