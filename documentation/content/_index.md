@@ -16,8 +16,11 @@ In a specific case of bad data in the Client Hints yauaa 7.0.0-7.8.0 will throw 
 
 See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/security/advisories/GHSA-c4pm-63cg-9j7h)
 
-
 ## HIGH Profile release notes:
+
+### Version 7.9.1
+- New/improved detections
+  - Bad secondary version is now assumes to be Anti fingerprinting instead of Robot.
 
 ### Version 7.8.0
 - New/improved detections

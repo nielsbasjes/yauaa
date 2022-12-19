@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 v7.10.0-SNAPSHOT
 ===
 - New/improved detections
+  - ...
+
+v7.9.1
+===
+- New/improved detections
   - Bad secondary version is now assumes to be Anti fingerprinting instead of Robot.
 
 v7.9.0
