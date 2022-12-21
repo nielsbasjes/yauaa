@@ -147,8 +147,13 @@ class TestClientHintsParsing {
     }
 
     @Test
-    void testSecChUaBadValue() {
+    void testSecChUaBadValue1() {
         assertNull(parse(SEC_CH_UA, "xxx").getBrands());
+    }
+
+    @Test
+    void testSecChUaBadValue2() {
+        assertNull(parse(SEC_CH_UA, "|").getBrands());
     }
 
     @Test
@@ -179,6 +184,21 @@ class TestClientHintsParsing {
     }
 
     @Test
+    void testSecChUaArchBadValueNoQuotes() {
+        assertNull(parse(SEC_CH_UA_ARCH, "xxx").getArchitecture());
+    }
+
+    @Test
+    void testSecChUaArchBadValueOneQuoteLeft() {
+        assertNull(parse(SEC_CH_UA_ARCH, "\"xxx").getArchitecture());
+    }
+
+    @Test
+    void testSecChUaArchBadValueOneQuoteRight() {
+        assertNull(parse(SEC_CH_UA_ARCH, "xxx\"").getArchitecture());
+    }
+
+    @Test
     void testSecChUaArchEmpty() {
         assertNull(parse(SEC_CH_UA_ARCH, "\"\"").getArchitecture());
     }
@@ -205,6 +225,21 @@ class TestClientHintsParsing {
     }
 
     @Test
+    void testSecChUaBitnessBadValueNoQuotes() {
+        assertNull(parse(SEC_CH_UA_BITNESS, "xxx").getBitness());
+    }
+
+    @Test
+    void testSecChUaBitnessBadValueOneQuoteLeft() {
+        assertNull(parse(SEC_CH_UA_BITNESS, "\"xxx").getBitness());
+    }
+
+    @Test
+    void testSecChUaBitnessBadValueOneQuoteRight() {
+        assertNull(parse(SEC_CH_UA_BITNESS, "xxx\"").getBitness());
+    }
+
+    @Test
     void testSecChUaBitnessNull() {
         assertNull(parse(SEC_CH_UA_BITNESS, null).getBitness());
     }
@@ -223,6 +258,11 @@ class TestClientHintsParsing {
     @Test
     void testSecChUaFullVersionEmpty() {
         assertNull(parse(SEC_CH_UA_FULL_VERSION, "\"\"").getFullVersion());
+    }
+
+    @Test
+    void testSecChUaFullVersionBad() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION, "\"").getFullVersion());
     }
 
     @Test
@@ -247,6 +287,19 @@ class TestClientHintsParsing {
     }
 
     @Test
+    void testSecChUaFullVersionListMajorOnly() {
+        ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "\" Not A;Brand\";v=\"2\", \"Chromium\";v=\"2\", \"Google Chrome\";v=\"3\"");
+        List<Brand> brands = clientHints.getFullVersionList();
+        assertNotNull(brands);
+        assertEquals(2, brands.size());
+        assertEquals("Chromium",        brands.get(0).getName());
+        assertEquals("2",               brands.get(0).getVersion());
+        assertEquals("Google Chrome",   brands.get(1).getName());
+        assertEquals("3",               brands.get(1).getVersion());
+        LOG.info("{}", clientHints);
+    }
+
+    @Test
     void testSecChUaFullVersionListExtraSpaces() {
         ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "  \" Not A;Brand\"  ;   v=\"99.0.0.0\"  ,   \"Chromium\"  ;  v  =  \"99.0.4844.51\"   ,    \"Google Chrome\"   ;   v  =  \"99.0.4844.51\"   ");
         List<Brand> brands = clientHints.getFullVersionList();
@@ -259,8 +312,49 @@ class TestClientHintsParsing {
     }
 
     @Test
-    void testSecChUaFullVersionListBadValue() {
+    void testSecChUaFullVersionListTinyVersion() {
+        ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "\"x\";v=\"x\"");
+        List<Brand> brands = clientHints.getFullVersionList();
+        assertNotNull(brands);
+        assertEquals(1, brands.size());
+        assertEquals("x",               brands.get(0).getName());
+        assertEquals("x",               brands.get(0).getVersion());
+    }
+
+    @Test
+    void testSecChUaFullVersionListEmptyVersion() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "\"x\";v=\"\"").getFullVersionList());
+    }
+
+    @Test
+    void testSecChUaFullVersionListBadVersion() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "\"x\";v=\"|\"").getFullVersionList());
+    }
+
+    @Test
+    void testSecChUaFullVersionListOneQuoteVersion() {
+        // The parser is a tad too forgiving and still accepts this.
+        ClientHints clientHints = parse(SEC_CH_UA_FULL_VERSION_LIST, "\"x\";v=\"x");
+        List<Brand> brands = clientHints.getFullVersionList();
+        assertNotNull(brands);
+        assertEquals(1, brands.size());
+        assertEquals("x",               brands.get(0).getName());
+        assertEquals("x",               brands.get(0).getVersion());
+    }
+
+    @Test
+    void testSecChUaFullVersionListNoQuotesVersion() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "\"x\";v=").getFullVersionList());
+    }
+
+    @Test
+    void testSecChUaFullVersionListBadValue1() {
         assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "xxx").getFullVersionList());
+    }
+
+    @Test
+    void testSecChUaFullVersionListBadValue2() {
+        assertNull(parse(SEC_CH_UA_FULL_VERSION_LIST, "|").getFullVersionList());
     }
 
     @Test
@@ -371,6 +465,21 @@ class TestClientHintsParsing {
     }
 
     @Test
+    void testSecChUaPlatformBadValueNoQuotes() {
+        assertNull(parse(SEC_CH_UA_PLATFORM, "xxx").getPlatform());
+    }
+
+    @Test
+    void testSecChUaPlatformBadValueOneQuoteLeft() {
+        assertNull(parse(SEC_CH_UA_PLATFORM, "\"xxx").getPlatform());
+    }
+
+    @Test
+    void testSecChUaPlatformBadValueOneQuoteRight() {
+        assertNull(parse(SEC_CH_UA_PLATFORM, "xxx\"").getPlatform());
+    }
+
+    @Test
     void testSecChUaPlatformNull() {
         ClientHints clientHints = parse(SEC_CH_UA_PLATFORM, null);
         String platform = clientHints.getPlatform();
@@ -393,6 +502,21 @@ class TestClientHintsParsing {
         ClientHints clientHints = parse(SEC_CH_UA_PLATFORM_VERSION, "\"\"");
         String platform = clientHints.getPlatformVersion();
         assertNull(platform);
+    }
+
+    @Test
+    void testSecChUaPlatformVersionBadValueNoQuotes() {
+        assertNull(parse(SEC_CH_UA_PLATFORM_VERSION, "xxx").getPlatformVersion());
+    }
+
+    @Test
+    void testSecChUaPlatformVersionBadValueOneQuoteLeft() {
+        assertNull(parse(SEC_CH_UA_PLATFORM_VERSION, "\"xxx").getPlatformVersion());
+    }
+
+    @Test
+    void testSecChUaPlatformVersionBadValueOneQuoteRight() {
+        assertNull(parse(SEC_CH_UA_PLATFORM_VERSION, "xxx\"").getPlatformVersion());
     }
 
     @Test

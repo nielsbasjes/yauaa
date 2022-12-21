@@ -27,9 +27,13 @@ import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.DefaultErrorStrategy;
+import org.antlr.v4.runtime.InputMismatchException;
+import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
 
@@ -40,7 +44,7 @@ public class BrandListParser extends ClientHintsBaseVisitor<Void> implements Def
     }
 
     @Getter
-    private ArrayList<Brand> result;
+    private final ArrayList<Brand> result;
 
     public BrandListParser(String inputString) {
         result = new ArrayList<>();
@@ -53,6 +57,14 @@ public class BrandListParser extends ClientHintsBaseVisitor<Void> implements Def
         ClientHintsParser parser = new ClientHintsParser(tokens);
         parser.removeErrorListeners();
         parser.addErrorListener(this);
+
+        // Explicitly do not recover from errors. Bad data must be dropped.
+        parser.setErrorHandler(new DefaultErrorStrategy() {
+            @Override
+            protected Token getMissingSymbol(Parser recognizer) {
+                throw new InputMismatchException(recognizer);
+            }
+        });
 
         ParserRuleContext brandVersionListContext = parser.brandList();
         visit(brandVersionListContext);

@@ -32,6 +32,7 @@ import java.util.TreeMap;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class TestClientHintsCaching {
@@ -114,5 +115,44 @@ class TestClientHintsCaching {
         assertSame(userAgent2, userAgent4);
     }
 
+    // ------------------------------------------
 
+    @Test
+    void testCachingInitialization() {
+        ClientHintsHeadersParser parser = new ClientHintsHeadersParser();
+        parser.setCacheSize(1);
+        parser.initializeCache();
+
+        assertEquals(1, parser.getCacheSize());
+
+
+        parser = new ClientHintsHeadersParser();
+        parser.setCacheSize(0);
+        parser.initializeCache();
+
+        assertEquals(0, parser.getCacheSize());
+    }
+
+    @Test
+    void testToString() {
+        ClientHintsHeadersParser parser = new ClientHintsHeadersParser();
+        LOG.info("{}", parser);
+
+        Map<String, String> requestHeaders = new TreeMap<>();
+        // Shuffled the order of the headers and changed the case of the header names
+        requestHeaders.put("SEC-CH-UA-Platform-Version", "\"0.1.0\"");
+        requestHeaders.put("A-non-ClientHintHeader", "Something else");
+        requestHeaders.put("SEC-CH-UA", "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"100\", \"Google Chrome\";v=\"100\"");
+        requestHeaders.put("SEC-CH-UA-Mobile", "?0");
+        requestHeaders.put("SEC-CH-UA-Arch", "\"x86\"");
+        requestHeaders.put("SEC-CH-UA-Wow64", "?0");
+        requestHeaders.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36");
+        requestHeaders.put("SEC-CH-UA-Model", "\"\"");
+        requestHeaders.put("SEC-CH-UA-Full-Version-List", "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"100.0.4896.75\", \"Google Chrome\";v=\"100.0.4896.75\"");
+        requestHeaders.put("SEC-CH-UA-Platform", "\"Windows\"");
+
+        ClientHints clientHints = parser.parse(requestHeaders);
+        LOG.info("{}", clientHints);
+        assertTrue(clientHints.toString().contains("ClientHints.Brand(name=Google Chrome, version=100.0.4896.75)"));
+    }
 }

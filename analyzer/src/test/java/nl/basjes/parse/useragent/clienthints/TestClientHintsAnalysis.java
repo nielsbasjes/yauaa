@@ -423,4 +423,101 @@ class TestClientHintsAnalysis {
         assertValid(testCase, "Full ClientHints");
     }
 
+    @Test
+    void testUnknownPlatform() {
+        String userAgent =              "Mozilla/5.0 (X11; Linux 1.2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.0.0 Safari/537.36";
+        String secChUa =                "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"";
+        String secChUaArch =            "\"x86\"";
+        String secChUaBitness =         "\"123\"";
+        String secChUaFullVersionList = "\" Not A;Brand\";v=\"99.0.0.0\", \"Chromium\";v=\"99.0.4844.51\", \"Google Chrome\";v=\"99.0.4844.51\"";
+        String secChUaMobile =          "?0";
+        String secChUaModel =           "";
+        String secChUaPlatform =        "\"Unknown\"";
+        String secChUaPlatformVersion = "\"5.13.0\"";
+
+        TestCase testCase = new TestCase(userAgent, "Unknown platform client hint");
+
+        // ------------------------------------------
+        // Without ClientHints
+        testCase.expect("DeviceClass",                     "Desktop");
+        testCase.expect("DeviceName",                      "Linux Desktop");
+        testCase.expect("DeviceBrand",                     "Unknown");
+        testCase.expect("DeviceCpu",                       "Unknown");
+        testCase.expect("DeviceCpuBits",                   "Unknown");
+
+        testCase.expect("OperatingSystemClass",            "Desktop");
+        testCase.expect("OperatingSystemName",             "Linux");
+        testCase.expect("OperatingSystemVersion",          "1.2");
+        testCase.expect("OperatingSystemVersionMajor",     "1");
+        testCase.expect("OperatingSystemNameVersion",      "Linux 1.2");
+        testCase.expect("OperatingSystemNameVersionMajor", "Linux 1");
+        testCase.expect("LayoutEngineClass",               "Browser");
+        testCase.expect("LayoutEngineName",                "Blink");
+        testCase.expect("LayoutEngineVersion",             "99");
+        testCase.expect("LayoutEngineVersionMajor",        "99");
+        testCase.expect("LayoutEngineNameVersion",         "Blink 99");
+        testCase.expect("LayoutEngineNameVersionMajor",    "Blink 99");
+        testCase.expect("AgentClass",                      "Browser");
+        testCase.expect("AgentName",                       "Chrome");
+        testCase.expect("AgentVersion",                    "99");
+        testCase.expect("AgentVersionMajor",               "99");
+        testCase.expect("AgentNameVersion",                "Chrome 99");
+        testCase.expect("AgentNameVersionMajor",           "Chrome 99");
+
+
+        // Verify
+        assertValid(testCase, "No ClientHints");
+
+        // ------------------------------------------
+        // Add Standard ClientHints
+        testCase.addHeader("Sec-CH-UA",                    secChUa);
+        testCase.addHeader("Sec-CH-UA-Mobile",             secChUaMobile);
+        testCase.addHeader("Sec-CH-UA-Platform",           secChUaPlatform);
+
+        // Changed expectations.
+        testCase.expect("UAClientHintBrands_0_Brand",      "Chromium");
+        testCase.expect("UAClientHintBrands_0_Version",    "99");
+        testCase.expect("UAClientHintBrands_1_Brand",      "Google Chrome");
+        testCase.expect("UAClientHintBrands_1_Version",    "99");
+        testCase.expect("UAClientHintMobile",              "false");
+        testCase.expect("UAClientHintPlatform",            "Unknown");
+
+        // Verify
+        assertValid(testCase, "Standard ClientHints");
+
+        // ------------------------------------------
+        // Add Full ClientHints (i.e. after the server requested everything)
+        testCase.addHeader("Sec-CH-UA-Arch",                secChUaArch);
+        testCase.addHeader("Sec-CH-UA-Bitness",             secChUaBitness);
+        testCase.addHeader("Sec-CH-UA-Full-Version-List",   secChUaFullVersionList);
+        testCase.addHeader("Sec-CH-UA-Model",               secChUaModel);
+        testCase.addHeader("Sec-CH-UA-Platform-Version",    secChUaPlatformVersion);
+
+        // Changed expectations.
+        testCase.expect("DeviceCpu",                        "Intel x86_64");
+        testCase.expect("DeviceCpuBits",                    "123");
+
+        testCase.expect("OperatingSystemVersion",           "5.13.0");
+        testCase.expect("OperatingSystemVersionMajor",      "5");
+        testCase.expect("OperatingSystemNameVersion",       "Linux 5.13.0");
+        testCase.expect("OperatingSystemNameVersionMajor",  "Linux 5");
+
+        testCase.expect("LayoutEngineVersion",              "99.0");
+        testCase.expect("LayoutEngineNameVersion",          "Blink 99.0");
+
+        testCase.expect("AgentVersion",                     "99.0.4844.51");
+        testCase.expect("AgentNameVersion",                 "Chrome 99.0.4844.51");
+
+        testCase.expect("UAClientHintArchitecture",              "x86");
+        testCase.expect("UAClientHintBitness",                   "123");
+        testCase.expect("UAClientHintFullVersionList_0_Brand",   "Chromium");
+        testCase.expect("UAClientHintFullVersionList_0_Version", "99.0.4844.51");
+        testCase.expect("UAClientHintFullVersionList_1_Brand",   "Google Chrome");
+        testCase.expect("UAClientHintFullVersionList_1_Version", "99.0.4844.51");
+        testCase.expect("UAClientHintPlatformVersion",           "5.13.0");
+
+        // Verify
+        assertValid(testCase, "Full ClientHints");
+    }
+
 }

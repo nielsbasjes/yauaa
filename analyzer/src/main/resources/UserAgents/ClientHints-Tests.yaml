@@ -1557,3 +1557,150 @@ config:
       UAClientHintMobile                         : 'false'
       UAClientHintPlatform                       : 'Windows'
       UAClientHintPlatformVersion                : '14.0.0'
+
+
+# Faked test case to ensure without client hints we get deviceClass  "Mobile"
+- test:
+    input:
+      User-Agent                           : 'Dalvik/1.2.3 (Android 10)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Unknown ??'
+      AgentNameVersionMajor                : 'Unknown ??'
+
+
+# Faked test case to ensure we can improve the deviceClass from "Mobile" to "Phone"
+- test:
+    input:
+      User-Agent                           : 'Dalvik/1.2.3 (Android 10)'
+      Sec-Ch-Ua-Mobile                     : '?1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Unknown ??'
+      AgentNameVersionMajor                : 'Unknown ??'
+      UAClientHintMobile                   : 'true'
+
+
+# Faked test case to ensure we can improve the deviceClass from "Mobile" to "Tablet"
+- test:
+    input:
+      User-Agent                           : 'Dalvik/1.2.3 (Android 10)'
+      Sec-Ch-Ua-Mobile                     : '?0'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Unknown'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Unknown ??'
+      AgentNameVersionMajor                : 'Unknown ??'
+      UAClientHintMobile                   : 'false'
+
+
+# Faked test case for the architecture and bitness headers
+- test:
+    input:
+      User-Agent                           : 'Dummy/1.2.3'
+      Sec-Ch-Ua-Arch                       : '"x86"'
+      Sec-Ch-Ua-Bitness                    : '"32"'
+    expected:
+      UAClientHintArchitecture             : 'x86'
+      UAClientHintBitness                  : '32'
+      DeviceCpu                            : 'Intel x86'
+      DeviceCpuBits                        : '32'
+
+      AgentClass                           : 'Special'
+      AgentName                            : 'Dummy'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Dummy 1.2.3'
+      AgentNameVersionMajor                : 'Dummy 1'
+
+
+# Faked test case for the architecture and bitness headers
+- test:
+    input:
+      User-Agent                           : 'Dummy/1.2.3'
+      Sec-Ch-Ua-Arch                       : '"x86"'
+      Sec-Ch-Ua-Bitness                    : '"64"'
+    expected:
+      UAClientHintArchitecture             : 'x86'
+      UAClientHintBitness                  : '64'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+
+      AgentClass                           : 'Special'
+      AgentName                            : 'Dummy'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Dummy 1.2.3'
+      AgentNameVersionMajor                : 'Dummy 1'
+
+# Faked test case for the architecture and bitness headers
+- test:
+    input:
+      User-Agent                           : 'Dummy/1.2.3'
+      Sec-Ch-Ua-Arch                       : '"Basjes"'
+      Sec-Ch-Ua-Bitness                    : '"42"'
+    expected:
+      UAClientHintArchitecture             : 'Basjes'
+      UAClientHintBitness                  : '42'
+      DeviceCpu                            : 'Basjes'
+      DeviceCpuBits                        : '42'
+
+      AgentClass                           : 'Special'
+      AgentName                            : 'Dummy'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Dummy 1.2.3'
+      AgentNameVersionMajor                : 'Dummy 1'

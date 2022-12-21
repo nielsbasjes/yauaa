@@ -81,12 +81,12 @@ public class ClientHintsHeadersParser implements Serializable {
 
     private void addParser(CHParser parser) {
         String field = parser.inputField();
-        if (parsers.containsKey(field)) {
-            throw new IllegalStateException("We have two parsers for the same field (" + field + "): " +
-                parsers.get(field).getClass().getSimpleName() +
-                " and " +
-                parser.getClass().getSimpleName());
-        }
+//        if (parsers.containsKey(field)) {
+//            throw new IllegalStateException("We have two parsers for the same field (" + field + "): " +
+//                parsers.get(field).getClass().getSimpleName() +
+//                " and " +
+//                parser.getClass().getSimpleName());
+//        }
         parsers.put(field, parser);
     }
 
@@ -140,7 +140,7 @@ public class ClientHintsHeadersParser implements Serializable {
     }
 
     private ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator = new DefaultClientHintsCacheInstantiator<>();
-    private int clientHintsCacheSize;
+    private int clientHintsCacheSize = 1000;
 
     static class DefaultClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
         public Map<String, T> instantiateCache(int cacheSize) {
@@ -153,6 +153,7 @@ public class ClientHintsHeadersParser implements Serializable {
     }
 
     public void setCacheSize(int newClientHintsCacheSize) {
+        clearCache();
         newClientHintsCacheSize = Math.max(newClientHintsCacheSize, 0);
         this.clientHintsCacheSize = newClientHintsCacheSize;
     }
