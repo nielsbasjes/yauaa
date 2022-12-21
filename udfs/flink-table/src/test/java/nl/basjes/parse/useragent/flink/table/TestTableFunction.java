@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.flink.table;
 
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.runtime.client.JobExecutionException;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -34,7 +35,9 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class TestTableFunction {
 
@@ -277,6 +280,44 @@ class TestTableFunction {
         assertTrue(2 <= result.size());
         assertEquals("Desktop",   result.get("DeviceClass"));
         assertEquals("Chrome 70", result.get("AgentNameVersionMajor"));
+    }
+
+    @Test
+    void testInvalidUsage() {
+        // The base execution environment
+        StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+
+        // The table environment
+        StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
+
+        // The demo input stream
+        DataStreamSource<Tuple3<String, String, String>> inputStream = getTestAgentStream(senv);
+
+        // Give the stream a Table Name and name the fields
+        tableEnv.createTemporaryView("AgentStream", inputStream, getTestAgentStreamSchema());
+
+        // Register the function
+        tableEnv.createTemporarySystemFunction("ParseUserAgent", new AnalyzeUseragentFunction("DeviceClass", "AgentNameVersionMajor"));
+
+        // Here the query returns the entire map as one thing
+        String sqlQuery =
+            "SELECT useragent," +
+                // No parameters is invalid usage
+                "       ParseUserAgent()                 AS parsedUseragent," +
+                "       expectedDeviceClass              AS expectedDeviceClass," +
+                "       expectedAgentNameVersionMajor    AS expectedAgentNameVersionMajor " +
+                "FROM   AgentStream";
+
+        Table  resultTable   = tableEnv.sqlQuery(sqlQuery);
+
+        DataStream<Row> resultSet = tableEnv.toDataStream(resultTable);
+
+        resultSet.map((MapFunction<Row, String>) row -> {
+            fail("There should not be any values coming back");
+            return null;
+        });
+
+        assertThrows(JobExecutionException.class, senv::execute);
     }
 
 }
