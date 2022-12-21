@@ -33,7 +33,7 @@ mode VALUE_MODE;
     VALUE_DOUBLEQUOTE: '"' -> channel(HIDDEN), type(DOUBLEQUOTE), popMode ;
 
     // Yes, this is an ambiguity. The clean value is first so that matches if it is clean.
-    VALUE : [A-Z0-9][ _a-zA-Z0-9.-]+ ;
+    VALUE            : [a-zA-Z0-9][ _a-zA-Z0-9.-]* ;
 
     // https://chromestatus.com/feature/5630916006248448
     //     If implemented, this proposal would enable additional GREASE characters
@@ -41,4 +41,4 @@ mode VALUE_MODE;
     //     0x20 (SP), 0x28 (left parenthesis), 0x29 (right parenthesis),
     //     0x2D (-), 0x2E (.), 0x2F (/), 0x3A (:), 0x3B (;), 0x3D (=), 0x3F (?), 0x5F (_))
     //     and vary the arbitrary version over time.
-    GREASEVALUE     :  [()/\\:;=?_a-zA-Z0-9. -]+ ;
+    GREASEVALUE      :  [()/\\:;=?_a-zA-Z0-9. -]+ ;
