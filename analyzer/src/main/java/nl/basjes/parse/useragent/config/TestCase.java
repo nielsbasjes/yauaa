@@ -48,6 +48,7 @@ public class TestCase implements Serializable {
         private boolean pass;
         private long parseDurationNS;
         private String errorReport;
+        private UserAgent result;
 
         public TestCase getTestCase() {
             return testCase;
@@ -67,6 +68,10 @@ public class TestCase implements Serializable {
 
         public String getErrorReport() {
             return errorReport;
+        }
+
+        public UserAgent getResult() {
+            return result;
         }
 
         @Override
@@ -160,6 +165,7 @@ public class TestCase implements Serializable {
         TestResult testResult = new TestResult();
         testResult.testCase = this;
         testResult.parseDurationNS = endTime - startTime;
+        testResult.result = result;
 
         TreeSet<String> combinedKeys = new TreeSet<>();
         combinedKeys.addAll(expected.keySet());

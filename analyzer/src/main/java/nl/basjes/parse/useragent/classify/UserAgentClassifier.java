@@ -21,6 +21,9 @@ import nl.basjes.parse.useragent.UserAgent;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ANONYMIZED;
+import static nl.basjes.parse.useragent.classify.DeviceClass.AUGMENTED_REALITY;
+import static nl.basjes.parse.useragent.classify.DeviceClass.CAR;
+import static nl.basjes.parse.useragent.classify.DeviceClass.CLOUD;
 import static nl.basjes.parse.useragent.classify.DeviceClass.DESKTOP;
 import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
@@ -38,6 +41,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNKNOWN;
 import static nl.basjes.parse.useragent.classify.DeviceClass.VIRTUAL_REALITY;
+import static nl.basjes.parse.useragent.classify.DeviceClass.VOICE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.WATCH;
 
 public final class UserAgentClassifier {
@@ -51,6 +55,7 @@ public final class UserAgentClassifier {
             case "Tablet":                 return TABLET;
             case "Phone":                  return PHONE;
             case "Watch":                  return WATCH;
+            case "Augmented Reality":      return AUGMENTED_REALITY;
             case "Virtual Reality":        return VIRTUAL_REALITY;
             case "eReader":                return E_READER;
             case "Set-top box":            return SET_TOP_BOX;
@@ -58,6 +63,9 @@ public final class UserAgentClassifier {
             case "Game Console":           return GAME_CONSOLE;
             case "Handheld Game Console":  return HANDHELD_GAME_CONSOLE;
             case "Home Appliance":         return HOME_APPLIANCE;
+            case "Voice":                  return VOICE;
+            case "Car":                    return CAR;
+            case "Cloud":                  return CLOUD;
             case "Robot":                  return ROBOT;
             case "Robot Mobile":           return ROBOT_MOBILE;
             case "Robot Imitator":         return ROBOT_IMITATOR;
@@ -85,9 +93,13 @@ public final class UserAgentClassifier {
             case GAME_CONSOLE:
             case HANDHELD_GAME_CONSOLE:
             case HOME_APPLIANCE:
+            case AUGMENTED_REALITY:
+            case VOICE:
+            case CAR:
                 return true;
 
             case ANONYMIZED:
+            case CLOUD:
             case ROBOT:
             case ROBOT_MOBILE:
             case ROBOT_IMITATOR:
@@ -109,10 +121,12 @@ public final class UserAgentClassifier {
             case TABLET:
             case PHONE:
             case WATCH:
+            case AUGMENTED_REALITY:
             case VIRTUAL_REALITY:
             case E_READER:
             case HANDHELD_GAME_CONSOLE:
             case ROBOT_MOBILE:
+            case CAR:
                 return true;
 
             case DESKTOP:
@@ -121,6 +135,8 @@ public final class UserAgentClassifier {
             case GAME_CONSOLE:
             case HOME_APPLIANCE:
             case ANONYMIZED:
+            case VOICE:
+            case CLOUD:
             case ROBOT:
             case ROBOT_IMITATOR:
             case HACKER:
@@ -150,8 +166,12 @@ public final class UserAgentClassifier {
             case HANDHELD_GAME_CONSOLE:
             case HOME_APPLIANCE:
             case ANONYMIZED:
+            case AUGMENTED_REALITY:
+            case VOICE:
+            case CAR:
                 return true;
 
+            case CLOUD:
             case ROBOT:
             case ROBOT_MOBILE:
             case ROBOT_IMITATOR:
@@ -179,6 +199,7 @@ public final class UserAgentClassifier {
             case TABLET:
             case PHONE:
             case WATCH:
+            case AUGMENTED_REALITY:
             case VIRTUAL_REALITY:
             case E_READER:
             case SET_TOP_BOX:
@@ -186,6 +207,9 @@ public final class UserAgentClassifier {
             case GAME_CONSOLE:
             case HANDHELD_GAME_CONSOLE:
             case HOME_APPLIANCE:
+            case VOICE:
+            case CAR:
+            case CLOUD:
             case ROBOT:
             case ROBOT_MOBILE:
             case UNKNOWN:

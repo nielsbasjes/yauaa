@@ -23,6 +23,9 @@ import org.junit.jupiter.api.Test;
 
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ANONYMIZED;
+import static nl.basjes.parse.useragent.classify.DeviceClass.AUGMENTED_REALITY;
+import static nl.basjes.parse.useragent.classify.DeviceClass.CAR;
+import static nl.basjes.parse.useragent.classify.DeviceClass.CLOUD;
 import static nl.basjes.parse.useragent.classify.DeviceClass.DESKTOP;
 import static nl.basjes.parse.useragent.classify.DeviceClass.E_READER;
 import static nl.basjes.parse.useragent.classify.DeviceClass.GAME_CONSOLE;
@@ -40,6 +43,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNKNOWN;
 import static nl.basjes.parse.useragent.classify.DeviceClass.VIRTUAL_REALITY;
+import static nl.basjes.parse.useragent.classify.DeviceClass.VOICE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.WATCH;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.getDeviceClass;
 import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isDeliberateMisuse;
@@ -89,6 +93,7 @@ class TestClassifier {
         verifyDeviceClass(TABLET,                 true,   true,  true, false);
         verifyDeviceClass(PHONE,                  true,   true,  true, false);
         verifyDeviceClass(WATCH,                  true,   true,  true, false);
+        verifyDeviceClass(AUGMENTED_REALITY,      true,   true,  true, false);
         verifyDeviceClass(VIRTUAL_REALITY,        true,   true,  true, false);
         verifyDeviceClass(E_READER,               true,   true,  true, false);
         verifyDeviceClass(SET_TOP_BOX,            true,  false,  true, false);
@@ -96,6 +101,9 @@ class TestClassifier {
         verifyDeviceClass(GAME_CONSOLE,           true,  false,  true, false);
         verifyDeviceClass(HANDHELD_GAME_CONSOLE,  true,   true,  true, false);
         verifyDeviceClass(HOME_APPLIANCE,         true,  false,  true, false);
+        verifyDeviceClass(VOICE,                  true,  false,  true, false);
+        verifyDeviceClass(CAR,                    true,   true,  true, false);
+        verifyDeviceClass(CLOUD,                 false,  false, false, false);
         verifyDeviceClass(ROBOT,                 false,  false, false, false);
         verifyDeviceClass(ROBOT_MOBILE,          false,   true, false, false);
         verifyDeviceClass(ROBOT_IMITATOR,        false,  false, false,  true);

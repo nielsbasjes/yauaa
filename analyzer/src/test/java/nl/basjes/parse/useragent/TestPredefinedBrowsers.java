@@ -17,6 +17,8 @@
 
 package nl.basjes.parse.useragent;
 
+import nl.basjes.parse.useragent.classify.DeviceClass;
+import nl.basjes.parse.useragent.classify.UserAgentClassifier;
 import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.config.TestCase.TestResult;
 import nl.basjes.parse.useragent.debug.UserAgentAnalyzerTester;
@@ -36,6 +38,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -111,6 +114,14 @@ class TestPredefinedBrowsers {
         List<TestResult> testResults = testCases.stream()
             .map(testCase -> testCase.verify(uaa))
             .collect(Collectors.toList());
+
+        // Make sure all currently known DeviceClass values can be classified
+        for (TestResult testResult : testResults) {
+            assertNotEquals(
+                DeviceClass.UNCLASSIFIED,
+                UserAgentClassifier.getDeviceClass(testResult.getResult()),
+                testResult.toString());
+        }
 
         List<TestResult> failedTests = testResults.stream().filter(TestResult::testFailed).collect(Collectors.toList());
         assertEquals(0, failedTests.size(), failedTests.toString());

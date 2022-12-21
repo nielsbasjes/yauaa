@@ -43,6 +43,10 @@ public enum DeviceClass {
      */
     WATCH("Watch"),
     /**
+     * A mobile device with a AR capabilities.
+     */
+    AUGMENTED_REALITY("Augmented Reality"),
+    /**
      * A mobile device with a VR capabilities.
      */
     VIRTUAL_REALITY("Virtual Reality"),
@@ -70,6 +74,18 @@ public enum DeviceClass {
      * An appliance with a browser built in (like a large Fridge).
      */
     HOME_APPLIANCE("Home Appliance"),
+    /**
+     * A voice driven 'browser' (i.e. ask a question and the page is read aloud). Like Alexa and Google Home.
+     */
+    VOICE("Voice"),
+    /**
+     * A browser built into a car.
+     */
+    CAR("Car"),
+    /**
+     * Something that runs in a cloud somewhere.
+     */
+    CLOUD("Cloud"),
     /**
      * Robots that visit the site.
      */
