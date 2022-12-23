@@ -407,6 +407,7 @@ config:
       AgentNameVersionMajor                : 'Bingbot 2'
       AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
+# Not documented by Microsoft; yet so similar we assume it is the real thing.
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
@@ -695,6 +696,129 @@ config:
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.345.0 Mobile Safari/537.36 Edg/80.0.345.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Microsoft BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemVersionMajor          : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      OperatingSystemNameVersionMajor      : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+
+# https://blogs.bing.com/webmaster/april-2022/Announcing-user-agent-change-for-Bing-crawler-bingbot
+#   Desktop
+#     Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/W.X.Y.Z Safari/537.36
+#   Mobile
+#     Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)
+#  By regularly updating our web page rendering engine to the most recent stable version of Microsoft Edge we will be
+#  making the above user agent strings evergreen. In the strings above, "W.X.Y.Z" would be substituted with the latest
+#  Microsoft Edge version we're using, such as “100.0.4896.127".
+
+# https://www.bing.com/webmasters/help/which-crawlers-does-bing-use-8c184ec0
+
+- test:
+    input: # Normal version
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/100.0.4896.127 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Microsoft BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemVersionMajor          : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      OperatingSystemNameVersionMajor      : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+
+- test:
+    input: # Reduced version
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm) Chrome/123.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Microsoft BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemVersionMajor          : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      OperatingSystemNameVersionMajor      : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+
+- test:
+    input: # Normal version
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Microsoft BingBot'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Microsoft Cloud'
+      OperatingSystemVersion               : 'Microsoft Azure'
+      OperatingSystemVersionMajor          : 'Microsoft Azure'
+      OperatingSystemNameVersion           : 'Microsoft Azure'
+      OperatingSystemNameVersionMajor      : 'Microsoft Azure'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot 2.0'
+      AgentNameVersionMajor                : 'Bingbot 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+
+- test:
+    input: # Reduced version
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)'
     expected:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Microsoft BingBot'
