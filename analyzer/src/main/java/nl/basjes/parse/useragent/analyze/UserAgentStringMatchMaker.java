@@ -264,7 +264,11 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
 
         addAnalyzerConfig(extraConfig);
         invalidateCaches();
-        finalizeLoadingRules(); // FIXME: This is a rebuild of what has already been done. #SLOW!
+        // FIXME: When a second set of resources are loaded then all already existing
+        //        matchers are created again.
+        //        So this can be rebuild of what has already been done. #SLOW!
+        //        The only impact is at startup a few 100ms slower one-off.
+        finalizeLoadingRules();
     }
 
     public void finalizeLoadingRules() {
