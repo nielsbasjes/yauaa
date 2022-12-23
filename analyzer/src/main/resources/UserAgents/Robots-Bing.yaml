@@ -842,3 +842,118 @@ config:
       AgentNameVersion                     : 'Bingbot 2.0'
       AgentNameVersionMajor                : 'Bingbot 2'
       AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+
+
+# MicrosoftPreview generates page snapshots for Microsoft products. Note that MicrosoftPreview has "desktop" and "mobile" variants.
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; MicrosoftPreview/2.0; +https://aka.ms/MicrosoftPreview) Chrome/100.0.4896.127 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Microsoft Preview'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MicrosoftPreview'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'MicrosoftPreview 2.0'
+      LayoutEngineNameVersionMajor         : 'MicrosoftPreview 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MicrosoftPreview'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'MicrosoftPreview 2.0'
+      AgentNameVersionMajor                : 'MicrosoftPreview 2'
+      AgentInformationUrl                  : 'https://aka.ms/MicrosoftPreview'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; MicrosoftPreview/2.0; +https://aka.ms/MicrosoftPreview) Chrome/123.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Microsoft Preview'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MicrosoftPreview'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'MicrosoftPreview 2.0'
+      LayoutEngineNameVersionMajor         : 'MicrosoftPreview 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MicrosoftPreview'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'MicrosoftPreview 2.0'
+      AgentNameVersionMajor                : 'MicrosoftPreview 2'
+      AgentInformationUrl                  : 'https://aka.ms/MicrosoftPreview'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36  (compatible; MicrosoftPreview/2.0; +https://aka.ms/MicrosoftPreview)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Microsoft Preview'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MicrosoftPreview'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'MicrosoftPreview 2.0'
+      LayoutEngineNameVersionMajor         : 'MicrosoftPreview 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MicrosoftPreview'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'MicrosoftPreview 2.0'
+      AgentNameVersionMajor                : 'MicrosoftPreview 2'
+      AgentInformationUrl                  : 'https://aka.ms/MicrosoftPreview'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36  (compatible; MicrosoftPreview/2.0; +https://aka.ms/MicrosoftPreview)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Microsoft Preview'
+      DeviceBrand                          : 'Microsoft'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'MicrosoftPreview'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'MicrosoftPreview 2.0'
+      LayoutEngineNameVersionMajor         : 'MicrosoftPreview 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'MicrosoftPreview'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'MicrosoftPreview 2.0'
+      AgentNameVersionMajor                : 'MicrosoftPreview 2'
+      AgentInformationUrl                  : 'https://aka.ms/MicrosoftPreview'
