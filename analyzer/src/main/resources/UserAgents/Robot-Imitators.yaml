@@ -998,6 +998,28 @@ config:
       AgentInformationUrl                  : 'https://page-audit.com'
 
 
+# FIXME: Need a way to do CASE SENSITIVE matching to make this possible.
+#- matcher:
+#    require:
+#    # The word 'Bingbot' is fake; the word 'bingbot' is the real thing (i.e. only a uppercase/lowercase difference.)
+#    - 'agent.(1)product.(1)comments.(2)entry.(1)product="Bingbot/2.0"' ## MUST use a case sensitive matching
+#    extract:
+#    - 'DeviceClass                         :   320100 : "Robot Imitator"'
+#    - 'DeviceName                          :   320100 : "Bingbot Imitator"'
+#    - 'DeviceBrand                         :   320100 : "Unknown"'
+#    - 'OperatingSystemClass                :   320100 : "Cloud"'
+#    - 'OperatingSystemName                 :   320100 : "Cloud"'
+#    - 'OperatingSystemVersion              :   320100 : "<<<null>>>"'
+#    - 'LayoutEngineName                    :   320100 : "Bingbot Imitator"'
+#    - 'AgentName                           :   320100 : "Bingbot Imitator"'
+#
+#
+## Fake Bingbot
+#- test:
+#    input:
+#      User-Agent                           : 'Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)'
+
+
 - matcher:
     require:
     # Although this is a domain related to the Bingbot, this is NOT used by Microsoft this way.
