@@ -5,6 +5,7 @@ v7.10.0-SNAPSHOT
 ===
 - New/improved detections
   - MicrosoftPreview bot
+  - Few Bingbot imitators
 
 v7.9.1
 ===

@@ -996,3 +996,76 @@ config:
       AgentNameVersion                     : 'Page-Audit ??'
       AgentNameVersionMajor                : 'Page-Audit ??'
       AgentInformationUrl                  : 'https://page-audit.com'
+
+
+- matcher:
+    require:
+    # Although this is a domain related to the Bingbot, this is NOT used by Microsoft this way.
+    - 'agent.(1)product.(1)comments.(2)entry.(1)product="bingbot/2.0"'
+    - 'agent.(1)product.(1)comments.(2)entry.(2)url="http://www.bing.com/bingbot.htm"'
+    extract:
+    - 'DeviceClass                         :   320100 : "Robot Imitator"'
+    - 'DeviceName                          :   320100 : "Bingbot Imitator"'
+    - 'DeviceBrand                         :   320100 : "Unknown"'
+    - 'OperatingSystemClass                :   320100 : "Cloud"'
+    - 'OperatingSystemName                 :   320100 : "Cloud"'
+    - 'OperatingSystemVersion              :   320100 : "<<<null>>>"'
+    - 'LayoutEngineName                    :   320100 : "Bingbot Imitator"'
+    - 'AgentName                           :   320100 : "Bingbot Imitator"'
+
+
+# Fake Bingbot: Missing '; +'
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; bingbot/2.0  http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Bingbot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot Imitator'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot Imitator 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot Imitator'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot Imitator 2.0'
+      AgentNameVersionMajor                : 'Bingbot Imitator 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
+
+# Fake Bingbot: Missing '; +'
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible; bingbot/2.0 +http://www.bing.com/bingbot.htm)'
+    expected:
+      DeviceClass                          : 'Robot Imitator'
+      DeviceName                           : 'Bingbot Imitator'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bingbot Imitator'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'Bingbot Imitator 2.0'
+      LayoutEngineNameVersionMajor         : 'Bingbot Imitator 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bingbot Imitator'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Bingbot Imitator 2.0'
+      AgentNameVersionMajor                : 'Bingbot Imitator 2'
+      AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
