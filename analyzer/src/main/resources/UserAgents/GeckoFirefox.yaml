@@ -2118,3 +2118,140 @@ config:
 # - test:
 #     input:
 #       User-Agent                           : 'Firefox/102.3.1 (Intel Mac OS X 10.15) FxSync/1.104.0.20220705093820.desktop'
+
+
+# https://bugzilla.mozilla.org/show_bug.cgi?id=1805967
+#   Freeze `rv:` segment in the User Agent string to `rv:109.0` to avoid erroneous IE11 detection
+
+- matcher:
+    require:
+    - 'agent.(1)product.comments.entry="rv:109.0"'
+    extract:
+    - 'LayoutEngineClass                   :     2000 :"Browser"'
+    - 'LayoutEngineName                    :     2000 :"Gecko"'
+    - 'LayoutEngineVersion                 :     2001 :agent.product.name="Firefox"^.version'
+    - 'AgentClass                          :     1995 :"Browser"'
+    - 'AgentName                           :     1994 :"Gecko"'
+    - 'AgentVersion                        :     1994 :"109.0"'
+
+
+# The modified version of variant that is apparently problematic for some sites
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:110.0) Gecko/20100101 Firefox/123.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '110.0'
+      LayoutEngineVersionMajor             : '110'
+      LayoutEngineNameVersion              : 'Gecko 110.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 110'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '123.0'
+      AgentVersionMajor                    : '123'
+      AgentNameVersion                     : 'Firefox 123.0'
+      AgentNameVersionMajor                : 'Firefox 123'
+
+
+# From the descriptions this seems to be what it will be after this fix:
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '110.0'
+      LayoutEngineVersionMajor             : '110'
+      LayoutEngineNameVersion              : 'Gecko 110.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 110'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '110.0'
+      AgentVersionMajor                    : '110'
+      AgentNameVersion                     : 'Firefox 110.0'
+      AgentNameVersionMajor                : 'Firefox 110'
+
+
+# Actual UA from Nightly on Linux
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '110.0'
+      LayoutEngineVersionMajor             : '110'
+      LayoutEngineNameVersion              : 'Gecko 110.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 110'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '110.0'
+      AgentVersionMajor                    : '110'
+      AgentNameVersion                     : 'Firefox 110.0'
+      AgentNameVersionMajor                : 'Firefox 110'
+
+
+# Actual UA from Nightly on Android
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 11; Mobile; rv:109.0) Gecko/110.0 Firefox/110.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '110.0'
+      LayoutEngineVersionMajor             : '110'
+      LayoutEngineNameVersion              : 'Gecko 110.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 110'
+      LayoutEngineBuild                    : '110.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '110.0'
+      AgentVersionMajor                    : '110'
+      AgentNameVersion                     : 'Firefox 110.0'
+      AgentNameVersionMajor                : 'Firefox 110'

@@ -6,6 +6,7 @@ v7.10.0-SNAPSHOT
 - New/improved detections
   - MicrosoftPreview bot
   - Few Bingbot imitators
+  - Handle frozen "rv:109.0" in Firefox
 
 v7.9.1
 ===
