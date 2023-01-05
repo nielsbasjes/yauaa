@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.clienthints.parsers;
 
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
@@ -31,6 +32,29 @@ public class ParseSecChUaFullVersionList implements CHParser {
     public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Full-Version-List request header field gives a server information about the full version for each brand in its brands list.";
     public static final String FIELD_NAME         = "secChUaFullVersionList";
+
+    private transient Map<String, ArrayList<Brand>> cache;
+
+    public ParseSecChUaFullVersionList() {
+        // Nothing to do right now
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void initializeCache(@Nonnull AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
+        if (cacheSize <= 0) {
+            cache = null;
+        } else {
+            cache = (Map<String, ArrayList<Brand>>) clientHintsCacheInstantiator.instantiateCache(cacheSize);
+        }
+    }
+
+    @Override
+    public void clearCache() {
+        if (cache != null) {
+            cache.clear();
+        }
+    }
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //
@@ -55,7 +79,14 @@ public class ParseSecChUaFullVersionList implements CHParser {
             return clientHints;
         }
         // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.51", "Google Chrome";v="99.0.4844.51"
-        ArrayList<Brand> brands = BrandListParser.parse(input);
+        ArrayList<Brand> brands;
+        // Do we even have a cache?
+        if (cache == null) {
+            brands = BrandListParser.parse(input);
+        } else {
+            brands = cache.computeIfAbsent(input, value -> BrandListParser.parse(input));
+        }
+
         if (!brands.isEmpty()) {
             clientHints.setFullVersionList(brands);
         }
