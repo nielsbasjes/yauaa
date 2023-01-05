@@ -111,4 +111,5 @@ public class ParseSecChUa implements CHParser {
     public static HeaderSpecification getHeaderSpecification() {
         return new HeaderSpecification(HEADER_FIELD, HEADER_SPEC_URL, HEADER_SPEC, FIELD_NAME);
     }
+
 }
