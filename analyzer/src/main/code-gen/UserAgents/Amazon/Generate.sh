@@ -80,13 +80,13 @@ done
 echo "
 - matcher:
     variable:
-    - 'Device:LookUp[AmazonDeviceTags;agent.(1)product.(1)comments.(1-5)entry]'
+    - 'Device                              :LookUp[AmazonDeviceTags;agent.(1)product.(1)comments.(1-5)entry]'
     extract:
     - 'DeviceClass                         :     1001 :@Device[[1]]'
     - 'DeviceName                          :     1002 :@Device[[3]]'
     - 'DeviceBrand                         :     1002 :@Device[[2]]'
     - 'OperatingSystemName                 :     1002 :\"FireOS\"' # All known Amazon devices run FireOS (a tweaked Android)
-    - 'OperatingSystemVersion              :      1001 :LookUp[AndroidToFireOSVersion;agent.(1)product.(1)comments.entry.(1)product.name[1]=\"Android\"^.version[1]]'
+    - 'OperatingSystemVersion              :     1001 :LookUp[AndroidToFireOSVersion;agent.(1)product.(1)comments.entry.(1)product.name[1]=\"Android\"^.version[1]]'
 "
 
 
