@@ -74,6 +74,8 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(AbstractUserAgentAnalyzer.class);
         kryo.register(DefaultCacheInstantiator.class);
+        kryo.register(Java8CacheInstantiator.class);
+        kryo.register(Java8ClientHintsCacheInstantiator.class);
         AbstractUserAgentAnalyzerDirect.configureKryo(kryo);
     }
 
@@ -158,6 +160,13 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         }
     }
 
+    private static class Java8CacheInstantiator implements CacheInstantiator {
+        @Override
+        public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+            return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+        }
+    }
+
     public int getCacheSize() {
         return cacheSize;
     }
@@ -192,6 +201,12 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
          * @return Instance of the new cache.
          */
         Map<String, T> instantiateCache(int cacheSize);
+    }
+
+    private static class Java8ClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
+        public Map<String, T> instantiateCache(int cacheSize) {
+            return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+        }
     }
 
     // =========================================================
@@ -323,12 +338,8 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
             // Caffeine is a Java 11+ library.
             // This is one is Java 8 compatible.
             return this
-                .withCacheInstantiator(
-                    (AbstractUserAgentAnalyzer.CacheInstantiator) size ->
-                        Collections.synchronizedMap(new LRUMap<>(size)))
-                .withClientHintCacheInstantiator(
-                    (AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator<?>) size ->
-                        Collections.synchronizedMap(new LRUMap<>(size)));
+                .withCacheInstantiator(new Java8CacheInstantiator())
+                .withClientHintCacheInstantiator(new Java8ClientHintsCacheInstantiator<>());
         }
 
         // ------------------------------------------

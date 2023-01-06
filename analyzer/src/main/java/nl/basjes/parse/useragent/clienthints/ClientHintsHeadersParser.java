@@ -139,7 +139,7 @@ public class ClientHintsHeadersParser implements Serializable {
         return "ClientHintAnalyzer:" + getClass().getSimpleName();
     }
 
-    private ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator = new DefaultClientHintsCacheInstantiator<>();
+    private ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator = null;
     private int clientHintsCacheSize = 1000;
 
     static class DefaultClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
@@ -163,6 +163,9 @@ public class ClientHintsHeadersParser implements Serializable {
     }
 
     public synchronized void initializeCache() {
+        if (clientHintsCacheInstantiator == null) {
+            clientHintsCacheInstantiator = new DefaultClientHintsCacheInstantiator<>();
+        }
         parsers.values().forEach(parser -> parser.initializeCache(clientHintsCacheInstantiator, clientHintsCacheSize));
     }
 
