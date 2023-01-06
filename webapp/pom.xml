@@ -432,6 +432,7 @@
         <version>${docker-maven-plugin.version}</version>
 
         <configuration>
+          <skip>${docker-based-tests.skip}</skip>
           <follow>false</follow>
           <sourceDirectory>src/test/resources</sourceDirectory>
           <images>
@@ -518,7 +519,7 @@
           <execution>
             <id>build-docker</id>
             <configuration>
-              <skip>${docker.skip}</skip>
+              <skip>${docker-based-tests.skip}</skip>
               <removeMode>build</removeMode>
             </configuration>
             <phase>${docker-based-package.phase}</phase>
