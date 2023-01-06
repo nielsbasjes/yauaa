@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 v7.10.0-SNAPSHOT
 ===
+- Analyzer:
+  - Fix Java8 caching and cache serialization.
 - New/improved detections
   - MicrosoftPreview bot
   - Few Bingbot imitators
