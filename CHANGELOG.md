@@ -9,6 +9,9 @@ v7.10.0-SNAPSHOT
   - MicrosoftPreview bot
   - Few Bingbot imitators
   - Handle frozen "rv:109.0" in Firefox
+- Build:
+  - Run Integration tests in Github Actions
+  - Disable docker hub based integration tests in CI
 
 v7.9.1
 ===
