@@ -18,95 +18,17 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.10.0
+- Analyzer:
+    - Fix Java8 caching and cache serialization.
+- New/improved detections
+    - MicrosoftPreview bot
+    - Few Bingbot imitators
+    - Handle frozen "rv:109.0" in Firefox
+
 ### Version 7.9.1
 - New/improved detections
   - Bad secondary version is now assumes to be Anti fingerprinting instead of Robot.
-
-### Version 7.8.0
-- New/improved detections
-  - Samsung Browser: DeviceBrand & WebViews.
-  - Smart TV Linux version
-  - Microsoft Edge with only partial information and minimal client hints
-
-### Version 7.7.0
-- Security:
-    - Updated Apache Commons Text to 1.10.0 (CVE-2022-42889)
-- New/improved detections
-    - If the clienthints are available it is now possible to detect difference between Intel and ARM (M1/M2) on Apple laptops.
-    - Several Federated Social Network related servers and clients.
-- Webservlet:
-    - The GraphQL fields are now generated dynamically based on the available rules (The available fields with now also expose any custom fields).
-
-### Version 7.6.0
-- New/improved detections
-  - Opera with reduced UserAgent now reports the correct agent version.
-
-### Version 7.5.0
-- Report frozen `Mac OS X` versions as `Mac OS >=10.15.7` (was `??`) for all browsers (Chrome, Firefox, etc.):
-    - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
-    - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
-
-### Version 7.4.0
-- Report frozen `Mac OS` on Safari as `Mac OS >=10.15.7`
-- New DeviceClass: "Home Appliance" (Fridges and such)
-- Oculus VR devices/OculusBrowser
-- Anonymization
-    - All anonymized agents have DeviceClass: 'Anonymized'
-    - More extensive anonymization detection by looking at version patterns
-- New field "RemarkablePattern" that will hold exceptional things that were detected.
-  - Now: "Anonymized", "Hacker", "Double UserAgent" and "Windows NT 9"
-  - The **'Anonymized' field has been dropped** and is now **RemarkablePattern: 'Anonymized'**
-- Webservlet:
-    - GraphQL support
-
-### Version 7.3.0
-- Thanks to https://github.com/FrancoisDevemy5 for providing many of the testcases used for improving this version
-- Improve Apple detection/reporting
-  - Apple
-    - Use information from Apple to complete the list of devices.
-    - Apple CFNetwork+Darwin with CPU tag is macOS instead of iOS
-    - Apple M1 CPU (hardly ever seen)
-    - Apple watchOS
-  - Many browsers, security scanners and robots.
-  - Improve the naming of all Google bot variants.
-- Webservlet:
-  - The input UserAgent is now also part of the output to allow easier processing.
-
-### Version 7.1.0
-- Analyzer
-  - Simplify using Java 8 compliant caching
-- New/improved detections
-  - Chrome OS/Chromebooks:
-    - Handle new "frozen Chrome OS" tag
-    - The DeviceBrand of a Chromebook is "Unknown" instead of Google
-    - Fixed Version and OS Build tags
-
-### Version 7.0.0
-- Dropping support for Apache Pig. The last release was in 2017: about 5 years ago.
-- Support for using ClientHints in addition to the User-Agent
-- Improve Apple detection/reporting
-  - "Mac OS X" / "OS X" / "macOS"
-    - The Major Version for the 10.x.x versions is now 2 parts (like '10.6') instead of just '10'.
-    - Although the marketing name has changed several times: For all versions `OperatingSystemName = 'Mac OS'` is used to ensure stable reporting.
-  - Darwin will be reported as the most likely iOS version instead.
-
-### Main points from previous releases
-- Many fixes around Reducing/Freezing the User-Agent by the Chromium and Firefox teams.
-  - Handle the Edge 99+ edge://flags/#force-major-version-to-minor
-  - Report frozen `Windows 10` on Chrome/Edge/... 92+ as `Windows >=10`
-  - Report frozen `Windows 10` on Firefox 88+ as `Windows >=10`
-  - Report frozen `Mac OS X` versions as `??`:
-    - Always [10_15_7](https://bugs.chromium.org/p/chromium/issues/detail?id=1175225) since Chrome 90.
-    - Always [10.15](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent/Firefox#macintosh) since Firefox 87.
-- Updates because of Log4Shell
-- New UDF for [Trino](https://trino.io/) (a.k.a. Presto SQL)
-  - See [https://yauaa.basjes.nl/udf/trino/](https://yauaa.basjes.nl/udf/trino/) for usage information.
-- New UDF for ElasticSearch 8 besides the ES 7 variant because of breaking change in ES 7->8
-- Switched the default caching implementation to [Caffeine](https://github.com/ben-manes/caffeine)
-
-and ofcourse several improved detections
-- Detect several types of TVs and Set-top boxes better. Contributed by [Sam Hendley](https://github.com/samhendley/).
-
 
 ---
 ## Regarding the recent Log4J2 issues

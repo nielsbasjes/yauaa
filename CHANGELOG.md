@@ -1,7 +1,12 @@
 
 This is intended as an overview of the major changes
 
-v7.10.0-SNAPSHOT
+v7.11.0-SNAPSHOT
+===
+- New/improved detections
+  - ...
+
+v7.10.0
 ===
 - Analyzer:
   - Fix Java8 caching and cache serialization.
