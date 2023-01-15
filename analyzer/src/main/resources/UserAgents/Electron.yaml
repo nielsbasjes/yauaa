@@ -545,3 +545,32 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Electron 1.0.0'
       AgentNameVersionMajor                : 'Electron 1'
+
+# When using https://rancherdesktop.io/ version 1.7.0 on Linux and you open the link to a service.
+- test:
+    input:
+      User-Agent  : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) RancherDesktop/1.7.0 Chrome/100.0.4896.160 Electron/18.3.13 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'RancherDesktop'
+      AgentVersion                         : '1.7.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'RancherDesktop 1.7.0'
+      AgentNameVersionMajor                : 'RancherDesktop 1'
