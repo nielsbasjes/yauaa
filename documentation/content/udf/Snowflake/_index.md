@@ -18,7 +18,9 @@ See for more information:
 ## Installation and usage
 1. Download the UDF jar to the local file system and upload into a Snowflake internal or external stage.
 
-   You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-snowflake/{{%YauaaVersion%}}/jar).
+    You can get the prebuilt UDF from [maven central (yauaa-snowflake-{{%YauaaVersion%}}-udf.jar)](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-snowflake/{{%YauaaVersion%}}/yauaa-snowflake-{{%YauaaVersion%}}-udf.jar).
+
+    NOTE: You MUST use the `-udf.jar`: yauaa-snowflake-{{%YauaaVersion%}}-udf.jar
 
 2. Register the function in Snowflake with something like this:
 ```
