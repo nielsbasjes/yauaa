@@ -67,12 +67,14 @@ Getting the UDF You can get the prebuilt ingest plugin from maven central for
 Elastic Search 7.x. Elastic Search 8.x. Installing the plugin You only need to install it into your Elastic Search once
 On Elastic Search 7.x:
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-7.10.0.zip On Elastic Search 8.</description></item><item><title>LogParser</title><link>/udf/logparser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/logparser/</guid><description>Introduction This is a User Defined Function for LogParser
-Getting the UDF You can get the prebuilt UDF from maven central.
+Getting the UDF You can get the prebuilt UDF from maven central (yauaa-logparser-7.10.0-udf.jar).
+NOTE: You MUST use the -udf.jar: yauaa-logparser-7.10.0-udf.jar
 If you use a maven based project simply add this dependency
 &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;nl.basjes.parse.useragent&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;yauaa-logparser&amp;lt;/artifactId&amp;gt; &amp;lt;classifier&amp;gt;udf&amp;lt;/classifier&amp;gt; &amp;lt;version&amp;gt;7.10.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; Client hints Because the logparser can only dissect a single field into multiple pieces it is impossible to extend this to support User-Agent Client Hints.</description></item><item><title>Snowplow</title><link>/udf/snowplow/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/snowplow/</guid><description>Introduction If you are a user of the Snowplow Analytics system and would like to use Yauaa in your analysis you are in luck.
 The people at Snowplow have included Yauaa as a readily available feature in their system.
 The official documentation: Snowplow Yauaa Enrichment</description></item><item><title>Trino</title><link>/udf/trino/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/trino/</guid><description>Introduction This is a User Defined Function for Trino (a.k.a. Presto SQL)
 STATUS: &amp;hellip; EXPERIMENTAL &amp;hellip; The Trino plugin is very new. Please tell if it works or not in your case.
-Installation You can get the prebuilt UDF from maven central.
+Installation You can get the prebuilt UDF from maven central (yauaa-trino-7.10.0-udf.jar).
+NOTE: You MUST use the -udf.jar: yauaa-trino-7.10.0-udf.jar
 In the plugin directory of your Trino server create a subdirectory and copy the yauaa-trino-7.10.0-udf.jar to that new directory.
 In the trino docker image this is /usr/lib/trino/plugin/ so putting the jar in something like /usr/lib/trino/plugin/yauaa is a fine choice.</description></item></channel></rss>
