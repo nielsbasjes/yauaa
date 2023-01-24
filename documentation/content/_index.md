@@ -18,8 +18,7 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
-### Version 7.11.0-SNAPSHOT
-===
+### Version 7.11.0
 - New/improved detections
     - RancherDesktop client
     - Chrome/Edge 109 with Client Hints were reported as "Not_A Brand 99"

@@ -1,7 +1,12 @@
 
 This is intended as an overview of the major changes
 
-v7.11.0-SNAPSHOT
+v7.12.0-SNAPSHOT
+===
+- New/improved detections
+  - ...
+
+v7.11.0
 ===
 - New/improved detections
   - RancherDesktop client
