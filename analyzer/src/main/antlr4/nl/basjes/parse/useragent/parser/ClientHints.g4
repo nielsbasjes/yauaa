@@ -25,6 +25,8 @@ options { tokenVocab=ClientHintsLexer; }
 // " Not A;Brand";v="99", "Chromium";v="99", "Microsoft Edge";v="99"
 // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.51", "Google Chrome";v="99.0.4844.51"
 // " Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.1150.30", "Microsoft Edge";v="99.0.1150.30"
+// "Not_A Brand";v="99", "Microsoft Edge";v="109", "Chromium";v="109"
+// "Not_A Brand";v="99.0.0.0", "Microsoft Edge";v="109.0.1518.61", "Chromium";v="109.0.5414.87"
 
 brandList
     : brandEntry ( COMMA brandEntry )*
@@ -35,7 +37,7 @@ brandEntry
     ;
 
 greaseEntry
-    : GREASEVALUE SEMICOLON VERSION EQUALS ( VALUE | GREASEVALUE )
+    : ( KNOWNGREASE | GREASEVALUE ) SEMICOLON VERSION EQUALS ( VALUE | KNOWNGREASE | GREASEVALUE )
     ;
 
 brand

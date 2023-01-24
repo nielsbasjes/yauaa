@@ -5,6 +5,7 @@ v7.11.0-SNAPSHOT
 ===
 - New/improved detections
   - RancherDesktop client
+  - Chromium/Chrome/Edge 109 with Client Hints were reported as "Not_A Brand 99"
 
 v7.10.0
 ===
