@@ -15,7 +15,8 @@
 # limitations under the License.
 #
 
-# These are examples of robot/spider/bot useragents we have seen.
+# By looking at real traffic and behaviour useragents with 'null' turn out to be normal users and not robots.
+# It is suspected to be caused by broken plugins, anti fingerprinting or anonymization software.
 
 config:
 
@@ -23,77 +24,30 @@ config:
     require:
     - 'agent.text[1]="null"'
     extract:
-    - 'DeviceClass                         :   500000 :"Robot"'
     - 'RemarkablePattern                   :   500000 :"Null: Text"'
 
 - matcher:
     require:
     - 'agent.product.name[1]="null"'
     extract:
-    - 'DeviceClass                         :   500000 :"Robot"'
     - 'RemarkablePattern                   :   500000 :"Null: Product name"'
 
 - matcher:
     require:
     - 'agent.product.version="null"'
     extract:
-    - 'DeviceClass                         :   500000 :"Robot"'
     - 'RemarkablePattern                   :   500000 :"Null: Product version"'
 
 - matcher:
     require:
     - 'agent.product.comments="(null)"'
     extract:
-    - 'DeviceClass                         :   500000 :"Robot"'
     - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
 
 - matcher:
     require:
     - 'agent.product.comments.entry.(1-2)product.comments="(null)"'
     extract:
-    - 'DeviceClass                         :   500000 :"Robot"'
-    - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
-
-
-
-- matcher:
-    require:
-    - 'agent.text[1]="null"'
-    - 'agent~"Googlebot"'
-    extract:
-    - 'DeviceClass                         :   500001 :"Robot Imitator"'
-    - 'RemarkablePattern                   :   500000 :"Null: Text"'
-
-- matcher:
-    require:
-    - 'agent.product.name[1]="null"'
-    - 'agent~"Googlebot"'
-    extract:
-    - 'DeviceClass                         :   500001 :"Robot Imitator"'
-    - 'RemarkablePattern                   :   500000 :"Null: Product name"'
-
-- matcher:
-    require:
-    - 'agent.product.version="null"'
-    - 'agent~"Googlebot"'
-    extract:
-    - 'DeviceClass                         :   500001 :"Robot Imitator"'
-    - 'RemarkablePattern                   :   500000 :"Null: Product version"'
-
-- matcher:
-    require:
-    - 'agent.product.comments="(null)"'
-    - 'agent~"Googlebot"'
-    extract:
-    - 'DeviceClass                         :   500001 :"Robot Imitator"'
-    - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
-
-- matcher:
-    require:
-    - 'agent.product.comments.entry.(1-2)product.comments="(null)"'
-    - 'agent~"Googlebot"'
-    extract:
-    - 'DeviceClass                         :   500001 :"Robot Imitator"'
     - 'RemarkablePattern                   :   500000 :"Null: Product comment"'
 
 
@@ -101,7 +55,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -131,7 +85,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -161,7 +115,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36/null/null/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -191,7 +145,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36/null/null/null/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -221,7 +175,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:101.0) Gecko/20100101 null Firefox/101.0'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -252,7 +206,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/NULL'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -282,7 +236,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null Firefox/102.0'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -312,7 +266,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null Firefox/102.0/Ipg1iqQE-51'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -342,7 +296,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null null Firefox/102.0'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -372,7 +326,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101 null null null Firefox/102.0/Ipg1iqQE-51'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -402,7 +356,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36 OPR/87.0.4390.58/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -432,7 +386,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; CrOS aarch64 14816.99.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Chromebook'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'AArch64'
@@ -463,7 +417,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 13904.97.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.167 Safari/537.36/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Chromebook'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -494,7 +448,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 13904.97.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.167 Safari/537.36/null/null'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Chromebook'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -525,7 +479,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; CrOS x86_64 14816.99.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36/null,gzip(gfe)'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Chromebook'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -556,7 +510,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.1.7 Safari/NULLVPKYS'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -586,7 +540,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.3490.239 Safari/28NULL'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -616,7 +570,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS (null) like Mac OS X) AppleWebKit/(null) (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Apple iPhone'
       DeviceBrand                          : 'Apple'
       DeviceFirmwareVersion                : '13B143'
@@ -646,7 +600,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_3 like Mac OS X) AppleWebKit/(null) (KHTML, like Gecko) Version/(null) Mobile/(null) Safari/(null)'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Phone'
       DeviceName                           : 'Apple iPhone'
       DeviceBrand                          : 'Apple'
       DeviceVersion                        : 'iPhone'
@@ -675,7 +629,7 @@ config:
     input:
       User-Agent                           : '(null) Safari/604.1 [Pinterest/iOS]'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Unknown'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Unknown'
@@ -703,7 +657,7 @@ config:
     input:
       User-Agent                           : '(null) LightSpeed [FBAN/MessengerLiteForiOS;FBAV/296.0.0.40.116;FBBV/268496502;FBDV/iPad2,5;FBMD/iPad;FBSN/iPhone OS;FBSV/9.3.5;FBSS/1;FBCR/;FBID/tablet;FBLC/nl;FBOP/0]'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Tablet'
       DeviceName                           : 'Apple iPad'
       DeviceBrand                          : 'Apple'
       DeviceVersion                        : 'iPad mini (Wi-Fi)'

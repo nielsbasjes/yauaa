@@ -56,13 +56,14 @@ config:
     extract:
     - 'RemarkablePattern                   :       20 :"No such version: Windows NT"'
 
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Safari"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -73,14 +74,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Mobile Safari"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -91,14 +94,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="TV Safari"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -109,14 +114,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="VR Safari"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -127,14 +134,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Mobile VR Safari"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -145,14 +154,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Chromium"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -163,14 +174,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Chrome"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -181,14 +194,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Edge"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -199,14 +214,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Edg"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -217,14 +234,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="EdgA"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -235,14 +254,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="EdgIOS"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -253,14 +274,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Firefox"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -271,14 +294,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="OPR"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -289,14 +314,16 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="Opera"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -307,4 +334,5 @@ config:
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+

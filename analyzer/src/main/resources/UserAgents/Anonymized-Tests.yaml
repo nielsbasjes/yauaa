@@ -541,7 +541,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.1.7 Safari/XSSN77UVZ'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -571,7 +571,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.1.7 Safari/CXPXSSDKA'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Apple Macintosh'
       DeviceBrand                          : 'Apple'
       DeviceCpu                            : 'Intel'
@@ -601,7 +601,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.8677.505 Safari/537.36 Edg/1DGWMNWXSSP'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -631,7 +631,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.7164.687 Safari/DAXSSU'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -661,7 +661,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:80.0) Gecko/20100101 Firefox/5XSS'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -692,7 +692,7 @@ config:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/HXSS'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -747,12 +747,12 @@ config:
       AgentNameVersionMajor                : 'TO-Browser TOB7'
       RemarkablePattern                    : 'Anonymized'
 
-# Robot because of nonsense version
+
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.2914.144 Safari/537.36 Edg/BOTXMTJFVV4'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -777,12 +777,12 @@ config:
       AgentNameVersionMajor                : 'Edge BOTXMTJFVV4'
       RemarkablePattern                    : 'Not a version'
 
-# Robot because of nonsense version --> NOT Hacker (Nmap)
+# Manipulated nonsense version --> NOT Hacker (Nmap)
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.3555.887 Safari/NMAP4H'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -808,12 +808,12 @@ config:
       RemarkablePattern                    : 'Not a version'
 
 
-# Robot because of nonsense version --> NOT Hacker (Nmap)
+# Manipulated nonsense version --> NOT Hacker (Nmap)
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.1126.742 Safari/537.36 OPR/43ENDRNMAP1GSITEP'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
@@ -1380,7 +1380,7 @@ config:
       AgentVersionMajor                    : '86'
       AgentNameVersion                     : 'Chrome 86.0.4240.110'
       AgentNameVersionMajor                : 'Chrome 86'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -1410,7 +1410,7 @@ config:
       AgentVersionMajor                    : '100'
       AgentNameVersion                     : 'Chrome 100.0.4896.88'
       AgentNameVersionMajor                : 'Chrome 100'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -1440,7 +1440,7 @@ config:
       AgentVersionMajor                    : '103'
       AgentNameVersion                     : 'Chrome 103'
       AgentNameVersionMajor                : 'Chrome 103'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -1470,7 +1470,7 @@ config:
       AgentVersionMajor                    : '107'
       AgentNameVersion                     : 'Edge 107'
       AgentNameVersionMajor                : 'Edge 107'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -1500,7 +1500,7 @@ config:
       AgentVersionMajor                    : '108'
       AgentNameVersion                     : 'Chrome 108'
       AgentNameVersionMajor                : 'Chrome 108'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -1530,7 +1530,7 @@ config:
       AgentVersionMajor                    : '76'
       AgentNameVersion                     : 'Chrome 76.0.3809.100'
       AgentNameVersionMajor                : 'Chrome 76'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
 
 
 - test:
@@ -1560,4 +1560,37 @@ config:
       AgentVersionMajor                    : '75'
       AgentNameVersion                     : 'Chrome 75.0.3770.142'
       AgentNameVersionMajor                : 'Chrome 75'
-      RemarkablePattern                    : 'Not a version/Anti fingerprinting'
+      RemarkablePattern                    : 'Not a version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemVersionMajor          : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      OperatingSystemNameVersionMajor      : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : 'x.x.x'
+      LayoutEngineVersionMajor             : 'x'
+      LayoutEngineNameVersion              : 'Gecko x.x.x'
+      LayoutEngineNameVersionMajor         : 'Gecko x'
+      LayoutEngineBuild                    : '20041107'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : 'x.x'
+      AgentVersionMajor                    : 'x'
+      AgentNameVersion                     : 'Firefox x.x'
+      AgentNameVersionMajor                : 'Firefox x'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Not a version'

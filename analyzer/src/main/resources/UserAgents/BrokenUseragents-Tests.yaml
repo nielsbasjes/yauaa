@@ -1105,7 +1105,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_2_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13D15 MOBILE-LEQUIPE/IOS/PHONE/6.9.3/(null)'
     expected:
-      DeviceClass                          : 'Robot'  # Normal useragents do NOT have a '(null)' comment.
+      DeviceClass                          : 'Phone'  # Normal useragents do NOT have a '(null)' comment.
       DeviceName                           : 'Apple iPhone'
       DeviceBrand                          : 'Apple'
       DeviceFirmwareVersion                : '13D15'
@@ -2517,7 +2517,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; rv:54.0) Gecko/20100101 Firefox/@PKGVER@'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpuBits                        : '32'
@@ -3366,7 +3366,7 @@ config:
     input:
       User-Agent                           : 'Browser/0.0 (Windows 1.0) AppleWebKit/36.0 (KHTML, like Gecko) Chromium/dev Safari/10'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Mobile'
       DeviceName                           : 'Browser'
       DeviceBrand                          : 'Unknown'
       DeviceVersion                        : '0.0'

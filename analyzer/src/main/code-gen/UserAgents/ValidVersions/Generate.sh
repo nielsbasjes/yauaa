@@ -97,13 +97,14 @@ End-of-message
 grep -F -v '#' "${INPUT}" | grep . | while read -r name
 do
     cat <<End-of-message
+# ===========================================================================================
+
 - matcher:
     variable:
     - 'AgentVersion: agent.product.name="${name}"^.(1)version'
     require:
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'DeviceClass                         :    10000 :"Robot"'
     - 'RemarkablePattern                   :      101: "Not a version"'
 
 - matcher:
@@ -114,7 +115,8 @@ do
     - 'IsNull[@AgentVersion.url]'
     - 'IsNull[IsValidVersion[@AgentVersion]]'
     extract:
-    - 'RemarkablePattern                   :      100: "Not a version/Anti fingerprinting"'
+    - 'RemarkablePattern                   :      100: "Not a version"'
+
 End-of-message
 done
 

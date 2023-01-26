@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 v7.12.0-SNAPSHOT
 ===
 - New/improved detections
-  - ...
+    - NULL version is now assumes to be caused by broken plugins instead of Robot.
 
 v7.11.0
 ===

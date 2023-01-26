@@ -10956,39 +10956,6 @@ config:
 
 - test:
     input:
-      User-Agent                           : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpuBits                        : '32'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : 'XP'
-      OperatingSystemVersionMajor          : 'XP'
-      OperatingSystemNameVersion           : 'Windows XP'
-      OperatingSystemNameVersionMajor      : 'Windows XP'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Gecko'
-      LayoutEngineVersion                  : 'x.x.x'
-      LayoutEngineVersionMajor             : 'x'
-      LayoutEngineNameVersion              : 'Gecko x.x.x'
-      LayoutEngineNameVersionMajor         : 'Gecko x'
-      LayoutEngineBuild                    : '20041107'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Firefox'
-      AgentVersion                         : 'x.x'
-      AgentVersionMajor                    : 'x'
-      AgentNameVersion                     : 'Firefox x.x'
-      AgentNameVersionMajor                : 'Firefox x'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-      AgentSecurity                        : 'Strong security'
-      RemarkablePattern                    : 'Not a version'
-
-
-- test:
-    input:
       User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; rv:20.0; OCA\Mail\Vendor\Favicon; +https://github.com/ArthurHoaro/favicon) Gecko/20100101 Firefox/32.0'
     expected:
       DeviceClass                          : 'Desktop'  # FIXME: This IS a robot
