@@ -3304,19 +3304,19 @@ config:
 
 - test:
     input:
-      User-Agent                           : '{''user_agent'': ''Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 CoRom/24.0.1312.52 Safari/537.17'', ''operating_system'': ''windows'', ''software_name'': ''chrome'', ''software_engine'': ''WebKit'', ''software_type'': ''browser -> web-browser'', ''hardware_type'': ''computer'', ''popularity'': ''uncommon''}'
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 CoRom/24.0.1312.52 Safari/537.17'
     expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Unknown'
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
       DeviceBrand                          : 'Unknown'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Windows 7'
+      OperatingSystemNameVersionMajor      : 'Windows 7'
       LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'AppleWebKit'
       LayoutEngineVersion                  : '537.17'
@@ -3329,7 +3329,6 @@ config:
       AgentVersionMajor                    : '24'
       AgentNameVersion                     : 'CoRom 24.0.1312.52'
       AgentNameVersionMajor                : 'CoRom 24'
-      RemarkablePattern                    : 'Not a version'
 
 
 # Double useragent.
