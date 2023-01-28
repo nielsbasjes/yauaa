@@ -28,7 +28,7 @@ function __INTERNAL__SwitchJDK {
     export JAVA_HOME=$(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f3);
 #    export JDK_VERSION="JDK ${JDK}"
 }
-echo "Use switch-jdk8, switch-jdk11 or switch-jdk17 to select the desired JDK to build with."
+echo -e "${IBlue}${On_Black}Use switch-jdk8, switch-jdk11 or switch-jdk17 to select the desired JDK to build with.${Color_Off}"
 alias switch-jdk8="__INTERNAL__SwitchJDK 1.8.0; export JDK_VERSION=JDK-8"
 alias switch-jdk11="__INTERNAL__SwitchJDK 1.11.0; export JDK_VERSION=JDK-11"
 alias switch-jdk17="__INTERNAL__SwitchJDK 1.17.0 ; export JDK_VERSION=JDK-17"
