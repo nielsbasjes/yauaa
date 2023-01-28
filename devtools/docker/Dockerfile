@@ -72,8 +72,8 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 # --------------------------------
-# Install Maven
-ENV MAVEN_VERSION=3.8.6
+# Install Maven ( https://maven.apache.org/download.cgi )
+ENV MAVEN_VERSION=3.8.7
 RUN mkdir -p /usr/local/apache-maven
 RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 RUN cd /usr/local/ && tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
@@ -87,8 +87,8 @@ ENV MAVEN_OPTS -Xms256m -Xmx512m
 RUN wget https://raw.githubusercontent.com/juven/maven-bash-completion/master/bash_completion.bash -O /etc/bash_completion.d/maven
 
 # --------------------------------
-# Install shellcheck
-ENV SHELLCHECK_VERSION=0.8.0
+# Install shellcheck ( https://github.com/koalaman/shellcheck/releases )
+ENV SHELLCHECK_VERSION=0.9.0
 RUN cd /usr/local/bin && \
     wget https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
     tar xJf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
@@ -96,8 +96,8 @@ RUN cd /usr/local/bin && \
     rm -rf shellcheck-v${SHELLCHECK_VERSION} shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 
 # --------------------------------
-# Install Hugo
-ENV HUGO_VERSION=0.102.3
+# Install Hugo ( https://github.com/gohugoio/hugo/releases )
+ENV HUGO_VERSION=0.110.0
 RUN cd /usr/local/bin && \
     wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
     tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
