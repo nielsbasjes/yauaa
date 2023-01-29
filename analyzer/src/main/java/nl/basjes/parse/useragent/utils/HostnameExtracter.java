@@ -17,7 +17,7 @@
 
 package nl.basjes.parse.useragent.utils;
 
-import org.apache.hc.client5.http.psl.PublicSuffixMatcherLoader;
+import nl.basjes.parse.useragent.utils.publicsuffixlist.PublicSuffixMatcherLoader;
 
 import java.io.Serializable;
 import java.net.URI;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import static org.apache.hc.client5.http.psl.DomainType.ICANN;
+import static nl.basjes.parse.useragent.utils.publicsuffixlist.DomainType.ICANN;
 
 public final class HostnameExtracter implements Serializable {
 
