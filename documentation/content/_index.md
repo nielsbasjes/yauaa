@@ -18,6 +18,14 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### v7.12.0-SNAPSHOT
+- Analyzer:
+    - Dropping httpcomponents-client v5.2.1.
+       - One less logging dependency (no more SLF4j needed).
+       - Fixes OSGI problems https://github.com/apache/unomi/pull/557
+- New/improved detections
+    - NULL version is now assumes to be caused by broken plugins instead of Robot.
+
 ### Version 7.11.0
 - New/improved detections
     - RancherDesktop client
@@ -37,7 +45,7 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ---
 ## Regarding the recent Log4J2 issues
-The Yauaa analyzer uses the Log4J2 API to do the logging and through the included dependencies also JCL and SLF4J are needed to run.
+The Yauaa analyzer uses the Log4J2 API to do the logging and through the included dependencies also JCL is needed to run.
 
 TL;DR:
 - **The core of Yauaa is safe** as it does not include any logging dependencies and expects the application to provide everything.

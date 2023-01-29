@@ -95,7 +95,6 @@ expect the consuming system to provide what ever fits best.
 So in the end to use this you must provide either an implementation or a bridge for:
 - Apache Log4j2
 - Apache (Jakarta) Commons logging (like org.apache.commons.logging.LogFactory) aka JCL.
-- Simple Logging Facade for Java (SLF4J)
 
 So it all depends on your exact context (i.e. which logging framework are you going to use) what
 the best solution is for you to make all of this logging work as intended.
@@ -106,12 +105,6 @@ In case you are using Apache Log4j2 you should have these dependencies in additi
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
       <version>${log4j2.version}</version>
     </dependency>
 
@@ -197,7 +190,7 @@ If your project does not use Kryo and you have this warning then there are sever
 <dependency>
     <groupId>com.esotericsoftware</groupId>
     <artifactId>kryo</artifactId>
-    <version>5.3.0</version>
+    <version>5.4.0</version>
     <scope>provided</scope>
 </dependency>
 ```

@@ -55,12 +55,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>5.2.1</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
       <version>1.10.0</version>
@@ -119,14 +113,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
     <!-- Needed for the included classes from org.springframework:spring-core -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -149,6 +135,35 @@
     </dependency>
 
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>prepareRelease</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.googlecode.maven-download-plugin</groupId>
+            <artifactId>download-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <executions>
+              <execution>
+                <id>download-public-suffix-list</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>wget</goal>
+                </goals>
+                <configuration>
+                  <url>https://publicsuffix.org/list/public_suffix_list.dat</url>
+                  <outputDirectory>${project.basedir}/src/main/resources/</outputDirectory>
+                  <outputFileName>mozilla-public-suffix-list.txt</outputFileName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
 

@@ -67,7 +67,10 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Needed for the included classes from org.apache.httpcomponents.client5:httpclient5 -->
+    <!-- Needed to let the tests actually run. -->
+    <!-- Without this (for yauaa needless) dependency you get -->
+    <!--   SLF4J: Detected both log4j-over-slf4j.jar AND bound slf4j-log4j12.jar -->
+    <!--          on the class path, preempting StackOverflowError. -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>

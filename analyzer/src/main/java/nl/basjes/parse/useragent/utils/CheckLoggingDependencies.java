@@ -33,15 +33,6 @@ public class CheckLoggingDependencies {
         }
     }
 
-    void verifySlf4jDependencies() {
-        try {
-            // Check slf4j (used by PublicSuffixMatcherLoader from httpclient)
-            org.slf4j.LoggerFactory.getLogger("Verify Logging Dependencies (Slf4j)");
-        } catch (NoClassDefFoundError e) {
-            throw new InvalidLoggingDependencyException("Failed testing SLF4J (Not present)", e);
-        }
-    }
-
     void verifyJCLDependencies() {
         try {
             // Check JCL (used by PathMatchingResourcePatternResolver from Springframework)
@@ -58,7 +49,6 @@ public class CheckLoggingDependencies {
     public static void verifyLoggingDependencies() {
         CheckLoggingDependencies ldt = new CheckLoggingDependencies();
         ldt.verifyLog4j2Dependencies();
-        ldt.verifySlf4jDependencies();
         ldt.verifyJCLDependencies();
     }
 }
