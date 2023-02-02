@@ -227,6 +227,22 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}</directory>
+              <includes>
+                <!-- Cleaning the intermediate files from maven-shade-plugin. -->
+                <include>dependency-reduced-pom.xml</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>${exec-maven-plugin.version}</version>

@@ -179,6 +179,22 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}</directory>
+              <includes>
+                <!-- Cleaning the intermediate files from maven-shade-plugin. -->
+                <include>dependency-reduced-pom.xml</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>${spotbugs-maven-plugin.version}</version>
