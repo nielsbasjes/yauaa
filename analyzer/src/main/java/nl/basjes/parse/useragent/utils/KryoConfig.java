@@ -85,7 +85,7 @@ import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig;
 import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.parse.UserAgentTreeFlattener;
-import org.springframework.util.LinkedCaseInsensitiveMap;
+import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.util.ArrayList;
 import java.util.Collections;

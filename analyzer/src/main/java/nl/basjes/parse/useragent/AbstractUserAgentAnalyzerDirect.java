@@ -46,9 +46,8 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.config.ConfigLoader;
-import nl.basjes.parse.useragent.utils.CheckLoggingDependencies;
 import nl.basjes.parse.useragent.utils.KryoConfig;
-import org.springframework.util.LinkedCaseInsensitiveMap;
+import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
@@ -536,12 +535,6 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
          */
         public UAA build() {
             failIfAlreadyBuilt();
-
-            // Before we initialize we check if the logging has been set up correctly.
-            // Not all useragents trigger the same logging libraries because some
-            // logging libraries are only used in specific analysis code.
-            // This is a "fail fast" to ensure any problems happen even before startup.
-            CheckLoggingDependencies.verifyLoggingDependencies();
 
             logVersion(showFullVersion);
 

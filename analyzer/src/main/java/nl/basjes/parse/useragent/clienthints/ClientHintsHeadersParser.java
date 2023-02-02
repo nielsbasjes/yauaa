@@ -34,7 +34,7 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.util.LinkedCaseInsensitiveMap;
+import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.io.Serializable;
 import java.util.List;

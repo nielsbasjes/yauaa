@@ -53,14 +53,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Needed for the included classes from org.springframework:spring-core -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-jcl</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
     <dependency>
       <groupId>nl.basjes.parse.httpdlog</groupId>
       <artifactId>httpdlog-parser</artifactId>
@@ -80,6 +72,14 @@
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Logparser uses slf4j so these logs must be routed towards log4j. -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
       <scope>test</scope>
     </dependency>
 
