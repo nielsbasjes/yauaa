@@ -45,7 +45,7 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ---
 ## Regarding the recent Log4J2 issues
-The Yauaa analyzer uses the Log4J2 API to do the logging and through the included dependencies also JCL is needed to run.
+The Yauaa analyzer uses the Log4J2 API to do the logging.
 
 TL;DR:
 - **The core of Yauaa is safe** as it does not include any logging dependencies and expects the application to provide everything.

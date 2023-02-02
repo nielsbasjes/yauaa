@@ -43,12 +43,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
       <version>${snakeyaml.version}</version>
@@ -109,14 +103,6 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Needed for the included classes from org.springframework:spring-core -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-jcl</artifactId>
       <version>${log4j2.version}</version>
       <scope>provided</scope>
     </dependency>
@@ -218,7 +204,7 @@
         </configuration>
       </plugin>
 
-      <!-- Some of the dependencies (Antlr4, Spring and SnakeYaml) have proven to be problematic -->
+      <!-- Some of the dependencies (Antlr4 and SnakeYaml) have proven to be problematic -->
       <!-- for downstream users who need different versions of these in the same application.    -->
       <!-- So for only these we include and relocate the used classes into the main jar.         -->
       <!-- Documentation of the used shading construct: https://yauaa.basjes.nl/NOTES-shading-dependencies.html -->
@@ -239,13 +225,6 @@
               </excludes>
             </filter>
             <filter>
-              <artifact>org.springframework:spring-core</artifact>
-              <excludes>
-                <exclude>META-INF/services/**</exclude>
-                <exclude>META-INF/MANIFEST.MF</exclude>
-              </excludes>
-            </filter>
-            <filter>
               <artifact>org.yaml:snakeyaml</artifact>
               <excludes>
                 <exclude>META-INF/services/**</exclude>
@@ -254,10 +233,6 @@
             </filter>
           </filters>
           <relocations>
-            <relocation>
-              <pattern>org.springframework</pattern>
-              <shadedPattern>nl.basjes.shaded.org.springframework</shadedPattern>
-            </relocation>
             <relocation>
               <pattern>org.antlr</pattern>
               <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
@@ -280,7 +255,6 @@
               <artifactSet>
                 <includes>
                   <include>org.antlr:antlr4-runtime</include>
-                  <include>org.springframework:spring-core</include>
                   <include>org.yaml:snakeyaml</include>
                 </includes>
               </artifactSet>
@@ -331,7 +305,6 @@
                 String[] libraryWanted = {
                   "nl/basjes/parse/useragent/utils/YauaaVersion.class",
                   "nl/basjes/shaded/org/antlr/v4/runtime/Parser.class",
-                  "nl/basjes/shaded/org/springframework/core/io/support/PathMatchingResourcePatternResolver.class",
                 };
 
                 String[] libraryUnwanted = {

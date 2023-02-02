@@ -86,15 +86,12 @@ If you are still using Java 8 then you can fix this problem by using the `LRUMap
         .build();
 
 ## Logging dependencies
-The Yauaa engine uses Log4j2 as the primary logging framework; yet some of the transitive dependencies
-of this project use different logging frameworks.
+The Yauaa engine uses Log4j2 API as the logging framework.
 
 To minimize the complexity of the dependency handling I have chosen to simply not include ANY logging framework and
 expect the consuming system to provide what ever fits best.
 
-So in the end to use this you must provide either an implementation or a bridge for:
-- Apache Log4j2
-- Apache (Jakarta) Commons logging (like org.apache.commons.logging.LogFactory) aka JCL.
+So in the end to use this you must provide either an implementation or a bridge for Apache Log4j2.
 
 So it all depends on your exact context (i.e. which logging framework are you going to use) what
 the best solution is for you to make all of this logging work as intended.
@@ -107,17 +104,6 @@ In case you are using Apache Log4j2 you should have these dependencies in additi
       <artifactId>log4j-core</artifactId>
       <version>${log4j2.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-jcl</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
-
-NOTE: Some of those logging frameworks are only used in specific analysis situations (like robots with a url).
-To avoid failing only when such an event occurs a `fail fast` construct has been added:
-At the moment of creating the UserAgentAnalyzer (i.e. during the `.build()`) a temporary instance all of these Logging
-frameworks are created. If one of them is not present it will immediately throw an `InvalidLoggingDependencyException` (=`RuntimeException`).
 
 ## Serialization
 If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and

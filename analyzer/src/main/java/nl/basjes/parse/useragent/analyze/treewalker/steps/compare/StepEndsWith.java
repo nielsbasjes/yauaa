@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import static org.springframework.util.StringUtils.endsWithIgnoreCase;
+import static nl.basjes.parse.useragent.utils.springframework.util.StringUtils.endsWithIgnoreCase;
 
 public class StepEndsWith extends Step {
 

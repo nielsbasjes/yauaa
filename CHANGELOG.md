@@ -4,9 +4,14 @@ This is intended as an overview of the major changes
 v7.12.0-SNAPSHOT
 ===
 - Analyzer:
-    - Dropping httpcomponents-client v5.2.1.
+    - Manually shaded in
+      - httpcomponents-client v5.2.1.
         - One less logging dependency (no more SLF4j needed).
         - Fixes OSGI problems https://github.com/apache/unomi/pull/557
+      - spring-core
+        - One less logging dependency (no more JCL needed).
+        - Dropping VFS support
+
 - New/improved detections
     - NULL version is now assumes to be caused by broken plugins instead of Robot.
 

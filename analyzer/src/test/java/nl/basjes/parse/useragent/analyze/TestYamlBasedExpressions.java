@@ -28,7 +28,7 @@ class TestYamlBasedExpressions {
         UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
             .newBuilder()
             .keepTests()
-            .addResources("classpath*:LookupMergingOppo.yaml")
+            .addResources("file:src/test/resources/LookupMergingOppo.yaml")
             .build();
         assertTrue(uaa.runTests(false, true));
     }

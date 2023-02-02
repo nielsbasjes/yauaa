@@ -33,7 +33,7 @@ As a consequence you'll see different startup messages depending on either havin
 
 # Using yauaa in your own Quarkus project
 ## Normal
-Include `yauaa` and `jcl-over-slf4j` as a dependency.
+Include `yauaa` as a dependency.
 
 ## Native
 1. Use the quarkus.native.additional-build-args properties as shown in the `pom.xml`.
