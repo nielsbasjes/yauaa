@@ -411,6 +411,9 @@
             <exclude>nl/basjes/parse/useragent/parser/*.class</exclude>
             <!-- Developer debugging tools -->
             <exclude>nl/basjes/parse/useragent/debug/*.class</exclude>
+            <!-- Manually "shaded in" code from httpclient5 and spring-core  -->
+            <exclude>nl/basjes/parse/useragent/utils/publicsuffixlist/**/*.class</exclude>
+            <exclude>nl/basjes/parse/useragent/utils/springframework/**/*.class</exclude>
           </excludes>
         </configuration>
       </plugin>
