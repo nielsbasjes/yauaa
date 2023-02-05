@@ -31,7 +31,7 @@ do
     echo '/ ============================================== ' && \
     echo "| Testing version ${version}" && \
     echo '\ ============================================== ' && \
-    mvn clean test -Ddepencency-convergence.phase=none -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "${OUTPUT}"
+    mvn clean test -Ddependency-convergence.phase=none -Dyauaa.version="${version}" -Dtest=RunBenchmarks > "${OUTPUT}"
   fi
 done
 

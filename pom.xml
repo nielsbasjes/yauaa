@@ -90,7 +90,7 @@
     <!-- ============================================== -->
 
     <dependency-check-maven.version>8.0.2</dependency-check-maven.version>
-    <depencency-convergence.phase>validate</depencency-convergence.phase>
+    <dependency-convergence.phase>validate</dependency-convergence.phase>
     <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
     <checkstyle.version>10.7.0</checkstyle.version>
     <spotbugs-maven-plugin.version>4.7.3.0</spotbugs-maven-plugin.version>
@@ -317,7 +317,7 @@
         <jacoco.skip>true</jacoco.skip>
         <spotbugs.skip>true</spotbugs.skip>
         <dependency-check.skip>true</dependency-check.skip>
-        <depencency-convergence.phase>none</depencency-convergence.phase>
+        <dependency-convergence.phase>none</dependency-convergence.phase>
         <docker-based-tests.skip>true</docker-based-tests.skip>
         <invoker.skip>true</invoker.skip>
       </properties>
@@ -539,7 +539,7 @@
 
           <execution>
             <id>dependency-convergence</id>
-            <phase>${depencency-convergence.phase}</phase>
+            <phase>${dependency-convergence.phase}</phase>
             <goals>
               <goal>enforce</goal>
             </goals>
