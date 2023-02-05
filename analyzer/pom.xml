@@ -128,17 +128,42 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-clean-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>Remove mozilla-public-suffix-list.txt to force download.</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+                <configuration>
+                  <filesets>
+                    <fileset>
+                      <directory>${project.basedir}/src/main/resources/</directory>
+                      <includes>
+                        <include>mozilla-public-suffix-list.txt</include>
+                      </includes>
+                    </fileset>
+                  </filesets>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
             <groupId>com.googlecode.maven-download-plugin</groupId>
             <artifactId>download-maven-plugin</artifactId>
             <version>1.6.8</version>
             <executions>
               <execution>
                 <id>download-public-suffix-list</id>
-                <phase>generate-resources</phase>
+                <phase>initialize</phase>
                 <goals>
                   <goal>wget</goal>
                 </goals>
                 <configuration>
+                  <skipCache>true</skipCache>
                   <url>https://publicsuffix.org/list/public_suffix_list.dat</url>
                   <outputDirectory>${project.basedir}/src/main/resources/</outputDirectory>
                   <outputFileName>mozilla-public-suffix-list.txt</outputFileName>
