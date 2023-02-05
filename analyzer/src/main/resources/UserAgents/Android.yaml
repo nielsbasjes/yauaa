@@ -2070,6 +2070,33 @@ config:
 
 - test:
     input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4922.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Fuchsia Device'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Fuchsia'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Fuchsia ??'
+      OperatingSystemNameVersionMajor      : 'Fuchsia ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101.0'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101.0'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '101.0.4922.0'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Chrome 101.0.4922.0'
+      AgentNameVersionMajor                : 'Chrome 101'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Linux; U; Android 2.3.3; en-us; Sensation_4G Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/5.0 Safari/533.16'
     expected:
       DeviceClass                          : 'Phone'
