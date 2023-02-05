@@ -35,7 +35,7 @@ fi
 echo "Generating: ${OUTPUT}";
 
 (
-echo "// The TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat on $(date)"
+echo "// The TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat"
 echo -n "fragment TLD"
 SEP=':'
 grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -E '^[a-z]+$' | sort -u | \
