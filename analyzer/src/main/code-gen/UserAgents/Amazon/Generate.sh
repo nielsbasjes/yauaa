@@ -68,7 +68,7 @@ config:
     name: "AmazonDeviceTags"
     map:'
 
-grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | sort | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 )
     deviceName=$( echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2 )
@@ -90,7 +90,7 @@ echo "
 "
 
 
-grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line
+grep -F -v '#' "${INPUT}" | grep '[a-z]' | sort | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 )
     deviceName=$( echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f2 )
