@@ -72,6 +72,9 @@ killContainer() {
 
 trap killContainer EXIT
 
+info "Waiting 5 seconds to give docker the chance to start"
+sleep 5
+
 info "Waiting for ElasticSearch to become operational"
 # We wait for at most 60 seconds
 count=60
