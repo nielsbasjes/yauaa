@@ -18,7 +18,7 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
-### v7.12.0
+### Version 7.12.0
 - Analyzer:
     - Manually shaded in
       - httpcomponents-client v5.2.1.
