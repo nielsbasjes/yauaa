@@ -38,12 +38,16 @@ class TestMemoryFootprint {
     private void printMemoryUsage(int iterationsDone, long averageNanos) {
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
-        runtime.gc();
+        String didGC = "      ";
+        if (iterationsDone % 10000 == 0) {
+            runtime.gc();
+            didGC = "and GC";
+        }
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
         LOG.info(String.format(
-            "After %7d iterations and GC --> Used memory is %10d bytes (%5d MiB), Average time per parse %7d ns ( ~ %4.3f ms)",
-            iterationsDone, memory, bytesToMegabytes(memory), averageNanos, averageNanos / 1000000.0));
+            "After %7d iterations %s --> Used memory is %10d bytes (%5d MiB), Average time per parse %7d ns ( ~ %4.3f ms)",
+            iterationsDone, didGC, memory, bytesToMegabytes(memory), averageNanos, averageNanos / 1000000.0));
     }
 
 
@@ -106,7 +110,7 @@ class TestMemoryFootprint {
     void checkForMemoryLeaksDuringRuns() { //NOSONAR: Do not complain about ignored performance test
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
-            .withoutCache()
+            .withCache(100)
 //            .withField("OperatingSystemName")
 //            .withField("OperatingSystemVersion")
 //            .withField("DeviceClass")
@@ -117,7 +121,7 @@ class TestMemoryFootprint {
         LOG.info("Init complete");
         int iterationsDone = 0;
         final int iterationsPerLoop = 1000;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             long start = System.nanoTime();
             uaa.preHeat(iterationsPerLoop, false);
             long stop = System.nanoTime();
