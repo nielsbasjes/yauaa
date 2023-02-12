@@ -49,28 +49,28 @@ class TestParseUserAgentClientHints {
         String chPlatform           = "\"macOS\"";
         String chPlatformVersion    = "\"12.3.1\"";
 
-        ParseUserAgent parseUserAgent = new ParseUserAgent();
-
-        StandardStructObjectInspector resultInspector = (StandardStructObjectInspector) parseUserAgent
-            .initialize(new ObjectInspector[]{
-                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
-                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
-                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
-                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
-                PrimitiveObjectInspectorFactory.javaStringObjectInspector,
-                PrimitiveObjectInspectorFactory.javaStringObjectInspector
-            });
-
-        for (int i = 0; i < 100000; i++) {
-            Object row = parseUserAgent.evaluate(
-                new DeferredObject[]{
-                    new DeferredJavaObject("user-Agent"),                   new DeferredJavaObject(useragent),
-                    new DeferredJavaObject("sec-CH-UA-Platform"),           new DeferredJavaObject(chPlatform),
-                    new DeferredJavaObject("sec-CH-UA-Platform-Version"),   new DeferredJavaObject(chPlatformVersion),
+        try (ParseUserAgent parseUserAgent = new ParseUserAgent()) {
+            StandardStructObjectInspector resultInspector = (StandardStructObjectInspector) parseUserAgent
+                .initialize(new ObjectInspector[]{
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector,
+                    PrimitiveObjectInspectorFactory.javaStringObjectInspector
                 });
-            checkField(resultInspector, row, "DeviceClass",                 "Desktop");
-            checkField(resultInspector, row, "AgentNameVersionMajor",       "Chrome 100");
-            checkField(resultInspector, row, "OperatingSystemNameVersion",  "Mac OS 12.3.1");
+
+            for (int i = 0; i < 100000; i++) {
+                Object row = parseUserAgent.evaluate(
+                    new DeferredObject[]{
+                        new DeferredJavaObject("user-Agent"), new DeferredJavaObject(useragent),
+                        new DeferredJavaObject("sec-CH-UA-Platform"), new DeferredJavaObject(chPlatform),
+                        new DeferredJavaObject("sec-CH-UA-Platform-Version"), new DeferredJavaObject(chPlatformVersion),
+                    });
+                checkField(resultInspector, row, "DeviceClass", "Desktop");
+                checkField(resultInspector, row, "AgentNameVersionMajor", "Chrome 100");
+                checkField(resultInspector, row, "OperatingSystemNameVersion", "Mac OS 12.3.1");
+            }
         }
     }
 
@@ -86,8 +86,9 @@ class TestParseUserAgentClientHints {
 
     @Test
     void testExplain() {
-        ParseUserAgent parseUserAgent = new ParseUserAgent();
-        assertTrue(parseUserAgent.getDisplayString(null).contains("UserAgent"), "Wrong explanation");
+        try(ParseUserAgent parseUserAgent = new ParseUserAgent()) {
+            assertTrue(parseUserAgent.getDisplayString(null).contains("UserAgent"), "Wrong explanation");
+        }
     }
 
 }
