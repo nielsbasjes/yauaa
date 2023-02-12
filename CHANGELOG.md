@@ -5,6 +5,11 @@ v7.13.0-SNAPSHOT
 ===
 - ...
 
+v7.12.1
+===
+- Analyzer:
+  - Include the caffeine dependencies fix https://github.com/ben-manes/caffeine/discussions/867
+
 v7.12.0
 ===
 - Analyzer:
