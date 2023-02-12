@@ -133,7 +133,7 @@
             <executions>
               <execution>
                 <id>Remove mozilla-public-suffix-list.txt to force download.</id>
-                <phase>initialize</phase>
+                <phase>clean</phase>
                 <goals>
                   <goal>clean</goal>
                 </goals>
@@ -171,6 +171,25 @@
               </execution>
             </executions>
           </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>persist-public-suffix-list</id>
+                <phase>initialize</phase>
+                <goals>
+                  <goal>add</goal>
+                </goals>
+                <configuration>
+                  <basedir>${project.basedir}</basedir>
+                  <includes>src/main/resources/mozilla-public-suffix-list.txt</includes>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
         </plugins>
       </build>
     </profile>

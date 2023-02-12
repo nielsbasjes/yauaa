@@ -50,3 +50,5 @@ echo ';'
 sed -i '/The TLDs extracted/d' "${TARGETFILE}"
 sed -i '/^fragment TLD/d' "${TARGETFILE}"
 sed -i "/^\/\/ GENERATED TLD FRAGMENT:$/ r ${OUTPUT}" "${TARGETFILE}"
+
+git add "${TARGETFILE}"
