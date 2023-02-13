@@ -4,6 +4,13 @@ This is intended as an overview of the major changes
 v7.13.0-SNAPSHOT
 ===
 - New/improved detections
+  - ...
+
+v7.12.2
+===
+- Build
+  - Reproducible builds
+- New/improved detections
   - Extra noise filter of unwanted extra fields
 
 v7.12.1

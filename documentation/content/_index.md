@@ -18,6 +18,12 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.12.2
+- Build
+  - Reproducible builds
+- New/improved detections
+  - Extra noise filter of unwanted extra fields
+
 ### Version 7.12.1
 - Analyzer:
   - Include the caffeine dependencies fix https://github.com/ben-manes/caffeine/discussions/867
