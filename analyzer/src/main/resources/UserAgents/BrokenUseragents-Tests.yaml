@@ -3447,3 +3447,32 @@ config:
       UAClientHintPlatform                       : 'macOS'
       UAClientHintPlatformVersion                : '12.2.1'
       UAClientHintWow64                          : 'false'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 bs=95 ts=0 ja3=67dfa73ac3b4f43834428b0274105be9 as=22616'
+    expected:
+      DeviceClass                                : 'Desktop'
+      DeviceName                                 : 'Desktop'
+      DeviceBrand                                : 'Unknown'
+      DeviceCpu                                  : 'Intel x86_64'
+      DeviceCpuBits                              : '64'
+      OperatingSystemClass                       : 'Desktop'
+      OperatingSystemName                        : 'Windows NT'
+      OperatingSystemVersion                     : '??'
+      OperatingSystemVersionMajor                : '??'
+      OperatingSystemNameVersion                 : 'Windows NT ??'
+      OperatingSystemNameVersionMajor            : 'Windows NT ??'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '108'
+      LayoutEngineVersionMajor                   : '108'
+      LayoutEngineNameVersion                    : 'Blink 108'
+      LayoutEngineNameVersionMajor               : 'Blink 108'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Chrome'
+      AgentVersion                               : '108'
+      AgentVersionMajor                          : '108'
+      AgentNameVersion                           : 'Chrome 108'
+      AgentNameVersionMajor                      : 'Chrome 108'

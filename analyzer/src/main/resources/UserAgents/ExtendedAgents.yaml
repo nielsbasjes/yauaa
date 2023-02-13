@@ -32,6 +32,10 @@ config:
     values:
     - 'anonym'
     - 'OMI'  # Seen in some Sony TVs
+    - 'bs='
+    - 'ts='
+    - 'ja3='
+    - 'as='
 
 - matcher:
     variable:
@@ -40,7 +44,7 @@ config:
     - 'IsNull[agent.product.name="Mobile"]'
     - 'IsNull[agent.product.name="Version"]'
     - 'IsNull[@NextProduct>]' # Must also be the last product in the list
-    - 'IsNotInLookUpPrefix[NextProductsNotToMatchForExtended;@NextProduct.name[1]]'
+    - 'IsNotInLookUpPrefix[NextProductsNotToMatchForExtended;@NextProduct]'
     extract:
     - 'AgentClass                          :   3020 :"Browser"'
     - 'AgentName                           :   3020 :@NextProduct.name'
