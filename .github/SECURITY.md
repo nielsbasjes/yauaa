@@ -19,7 +19,7 @@ yauaa-security@basjes.nl .
 
 Depending on the severity of a vulnerability the issue may be fixed in the current `major.minor` release of Yauaa, or
 for lower severity vulnerabilities or hardening in the following `major.minor` release. Refer to 
-[the releases page](https://github.com/nielsbasjes/yauaa/releases) to find the latest release.
+[the versions available on Maven central](https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa/7.12.2/versions) to find the latest release.
 
 ## Automatic updates
 
