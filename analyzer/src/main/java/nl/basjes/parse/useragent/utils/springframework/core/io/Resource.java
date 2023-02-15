@@ -19,6 +19,7 @@ package nl.basjes.parse.useragent.utils.springframework.core.io;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 
 /**
@@ -47,12 +48,52 @@ import java.net.URL;
 public interface Resource extends InputStreamSource {
 
     /**
+     * Determine whether this resource actually exists in physical form.
+     * <p>This method performs a definitive existence check, whereas the
+     * existence of a {@code Resource} handle only guarantees a valid
+     * descriptor handle.
+     */
+    boolean exists();
+
+    /**
+     * Indicate whether this resource represents a handle with an open stream.
+     * If {@code true}, the InputStream cannot be read multiple times,
+     * and must be read and closed to avoid resource leaks.
+     * <p>Will be {@code false} for typical resource descriptors.
+     */
+    default boolean isOpen() {
+        return false;
+    }
+
+    /**
+     * Determine whether this resource represents a file in a file system.
+     * <p>A value of {@code true} strongly suggests (but does not guarantee)
+     * that a {link #getFile()} call will succeed.
+     * <p>This is conservatively {@code false} by default.
+     *
+     * @since 5.0
+     * see #getFile()
+     */
+    default boolean isFile() {
+        return false;
+    }
+
+    /**
      * Return a URL handle for this resource.
      *
      * @throws IOException if the resource cannot be resolved as URL,
      *                     i.e. if the resource is not available as a descriptor
      */
     URL getURL() throws IOException;
+
+    /**
+     * Return a URI handle for this resource.
+     *
+     * @throws IOException if the resource cannot be resolved as URI,
+     *                     i.e. if the resource is not available as a descriptor
+     * @since 2.5
+     */
+    URI getURI() throws IOException;
 
     /**
      * Return a File handle for this resource.

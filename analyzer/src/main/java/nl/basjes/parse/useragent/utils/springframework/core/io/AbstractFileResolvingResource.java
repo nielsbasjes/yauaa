@@ -38,6 +38,7 @@ import java.net.URLConnection;
  */
 public abstract class AbstractFileResolvingResource extends AbstractResource {
 
+    @Override
     public boolean exists() {
         try {
             URL url = getURL();
@@ -77,6 +78,19 @@ public abstract class AbstractFileResolvingResource extends AbstractResource {
         }
     }
 
+    @Override
+    public boolean isFile() {
+        try {
+            URL url = getURL();
+            if (url.getProtocol().startsWith(ResourceUtils.URL_PROTOCOL_VFS)) {
+                return VfsResourceDelegate.getResource(url).isFile();
+            }
+            return ResourceUtils.URL_PROTOCOL_FILE.equals(url.getProtocol());
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
     /**
      * This implementation returns a File reference for the underlying class path
      * resource, provided that it refers to a file in the file system.
@@ -86,7 +100,27 @@ public abstract class AbstractFileResolvingResource extends AbstractResource {
     @Override
     public File getFile() throws IOException {
         URL url = getURL();
+        if (url.getProtocol().startsWith(ResourceUtils.URL_PROTOCOL_VFS)) {
+            return VfsResourceDelegate.getResource(url).getFile();
+        }
         return ResourceUtils.getFile(url, getDescription());
+    }
+
+    /**
+     * Determine whether the given {link URI} represents a file in a file system.
+     *
+     * @since 5.0
+     * see #getFile(URI)
+     */
+    protected boolean isFile(URI uri) {
+        try {
+            if (uri.getScheme().startsWith(ResourceUtils.URL_PROTOCOL_VFS)) {
+                return VfsResourceDelegate.getResource(uri).isFile();
+            }
+            return ResourceUtils.URL_PROTOCOL_FILE.equals(uri.getScheme());
+        } catch (IOException ex) {
+            return false;
+        }
     }
 
     /**
@@ -97,7 +131,7 @@ public abstract class AbstractFileResolvingResource extends AbstractResource {
      */
     protected File getFile(URI uri) throws IOException {
         if (uri.getScheme().startsWith(ResourceUtils.URL_PROTOCOL_VFS)) {
-            throw new IllegalArgumentException("JBoss VFS is not supported");
+            return VfsResourceDelegate.getResource(uri).getFile();
         }
         return ResourceUtils.getFile(uri, getDescription());
     }
@@ -150,6 +184,20 @@ public abstract class AbstractFileResolvingResource extends AbstractResource {
      * @throws IOException if thrown from HttpURLConnection methods
      */
     protected void customizeConnection(HttpURLConnection ignoredCon) throws IOException {
+    }
+
+    /**
+     * Inner delegate class, avoiding a hard JBoss VFS API dependency at runtime.
+     */
+    private static class VfsResourceDelegate {
+
+        public static Resource getResource(URL url) throws IOException {
+            return new VfsResource(VfsUtils.getRoot(url));
+        }
+
+        public static Resource getResource(URI uri) throws IOException {
+            return new VfsResource(VfsUtils.getRoot(uri));
+        }
     }
 
 }

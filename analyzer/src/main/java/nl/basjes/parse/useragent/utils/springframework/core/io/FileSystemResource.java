@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -120,6 +121,22 @@ public class FileSystemResource extends AbstractResource implements Resource {
 
 
     /**
+     * Return the file path for this resource.
+     */
+    public final String getPath() {
+        return this.path;
+    }
+
+    /**
+     * This implementation returns whether the underlying file exists.
+     * see java.io.File#exists()
+     */
+    @Override
+    public boolean exists() {
+        return (this.file != null ? this.file.exists() : Files.exists(this.filePath));
+    }
+
+    /**
      * This implementation opens a NIO file stream for the underlying file.
      *
      * see java.io.FileInputStream
@@ -141,6 +158,23 @@ public class FileSystemResource extends AbstractResource implements Resource {
     @Override
     public URL getURL() throws IOException {
         return (this.file != null ? this.file.toURI().toURL() : this.filePath.toUri().toURL());
+    }
+
+    /**
+     * This implementation returns a URI for the underlying file.
+     * see java.io.File#toURI()
+     */
+    @Override
+    public URI getURI() throws IOException {
+        return (this.file != null ? this.file.toURI() : this.filePath.toUri());
+    }
+
+    /**
+     * This implementation always indicates a file.
+     */
+    @Override
+    public boolean isFile() {
+        return true;
     }
 
     /**

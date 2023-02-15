@@ -156,6 +156,28 @@ public class UrlResource extends AbstractFileResolvingResource {
     }
 
     /**
+     * This implementation returns the underlying URI directly,
+     * if possible.
+     */
+    @Override
+    public URI getURI() throws IOException {
+        if (this.uri != null) {
+            return this.uri;
+        } else {
+            return super.getURI();
+        }
+    }
+
+    @Override
+    public boolean isFile() {
+        if (this.uri != null) {
+            return super.isFile(this.uri);
+        } else {
+            return super.isFile();
+        }
+    }
+
+    /**
      * This implementation returns a File reference for the underlying URL/URI,
      * provided that it refers to a file in the file system.
      *

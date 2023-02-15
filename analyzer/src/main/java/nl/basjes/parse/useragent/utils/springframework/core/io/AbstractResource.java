@@ -16,6 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.core.io;
 
+import nl.basjes.parse.useragent.utils.springframework.util.ResourceUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +25,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -41,12 +44,73 @@ import java.net.URL;
 public abstract class AbstractResource implements Resource {
 
     /**
+     * This implementation checks whether a File can be opened,
+     * falling back to whether an InputStream can be opened.
+     * <p>This will cover both directories and content resources.
+     */
+    @Override
+    public boolean exists() {
+        // Try file existence: can we find the file in the file system?
+        if (isFile()) {
+            try {
+                return getFile().exists();
+            } catch (IOException ex) {
+                Logger logger = LogManager.getLogger(getClass());
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Could not retrieve File for existence check of {}", getDescription(), ex);
+                }
+            }
+        }
+        // Fall back to stream existence: can we open the stream?
+        try {
+            getInputStream().close();
+            return true;
+        } catch (Throwable ex) {
+            Logger logger = LogManager.getLogger(getClass());
+            if (logger.isDebugEnabled()) {
+                logger.debug("Could not retrieve InputStream for existence check of {}", getDescription(), ex);
+            }
+            return false;
+        }
+    }
+
+    /**
+     * This implementation always returns {@code false}.
+     */
+    @Override
+    public boolean isOpen() {
+        return false;
+    }
+
+    /**
+     * This implementation always returns {@code false}.
+     */
+    @Override
+    public boolean isFile() {
+        return false;
+    }
+
+    /**
      * This implementation throws a FileNotFoundException, assuming
      * that the resource cannot be resolved to a URL.
      */
     @Override
     public URL getURL() throws IOException {
         throw new FileNotFoundException(getDescription() + " cannot be resolved to URL");
+    }
+
+    /**
+     * This implementation builds a URI based on the URL returned
+     * by {link #getURL()}.
+     */
+    @Override
+    public URI getURI() throws IOException {
+        URL url = getURL();
+        try {
+            return ResourceUtils.toURI(url);
+        } catch (URISyntaxException ex) {
+            throw new IOException("Invalid URI [" + url + "]", ex);
+        }
     }
 
     /**
