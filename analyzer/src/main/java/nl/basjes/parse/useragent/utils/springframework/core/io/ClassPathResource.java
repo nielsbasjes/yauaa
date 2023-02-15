@@ -104,6 +104,16 @@ public class ClassPathResource extends AbstractFileResolvingResource {
 
 
     /**
+     * This implementation checks for the resolution of a resource URL.
+     * see java.lang.ClassLoader#getResource(String)
+     * see java.lang.Class#getResource(String)
+     */
+    @Override
+    public boolean exists() {
+        return (resolveURL() != null);
+    }
+
+    /**
      * Resolves a URL for the underlying class path resource.
      *
      * @return the resolved URL, or {@code null} if not resolvable

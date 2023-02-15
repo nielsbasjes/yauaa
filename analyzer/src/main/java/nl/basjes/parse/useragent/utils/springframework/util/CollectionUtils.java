@@ -18,7 +18,10 @@ package nl.basjes.parse.useragent.utils.springframework.util;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Miscellaneous collection utility methods.
@@ -52,6 +55,17 @@ public abstract class CollectionUtils {
     }
 
     /**
+     * Return {@code true} if the supplied Map is {@code null} or empty.
+     * Otherwise, return {@code false}.
+     *
+     * @param map the Map to check
+     * @return whether the given Map is empty
+     */
+    public static boolean isEmpty(@Nullable Map<?, ?> map) {
+        return (map == null || map.isEmpty());
+    }
+
+    /**
      * Instantiate a new {link HashMap} with an initial capacity
      * that can accommodate the specified number of elements without
      * any immediate resize/rehash operations to be expected.
@@ -71,6 +85,45 @@ public abstract class CollectionUtils {
 
     private static int computeMapInitialCapacity(int expectedSize) {
         return (int) Math.ceil(expectedSize / (double) DEFAULT_LOAD_FACTOR);
+    }
+
+
+    /**
+     * Check whether the given Iterator contains the given element.
+     *
+     * @param iterator the Iterator to check
+     * @param element  the element to look for
+     * @return {@code true} if found, {@code false} otherwise
+     */
+    public static boolean contains(@Nullable Iterator<?> iterator, Object element) {
+        if (iterator != null) {
+            while (iterator.hasNext()) {
+                Object candidate = iterator.next();
+                if (ObjectUtils.nullSafeEquals(candidate, element)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check whether the given Enumeration contains the given element.
+     *
+     * @param enumeration the Enumeration to check
+     * @param element     the element to look for
+     * @return {@code true} if found, {@code false} otherwise
+     */
+    public static boolean contains(@Nullable Enumeration<?> enumeration, Object element) {
+        if (enumeration != null) {
+            while (enumeration.hasMoreElements()) {
+                Object candidate = enumeration.nextElement();
+                if (ObjectUtils.nullSafeEquals(candidate, element)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

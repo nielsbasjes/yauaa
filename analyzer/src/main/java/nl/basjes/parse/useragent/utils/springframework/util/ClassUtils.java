@@ -84,11 +84,6 @@ public abstract class ClassUtils {
      */
     private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new IdentityHashMap<>(9);
 
-    /**
-     * Map with primitive type as key and corresponding wrapper
-     * type as value, for example: int.class -> Integer.class.
-     */
-    private static final Map<Class<?>, Class<?>> PRIMITIVE_TYPE_TO_WRAPPER_MAP = new IdentityHashMap<>(9);
 
     /**
      * Map with primitive type name as key and corresponding primitive
@@ -116,7 +111,6 @@ public abstract class ClassUtils {
 
         // Map entry iteration is less expensive to initialize than forEach with lambdas
         for (Map.Entry<Class<?>, Class<?>> entry : PRIMITIVE_WRAPPER_TYPE_MAP.entrySet()) {
-            PRIMITIVE_TYPE_TO_WRAPPER_MAP.put(entry.getValue(), entry.getKey());
             registerCommonClasses(entry.getKey());
         }
 
@@ -283,31 +277,6 @@ public abstract class ClassUtils {
             result = PRIMITIVE_TYPE_NAME_MAP.get(name);
         }
         return result;
-    }
-
-    /**
-     * Check if the right-hand side type may be assigned to the left-hand side
-     * type, assuming setting by reflection. Considers primitive wrapper
-     * classes as assignable to the corresponding primitive types.
-     *
-     * @param lhsType the target type
-     * @param rhsType the value type that should be assigned to the target type
-     * @return if the target type is assignable from the value type
-     * see TypeUtils#isAssignable(java.lang.reflect.Type, java.lang.reflect.Type)
-     */
-    public static boolean isAssignable(Class<?> lhsType, Class<?> rhsType) {
-        Assert.notNull(lhsType, "Left-hand side type must not be null");
-        Assert.notNull(rhsType, "Right-hand side type must not be null");
-        if (lhsType.isAssignableFrom(rhsType)) {
-            return true;
-        }
-        if (lhsType.isPrimitive()) {
-            Class<?> resolvedPrimitive = PRIMITIVE_WRAPPER_TYPE_MAP.get(rhsType);
-            return (lhsType == resolvedPrimitive);
-        } else {
-            Class<?> resolvedWrapper = PRIMITIVE_TYPE_TO_WRAPPER_MAP.get(rhsType);
-            return (resolvedWrapper != null && lhsType.isAssignableFrom(resolvedWrapper));
-        }
     }
 
     /**

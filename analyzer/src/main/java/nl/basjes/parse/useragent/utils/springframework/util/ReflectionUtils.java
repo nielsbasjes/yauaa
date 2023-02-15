@@ -17,6 +17,7 @@
 package nl.basjes.parse.useragent.utils.springframework.util;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -252,5 +253,31 @@ public abstract class ReflectionUtils {
         }
         return result;
     }
+
+
+    // Field handling
+
+    /**
+     * Get the field represented by the supplied {link Field field object} on the
+     * specified {link Object target object}. In accordance with {link Field#get(Object)}
+     * semantics, the returned value is automatically wrapped if the underlying field
+     * has a primitive type.
+     * <p>Thrown exceptions are handled via a call to {link #handleReflectionException(Exception)}.
+     *
+     * @param field  the field to get
+     * @param target the target object from which to get the field
+     *               (or {@code null} for a static field)
+     * @return the field's current value
+     */
+    @Nullable
+    public static Object getField(Field field, @Nullable Object target) {
+        try {
+            return field.get(target);
+        } catch (IllegalAccessException ex) {
+            handleReflectionException(ex);
+        }
+        throw new IllegalStateException("Should never get here");
+    }
+
 
 }
