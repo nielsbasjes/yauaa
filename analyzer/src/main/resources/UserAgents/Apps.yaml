@@ -114,7 +114,7 @@ config:
       - 'Darwin                              :agent.product.name="Darwin"^'
       - 'CPU                                 :LookUp[CPUArchitectures;@Darwin.(1)comments.entry]'
     require:
-      - 'agent.(2)product.name="CFNetwork"'
+      - 'agent.product.name="CFNetwork"'
     extract:
       - 'DeviceClass                         :       12 :"Desktop"'
       - 'DeviceBrand                         :       12 :"Apple"'
@@ -205,6 +205,9 @@ config:
       '21.5.0'    : '12.4 beta'
       '22.'       : '13.?'
       '22.0'      : '13.0 beta 1'
+      '22.1.0'    : '13.0'
+      '22.2.0'    : '13.1'
+      '22.3.0'    : '13.2'
 
       # FIXME: These are just guesses !
       '23.'       : '14.?'
@@ -265,6 +268,7 @@ config:
 
       '22.'       : '16.?'
       '22.0'      : '16.0 beta 1'
+      '22.1.0'    : '16.0'
 
       # FIXME: These are just guesses !
       '23.'       : '17.?'
@@ -280,14 +284,14 @@ config:
     - 'AgentName                           :@Agent.(1)name'
     - 'AgentVersion                        :@Agent.(1)version'
     require:
-    - 'agent.(2)product.name="CFNetwork"'
+    - 'agent.product.name="CFNetwork"'
     extract:
     - 'DeviceClass                         :       10 :"Mobile"'
     - 'DeviceBrand                         :       10 :"Apple"'
     - 'DeviceName                          :       10 :"iOS Device"'
     - 'OperatingSystemClass                :       10 :"Mobile"'
     - 'OperatingSystemName                 :       10 :"Darwin (iOS)"'
-    - 'OperatingSystemVersion              :       10 :agent.(3)product.name="Darwin"^.version'
+    - 'OperatingSystemVersion              :       10 :agent.product.name="Darwin"^.version'
     - 'LayoutEngineClass                   :       10 :"Mobile App"'
     - 'LayoutEngineName                    :       10 :@AgentName'
     - 'LayoutEngineVersion                 :       10 :@AgentVersion'
@@ -297,20 +301,31 @@ config:
 
 - matcher:
     require:
-      - 'agent.(2)product.name="CFNetwork"'
+      - 'agent.product.name="CFNetwork"'
     extract:
       - 'DeviceClass                         :       11 :"Mobile"'
       - 'DeviceBrand                         :       11 :"Apple"'
       - 'DeviceName                          :       11 :"iOS Device"'
       - 'OperatingSystemClass                :       11 :"Mobile"'
       - 'OperatingSystemName                 :       11 :"iOS"'
-      - 'OperatingSystemVersion              :       11 :LookUpPrefix[AppleDarwinVersionToIOSVersion; agent.(3)product.name="Darwin"^.version]'
+      - 'OperatingSystemVersion              :       11 :LookUpPrefix[AppleDarwinVersionToIOSVersion; agent.product.name="Darwin"^.version]'
+
+- matcher:
+    require:
+    - 'agent.product.name="CFNetwork"'
+    extract:
+    - 'DeviceClass                         :       11 :"Mobile"'
+    - 'DeviceBrand                         :       11 :"Apple"'
+    - 'DeviceName                          :       11 :"iOS Device"'
+    - 'OperatingSystemClass                :       11 :"Mobile"'
+    - 'OperatingSystemName                 :       11 :"iOS"'
+    - 'OperatingSystemVersion              :       12 :agent.product.name="iOS"^.version'
 
 - matcher:
     variable:
     - 'AgentName                           :agent.(1)product.(1)name'
     require:
-    - 'agent.(2)product.name="CFNetwork"'
+    - 'agent.product.name="CFNetwork"'
     - 'agent.(1)product.(1)comments.(1)entry="unknown version"'
     extract:
     - 'DeviceClass                         :       10 :"Mobile"'
@@ -5158,3 +5173,30 @@ config:
       AgentNameVersion                     : 'NRC 4.2.0'
       AgentNameVersionMajor                : 'NRC 4'
       AgentBuild                           : '405'
+
+
+- test:
+    input:
+      User-Agent                           : 'Lou''s Pizza/3.16.0 iOS/16.2 CFNetwork/1402.0.8 Darwin/22.2.0 HQ:10214 bs=99 ts=0 ja3=b76d503360ae441d410a85a7f8d648ab as=22394'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Lou''s Pizza'
+      LayoutEngineVersion                  : '3.16.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'Lou''s Pizza 3.16.0'
+      LayoutEngineNameVersionMajor         : 'Lou''s Pizza 3'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Lou''s Pizza'
+      AgentVersion                         : '3.16.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Lou''s Pizza 3.16.0'
+      AgentNameVersionMajor                : 'Lou''s Pizza 3'

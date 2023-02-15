@@ -18,6 +18,14 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.13.0-SNAPSHOT
+===
+- Analyzer:
+    - Adding VFS support back in.
+- New/improved detections
+    - Extra noise filter of unwanted extra fields
+    - Handle a new form of iOS apps.
+
 ### Version 7.12.2
 - Build
   - Reproducible builds

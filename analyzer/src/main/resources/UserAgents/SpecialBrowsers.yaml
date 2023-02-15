@@ -996,44 +996,58 @@ config:
       AgentLanguage                        : 'Chinese (S)'
       AgentLanguageCode                    : 'zh-cn'
 
+
+- set:
+    name: 'UnwantedSafariBrowserNames'
+    merge:
+    - 'OSPatterns'
+    - 'HardwareTags'
+    - 'BrowserPluginNames'
+    - 'GenericUnwantedNames'
+
+
 # Sometimes the name of the agent is AFTER the "Mobile" and "(Mobile) Safari" products.
 - matcher:
-    require:
-    - 'agent.product.name="Safari"' # Performance trick
     variable:
     - 'Product                             :agent.product.name="Mobile"^>.name="Safari"^>'
-    extract:
-    - 'AgentClass                          :     2049 :"Browser"'
-    - 'AgentName                           :     2049 :@Product.name'
-    - 'AgentVersion                        :     2049 :@Product.version'
-
-- matcher:
-    require:
-    - 'agent.product.name="Mobile Safari"' # Performance trick
-    variable:
-    - 'Product                             :agent.product.name="Mobile"^>.name="Mobile Safari"^>'
-    extract:
-    - 'AgentClass                          :     2049 :"Browser"'
-    - 'AgentName                           :     2049 :@Product.name'
-    - 'AgentVersion                        :     2049 :@Product.version'
-
-- matcher:
     require:
     - 'agent.product.name="Safari"' # Performance trick
+    - 'IsNotInLookUpPrefix[UnwantedSafariBrowserNames;@Product]'
+    extract:
+    - 'AgentClass                          :     2049 :"Browser"'
+    - 'AgentName                           :     2049 :@Product.name'
+    - 'AgentVersion                        :     2049 :@Product.version'
+
+- matcher:
+    variable:
+    - 'Product                             :agent.product.name="Mobile"^>.name="Mobile Safari"^>'
+    require:
+    - 'agent.product.name="Mobile Safari"' # Performance trick
+    - 'IsNotInLookUpPrefix[UnwantedSafariBrowserNames;@Product]'
+    extract:
+    - 'AgentClass                          :     2049 :"Browser"'
+    - 'AgentName                           :     2049 :@Product.name'
+    - 'AgentVersion                        :     2049 :@Product.version'
+
+- matcher:
     variable:
     - 'Product                             :agent.product.name="Mobile"^>.name="Safari"^>'
     - 'AgentTag                            :LookUp[AppNamesMapping;@Product.name]'
+    require:
+    - 'agent.product.name="Safari"' # Performance trick
+    - 'IsNotInLookUpPrefix[UnwantedSafariBrowserNames;@Product]'
     extract:
     - 'AgentClass                          :     2050 :@AgentTag[[1]]'
     - 'AgentName                           :     2050 :@AgentTag[[2]]'
     - 'AgentVersion                        :     2050 :@Product.version'
 
 - matcher:
-    require:
-    - 'agent.product.name="Mobile Safari"' # Performance trick
     variable:
     - 'Product                             :agent.product.name="Mobile"^>.name="Mobile Safari"^>'
     - 'AgentTag                            :LookUp[AppNamesMapping;@Product.name]'
+    require:
+    - 'agent.product.name="Mobile Safari"' # Performance trick
+    - 'IsNotInLookUpPrefix[UnwantedSafariBrowserNames;@Product]'
     extract:
     - 'AgentClass                          :     2050 :@AgentTag[[1]]'
     - 'AgentName                           :     2050 :@AgentTag[[2]]'
@@ -4007,7 +4021,10 @@ config:
     - 'OWASMIME'
     - 'anonymized'
     - 'build'
-
+    - 'as'
+    - 'bs'
+    - 'ts'
+    - 'ja3'
 
 - set:
     name: 'UnwantedIEPrefixes'

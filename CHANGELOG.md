@@ -3,8 +3,11 @@ This is intended as an overview of the major changes
 
 v7.13.0-SNAPSHOT
 ===
+- Analyzer:
+  - Adding VFS support back in.
 - New/improved detections
-  - ...
+  - Extra noise filter of unwanted extra fields
+  - Handle a new form of iOS apps.
 
 v7.12.2
 ===
