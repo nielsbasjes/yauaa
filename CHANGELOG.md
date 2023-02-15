@@ -1,7 +1,14 @@
 
 This is intended as an overview of the major changes
 
-v7.13.0-SNAPSHOT
+v7.14.0-SNAPSHOT
+===
+- Analyzer:
+  - ...
+- New/improved detections
+  - ...
+
+v7.13.0
 ===
 - Analyzer:
   - Adding VFS support back in.
