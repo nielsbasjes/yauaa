@@ -6,7 +6,7 @@ v7.14.0-SNAPSHOT
 - Analyzer:
   - ...
 - New/improved detections
-  - ...
+  - Alamofire/macOS Catalyst
 
 v7.13.0
 ===

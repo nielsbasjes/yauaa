@@ -2941,24 +2941,102 @@ config:
 # https://github.com/Alamofire/Alamofire
 # Alamofire is an HTTP networking library written in Swift.
 # Essentially this is a library used in iOS apps for connecting to websites/servers.
+# A Mac Catalyst app (i.e. an iPad app adapted to run on a Mac) https://developer.apple.com/mac-catalyst/
+# They use Alamofire that connects to the outside and fills the User-Agent header.
+# https://github.com/Alamofire/Alamofire/blob/master/Source/HTTPHeaders.swift#L409
+#        let osNameVersion: String = {
+#          let version = ProcessInfo.processInfo.operatingSystemVersion
+#          let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
+#          let osName: String = {
+#            #if os(iOS)
+#            #if targetEnvironment(macCatalyst)
+#            return "macOS(Catalyst)"
+#            #else
+#            return "iOS"
+#            #endif
+#            #elseif os(watchOS)
+#            return "watchOS"
+#            #elseif os(tvOS)
+#            return "tvOS"
+#            #elseif os(macOS)
+#            return "macOS"
+#            #elseif os(Linux)
+#            return "Linux"
+#            #elseif os(Windows)
+#            return "Windows"
+#            #else
+#            return "Unknown"
+#          #endif
+#        }()
+#
+#          return "\(osName) \(versionString)"
+#      }()
+#
+#        let alamofireVersion = "Alamofire/\(version)"
+#
+#        let userAgent = "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
+
+- lookup:
+    name: 'AlamofireOSDeviceMapping'
+    map:
+      #            Device                                  | Operating System      | Agent
+      #            DClass      | DName       | DBrand      | OClass     | OName    | AClass
+      "iOS"     : "Mobile|iOS Device|Apple|Mobile|iOS|Mobile App"
+      "watchOS" : "Mobile|Apple Watch|Apple|Mobile|Watch OS|Mobile App"
+      "tvOS"    : "Set-top box|Apple TV|Apple|Embedded|tv OS|Mobile App"
+      "macOS"   : "Desktop|<<<null>>>|Apple|Desktop|Mac OS|Desktop App"
+      "Linux"   : "Desktop|<<<null>>>|<<<null>>>|Desktop|Linux|Desktop App"
+      "Windows" : "Desktop|<<<null>>>|<<<null>>>|Desktop|Windows|Desktop App"
+      "Unknown" : "<<<null>>>|<<<null>>>|<<<null>>>|<<<null>>>|Unknown|<<<null>>>"
+
 - matcher:
     variable:
-    - 'Alamofire                           :agent.(2)product.name="Alamofire"^'
-    - 'App                                 :agent.(1)product'
+    - 'Agent: agent.(1)product'
+    - 'Bundle: agent.(1)product.(1)comments.(1)entry'
+    - 'AgentBuild: agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(1)key="build"^'
+    - 'OperatingSystem: agent.(1)product.(1)comments.(3)entry.product'
+    - 'Alamofire: agent.(2)product.(1)name="Alamofire"^'
+    - 'MappedOS: LookUp[AlamofireOSDeviceMapping;@OperatingSystem.name]'
     extract:
-    - 'DeviceClass                         :       10 :"Mobile"'
-    - 'DeviceBrand                         :       10 :"Apple"'
-    - 'DeviceName                          :       10 :"iOS Device"'
-    - 'OperatingSystemClass                :       10 :"Mobile"'
-    - 'OperatingSystemName                 :       10 :"iOS"'
-    - 'OperatingSystemVersion              :       10 :agent.(1)product.comments.(3)entry.product.name="iOS"^.version'
-    - 'LayoutEngineClass                   :       10 :"Mobile App"'
-    - 'LayoutEngineName                    :       10 :"Alamofire"'
-    - 'LayoutEngineVersion                 :       10 :@Alamofire.version'
-    - 'AgentClass                          :       10 :"Mobile App"'
-    - 'AgentName                           :       10 :agent.(1)product.name'
-    - 'AgentVersion                        :       10 :agent.(1)product.version'
-    - 'AgentBuild                          :       10 :agent.(1)product.comments.(2)entry.(1)keyvalue.key="build"^.value'
+    - 'DeviceClass                   : 10  : @MappedOS[[1]]'
+    - 'DeviceName                    : 10  : @MappedOS[[2]]'
+    - 'DeviceBrand                   : 10  : @MappedOS[[3]]'
+    - 'OperatingSystemClass          : 10  : @MappedOS[[4]]'
+    - 'OperatingSystemName           : 10  : @MappedOS[[5]]'
+    - 'OperatingSystemVersion        : 10  : @OperatingSystem.version'
+    - 'LayoutEngineClass             : 10  : @MappedOS[[6]]'
+    - 'LayoutEngineName              : 10  : "Alamofire"'
+    - 'LayoutEngineVersion           : 10  : @Alamofire.version'
+    - 'AgentClass                    : 10  : @MappedOS[[6]]'
+    - 'AgentName                     : 10  : @Agent.name'
+    - 'AgentVersion                  : 10  : @Agent.version'
+    - 'AgentBuild                    : 10  : @AgentBuild.value'
+
+- matcher:
+    variable:
+    - 'Agent: agent.(1)product'
+    - 'Bundle: agent.(1)product.(1)comments.(1)entry'
+    - 'AgentBuild: agent.(1)product.(1)comments.(2)entry.(1)keyvalue.(1)key="build"^'
+    - 'OperatingSystem: agent.(1)product.(1)comments.(3)entry.product'
+    - 'Alamofire: agent.(2)product.(1)name="Alamofire"^'
+    - 'MappedOS: LookUp[AlamofireOSDeviceMapping;@OperatingSystem.name]'
+    require:
+    - 'IsNull[@OperatingSystem.version]'
+    extract:
+    - 'DeviceClass                   : 10 : @MappedOS[[1]]'
+    - 'DeviceName                    : 10 : @MappedOS[[2]]'
+    - 'DeviceBrand                   : 10 : @MappedOS[[3]]'
+    - 'OperatingSystemClass          : 10 : @MappedOS[[4]]'
+    - 'OperatingSystemName           : 10 : @MappedOS[[5]]'
+    # Needed because 'x(y) 1' the 1 is not parsed as the version in a comment entry.
+    - 'OperatingSystemVersion        : 10 : @OperatingSystem>'
+    - 'LayoutEngineClass             : 10 : @MappedOS[[6]]'
+    - 'LayoutEngineName              : 10 : "Alamofire"'
+    - 'LayoutEngineVersion           : 10 : @Alamofire.version'
+    - 'AgentClass                    : 10 : @MappedOS[[6]]'
+    - 'AgentName                     : 10 : @Agent.name'
+    - 'AgentVersion                  : 10 : @Agent.version'
+    - 'AgentBuild                    : 10 : @AgentBuild.value'
 
 
 - test:
@@ -5200,3 +5278,87 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'Lou''s Pizza 3.16.0'
       AgentNameVersionMajor                : 'Lou''s Pizza 3'
+
+
+- test:
+    input:
+      User-Agent                        : 'Sandbox/1.0 (me.og4.local-full; build:1; macOS(Catalyst) 13.1.0) Alamofire/5.6.4'
+    expected:
+      DeviceClass                       : 'Desktop'
+      DeviceName                        : 'Unknown'
+      DeviceBrand                       : 'Apple'
+      OperatingSystemClass              : 'Desktop'
+      OperatingSystemName               : 'Mac OS'
+      OperatingSystemVersion            : '13.1.0'
+      OperatingSystemVersionMajor       : '13'
+      OperatingSystemNameVersion        : 'Mac OS 13.1.0'
+      OperatingSystemNameVersionMajor   : 'Mac OS 13'
+      LayoutEngineClass                 : 'Desktop App'
+      LayoutEngineName                  : 'Alamofire'
+      LayoutEngineVersion               : '5.6.4'
+      LayoutEngineVersionMajor          : '5'
+      LayoutEngineNameVersion           : 'Alamofire 5.6.4'
+      LayoutEngineNameVersionMajor      : 'Alamofire 5'
+      AgentClass                        : 'Desktop App'
+      AgentName                         : 'Sandbox'
+      AgentVersion                      : '1.0'
+      AgentVersionMajor                 : '1'
+      AgentNameVersion                  : 'Sandbox 1.0'
+      AgentNameVersionMajor             : 'Sandbox 1'
+      AgentBuild                        : '1'
+
+
+- test:
+    input:
+      User-Agent  : 'Qmusic/266 (be.qmusic.qmusicradio; build:1; iOS 15.5.0) Alamofire/266'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5.0'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5.0'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '266'
+      LayoutEngineVersionMajor             : '266'
+      LayoutEngineNameVersion              : 'Alamofire 266'
+      LayoutEngineNameVersionMajor         : 'Alamofire 266'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Qmusic'
+      AgentVersion                         : '266'
+      AgentVersionMajor                    : '266'
+      AgentNameVersion                     : 'Qmusic 266'
+      AgentNameVersionMajor                : 'Qmusic 266'
+      AgentBuild                           : '1'
+
+
+- test:
+    input:
+      User-Agent  : 'Don''t Waste My Time! Extension/1.0 (skavans.dont-waste-my-time.extension; build:2; macOS 10.16.0) Alamofire/5.0.4'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.16.0'
+      OperatingSystemVersionMajor          : '10.16'
+      OperatingSystemNameVersion           : 'Mac OS 10.16.0'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.16'
+      LayoutEngineClass                    : 'Desktop App'
+      LayoutEngineName                     : 'Alamofire'
+      LayoutEngineVersion                  : '5.0.4'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Alamofire 5.0.4'
+      LayoutEngineNameVersionMajor         : 'Alamofire 5'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'Don''t Waste My Time! Extension'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Don''t Waste My Time! Extension 1.0'
+      AgentNameVersionMajor                : 'Don''t Waste My Time! Extension 1'
+      AgentBuild                           : '2'
