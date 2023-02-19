@@ -7,6 +7,8 @@ v7.14.0-SNAPSHOT
   - ...
 - New/improved detections
   - Alamofire/macOS Catalyst
+- Build:
+  - Pubish SBOM
 
 v7.13.0
 ===
