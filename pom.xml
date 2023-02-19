@@ -154,6 +154,8 @@
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <maven-replacer-plugin>1.4.1</maven-replacer-plugin>
 
+    <cyclonedx-maven-plugin.version>2.7.5</cyclonedx-maven-plugin.version>
+
     <docker-maven-plugin.version>0.41.0</docker-maven-plugin.version>
 
     <spring.version>5.3.25</spring.version>
@@ -742,6 +744,19 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>makeBom</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
 
     <pluginManagement>
@@ -863,6 +878,12 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>${exec-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.cyclonedx</groupId>
+          <artifactId>cyclonedx-maven-plugin</artifactId>
+          <version>${cyclonedx-maven-plugin.version}</version>
         </plugin>
 
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId><version>${maven-antrun-plugin.version}</version></plugin>
