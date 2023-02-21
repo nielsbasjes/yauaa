@@ -128,6 +128,7 @@
 
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+    <maven-artifact-plugin>3.4.0</maven-artifact-plugin>
     <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
     <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -330,6 +331,46 @@
     </profile>
 
     <profile>
+      <id>artifactCompare</id>
+      <properties>
+        <!-- Should be the same as the skipQuality properties -->
+        <skipTests>true</skipTests>
+        <sonar.skip>true</sonar.skip>
+        <rat.skip>true</rat.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
+        <spotbugs.skip>true</spotbugs.skip>
+        <dependency-check.skip>true</dependency-check.skip>
+        <dependency-convergence.phase>none</dependency-convergence.phase>
+        <docker-based-tests.skip>true</docker-based-tests.skip>
+        <invoker.skip>true</invoker.skip>
+
+        <!-- Specifically for the artifact compare we need to avoid the cyclonedx -->
+        <cyclonedx.skip>true</cyclonedx.skip>
+      </properties>
+      <build>
+        <defaultGoal>clean verify</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-artifact-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>compare</id>
+                <goals>
+                  <goal>compare</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+    </profile>
+
+
+    <profile>
       <id>packageForRelease</id>
       <build>
         <plugins>
@@ -505,6 +546,21 @@
           </toolchains>
         </configuration>
       </plugin>
+
+<!--      FIXME: As soon as maven-shade-plugin is good we can enable this -->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-artifact-plugin</artifactId>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>Ensure plugins are reproducible</id>-->
+<!--            <phase>validate</phase>-->
+<!--            <goals>-->
+<!--              <goal>check-buildplan</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -884,9 +940,27 @@
           <groupId>org.cyclonedx</groupId>
           <artifactId>cyclonedx-maven-plugin</artifactId>
           <version>${cyclonedx-maven-plugin.version}</version>
+<!--          <configuration>-->
+<!--            <projectType>library</projectType>-->
+<!--            <schemaVersion>1.4</schemaVersion>-->
+<!--            <includeBomSerialNumber>true</includeBomSerialNumber>-->
+<!--            <includeCompileScope>true</includeCompileScope>-->
+<!--            <includeProvidedScope>false</includeProvidedScope>-->
+<!--            <includeRuntimeScope>true</includeRuntimeScope>-->
+<!--            <includeSystemScope>true</includeSystemScope>-->
+<!--            <includeTestScope>false</includeTestScope>-->
+<!--            <includeLicenseText>false</includeLicenseText>-->
+<!--            <outputReactorProjects>true</outputReactorProjects>-->
+<!--            <outputFormat>all</outputFormat>-->
+<!--            <outputName>bom</outputName>-->
+<!--            <outputDirectory>${project.build.directory}</outputDirectory>&lt;!&ndash; usually target, if not redefined in pom.xml &ndash;&gt;-->
+<!--            <verbose>true</verbose>&lt;!&ndash; = ${cyclonedx.verbose} &ndash;&gt;-->
+<!--          </configuration>-->
+
         </plugin>
 
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId><version>${maven-antrun-plugin.version}</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-artifact-plugin</artifactId><version>${maven-artifact-plugin}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-assembly-plugin</artifactId><version>${maven-assembly-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>${maven-clean-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>${maven-compiler-plugin.version}</version></plugin>

@@ -9,6 +9,7 @@ v7.14.0-SNAPSHOT
   - Alamofire/macOS Catalyst
 - Build:
   - Pubish SBOM
+  - Reproducible builds
 
 v7.13.0
 ===
