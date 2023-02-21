@@ -55,8 +55,11 @@ jobs:
     - name: 'Build Yauaa'
       run: mvn clean install -PdisableDockerHubUsages
 
-    - name: 'Test Reproducible Build'
-      run: mvn -PartifactCompare
+    - name: 'Ensure build is reproducible'
+      run: |
+        mvn -PartifactCompare
+        # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
+        rm -f ~/.m2/repository/nl/basjes/parse/useragent/
 
     - name: 'Codecov'
       uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # v3.1.1
