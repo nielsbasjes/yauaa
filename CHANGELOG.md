@@ -3,10 +3,8 @@ This is intended as an overview of the major changes
 
 v7.14.0-SNAPSHOT
 ===
-- Analyzer:
-  - ...
 - New/improved detections
-  - Alamofire/macOS Catalyst
+  - Alamofire/macOS Catalyst, Alamofire is NOT a LayoutEngine
 - Build:
   - Pubish SBOM
   - Reproducible builds
