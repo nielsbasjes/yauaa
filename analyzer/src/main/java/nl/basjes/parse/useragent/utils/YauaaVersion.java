@@ -54,7 +54,6 @@ public final class YauaaVersion {
         public abstract String getCopyright();
         public abstract String getLicense();
         public abstract String getUrl();
-        public abstract String getBuildJDKVersion();
         public abstract String getTargetJREVersion();
 
         @Override
@@ -74,7 +73,6 @@ public final class YauaaVersion {
                 getCopyright()                .equals(version.getCopyright()) &&
                 getLicense()                  .equals(version.getLicense()) &&
                 getUrl()                      .equals(version.getUrl()) &&
-                getBuildJDKVersion()          .equals(version.getBuildJDKVersion()) &&
                 getTargetJREVersion()         .equals(version.getTargetJREVersion());
         }
 
@@ -88,7 +86,6 @@ public final class YauaaVersion {
                 getCopyright(),
                 getLicense(),
                 getUrl(),
-                getBuildJDKVersion(),
                 getTargetJREVersion());
         }
 
@@ -96,7 +93,7 @@ public final class YauaaVersion {
         public String toString() {
             return "Yauaa " + getProjectVersion() +
                 " (" + getGitCommitIdDescribeShort() + " @ " + getBuildTimeStamp() +
-                " [JDK:"+getBuildJDKVersion()+";JRE:"+getTargetJREVersion()+"])";
+                " [JRE:"+getTargetJREVersion()+"])";
         }
     }
 
@@ -172,8 +169,8 @@ public final class YauaaVersion {
         return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + ")";
     }
 
-    public static String getVersion(String projectVersion, String gitCommitIdDescribeShort, String buildTimestamp, String buildJDKVersion, String targetJREVersion) {
-        return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + " [JDK:"+buildJDKVersion+";JRE:"+targetJREVersion+"])";
+    public static String getVersion(String projectVersion, String gitCommitIdDescribeShort, String buildTimestamp, String targetJREVersion) {
+        return "Yauaa " + projectVersion + " (" + gitCommitIdDescribeShort + " @ " + buildTimestamp + " [JRE:"+targetJREVersion+"])";
     }
 
     private static final class RulesVersion extends AbstractVersion {
@@ -184,7 +181,6 @@ public final class YauaaVersion {
         private String copyright                = "<undefined>";
         private String license                  = "<undefined>";
         private String url                      = "<undefined>";
-        private String buildJDKVersion          = "<undefined>";
         private String targetJREVersion         = "<undefined>";
 
         @Override
@@ -223,11 +219,6 @@ public final class YauaaVersion {
         }
 
         @Override
-        public String getBuildJDKVersion() {
-            return buildJDKVersion;
-        }
-
-        @Override
         public String getTargetJREVersion() {
             return targetJREVersion;
         }
@@ -263,9 +254,6 @@ public final class YauaaVersion {
                         break;
                     case "url":
                         url = value;
-                        break;
-                    case "buildJDKVersion":
-                        buildJDKVersion = value;
                         break;
                     case "targetJREVersion":
                         targetJREVersion = value;

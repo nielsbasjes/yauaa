@@ -71,7 +71,6 @@ public class YauaaVersion extends GraphQLTypeVisitorStub {
                 .field(newField("copyright",                  "Copyright notice of the Yauaa engine that is used"))
                 .field(newField("license",                    "The software license Yauaa engine that is used"))
                 .field(newField("url",                        "Project url"))
-                .field(newField("buildJDKVersion",            "Yauaa was build using this JDK version"))
                 .field(newField("targetJREVersion",           "Yauaa was build using for this target JRE version"))
                 .build();
 

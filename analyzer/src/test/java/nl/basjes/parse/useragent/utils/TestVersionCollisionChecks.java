@@ -23,7 +23,6 @@ import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.utils.YauaaVersion.AbstractVersion;
 import org.junit.jupiter.api.Test;
 
-import static nl.basjes.parse.useragent.Version.BUILD_JDK_VERSION;
 import static nl.basjes.parse.useragent.Version.BUILD_TIME_STAMP;
 import static nl.basjes.parse.useragent.Version.COPYRIGHT;
 import static nl.basjes.parse.useragent.Version.GIT_COMMIT_ID;
@@ -110,9 +109,6 @@ class TestVersionCollisionChecks {
             }
             @Override public String getUrl() {
                 return URL;
-            }
-            @Override public String getBuildJDKVersion() {
-                return BUILD_JDK_VERSION;
             }
             @Override public String getTargetJREVersion() {
                 return TARGET_JRE_VERSION;

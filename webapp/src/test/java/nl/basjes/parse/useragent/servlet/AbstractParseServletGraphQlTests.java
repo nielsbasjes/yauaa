@@ -51,7 +51,6 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
             "  version {" +
             "    projectVersion" +
             "    url" +
-            "    buildJDKVersion" +
             "    targetJREVersion" +
             "  }" +
             "}")
@@ -59,7 +58,6 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
             .contentType(JSON)
             .body("data.version.projectVersion", equalTo(Version.PROJECT_VERSION))
             .body("data.version.url", equalTo(Version.URL))
-            .body("data.version.buildJDKVersion", equalTo(Version.BUILD_JDK_VERSION))
             .body("data.version.targetJREVersion", equalTo(Version.TARGET_JRE_VERSION));
     }
 
