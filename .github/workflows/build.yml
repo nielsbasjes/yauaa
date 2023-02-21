@@ -53,11 +53,10 @@ jobs:
           17
 
     - name: 'Build Yauaa'
-      run: mvn clean verify -PdisableDockerHubUsages
+      run: mvn clean install -PdisableDockerHubUsages
 
     - name: 'Test Reproducible Build'
-      working-directory: .
-      run: mvn clean verify -PskipQuality -Dcyclonedx.skip artifact:compare
+      run: mvn -PartifactCompare
 
     - name: 'Codecov'
       uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # v3.1.1
