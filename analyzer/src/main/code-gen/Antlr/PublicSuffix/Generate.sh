@@ -25,12 +25,12 @@ if [ ! -f "${INPUT}" ]; then
     exit 1
 fi
 
-if [ "Generate.sh" -ot "${OUTPUT}" ]; then
-    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
-        echo "Up to date: ${OUTPUT}";
-        exit;
-    fi
-fi
+#if [ "Generate.sh" -ot "${OUTPUT}" ]; then
+#    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
+#        echo "Up to date: ${OUTPUT}";
+#        exit;
+#    fi
+#fi
 
 echo "Generating: ${OUTPUT}";
 
@@ -38,7 +38,7 @@ echo "Generating: ${OUTPUT}";
 echo "// The TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat"
 echo -n "fragment TLD"
 SEP=':'
-grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -E '^[a-z]+$' | sort -u | \
+grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -v "[^a-z]" | grep -v -P "[\x7f-\xff]" | sort -u | \
 while read -r suffix
 do
   echo -n " ${SEP} '${suffix}'"
