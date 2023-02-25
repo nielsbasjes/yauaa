@@ -66,36 +66,93 @@ public abstract class VfsUtils {
 
     private static final Field VISITOR_ATTRIBUTES_FIELD_RECURSE;
 
+    private static final boolean VFS_CAN_BE_USED;
+
     static {
+        boolean isUsable = true;
         ClassLoader loader = VfsUtils.class.getClassLoader();
+
+        Method vfsMethodGetRootUrl;
+        Method vfsMethodGetRootUri;
+        Method virtualFileMethodExists;
+        Method virtualFileMethodGetInputStream;
+        Method virtualFileMethodGetSize;
+        Method virtualFileMethodGetLastModified;
+        Method virtualFileMethodToUri;
+        Method virtualFileMethodToUrl;
+        Method virtualFileMethodGetName;
+        Method virtualFileMethodGetPathName;
+        Method virtualFileMethodGetPhysicalFile;
+        Method virtualFileMethodGetChild;
+
+        Class<?> virtualFileVisitorInterface;
+        Method virtualFileMethodVisit;
+
+        Field visitorAttributesFieldRecurse;
+
         try {
             Class<?> vfsClass = loader.loadClass(VFS3_PKG + VFS_NAME);
-            VFS_METHOD_GET_ROOT_URL = vfsClass.getMethod("getChild", URL.class);
-            VFS_METHOD_GET_ROOT_URI = vfsClass.getMethod("getChild", URI.class);
+            vfsMethodGetRootUrl = vfsClass.getMethod("getChild", URL.class);
+            vfsMethodGetRootUri = vfsClass.getMethod("getChild", URI.class);
 
             Class<?> virtualFile = loader.loadClass(VFS3_PKG + "VirtualFile");
-            VIRTUAL_FILE_METHOD_EXISTS = virtualFile.getMethod("exists");
-            VIRTUAL_FILE_METHOD_GET_INPUT_STREAM = virtualFile.getMethod("openStream");
-            VIRTUAL_FILE_METHOD_GET_SIZE = virtualFile.getMethod("getSize");
-            VIRTUAL_FILE_METHOD_GET_LAST_MODIFIED = virtualFile.getMethod("getLastModified");
-            VIRTUAL_FILE_METHOD_TO_URI = virtualFile.getMethod("toURI");
-            VIRTUAL_FILE_METHOD_TO_URL = virtualFile.getMethod("toURL");
-            VIRTUAL_FILE_METHOD_GET_NAME = virtualFile.getMethod("getName");
-            VIRTUAL_FILE_METHOD_GET_PATH_NAME = virtualFile.getMethod("getPathName");
-            VIRTUAL_FILE_METHOD_GET_PHYSICAL_FILE = virtualFile.getMethod("getPhysicalFile");
-            VIRTUAL_FILE_METHOD_GET_CHILD = virtualFile.getMethod("getChild", String.class);
+            virtualFileMethodExists = virtualFile.getMethod("exists");
+            virtualFileMethodGetInputStream = virtualFile.getMethod("openStream");
+            virtualFileMethodGetSize = virtualFile.getMethod("getSize");
+            virtualFileMethodGetLastModified = virtualFile.getMethod("getLastModified");
+            virtualFileMethodToUri = virtualFile.getMethod("toURI");
+            virtualFileMethodToUrl = virtualFile.getMethod("toURL");
+            virtualFileMethodGetName = virtualFile.getMethod("getName");
+            virtualFileMethodGetPathName = virtualFile.getMethod("getPathName");
+            virtualFileMethodGetPhysicalFile = virtualFile.getMethod("getPhysicalFile");
+            virtualFileMethodGetChild = virtualFile.getMethod("getChild", String.class);
 
-            VIRTUAL_FILE_VISITOR_INTERFACE = loader.loadClass(VFS3_PKG + "VirtualFileVisitor");
-            VIRTUAL_FILE_METHOD_VISIT = virtualFile.getMethod("visit", VIRTUAL_FILE_VISITOR_INTERFACE);
+            virtualFileVisitorInterface = loader.loadClass(VFS3_PKG + "VirtualFileVisitor");
+            virtualFileMethodVisit = virtualFile.getMethod("visit", virtualFileVisitorInterface);
 
             Class<?> visitorAttributesClass = loader.loadClass(VFS3_PKG + "VisitorAttributes");
-            VISITOR_ATTRIBUTES_FIELD_RECURSE = visitorAttributesClass.getField("RECURSE");
+            visitorAttributesFieldRecurse = visitorAttributesClass.getField("RECURSE");
         } catch (Throwable ex) {
-            throw new IllegalStateException("Could not detect JBoss VFS infrastructure", ex);
+            isUsable = false;
+            vfsMethodGetRootUrl = null;
+            vfsMethodGetRootUri = null;
+            virtualFileMethodExists = null;
+            virtualFileMethodGetInputStream = null;
+            virtualFileMethodGetSize = null;
+            virtualFileMethodGetLastModified = null;
+            virtualFileMethodToUri = null;
+            virtualFileMethodToUrl = null;
+            virtualFileMethodGetName = null;
+            virtualFileMethodGetPathName = null;
+            virtualFileMethodGetPhysicalFile = null;
+            virtualFileMethodGetChild = null;
+            virtualFileVisitorInterface = null;
+            virtualFileMethodVisit = null;
+            visitorAttributesFieldRecurse = null;
         }
+        VFS_CAN_BE_USED = isUsable;
+
+        VFS_METHOD_GET_ROOT_URL               = vfsMethodGetRootUrl;
+        VFS_METHOD_GET_ROOT_URI               = vfsMethodGetRootUri;
+        VIRTUAL_FILE_METHOD_EXISTS            = virtualFileMethodExists;
+        VIRTUAL_FILE_METHOD_GET_INPUT_STREAM  = virtualFileMethodGetInputStream;
+        VIRTUAL_FILE_METHOD_GET_SIZE          = virtualFileMethodGetSize;
+        VIRTUAL_FILE_METHOD_GET_LAST_MODIFIED = virtualFileMethodGetLastModified;
+        VIRTUAL_FILE_METHOD_TO_URI            = virtualFileMethodToUri;
+        VIRTUAL_FILE_METHOD_TO_URL            = virtualFileMethodToUrl;
+        VIRTUAL_FILE_METHOD_GET_NAME          = virtualFileMethodGetName;
+        VIRTUAL_FILE_METHOD_GET_PATH_NAME     = virtualFileMethodGetPathName;
+        VIRTUAL_FILE_METHOD_GET_PHYSICAL_FILE = virtualFileMethodGetPhysicalFile;
+        VIRTUAL_FILE_METHOD_GET_CHILD         = virtualFileMethodGetChild;
+        VIRTUAL_FILE_VISITOR_INTERFACE        = virtualFileVisitorInterface;
+        VIRTUAL_FILE_METHOD_VISIT             = virtualFileMethodVisit;
+        VISITOR_ATTRIBUTES_FIELD_RECURSE      = visitorAttributesFieldRecurse;
     }
 
     protected static Object invokeVfsMethod(Method method, @Nullable Object target, Object... args) throws IOException {
+        if (!VFS_CAN_BE_USED) {
+            throw new IllegalStateException("Could not detect JBoss VFS infrastructure");
+        }
         try {
             return method.invoke(target, args);
         } catch (InvocationTargetException ex) {
