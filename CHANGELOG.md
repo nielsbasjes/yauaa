@@ -8,6 +8,8 @@ v7.14.0-SNAPSHOT
 - Build:
   - Pubish SBOM
   - Reproducible builds
+- Analyzer
+  - Workaround for resource loading problems works with dropTests
 
 v7.13.0
 ===

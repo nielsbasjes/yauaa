@@ -291,6 +291,32 @@ class TestResourceLoading {
     }
 
     @Test
+    void checkConfigLoaderKeepTestsManadatoryTestsOnlyResource(){
+        AnalyzerConfig configWithTests = new ConfigLoader(true)
+            .addResource("classpath*:UserAgents/Additional-Tests.yaml", false)
+            .addResource("classpath*:UserAgents/Android.yaml", false)
+            .keepTests()
+            .load();
+
+        AnalyzerConfig configWithoutTests = new ConfigLoader(true)
+            .addResource("classpath*:UserAgents/Additional-Tests.yaml", false)
+            .addResource("classpath*:UserAgents/Android.yaml", false)
+            .dropTests()
+            .load();
+
+        LOG.info("Config WITH    tests: {} MatcherConfigs, {} Testcases",
+            configWithTests.getMatcherConfigs().size(),
+            configWithTests.getTestCases().size());
+
+        LOG.info("Config WITHOUT tests: {} MatcherConfigs, {} Testcases",
+            configWithoutTests.getMatcherConfigs().size(),
+            configWithoutTests.getTestCases().size());
+
+        assertTrue(configWithTests.getTestCases().size() > configWithoutTests.getTestCases().size(),
+            "Without tests MUST have less testcases");
+    }
+
+    @Test
     void testLoadingSeparateYamlRule(){
         UserAgentAnalyzer userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
             .withFields(Arrays.asList("DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor", "FirstProductName"))

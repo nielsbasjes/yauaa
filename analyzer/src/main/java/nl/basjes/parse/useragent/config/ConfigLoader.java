@@ -234,6 +234,33 @@ public class ConfigLoader {
             return;
         }
 
+        // So now we have the resources.
+        // Do we keep the tests ?
+        if (!keepTests) {
+            resources = resources
+                .entrySet()
+                .stream()
+                .filter(entry -> {
+                    Resource resource = entry.getValue();
+                    if (isTestRulesOnlyFile(resource.getFilename())) {
+                        if (showLoadMessages) {
+                            try {
+                                LOG.info("- Skipping tests only file {} ({} bytes)", resource.getFilename(), resource.contentLength());
+                            } catch (IOException e) {
+                                // Ignore
+                            }
+                        }
+                        return false;
+                    }
+                    return true;
+                })
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+            if (resources.isEmpty()) {
+                return;
+            }
+        }
+
         // We need to determine if we are trying to load the yaml files TWICE.
         // This can happen if the library is loaded twice (perhaps even two different versions).
         Set<String> resourceBasenames = resources
@@ -293,12 +320,6 @@ public class ConfigLoader {
                 LOG.info("Loading {} rule files using expression: {}", resourceArray.length, resourceString);
             }
             for (Resource resource : resourceArray) {
-                if (!keepTests && isTestRulesOnlyFile(resource.getFilename())) {
-                    if (showLoadMessages) {
-                        LOG.info("- Skipping tests only file {} ({} bytes)", resource.getFilename(), resource.contentLength());
-                    }
-                    continue;
-                }
                 if (!loadingDefaultResources && showLoadMessages) {
                     LOG.info("- Preparing {} ({} bytes)", resource.getFilename(), resource.contentLength());
                 }
