@@ -34,9 +34,16 @@ public class ParseService {
     @PostConstruct
     public void automaticStartup() {
         userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+            .showMatcherLoadStats()
             .immediateInitialization()
-            .addOptionalResources("file:UserAgents*/*.yaml")
-            .addOptionalResources("classpath*:UserAgents-*/*.yaml")
+            // Wildcard resource loading does not work in the native graalvm image.
+
+            // This won't work
+            // .addOptionalResources("file:UserAgents*/*.yaml")
+            // .addOptionalResources("classpath*:UserAgents-*/*.yaml")
+            // This does work
+            .addOptionalResources("classpath*:UserAgents-Customized-Rules/CompanyInternalUserAgents.yaml")
+            .dropTests()
             .build();
     }
 

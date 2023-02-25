@@ -214,7 +214,13 @@
 
       <properties>
         <quarkus.package.type>native</quarkus.package.type>
-        <quarkus.native.additional-build-args>-H:ResourceConfigurationFiles=resources-config.json,--initialize-at-run-time=nl.basjes.shaded.org.springframework.core.io.VfsUtils</quarkus.native.additional-build-args>
+        <quarkus.native.additional-build-args>
+          -H:ResourceConfigurationFiles=resources-config.json,
+          -H:ReflectionConfigurationFiles=reflection-config.json,
+        </quarkus.native.additional-build-args>
+
+        <!-- Also build the docker image -->
+        <quarkus.native.container-build>true</quarkus.native.container-build>
       </properties>
     </profile>
 
