@@ -73,7 +73,7 @@ ENV LC_ALL en_US.UTF-8
 
 # --------------------------------
 # Install Maven ( https://maven.apache.org/download.cgi )
-ENV MAVEN_VERSION=3.8.7
+ENV MAVEN_VERSION=3.9.0
 RUN mkdir -p /usr/local/apache-maven
 RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 RUN cd /usr/local/ && tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
