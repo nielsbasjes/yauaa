@@ -140,7 +140,7 @@ fi
 # Check if build for this tag is reproducible
 git checkout "$(git describe --abbrev=0)"
 mvn clean install -PskipQuality
-mvn clean verify -PskipQuality artifact:compare
+mvn -PartifactCompare
 reproducibleStatus=$?
 git switch -
 if [ ${reproducibleStatus} -ne 0 ];
