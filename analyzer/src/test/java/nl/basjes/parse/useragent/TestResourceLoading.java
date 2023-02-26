@@ -291,13 +291,15 @@ class TestResourceLoading {
     }
 
     @Test
-    void checkConfigLoaderKeepTestsManadatoryTestsOnlyResource(){
+    void checkConfigLoaderKeepTestsMandatoryTestsOnlyResource(){
         AnalyzerConfig configWithTests = new ConfigLoader(true)
             .addResource("classpath*:UserAgents/Additional-Tests.yaml", false)
             .addResource("classpath*:UserAgents/Android.yaml", false)
             .keepTests()
             .load();
 
+        // A mandatory (non-optional) file with only tests in combination with
+        // dropTests may not lead to an error.
         AnalyzerConfig configWithoutTests = new ConfigLoader(true)
             .addResource("classpath*:UserAgents/Additional-Tests.yaml", false)
             .addResource("classpath*:UserAgents/Android.yaml", false)
@@ -312,8 +314,16 @@ class TestResourceLoading {
             configWithoutTests.getMatcherConfigs().size(),
             configWithoutTests.getTestCases().size());
 
-        assertTrue(configWithTests.getTestCases().size() > configWithoutTests.getTestCases().size(),
-            "Without tests MUST have less testcases");
+        assertEquals(
+            configWithTests.getMatcherConfigs().size(),
+            configWithoutTests.getMatcherConfigs().size(),
+            "The same number of MatcherConfigs must be loaded");
+
+        assertTrue(configWithTests.getTestCases().size() > 10,
+            "With tests MUST have testcases");
+
+        assertEquals(0, configWithoutTests.getTestCases().size(),
+            "Without tests MUST have 0 testcases");
     }
 
     @Test
