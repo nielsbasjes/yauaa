@@ -11,6 +11,13 @@
       "allowedVersions": "!/^(?i).*[-_\\.](Alpha|Beta|RC|M|EA|Snap|snapshot|jboss|atlassian)[-_\\.]?[0-9]?.*$/"
     },
     {
+      "description": "Disable major updates for snakeyaml 1.x (Needed for compatibility with some UDF libraries)",
+      "matchPackagePrefixes": ["org.yaml"],
+      "matchCurrentVersion": "[1.0.0,2.0.0)",
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
       "description": "Disable major updates for slf4j 1.x (Needed for backwards compatibility testing)",
       "matchPackagePrefixes": ["org.slf4j"],
       "matchCurrentVersion": "[1.0.0,2.0.0)",
