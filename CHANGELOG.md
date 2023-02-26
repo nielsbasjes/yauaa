@@ -1,7 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.14.0-SNAPSHOT
+v7.15.0-SNAPSHOT
+===
+...
+
+v7.14.0
 ===
 - New/improved detections
   - Alamofire/macOS Catalyst, Alamofire is NOT a LayoutEngine

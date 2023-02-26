@@ -18,6 +18,15 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.14.0
+- New/improved detections
+  - Alamofire/macOS Catalyst, Alamofire is NOT a LayoutEngine
+- Build:
+  - Pubish SBOM
+  - Reproducible builds
+- Analyzer
+  - Workaround for resource loading problems works with dropTests
+
 ### Version 7.13.0
 - Analyzer:
   - Adding VFS support back in.
