@@ -104,12 +104,10 @@ git commit -m"docs: Updated CHANGELOG and website before release" CHANGELOG.md d
 # ----------------------------------------------------------------------------------------------------
 info "GPG workaround: Starting"
 runGpgSignerInBackGround(){
-  (
-    while : ; do date ; echo "test" | gpg --clearsign ; sleep 10s ; done
-  ) > /dev/null 2>&1
+  while : ; do date ; echo "test" | gpg --clearsign ; sleep 10s ; done
 }
 
-runGpgSignerInBackGround&
+runGpgSignerInBackGround > /dev/null 2>&1 &
 GpgSignerPID=$!
 
 info "GPG workaround: Running (PID=${GpgSignerPID})"
