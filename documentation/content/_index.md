@@ -18,6 +18,11 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.14.1
+- Build:
+  - Reproducible builds
+  - Update Snakeyaml to fix CVE
+
 ### Version 7.14.0
 - New/improved detections
   - Alamofire/macOS Catalyst, Alamofire is NOT a LayoutEngine

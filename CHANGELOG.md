@@ -3,7 +3,13 @@ This is intended as an overview of the major changes
 
 v7.15.0-SNAPSHOT
 ===
-...
+- ...
+
+v7.14.1
+===
+- Build:
+  - Reproducible builds
+  - Update Snakeyaml to fix CVE
 
 v7.14.0
 ===
