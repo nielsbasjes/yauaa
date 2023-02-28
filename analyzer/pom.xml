@@ -202,7 +202,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-toolchains-plugin</artifactId>
-        <version>${maven-toolchains-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -222,7 +221,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin.version}</version>
         <configuration>
           <excludes>
             <exclude>UserAgents/*.sh</exclude>
@@ -255,7 +253,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven-shade-plugin.version}</version>
         <configuration>
           <minimizeJar>true</minimizeJar>
           <createDependencyReducedPom>true</createDependencyReducedPom>
@@ -327,7 +324,6 @@
       <plugin>
         <groupId>com.alexecollins.maven.plugin</groupId>
         <artifactId>script-maven-plugin</artifactId>
-        <version>${script-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>Verify jar contents to ensure the shading of dependencies went right</id>
@@ -386,7 +382,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>${exec-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>Generate Matchers and Lookups</id>
@@ -439,13 +434,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${maven-checkstyle-plugin.version}</version>
       </plugin>
 
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco-maven-plugin.version}</version>
         <configuration>
           <excludes>
             <!-- Generated classes -->
@@ -465,7 +458,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>${maven-antrun-plugin.version}</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>
@@ -621,7 +613,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
-        <version>${maven-invoker-plugin.version}</version>
         <configuration>
           <failIfNoProjects>true</failIfNoProjects>
           <!--          <debug>true</debug>-->

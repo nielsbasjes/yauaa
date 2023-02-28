@@ -153,7 +153,7 @@
     <script-maven-plugin.version>1.0.0</script-maven-plugin.version>
 
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
-    <maven-replacer-plugin>1.4.1</maven-replacer-plugin>
+    <maven-replacer-plugin.version>1.4.1</maven-replacer-plugin.version>
 
     <cyclonedx-maven-plugin.version>2.7.5</cyclonedx-maven-plugin.version>
 
@@ -378,7 +378,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>${maven-gpg-plugin.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -493,7 +492,6 @@
           <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco-maven-plugin.version}</version>
           </plugin>
         </plugins>
       </build>
@@ -530,7 +528,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-toolchains-plugin</artifactId>
-        <version>${maven-toolchains-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -565,7 +562,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>${maven-source-plugin.version}</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -579,7 +575,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>${maven-enforcer-plugin.version}</version>
         <executions>
           <execution>
             <id>Check build environment requirements</id>
@@ -618,7 +613,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <compilerArgs>
             <!-- Enable almost all warnings.                                                                      -->
@@ -643,19 +637,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${maven-failsafe-plugin.version}</version>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>${maven-deploy-plugin.version}</version>
       </plugin>
 
       <plugin>
@@ -782,7 +773,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>${maven-release-plugin.version}</version>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
 
@@ -940,23 +930,6 @@
           <groupId>org.cyclonedx</groupId>
           <artifactId>cyclonedx-maven-plugin</artifactId>
           <version>${cyclonedx-maven-plugin.version}</version>
-<!--          <configuration>-->
-<!--            <projectType>library</projectType>-->
-<!--            <schemaVersion>1.4</schemaVersion>-->
-<!--            <includeBomSerialNumber>true</includeBomSerialNumber>-->
-<!--            <includeCompileScope>true</includeCompileScope>-->
-<!--            <includeProvidedScope>false</includeProvidedScope>-->
-<!--            <includeRuntimeScope>true</includeRuntimeScope>-->
-<!--            <includeSystemScope>true</includeSystemScope>-->
-<!--            <includeTestScope>false</includeTestScope>-->
-<!--            <includeLicenseText>false</includeLicenseText>-->
-<!--            <outputReactorProjects>true</outputReactorProjects>-->
-<!--            <outputFormat>all</outputFormat>-->
-<!--            <outputName>bom</outputName>-->
-<!--            <outputDirectory>${project.build.directory}</outputDirectory>&lt;!&ndash; usually target, if not redefined in pom.xml &ndash;&gt;-->
-<!--            <verbose>true</verbose>&lt;!&ndash; = ${cyclonedx.verbose} &ndash;&gt;-->
-<!--          </configuration>-->
-
         </plugin>
 
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId><version>${maven-antrun-plugin.version}</version></plugin>
@@ -966,16 +939,19 @@
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>${maven-compiler-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-deploy-plugin</artifactId><version>${maven-deploy-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId><version>${maven-enforcer-plugin.version}</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-failsafe-plugin</artifactId><version>${maven-failsafe-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-gpg-plugin</artifactId><version>${maven-gpg-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-install-plugin</artifactId><version>${maven-install-plugin.version}</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-invoker-plugin</artifactId><version>${maven-invoker-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>${maven-jar-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-javadoc-plugin</artifactId><version>${maven-javadoc-plugin.version}</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-release-plugin</artifactId><version>${maven-release-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>${maven-resources-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-scm-plugin</artifactId><version>${maven-scm-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId><version>${maven-shade-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-site-plugin</artifactId><version>${maven-site-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-source-plugin</artifactId><version>${maven-source-plugin.version}</version></plugin>
-        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-failsafe-plugin</artifactId><version>${maven-failsafe-plugin.version}</version></plugin>
+        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-toolchains-plugin</artifactId><version>${maven-toolchains-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-war-plugin</artifactId><version>${maven-war-plugin.version}</version></plugin>
 
         <plugin>
@@ -987,6 +963,10 @@
           </configuration>
         </plugin>
 
+        <plugin><groupId>org.codehaus.mojo</groupId><artifactId>build-helper-maven-plugin</artifactId><version>${build-helper-maven-plugin.version}</version></plugin>
+        <plugin><groupId>org.codehaus.mojo</groupId><artifactId>exec-maven-plugin</artifactId><version>${exec-maven-plugin.version}</version></plugin>
+        <plugin><groupId>com.google.code.maven-replacer-plugin</groupId><artifactId>maven-replacer-plugin</artifactId><version>${maven-replacer-plugin.version}</version></plugin>
+        <plugin><groupId>com.alexecollins.maven.plugin</groupId><artifactId>script-maven-plugin</artifactId><version>${script-maven-plugin.version}</version></plugin>
       </plugins>
     </pluginManagement>
   </build>
