@@ -59,6 +59,9 @@ config:
 - matcher:
     variable:
     - 'Product                             :agent.product.name="AppleWebKit"^>'
+    require:
+    - 'IsNull[@Product.name.key]'
+    - 'IsNull[@Product.name.keyvalue]'
     extract:
     - 'AgentClass                          :       14 :"Browser"'
     - 'AgentName                           :       14 :@Product.name!="Mobile"'
@@ -92,6 +95,7 @@ config:
     - 'MobileBrands'
     - 'HardwareTags'
     - 'ExactMatchMobileBrands'
+    - 'GenericUnwantedNames'
     values:
     - 'AppleWebKit'
     - 'Mobile'
@@ -117,6 +121,8 @@ config:
     - 'AgentName                           :agent.(2-)product.name!?NotAutoWalkBrowserNames'
     require:
     - 'IsNull[@AgentName[2]="Safari"]'
+    - 'IsNull[@AgentName.key]'
+    - 'IsNull[@AgentName.keyvalue]'
     - 'agent.(1)product.name="Mozilla"'
     - 'agent.(1)product.(1)version="5.0"'
     extract:
@@ -128,6 +134,8 @@ config:
     variable:
     - 'AgentName                           :agent.(2-)product.name[1]="Mobile"@!?NotAutoWalkBrowserNames'
     require:
+    - 'IsNull[@AgentName.key]'
+    - 'IsNull[@AgentName.keyvalue]'
     - 'agent.(1)product.name="Mozilla"'
     - 'agent.(1)product.(1)version="5.0"'
     extract:
@@ -138,6 +146,9 @@ config:
 - matcher:
     variable:
     - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
+    require:
+    - 'IsNull[@NextProduct.name.key]'
+    - 'IsNull[@NextProduct.name.keyvalue]'
     extract:
     - 'AgentClass                          :       39 :"Mobile App"'
     - 'AgentName                           :       39 :@NextProduct.name!?NotAutoWalkBrowserNames'
@@ -149,6 +160,8 @@ config:
       - 'NextProduct                         :agent.(2-5)product.name="Mobile"^>'
       - 'AgentTag                            :LookUp[AppNamesMapping;@NextProduct.name]'
     require:
+      - 'IsNull[@NextProduct.name.key]'
+      - 'IsNull[@NextProduct.name.keyvalue]'
       - '@NextProduct.name!?NotAutoWalkBrowserNames'
     extract:
       - 'AgentClass                          :       40 :@AgentTag[[1]]'
@@ -159,6 +172,9 @@ config:
 - matcher:
     variable:
     - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'
+    require:
+    - 'IsNull[@NextProduct.name.key]'
+    - 'IsNull[@NextProduct.name.keyvalue]'
     extract:
     - 'AgentClass                          :       39 :"Browser"'
     - 'AgentName                           :       39 :@NextProduct.name!?NotAutoWalkBrowserNames'
@@ -170,6 +186,8 @@ config:
       - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'
       - 'AgentTag : LookUp[AppNamesMapping;@NextProduct.name]'
     require:
+      - 'IsNull[@NextProduct.name.key]'
+      - 'IsNull[@NextProduct.name.keyvalue]'
       - '@NextProduct.name!?NotAutoWalkBrowserNames'
     extract:
       - 'AgentClass                          :       40 :@AgentTag[[1]]'
@@ -180,6 +198,9 @@ config:
 - matcher:
     variable:
     - 'NextProduct                         :agent.(2-5)product.name="Safari"^>'
+    require:
+    - 'IsNull[@NextProduct.name.key]'
+    - 'IsNull[@NextProduct.name.keyvalue]'
     extract:
     - 'AgentClass                          :       39 :"Browser"'
     - 'AgentName                           :       39 :@NextProduct.name!?NotAutoWalkBrowserNames'
@@ -282,6 +303,8 @@ config:
     - 'Agent                               :@Safari>'
     require:
     - '@Agent.name!?NotAutoWalkBrowserNames'
+    - 'IsNull[@Agent.name.key]'
+    - 'IsNull[@Agent.name.keyvalue]'
     - 'agent.product.name="Version"' # Performance trick
     - '@Safari<.name="Version"'
     extract:
@@ -295,6 +318,8 @@ config:
     - 'Agent                               :@Safari>'
     require:
     - '@Agent.name!?NotAutoWalkBrowserNames'
+    - 'IsNull[@Agent.name.key]'
+    - 'IsNull[@Agent.name.keyvalue]'
     - 'agent.product.name="Version"' # Performance trick
     - '@Safari<.name="Version"'
     extract:
@@ -337,6 +362,8 @@ config:
     - 'Agent                               :@Version<'
     require:
     - '@Agent.name!?NotAutoWalkBrowserNames'
+    - 'IsNull[@Agent.name.key]'
+    - 'IsNull[@Agent.name.keyvalue]'
     - 'agent.product.name="Version"' # Performance trick
     extract:
     - 'AgentClass                          :       58 :"Browser"'
@@ -350,6 +377,8 @@ config:
     - 'Agent                               :@Version<'
     require:
     - '@Agent.name!?NotAutoWalkBrowserNames'
+    - 'IsNull[@Agent.name.key]'
+    - 'IsNull[@Agent.name.keyvalue]'
     - 'agent.product.name="Version"' # Performance trick
     extract:
     - 'AgentClass                          :       58 :"Browser"'

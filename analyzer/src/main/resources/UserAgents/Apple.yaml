@@ -1676,6 +1676,21 @@ config:
       - 'OperatingSystemVersion               : 21 : ">=10.15.7"'
       - 'OperatingSystemVersionMajor          : 21 : ">=10.15"'
 
+- matcher:
+    variable:
+    - 'MacOS:agent.(1)product.(1)comments.entry.(1)product.(1)name~"Mac OS X"^'
+    require:
+    - 'agent.(1)product.name="Mozilla"'
+    - 'agent.(2)product.name="AppleWebKit"'
+    - 'agent.(3)product.name="Version"'
+    - 'agent.(4)product.name="Safari"'
+    - 'agent.(5)product.name.keyvalue' # Possible noise must be ignored
+    - '@MacOS.version="10_15_7"'
+    extract:
+    - 'OperatingSystemName                  : 21 : "Mac OS"'
+    - 'OperatingSystemVersion               : 21 : ">=10.15.7"'
+    - 'OperatingSystemVersionMajor          : 21 : ">=10.15"'
+
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15'

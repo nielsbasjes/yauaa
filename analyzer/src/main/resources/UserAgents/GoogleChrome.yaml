@@ -501,6 +501,8 @@ config:
     - 'WebViewApp                          :@Chrome>'
     - 'WebViewAppName                      :@WebViewApp.name'
     require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
     - '@WebViewAppName!="Safari"'
     - '@WebViewAppName!="Mobile Safari"'
     - 'agent.product.name="Version"'
@@ -521,6 +523,8 @@ config:
     - 'WebViewApp                          :@Chrome>'
     - 'WebViewAppName                      :@WebViewApp.name'
     require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
     - '@WebViewAppName!="Safari"'
     - '@WebViewAppName!="Mobile Safari"'
     - '@WebViewAppName[1]="Mobile"'
@@ -540,6 +544,8 @@ config:
     - 'WebViewApp                          :@Chrome>>'
     - 'WebViewAppName                      :@WebViewApp.name'
     require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
     - '@WebViewAppName!="Safari"'
     - '@WebViewAppName!="Mobile Safari"'
     - 'agent.product.name="Version"'
@@ -698,6 +704,8 @@ config:
     - 'WebViewApp                          :@Chrome>'
     - 'WebViewAppName                      :@WebViewApp.name'
     require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
     - '@WebViewAppName!="Safari"'
     - '@WebViewAppName!="Mobile Safari"'
     - 'agent.product.comments.entry="wv"'
@@ -714,6 +722,8 @@ config:
     - 'WebViewApp                          :@Chrome>>'
     - 'WebViewAppName                      :@WebViewApp.name'
     require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
     - '@WebViewAppName!="Safari"'
     - '@WebViewAppName!="Mobile Safari"'
     - 'agent.product.comments.entry="wv"'
