@@ -2878,85 +2878,6 @@ config:
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Yandex BOT'
-      DeviceBrand                          : 'Yandex'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'YandexBot'
-      LayoutEngineVersion                  : '3.0'
-      LayoutEngineVersionMajor             : '3'
-      LayoutEngineNameVersion              : 'YandexBot 3.0'
-      LayoutEngineNameVersionMajor         : 'YandexBot 3'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'YandexBot'
-      AgentVersion                         : '3.0'
-      AgentVersionMajor                    : '3'
-      AgentNameVersion                     : 'YandexBot 3.0'
-      AgentNameVersionMajor                : 'YandexBot 3'
-      AgentInformationUrl                  : 'http://yandex.com/bots'
-
-
-- matcher:
-    variable:
-    - 'RobotName                           :agent.(1-6)product.comments.entry.(1-2)product.name="YandexMobileBot"'
-    - 'RobotVersion                        :@RobotName^.version'
-    extract:
-    - 'DeviceClass                         :   111100 :"Robot Mobile"'
-    - 'DeviceName                          :    11100 :@RobotName'
-    - 'DeviceBrand                         :   100000 :"Yandex"'
-    - 'DeviceVersion                       :   100000 :"<<<null>>>"'
-    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
-    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
-    - 'DeviceFirmwareVersion               :   100000 :"<<<null>>>"'
-    - 'OperatingSystemClass                :    11100 :"Cloud"'
-    - 'OperatingSystemName                 :    11100 :"Cloud"'
-    - 'OperatingSystemVersion              :    11100 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :    11100 :"Robot"'
-    - 'LayoutEngineName                    :    11100 :@RobotName'
-    - 'LayoutEngineVersion                 :    11100 :@RobotVersion'
-    - 'AgentClass                          :    11100 :"Robot"'
-    - 'AgentName                           :    11100 :@RobotName'
-    - 'AgentVersion                        :    11100 :@RobotVersion'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4 (compatible; YandexMobileBot/3.0; +http://yandex.com/bots)'
-    expected:
-      DeviceClass                          : 'Robot Mobile'
-      DeviceName                           : 'Yandex MobileBot'
-      DeviceBrand                          : 'Yandex'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'YandexMobileBot'
-      LayoutEngineVersion                  : '3.0'
-      LayoutEngineVersionMajor             : '3'
-      LayoutEngineNameVersion              : 'YandexMobileBot 3.0'
-      LayoutEngineNameVersionMajor         : 'YandexMobileBot 3'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'YandexMobileBot'
-      AgentVersion                         : '3.0'
-      AgentVersionMajor                    : '3'
-      AgentNameVersion                     : 'YandexMobileBot 3.0'
-      AgentNameVersionMajor                : 'YandexMobileBot 3'
-      AgentInformationUrl                  : 'http://yandex.com/bots'
-
-
-- test:
-    input:
       user_agent_string: 'Mozilla/5.0 (compatible; SemrushBot/2~bl; +http://www.semrush.com/bot.html)'
     expected:
       DeviceClass                          : 'Robot'
@@ -10322,34 +10243,6 @@ config:
       AgentNameVersion                     : 'SemrushBot-BM 1.0'
       AgentNameVersionMajor                : 'SemrushBot-BM 1'
       AgentInformationUrl                  : 'http://www.semrush.com/bot.html'
-
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (compatible; YandexFavicons/1.0; +http://yandex.com/bots)'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Yandex Robot'
-      DeviceBrand                          : 'Yandex'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'YandexFavicons'
-      AgentVersion                         : '1.0'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'YandexFavicons 1.0'
-      AgentNameVersionMajor                : 'YandexFavicons 1'
-      AgentInformationUrl                  : 'http://yandex.com/bots'
 
 
 # Used by discord to get a preview of a shared website.

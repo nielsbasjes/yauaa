@@ -1,0 +1,1245 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2023 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+# Handle all robots defined for Yandex
+
+- lookup:
+    name: 'YandexRobots'
+    map:
+      # Maps the product name to Device Class for specific cases
+      'YandexMobile'       : 'Robot Mobile'
+
+      # Documented as a robot to fetch images for mobile use
+      'YandexImageResizer' : 'Robot Mobile'
+
+- matcher:
+    require:
+    - 'agent.(1-6)product.(1)comments.entry.url="http://yandex.com/bots"'
+    variable:
+    - 'RobotName                           :agent.(1-6)product.comments.entry.(1-2)product.name{"Yandex"@'
+    - 'RobotVersion                        :@RobotName^.version'
+    extract:
+    - 'DeviceClass                         :   111100 :LookUpPrefix[YandexRobots;@RobotName;"Robot"]'
+    - 'DeviceName                          :    11100 :@RobotName'
+    - 'DeviceBrand                         :   100000 :"Yandex"'
+    - 'DeviceVersion                       :   100000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'DeviceFirmwareVersion               :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   251100 :"Cloud"'
+    - 'OperatingSystemName                 :   251100 :"Cloud"'
+    - 'OperatingSystemVersion              :   251100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   251100 :"Robot"'
+    - 'LayoutEngineName                    :   251100 :@RobotName'
+    - 'LayoutEngineVersion                 :   251100 :@RobotVersion'
+    - 'AgentClass                          :   251100 :"Robot"'
+    - 'AgentName                           :   251100 :@RobotName'
+    - 'AgentVersion                        :   251100 :@RobotVersion'
+
+
+- lookup:
+    name: 'YandexYaRobots'
+    map:
+      # Maps the product name to 'Device Class|Agent Name' for specific cases
+      'YaDirectFetcher'  : 'Robot|YandexDirectFetcher'
+
+- matcher:
+    require:
+    - 'agent.(1-6)product.(1)comments.entry.url="http://yandex.com/bots"'
+    variable:
+    - 'RobotName                           :LookUp[YandexYaRobots;agent.(1-6)product.comments.entry.(1-2)product.name]'
+    - 'RobotVersion                        :@RobotName^.version'
+    extract:
+    - 'DeviceClass                         :   111100 :@RobotName[[1]]'
+    - 'DeviceName                          :    11100 :@RobotName[[2]]'
+    - 'DeviceBrand                         :   100000 :"Yandex"'
+    - 'DeviceVersion                       :   100000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'DeviceFirmwareVersion               :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   251100 :"Cloud"'
+    - 'OperatingSystemName                 :   251100 :"Cloud"'
+    - 'OperatingSystemVersion              :   251100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   251100 :"Robot"'
+    - 'LayoutEngineName                    :   251100 :@RobotName[[2]]'
+    - 'LayoutEngineVersion                 :   251100 :@RobotVersion'
+    - 'AgentClass                          :   251100 :"Robot"'
+    - 'AgentName                           :   251100 :@RobotName[[2]]'
+    - 'AgentVersion                        :   251100 :@RobotVersion'
+
+# ======================================================
+
+# All robot useragents as documented by Yandex on
+# https://yandex.com/support/webmaster/robot-workings/check-yandex-robots.html
+
+
+# YandexAccessibilityBot downloads pages to check their accessibility for users.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexAccessibilityBot/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex AccessibilityBot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexAccessibilityBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexAccessibilityBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexAccessibilityBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexAccessibilityBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexAccessibilityBot 3.0'
+      AgentNameVersionMajor                : 'YandexAccessibilityBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex advertising network robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexAdNet/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Adnet'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexAdNet'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexAdNet 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexAdNet 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexAdNet'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexAdNet 1.0'
+      AgentNameVersionMajor                : 'YandexAdNet 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The blog search robot that indexes post comments.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexBlogs/0.99; robot; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Robot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexBlogs'
+      LayoutEngineVersion                  : '0.99'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'YandexBlogs 0.99'
+      LayoutEngineNameVersionMajor         : 'YandexBlogs 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexBlogs'
+      AgentVersion                         : '0.99'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'YandexBlogs 0.99'
+      AgentNameVersionMajor                : 'YandexBlogs 0'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The main indexing robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex BOT'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexBot 3.0'
+      AgentNameVersionMajor                : 'YandexBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Detecting site mirrors.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexBot/3.0; MirrorDetector; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex BOT'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexBot 3.0'
+      AgentNameVersionMajor                : 'YandexBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Calendar robot. Downloads calendar files by users' requests. These files are often located in directories prohibited from indexing.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexCalendar/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Calendar'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexCalendar'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexCalendar 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexCalendar 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexCalendar'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexCalendar 1.0'
+      AgentNameVersionMajor                : 'YandexCalendar 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Downloads information about the content of Yandex Advertising network partner sites to identify their topic categories to match relevant advertising.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexDirect/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Direct'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexDirect'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexDirect 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexDirect 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexDirect'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexDirect 3.0'
+      AgentNameVersionMajor                : 'YandexDirect 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Generates dynamic banners.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexDirectDyn/1.0; +http://yandex.com/bots'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex DirectDyn'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexDirectDyn'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexDirectDyn 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexDirectDyn 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexDirectDyn'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexDirectDyn 1.0'
+      AgentNameVersionMajor                : 'YandexDirectDyn 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Same as previous: Now with the missing ) at the end (typo in Yandex website?).
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexDirectDyn/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex DirectDyn'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexDirectDyn'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexDirectDyn 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexDirectDyn 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexDirectDyn'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexDirectDyn 1.0'
+      AgentNameVersionMajor                : 'YandexDirectDyn 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Downloads the site's favicon file to display in search results.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexFavicons/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Favicons'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexFavicons'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexFavicons 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexFavicons 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexFavicons'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexFavicons 1.0'
+      AgentNameVersionMajor                : 'YandexFavicons 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Downloads target pages of ads to check their availability and topic. This is necessary for ad placement in the search results and on the partner sites.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YaDirectFetcher/1.0; Dyatel; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex DirectFetcher'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexDirectFetcher'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexDirectFetcher 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexDirectFetcher 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexDirectFetcher'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexDirectFetcher 1.0'
+      AgentNameVersionMajor                : 'YandexDirectFetcher 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Mail for domain robot used to verify domain ownership rights.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexForDomain/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Fordomain'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexForDomain'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexForDomain 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexForDomain 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexForDomain'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexForDomain 1.0'
+      AgentNameVersionMajor                : 'YandexForDomain 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Indexes images to display them in Yandex.Images.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexImages/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Images'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexImages'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexImages 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexImages 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexImages'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexImages 3.0'
+      AgentNameVersionMajor                : 'YandexImages 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Mobile devices robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexImageResizer/2.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Yandex ImageResizer'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexImageResizer'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'YandexImageResizer 2.0'
+      LayoutEngineNameVersionMajor         : 'YandexImageResizer 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexImageResizer'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'YandexImageResizer 2.0'
+      AgentNameVersionMajor                : 'YandexImageResizer 2'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Defines pages with layout suitable for mobile devices.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4 (compatible; YandexMobileBot/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Yandex MobileBot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMobileBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexMobileBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexMobileBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMobileBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexMobileBot 3.0'
+      AgentNameVersionMajor                : 'YandexMobileBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Market robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMarket/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Market'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMarket'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexMarket 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexMarket 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMarket'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexMarket 1.0'
+      AgentNameVersionMajor                : 'YandexMarket 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMarket/2.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Market'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMarket'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'YandexMarket 2.0'
+      LayoutEngineNameVersionMajor         : 'YandexMarket 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMarket'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'YandexMarket 2.0'
+      AgentNameVersionMajor                : 'YandexMarket 2'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Indexes multimedia data.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMedia/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Media'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMedia'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexMedia 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexMedia 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMedia'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexMedia 3.0'
+      AgentNameVersionMajor                : 'YandexMedia 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Downloads site pages to check their availability, including landing pages of the Yandex.Direct ads.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMetrika/2.0; +http://yandex.com/bots yabs01)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Http://Yandex.com/Bots'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'http://yandex.com/bots'
+      LayoutEngineVersion                  : 'yabs01'
+      LayoutEngineVersionMajor             : 'yabs01'
+      LayoutEngineNameVersion              : 'http://yandex.com/bots yabs01'
+      LayoutEngineNameVersionMajor         : 'http://yandex.com/bots yabs01'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Http://Yandex.com/Bots'
+      AgentVersion                         : 'yabs01'
+      AgentVersionMajor                    : 'yabs01'
+      AgentNameVersion                     : 'Http://Yandex.com/Bots yabs01'
+      AgentNameVersionMajor                : 'Http://Yandex.com/Bots yabs01'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Metric robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMetrika/2.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Metrika'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMetrika'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'YandexMetrika 2.0'
+      LayoutEngineNameVersionMajor         : 'YandexMetrika 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMetrika'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'YandexMetrika 2.0'
+      AgentNameVersionMajor                : 'YandexMetrika 2'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Metrica robot. Downloads and caches the CSS styles to render site pages in Webvisor.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMetrika/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Metrika'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMetrika'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexMetrika 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexMetrika 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMetrika'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexMetrika 3.0'
+      AgentNameVersionMajor                : 'YandexMetrika 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMetrika/4.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Metrika'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMetrika'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'YandexMetrika 4.0'
+      LayoutEngineNameVersionMajor         : 'YandexMetrika 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMetrika'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'YandexMetrika 4.0'
+      AgentNameVersionMajor                : 'YandexMetrika 4'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Takes a screenshot of the mobile page.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexMobileScreenShotBot/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Yandex MobileScreenShotBot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexMobileScreenShotBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexMobileScreenShotBot 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexMobileScreenShotBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexMobileScreenShotBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexMobileScreenShotBot 1.0'
+      AgentNameVersionMajor                : 'YandexMobileScreenShotBot 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.News robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexNews/4.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex News'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexNews'
+      LayoutEngineVersion                  : '4.0'
+      LayoutEngineVersionMajor             : '4'
+      LayoutEngineNameVersion              : 'YandexNews 4.0'
+      LayoutEngineNameVersionMajor         : 'YandexNews 4'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexNews'
+      AgentVersion                         : '4.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'YandexNews 4.0'
+      AgentNameVersionMajor                : 'YandexNews 4'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The object response robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexOntoDB/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex OntoDb'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexOntoDB'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexOntoDB 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexOntoDB 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexOntoDB'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexOntoDB 1.0'
+      AgentNameVersionMajor                : 'YandexOntoDB 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The object response robot that downloads dynamic data.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexOntoDBAPI/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex OntoDbapi'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexOntoDBAPI'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexOntoDBAPI 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexOntoDBAPI 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexOntoDBAPI'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexOntoDBAPI 1.0'
+      AgentNameVersionMajor                : 'YandexOntoDBAPI 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Accesses the page for validating micro-markup via the Structured data validator.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexPagechecker/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Pagechecker'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexPagechecker'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexPagechecker 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexPagechecker 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexPagechecker'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexPagechecker 1.0'
+      AgentNameVersionMajor                : 'YandexPagechecker 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Downloads information about the content of Yandex partner sites.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexPartner/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Partner'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexPartner'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexPartner 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexPartner 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexPartner'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexPartner 3.0'
+      AgentNameVersionMajor                : 'YandexPartner 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Collects data for generating previews. For example, wizard preview.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexRCA/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex RCA'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexRCA'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexRCA 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexRCA 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexRCA'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexRCA 1.0'
+      AgentNameVersionMajor                : 'YandexRCA 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Downloads product catalogs in YML files by users' requests. These files are often placed in directories prohibited for indexing.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexSearchShop/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex SearchShop'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexSearchShop'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexSearchShop 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexSearchShop 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexSearchShop'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexSearchShop 1.0'
+      AgentNameVersionMajor                : 'YandexSearchShop 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Checks the availability of pages used as sitelinks.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexSitelinks; Dyatel; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Sitelinks'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexSitelinks'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'YandexSitelinks ??'
+      LayoutEngineNameVersionMajor         : 'YandexSitelinks ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexSitelinks'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'YandexSitelinks ??'
+      AgentNameVersionMajor                : 'YandexSitelinks ??'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Business robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexSpravBot/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex SpravBot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexSpravBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexSpravBot 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexSpravBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexSpravBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexSpravBot 1.0'
+      AgentNameVersionMajor                : 'YandexSpravBot 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Tracker robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexTracker/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Tracker'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexTracker'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexTracker 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexTracker 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexTracker'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexTracker 1.0'
+      AgentNameVersionMajor                : 'YandexTracker 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Crawls the RSS feed created to generate Turbo pages.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexTurbo/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Turbo'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexTurbo'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexTurbo 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexTurbo 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexTurbo'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexTurbo 1.0'
+      AgentNameVersionMajor                : 'YandexTurbo 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+# Search verticals robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexVertis/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Vertis'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexVertis'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexVertis 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexVertis 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexVertis'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexVertis 3.0'
+      AgentNameVersionMajor                : 'YandexVertis 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+# The Yandex.Verticals robot: Auto.ru , Yanex.Realty , Yandex.Rabota , Yandex.Reviews.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexVerticals/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Verticals'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexVerticals'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexVerticals 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexVerticals 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexVerticals'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexVerticals 1.0'
+      AgentNameVersionMajor                : 'YandexVerticals 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Indexes video clips to display in Yandex.Video.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexVideo/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Video'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexVideo'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexVideo 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexVideo 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexVideo'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexVideo 3.0'
+      AgentNameVersionMajor                : 'YandexVideo 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Indexes video clips to display in Yandex.Video.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexVideoParser/1.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex VideoParser'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexVideoParser'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'YandexVideoParser 1.0'
+      LayoutEngineNameVersionMajor         : 'YandexVideoParser 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexVideoParser'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'YandexVideoParser 1.0'
+      AgentNameVersionMajor                : 'YandexVideoParser 1'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# The Yandex.Webmaster robot.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; YandexWebmaster/2.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex Webmaster'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexWebmaster'
+      LayoutEngineVersion                  : '2.0'
+      LayoutEngineVersionMajor             : '2'
+      LayoutEngineNameVersion              : 'YandexWebmaster 2.0'
+      LayoutEngineNameVersionMajor         : 'YandexWebmaster 2'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexWebmaster'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'YandexWebmaster 2.0'
+      AgentNameVersionMajor                : 'YandexWebmaster 2'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
+
+
+# Takes a screenshot of the page.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.96 Safari/537.36 (compatible; YandexScreenshotBot/3.0; +http://yandex.com/bots)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yandex ScreenshotBot'
+      DeviceBrand                          : 'Yandex'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'YandexScreenshotBot'
+      LayoutEngineVersion                  : '3.0'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'YandexScreenshotBot 3.0'
+      LayoutEngineNameVersionMajor         : 'YandexScreenshotBot 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'YandexScreenshotBot'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'YandexScreenshotBot 3.0'
+      AgentNameVersionMajor                : 'YandexScreenshotBot 3'
+      AgentInformationUrl                  : 'http://yandex.com/bots'
