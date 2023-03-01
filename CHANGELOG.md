@@ -5,6 +5,8 @@ v7.15.0-SNAPSHOT
 ===
 - New/improved detections
   - Full list of documented Yandex robots.
+- Build:
+  - Improve plugin and dependency version management
 
 v7.14.1
 ===
