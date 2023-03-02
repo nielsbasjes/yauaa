@@ -78,13 +78,16 @@ config:
       #  https://www.microsoft.com/en-us/microsoft-365/yammer/yammer-overview
       'Yammer'                                : 'Mobile App|Yammer'
 
+      # F-secure app https://apps.apple.com/app/f-secure-safe/id572847748
+      'FSCDCSafe'                             : 'Mobile App|F-Secure'
+
 - matcher:
     variable:
     - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
     extract:
-    - 'AgentClass                          :       50 :@AgentTag[[1]]'
-    - 'AgentName                           :       50 :@AgentTag[[2]]'
-    - 'AgentVersion                        :       50 :@AgentTag^.version'
+    - 'AgentClass                          :       60 :@AgentTag[[1]]'
+    - 'AgentName                           :       60 :@AgentTag[[2]]'
+    - 'AgentVersion                        :       60 :@AgentTag^.version'
 
 # ht tps://user-agents.me/cfnetwork-version-list   (Original source no longer exists)
 # If you create an iOS app and retrieve data from a webserver,
@@ -5358,6 +5361,36 @@ config:
       AgentNameVersion                     : 'Don''t Waste My Time! Extension 1.0'
       AgentNameVersionMajor                : 'Don''t Waste My Time! Extension 1'
       AgentBuild                           : '2'
+
+
+# The F-secure iOS app: FSCDCSafe
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FSCDCSafe/20.0.290702 Mobile/15E148 Version/16.3.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.3.1'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'F-Secure'
+      AgentVersion                         : '20.0.290702'
+      AgentVersionMajor                    : '20'
+      AgentNameVersion                     : 'F-Secure 20.0.290702'
+      AgentNameVersionMajor                : 'F-Secure 20'
 
 
 - lookup:
