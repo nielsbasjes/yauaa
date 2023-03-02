@@ -333,46 +333,26 @@
         <dependency-convergence.phase>none</dependency-convergence.phase>
         <docker-based-tests.skip>true</docker-based-tests.skip>
         <invoker.skip>true</invoker.skip>
+        <cyclonedx.skip>true</cyclonedx.skip>
+        <gpg.skip>true</gpg.skip>
       </properties>
     </profile>
 
     <profile>
-      <id>artifactCompare</id>
+      <id>useLocalReproduceRepo</id>
       <properties>
-        <!-- Should be the same as the skipQuality properties -->
-        <skipTests>true</skipTests>
-        <sonar.skip>true</sonar.skip>
-        <rat.skip>true</rat.skip>
-        <checkstyle.skip>true</checkstyle.skip>
-        <jacoco.skip>true</jacoco.skip>
-        <spotbugs.skip>true</spotbugs.skip>
-        <dependency-check.skip>true</dependency-check.skip>
-        <dependency-convergence.phase>none</dependency-convergence.phase>
-        <docker-based-tests.skip>true</docker-based-tests.skip>
-        <invoker.skip>true</invoker.skip>
-
-        <!-- Specifically for the artifact compare we need to avoid the cyclonedx -->
-        <cyclonedx.skip>true</cyclonedx.skip>
+        <!--suppress UnresolvedMavenProperty -->
+        <altReleaseDeploymentRepository>localReproduceRepo::file://${maven.multiModuleProjectDirectory}/__tmp_deploy/</altReleaseDeploymentRepository>
+        <!--suppress UnresolvedMavenProperty -->
+        <altSnapshotDeploymentRepository>localReproduceRepo::file://${maven.multiModuleProjectDirectory}/__tmp_deploy/</altSnapshotDeploymentRepository>
       </properties>
-      <build>
-        <defaultGoal>clean verify</defaultGoal>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-artifact-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>compare</id>
-                <goals>
-                  <goal>compare</goal>
-                </goals>
-                <phase>verify</phase>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-
+      <repositories>
+        <repository>
+          <id>localReproduceRepo</id>
+          <!--suppress UnresolvedMavenProperty -->
+          <url>file://${maven.multiModuleProjectDirectory}/__tmp_deploy/</url>
+        </repository>
+      </repositories>
     </profile>
 
 
