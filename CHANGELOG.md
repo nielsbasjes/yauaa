@@ -1,7 +1,13 @@
 
 This is intended as an overview of the major changes
 
-v7.15.0-SNAPSHOT
+
+v7.16.0-SNAPSHOT
+===
+- New/improved detections
+  ...
+
+v7.15.0
 ===
 - New/improved detections
   - Full list of documented Yandex robots.

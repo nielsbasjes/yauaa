@@ -18,6 +18,17 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.15.0
+- New/improved detections
+    - Full list of documented Yandex robots.
+    - Extra noise filter of unwanted extra fields
+    - Detect device and OS with WhatsApp
+- Build:
+    - Improve plugin and dependency version management
+    - Reproducible builds
+        - Pin build timezone to UTC
+        - Test script to verify reproducibility
+
 ### Version 7.14.1
 - Build:
   - Reproducible builds
