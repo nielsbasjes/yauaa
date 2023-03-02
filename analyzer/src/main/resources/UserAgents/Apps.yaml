@@ -5393,6 +5393,26 @@ config:
       AgentNameVersionMajor                : 'F-Secure 20'
 
 
+# TODO: No specifications and only this string as input.
+# The values shown are my current guess. Looking for a specification and a few more examples
+#- test:
+#    input:
+#      User-Agent                           : 'nu.nl/10.13 (iOS,16.2;230124161124;828x1792@2.0x)(Sanoma/app)'
+#    expected:
+#      DeviceClass                          : 'Mobile'
+#      DeviceName                           : 'Apple iOS Device'
+#      DeviceBrand                          : 'Apple'
+#      OperatingSystemClass                 : 'Mobile'
+#      OperatingSystemName                  : 'iOS'
+#      OperatingSystemVersion               : '16.2'
+
+#      LayoutEngineClass                    : 'Mobile App'
+
+#      AgentClass                           : 'Mobile App'
+#      AgentName                            : 'Nu.nl'
+#      AgentVersion                         : '10.13'
+
+
 - lookup:
     name: 'WhatsAppPlatforms'
     map:
