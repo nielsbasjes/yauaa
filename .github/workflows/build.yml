@@ -57,7 +57,7 @@ jobs:
 
     - name: 'Ensure build is reproducible'
       run: |
-        mvn -PartifactCompare
+        mvn clean verify -PskipQuality -PartifactCompare
         # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
         rm -rf ~/.m2/repository/nl/basjes/parse/useragent/
 
