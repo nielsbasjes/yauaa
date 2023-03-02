@@ -49,7 +49,7 @@ public class StepSegmentRange extends Step {
         if (filteredValue == null) {
             return null;
         }
-        return walkNextStep(tree, filteredValue);
+        return walkNextStep(tree, filteredValue.trim());
     }
 
     @Override

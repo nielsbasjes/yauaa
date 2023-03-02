@@ -6,6 +6,7 @@ v7.15.0-SNAPSHOT
 - New/improved detections
   - Full list of documented Yandex robots.
   - Extra noise filter of unwanted extra fields
+  - Detect device and OS with WhatsApp
 - Build:
   - Improve plugin and dependency version management
 

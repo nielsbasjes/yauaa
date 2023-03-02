@@ -5358,3 +5358,138 @@ config:
       AgentNameVersion                     : 'Don''t Waste My Time! Extension 1.0'
       AgentNameVersionMajor                : 'Don''t Waste My Time! Extension 1'
       AgentBuild                           : '2'
+
+
+- lookup:
+    name: 'WhatsAppPlatforms'
+    map:
+      #            D brand  | Device name           | OS Name           | OS Version | OS Name Version
+      "i"       : "Apple    | iOS Device            | iOS               | ??         | iOS ??"
+      "A"       : "Unknown  | Android Device        | Android           | ??         | Android ??"
+      "N"       : "Nokia    | KaiOS                 | KaiOS             | ??         | KaiOS ??"
+      "W"       : "Unknown  | Generic Windows Phone | Windows Mobile    | 10         | Windows 10 Mobile"
+
+- matcher:
+    variable:
+      - 'WhatsAppAgent:agent.(1)product.(1)name="WhatsApp"'
+      - 'WhatsAppPlatform:LookUp[WhatsAppPlatforms;agent.(2)text]'
+    extract:
+    - 'DeviceClass                         :       11 :"Mobile"'
+    - 'DeviceBrand                         :       11 :@WhatsAppPlatform[[1]]'
+    - 'DeviceName                          :       11 :@WhatsAppPlatform[[2]]'
+    - 'OperatingSystemClass                :       11 :"Mobile"'
+    - 'OperatingSystemName                 :       11 :@WhatsAppPlatform[[3]]'
+    - 'OperatingSystemVersion              :       11 :@WhatsAppPlatform[[4]]'
+    - 'OperatingSystemNameVersion          :       11 :@WhatsAppPlatform[[5]]'
+    - 'LayoutEngineClass                   :       11 :"Mobile App"'
+    - 'AgentClass                          :       11 :"Mobile App"'
+    - 'AgentName                           :       11 :"WhatsApp"'
+    - 'AgentVersion                        :       11 :@WhatsAppAgent^.version'
+
+
+- test:
+    input:
+      User-Agent                           : 'WhatsApp/2.23.3.77 i'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Apple iOS Device'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WhatsApp'
+      AgentVersion                         : '2.23.3.77'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'WhatsApp 2.23.3.77'
+      AgentNameVersionMajor                : 'WhatsApp 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'WhatsApp/2.23.3.77 A'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Device'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WhatsApp'
+      AgentVersion                         : '2.23.3.77'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'WhatsApp 2.23.3.77'
+      AgentNameVersionMajor                : 'WhatsApp 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'WhatsApp/2.2305.7 N'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia Kaios'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'KaiOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'KaiOS ??'
+      OperatingSystemNameVersionMajor      : 'KaiOS ??'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WhatsApp'
+      AgentVersion                         : '2.2305.7'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'WhatsApp 2.2305.7'
+      AgentNameVersionMajor                : 'WhatsApp 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'WhatsApp/2.2306.4 W'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Generic Windows Phone'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Windows Mobile'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10 Mobile'
+      OperatingSystemNameVersionMajor      : 'Windows 10 Mobile'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WhatsApp'
+      AgentVersion                         : '2.2306.4'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'WhatsApp 2.2306.4'
+      AgentNameVersionMajor                : 'WhatsApp 2'
