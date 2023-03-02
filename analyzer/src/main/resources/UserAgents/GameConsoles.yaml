@@ -51,6 +51,17 @@ config:
     - 'OperatingSystemName                 :     2014 :@PlayStationName'
     - 'OperatingSystemVersion              :     2014 :@PlayStationTag[3-]'
 
+- matcher:
+    variable:
+    - 'PlayStationName                      :agent.(1-4)product.(1)comments.entry.(1-2)product="PlayStation 5"'
+    extract:
+    - 'DeviceClass                         :     2013 :"Game Console"'
+    - 'DeviceBrand                         :     2013 :"Sony"'
+    - 'DeviceName                          :     2013 :@PlayStationName'
+    - 'OperatingSystemClass                :     2013 :"Game Console"'
+    - 'OperatingSystemName                 :     2013 :"PS5 OS"'
+    - 'OperatingSystemVersion              :     2013 :"<<<null>>>"'
+
 - lookup:
     name: 'PlayStationOSNames'
     map:
@@ -420,6 +431,46 @@ config:
       AgentNameVersion                     : 'Safari 14.0'
       AgentNameVersionMajor                : 'Safari 14'
 
+# RNPS seems related to jailbreaking the PlayStation 5
+# Or at least you only find this term on pages titled "PS5 Exploit Guide"
+# FIXME: I ASSUME this RNPS is an alternative OS for the playstation and this Action Cards is the main 'App'.
+- matcher:
+    extract:
+      - 'AgentClass              : 3010 : "Mobile App"'
+      - 'AgentName               : 3010 : "RNPS Action Cards"'
+      - 'AgentVersion            : 3010 : agent.product.name="Rnps-Action-Cards"^.version'
+
+- matcher:
+    extract:
+      - 'OperatingSystemClass    : 3010 : "Game Console"'
+      - 'OperatingSystemName     : 3010 : "RNPS"'
+      - 'OperatingSystemVersion  : 3010 : agent.product.name="RNPS"^.version'
+
+- test:
+    input:
+      User-Agent                           : 'rnps-action-cards/6.0.3+57287 RNPS/6.50 (PlayStation 5)'
+    expected:
+      DeviceClass                          : 'Game Console'
+      DeviceName                           : 'Sony PlayStation 5'
+      DeviceBrand                          : 'Sony'
+      OperatingSystemClass                 : 'Game Console'
+      OperatingSystemName                  : 'RNPS'
+      OperatingSystemVersion               : '6.50'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'RNPS 6.50'
+      OperatingSystemNameVersionMajor      : 'RNPS 6'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'RNPS Action Cards'
+      AgentVersion                         : '6.0.3+57287'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'RNPS Action Cards 6.0.3+57287'
+      AgentNameVersionMajor                : 'RNPS Action Cards 6'
 
 
 - test:
