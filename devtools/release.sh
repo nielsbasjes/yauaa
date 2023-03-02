@@ -137,8 +137,22 @@ fi
 # ----------------------------------------------------------------------------------------------------
 # Check if build for this tag is reproducible
 git checkout "$(git describe --abbrev=0)"
-mvn clean install -PskipQuality
-mvn -PartifactCompare
+# ----------------------------------------------------------------------------------------------------
+info "Publishing for reproduction check to Local reproduceTest Repo"
+mvn clean deploy -PpackageForRelease -PuseLocalReproduceRepo -PskipQuality
+reproCheckPublishStatus=$?
+if [ ${reproCheckPublishStatus} -ne 0 ];
+then
+    git switch -
+    fail "Publishing for reproduction check failed."
+    exit ${reproCheckPublishStatus}
+else
+    pass "Publishing for reproduction check Success."
+fi
+
+# ----------------------------------------------------------------------------------------------------
+info "Checking build reproducability ... "
+mvn clean verify -PpackageForRelease -PuseLocalReproduceRepo -PskipQuality -PartifactCompare -Dreproduce.repo=localReproduceRepo
 reproducibleStatus=$?
 git switch -
 if [ ${reproducibleStatus} -ne 0 ];
