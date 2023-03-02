@@ -9,6 +9,9 @@ v7.15.0-SNAPSHOT
   - Detect device and OS with WhatsApp
 - Build:
   - Improve plugin and dependency version management
+  - Reproducible builds
+    - Pin build timezone to UTC
+    - Test script to verify reproducibility
 
 v7.14.1
 ===
