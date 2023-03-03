@@ -5,7 +5,7 @@ title = "Apache Flink Table/SQL"
 This is a User Defined Function for [Apache Flink](https://flink.apache.org) Table
 
 ## Getting the UDF
-You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-flink-table/{{%YauaaVersion%}}/jar).
+You can get the prebuilt UDF from [maven central](https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa-flink-table/{{%YauaaVersion%}}/jar).
 
 If you use a maven based project simply add this dependency to your project.
 

@@ -5,7 +5,7 @@ title = "Apache Beam SQL"
 This is a User Defined Function for [Apache Beam SQL](https://beam.apache.org).
 
 ## Getting the UDF
-You can get the prebuilt UDF from [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-beam-sql/{{%YauaaVersion%}}/jar).
+You can get the prebuilt UDF from [maven central](https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa-beam-sql/{{%YauaaVersion%}}/jar).
 
 If you use a maven based project simply add this dependency to your project.
 

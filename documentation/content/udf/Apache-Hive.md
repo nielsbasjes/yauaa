@@ -6,7 +6,7 @@ This is a User Defined Function for [Apache Hive](https://hive.apache.org)
 
 ## Getting the UDF
 
-You can get the prebuilt UDF from [maven central (yauaa-hive-{{%YauaaVersion%}}-udf.jar)](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-hive/{{%YauaaVersion%}}/yauaa-hive-{{%YauaaVersion%}}-udf.jar).
+You can get the prebuilt UDF from [maven central (yauaa-hive-{{%YauaaVersion%}}-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-hive/{{%YauaaVersion%}}/yauaa-hive-{{%YauaaVersion%}}-udf.jar).
 
 NOTE: You MUST use the `-udf.jar`: yauaa-hive-{{%YauaaVersion%}}-udf.jar
 

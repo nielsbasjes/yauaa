@@ -18,7 +18,7 @@ See for more information:
 ## Installation and usage
 1. Download the UDF jar to the local file system and upload into a Snowflake internal or external stage.
 
-    You can get the prebuilt UDF from [maven central (yauaa-snowflake-{{%YauaaVersion%}}-udf.jar)](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-snowflake/{{%YauaaVersion%}}/yauaa-snowflake-{{%YauaaVersion%}}-udf.jar).
+    You can get the prebuilt UDF from [maven central (yauaa-snowflake-{{%YauaaVersion%}}-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-snowflake/{{%YauaaVersion%}}/yauaa-snowflake-{{%YauaaVersion%}}-udf.jar).
 
     NOTE: You MUST use the `-udf.jar`: yauaa-snowflake-{{%YauaaVersion%}}-udf.jar
 

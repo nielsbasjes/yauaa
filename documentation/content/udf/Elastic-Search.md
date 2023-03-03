@@ -11,8 +11,8 @@ And yes it is similar to https://www.elastic.co/guide/en/elasticsearch/reference
 
 ## Getting the UDF
 You can get the prebuilt ingest plugin from maven central for
-- [Elastic Search 7.x](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-elasticsearch/{{%YauaaVersion%}}/yauaa-elasticsearch-{{%YauaaVersion%}}.zip).
-- [Elastic Search 8.x](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-elasticsearch-8/{{%YauaaVersion%}}/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip).
+- [Elastic Search 7.x](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-elasticsearch/{{%YauaaVersion%}}/yauaa-elasticsearch-{{%YauaaVersion%}}.zip).
+- [Elastic Search 8.x](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-elasticsearch-8/{{%YauaaVersion%}}/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip).
 
 ## Installing the plugin
 You only need to install it into your Elastic Search once

@@ -9,7 +9,7 @@ This is an Apache Nifi Processor for parsing User Agent Strings.
 
 ## Getting the Processor
 
-You can get the prebuilt NAR file from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-nifi/{{%YauaaVersion%}}/yauaa-nifi-{{%YauaaVersion%}}.nar).
+You can get the prebuilt NAR file from [maven central](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-nifi/{{%YauaaVersion%}}/yauaa-nifi-{{%YauaaVersion%}}.nar).
 
 If you use a maven based project simply add this dependency
 

@@ -9,7 +9,7 @@ The Trino plugin is very new.
 Please tell if it works or not in your case.
 
 ## Installation
-You can get the prebuilt UDF from [maven central (yauaa-trino-{{%YauaaVersion%}}-udf.jar)](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-trino/{{%YauaaVersion%}}/yauaa-trino-{{%YauaaVersion%}}-udf.jar).
+You can get the prebuilt UDF from [maven central (yauaa-trino-{{%YauaaVersion%}}-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-trino/{{%YauaaVersion%}}/yauaa-trino-{{%YauaaVersion%}}-udf.jar).
 
 NOTE: You MUST use the `-udf.jar`: yauaa-trino-{{%YauaaVersion%}}-udf.jar
 

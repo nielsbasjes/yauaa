@@ -32,7 +32,7 @@ By default, Apache Drill has a version of this udf built in (part of the drill-u
 
 In order to update the version of Yauaa in your drill installation you'll need to replace the yauaa related jars with the latest versions. This includes not only updating yauaa-{{%YauaaVersion%}}.jar and yauaa-logparser-{{%YauaaVersion%}}.jar but also the rellevant dependencies.
 
-If you want to replace it completely you'll also need to remove the drill-udfs-*.jar and copy the [yauaa-drill-{%YauaaVersion%}}.jar](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa-drill/{{%YauaaVersion%}}/jar) and all relevant dependencies to `<drill-path>/jars/3rdparty`.
+If you want to replace it completely you'll also need to remove the drill-udfs-*.jar and copy the [yauaa-drill-{{%YauaaVersion%}}.jar](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-drill/{{%YauaaVersion%}}/yauaa-drill-{{%YauaaVersion%}}.jar) and all relevant dependencies to `<drill-path>/jars/3rdparty`.
 
 Similar:
 

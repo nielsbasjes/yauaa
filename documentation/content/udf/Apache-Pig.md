@@ -10,7 +10,7 @@ Version 6.12 is the last released version which still has the Apache Pig in it.
 This is a User Defined Function for [Apache Pig](https://pig.apache.org)
 
 ## Getting the UDF
-You can get the prebuilt UDF from [maven central](https://search.maven.org/remotecontent?filepath=nl/basjes/parse/useragent/yauaa-pig/6.12/yauaa-pig-6.12-udf.jar).
+You can get the prebuilt UDF from [maven central](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-pig/6.12/yauaa-pig-6.12-udf.jar).
 
 If you use a maven based project simply add this dependency
 

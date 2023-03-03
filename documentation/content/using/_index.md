@@ -9,7 +9,7 @@ the User Defined Functions that are available for many of Apache bigdata tools (
 
 ## Using in Java applications
 To use the library you must first add it as a dependency to your application.
-The library has been published to [maven central](https://search.maven.org/artifact/nl.basjes.parse.useragent/yauaa/{{%YauaaVersion%}}/jar) so that should work in almost any environment.
+The library has been published to [maven central](https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa/{{%YauaaVersion%}}/jar) so that should work in almost any environment.
 
 If you use a maven based project simply add this dependency to your project.
 
