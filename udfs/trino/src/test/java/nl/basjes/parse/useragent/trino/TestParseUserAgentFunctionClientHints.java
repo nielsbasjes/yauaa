@@ -17,7 +17,6 @@
 package nl.basjes.parse.useragent.trino;
 
 import io.trino.metadata.InternalFunctionBundle;
-import io.trino.operator.scalar.AbstractTestFunctions;
 import io.trino.spi.type.MapType;
 import io.trino.spi.type.TypeOperators;
 import io.trino.sql.query.QueryAssertions;
@@ -35,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 @TestInstance(PER_CLASS)
-public class TestParseUserAgentFunctionClientHints extends AbstractTestFunctions {
+class TestParseUserAgentFunctionClientHints {
 
     private QueryAssertions assertions;
 
@@ -52,7 +51,7 @@ public class TestParseUserAgentFunctionClientHints extends AbstractTestFunctions
     }
 
     @Test
-    public void testNormalUsage() {
+    void testNormalUsage() {
         UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder().showMinimalVersion().build();
 
         String useragent                = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36";
