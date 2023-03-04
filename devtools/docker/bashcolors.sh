@@ -90,3 +90,32 @@ export On_IBlue='\e[0;104m'   # Blue
 export On_IPurple='\e[0;105m' # Purple
 export On_ICyan='\e[0;106m'   # Cyan
 export On_IWhite='\e[0;107m'  # White
+
+function info() {
+  echo -e "${Color_Off}${IWhite}[${BIBlue}INFO${IWhite}] ${Color_Off}${1}"
+}
+
+function pass() {
+  echo -e "${Color_Off}${IWhite}[${BIGreen}PASS${IWhite}] ${Color_Off}${1}"
+}
+
+function warn() {
+  echo -e "${Color_Off}${IWhite}[${BIYellow}WARN${IWhite}] ${IYellow}${1}${Color_Off}"
+}
+
+function fail() {
+  echo -e "${Color_Off}${IWhite}[${BIRed}FAIL${IWhite}] ${IRed}${1}${Color_Off}"
+}
+
+function fatal() {
+  (
+  echo -e "${Color_Off}"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}/========================================================================"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}| ${BIRed} $* ${IYellow}"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}\\========================================================================"
+  echo -e "${IWhite}[${BIRed}FAIL${IWhite}] ${IYellow}${BIRed} ---------->>> PROCESS WAS ABORTED <<<---------- ${IYellow}"
+  echo -e "${Color_Off}"
+  ) 1>&2
+  exit 1
+}
+

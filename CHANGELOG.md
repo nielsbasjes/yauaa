@@ -6,6 +6,8 @@ v7.16.0-SNAPSHOT
 ===
 - New/improved detections
   ...
+- Build:
+  - Updated docker based environment to Ubuntu 22.04 LTS
 
 v7.15.0
 ===

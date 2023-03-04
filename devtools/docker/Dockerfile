@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 WORKDIR /root
 
@@ -38,9 +38,9 @@ ENV DEBCONF_TERSE true
 ###
 # Update and install common packages
 ###
-RUN apt -q update \
-   && apt install -y software-properties-common apt-utils apt-transport-https ca-certificates \
-   && add-apt-repository -y ppa:deadsnakes/ppa
+RUN apt clean cache \
+   && apt -q update \
+   && apt install -y software-properties-common apt-utils apt-transport-https ca-certificates
 
 RUN apt-get -q install -y --no-install-recommends \
     bash-completion \
@@ -58,9 +58,20 @@ RUN apt-get -q install -y --no-install-recommends \
     wget \
     time \
     ruby \
+    tzdata \
     openjdk-8-jdk \
     openjdk-11-jdk \
-    openjdk-17-jdk
+    openjdk-17-jdk \
+    diffoscope \
+    python3-tlsh \
+    tlsh-tools
+
+###
+# The update-java-alternatives uses the config files like /usr/lib/jvm/.java-1.8.0-openjdk-amd64.jinfo
+# Some of these files contain a reference to mozilla-javaplugin.so which we do not need AND which does not exist
+# in this docker image. So we remove this reference as it will give a needless warning every time we switch JDK.
+###
+RUN sed -i '/^plugin mozilla-javaplugin.so.*$/d' /usr/lib/jvm/.java-*
 
 ###
 # Set the locale ( see https://stackoverflow.com/a/28406007/114196 )
@@ -102,6 +113,12 @@ RUN cd /usr/local/bin && \
     wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
     tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
     rm -f hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
+
+###
+# Better reproducibility: deliberately set default timezone VERY uncommon (only ~200 people in this timezone)
+###
+RUN ln -fs /usr/share/zoneinfo/Australia/Eucla /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
 
 # --------------------------------
 # Add a welcome message and environment checks.
