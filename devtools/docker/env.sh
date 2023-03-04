@@ -25,9 +25,10 @@ function __INTERNAL__SwitchJDK {
     JDK=$1
     warn "Setting JDK to version ${JDK}"
     info "Use switch-jdk8, switch-jdk11 or switch-jdk17 to select the desired JDK to build with."
-    sudo update-java-alternatives --set $(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f1);
-    export JAVA_HOME=$(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f3);
-#    export JDK_VERSION="JDK ${JDK}"
+    # shellcheck disable=SC2046
+    sudo update-java-alternatives --set $(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f1)
+    JAVA_HOME=$(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f3)
+    export JAVA_HOME
 }
 
 alias switch-jdk8="__INTERNAL__SwitchJDK 1.8.0; export JDK_VERSION=JDK-8"
@@ -38,6 +39,8 @@ alias switch-jdk17="__INTERNAL__SwitchJDK 1.17.0 ; export JDK_VERSION=JDK-17"
 switch-jdk17
 
 . "/usr/lib/git-core/git-sh-prompt"
+# shellcheck disable=SC2154
+# shellcheck disable=SC1083
 export PS1='\['${IBlue}${On_Black}'\] \u@\['${IWhite}${On_Red}'\][Yauaa Builder \['${BWhite}${On_Blue}'\]<'\${JDK_VERSION}'>\['${IWhite}${On_Red}'\]]\['${IBlue}${On_Black}'\]:\['${Cyan}${On_Black}'\]\w$(declare -F __git_ps1 &>/dev/null && __git_ps1 " \['${BIPurple}'\]{\['${BIGreen}'\]%s\['${BIPurple}'\]}")\['${BIBlue}'\] ]\['${Color_Off}'\]\n$ '
 
 alias documentation-serve="cd ~/yauaa/documentation && hugo server -b http://localhost --bind=0.0.0.0"
@@ -46,4 +49,5 @@ alias documentation-serve="cd ~/yauaa/documentation && hugo server -b http://loc
 umask 0055
 warn "The UMASK    has been set to (intended to be very uncommon): $(umask)"
 warn "The Timezone has been set to (intended to be very uncommon):"
+# shellcheck disable=SC2154
 echo -e "${IYellow}$(sudo dpkg-reconfigure -f noninteractive tzdata)${Color_Off}"
