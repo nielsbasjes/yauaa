@@ -152,6 +152,8 @@
 
     <script-maven-plugin.version>1.0.0</script-maven-plugin.version>
 
+    <scalatest-maven-plugin.version>2.2.0</scalatest-maven-plugin.version>
+
     <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <maven-replacer-plugin.version>1.4.1</maven-replacer-plugin.version>
 
@@ -968,6 +970,13 @@
         <plugin><groupId>org.codehaus.mojo</groupId><artifactId>exec-maven-plugin</artifactId><version>${exec-maven-plugin.version}</version></plugin>
         <plugin><groupId>com.google.code.maven-replacer-plugin</groupId><artifactId>maven-replacer-plugin</artifactId><version>${maven-replacer-plugin.version}</version></plugin>
         <plugin><groupId>com.alexecollins.maven.plugin</groupId><artifactId>script-maven-plugin</artifactId><version>${script-maven-plugin.version}</version></plugin>
+
+        <plugin>
+          <groupId>org.scalatest</groupId>
+          <artifactId>scalatest-maven-plugin</artifactId>
+          <version>${scalatest-maven-plugin.version}</version>
+        </plugin>
+
       </plugins>
     </pluginManagement>
   </build>
