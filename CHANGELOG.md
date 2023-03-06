@@ -8,6 +8,7 @@ v7.16.0-SNAPSHOT
   ...
 - Build:
   - Updated docker based environment to Ubuntu 22.04 LTS
+  - The Quarkus example can now also be built into a native executable
 
 v7.15.0
 ===
