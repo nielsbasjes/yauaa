@@ -128,7 +128,7 @@
 
     <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-    <maven-artifact-plugin.version>3.4.0</maven-artifact-plugin.version>
+    <maven-artifact-plugin.version>3.4.1</maven-artifact-plugin.version>
     <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version>
     <maven-clean-plugin.version>3.2.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -385,6 +385,29 @@
 
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-artifact-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>Ensure plugins are reproducible</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>check-buildplan</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>Generate buildinfo</id>
+                <goals>
+                  <goal>buildinfo</goal>
+                </goals>
+                <configuration>
+                  <attach>true</attach>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
             <executions>
               <execution>
@@ -540,30 +563,6 @@
             </jdk>
           </toolchains>
         </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-artifact-plugin</artifactId>
-        <executions>
-<!--      FIXME: As soon as maven-shade-plugin is good we can enable this -->
-<!--          <execution>-->
-<!--            <id>Ensure plugins are reproducible</id>-->
-<!--            <phase>validate</phase>-->
-<!--            <goals>-->
-<!--              <goal>check-buildplan</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-          <execution>
-            <id>Generate buildinfo</id>
-            <goals>
-              <goal>buildinfo</goal>
-            </goals>
-            <configuration>
-              <attach>true</attach>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
 
       <plugin>
