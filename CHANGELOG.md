@@ -9,6 +9,7 @@ v7.16.0-SNAPSHOT
 - Build:
   - Updated docker based environment to Ubuntu 22.04 LTS
   - The Quarkus example can now also be built into a native executable
+  - Workaround Multi Release jar and maven-shade-plugin with relocation.
 
 v7.15.0
 ===

@@ -269,6 +269,9 @@
               <excludes>
                 <exclude>META-INF/services/**</exclude>
                 <exclude>META-INF/MANIFEST.MF</exclude>
+                <!-- The snakeyaml is a `Multi-Release Jar` and the maven-shade-plugin does not (yet) -->
+                <!-- do the relocation of the additional versions correctly. -->
+                <exclude>META-INF/versions/**</exclude>
               </excludes>
             </filter>
           </filters>
