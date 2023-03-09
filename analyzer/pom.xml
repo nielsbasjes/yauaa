@@ -650,6 +650,53 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-quality</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+
+                <banDuplicateClasses>
+                  <scopes>
+                    <scope>compile</scope>
+                    <scope>runtime</scope>
+                    <scope>provided</scope>
+                  </scopes>
+                  <findAllDuplicates>true</findAllDuplicates>
+                  <ignoreWhenIdentical>true</ignoreWhenIdentical>
+                </banDuplicateClasses>
+
+                <enforceBytecodeVersion>
+                  <maxJdkVersion>8</maxJdkVersion>
+                  <excludes>
+                    <exclude>com.github.ben-manes.caffeine:caffeine</exclude>
+                  </excludes>
+                </enforceBytecodeVersion>
+
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+
+
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>extra-enforcer-rules</artifactId>
+            <version>1.6.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+
       <!--Configuration for periodic mutation testing.-->
       <plugin>
         <groupId>org.pitest</groupId>
