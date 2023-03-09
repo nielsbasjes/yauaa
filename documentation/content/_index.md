@@ -18,6 +18,12 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version 7.16.0
+- Build:
+  - Updated docker based environment to Ubuntu 22.04 LTS
+  - The Quarkus example can now also be built into a native executable
+  - Workaround Multi Release jar and maven-shade-plugin with relocation.
+
 ### Version 7.15.0
 - New/improved detections
     - Full list of documented Yandex robots.

@@ -2,10 +2,12 @@
 This is intended as an overview of the major changes
 
 
-v7.16.0-SNAPSHOT
+v7.17.0-SNAPSHOT
 ===
-- New/improved detections
-  ...
+- ...
+
+v7.16.0
+===
 - Build:
   - Updated docker based environment to Ubuntu 22.04 LTS
   - The Quarkus example can now also be built into a native executable
