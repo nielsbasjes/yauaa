@@ -193,6 +193,7 @@
               <Implementation-Vendor-Id>nl.basjes</Implementation-Vendor-Id>
               <Automatic-Module-Name>${Automatic-Module-Name}</Automatic-Module-Name>
               <url>${project.url}</url>
+              <Multi-Release>true</Multi-Release>
             </manifestEntries>
           </archive>
         </configuration>
@@ -406,6 +407,11 @@
             <!-- Manually "shaded in" code from httpclient5 and spring-core  -->
             <exclude>nl/basjes/parse/useragent/utils/publicsuffixlist/**/*.class</exclude>
             <exclude>nl/basjes/parse/useragent/utils/springframework/**/*.class</exclude>
+
+            <!-- Needed because of the Multi Release Jar -->
+            <!-- https://github.com/jacoco/jacoco/issues/407 -->
+            <!-- https://stackoverflow.com/questions/50163426/jacoco-cannot-exclude-classes/50294239#50294239 -->
+            <exclude>META-INF/versions/**</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -559,6 +565,24 @@
               <sources>
                 <source>${project.build.directory}/generated-sources/java/</source>
               </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>java-11</id>
+            <goals><goal>compile</goal></goals>
+            <configuration>
+              <source>11</source>
+              <target>11</target>
+              <release>11</release>
+              <compileSourceRoots>${project.basedir}/src/main/java11</compileSourceRoots>
+              <multiReleaseOutput>true</multiReleaseOutput>
             </configuration>
           </execution>
         </executions>

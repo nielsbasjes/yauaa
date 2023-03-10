@@ -21,14 +21,16 @@ import com.esotericsoftware.kryo.DefaultSerializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
-import org.apache.commons.collections4.map.LRUMap;
+import nl.basjes.parse.useragent.cache.DefaultCacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java11CacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java11ClientHintsCacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java8CacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java8ClientHintsCacheInstantiator;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
@@ -75,7 +77,9 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         kryo.register(AbstractUserAgentAnalyzer.class);
         kryo.register(DefaultCacheInstantiator.class);
         kryo.register(Java8CacheInstantiator.class);
+        kryo.register(Java11CacheInstantiator.class);
         kryo.register(Java8ClientHintsCacheInstantiator.class);
+        kryo.register(Java11ClientHintsCacheInstantiator.class);
         AbstractUserAgentAnalyzerDirect.configureKryo(kryo);
     }
 
@@ -153,20 +157,6 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         Map<String, ImmutableUserAgent> instantiateCache(int cacheSize);
     }
 
-    private static class DefaultCacheInstantiator implements CacheInstantiator {
-        @Override
-        public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
-            return Caffeine.newBuilder().maximumSize(cacheSize).<String, ImmutableUserAgent>build().asMap();
-        }
-    }
-
-    private static class Java8CacheInstantiator implements CacheInstantiator {
-        @Override
-        public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
-            return Collections.synchronizedMap(new LRUMap<>(cacheSize));
-        }
-    }
-
     public int getCacheSize() {
         return cacheSize;
     }
@@ -188,6 +178,9 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
 
     public void setClientHintsCacheInstantiator(ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator) {
         clientHintsAnalyzer.setCacheInstantiator(clientHintsCacheInstantiator);
+        if (wasBuilt) {
+            clientHintsAnalyzer.initializeCache();
+        }
     }
 
     public interface ClientHintsCacheInstantiator<T extends Serializable> extends Serializable {
@@ -201,12 +194,6 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
          * @return Instance of the new cache.
          */
         Map<String, T> instantiateCache(int cacheSize);
-    }
-
-    private static class Java8ClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
-        public Map<String, T> instantiateCache(int cacheSize) {
-            return Collections.synchronizedMap(new LRUMap<>(cacheSize));
-        }
     }
 
     // =========================================================

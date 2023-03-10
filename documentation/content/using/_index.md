@@ -77,7 +77,9 @@ A custom implementation can be specified via the `Builder` using the `withCacheI
 ## Running on Java 8
 Yauaa 7.x still allows running on Java 8, yet the default caching library needs Java 11.
 
-If you are still using Java 8 then you can fix this problem by using the `LRUMap` caching implementation that is part of the Apache commons-collections library and do something like this:
+**Since version 7.18.0 the selection of the caching implementation is automatically based upon the Java version used to run it.** Running in Java 8-10 the `LRUMap` (caching implementation that is part of the Apache commons-collections library) is used, Java 11-... `Caffeine` is used.
+
+If needed (and also for backwards compatibility and testing) you can still force it to use the `LRUMap` regardless of the Java version by doing something like this:
 
     UserAgentAnalyzer uaa = UserAgentAnalyzer
         .newBuilder()

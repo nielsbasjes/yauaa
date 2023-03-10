@@ -63,8 +63,7 @@ public class UserAgentDissector extends Dissector {
                 .newBuilder()
                 .delayInitialization()
                 .dropTests()
-                .hideMatcherLoadStats()
-                .useJava8CompatibleCaching();
+                .hideMatcherLoadStats();
         }
         return userAgentAnalyzerBuilder;
     }
