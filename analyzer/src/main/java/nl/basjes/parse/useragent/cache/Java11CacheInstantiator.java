@@ -14,29 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package nl.basjes.parse.useragent.cache;
 
-package nl.example;
-
+import com.github.benmanes.caffeine.cache.Caffeine;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.apache.commons.collections4.map.LRUMap;
-import java.util.Collections;
 
-public class Demo {
+import java.util.Map;
 
-    private final UserAgentAnalyzer uaa;
-
-    public Demo() {
-        uaa = UserAgentAnalyzer
-            .newBuilder()
-            .withCache(1234)
-            .withField("DeviceClass")
-            .withAllFields()
-            .build();
+public class Java11CacheInstantiator implements CacheInstantiator {
+    @Override
+    public Map<String, UserAgent.ImmutableUserAgent> instantiateCache(int cacheSize) {
+        return Caffeine.newBuilder().maximumSize(cacheSize).<String, UserAgent.ImmutableUserAgent>build().asMap();
     }
-
-    public UserAgent parse(String userAgent) {
-        return uaa.parse(userAgent);
-    }
-
 }

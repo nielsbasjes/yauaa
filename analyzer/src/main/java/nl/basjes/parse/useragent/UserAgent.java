@@ -22,6 +22,7 @@ import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.analyze.Matcher;
 import nl.basjes.parse.useragent.parser.UserAgentBaseListener;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
+import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
@@ -30,7 +31,6 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.io.Serializable;
 import java.util.ArrayList;

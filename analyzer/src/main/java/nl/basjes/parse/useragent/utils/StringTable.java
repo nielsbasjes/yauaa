@@ -23,7 +23,7 @@ import java.util.List;
 public class StringTable {
 
     private List<String> headers = new ArrayList<>();
-    private List<List<String>> lines = new ArrayList<>();
+    private final List<List<String>> lines = new ArrayList<>();
 
     @Override
     public String toString() {

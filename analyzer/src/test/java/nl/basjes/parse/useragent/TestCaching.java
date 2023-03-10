@@ -20,6 +20,10 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
+import nl.basjes.parse.useragent.cache.Java11CacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java11ClientHintsCacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java8CacheInstantiator;
+import nl.basjes.parse.useragent.cache.Java8ClientHintsCacheInstantiator;
 import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
@@ -145,7 +149,30 @@ class TestCaching {
     }
 
     @Test
-    void testResultFromCacheMustBeIdenticalJava8() {
+    void testResultFromCacheMustBeIdenticalJava11() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .showMinimalVersion()
+            .hideMatcherLoadStats()
+            .withCache(10)
+            .withClientHintsCache(10)
+            .build();
+
+        uaa.setCacheInstantiator(new Java11CacheInstantiator());
+        uaa.setClientHintsCacheInstantiator(new Java11ClientHintsCacheInstantiator<>());
+
+        // First time
+        UserAgent agent1 = uaa.parse(USER_AGENT);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(USER_AGENT);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
+
+    @Test
+    void testResultFromCacheMustBeIdenticalJava8ViaBuilder() {
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .showMinimalVersion()
@@ -154,6 +181,29 @@ class TestCaching {
             .withClientHintsCache(10)
             .useJava8CompatibleCaching()
             .build();
+
+        // First time
+        UserAgent agent1 = uaa.parse(USER_AGENT);
+
+        // Should come from cache
+        UserAgent agent2 = uaa.parse(USER_AGENT);
+
+        // Both should be the same
+        assertEquals(agent1, agent2);
+    }
+
+    @Test
+    void testResultFromCacheMustBeIdenticalJava8() {
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .showMinimalVersion()
+            .hideMatcherLoadStats()
+            .withCache(10)
+            .withClientHintsCache(10)
+            .build();
+
+        uaa.setCacheInstantiator(new Java8CacheInstantiator());
+        uaa.setClientHintsCacheInstantiator(new Java8ClientHintsCacheInstantiator<>());
 
         // First time
         UserAgent agent1 = uaa.parse(USER_AGENT);

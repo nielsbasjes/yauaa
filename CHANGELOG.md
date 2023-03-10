@@ -3,7 +3,8 @@ This is intended as an overview of the major changes
 
 v7.19.0-SNAPSHOT
 ===
-- ...
+- Analyzer:
+    - Automatic switch to the Java 8 compatible caching implementation (Multi Release Jar)
 
 v7.18.0
 ===

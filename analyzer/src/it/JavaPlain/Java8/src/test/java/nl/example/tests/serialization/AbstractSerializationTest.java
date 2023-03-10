@@ -85,8 +85,6 @@ abstract class AbstractSerializationTest {
         UserAgentAnalyzerBuilder uaab = UserAgentAnalyzer
             .newBuilder()
             .keepTests()
-            // Caffeine is a Java 11+ library.
-            .useJava8CompatibleCaching()
             .withCacheInstantiator(new TestingCacheInstantiator())
             .withCache(1234)
             .hideMatcherLoadStats();

@@ -15,28 +15,7 @@
  * limitations under the License.
  */
 
-package nl.example;
+package nl.basjes.parse.useragent.cache;
 
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import org.apache.commons.collections4.map.LRUMap;
-import java.util.Collections;
-
-public class Demo {
-
-    private final UserAgentAnalyzer uaa;
-
-    public Demo() {
-        uaa = UserAgentAnalyzer
-            .newBuilder()
-            .withCache(1234)
-            .withField("DeviceClass")
-            .withAllFields()
-            .build();
-    }
-
-    public UserAgent parse(String userAgent) {
-        return uaa.parse(userAgent);
-    }
-
+public class DefaultCacheInstantiator extends Java8CacheInstantiator {
 }

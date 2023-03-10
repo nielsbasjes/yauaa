@@ -20,9 +20,9 @@ package nl.basjes.parse.useragent.annotate;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
+import nl.basjes.parse.useragent.utils.springframework.core.GenericTypeResolver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import nl.basjes.parse.useragent.utils.springframework.core.GenericTypeResolver;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

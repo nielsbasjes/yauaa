@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.clienthints;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.clienthints.ClientHintsHeadersParser.DefaultClientHintsCacheInstantiator;
+import nl.basjes.parse.useragent.cache.DefaultClientHintsCacheInstantiator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.MethodOrderer;

@@ -81,8 +81,6 @@ public class ParseUserAgent extends GenericUDF {
                 .newBuilder()
                 .hideMatcherLoadStats()
                 .withCache(10000)
-                // Caffeine is a Java 11+ library.
-                .useJava8CompatibleCaching()
                 .immediateInitialization()
                 .build());
 

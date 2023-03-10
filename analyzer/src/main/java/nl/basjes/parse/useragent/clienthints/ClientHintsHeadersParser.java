@@ -18,8 +18,8 @@
 package nl.basjes.parse.useragent.clienthints;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
+import nl.basjes.parse.useragent.cache.DefaultClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.clienthints.parsers.BrandListParser;
 import nl.basjes.parse.useragent.clienthints.parsers.CHParser;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
@@ -32,9 +32,9 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
+import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.io.Serializable;
 import java.util.List;
@@ -100,7 +100,7 @@ public class ClientHintsHeadersParser implements Serializable {
     public static void configureKryo(Object kryoInstance) {
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(ClientHintsHeadersParser.class);
-        kryo.register(ClientHintsHeadersParser.DefaultClientHintsCacheInstantiator.class);
+        kryo.register(DefaultClientHintsCacheInstantiator.class);
         kryo.register(ClientHints.class);
         kryo.register(BrandListParser.class);
         kryo.register(CHParser.class);
@@ -141,12 +141,6 @@ public class ClientHintsHeadersParser implements Serializable {
 
     private ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator = null;
     private int clientHintsCacheSize = 1000;
-
-    static class DefaultClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
-        public Map<String, T> instantiateCache(int cacheSize) {
-            return Caffeine.newBuilder().maximumSize(cacheSize).<String, T>build().asMap();
-        }
-    }
 
     public int getCacheSize() {
         return clientHintsCacheSize;
