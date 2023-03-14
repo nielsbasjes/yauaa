@@ -37,29 +37,30 @@ So I classify all of them as hacking oriented tools.                            
 
 ### DeviceClass
 
-| Value                 | Meaning                                                                                                                       |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| Desktop               | The device is assessed as a Desktop/Laptop class device                                                                       |
-| Anonymized            | In some cases the useragent has been altered by anonymization software                                                        |
-| Unknown               | We really don't know, these are usually useragents that look normal yet contain almost no information about the device        |
-| Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch                                           |
-| Tablet                | A mobile device with a rather large screen (common > 7")                                                                      |
-| Phone                 | A mobile device with a small screen (common < 7")                                                                             |
-| Watch                 | A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device.     |
-| Augmented Reality     | A mobile device with a AR capabilities (like Google Glass)                                                                    |
-| Virtual Reality       | A mobile device with a VR capabilities                                                                                        |
-| eReader               | Similar to a Tablet yet in most cases with an eInk screen                                                                     |
-| Set-top box           | A connected device that allows interacting via a TV sized screen                                                              |
-| TV                    | Similar to Set-top box yet here this is built into the TV                                                                     |
-| Home Appliance        | A (usally large) home appliance (like a Fridge)                                                                               |
-| Game Console          | 'Fixed' game systems like the PlayStation and XBox                                                                            |
-| Handheld Game Console | 'Mobile' game systems like the 3DS                                                                                            |
-| Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home.                           |
-| Car                   | A Car based browser as found in for example the Tesla vehicles                                                                |
-| Robot                 | Robots that visit the site                                                                                                    |
-| Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor                                                |
-| Robot Imitator        | Robots that visit the site pretending they are robots like google, but they are not. Note that in most cases they ARE Robots. |
-| Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations                              |
+| Value                 | Meaning                                                                                                                                       |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Desktop               | The device is assessed as a Desktop/Laptop class device                                                                                       |
+| Anonymized            | In some cases the useragent has been altered by anonymization software                                                                        |
+| Unknown               | We really don't know, these are usually useragents that look normal yet contain almost no information about the device                        |
+| Mobile                | A device that is mobile yet we do not know if it is a eReader/Tablet/Phone or Watch                                                           |
+| Tablet                | A mobile device with a rather large screen (common > 7")                                                                                      |
+| Phone                 | A mobile device with a small screen (common < 7")                                                                                             |
+| Watch                 | A mobile device with a tiny screen (common < 2"). Normally these are an additional screen for a phone/tablet type device.                     |
+| Augmented Reality     | A mobile device with a AR capabilities (like Google Glass)                                                                                    |
+| Virtual Reality       | A mobile device with a VR capabilities                                                                                                        |
+| eReader               | Similar to a Tablet yet in most cases with an eInk screen                                                                                     |
+| Set-top box           | A connected device that allows interacting via a TV sized screen                                                                              |
+| TV                    | Similar to Set-top box yet here this is built into the TV                                                                                     |
+| Home Appliance        | A (usally large) home appliance (like a Fridge)                                                                                               |
+| Game Console          | 'Fixed' game systems like the PlayStation and XBox                                                                                            |
+| Handheld Game Console | 'Mobile' game systems like the 3DS                                                                                                            |
+| Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home.                                           |
+| Car                   | A Car based browser as found in for example the Tesla vehicles                                                                                |
+| Robot                 | Robots that visit the site                                                                                                                    |
+| Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor                                                                |
+| Robot Imitator        | Robots that visit the site pretending they are robots like google, but they are not. Note that in most cases they ARE Robots.                 |
+| Cloud                 | A cloud based application. Not a Robot or Hacker but a normal application that needs to connect. This includes for example Mastodon servers.  |
+| Hacker                | In case scripting is detected in the useragent string, also fallback in really broken situations                                              |
 
 ### OperatingSystemClass
 
@@ -76,14 +77,16 @@ So I classify all of them as hacking oriented tools.                            
 
 ### LayoutEngineClass
 
-| Value       | Meaning                                                   |
-|-------------|-----------------------------------------------------------|
-| Browser     | A regular browser                                         |
-| Mobile App  | A mobile app which probably includes a regular webbrowser |
-| Hacker      | A hacker, so it can really be anything.                   |
-| Robot       | A robot spidering the site                                |
-| Special     | Something special we cannot fully classify                |
-| Unknown     | We don't know                                             |
+| Value       | Meaning                                                                                 |
+|-------------|-----------------------------------------------------------------------------------------|
+| Browser     | A regular browser                                                                       |
+| Desktop App | A desktop app (often a PWA)                                                             |
+| Mobile App  | A mobile app which probably includes a regular webbrowser                               |
+| Hacker      | A hacker, so it can really be anything.                                                 |
+| Robot       | A robot spidering the site                                                              |
+| Cloud       | A cloud based application where it is unclear what kind of layout engine is really used |
+| Special     | Something special we cannot fully classify                                              |
+| Unknown     | We don't know                                                                           |
 
 ### AgentClass
 
@@ -91,6 +94,7 @@ So I classify all of them as hacking oriented tools.                            
 |-------------------|--------------------------------------------------------------------------------------------------------|
 | Browser           | A regular browser                                                                                      |
 | Browser Webview   | A regular browser being used as part of a mobile app                                                   |
+| Desktop App       | A desktop app (often a PWA)                                                                            |
 | Mobile App        | A mobile app                                                                                           |
 | Robot             | A robot that wants to be treated as a desktop device                                                   |
 | Robot Mobile      | A robot that wants to be treated as a mobile device                                                    |
