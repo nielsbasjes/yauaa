@@ -781,6 +781,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>nl.basjes.maven.release</groupId>
+            <artifactId>conventional-commits-version-policy</artifactId>
+            <version>1.0.0</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
 
@@ -790,8 +797,13 @@
           <scmRollbackCommitComment>Release: Rollback the release of @{releaseLabel}</scmRollbackCommitComment>
 
           <tagNameFormat>v@{project.version}</tagNameFormat>
+          <projectVersionPolicyId>ConventionalCommitsVersionPolicy</projectVersionPolicyId>
+          <projectVersionPolicyConfig>
+            <versionTag>^v([0-9]+\.[0-9]+\.[0-9]+)$</versionTag>
+          </projectVersionPolicyConfig>
 
-          <preparationGoals>-PprepareRelease -PpackageForRelease clean verify</preparationGoals>
+          <preparationProfiles>prepareRelease,packageForRelease</preparationProfiles>
+          <preparationGoals>clean verify</preparationGoals>
           <releaseProfiles>packageForRelease,release,deployToSonatype</releaseProfiles>
           <pushChanges>false</pushChanges>
           <remoteTagging>false</remoteTagging>
