@@ -1,0 +1,43 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2023 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+      Sec-Ch-Ua                                  : '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"'
+      Sec-Ch-Ua-Mobile                           : '?0'
+      Sec-Ch-Ua-Platform                         : '"Linux"'
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
+      Sec-Ch-Ua                                  : '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"'
+      Sec-Ch-Ua-Arch                             : '"x86"'
+      Sec-Ch-Ua-Bitness                          : '"64"'
+      Sec-Ch-Ua-Full-Version                     : '"111.0.5563.64"'
+      Sec-Ch-Ua-Full-Version-List                : '"Google Chrome";v="111.0.5563.64", "Not(A:Brand";v="8.0.0.0", "Chromium";v="111.0.5563.64"'
+      Sec-Ch-Ua-Mobile                           : '?0'
+      Sec-Ch-Ua-Model                            : '""'
+      Sec-Ch-Ua-Platform                         : '"Linux"'
+      Sec-Ch-Ua-Platform-Version                 : '"5.15.0"'
+      Sec-Ch-Ua-Wow64                            : '?0'

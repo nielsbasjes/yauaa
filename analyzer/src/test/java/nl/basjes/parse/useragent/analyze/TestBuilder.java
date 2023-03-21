@@ -335,6 +335,31 @@ class TestBuilder {
     }
 
     @Test
+    void testPreheatTestsWithoutExpectations() {
+        UserAgentAnalyzer userAgentAnalyzer =
+            UserAgentAnalyzer
+                .newBuilder()
+                .delayInitialization()
+                .hideMatcherLoadStats()
+                .withField("AgentName")
+                .build();
+        long numberOfTestCases = userAgentAnalyzer.getNumberOfTestCases();
+
+        UserAgentAnalyzer userAgentAnalyzerExtraTests =
+            UserAgentAnalyzer
+                .newBuilder()
+                .immediateInitialization()
+                .addResources("TestcasesWithoutExpectations.yaml")
+                .preheat()
+                .hideMatcherLoadStats()
+                .withField("AgentName")
+                .build();
+
+        // The extra yaml file contains 3 testcases
+        assertEquals(numberOfTestCases + 3, userAgentAnalyzerExtraTests.getNumberOfTestCases());
+    }
+
+    @Test
     void testPreheatNoTests() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
