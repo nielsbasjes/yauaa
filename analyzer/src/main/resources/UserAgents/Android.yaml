@@ -2184,3 +2184,144 @@ config:
       AgentVersionMajor                    : '537'
       AgentNameVersion                     : 'AppleWebKit 537.36'
       AgentNameVersionMajor                : 'AppleWebKit 537'
+
+
+- matcher:
+    require:
+    - 'agent~"Android"'
+    extract:
+    - 'DeviceClass                         :        0 :"Mobile"'
+    - 'OperatingSystemClass                :        0 :"Mobile"'
+    - 'OperatingSystemName                 :        0 :"Android"'
+
+- matcher:
+    variable:
+      - 'DeviceName: agent.(1)product.(1)comments.(1)entry.(1)product.(1)name.(1)keyvalue.(1)key'
+      - 'CPUName: agent.(1)product.(1)comments.(1)entry.(1)product.(1)name.(1)keyvalue.(1)version'
+      - 'AndroidAPIVersion: agent.(1)product.(1)comments.(1)entry.(1)product.(1)version.(1)keyvalue.(1)key="Android"^.value'
+    extract:
+      - 'DeviceClass                         :        1 :"Mobile"'
+      - 'DeviceName                          :      500 :@DeviceName'
+      - 'DeviceCpu                           :        1 :@CPUName'
+      - 'OperatingSystemClass                :     1501 :"Mobile"'
+      - 'OperatingSystemName                 :     1501 :"Android"'
+      - 'OperatingSystemVersion              :     1501 :LookUp[AndroidAPIToVersionMap;@AndroidAPIVersion;"<<<null>>>"]'
+
+- test:
+    input:
+      User-Agent                           : 'Vestiaire Collective/3.92.0 (LenovoTB-X606X_EEA:mt8768 Android:29)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Lenovo TB-X606X EEA'
+      DeviceBrand                          : 'Lenovo'
+      DeviceCpu                            : 'mt8768'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Vestiaire Collective'
+      AgentVersion                         : '3.92.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Vestiaire Collective 3.92.0'
+      AgentNameVersionMajor                : 'Vestiaire Collective 3'
+
+- test:
+    input:
+      User-Agent                           : 'Deposit Forwarded - Vestiaire Collective/3.93.0 (c2sxxx:exynos990 Android:31)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung C2SXXX'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'exynos990'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Deposit Forwarded - Vestiaire Collective'
+      AgentVersion                         : '3.93.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Deposit Forwarded - Vestiaire Collective 3.93.0'
+      AgentNameVersionMajor                : 'Deposit Forwarded - Vestiaire Collective 3'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="uphold-sdk-javascript"'
+    extract:
+    - 'AgentName               :        10 :agent.(2)product.(1)name'
+    - 'AgentVersion            :        10 :agent.(2)product.(1)version'
+
+
+# TODO: Is there a spec for uphold-sdk-javascript? What is "taro" and "12" ?
+- test:
+    input:
+      User-Agent                           : 'uphold-sdk-javascript/v2.4.1 (taro; 12; en_US) Wallet Android/4.79.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Wallet Android'
+      AgentVersion                         : '4.79.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Wallet Android 4.79.1'
+      AgentNameVersionMajor                : 'Wallet Android 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
+
+# Total non standard mess ... but it says "Android" ...
+- test:
+    input:
+      User-Agent                           : 'member-react-native-application/android/1.11.12/6562/47b4b800cb7e06905a51a53ab8c05a88'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Member-React-Native-Application'
+      AgentVersion                         : 'android'
+      AgentVersionMajor                    : 'android'
+      AgentNameVersion                     : 'Member-React-Native-Application android'
+      AgentNameVersionMajor                : 'Member-React-Native-Application android'

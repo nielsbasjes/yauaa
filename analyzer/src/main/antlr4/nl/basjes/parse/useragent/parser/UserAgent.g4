@@ -326,7 +326,7 @@ product
                        ( (SLASH|ATSIGN)+  EQUALS?                (productVersionWithCommas|productVersionSingleWord) COMMA?)* )+
                     (SLASH EOF)?
 
-    | productName   (  COLON? (SLASH+|MINUS|ATSIGN) productVersionWords
+    | productName   (  COLON? (SLASH+|ATSIGN) productVersionWords
                         ( (SLASH|ATSIGN)* productVersionWithCommas COMMA?)*
                         (SLASH|ATSIGN)? (SEMICOLON|MINUS)?       commentBlock ?    )+
                     (SLASH EOF)?
