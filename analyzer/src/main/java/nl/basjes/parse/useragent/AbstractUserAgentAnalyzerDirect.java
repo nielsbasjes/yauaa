@@ -46,6 +46,7 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.config.ConfigLoader;
+import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.utils.KryoConfig;
 import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
 
@@ -79,6 +80,11 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
     @Override
     public AnalyzerConfig getConfig() {
         return analyzerConfig;
+    }
+
+    @Override
+    public List<TestCase> getPreheatTestCases() {
+        return getTestCases();
     }
 
     protected UserAgentStringMatchMaker getMatchMaker() {
@@ -547,6 +553,13 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
                 wantedFieldNames.add(DEVICE_CLASS);
             }
 
+            boolean keepTestsAfterPreheat = keepTests;
+            if (preheatIterations != 0) {
+                // Because we want to do a preheat we keep the tests until
+                // after the preheat and then drop them if so desired.
+                keepTests = true;
+            }
+
             ConfigLoader configLoader = new ConfigLoader(showMatcherStats)
                 .keepTests(keepTests)
                 .addResource(resources, false)
@@ -572,6 +585,10 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
                     uaa.preHeat(preheatIterations);
                 }
             }
+            if (!keepTestsAfterPreheat) {
+                uaa.dropTests();
+            }
+
             didBuildStep = true;
             return uaa;
         }

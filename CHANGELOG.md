@@ -4,7 +4,8 @@ This is intended as an overview of the major changes
 
 v7.17.0-SNAPSHOT
 ===
-- ...
+- Analyzer:
+  - Use all testcases (including ClientHints) when doing preheat.
 
 v7.16.0
 ===

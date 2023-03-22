@@ -38,10 +38,6 @@ public interface AnalyzerConfigHolder {
         return getConfig().getTestCases();
     }
 
-    default long getNumberOfTestCases() {
-        return getTestCases().size();
-    }
-
     default void dropTests() {
         getTestCases().clear();
     }

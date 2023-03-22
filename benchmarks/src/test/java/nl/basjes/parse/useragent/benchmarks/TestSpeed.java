@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -51,7 +52,7 @@ class TestSpeed {
     }
 
     void run(UserAgentAnalyzer analyzer) {
-        LOG.warn("There are %d unique testcases.", analyzer.getNumberOfTestCases());
+        LOG.warn("There are %d unique testcases.", analyzer.getTestCases().size());
 
         LOG.warn("DISABLE CACHING");
         analyzer.clearCache();
@@ -79,11 +80,11 @@ class TestSpeed {
     private final Random rand = new Random();
 
     private void runTests(UserAgentAnalyzer analyzer, int numberOfTests) {
-        long numberOfTestCases = analyzer.getNumberOfTestCases();
-        List<TestCase> testCases = new ArrayList<>(numberOfTests);
-        while (testCases.size() < numberOfTests) {
-            testCases.add(analyzer.getTestCases().get(rand.nextInt((int)numberOfTestCases)));
+        List<TestCase> testCases = new ArrayList<>(analyzer.getTestCases());
+        while (testCases.size() > numberOfTests) {
+            testCases.remove(rand.nextInt(testCases.size()));
         }
+        Collections.shuffle(testCases);
         runTests(analyzer, testCases);
     }
 

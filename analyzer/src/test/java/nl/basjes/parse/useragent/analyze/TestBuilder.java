@@ -76,6 +76,7 @@ import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.config.ConfigLoader.DEFAULT_RESOURCES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -320,7 +321,7 @@ class TestBuilder {
                 .hideMatcherLoadStats()
                 .withField("AgentName")
                 .build();
-        assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
+        assertEquals(0, userAgentAnalyzer.getTestCases().size());
 
         userAgentAnalyzer =
             UserAgentAnalyzer
@@ -331,32 +332,46 @@ class TestBuilder {
                 .hideMatcherLoadStats()
                 .withField("AgentName")
                 .build();
-        assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
+        assertEquals(0, userAgentAnalyzer.getTestCases().size());
     }
 
     @Test
     void testPreheatTestsWithoutExpectations() {
+        UserAgentAnalyzer uaaBase =
+            UserAgentAnalyzer
+                .newBuilder()
+                .build();
+        long numberOfTestCases = uaaBase.getTestCases().size();
+        assertEquals(numberOfTestCases, uaaBase.preHeat());
+
+        UserAgentAnalyzer uaaExtra =
+            UserAgentAnalyzer
+                .newBuilder()
+                .addResources("TestcasesWithoutExpectations.yaml")
+                .preheat()
+                .build();
+
+        // The extra yaml file contains 3 testcases
+        assertEquals(numberOfTestCases + 3, uaaExtra.getTestCases().size());
+
+        assertEquals(uaaExtra.getTestCases().size(), uaaExtra.preHeat());
+    }
+
+    @Test
+    void testPreheatDropTestsInBuilder() {
         UserAgentAnalyzer userAgentAnalyzer =
             UserAgentAnalyzer
                 .newBuilder()
-                .delayInitialization()
-                .hideMatcherLoadStats()
-                .withField("AgentName")
-                .build();
-        long numberOfTestCases = userAgentAnalyzer.getNumberOfTestCases();
-
-        UserAgentAnalyzer userAgentAnalyzerExtraTests =
-            UserAgentAnalyzer
-                .newBuilder()
-                .immediateInitialization()
-                .addResources("TestcasesWithoutExpectations.yaml")
+                .dropTests() // Will be dropped after the preheat
                 .preheat()
                 .hideMatcherLoadStats()
                 .withField("AgentName")
                 .build();
 
-        // The extra yaml file contains 3 testcases
-        assertEquals(numberOfTestCases + 3, userAgentAnalyzerExtraTests.getNumberOfTestCases());
+        // The full testCases from the yaml are NO LONGER used for the preHeat !
+        // Preheat has a separate list with all the test cases (smaller since we do not have the answers there).
+        assertEquals(0, userAgentAnalyzer.getTestCases().size());
+        assertEquals(PreHeatCases.USERAGENTS.size(), userAgentAnalyzer.preHeat());
     }
 
     @Test
@@ -369,16 +384,20 @@ class TestBuilder {
                 .withField("AgentName")
                 .build();
 
-        assertTrue(userAgentAnalyzer.getNumberOfTestCases() > 100);
+        assertTrue(userAgentAnalyzer.getTestCases().size() > 100);
+        assertEquals(userAgentAnalyzer.getTestCases().size(), userAgentAnalyzer.preHeat());
         assertEquals(0, userAgentAnalyzer.preHeat(0));
         assertEquals(0, userAgentAnalyzer.preHeat(-1));
         assertEquals(0, userAgentAnalyzer.preHeat(1000000000L));
+
+        // There is a difference caused by the Client Hint test cases.
+        assertNotEquals(userAgentAnalyzer.getTestCases().size(), PreHeatCases.USERAGENTS.size());
 
         userAgentAnalyzer.dropTests();
 
         // The full testCases from the yaml are NO LONGER used for the preHeat !
         // Preheat has a separate list with all the test cases (smaller since we do not have the answers there).
-        assertEquals(0, userAgentAnalyzer.getNumberOfTestCases());
+        assertEquals(0, userAgentAnalyzer.getTestCases().size());
         assertEquals(PreHeatCases.USERAGENTS.size(), userAgentAnalyzer.preHeat());
     }
 
