@@ -32,8 +32,6 @@ public final class PreHeatCases {
 
         List<String> rawList = Arrays.asList(testAgents);
         rawList.sort(Comparator.comparing(String::hashCode));
-
-//        Collections.shuffle(rawList);
         USERAGENTS = Collections.unmodifiableList(rawList);
     }
 }
