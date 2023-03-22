@@ -124,7 +124,7 @@ trap killSigner SIGINT
 # ----------------------------------------------------------------------------------------------------
 ## Prepare the release: Make releasable version and make tag.
 info "Doing release:prepare"
-mvn release:prepare
+mvn release:prepare -B
 prepareStatus=$?
 if [ ${prepareStatus} -ne 0 ];
 then
