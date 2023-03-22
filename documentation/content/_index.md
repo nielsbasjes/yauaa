@@ -18,6 +18,10 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version v7.17.0
+- Analyzer:
+  - Use all testcases (including ClientHints) when doing preheat.
+
 ### Version 7.16.0
 - Build:
   - Updated docker based environment to Ubuntu 22.04 LTS
@@ -55,45 +59,6 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 - New/improved detections
   - Extra noise filter of unwanted extra fields
   - Handle a new form of iOS apps.
-
-### Version 7.12.2
-- Build
-  - Reproducible builds
-- New/improved detections
-  - Extra noise filter of unwanted extra fields
-
-### Version 7.12.1
-- Analyzer:
-  - Include the caffeine dependencies fix https://github.com/ben-manes/caffeine/discussions/867
-
-### Version 7.12.0
-- Analyzer:
-    - Manually shaded in
-      - httpcomponents-client v5.2.1.
-        - One less logging dependency (no more SLF4j needed).
-        - Fixes OSGI problems https://github.com/apache/unomi/pull/557
-      - spring-core
-        - One less logging dependency (no more JCL needed).
-        - Dropping VFS support
-- New/improved detections
-    - NULL version is now assumes to be caused by broken plugins instead of Robot.
-
-### Version 7.11.0
-- New/improved detections
-    - RancherDesktop client
-    - Chrome/Edge 109 with Client Hints were reported as "Not_A Brand 99"
-
-### Version 7.10.0
-- Analyzer:
-    - Fix Java8 caching and cache serialization.
-- New/improved detections
-    - MicrosoftPreview bot
-    - Few Bingbot imitators
-    - Handle frozen "rv:109.0" in Firefox
-
-### Version 7.9.1
-- New/improved detections
-  - Bad secondary version is now assumes to be Anti fingerprinting instead of Robot.
 
 ---
 ## Regarding the recent Log4J2 issues
