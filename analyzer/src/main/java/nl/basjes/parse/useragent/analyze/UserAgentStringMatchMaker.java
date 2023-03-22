@@ -22,7 +22,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
-import nl.basjes.parse.useragent.AnalyzerPreHeater;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.calculate.CalculateAgentClass;
@@ -98,7 +97,7 @@ import static nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer.extraDep
 import static nl.basjes.parse.useragent.utils.YauaaVersion.logVersion;
 
 @DefaultSerializer(UserAgentStringMatchMaker.KryoSerializer.class)
-public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHolder, AnalyzerPreHeater, Serializable {
+public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHolder, Serializable {
     // We set this to 1000000 always.
     // Why?
     // At the time of writing this the actual HashMap size needed about 410K entries.
