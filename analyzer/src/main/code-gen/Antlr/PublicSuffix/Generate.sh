@@ -25,12 +25,12 @@ if [ ! -f "${INPUT}" ]; then
     exit 1
 fi
 
-#if [ "Generate.sh" -ot "${OUTPUT}" ]; then
-#    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
-#        echo "Up to date: ${OUTPUT}";
-#        exit;
-#    fi
-#fi
+if [ "Generate.sh" -ot "${OUTPUT}" ]; then
+    if [ "${INPUT}" -ot "${OUTPUT}" ]; then
+        echo "Up to date: ${OUTPUT}";
+        exit;
+    fi
+fi
 
 echo "Generating: ${OUTPUT}";
 
