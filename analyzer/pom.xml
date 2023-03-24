@@ -467,10 +467,10 @@
               <target>
                 <fileset id="packagedRules" dir="src/main/resources/UserAgents/" />
                 <pathconvert targetos="unix" pathsep="&quot;,&#xD; &quot;" property="my-file-list" refid="packagedRules">
-                  <map from="${basedir}/src/main/resources/" to="" />
+                  <map from="${project.basedir}/src/main/resources/" to="" />
                 </pathconvert>
                 <!--suppress MavenModelInspection -->
-                <echo file="${basedir}/target/temp-yaml-list.txt">${my-file-list}</echo>
+                <echo file="${project.basedir}/target/temp-yaml-list.txt">${my-file-list}</echo>
               </target>
             </configuration>
             <goals>
@@ -493,9 +493,9 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-              <file>${basedir}/src/main/code-gen/version/Version.yaml.template</file>
+              <file>${project.basedir}/src/main/code-gen/version/Version.yaml.template</file>
               <regex>false</regex>
-              <outputFile>${basedir}/target/classes/UserAgents/__Version__.yaml</outputFile>
+              <outputFile>${project.basedir}/target/classes/UserAgents/__Version__.yaml</outputFile>
             </configuration>
           </execution>
 
@@ -506,9 +506,9 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-              <file>${basedir}/src/main/code-gen/version/Version.java.template</file>
+              <file>${project.basedir}/src/main/code-gen/version/Version.java.template</file>
               <regex>false</regex>
-              <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/Version.java</outputFile>
+              <outputFile>${project.basedir}/target/generated-sources/java/nl/basjes/parse/useragent/Version.java</outputFile>
             </configuration>
           </execution>
 
@@ -519,9 +519,9 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-              <file>${basedir}/src/main/code-gen/UserAgents/PackagedRules.java.template</file>
+              <file>${project.basedir}/src/main/code-gen/UserAgents/PackagedRules.java.template</file>
               <regex>false</regex>
-              <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PackagedRules.java</outputFile>
+              <outputFile>${project.basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PackagedRules.java</outputFile>
             </configuration>
           </execution>
 
@@ -533,9 +533,9 @@
               <goal>replace</goal>
             </goals>
             <configuration>
-              <file>${basedir}/src/main/code-gen/UserAgents/PreHeatCases.java.template</file>
+              <file>${project.basedir}/src/main/code-gen/UserAgents/PreHeatCases.java.template</file>
               <regex>false</regex>
-              <outputFile>${basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PreHeatCases.java</outputFile>
+              <outputFile>${project.basedir}/target/generated-sources/java/nl/basjes/parse/useragent/PreHeatCases.java</outputFile>
             </configuration>
           </execution>
 
@@ -580,11 +580,11 @@
             </replacement>
             <replacement>
               <token>###file-list###</token>
-              <valueFile>${basedir}/target/temp-yaml-list.txt</valueFile>
+              <valueFile>${project.basedir}/target/temp-yaml-list.txt</valueFile>
             </replacement>
             <replacement>
               <token>###agents-list###</token>
-              <valueFile>${basedir}/target/temp-agents-list.txt</valueFile>
+              <valueFile>${project.basedir}/target/temp-agents-list.txt</valueFile>
             </replacement>
 
           </replacements>
