@@ -4,6 +4,8 @@ This is intended as an overview of the major changes
 
 v7.18.0-SNAPSHOT
 ===
+- Build:
+  - Workaround reproducibility problem in Maven (MSHADE-440)
 
 v7.17.0
 ===
