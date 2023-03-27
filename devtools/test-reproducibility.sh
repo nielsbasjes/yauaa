@@ -73,7 +73,12 @@ function die() {
 
 # ----------------------------------------------------------------------------------------------------
 info "Publishing SNAPSHOT to Local reproduceTest Repo"
-mvn clean deploy -PpackageForRelease -PuseLocalReproduceRepo -PskipQuality
+pushd .
+TMPDIR=YauaaRebuild-$$
+mkdir -p "/tmp/${TMPDIR}"
+cp -a . "/tmp/${TMPDIR}"
+cd "/tmp/${TMPDIR}"
+mvn clean install -PprepareRelease -PskipQuality
 snapshotPublishStatus=$?
 if [ ${snapshotPublishStatus} -ne 0 ];
 then
@@ -82,10 +87,12 @@ then
 else
     pass "Publishing SNAPSHOT Success."
 fi
+popd || exit 1
+rm -rf "/tmp/${TMPDIR}"
 
 # ----------------------------------------------------------------------------------------------------
 info "Comparing the build ... "
-mvn clean verify -PpackageForRelease -PuseLocalReproduceRepo -PskipQuality -PartifactCompare -Dreproduce.repo=localReproduceRepo
+mvn clean verify -PskipQuality -PartifactCompare
 snapshotPublishStatus=$?
 if [ ${snapshotPublishStatus} -ne 0 ];
 then
