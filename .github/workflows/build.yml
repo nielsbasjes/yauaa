@@ -53,15 +53,21 @@ jobs:
           17
 
     - name: 'Build Yauaa'
-      run: mvn clean install -PdisableDockerHubUsages
+      run: mvn clean install -PprepareRelease -PdisableDockerHubUsages
 
     - name: 'Codecov'
       uses: codecov/codecov-action@d9f34f8cd5cb3b3eb79b3e4b5dae3a16df499a70 # v3.1.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
+    # Rebuild in a DIFFERENT directory as sometimes the build directory is persisted in a generated file.
+    # https://issues.apache.org/jira/browse/MSHADE-440
+    # https://issues.apache.org/jira/browse/MNG-7750
     - name: 'Ensure build is reproducible'
       run: |
+        mkdir -p ../PreproducibleRebuildInDifferentDirectory
+        cp -a . ../PreproducibleRebuildInDifferentDirectory
+        cd ../PreproducibleRebuildInDifferentDirectory
         mvn clean verify -PskipQuality -PartifactCompare
         # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
         rm -rf ~/.m2/repository/nl/basjes/parse/useragent/
