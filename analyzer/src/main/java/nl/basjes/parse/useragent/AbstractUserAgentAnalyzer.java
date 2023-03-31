@@ -330,7 +330,7 @@ public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect i
         }
 
         /**
-         * Disable ClientHint caching.
+         * Use a Java 8 compatible caching implementation for the UserAgents and the client hints.
          * @return the current Builder instance.
          */
         public B useJava8CompatibleCaching() {
