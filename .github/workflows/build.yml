@@ -52,6 +52,11 @@ jobs:
           11
           17
 
+    - name: 'Ensure the poorly managed Elastic dependencies are present'
+      run: |
+        cd udfs/elastic/logstash/logstash-dependency/
+        mvn validate -PdisableDockerHubUsages -PskipQuality
+
     - name: 'Build Yauaa'
       run: mvn clean install -PprepareRelease -PdisableDockerHubUsages
 
