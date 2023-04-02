@@ -25,9 +25,7 @@ maven-build:
   stage: build
   script:
     # Install the 3 needed LTS JDKs that can be used by toolchains
-    - apt-get update -qq && apt-get install -qq -y ruby openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk
+    - apt-get update -qq && apt-get install -qq -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk
     - mkdir -p ${HOME}/.m2 && cp ./.gitlab/toolchains.xml ${HOME}/.m2/
-    # Ensure the poorly managed Elastic dependencies are present
-    - cd udfs/elastic/logstash/logstash-dependency/ && mvn validate -PdisableDockerHubUsages -PskipQuality
     # And build it.
     - mvn clean verify -PdisableDockerHubUsages -B

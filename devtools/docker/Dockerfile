@@ -57,7 +57,6 @@ RUN apt-get -q install -y --no-install-recommends \
     locales \
     wget \
     time \
-    ruby \
     tzdata \
     openjdk-8-jdk \
     openjdk-11-jdk \

@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 
 v7.18.0-SNAPSHOT
 ===
-- ...
+- Dropping support for Elastic Logstash. More than 3 years after GA they have not yet published the needed dependencies.
 
 v7.17.1
 ===

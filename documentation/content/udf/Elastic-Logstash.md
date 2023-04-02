@@ -4,25 +4,18 @@ title = "Elastic LogStash"
 ## Introduction
 User Defined Function (Filter plugin) for [Elastic Logstash](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html)
 
-## STATUS: ... EXPERIMENTAL ...
-The logstash UDF java api is still experimental.
+## STATUS: ... DROPPED ...
+With Yauaa 7.18.0 the logstash UDF has been dropped.
+
+The primary reason is that 3 years after Elastic announced Java UDF support as "GA" they have not published the needed dependencies. The workaround I came up with is starting to cause more and more problems so I'm dropping it.
+
+## Still want it?
+Get the sources from the latest tag that still had it and build it yourself.
+https://github.com/nielsbasjes/yauaa/tree/v7.17.1/udfs/elastic/logstash
 
 See for more information:
 - https://github.com/logstash-plugins/logstash-filter-java_filter_example
 - https://github.com/elastic/logstash/issues/9215
-
-## Getting the UDF
-You can get the prebuilt filter from [the GitHub releases page](https://github.com/nielsbasjes/yauaa/releases/download/v{{%YauaaVersion%}}/logstash-filter-yauaa-{{%YauaaVersion%}}.gem).
-
-## Building has side effects !
-Because at this time none of the required dependencies are in maven central this build does something rarely seen:
-
-It downloads the entire logstash distribution, extracts the logstash-core.jar and installs it locally for maven
-to use as dependency.
-
-So your local maven repo will get a jar injected that is not normally available via Maven central or something similar.
-
-See these for more details:
 - https://github.com/nielsbasjes/yauaa/issues/146
 - https://github.com/elastic/logstash/issues/11002
 
