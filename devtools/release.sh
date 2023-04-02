@@ -201,7 +201,4 @@ RELEASEVERSION=$(git describe --abbrev=0| sed 's/^v//')
 echo "docker push \"nielsbasjes/yauaa:${RELEASEVERSION}\""
 echo "docker push \"nielsbasjes/yauaa:latest\""
 
-info "Upload logstash gem to github.com"
-warn "${PWD}/target/checkout/udfs/elastic/logstash/logstash-filter/target/logstash-filter-yauaa-*.gem"
-
 # ----------------------------------------------------------------------------------------------------

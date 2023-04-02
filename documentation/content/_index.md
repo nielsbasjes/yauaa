@@ -18,6 +18,11 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version v7.18.0-SNAPSHOT
+- UDFs
+  - **Dropping support for logstash.** More than 3 years after GA they have not yet published the needed dependencies. https://github.com/elastic/logstash/issues/11002
+
+
 ### Version v7.17.0
 - Analyzer:
   - Use all testcases (including ClientHints) when doing preheat.
