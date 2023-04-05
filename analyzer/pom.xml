@@ -127,8 +127,8 @@
       <build>
         <plugins>
           <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
             <executions>
               <execution>
                 <id>Update mozilla-public-suffix-list.txt on release</id>
@@ -576,7 +576,9 @@
         <executions>
           <execution>
             <id>java-11</id>
-            <goals><goal>compile</goal></goals>
+            <goals>
+              <goal>compile</goal>
+            </goals>
             <configuration>
               <source>11</source>
               <target>11</target>
@@ -601,11 +603,10 @@
             <setupInclude>setup/*/pom.xml</setupInclude>
           </setupIncludes>
           <pomIncludes>
-            <pomInclude>JavaPlain/*/pom.xml</pomInclude>
-            <pomInclude>JavaJPMS/*/pom.xml</pomInclude>
-            <pomInclude>Logging/*/pom.xml</pomInclude>
-            <pomInclude>Serialization/*/pom.xml</pomInclude>
             <pomInclude>Examples/*/pom.xml</pomInclude>
+            <pomInclude>Logging/*/pom.xml</pomInclude>
+            <pomInclude>Base/*/pom.xml</pomInclude>
+            <pomInclude>Serialization/*/pom.xml</pomInclude>
           </pomIncludes>
           <postBuildHookScript>verify</postBuildHookScript>
           <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
@@ -615,14 +616,73 @@
             <goal>test</goal>
           </goals>
         </configuration>
+
         <executions>
           <execution>
-            <id>integration-test</id>
+            <id>Populate the local repo for integration tests</id>
             <goals>
               <goal>install</goal>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
             </goals>
+          </execution>
+
+          <execution>
+            <id>Integration tests</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <projectsDirectory>./src/it</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Integration tests under Java 8</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <integrationTestingJDK>8</integrationTestingJDK>
+                <maven.compiler.target>8</maven.compiler.target>
+              </properties>
+              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it-jdk-8</cloneProjectsTo>
+              <pomExcludes>
+                <!-- This does not work on Java 8 -->
+                <pomExclude>Base/JPMS/pom.xml</pomExclude>
+              </pomExcludes>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Integration tests under Java 11</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <integrationTestingJDK>11</integrationTestingJDK>
+                <maven.compiler.release>11</maven.compiler.release>
+              </properties>
+              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it-jdk-11</cloneProjectsTo>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Integration tests under Java 17</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <integrationTestingJDK>17</integrationTestingJDK>
+                <maven.compiler.release>17</maven.compiler.release>
+              </properties>
+              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it-jdk-17</cloneProjectsTo>
+            </configuration>
           </execution>
         </executions>
       </plugin>

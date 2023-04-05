@@ -19,24 +19,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>nl.basjes.parse.useragent</groupId>
-    <artifactId>yauaa-integration-tests-logging-parent</artifactId>
-    <version>1.0.0</version>
-  </parent>
-
+  <groupId>nl.basjes.parse.useragent</groupId>
   <artifactId>yauaa-integration-tests-logging-java-no-log4j</artifactId>
+  <version>1.0.0</version>
 
   <packaging>jar</packaging>
 
   <name>Yauaa : IT : Logging : No Log4j</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.release>8</maven.compiler.release>
+  </properties>
 
   <dependencies>
 
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
-      <version>${yauaa.version}</version>
+      <version>@yauaa.version@</version>
     </dependency>
 
     <!--    &lt;!&ndash; The default logging implementation for Yauaa &ndash;&gt;-->
@@ -47,6 +50,47 @@
     <!--      <scope>test</scope>-->
     <!--    </dependency>-->
 
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>@junit5.version@</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>@maven-compiler-plugin.version@</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>@maven-jar-plugin.version@</version>
+        <executions>
+          <execution>
+            <!-- Since these tests do not create any normal jar we disable 'default-jar' -->
+            <id>default-jar</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>@maven-surefire-plugin.version@</version>
+        <configuration>
+          <failIfNoTests>true</failIfNoTests>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
 
 </project>
