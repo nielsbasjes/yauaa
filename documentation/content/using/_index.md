@@ -77,7 +77,7 @@ A custom implementation can be specified via the `Builder` using the `withCacheI
 ## Running on Java 8
 Yauaa 7.x still allows running on Java 8, yet the default caching library needs Java 11.
 
-**Since version 7.18.0 the selection of the caching implementation is automatically based upon the Java version used to run it.** Running in Java 8-10 the `LRUMap` (caching implementation that is part of the Apache commons-collections library) is used, Java 11-... `Caffeine` is used.
+**Since version 7.19.0 the selection of the caching implementation is automatically based upon the Java version used to run it.** Running in Java 8 - Java 10 the `LRUMap` (caching implementation that is part of the Apache commons-collections library) is used, Java 11 and newer `Caffeine` is used.
 
 If needed (and also for backwards compatibility and testing) you can still force it to use the `LRUMap` regardless of the Java version by doing something like this:
 
