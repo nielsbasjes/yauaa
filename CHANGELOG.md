@@ -8,6 +8,8 @@ v7.18.0-SNAPSHOT
   - Workaround for conjars.org going away.
 - UDFs:
   - Dropping support for Elastic Logstash. More than 3 years after GA they have not yet published the needed dependencies.
+- New/improved detections
+  - Fixed lookup table for Amazon devices.
 
 v7.17.1
 ===
