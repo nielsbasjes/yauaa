@@ -1,8 +1,11 @@
 
 This is intended as an overview of the major changes
 
+v7.19.0-SNAPSHOT
+===
+- ...
 
-v7.18.0-SNAPSHOT
+v7.18.0
 ===
 - Build:
   - Workaround for conjars.org going away.
