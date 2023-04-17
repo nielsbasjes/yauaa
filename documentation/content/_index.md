@@ -18,6 +18,10 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
 
 ## HIGH Profile release notes:
 
+### Version v7.19.0
+- Analyzer:
+    - Automatic switch to the Java 8 compatible caching implementation (Multi Release Jar)
+
 ### Version v7.18.0
 - UDFs
   - **Dropping support for logstash.** More than 3 years after GA they have not yet published the needed dependencies. https://github.com/elastic/logstash/issues/11002
@@ -31,38 +35,6 @@ See [Security Advisory: CVE-2022-23496](https://github.com/nielsbasjes/yauaa/sec
   - Updated docker based environment to Ubuntu 22.04 LTS
   - The Quarkus example can now also be built into a native executable
   - Workaround Multi Release jar and maven-shade-plugin with relocation.
-
-### Version 7.15.0
-- New/improved detections
-    - Full list of documented Yandex robots.
-    - Extra noise filter of unwanted extra fields
-    - Detect device and OS with WhatsApp
-- Build:
-    - Improve plugin and dependency version management
-    - Reproducible builds
-        - Pin build timezone to UTC
-        - Test script to verify reproducibility
-
-### Version 7.14.1
-- Build:
-  - Reproducible builds
-  - Update Snakeyaml to fix CVE
-
-### Version 7.14.0
-- New/improved detections
-  - Alamofire/macOS Catalyst, Alamofire is NOT a LayoutEngine
-- Build:
-  - Pubish SBOM
-  - Reproducible builds
-- Analyzer
-  - Workaround for resource loading problems works with dropTests
-
-### Version 7.13.0
-- Analyzer:
-  - Adding VFS support back in.
-- New/improved detections
-  - Extra noise filter of unwanted extra fields
-  - Handle a new form of iOS apps.
 
 ---
 ## Regarding the recent Log4J2 issues
