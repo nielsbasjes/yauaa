@@ -22,6 +22,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import lombok.NonNull;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import nl.basjes.parse.useragent.calculate.CalculateAgentClass;
@@ -44,7 +45,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -132,7 +132,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
 
     private boolean delayInitialization;
 
-    @Nonnull
+    @NonNull
     @Override
     public AnalyzerConfig getConfig() {
         return config;

@@ -72,8 +72,6 @@ module nl.basjes.parse.useragent {
 
     // Logging
     requires static org.apache.logging.log4j;
-    requires org.slf4j;     // #SHADED : Only available with slf4j 2.x
-    requires spring.jcl;    // #SHADED : == org.apache.commons.logging with Automatic module name
 
     requires com.github.benmanes.caffeine;          // Caching
     requires nl.basjes.collections.prefixmap;       // Lookup data structure
@@ -82,9 +80,7 @@ module nl.basjes.parse.useragent {
     requires org.antlr.antlr4.runtime; // #SHADED : Shaded and relocated
     requires org.yaml.snakeyaml;       // #SHADED : Shaded and relocated
     requires java.logging;             // Needed for snakeyaml after being shaded
-    requires spring.core;              // #SHADED : Shaded and relocated
     requires org.apache.commons.text;
     requires org.apache.commons.lang3;
-    requires org.apache.httpcomponents.client5.httpclient5;
 
 }
