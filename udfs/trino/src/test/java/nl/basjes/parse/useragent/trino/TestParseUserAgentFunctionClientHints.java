@@ -65,7 +65,6 @@ class TestParseUserAgentFunctionClientHints {
         requestHeaders.put("sec-CH-UA-Platform-Version",  secChUaPlatformVersion);
         Map<String, String> expected = analyzer.parse(requestHeaders).toMap(analyzer.getAllPossibleFieldNamesSorted());
 
-        // FIXME: The assertFunction has been deprecated.
         assertThat(assertions.function("parse_user_agent",
             "    ARRAY[" +
             "       'user-Agent',                  '" + useragent              + "'," +
