@@ -1,7 +1,12 @@
 
 This is intended as an overview of the major changes
 
-v7.20.0
+NEXT RELEASE
+===
+- New/improved detections:
+  - ...
+
+v7.19.1
 ===
 - New/improved detections:
   - Updated language tag detection to pickup more language tags.
