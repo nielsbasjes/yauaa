@@ -1,11 +1,11 @@
 
 This is intended as an overview of the major changes
 
-v7.20.0-SNAPSHOT
+v7.20.0
 ===
 - New/improved detections:
   - Updated language tag detection to pickup more language tags.
-   - Detect the Google Generic Crawler, Google StoreBot.
+  - Detect the Google Generic Crawler, Google StoreBot.
 
 v7.19.0
 ===
