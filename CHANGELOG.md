@@ -5,6 +5,7 @@ v7.20.0-SNAPSHOT
 ===
 - New/improved detections:
   - Updated language tag detection to pickup more language tags.
+  - Detect the Google Generic Crawler.
 
 v7.19.0
 ===

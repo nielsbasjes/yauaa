@@ -26,6 +26,7 @@ config:
         'Mediapartners-Google'         : 'Google AdSense crawler'    # Normal/ Mobile
         'AdsBot-Google-Mobile'         : 'Google AdsBot'  #  (Checks Android/iPhone web page ad quality)
         'AdsBot-Google'                : 'Google AdsBot'  #  (Checks Desktop web page ad quality)
+        'GoogleOther'                  : 'Google Generic Crawler'
         'Googlebot-Image'              : 'Google Images'
         'Googlebot Image'              : 'Google Images'
         'Googlebot-News'               : 'Google News'
@@ -184,6 +185,35 @@ config:
       AgentNameVersion                     : 'Googlebot 2.1'
       AgentNameVersionMajor                : 'Googlebot 2'
       AgentInformationUrl                  : 'http://www.google.com/bot.html'
+
+# https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers#googleother
+# Generic crawler that may be used by various product teams for fetching publicly accessible content from sites.
+# For example, it may be used for one-off crawls for internal research and development.
+- test:
+    input:
+      User-Agent                           : 'GoogleOther'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Generic Crawler'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Generic Crawler'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Generic Crawler ??'
+      LayoutEngineNameVersionMajor         : 'Google Generic Crawler ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Generic Crawler'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Generic Crawler ??'
+      AgentNameVersionMajor                : 'Google Generic Crawler ??'
 
 # ------------------------------------------------------------
 
