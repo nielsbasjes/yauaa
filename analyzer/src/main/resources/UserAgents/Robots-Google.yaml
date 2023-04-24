@@ -1636,33 +1636,6 @@ config:
 
 - test:
     input:
-      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers)'
-    expected:
-      DeviceClass                          : 'Robot' # FIXME: Google Read Aloud is not a web crawler
-      DeviceName                           : 'Google Read Aloud'
-      DeviceBrand                          : 'Google'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Google Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Google Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Google Read Aloud'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Google Read Aloud ??'
-      LayoutEngineNameVersionMajor         : 'Google Read Aloud ??'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Google Read Aloud'
-      AgentVersion                         : '??'
-      AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'Google Read Aloud ??'
-      AgentNameVersionMajor                : 'Google Read Aloud ??'
-      AgentInformationUrl                  : 'https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers'
-
-- test:
-    input:
       User-Agent: 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36 (compatible; Google-Read-Aloud; +https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers)'
     expected:
       DeviceClass                          : 'Robot Mobile' # FIXME: Google Read Aloud is not a web crawler
