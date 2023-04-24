@@ -32,6 +32,77 @@ fi
 
 echo "Generating: ${OUTPUT}";
 
+FILE_CODES2="${SCRIPTDIR}/__tmp_ISOLanguageCode-Lookup2.yaml"
+FILE_CODES3="${SCRIPTDIR}/__tmp_ISOLanguageCode-Lookup3.yaml"
+FILE_CODES4="${SCRIPTDIR}/__tmp_ISOLanguageCode-Lookup4.yaml"
+FILE_CODES4L="${SCRIPTDIR}/__tmp_ISOLanguageCode-Lookup4Letters.yaml"
+
+(
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageCodes2'"
+echo "    map:"
+) > "${FILE_CODES2}"
+
+(
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageCodes4'"
+echo "    map:"
+) > "${FILE_CODES4}"
+
+(
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageCodes4Letters'"
+echo "    map:"
+) > "${FILE_CODES4L}"
+
+grep -F -v '#' "${INPUT1}" | while read -r line
+do
+    CODE=$(echo "${line}" | cut -d' ' -f1)
+    NAME=$(echo "${line}" | cut -d' ' -f2-)
+    echo "\"${CODE}\"" | grep -F -f "${UNWANTED}" > /dev/null
+    wanted=$?
+    if [ ${wanted} -ne 0 ];
+    then
+      if [[ ${CODE} =~ ^[a-z]{2,3}$ ]];
+      then
+        (
+          echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
+        ) >> "${FILE_CODES2}"
+      fi
+
+      if [[ ${CODE} = *"-"* ]];
+      then
+        (
+          echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
+          echo "      \"${CODE//-/_}\" : \"${CODE}|${NAME}\""
+          echo "      \"${CODE//-/_}_\" : \"${CODE}|${NAME}\""
+          echo "      \"${CODE//-/}_\" : \"${CODE}|${NAME}\""
+        ) >> "${FILE_CODES4}"
+
+        (
+          echo "      \"${CODE//-/}\" : \"${CODE}|${NAME}\""
+        ) >> "${FILE_CODES4L}"
+      fi
+    fi
+done
+
+(
+echo "# -----------------------------------------------------------------------------"
+echo "- lookup:"
+echo "    name: 'ISOLanguageCodes3'"
+echo "    map:"
+
+cat "${INPUT2}" | while read -r line
+do
+    CODE=$(echo "${line}" | cut -d'	' -f1)
+    NAME=$(echo "${line}" | cut -d'	' -f7)
+    echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
+done
+) > "${FILE_CODES3}"
+
 (
 cat <<End-of-message
 # =============================================
@@ -58,110 +129,90 @@ config:
 # Match the 2 and 2-2 letter variants:
 - matcher:
     variable:
-    - 'Language: LookUp[ISOLanguageCodesAll;agent.(1-20)text]'
+    - 'Language: LookUp[ISOLanguageCodes;agent.(1-20)text]'
     extract:
     - 'AgentLanguageCode                   :      100 :@Language[[1]]'
     - 'AgentLanguage                       :      100 :@Language[[2]]'
 
 - matcher:
     variable:
-    - 'Language: LookUp[ISOLanguageCodesAll;agent.(1)product.(1)comments.entry.(1)text]'
-    extract:
-    - 'AgentLanguageCode                   :   500006 :@Language[[1]]'
-    - 'AgentLanguage                       :   500006 :@Language[[2]]'
-
-- matcher:
-    variable:
-    - 'Language: LookUp[ISOLanguageCodesAll;agent.(1)product.(1)comments.entry.(2)text]'
-    extract:
-    - 'AgentLanguageCode                   :   500005 :@Language[[1]]'
-    - 'AgentLanguage                       :   500005 :@Language[[2]]'
-
-- matcher:
-    variable:
-    - 'Language: LookUp[ISOLanguageCodesAll;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
-    extract:
-    - 'AgentLanguageCode                   :   500000 :@Language[[1]]'
-    - 'AgentLanguage                       :   500000 :@Language[[2]]'
-
-- matcher:
-    variable:
-    - 'Language: LookUp[ISOLanguageCodesAll;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
-    extract:
-    - 'AgentLanguageCode                   :   500004 :@Language[[1]]'
-    - 'AgentLanguage                       :   500004 :@Language[[2]]'
-
-- matcher:
-    variable:
-    - 'Language: LookUp[ISOLanguageFullCodes;agent.(2-8)product.(1)comments.(1-5)entry.(1)product.(1)name]'
-    extract:
-    - 'AgentLanguageCode                   :   500004 :@Language[[1]]'
-    - 'AgentLanguage                       :   500004 :@Language[[2]]'
-
-- matcher:
-    variable:
-    - 'Language: LookUp[ISOLanguageFullCodes;agent.(1-2)product.(1)comments.(1-5)entry.(1)product.(1)name]'
-    extract:
-    - 'AgentLanguageCode                   :   500004 :@Language[[1]]'
-    - 'AgentLanguage                       :   500004 :@Language[[2]]'
-
-- matcher:
-    variable:
-    - 'Language: LookUp[ISOLanguageCodesAll;agent.product.name="Language"^.version]'
+    - 'Language: LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(1)text]'
     extract:
     - 'AgentLanguageCode                   :   500008 :@Language[[1]]'
     - 'AgentLanguage                       :   500008 :@Language[[2]]'
 
-# -----------------------------------------------------------------------------
-- lookup:
-    name: 'ISOLanguageCodesAll'
-    merge:
-    - 'ISOLanguageCodes'
-    - 'ISOLanguageCodes3'
+- matcher:
+    variable:
+    - 'Language: LookUpPrefix[ISOLanguageCodes4;agent.(1)product.(1)comments.entry.(1)text]'
+    extract:
+    - 'AgentLanguageCode                   :   500007 :@Language[[1]]'
+    - 'AgentLanguage                       :   500007 :@Language[[2]]'
+
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes;agent.(1)product.(1)comments.entry.(2)text]'
+    extract:
+    - 'AgentLanguageCode                   :   500006 :@Language[[1]]'
+    - 'AgentLanguage                       :   500006 :@Language[[2]]'
+
+
+- matcher:
+    variable:
+    - 'Language: LookUpPrefix[ISOLanguageCodes4;agent.(1)product.(1)comments.entry.(2)text]'
+    extract:
+    - 'AgentLanguageCode                   :   500005 :@Language[[1]]'
+    - 'AgentLanguage                       :   500005 :@Language[[2]]'
+
+
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes;agent.(2-8)product.(1)comments.(1-5)entry.(1-2)text]'
+    extract:
+    - 'AgentLanguageCode                   :   500003 :@Language[[1]]'
+    - 'AgentLanguage                       :   500003 :@Language[[2]]'
+
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes;agent.(1-2)product.(2)comments.(1-5)entry.(1-2)text]'
+    extract:
+    - 'AgentLanguageCode                   :   500004 :@Language[[1]]'
+    - 'AgentLanguage                       :   500004 :@Language[[2]]'
+
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes4;agent.(2-8)product.(1)comments.(1-5)entry.(1)product.(1)name]'
+    extract:
+    - 'AgentLanguageCode                   :   500001 :@Language[[1]]'
+    - 'AgentLanguage                       :   500001 :@Language[[2]]'
+
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes4;agent.(1-2)product.(1)comments.(1-5)entry.(1)product.(1)name]'
+    extract:
+    - 'AgentLanguageCode                   :   500002 :@Language[[1]]'
+    - 'AgentLanguage                       :   500002 :@Language[[2]]'
+
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes4;agent.product.name="Language"^.version]'
+    extract:
+    - 'AgentLanguageCode                   :   500010 :@Language[[1]]'
+    - 'AgentLanguage                       :   500010 :@Language[[2]]'
 
 # -----------------------------------------------------------------------------
+- lookup:
+    name: 'ISOLanguageCodes'
+    merge:
+    - 'ISOLanguageCodes2'
+    - 'ISOLanguageCodes3'
+    - 'ISOLanguageCodes4'
+    - 'ISOLanguageCodes4Letters'
 
 End-of-message
 
-echo "- lookup:"
-echo "    name: 'ISOLanguageFullCodes'"
-echo "    map:"
-grep -F -v '#' "${INPUT1}" | grep -F -- '-' | while read -r line
-do
-    CODE=$(echo "${line}" | cut -d' ' -f1)
-    NAME=$(echo "${line}" | cut -d' ' -f2-)
-    echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
-done
-
-echo "# -----------------------------------------------------------------------------"
-
-echo "- lookup:"
-echo "    name: 'ISOLanguageCodes'"
-echo "    map:"
-grep -F -v '#' "${INPUT1}" | grep . | while read -r line
-do
-    CODE=$(echo "${line}" | cut -d' ' -f1)
-    NAME=$(echo "${line}" | cut -d' ' -f2-)
-    echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
-    if [[ ${CODE} = *"-"* ]]; then
-        echo "      \"${CODE//-/_}\" : \"${CODE}|${NAME}\""
-        echo "      \"${CODE//-/_}_\" : \"${CODE}|${NAME}\""
-        echo "      \"${CODE//-/}\" : \"${CODE}|${NAME}\""
-        echo "      \"${CODE//-/}_\" : \"${CODE}|${NAME}\""
-    fi
-done
-
-echo "# -----------------------------------------------------------------------------"
-echo "- lookup:"
-echo "    name: 'ISOLanguageCodes3'"
-echo "    map:"
-cat "${INPUT2}" | while read -r line
-do
-    CODE=$(echo "${line}" | cut -d'	' -f1)
-    NAME=$(echo "${line}" | cut -d'	' -f7)
-    echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
-done
-echo "# -----------------------------------------------------------------------------"
+cat "${FILE_CODES2}"
+cat "${FILE_CODES3}"
+cat "${FILE_CODES4}"
+cat "${FILE_CODES4L}"
 
 ) | grep -F -v -f "${UNWANTED}" >"${OUTPUT}"
-

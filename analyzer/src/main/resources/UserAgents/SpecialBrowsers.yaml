@@ -4102,7 +4102,11 @@ config:
     name: 'UnwantedIENames'
     merge:
     - 'SecurityFlags'
-    - 'ISOLanguageCodes'
+#    - 'ISOLanguageCodes' TODO(Low prio): Recursive merging is not supported yet
+    - 'ISOLanguageCodes2'
+    - 'ISOLanguageCodes3'
+    - 'ISOLanguageCodes4'
+    - 'ISOLanguageCodes4Letters'
     - 'WindowsOEMCodes'
     - 'WindowsDesktopOSName'
     values:

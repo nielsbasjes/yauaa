@@ -110,7 +110,7 @@ config:
 - matcher:
     variable:
     - 'LanguageTag                         :agent.(1)product.(1)comments.(1-5)entry.(1-5)product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
-    - 'Language                            :LookUp[ISOLanguageCodesAll;@LanguageTag]'
+    - 'Language                            :LookUp[ISOLanguageCodes;@LanguageTag]'
     extract:
     - 'AgentLanguageCode                   :   501000 :@Language[[1]]'
     - 'AgentLanguage                       :   501000 :@Language[[2]]'
@@ -118,7 +118,7 @@ config:
 - matcher:
     variable:
     - 'LanguageTag                         :agent.product.name="Config"^.comments.(1-2)entry.(1)keyvalue.(1)key="L"^.text'
-    - 'Language                            :LookUp[ISOLanguageCodesAll;@LanguageTag]'
+    - 'Language                            :LookUp[ISOLanguageCodes;@LanguageTag]'
     extract:
     - 'AgentLanguageCode                   :   501000 :@Language[[1]]'
     - 'AgentLanguage                       :   501000 :@Language[[2]]'
