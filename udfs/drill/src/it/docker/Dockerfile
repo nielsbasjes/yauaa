@@ -25,7 +25,7 @@ ARG YAUAA_VERSION
 # Remove the prepackaged Yauaa UDF to allow testing the new one.
 RUN rm /opt/drill/jars/drill-udfs-${DRILL_VERSION}.jar
 RUN rm /opt/drill/jars/3rdparty/yauaa-*jar /opt/drill/jars/3rdparty/httpdlog-parser-*.jar
-RUN rm /opt/drill/jars/3rdparty/parser-core-5.7.jar
+RUN rm /opt/drill/jars/3rdparty/parser-core-*.jar
 
 # Install the new UDF.
 RUN mkdir -p /opt/drill/jars/3rdparty/
