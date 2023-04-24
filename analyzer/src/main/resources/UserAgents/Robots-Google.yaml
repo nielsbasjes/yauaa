@@ -26,6 +26,7 @@ config:
         'Mediapartners-Google'         : 'Google AdSense crawler'    # Normal/ Mobile
         'AdsBot-Google-Mobile'         : 'Google AdsBot'  #  (Checks Android/iPhone web page ad quality)
         'AdsBot-Google'                : 'Google AdsBot'  #  (Checks Desktop web page ad quality)
+        'Storebot-Google'              : 'Google Storebot'
         'GoogleOther'                  : 'Google Generic Crawler'
         'Googlebot-Image'              : 'Google Images'
         'Googlebot Image'              : 'Google Images'
@@ -625,6 +626,34 @@ config:
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Adsbot'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google AdsBot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google AdsBot ??'
+      LayoutEngineNameVersionMajor         : 'Google AdsBot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google AdsBot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google AdsBot ??'
+      AgentNameVersionMajor                : 'Google AdsBot ??'
+      AgentInformationUrl                  : 'http://www.google.com/mobile/adsbot.html'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1 (compatible; AdsBot-Google-Mobile; +http://www.google.com/mobile/adsbot.html)'
     expected:
       DeviceClass                          : 'Robot Mobile'
       DeviceName                           : 'Google Adsbot'
@@ -1461,6 +1490,11 @@ config:
       AgentNameVersionMajor                : 'Google AdSense crawler ??'
 
 
+# https://developers.google.com/search/docs/crawling-indexing/apis-user-agent
+#     APIs-Google is the user agent used by Google APIs to deliver push notification messages.
+#     Application developers can request these notifications to avoid the need for continually
+#     polling Google's servers to find out if the resources they are interested in have changed.
+# FIXME: So this is NOT a Robot but a Machine-to-Machine thing.
 - test:
     input:
       user_agent_string: 'APIs-Google (+https://developers.google.com/webmasters/APIs-Google.html)'
@@ -1548,7 +1582,7 @@ config:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)'
     expected:
-      DeviceClass                          : 'Robot'
+      DeviceClass                          : 'Robot' # FIXME: Google Read Aloud is not a web crawler
       DeviceName                           : 'Google Read Aloud'
       DeviceBrand                          : 'Google'
       OperatingSystemClass                 : 'Cloud'
@@ -1570,6 +1604,147 @@ config:
       AgentNameVersion                     : 'Google Read Aloud ??'
       AgentNameVersionMajor                : 'Google Read Aloud ??'
       AgentInformationUrl                  : 'https://support.google.com/webmasters/answer/1061943'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers)'
+    expected:
+      DeviceClass                          : 'Robot' # FIXME: Google Read Aloud is not a web crawler
+      DeviceName                           : 'Google Read Aloud'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Read Aloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Read Aloud ??'
+      LayoutEngineNameVersionMajor         : 'Google Read Aloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Read Aloud'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Read Aloud ??'
+      AgentNameVersionMajor                : 'Google Read Aloud ??'
+      AgentInformationUrl                  : 'https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36 (compatible; Google-Read-Aloud; +https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers)'
+    expected:
+      DeviceClass                          : 'Robot' # FIXME: Google Read Aloud is not a web crawler
+      DeviceName                           : 'Google Read Aloud'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Read Aloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Read Aloud ??'
+      LayoutEngineNameVersionMajor         : 'Google Read Aloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Read Aloud'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Read Aloud ??'
+      AgentNameVersionMajor                : 'Google Read Aloud ??'
+      AgentInformationUrl                  : 'https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers'
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36 (compatible; Google-Read-Aloud; +https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers)'
+    expected:
+      DeviceClass                          : 'Robot Mobile' # FIXME: Google Read Aloud is not a web crawler
+      DeviceName                           : 'Google Read Aloud'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Read Aloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Read Aloud ??'
+      LayoutEngineNameVersionMajor         : 'Google Read Aloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Read Aloud'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Read Aloud ??'
+      AgentNameVersionMajor                : 'Google Read Aloud ??'
+      AgentInformationUrl                  : 'https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers'
+
+
+# https://support.google.com/merchants/answer/13294660
+# Google StoreBot (Desktop agent)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Storebot-Google/1.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Storebot'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Google Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Storebot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Storebot 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Storebot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Storebot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Storebot 1.0'
+      AgentNameVersionMajor                : 'Google Storebot 1'
+
+
+# https://support.google.com/merchants/answer/13294660
+# Google StoreBot (Mobile agent)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012; Storebot-Google/1.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Storebot'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Google Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Storebot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Storebot 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Storebot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Storebot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Storebot 1.0'
+      AgentNameVersionMajor                : 'Google Storebot 1'
 
 
 - test:
@@ -1598,7 +1773,8 @@ config:
       AgentNameVersion                     : 'Google Duplex on the Web 1.0'
       AgentNameVersionMajor                : 'Google Duplex on the Web 1'
 
-
+# https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers#google-favicon
+# https://developers.google.com/search/docs/appearance/favicon-in-search#crawler
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko)  Chrome/49.0.2623.75 Safari/537.36 Google Favicon'
