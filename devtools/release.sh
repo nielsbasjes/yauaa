@@ -97,11 +97,6 @@ else
 fi
 
 # ----------------------------------------------------------------------------------------------------
-## Update the top of the CHANGELOG.md and website frontpage
-vim CHANGELOG.md documentation/content/_index.md
-git commit -m"docs: Updated CHANGELOG and website before release" CHANGELOG.md documentation/content/_index.md
-
-# ----------------------------------------------------------------------------------------------------
 info "GPG workaround: Starting"
 runGpgSignerInBackGround(){
   while : ; do date ; echo "test" | gpg --clearsign ; sleep 10s ; done
@@ -151,7 +146,7 @@ else
 fi
 
 # ----------------------------------------------------------------------------------------------------
-info "Checking build reproducability ... "
+info "Checking build reproducibility ... "
 mvn clean verify -PpackageForRelease -PuseLocalReproduceRepo -PskipQuality -PartifactCompare -Dreproduce.repo=localReproduceRepo
 reproducibleStatus=$?
 git switch -
@@ -180,8 +175,10 @@ fi
 #
 # Now check SONATYPE
 #
-info "Now verify Sonatype"
-warn "Press any key abort or 'c' to continue"
+RELEASEVERSION=$(git describe --abbrev=0| sed 's/^v//')
+
+info "Now verify Sonatype to release version ${RELEASEVERSION}"
+warn "Press any key abort or 'c' to continue and update the website"
 read -n 1 k <&1
 if [[ $k = c ]] ;
 then
@@ -189,6 +186,11 @@ then
 else
   die "Aborting, nothing was pushed."
 fi
+
+# ----------------------------------------------------------------------------------------------------
+## Update the top of the CHANGELOG.md and website frontpage
+vim documentation/content/_index.md
+git commit -m"docs: Updated website after release" documentation/content/_index.md
 
 warn "Now go and manually push it all"
 
