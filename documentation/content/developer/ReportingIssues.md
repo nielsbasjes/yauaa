@@ -14,6 +14,19 @@ However...
 ## These are not bugs
 I get quite a few bug reports and questions that Yauaa is not extracting the right version number from the provided User-Agent.
 
+### Key thing to know
+There are so many [manipulations and lies]({{< relref "expect/Manipulations.md" >}}) in the `User-Agent`s that simply looking at the User-Agent will yield the wrong answer.
+Yauaa will try to give the best possible answer and some classes of lies are reported as such.
+
+**So in addition to simply looking at the `User-Agent` it will also overrule these values if a documented manipulations is detected.**
+
+**Most incorrect reports are about** a Chromium/Chrome/Edge/... browser that shows `??` as the version of the Operating System but just looking at it you can clearly read a version. The Chromium team have clearly documented that they are removing information from the `User-Agent` header and replace parts with fixed values that are almost meaningless.
+
+See: https://www.chromium.org/updates/ua-reduction/
+
+
+### Frozen Windows versions
+
 Take for example this User-Agent:
 
     Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.0.0 Safari/537.36
@@ -34,10 +47,22 @@ and then report that as a bug.
 
 This example was recorded on a `Windows 7` system and there is nothing in the `User-Agent` to extract this anymore.
 
-There are so many [manipulations and lies]({{< relref "expect/Manipulations.md" >}}) in the `User-Agent`s that simply looking at the User-Agent will yield the wrong answer.
-Yauaa will try to give the best possible answer and some classes of lies are reported as such.
+### Frozen Android version
+A similar effect is with
 
-So in addition to simply looking at the `User-Agent` it will also overrule these values if a documented manipulations is detected.
+    Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36
+
+Most people expect to get
+
+    OperatingSystemNameVersion           : 'Android 10'
+
+but instead they get
+
+    OperatingSystemNameVersion           : 'Android ??'
+
+Again: **This is not a bug.**
+
+This example was recorded on an `Android 11` system and there is nothing in the `User-Agent` to extract this anymore.
 
 ## Your best workaround
 
@@ -56,7 +81,7 @@ If you ask for these User-Agent Client Hints you can get something like these ex
 | Sec-Ch-Ua-Platform-Version  | "0.1.0"                                                                                      |
 | Sec-Ch-Ua-Wow64             | ?0                                                                                           |
 
-With all of this extra information Yauaa can now correctly report
+With all of this extra information Yauaa can now correctly report the above mentioned Windows 7 example as:
 
     OperatingSystemNameVersion           : 'Windows 7'
     AgentNameVersion                     : 'Chrome 100.0.4896.75'
