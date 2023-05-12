@@ -960,3 +960,31 @@ config:
       AgentNameVersion                     : 'Cobalt 44.12345-green'
       AgentNameVersionMajor                : 'Cobalt 44'
       NetworkType                          : 'Carrier Pigeon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 CrKey/1.56.500000'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Google Chromecast'
+      DeviceBrand                          : 'Google'
+      DeviceVersion                        : '1.56.500000'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Fuchsia'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Fuchsia ??'
+      OperatingSystemNameVersionMajor      : 'Fuchsia ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '110'
+      LayoutEngineVersionMajor             : '110'
+      LayoutEngineNameVersion              : 'Blink 110'
+      LayoutEngineNameVersionMajor         : 'Blink 110'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '110'
+      AgentVersionMajor                    : '110'
+      AgentNameVersion                     : 'Chrome 110'
+      AgentNameVersionMajor                : 'Chrome 110'

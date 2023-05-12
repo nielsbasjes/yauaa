@@ -2943,3 +2943,30 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'SamsungBrowser 1.1'
       AgentNameVersionMajor                : 'SamsungBrowser 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux; Fuchsia; GoogleTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Large Screen Safari/537.36 GoogleTV'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Fuchsia Device'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Fuchsia'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Fuchsia ??'
+      OperatingSystemNameVersionMajor      : 'Fuchsia ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '104'
+      LayoutEngineVersionMajor             : '104'
+      LayoutEngineNameVersion              : 'Blink 104'
+      LayoutEngineNameVersionMajor         : 'Blink 104'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '104'
+      AgentVersionMajor                    : '104'
+      AgentNameVersion                     : 'Chrome 104'
+      AgentNameVersionMajor                : 'Chrome 104'
