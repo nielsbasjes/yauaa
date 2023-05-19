@@ -23,13 +23,22 @@ VERSION="${1}"
 if [[ "$VERSION" == *"-SNAPSHOT"* ]];
 then
   echo "Skipping: $VERSION is a SNAPSHOT version."
-else
-  echo "Updating version on CHANGELOG to: $VERSION"
-  sed -i "s@NEXT RELEASE@NEXT RELEASE\n\
+  exit 0
+fi
+
+if grep "v${VERSION}"'$' "$TARGETFILE" > /dev/null ;
+then
+  echo "Skipping: $VERSION is already in CHANGELOG.md."
+  exit 0
+fi
+
+echo "Updating version on CHANGELOG to: $VERSION"
+
+sed -i "s@NEXT RELEASE@NEXT RELEASE\n\
 ===\n\
 - New/improved detections:\n\
   - ...\n\
 \n\
 v${VERSION}@g" "$TARGETFILE"
-  git add "$TARGETFILE"
-fi
+
+git add "$TARGETFILE"
