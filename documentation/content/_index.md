@@ -13,6 +13,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 ## HIGH Profile release notes:
 
+### Version v7.19.2
+- New/improved detections:
+  - Report the DeviceName "Android Mobile" for reduced Android user agents.
+
 ### Version v7.19.1
 - New/improved detections:
     - Updated language tag detection to pickup more language tags.
