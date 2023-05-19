@@ -256,7 +256,7 @@ class TestClientHintsAnalysis {
         // ------------------------------------------
         // Without ClientHints
         testCase.expect("DeviceClass",                     "Phone");
-        testCase.expect("DeviceName",                      "Unknown");
+        testCase.expect("DeviceName",                      "Android Mobile");
         testCase.expect("DeviceBrand",                     "Unknown");
         testCase.expect("OperatingSystemClass",            "Mobile");
         testCase.expect("OperatingSystemName",             "Android");

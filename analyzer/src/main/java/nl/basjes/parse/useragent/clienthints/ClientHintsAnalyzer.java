@@ -32,6 +32,7 @@ import nl.basjes.parse.useragent.utils.WordSplitter;
 import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -191,12 +192,22 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         }
     }
 
+    /**
+     * Some device names are "Generic" and thus must be overwritten if a Client hint is available.
+     */
+    private static final List<String> GENERIC_DEVICE_NAMES = Arrays.asList(
+        UNKNOWN_VALUE,
+        "Android Mobile",
+        "iOS Device",
+        "Desktop"
+    );
+
     public void improveDeviceBrandName(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Device Brand/Name if it is unknown.
         if (clientHints.getModel() != null) {
             MutableAgentField deviceBrand = userAgent.get(DEVICE_BRAND);
             MutableAgentField deviceName = userAgent.get(DEVICE_NAME);
-            if (UNKNOWN_VALUE.equals(deviceName.getValue())) {
+            if (GENERIC_DEVICE_NAMES.contains(deviceName.getValue())) {
                 overrideValue(deviceName, clientHints.getModel());
                 if (UNKNOWN_VALUE.equals(deviceBrand.getValue())) {
                     overrideValue(deviceBrand, WordSplitter.getInstance().getSingleSplit(clientHints.getModel(), 1));

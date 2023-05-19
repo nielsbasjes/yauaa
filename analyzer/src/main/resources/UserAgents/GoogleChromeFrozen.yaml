@@ -837,7 +837,7 @@ config:
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'           : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT|<<<null>>>|<<<null>>>|Windows NT ??|Windows NT ??'
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'     : 'Desktop|Macintosh|Apple|Desktop|Mac OS|>=10.15.7|>=10.15|Mac OS >=10.15.7|Mac OS >=10.15'
       'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Linux Desktop|<<<null>>>|Desktop|Linux|<<<null>>>|<<<null>>>|Linux ??|Linux ??'
-      'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|<<<null>>>|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
+      'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|Android Mobile|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
 
 # In this list ChromeOS is special as it carries the version of the Chrome tag
 - lookup:
@@ -1064,7 +1064,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'Unknown'
+      DeviceName                           : 'Android Mobile'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -1151,7 +1151,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.0.0 Safari/537.36'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Unknown'
+      DeviceName                           : 'Android Mobile'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
@@ -1415,7 +1415,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.0.0 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
-      DeviceName                           : 'Unknown'
+      DeviceName                           : 'Android Mobile'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Mobile'
       OperatingSystemName                  : 'Android'
