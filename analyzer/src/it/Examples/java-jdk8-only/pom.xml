@@ -27,20 +27,25 @@
 
   <packaging>jar</packaging>
 
-  <artifactId>yauaa-example-kotlin</artifactId>
-  <name>Yauaa : Examples : Kotlin</name>
+  <artifactId>yauaa-example-java-jdk8-only</artifactId>
+  <name>Yauaa : Examples : Java (Force JDK 8 Only)</name>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>nl.basjes.parse.useragent</groupId>
       <artifactId>yauaa</artifactId>
       <version>${yauaa.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.github.ben-manes.caffeine</groupId>
+          <artifactId>caffeine</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- The default logging implementation for Yauaa -->
@@ -50,47 +55,60 @@
       <version>${log4j2.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
   <build>
-    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-
     <plugins>
       <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-toolchains-plugin</artifactId>
         <executions>
           <execution>
-            <id>compile</id>
             <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>test-compile</goal>
+              <goal>toolchain</goal>
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <toolchains>
+            <jdk>
+              <version>8</version>
+            </jdk>
+          </toolchains>
+        </configuration>
       </plugin>
-    </plugins>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${maven-enforcer-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>enforce-quality</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <enforceBytecodeVersion>
+                  <maxJdkVersion>8</maxJdkVersion>
+                </enforceBytecodeVersion>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>extra-enforcer-rules</artifactId>
+            <version>1.6.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+    </plugins>
   </build>
+
 </project>
