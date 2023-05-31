@@ -75,6 +75,7 @@ A custom implementation can be specified via the `Builder` using the `withCacheI
         .build();
 
 ## Running on Java 8
+### Normal use
 Yauaa 7.x still allows running on Java 8, yet the default caching library needs Java 11.
 
 **Since version 7.19.0 the selection of the caching implementation is automatically based upon the Java version used to run it.** Running in Java 8 - Java 10 the `LRUMap` (caching implementation that is part of the Apache commons-collections library) is used, Java 11 and newer `Caffeine` is used.
@@ -86,6 +87,45 @@ If needed (and also for backwards compatibility and testing) you can still force
         .useJava8CompatibleCaching()
         .withCache(10000)
         .build();
+
+### Really ONLY Java 8
+If you have a very strict requirement that no classes are in the project that are above JDK 8 then you should do 2 things:
+1) **Exclude the caffeine dependency**
+
+_Maven pom.xml snippet_
+```xml
+<dependencies>
+  <dependency>
+    <groupId>nl.basjes.parse.useragent</groupId>
+    <artifactId>yauaa</artifactId>
+    <version>${yauaa.version}</version>
+    <exclusions>
+      <exclusion>
+        <groupId>com.github.ben-manes.caffeine</groupId>
+        <artifactId>caffeine</artifactId>
+      </exclusion>
+    </exclusions>
+  </dependency>
+</dependencies>
+```
+
+_Gradle snippet_
+```
+implementation('nl.basjes.parse.useragent:yauaa:{{%YauaaVersion%}}') {
+    exclude group: 'com.github.ben-manes.caffeine', module: 'caffeine'
+}
+```
+
+2) **Make sure the used caching library is always the Java 8 compatible one.**
+- Either by only running on Java 8
+- Or by forcing the caching to always use the Java 8 with something like this:
+
+
+    UserAgentAnalyzer uaa = UserAgentAnalyzer
+      .newBuilder()
+      .useJava8CompatibleCaching()
+      .withCache(10000)
+      .build();
 
 ## Logging dependencies
 The Yauaa engine uses Log4j2 API as the logging framework.
