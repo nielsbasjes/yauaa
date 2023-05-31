@@ -30,20 +30,23 @@ When running in a framework (like [Apache Flink](../udf/Apache-Flink.md) or [Apa
 
 Note that if you need multiple instances of the UserAgentAnalyzer then you MUST create a new Builder instance for each of those (or serialize an instance and deserialize it multiple times).
 
-    UserAgentAnalyzer uaa = UserAgentAnalyzer
-                .newBuilder()
-                .hideMatcherLoadStats()
-                .withCache(10000)
-                .build();
+```java
+UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .withCache(10000)
+            .build();
+```
 
 Then for each useragent (or set of request headers) you call the `parse` method to give you the desired result:
 
-    UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
+```java
+UserAgent agent = uaa.parse("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11");
 
-    for (String fieldName: agent.getAvailableFieldNamesSorted()) {
-        System.out.println(fieldName + " = " + agent.getValue(fieldName));
-    }
-
+for (String fieldName: agent.getAvailableFieldNamesSorted()) {
+    System.out.println(fieldName + " = " + agent.getValue(fieldName));
+}
+```
 Note that not all fields are available after every parse. So be prepared to receive a `null`, `Unknown` or another field specific default.
 
 ## Custom caching implementation
@@ -54,25 +57,28 @@ If you use a non-threadsafe implementation in a multithreaded context it will br
 
 The default caching implementation uses [Caffeine](https://github.com/ben-manes/caffeine) (since version 6.8).
 
-    return Caffeine.newBuilder().maximumSize(cacheSize).<String, ImmutableUserAgent>build().asMap();
-
+```java
+return Caffeine.newBuilder().maximumSize(cacheSize).<String, ImmutableUserAgent>build().asMap();
+```
 A custom implementation can be specified via the `Builder` using the `withCacheInstantiator(...)` method:
 
-    UserAgentAnalyzer uaa = UserAgentAnalyzer
-        .newBuilder()
-        .withCacheInstantiator(
-            new CacheInstantiator() {
-                @Override
-                public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
-                    return new MyMuchBetterCacheImplementation(cacheSize);
-                }
+```java
+UserAgentAnalyzer uaa = UserAgentAnalyzer
+    .newBuilder()
+    .withCacheInstantiator(
+        new CacheInstantiator() {
+            @Override
+            public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
+                return new MyMuchBetterCacheImplementation(cacheSize);
             }
-        )
-        .withClientHintCacheInstantiator(
-            (ClientHintsCacheInstantiator<?>) size ->
-                Collections.synchronizedMap(new LRUMap<>(size)))
-        .withCache(10000)
-        .build();
+        }
+    )
+    .withClientHintCacheInstantiator(
+        (ClientHintsCacheInstantiator<?>) size ->
+            Collections.synchronizedMap(new LRUMap<>(size)))
+    .withCache(10000)
+    .build();
+```
 
 ## Running on Java 8
 ### Normal use
@@ -82,11 +88,13 @@ Yauaa 7.x still allows running on Java 8, yet the default caching library needs 
 
 If needed (and also for backwards compatibility and testing) you can still force it to use the `LRUMap` regardless of the Java version by doing something like this:
 
-    UserAgentAnalyzer uaa = UserAgentAnalyzer
-        .newBuilder()
-        .useJava8CompatibleCaching()
-        .withCache(10000)
-        .build();
+```java
+UserAgentAnalyzer uaa = UserAgentAnalyzer
+    .newBuilder()
+    .useJava8CompatibleCaching()
+    .withCache(10000)
+    .build();
+```
 
 ### Really ONLY Java 8
 If you have a very strict requirement that no classes are in the project that are above JDK 8 then you should do 2 things:
@@ -119,13 +127,13 @@ implementation('nl.basjes.parse.useragent:yauaa:{{%YauaaVersion%}}') {
 2) **Make sure the used caching library is always the Java 8 compatible one.**
 - Either by only running on Java 8
 - Or by forcing the caching to always use the Java 8 with something like this:
-
-
-    UserAgentAnalyzer uaa = UserAgentAnalyzer
-      .newBuilder()
-      .useJava8CompatibleCaching()
-      .withCache(10000)
-      .build();
+```java
+UserAgentAnalyzer uaa = UserAgentAnalyzer
+  .newBuilder()
+  .useJava8CompatibleCaching()
+  .withCache(10000)
+  .build();
+```
 
 ## Logging dependencies
 The Yauaa engine uses Log4j2 API as the logging framework.
@@ -140,12 +148,14 @@ the best solution is for you to make all of this logging work as intended.
 
 In case you are using Apache Log4j2 you should have these dependencies in addition to Yauaa in your project
 
-    <!-- The default logging implementation for Yauaa -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
-    </dependency>
+```xml
+<!-- The default logging implementation for Yauaa -->
+<dependency>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <version>${log4j2.version}</version>
+</dependency>
+```
 
 ## Serialization
 If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and
@@ -154,8 +164,10 @@ Kryo are supported. Note that with Kryo 5.x you need to register all classes and
 To facilitate doing this correctly the static method `configureKryo` was created.
 So in general your code should look something like this:
 
-        Kryo kryo = new Kryo();
-        UserAgentAnalyzer.configureKryo(kryo);
+```java
+Kryo kryo = new Kryo();
+UserAgentAnalyzer.configureKryo(kryo);
+```
 
 Note that both the serializing and the deserializing instance of Kryo must be configured in the same way.
 
@@ -175,13 +187,13 @@ So in my opinion a cache size of 5K-10K elements is a good choice.
 In some scenarios you only want a specific field and all others are unwanted.
 This can be achieved by creating the analyzer in Java like this:
 
-    UserAgentAnalyzer uaa;
-
-    uaa = UserAgentAnalyzer
-            .newBuilder()
-            .withField("DeviceClass")
-            .withField("AgentNameVersionMajor")
-            .build();
+```java
+UserAgentAnalyzer uaa = UserAgentAnalyzer
+        .newBuilder()
+        .withField("DeviceClass")
+        .withField("AgentNameVersionMajor")
+        .build();
+```
 
 One important effect is that this speeds up the system because it will kick any rules that do not help in getting the desired fields.
 The above example showed an approximate 40% speed increase (i.e. times dropped from ~1ms to ~0.6ms).
@@ -191,11 +203,13 @@ Do note that some fields need other fields as input (i.e. intermediate result). 
 In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided variables are provided as a constant String.
 You can choose to use these and avoid subtle typos in the requested attribute names.
 
-    uaa = UserAgentAnalyzer
-            .newBuilder()
-            .withField(DEVICE_CLASS)
-            .withField(AGENT_NAME_VERSION_MAJOR)
-            .build();
+```java
+uaa = UserAgentAnalyzer
+        .newBuilder()
+        .withField(DEVICE_CLASS)
+        .withField(AGENT_NAME_VERSION_MAJOR)
+        .build();
+```
 
 ## Building your project with -Xlint:all
 If you are trying to get rid of all possible problems in your application and set the compiler flag -Xlint:all you will see warnings relating to the Kryo serialization system.
@@ -242,23 +256,27 @@ When using this library from a Scala application the way the Builders have been 
 Starting with Yauaa version 5.14 the rewritten builders (contributed by [Robert Stoll](https://github.com/tegonal))
 will become available which will make it a lot easier for Scala users to use:
 
-    val uaa = UserAgentAnalyzer.newBuilder
-      .withCache(10000)
-      .hideMatcherLoadStats
-      .withField("DeviceClass")
-      .build
+```scala
+val uaa = UserAgentAnalyzer.newBuilder
+  .withCache(10000)
+  .hideMatcherLoadStats
+  .withField("DeviceClass")
+  .build
+```
 
 ## Snapshots
 
 Occasionally I publish a snapshot version.
 If you want to use such a version then the repository can be configured in your maven with something like this
 
-    <repositories>
-      <repository>
-        <id>sonatype-oss-snapshots</id>
-        <name>Sonatype OSS Snapshots</name>
-        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        <releases><enabled>false</enabled></releases>
-        <snapshots><enabled>true</enabled></snapshots>
-      </repository>
-    </repositories>
+```xml
+<repositories>
+  <repository>
+    <id>sonatype-oss-snapshots</id>
+    <name>Sonatype OSS Snapshots</name>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases><enabled>false</enabled></releases>
+    <snapshots><enabled>true</enabled></snapshots>
+  </repository>
+</repositories>
+```
