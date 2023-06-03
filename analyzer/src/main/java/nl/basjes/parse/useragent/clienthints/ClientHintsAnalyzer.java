@@ -27,7 +27,6 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
-import nl.basjes.parse.useragent.utils.WordSplitter;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
@@ -55,6 +54,7 @@ import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_VERSION_MAJOR;
+import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION_MAJOR;
@@ -205,13 +205,10 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     public void improveDeviceBrandName(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Device Brand/Name if it is unknown.
         if (clientHints.getModel() != null) {
-            MutableAgentField deviceBrand = userAgent.get(DEVICE_BRAND);
             MutableAgentField deviceName = userAgent.get(DEVICE_NAME);
             if (GENERIC_DEVICE_NAMES.contains(deviceName.getValue())) {
                 overrideValue(deviceName, clientHints.getModel());
-                if (UNKNOWN_VALUE.equals(deviceBrand.getValue())) {
-                    overrideValue(deviceBrand, WordSplitter.getInstance().getSingleSplit(clientHints.getModel(), 1));
-                }
+                overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE); // There is a calculator for the device brand
             }
         }
     }
@@ -411,8 +408,6 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     majorVersion = versionSplits[1];
                 }
 
-//                if (currentVersion.isDefaultValue()  ||
-//                    (!currentVersion.getValue().contains(".") && usingFullVersions)) {
                 if (newVersionIsBetter(currentVersion, version)) {
                     overrideValue(userAgent.get(AGENT_NAME), "Chrome");
                     overrideValue(currentVersion, version);

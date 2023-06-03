@@ -536,7 +536,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         if (useragentString != null && useragentString.length() > userAgentMaxLength) {
             setAsHacker(userAgent, 100);
             userAgent.setForced(HACKER_ATTACK_VECTOR, "Buffer overflow", 100);
-            return hardCodedPostProcessing(userAgent);
+            return userAgent;
         }
 
         synchronized (this) {
@@ -579,7 +579,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
                 userAgent.setForced(HACKER_ATTACK_VECTOR, "Yauaa Exploit", 10000);
             }
         }
-        return hardCodedPostProcessing(userAgent);
+        return userAgent;
     }
 
     private static final List<String> CORE_SYSTEM_GENERATED_FIELDS = new ArrayList<>();
@@ -605,7 +605,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         fieldCalculators.addAll(newFieldCalculators);
     }
 
-    private MutableUserAgent hardCodedPostProcessing(MutableUserAgent userAgent) {
+    public MutableUserAgent hardCodedPostProcessing(MutableUserAgent userAgent) {
         // If it is really really bad ... then it is a Hacker.
         if ("true".equals(userAgent.getValue(SYNTAX_ERROR))) {
             if (userAgent.get(DEVICE_CLASS).getConfidence() == -1) {
@@ -708,7 +708,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         registerFieldCalculator(new CalculateAgentName());
         registerFieldCalculator(new CalculateNetworkType());
         registerFieldCalculator(new CalculateDeviceName());
-        registerFieldCalculator(new CalculateDeviceBrand());
+        registerFieldCalculator(new CalculateDeviceBrand(this));
         registerFieldCalculator(new CalculateAgentEmail());
 
         Collections.reverse(fieldCalculators);

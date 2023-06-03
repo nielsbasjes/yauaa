@@ -20,16 +20,22 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.calculate.CalculateAgentName;
 import nl.basjes.parse.useragent.calculate.CalculateDeviceBrand;
+import nl.basjes.parse.useragent.calculate.CalculateDeviceName;
 import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.config.AnalyzerConfig;
+import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
@@ -37,11 +43,30 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestCalculators {
 
     private static final Logger LOG = LogManager.getLogger(TestCalculators.class);
+
+    private static final AnalyzerConfigHolder CONFIG_HOLDER = new AnalyzerConfigHolder() {
+        @Nonnull
+        @Override
+        public AnalyzerConfig getConfig() {
+            Map<String, String> mobileBrandPrefixes = new TreeMap<>();
+            mobileBrandPrefixes.put("SM-", "Samsung");
+            Map<String, String> mobileBrands = new TreeMap<>();
+            mobileBrands.put("Nokia", "Nokia");
+            mobileBrands.put("Samsung", "Samsung");
+
+            return AnalyzerConfig
+                .newBuilder()
+                .putLookup("MobileBrandPrefixes", mobileBrandPrefixes)
+                .putLookup("MobileBrands", mobileBrands)
+                .build();
+        }
+    };
 
     @Test
     void testFieldAgentNameVersionFallback() {
@@ -49,7 +74,7 @@ class TestCalculators {
         userAgent.setForced(DEVICE_BRAND, "some_thing", 1);
         userAgent.setForced(AGENT_VERSION, "1.2.3", 1);
 
-        new CalculateDeviceBrand().calculate(userAgent);
+        new CalculateDeviceBrand(CONFIG_HOLDER).calculate(userAgent);
         new CalculateAgentName().calculate(userAgent);
 
         new MajorVersionCalculator(AGENT_VERSION_MAJOR, AGENT_VERSION).calculate(userAgent);
@@ -79,7 +104,7 @@ class TestCalculators {
         assertMajorVersion("Windows_NT 10.0", "Windows_NT 10");
     }
 
-    private static final class UrlBrandPair{
+    private static final class UrlBrandPair {
         final String url;
         final String brand;
 
@@ -123,8 +148,32 @@ class TestCalculators {
         LOG.info("URL: {}", pair);
         MutableUserAgent userAgent = new MutableUserAgent();
         userAgent.setForced(UserAgent.AGENT_INFORMATION_URL, pair.url, 1);
-        new CalculateDeviceBrand().calculate(userAgent);
+        new CalculateDeviceBrand(CONFIG_HOLDER).calculate(userAgent);
         assertEquals(pair.brand, userAgent.getValue(DEVICE_BRAND));
+    }
+
+    @Test
+    void checkBrandLookup1() {
+        MutableUserAgent userAgent = new MutableUserAgent();
+        userAgent.setForced(DEVICE_NAME, "SM-some_thing", 1);
+
+        new CalculateDeviceBrand(CONFIG_HOLDER).calculate(userAgent);
+        new CalculateDeviceName().calculate(userAgent);
+
+        assertEquals("Samsung", userAgent.getValue(DEVICE_BRAND));
+        assertEquals("Samsung SM-Some Thing", userAgent.getValue(DEVICE_NAME));
+    }
+
+    @Test
+    void checkBrandLookup2() {
+        MutableUserAgent userAgent = new MutableUserAgent();
+        userAgent.setForced(DEVICE_NAME, "Nokiasome_thing", 1);
+
+        new CalculateDeviceBrand(CONFIG_HOLDER).calculate(userAgent);
+        new CalculateDeviceName().calculate(userAgent);
+
+        assertEquals("Nokia", userAgent.getValue(DEVICE_BRAND));
+        assertEquals("Nokia Some Thing", userAgent.getValue(DEVICE_NAME));
     }
 
 }

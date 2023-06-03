@@ -17,42 +17,72 @@
 
 package nl.basjes.parse.useragent.calculate;
 
+import nl.basjes.collections.PrefixMap;
+import nl.basjes.collections.prefixmap.StringPrefixMap;
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.utils.Normalize;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractBrandFromEmail;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractBrandFromUrl;
 
 public class CalculateDeviceBrand extends FieldCalculator {
 
+//    private final PrefixMap<String> mobileBrands = new StringPrefixMap<>(false);
+    private final PrefixMap<String> mobileBrandPrefixes = new StringPrefixMap<>(false);
+
+    public CalculateDeviceBrand() {
+
+    }
+
+    public CalculateDeviceBrand(AnalyzerConfigHolder analyzerConfig) {
+        Map<String, String> mobileBrandsLookup = analyzerConfig.getLookups().get("MobileBrands");
+        if (mobileBrandsLookup != null) {
+            mobileBrandPrefixes.putAll(mobileBrandsLookup);
+        }
+
+        Map<String, String> mobileBrandPrefixesLookup = analyzerConfig.getLookups().get("MobileBrandPrefixes");
+        if (mobileBrandPrefixesLookup != null) {
+            mobileBrandPrefixes.putAll(mobileBrandPrefixesLookup);
+        }
+    }
+
     @Override
     public void calculate(MutableUserAgent userAgent) {
         // The device brand field is a mess.
         AgentField deviceBrand = userAgent.get(DEVICE_BRAND);
+
         if (deviceBrand.isDefaultValue()) {
-            // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
-            String newDeviceBrand = determineDeviceBrand(userAgent);
+            // If no brand is known then first try to extract it from the raw deviceName.
+            AgentField deviceName = userAgent.get(DEVICE_NAME);
+
+            String newDeviceBrand = mobileBrandPrefixes.getLongestMatch(deviceName.getValue());
             if (newDeviceBrand != null) {
                 userAgent.setForced(
                     DEVICE_BRAND,
                     newDeviceBrand,
                     0);
-            } else {
-                userAgent.setForced(
-                    DEVICE_BRAND,
-                    NULL_VALUE,
-                    0);
+                return;
             }
+
+            // If no brand is known then try to extract something that looks like a Brand from things like URL and Email addresses.
+            newDeviceBrand = determineDeviceBrand(userAgent);
+            userAgent.setForced(
+                DEVICE_BRAND,
+                newDeviceBrand == null ? NULL_VALUE : newDeviceBrand,
+                0);
         } else {
             userAgent.setForced(
                 DEVICE_BRAND,
