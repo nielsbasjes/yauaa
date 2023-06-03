@@ -134,6 +134,13 @@ config:
       "GoogleSecurityScanner" : "Google Security Scanner"
       "Fuzz Faster U Fool"    : "Fuzz Faster U Fool" # https://github.com/ffuf/ffuf
 
+- set:
+    name: 'AbnormalProductNames'
+    values:
+    - 'Mozlila'
+    - 'Bulid'
+    - 'Moblie'
+
 
 - matcher:
     require:
@@ -182,6 +189,31 @@ config:
     - 'HackerToolkit                       :  1000000 :LookUpContains[HackerToolKits;agent]'
     - 'HackerAttackVector                  :   999901 :"<<<null>>>"'
     - 'RemarkablePattern                   :  1000000 :"Hacker"'
+
+- matcher:
+    require:
+    - 'agent.product.name?AbnormalProductNames'
+    extract:
+    - '__Set_ALL_Fields__                  :   999800 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   999899 :"Hacker"'
+    - 'DeviceBrand                         :   999899 :"Hacker"'
+    - 'DeviceName                          :   999899 :"Hacker"'
+    - 'DeviceVersion                       :   999899 :"Hacker"'
+    - 'OperatingSystemClass                :   999899 :"Hacker"'
+    - 'OperatingSystemName                 :   999899 :"Hacker"'
+    - 'OperatingSystemVersion              :   999899 :"Hacker"'
+    - 'LayoutEngineClass                   :   999899 :"Hacker"'
+    - 'LayoutEngineName                    :   999899 :"Hacker"'
+    - 'LayoutEngineVersion                 :   999899 :"Hacker"'
+    - 'AgentClass                          :   999899 :"Hacker"'
+    - 'AgentName                           :   999899 :"Hacker"'
+    - 'AgentVersion                        :   999899 :"Hacker"'
+    - 'AgentInformationUrl                 :   999899 :"<<<null>>>"'
+    - 'AgentInformationEmail               :   999899 :"<<<null>>>"'
+    - 'HackerToolkit                       :   999899 :"<<<null>>>"'
+    - 'HackerAttackVector                  :   999801 :"<<<null>>>"'
+    - 'RemarkablePattern                   :   999899 :"Bad Words"'
+
 
 - matcher:
     extract:
@@ -892,3 +924,34 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       RemarkablePattern                    : 'Hacker'
+
+
+# Has the deliberate misspelled words 'Mozlila', 'Bulid' and 'Moblie'
+# And the behaviour is clearly that of a hacker.
+- test:
+    input:
+      User-Agent                           : 'Mozlila/5.0 (Linux; Android 7.0; SM-G892A Bulid/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Moblie Safari/537.36'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      RemarkablePattern                    : 'Bad Words'
