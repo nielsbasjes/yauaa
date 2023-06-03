@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
+  - ...
+
+v7.20.0
+===
+- New/improved detections:
   - More hackers
   - Device brands from patterns in Client Hints.
 
