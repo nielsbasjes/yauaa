@@ -13,6 +13,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 
 ## HIGH Profile release notes:
 
+### Version v7.20.0
+- New/improved detections:
+  - Device brands from patterns in Client Hints.
+
 ### Version v7.19.2
 - New/improved detections:
   - Report the DeviceName "Android Mobile" for reduced Android user agents.
