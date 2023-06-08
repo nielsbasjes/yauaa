@@ -17,60 +17,14 @@
 version: '3'
 services:
 
-  namenode:
-    image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
-    container_name: namenode
-    environment:
-      - CLUSTER_NAME=hive
-    env_file:
-      - ./hadoop-hive.env
-    ports:
-      - "50070:50070"
-
-  datanode:
-    image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
-    container_name: datanode
-    env_file:
-      - ./hadoop-hive.env
-    environment:
-      SERVICE_PRECONDITION: "namenode:50070"
-    depends_on:
-      - namenode
-    ports:
-      - "50075:50075"
-
   hive-server:
-    image: bde2020/hive:2.3.2-postgresql-metastore
+    image: apache/hive:4.0.0-alpha-2
     container_name: hive-server
     volumes:
       - .:/useragents
-      - ../../../target/:/udf-target
-    env_file:
-      - ./hadoop-hive.env
+      - ../../../target/:/udf
     environment:
-      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
-      SERVICE_PRECONDITION: "hive-metastore:9083"
-      HADOOP_HEAPSIZE: "4321"
-    depends_on:
-      - hive-metastore
+      SERVICE_NAME: "hiveserver2"
     ports:
       - "10000:10000"
-
-  hive-metastore:
-    image: bde2020/hive:2.3.2-postgresql-metastore
-    container_name: hive-metastore
-    env_file:
-      - ./hadoop-hive.env
-    command: /opt/hive/bin/hive --service metastore
-    environment:
-      SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
-    depends_on:
-      - hive-metastore-postgresql
-    ports:
-      - "9083:9083"
-
-  hive-metastore-postgresql:
-    image: bde2020/hive-metastore-postgresql:3.1.0
-    container_name: hive-metastore-postgresql
-    depends_on:
-      - datanode
+      - "10002:10002"

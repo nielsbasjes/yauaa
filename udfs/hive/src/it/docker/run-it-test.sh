@@ -17,7 +17,7 @@
 
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 cd "${SCRIPTDIR}" || exit 1
-LOGFILE=hive-it-test.log
+CONTAINER_NAME=hive-server
 
 # Ensure clean starting point
 docker-compose down
@@ -25,29 +25,54 @@ docker-compose down
 # Start the Hive installation
 docker-compose up -d
 
-sleep 5s
+# ---------------------------------------------------------------------------
+# Wait for the server to start
+SERVER_LOG="${SCRIPTDIR}/hive-it-server.log"
+STATUS="Stopped"
+# Startup may take at most 60 seconds
+SERVER_START_TTL=60
+
+while [ "${STATUS}" == "Stopped" ];
+do
+  echo "Waiting for Hive server to complete startup... (${SERVER_START_TTL}) "
+  sleep  1s
+  docker exec "${CONTAINER_NAME}" hive -u 'jdbc:hive2://localhost:10000/' hive hive > "${SERVER_LOG}" 2>&1
+  grep -F "Connected to: Apache Hive" "${SERVER_LOG}"
+  RESULT=$?
+  if [ "${RESULT}" == "0" ];
+  then
+    echo "Hive server is running!"
+    STATUS="Running"
+  fi
+  SERVER_START_TTL=$((SERVER_START_TTL-1))
+  if [ ${SERVER_START_TTL} -le 0 ];
+  then
+    echo "The Server did not start within 60 seconds (normal is < 10 seconds)"
+    echo "Server output:"
+    cat "${SERVER_LOG}"
+    exit 255
+  fi
+done
+
+
 
 # Figure out what the name of the actual Jar file is.
 JARNAME=$( cd ../../../target/ || exit 1;  ls yauaa-hive-*-udf.jar )
 
 # Store the jar file in HDFS
-echo "==========================================="
-echo "Installing Yauaa UDF on HDFS"
-docker exec hive-server bash  hdfs dfs -mkdir '/udf/'
-docker exec hive-server bash  hdfs dfs -put "/udf-target/${JARNAME}" '/udf/'
-docker exec hive-server bash  hdfs dfs -ls '/udf/'
+#echo "==========================================="
+#echo "Installing Yauaa UDF on HDFS"
+#docker exec -t -i hive-server bash  hdfs dfs -mkdir '/udf/'
+#docker exec -t -i hive-server bash  hdfs dfs -put "/udf-target/${JARNAME}" '/udf/'
+#docker exec -t -i hive-server bash  hdfs dfs -ls '/udf/'
 
-# Run the test Hive script
+# Create the test Hive script
 echo "==========================================="
-echo "Running tests"
 sed "s/@JARNAME@/${JARNAME}/g" create_useragents_table.hql.in > create_useragents_table.hql
 
-docker exec hive-server hive -f '/useragents/create_useragents_table.hql' > "${LOGFILE}" 2>&1
-
-# Shut it all down again.
-echo "==========================================="
-echo "Shutting down the test setup"
-docker-compose down
+echo "Running tests"
+LOGFILE=hive-it-test.log
+docker exec "${CONTAINER_NAME}" hive -f '/useragents/create_useragents_table.hql' > "${LOGFILE}" 2>&1
 
 echo "==========================================="
 echo "Verify the output of the tests"
@@ -81,7 +106,7 @@ function ensure() {
   STEP=$1
   STRING=$2
   ERRORMSG=$3
-  grep -F "${STEP}" "${LOGFILE}" | grep -F "${STRING}" > /dev/null 2>&1
+  grep -F "${STEP}" "${LOGFILE}" | grep "${STRING}" > /dev/null 2>&1
   STATUS=$?
   if [ "${STATUS}" -eq 0 ];
   then
@@ -92,10 +117,15 @@ function ensure() {
   fi
 }
 
-ensure 'TMP'  'Desktop	Mac OS >=10.15.7	Chrome 100' "TMP  Function: Specific fields query"
-ensure 'PERM' 'Desktop	Mac OS >=10.15.7	Chrome 100' "PERM Function: Specific fields query"
+ensure 'TMP'  'Desktop.\+Mac OS >=10.15.7.\+Chrome 100' "TMP  Function: Specific fields query"
+ensure 'PERM' 'Desktop.\+Mac OS >=10.15.7.\+Chrome 100' "PERM Function: Specific fields query"
 ensure 'TMP'  '"devicename":"Google Nexus 6"' "TMP  Function: Map with all fields query"
 ensure 'PERM' '"devicename":"Google Nexus 6"' "PERM Function: Map with all fields query"
 ensure 'CLIENTHINTS' '"operatingsystemnameversion":"Mac OS 12.3.1"' "CLIENTHINTS Function: Map with all fields query"
+
+# Shut it all down again.
+echo "==========================================="
+echo "Shutting down the test setup"
+docker-compose down
 
 exit ${EXIT_CODE}

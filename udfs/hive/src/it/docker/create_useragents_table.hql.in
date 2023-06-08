@@ -14,74 +14,76 @@
 -- limitations under the License.
 --
 
-!echo "==========================================================================";
-!echo "Create the database testdb";
+!connect jdbc:hive2://localhost:10000/ niels basjes --verbose=true
+
+!sh echo "==========================================================================";
+!sh echo "Create the database testdb";
 create database if not exists testdb;
 use testdb;
 
-!echo "=-------------------------------------------------------------------------";
-!echo "Create the table clickLogs with the test record";
+!sh echo "=-------------------------------------------------------------------------";
+!sh echo "Create the table clickLogs with the test record";
 drop table clickLogs;
 
-!echo "=-------------------------------------------------------------------------";
+!sh echo "=-------------------------------------------------------------------------";
 create table if not exists clickLogs (
   useragent string,
   chPlatform string,
   chPlatformVersion string
 );
 
-!echo "=-------------------------------------------------------------------------";
+!sh echo  "=-------------------------------------------------------------------------";
 describe clickLogs;
 
-!echo "=-------------------------------------------------------------------------";
+!sh echo  "=-------------------------------------------------------------------------";
 insert into clickLogs
 values ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36', '"macOS"', '"12.3.1"');
-!echo "=-------------------------------------------------------------------------";
+!sh echo  "=-------------------------------------------------------------------------";
 select * from clickLogs;
 
 
-!echo "==========================================================================";
-!echo "Make the function available as a temporary function";
-ADD JAR hdfs:///udf/@JARNAME@;
+!sh echo  "==========================================================================";
+!sh echo  "Make the function available as a temporary function";
+ADD JAR file:///udf/@JARNAME@;
 DROP     FUNCTION IF EXISTS ParseUserAgentTmp;
 CREATE   FUNCTION ParseUserAgentTmp AS 'nl.basjes.parse.useragent.hive.ParseUserAgent';
 DESCRIBE FUNCTION EXTENDED ParseUserAgentTmp;
 
-!echo "=-------------------------------------------------------------------------";
-!echo "[1] Run query using table";
+!sh echo  "=-------------------------------------------------------------------------";
+!sh echo  "[1] Run query using table";
 SELECT 'TMP',
        ParseUserAgentTmp(useragent).DeviceClass,
        ParseUserAgentTmp(useragent).OperatingsystemNameVersion,
        ParseUserAgentTmp(useragent).AgentNameVersionMajor
 FROM   clickLogs;
 
-!echo "=-------------------------------------------------------------------------";
-!echo "[2] Run query using direct value";
+!sh echo  "=-------------------------------------------------------------------------";
+!sh echo  "[2] Run query using direct value";
 SELECT 'TMP',
        ParseUserAgentTmp('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
 
 
-!echo "==========================================================================";
-!echo "Make the function available as a permanent function";
+!sh echo  "==========================================================================";
+!sh echo  "Make the function available as a permanent function";
 DROP     FUNCTION IF EXISTS ParseUserAgent;
-CREATE   FUNCTION ParseUserAgent AS 'nl.basjes.parse.useragent.hive.ParseUserAgent' USING JAR 'hdfs:///udf/@JARNAME@';
+CREATE   FUNCTION ParseUserAgent AS 'nl.basjes.parse.useragent.hive.ParseUserAgent' USING JAR 'file:///udf/@JARNAME@';
 DESCRIBE FUNCTION EXTENDED ParseUserAgent;
 
-!echo "=-------------------------------------------------------------------------";
-!echo "[1] Run query using table";
+!sh echo  "=-------------------------------------------------------------------------";
+!sh echo  "[1] Run query using table";
 SELECT 'PERM',
        ParseUserAgent(useragent).DeviceClass,
        ParseUserAgent(useragent).OperatingsystemNameVersion,
        ParseUserAgent(useragent).AgentNameVersionMajor
 FROM   clickLogs;
 
-!echo "=-------------------------------------------------------------------------";
-!echo "[2] Run query using direct value";
+!sh echo  "=-------------------------------------------------------------------------";
+!sh echo  "[2] Run query using direct value";
 SELECT 'PERM', ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
-!echo "==========================================================================";
+!sh echo  "==========================================================================";
 
-!echo "=-------------------------------------------------------------------------";
-!echo "[1] Run Client Hints query using table";
+!sh echo  "=-------------------------------------------------------------------------";
+!sh echo  "[1] Run Client Hints query using table";
 SELECT 'CLIENTHINTS',
        parsedUseragentAllFields.DeviceClass                   AS deviceClass,
        parsedUseragentAllFields.AgentNameVersionMajor         AS agentNameVersionMajor,
@@ -93,33 +95,33 @@ FROM (
    FROM   clickLogs
 ) ParsedSubSelect;
 
-!echo "=-------------------------------------------------------------------------";
-!echo "[2] Run Client Hints query using direct value";
+!sh echo  "=-------------------------------------------------------------------------";
+!sh echo  "[2] Run Client Hints query using direct value";
 SELECT 'CLIENTHINTS', ParseUserAgent('user-Agent',                  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36',
                                      'sec-CH-UA-Platform',          '"macOS"',
                                      'sec-CH-UA-Platform-Version',  '"12.3.1"');
-!echo "==========================================================================";
+!sh echo  "==========================================================================";
 
 --
 -- This only works on released versions.
 --
--- !echo "==========================================================================";
--- !echo "Make the function available as a externally loaded permanent function";
+-- !sh echo "==========================================================================";
+-- !sh echo "Make the function available as a externally loaded permanent function";
 -- DROP     FUNCTION IF EXISTS ParseUserAgent;
 -- CREATE FUNCTION ParseUserAgent
 -- AS 'nl.basjes.parse.useragent.hive.ParseUserAgent'
 -- USING JAR 'ivy://nl.basjes.parse.useragent:yauaa-hive:6.0?classifier=udf';
 -- DESCRIBE FUNCTION EXTENDED ParseUserAgent;
 --
--- !echo "=-------------------------------------------------------------------------";
--- !echo "[1] Run query using table";
+-- !sh echo "=-------------------------------------------------------------------------";
+-- !sh echo "[1] Run query using table";
 -- SELECT ParseUserAgent(useragent).DeviceClass,
 --        ParseUserAgent(useragent).OperatingsystemNameVersion,
 --        ParseUserAgent(useragent).AgentNameVersionMajor
 -- FROM   clickLogs GROUP BY useragent;
 --
--- !echo "=-------------------------------------------------------------------------";
--- !echo "[2] Run query using direct value";
+-- !sh echo "=-------------------------------------------------------------------------";
+-- !sh echo "[2] Run query using direct value";
 -- SELECT ParseUserAgent('Mozilla/5.0 (Linux\; Android 6.0\; Nexus 6 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36');
--- !echo "==========================================================================";
+-- !sh echo "==========================================================================";
 --
