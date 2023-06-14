@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - Report Samsung DEX (Desktop Experience) as Tablet
 
 v7.20.0
 ===
