@@ -53,7 +53,7 @@ jobs:
           17
 
     - name: 'Build Yauaa'
-      run: mvn clean install -PdisableDockerHubUsages
+      run: ./mvnw clean install -PdisableDockerHubUsages
 
     - name: 'Codecov'
       uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
@@ -68,7 +68,7 @@ jobs:
         mkdir -p ../PreproducibleRebuildInDifferentDirectory
         cp -a . ../PreproducibleRebuildInDifferentDirectory
         cd ../PreproducibleRebuildInDifferentDirectory
-        mvn clean verify -PskipQuality -PartifactCompare
+        ./mvnw clean verify -PskipQuality -PartifactCompare
         # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
         rm -rf ~/.m2/repository/nl/basjes/parse/useragent/
 

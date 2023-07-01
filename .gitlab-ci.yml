@@ -28,4 +28,4 @@ maven-build:
     - apt-get update -qq && apt-get install -qq -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk
     - mkdir -p ${HOME}/.m2 && cp ./.gitlab/toolchains.xml ${HOME}/.m2/
     # And build it.
-    - mvn clean verify -PdisableDockerHubUsages -B
+    - ./mvnw clean verify -PdisableDockerHubUsages -B
