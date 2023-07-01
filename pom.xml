@@ -354,6 +354,9 @@
 
     <profile>
       <id>artifactCompare</id>
+      <properties>
+        <maven.build.cache.enabled>false</maven.build.cache.enabled>
+      </properties>
       <build>
         <defaultGoal>clean verify</defaultGoal>
         <plugins>
@@ -375,10 +378,19 @@
     </profile>
 
     <profile>
+      <id>prepareRelease</id>
+      <properties>
+        <maven.build.cache.enabled>false</maven.build.cache.enabled>
+      </properties>
+    </profile>
+
+    <profile>
       <id>packageForRelease</id>
+      <properties>
+        <maven.build.cache.enabled>false</maven.build.cache.enabled>
+      </properties>
       <build>
         <plugins>
-
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-artifact-plugin</artifactId>
