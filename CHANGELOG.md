@@ -10,6 +10,7 @@ NEXT RELEASE
   - Initial handling of Robots and Hackers using client hints.
   - Detect Amazon Echo Show better (a "Smart Display")
   - Detect Bitwarden Mobile app
+  - Detect more Federated Social Servers and Robots
 
 v7.20.0
 ===
