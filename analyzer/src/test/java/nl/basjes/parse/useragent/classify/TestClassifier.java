@@ -38,6 +38,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_IMITATOR;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.SET_TOP_BOX;
+import static nl.basjes.parse.useragent.classify.DeviceClass.SMART_DISPLAY;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TABLET;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
@@ -63,6 +64,7 @@ class TestClassifier {
         verifyEnum("Tablet");
         verifyEnum("Phone");
         verifyEnum("Watch");
+        verifyEnum("Augmented Reality");
         verifyEnum("Virtual Reality");
         verifyEnum("eReader");
         verifyEnum("Set-top box");
@@ -70,11 +72,16 @@ class TestClassifier {
         verifyEnum("Game Console");
         verifyEnum("Handheld Game Console");
         verifyEnum("Home Appliance");
+        verifyEnum("Voice");
+        verifyEnum("Smart Display");
+        verifyEnum("Car");
+        verifyEnum("Cloud");
         verifyEnum("Robot");
         verifyEnum("Robot Mobile");
         verifyEnum("Robot Imitator");
         verifyEnum("Hacker");
         verifyEnum("Unknown");
+        verifyEnum("Unclassified");
     }
 
     private void verifyEnum(String deviceClass) {
@@ -83,6 +90,14 @@ class TestClassifier {
         assertEquals(deviceClass, getDeviceClass(userAgent).getValue());
     }
 
+    @Test
+    void ensureAllDeviceClassValuesAreCovered() {
+        for (DeviceClass deviceClass : DeviceClass.values()) {
+            MutableUserAgent userAgent = new MutableUserAgent();
+            userAgent.set(DEVICE_CLASS, deviceClass.getValue(), 1);
+            assertEquals(deviceClass, UserAgentClassifier.getDeviceClass(userAgent), "Bad: " + deviceClass);
+        }
+    }
 
     @Test
     void testClassifier() {
@@ -102,6 +117,7 @@ class TestClassifier {
         verifyDeviceClass(HANDHELD_GAME_CONSOLE,  true,   true,  true, false);
         verifyDeviceClass(HOME_APPLIANCE,         true,  false,  true, false);
         verifyDeviceClass(VOICE,                  true,  false,  true, false);
+        verifyDeviceClass(SMART_DISPLAY,          true,  false,  true, false);
         verifyDeviceClass(CAR,                    true,   true,  true, false);
         verifyDeviceClass(CLOUD,                 false,  false, false, false);
         verifyDeviceClass(ROBOT,                 false,  false, false, false);

@@ -5,6 +5,7 @@ NEXT RELEASE
 ===
 - New/improved detections:
   - Report Samsung DEX (Desktop Experience) as Tablet
+  - New DeviceClass: "Smart Display"
 
 v7.20.0
 ===

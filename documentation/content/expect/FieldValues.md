@@ -55,6 +55,7 @@ So I classify all of them as hacking oriented tools.                            
 | Game Console          | 'Fixed' game systems like the PlayStation and XBox                                                                                            |
 | Handheld Game Console | 'Mobile' game systems like the 3DS                                                                                                            |
 | Voice                 | A voice driven device (i.e. ask a question and the page is read aloud). Like Alexa and Google Home.                                           |
+| Smart Display         | A smart speaker kind of device with a tablet sized screen built in (like Google Nest and Amazon Echo Home)                                    |
 | Car                   | A Car based browser as found in for example the Tesla vehicles                                                                                |
 | Robot                 | Robots that visit the site                                                                                                                    |
 | Robot Mobile          | Robots that visit the site indicating they want to be seen as a Mobile visitor                                                                |

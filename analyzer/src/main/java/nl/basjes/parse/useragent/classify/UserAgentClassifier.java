@@ -36,6 +36,7 @@ import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_IMITATOR;
 import static nl.basjes.parse.useragent.classify.DeviceClass.ROBOT_MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.SET_TOP_BOX;
+import static nl.basjes.parse.useragent.classify.DeviceClass.SMART_DISPLAY;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TABLET;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TV;
 import static nl.basjes.parse.useragent.classify.DeviceClass.UNCLASSIFIED;
@@ -64,6 +65,7 @@ public final class UserAgentClassifier {
             case "Handheld Game Console":  return HANDHELD_GAME_CONSOLE;
             case "Home Appliance":         return HOME_APPLIANCE;
             case "Voice":                  return VOICE;
+            case "Smart Display":          return SMART_DISPLAY;
             case "Car":                    return CAR;
             case "Cloud":                  return CLOUD;
             case "Robot":                  return ROBOT;
@@ -95,6 +97,7 @@ public final class UserAgentClassifier {
             case HOME_APPLIANCE:
             case AUGMENTED_REALITY:
             case VOICE:
+            case SMART_DISPLAY:
             case CAR:
                 return true;
 
@@ -136,6 +139,7 @@ public final class UserAgentClassifier {
             case HOME_APPLIANCE:
             case ANONYMIZED:
             case VOICE:
+            case SMART_DISPLAY:
             case CLOUD:
             case ROBOT:
             case ROBOT_IMITATOR:
@@ -168,6 +172,7 @@ public final class UserAgentClassifier {
             case ANONYMIZED:
             case AUGMENTED_REALITY:
             case VOICE:
+            case SMART_DISPLAY:
             case CAR:
                 return true;
 
@@ -208,6 +213,7 @@ public final class UserAgentClassifier {
             case HANDHELD_GAME_CONSOLE:
             case HOME_APPLIANCE:
             case VOICE:
+            case SMART_DISPLAY:
             case CAR:
             case CLOUD:
             case ROBOT:

@@ -79,6 +79,10 @@ public enum DeviceClass {
      */
     VOICE("Voice"),
     /**
+     * A smart speaker kind of device with a tablet sized screen built in (like Google Nest and Amazon Echo Home).
+     */
+    SMART_DISPLAY("Smart Display"),
+    /**
      * A browser built into a car.
      */
     CAR("Car"),
