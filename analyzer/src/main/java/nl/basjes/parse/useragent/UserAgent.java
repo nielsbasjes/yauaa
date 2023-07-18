@@ -754,7 +754,7 @@ public interface UserAgent extends Serializable {
                 case USERAGENT_FIELDNAME:
                     return true;
                 default:
-                    return false;
+                    return fieldname.startsWith("UAClientHint");
             }
         }
 
