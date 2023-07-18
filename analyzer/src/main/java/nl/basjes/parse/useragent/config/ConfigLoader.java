@@ -605,7 +605,14 @@ public class ConfigLoader {
             final String lowercaseUseragentHeader = USERAGENT_HEADER.toLowerCase(Locale.ROOT);
             require(headers.keySet().stream().map(String::toLowerCase).filter(lowercaseUseragentHeader::equals).count() == 1, entry, filename, "Test is missing input");
 
-            TestCase testCase = new TestCase(headers, testName);
+            if (testName == null) {
+                testName = headers.get(USERAGENT_HEADER);
+            }
+
+            int testSourceLineNumber = entry.getStartMark().getLine();
+            String testSourceLocation = filename + ':' + testSourceLineNumber;
+
+            TestCase testCase = new TestCase(headers, testSourceLocation, testName);
 
             if (!expected.isEmpty()) {
                 expected.forEach(testCase::expect);

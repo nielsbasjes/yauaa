@@ -38,6 +38,7 @@ import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 public class TestCase implements Serializable {
     private final Map<String, String> headers;
+    private final String sourceLocation;
     private final String testName;
     private final List<String> options;
     private final Map<String, String> metadata;
@@ -76,7 +77,7 @@ public class TestCase implements Serializable {
 
         @Override
         public String toString() {
-            return testCase + errorReport;
+            return errorReport;
         }
 
         @Override
@@ -89,6 +90,7 @@ public class TestCase implements Serializable {
     @SuppressWarnings("unused")
     private TestCase() {
         this.headers = Collections.emptyMap();
+        this.sourceLocation = "<<Should never appear after deserialization>>";
         this.testName = "<<Should never appear after deserialization>>";
         this.options = Collections.emptyList();
         this.metadata = Collections.emptyMap();
@@ -96,7 +98,12 @@ public class TestCase implements Serializable {
     }
 
     public TestCase(Map<String, String> headers, String testName) {
+        this(headers, "Not from a file", testName);
+    }
+
+    public TestCase(Map<String, String> headers, String sourceLocation, String testName) {
         this.headers = headers;
+        this.sourceLocation = sourceLocation;
         this.testName = testName;
         this.options = new ArrayList<>();
         this.metadata = new LinkedHashMap<>();
@@ -104,7 +111,12 @@ public class TestCase implements Serializable {
     }
 
     public TestCase(String userAgent, String testName) {
+        this(userAgent, "Not from a file", testName);
+    }
+
+    public TestCase(String userAgent, String sourceLocation, String testName) {
         this.headers = new TreeMap<>();
+        this.sourceLocation = sourceLocation;
         this.headers.put(USERAGENT_HEADER, userAgent);
         this.testName = testName;
         this.options = new ArrayList<>();
@@ -124,7 +136,14 @@ public class TestCase implements Serializable {
         this.headers.put(name, value);
     }
 
+    public String getSourceLocation() {
+        return sourceLocation;
+    }
+
     public String getTestName() {
+        if (testName == null) {
+            return headers.get(USERAGENT_HEADER);
+        }
         return testName;
     }
 
@@ -177,7 +196,7 @@ public class TestCase implements Serializable {
 
         StringBuilder sb = new StringBuilder("\n");
 
-        sb.append(">>>>>>>>>>>>>> ").append(testName).append(" <<<<<<<<<<<<<<\n");
+        sb.append("TestCase: >>>>>>>>>>>>>> 1.(").append(getSourceLocation()).append("): ").append(getTestName()).append(" <<<<<<<<<<<<<<\n");
         StringTable inputTable = new StringTable().withHeaders("Header", "Value");
         getHeaders().forEach(inputTable::addRow);
         sb.append(inputTable).append('\n');
@@ -223,7 +242,7 @@ public class TestCase implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("====================================================================================\n");
-        sb.append("TestCase: >>>>>>>>>>>>>> ").append(testName).append(" <<<<<<<<<<<<<<\n");
+        sb.append("TestCase: >>>>>>>>>>>>>> 1.(").append(getSourceLocation()).append("): ").append(getTestName()).append(" <<<<<<<<<<<<<<\n");
 
         if (options != null && !options.isEmpty()) {
             StringTable optionsTable = new StringTable().withHeaders("Option");

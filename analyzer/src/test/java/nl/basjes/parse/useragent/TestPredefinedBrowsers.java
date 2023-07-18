@@ -111,6 +111,14 @@ class TestPredefinedBrowsers {
         LOG.info("--------------------------------------------------------------");
 
         List<TestCase> testCases = uaa.getTestCases();
+
+        List<TestCase> onlyTestCases = testCases.stream()
+            .filter(testCase -> testCase.getOptions().contains("only"))
+            .collect(Collectors.toList());
+        if (!onlyTestCases.isEmpty()) {
+            testCases = onlyTestCases;
+        }
+
         List<TestResult> testResults = testCases.stream()
             .map(testCase -> testCase.verify(uaa))
             .collect(Collectors.toList());
