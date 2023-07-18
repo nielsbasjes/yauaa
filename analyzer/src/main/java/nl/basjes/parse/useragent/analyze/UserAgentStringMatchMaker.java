@@ -717,6 +717,14 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         if (this.wantedFieldNames != null && !this.wantedFieldNames.isEmpty()) {
             this.wantedFieldNames.addAll(extraDependenciesNeededByClientCalculator(this.wantedFieldNames));
             this.wantedFieldNames.addAll(dependenciesNeededByCalculators);
+
+            // We have a tricky dependency between the DeviceBrand and the DeviceName.
+            // If either one is wanted then we must always make them both wanted.
+            if (wantedFieldNames.contains(DEVICE_BRAND) || wantedFieldNames.contains(DEVICE_NAME)) {
+                wantedFieldNames.add(DEVICE_BRAND);
+                wantedFieldNames.add(DEVICE_NAME);
+            }
+
         }
 
         finalizeLoadingRules();

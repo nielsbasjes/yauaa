@@ -111,9 +111,10 @@ class TestBuilder {
 
         // Needed for AgentName (The brand is used as fallback in edge cases that occurs with spiders)
         assertEquals("Google",                   parsedAgent.getValue("DeviceBrand"              )); // Google
+        // Needed for DeviceBrand
+        assertEquals("Nexus 6",                  parsedAgent.getValue("DeviceName"               )); // Nexus 6
 
         // The rest must be the default value (i.e. no rules fired)
-        shouldBeDefaultValue(parsedAgent, "DeviceName"                   ); // Nexus 6
         shouldBeDefaultValue(parsedAgent, "OperatingSystemClass"         ); // Mobile
         shouldBeDefaultValue(parsedAgent, "OperatingSystemName"          ); // Android
         shouldBeDefaultValue(parsedAgent, "OperatingSystemVersion"       ); // 7.0
@@ -592,6 +593,7 @@ class TestBuilder {
         Set<String> expectedWantedFields = fields(
             DEVICE_CLASS,
             DEVICE_BRAND,
+            DEVICE_NAME,
             AGENT_INFORMATION_EMAIL,
             AGENT_INFORMATION_URL,
             AGENT_NAME,
@@ -605,6 +607,7 @@ class TestBuilder {
             SYNTAX_ERROR,
             DEVICE_CLASS,
             DEVICE_BRAND,
+            DEVICE_NAME,
             AGENT_INFORMATION_EMAIL,
             AGENT_INFORMATION_URL,
             AGENT_NAME,

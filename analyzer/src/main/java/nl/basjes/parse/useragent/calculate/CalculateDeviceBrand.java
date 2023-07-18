@@ -122,6 +122,7 @@ public class CalculateDeviceBrand extends FieldCalculator {
 
     @Override
     public Set<String> getDependencies() {
+        // NOTE: We NEED the DeviceName also but that would create a circular dependency.
         return new HashSet<>(Arrays.asList(AGENT_INFORMATION_URL, AGENT_INFORMATION_EMAIL));
     }
 }

@@ -31,7 +31,6 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
 import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
@@ -554,7 +553,6 @@ class TestUseragent {
         assertEquals("Niels Basjes", resultMap.get(AGENT_NAME));
 
         // And fields that are not implicitly calculated and not asked for are absent
-        assertNull(resultMap.get(DEVICE_NAME));
         assertNull(resultMap.get(OPERATING_SYSTEM_CLASS));
     }
 
