@@ -840,3 +840,151 @@ config:
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersion                : 'Unknown Webview App ??'
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
+      Sec-Ch-Ua                                  : '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"'
+      Sec-Ch-Ua-Arch                             : '""'
+      Sec-Ch-Ua-Bitness                          : '""'
+      Sec-Ch-Ua-Full-Version                     : '"112.0.5615.135"'
+      Sec-Ch-Ua-Full-Version-List                : '"Chromium";v="112.0.5615.135", "Google Chrome";v="112.0.5615.135", "Not:A-Brand";v="99.0.0.0"'
+      Sec-Ch-Ua-Mobile                           : '?0'
+      Sec-Ch-Ua-Model                            : '"KFONWI"'
+      Sec-Ch-Ua-Platform                         : '"Android"'
+      Sec-Ch-Ua-Platform-Version                 : '"9.0.0"'
+      Sec-Ch-Ua-Wow64                            : '?0'
+    expected:
+      DeviceClass                                : 'Tablet'
+      # FIXME: Pickup device from Sec-Ch-Ua-Model AND Map to real device name
+      # DeviceName                                 : 'Amazon Amazon Fire HD 8 (10th Gen - 2020)'
+      DeviceName                                 : 'Amazon Kfonwi'
+      DeviceBrand                                : 'Amazon'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'Android'
+      OperatingSystemVersion                     : '9.0.0'
+      OperatingSystemVersionMajor                : '9'
+      OperatingSystemNameVersion                 : 'Android 9.0.0'
+      OperatingSystemNameVersionMajor            : 'Android 9'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '112.0'
+      LayoutEngineVersionMajor                   : '112'
+      LayoutEngineNameVersion                    : 'Blink 112.0'
+      LayoutEngineNameVersionMajor               : 'Blink 112'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Chrome'
+      AgentVersion                               : '112.0.5615.135'
+      AgentVersionMajor                          : '112'
+      AgentNameVersion                           : 'Chrome 112.0.5615.135'
+      AgentNameVersionMajor                      : 'Chrome 112'
+      UAClientHintBrands_0_Brand                 : 'Chromium'
+      UAClientHintBrands_0_Version               : '112'
+      UAClientHintBrands_1_Brand                 : 'Google Chrome'
+      UAClientHintBrands_1_Version               : '112'
+      UAClientHintFullVersion                    : '112.0.5615.135'
+      UAClientHintFullVersionList_0_Brand        : 'Chromium'
+      UAClientHintFullVersionList_0_Version      : '112.0.5615.135'
+      UAClientHintFullVersionList_1_Brand        : 'Google Chrome'
+      UAClientHintFullVersionList_1_Version      : '112.0.5615.135'
+      UAClientHintMobile                         : 'false'
+      UAClientHintModel                          : 'KFONWI'
+      UAClientHintPlatform                       : 'Android'
+      UAClientHintPlatformVersion                : '9.0.0'
+      UAClientHintWow64                          : 'false'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 9; AEOHY) AppleWebKit/537.36 (KHTML, like Gecko) Silk/94.3.10 like Chrome/94.0.4606.126 Safari/537.36'
+    expected:
+      DeviceClass                                : 'Smart Display'
+      DeviceName                                 : 'Amazon Echo Show 15 (2021)'
+      DeviceBrand                                : 'Amazon'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'FireOS'
+      OperatingSystemVersion                     : '7'
+      OperatingSystemVersionMajor                : '7'
+      OperatingSystemNameVersion                 : 'FireOS 7'
+      OperatingSystemNameVersionMajor            : 'FireOS 7'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'AppleWebKit'
+      LayoutEngineVersion                        : '537.36'
+      LayoutEngineVersionMajor                   : '537'
+      LayoutEngineNameVersion                    : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor               : 'AppleWebKit 537'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Silk'
+      AgentVersion                               : '94.3.10'
+      AgentVersionMajor                          : '94'
+      AgentNameVersion                           : 'Silk 94.3.10'
+      AgentNameVersionMajor                      : 'Silk 94'
+
+
+# https://www.amazon.com/Echo-Show-5-2nd-Gen-2021-release/dp/B08KJN3333#tech
+# Echo Show 5 (2nd Gen) - 2021 release
+# The Echo Show seems like a tabletop/"bed side" Tablet (with which you can watch TV, do conference calls, ... ) kind of device.
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 7.1.2; AEOCN) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.6.3 like Chrome/112.0.5615.213 Safari/537.36'
+    expected:
+      DeviceClass                                : 'Smart Display'
+      DeviceName                                 : 'Amazon Echo Show 5-2ND GEN (2021)'
+      DeviceBrand                                : 'Amazon'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'FireOS'
+      OperatingSystemVersion                     : '6'
+      OperatingSystemVersionMajor                : '6'
+      OperatingSystemNameVersion                 : 'FireOS 6'
+      OperatingSystemNameVersionMajor            : 'FireOS 6'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'AppleWebKit'
+      LayoutEngineVersion                        : '537.36'
+      LayoutEngineVersionMajor                   : '537'
+      LayoutEngineNameVersion                    : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor               : 'AppleWebKit 537'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Silk'
+      AgentVersion                               : '112.6.3'
+      AgentVersionMajor                          : '112'
+      AgentNameVersion                           : 'Silk 112.6.3'
+      AgentNameVersionMajor                      : 'Silk 112'
+
+
+# FIXME: There are more types of Amazon Echo Show products for which we do not have the code yet. I ASSUME they are prefixed with AEO
+- matcher:
+    require:
+    - 'agent.product.name="Silk"'
+    - 'agent.(1)product.(1)comments.entry.(1)text{"AEO"'
+    extract:
+    - 'DeviceClass                              :      1001 :"Smart Display"'
+    - 'DeviceName                               :       101 :"Amazon Echo Show ??"'
+    - 'DeviceBrand                              :       101 :"Amazon"'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 7.1.2; AEOXXXTest) AppleWebKit/537.36 (KHTML, like Gecko) Silk/112.6.3 like Chrome/112.0.5615.213 Safari/537.36'
+    expected:
+      DeviceClass                                : 'Smart Display'
+      DeviceName                                 : 'Amazon Echo Show ??'
+      DeviceBrand                                : 'Amazon'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'FireOS'
+      OperatingSystemVersion                     : '7.1.2'
+      OperatingSystemVersionMajor                : '7'
+      OperatingSystemNameVersion                 : 'FireOS 7.1.2'
+      OperatingSystemNameVersionMajor            : 'FireOS 7'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'AppleWebKit'
+      LayoutEngineVersion                        : '537.36'
+      LayoutEngineVersionMajor                   : '537'
+      LayoutEngineNameVersion                    : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor               : 'AppleWebKit 537'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Silk'
+      AgentVersion                               : '112.6.3'
+      AgentVersionMajor                          : '112'
+      AgentNameVersion                           : 'Silk 112.6.3'
+      AgentNameVersionMajor                      : 'Silk 112'

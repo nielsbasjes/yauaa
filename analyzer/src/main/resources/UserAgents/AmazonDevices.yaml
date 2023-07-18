@@ -34,7 +34,8 @@ config:
 - lookup:
     name: "AmazonDeviceTags"
     map:
-      'AEOHY' : 'TV|Amazon|Echo Show 15 (2021)'
+      'AEOCN' : 'Smart Display|Amazon|Echo Show 5 - 2nd Gen (2021)'
+      'AEOHY' : 'Smart Display|Amazon|Echo Show 15 (2021)'
       'AFTA' : 'TV|Amazon|Amazon Fire TV Cube - 1st Gen (2018)'
       'AFTANNA0' : 'TV|Xiaomi|Xiaomi F2 4K - Fire TV (2022)'
       'AFTB' : 'Set-top box|Amazon|Amazon Fire TV - 1st Gen (2014)'
@@ -121,9 +122,50 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="AEOCN"'
+    extract:
+    - 'DeviceClass                         :     1001 :"Smart Display"'
+    - 'DeviceName                          :     1002 :"Echo Show 5 - 2nd Gen (2021)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Android"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="AEOCN"'
+    extract:
+    - 'DeviceClass                         :     1001 :"Smart Display"'
+    - 'DeviceName                          :     1002 :"Echo Show 5 - 2nd Gen (2021)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                         :     1001 :"Smart Display"'
+    - 'DeviceName                          :     1002 :"Echo Show 5 - 2nd Gen (2021)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemVersionBuild         :       12 :agent.(1)product.(1)comments.entry[1-2]="AEOCN Build"@[3]'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                         :     1001 :"Smart Display"'
+    - 'DeviceName                          :     1002 :"Echo Show 5 - 2nd Gen (2021)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-1]="AEOCN"@[2]'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+
+
+- matcher:
+    require:
     - 'agent.product.name="AEOHY"'
     extract:
-    - 'DeviceClass                         :     1001 :"TV"'
+    - 'DeviceClass                         :     1001 :"Smart Display"'
     - 'DeviceName                          :     1002 :"Echo Show 15 (2021)"'
     - 'DeviceBrand                         :     1002 :"Amazon"'
     - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
@@ -133,7 +175,7 @@ config:
     - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Android"'
     - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="AEOHY"'
     extract:
-    - 'DeviceClass                         :     1001 :"TV"'
+    - 'DeviceClass                         :     1001 :"Smart Display"'
     - 'DeviceName                          :     1002 :"Echo Show 15 (2021)"'
     - 'DeviceBrand                         :     1002 :"Amazon"'
     - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
@@ -142,7 +184,7 @@ config:
     require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
-    - 'DeviceClass                         :     1001 :"TV"'
+    - 'DeviceClass                         :     1001 :"Smart Display"'
     - 'DeviceName                          :     1002 :"Echo Show 15 (2021)"'
     - 'DeviceBrand                         :     1002 :"Amazon"'
     - 'OperatingSystemVersionBuild         :       12 :agent.(1)product.(1)comments.entry[1-2]="AEOHY Build"@[3]'
@@ -152,7 +194,7 @@ config:
     require:
     - 'IsNull[agent.product.name="Chrome"]'
     extract:
-    - 'DeviceClass                         :     1001 :"TV"'
+    - 'DeviceClass                         :     1001 :"Smart Display"'
     - 'DeviceName                          :     1002 :"Echo Show 15 (2021)"'
     - 'DeviceBrand                         :     1002 :"Amazon"'
     - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-1]="AEOHY"@[2]'

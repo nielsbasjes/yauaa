@@ -8,6 +8,7 @@ NEXT RELEASE
   - New DeviceClass: "Smart Display"
   - Detect more Robots: Feerder.co, Buck, Rome, python-requests
   - Initial handling of Robots and Hackers using client hints.
+  - Detect Amazon Echo Show better (a "Smart Display")
 
 v7.20.0
 ===
