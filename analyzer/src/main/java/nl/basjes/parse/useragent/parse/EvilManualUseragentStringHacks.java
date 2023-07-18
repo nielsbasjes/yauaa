@@ -52,6 +52,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern MISSING_COMMENT_BRACES_OPERA =
         Pattern.compile("^(Opera/[^ ]+) ([^(][^)]+?)( Presto/| Version/)", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern STRIP_SURROUNDING_QUOTES =
+        Pattern.compile("^'(.*)'$", Pattern.CASE_INSENSITIVE);
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -74,6 +77,7 @@ public final class EvilManualUseragentStringHacks {
             result = result.trim();
         }
 
+        result = STRIP_SURROUNDING_QUOTES.matcher(result).replaceAll("$1");
         result = MISSING_COMMENT_BRACES.matcher(result).replaceAll("$1 ($2)$3");
         result = MISSING_COMMENT_BRACES_OPERA.matcher(result).replaceAll("$1 ($2)$3");
 

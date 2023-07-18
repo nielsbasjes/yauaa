@@ -1,0 +1,397 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2023 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+config:
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+      Sec-Ch-Ua                            : '.Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103'
+      Sec-Ch-Ua-Mobile                     : '?0'
+      Sec-Ch-Ua-Platform                   : 'macOS' # MISSING QUOTES
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.14.2'
+      OperatingSystemVersionMajor          : '10.14'
+      OperatingSystemNameVersion           : 'Mac OS 10.14.2'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '103'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Chrome 103'
+      AgentNameVersionMajor                : 'Chrome 103'
+      UAClientHintMobile                   : 'false'
+#      UAClientHintPlatform                 : 'macOS' # Illegal value
+
+
+# Manipulated: Chrome 4 does not do ClientHints AND the provided clienthints are not following the specification.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/532.2 (KHTML, like Gecko) Chrome/4.0.222.4 Safari/532.2'
+      Sec-Ch-Ua-Mobile                     : '?0'
+      Sec-Ch-Ua-Platform                   : 'Windows' # MISSING QUOTES
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : 'XP'
+      OperatingSystemVersionMajor          : 'XP'
+      OperatingSystemNameVersion           : 'Windows XP'
+      OperatingSystemNameVersionMajor      : 'Windows XP'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '532.2'
+      LayoutEngineVersionMajor             : '532'
+      LayoutEngineNameVersion              : 'AppleWebKit 532.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 532'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '4.0.222.4'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Chrome 4.0.222.4'
+      AgentNameVersionMajor                : 'Chrome 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      UAClientHintMobile                   : 'false'
+#      UAClientHintPlatform                 : 'Windows'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
+      Sec-Ch-Ua                            : '"\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""' # Too many QUOTES
+      Sec-Ch-Ua-Arch                       : ''
+      Sec-Ch-Ua-Bitness                    : '"64"'
+      Sec-Ch-Ua-Full-Version               : ''
+      Sec-Ch-Ua-Full-Version-List          : '""'
+      Sec-Ch-Ua-Mobile                     : '?0'
+      Sec-Ch-Ua-Model                      : ''
+      Sec-Ch-Ua-Platform                   : '"\\\"Windows\\\""' # Too many QUOTES
+      Sec-Ch-Ua-Platform-Version           : '"14.0.0"'
+      Sec-Ch-Ua-Wow64                      : '?0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '14.0.0'               #   FIXME: Bad data results in bad output | Should be '11'
+      OperatingSystemVersionMajor          : '14'                   #   FIXME: Bad data results in bad output | Should be '11'
+      OperatingSystemNameVersion           : 'Windows NT 14.0.0'    #   FIXME: Bad data results in bad output | Should be 'Windows 11'
+      OperatingSystemNameVersionMajor      : 'Windows NT 14'        #   FIXME: Bad data results in bad output | Should be 'Windows 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '107'
+      LayoutEngineVersionMajor             : '107'
+      LayoutEngineNameVersion              : 'Blink 107'
+      LayoutEngineNameVersionMajor         : 'Blink 107'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '107'
+      AgentVersionMajor                    : '107'
+      AgentNameVersion                     : 'Chrome 107'
+      AgentNameVersionMajor                : 'Chrome 107'
+      UAClientHintBitness                  : '64'
+      UAClientHintMobile                   : 'false'
+      UAClientHintPlatform                 : '\\\"Windows\\\"'
+      UAClientHintPlatformVersion          : '14.0.0'
+      UAClientHintWow64                    : 'false'
+
+
+# FIXME: Manipulated UserAgent ... but not the other headers
+#- test:
+#    input:
+#      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A'
+#      Sec-Ch-Ua                            : '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"'
+#      Sec-Ch-Ua-Mobile                     : '?0'
+#      Sec-Ch-Ua-Platform                   : '"Windows"'
+#    expected:
+#      DeviceClass                          : 'Desktop'
+#      DeviceName                           : 'Desktop'
+#      DeviceBrand                          : 'Unknown'
+#      DeviceCpu                            : 'Intel'
+#      DeviceCpuBits                        : '64'
+#      OperatingSystemClass                 : 'Desktop'
+#      OperatingSystemName                  : 'Windows NT'
+#      OperatingSystemVersion               : '??'
+#      OperatingSystemVersionMajor          : '??'
+#      OperatingSystemNameVersion           : 'Windows NT ??'
+#      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+#      LayoutEngineClass                    : 'Browser'
+#      LayoutEngineName                     : 'Blink'
+#      LayoutEngineVersion                  : '537.75.14'
+#      LayoutEngineVersionMajor             : '537'
+#      LayoutEngineNameVersion              : 'Blink 537.75.14'
+#      LayoutEngineNameVersionMajor         : 'Blink 537'
+#      AgentClass                           : 'Browser'
+#      AgentName                            : 'Chrome'
+#      AgentVersion                         : '114'
+#      AgentVersionMajor                    : '114'
+#      AgentNameVersion                     : 'Chrome 114'
+#      AgentNameVersionMajor                : 'Chrome 114'
+#      RemarkablePattern                    : 'Not a version'
+#      UAClientHintBrands_0_Brand           : 'Chromium'
+#      UAClientHintBrands_0_Version         : '114'
+#      UAClientHintBrands_1_Brand           : 'Google Chrome'
+#      UAClientHintBrands_1_Version         : '114'
+#      UAClientHintMobile                   : 'false'
+#      UAClientHintPlatform                 : 'Windows'
+#
+
+# FIXME: Manipulated UserAgent ... but not the other headers
+#- test:
+#    input:
+#      User-Agent                                 : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A'
+#      Sec-Ch-Ua                                  : '"Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"'
+#      Sec-Ch-Ua-Arch                             : '"x86"'
+#      Sec-Ch-Ua-Bitness                          : '"64"'
+#      Sec-Ch-Ua-Full-Version                     : '"114.0.5735.110"'
+#      Sec-Ch-Ua-Full-Version-List                : '"Not.A/Brand";v="8.0.0.0", "Chromium";v="114.0.5735.110", "Google Chrome";v="114.0.5735.110"'
+#      Sec-Ch-Ua-Mobile                           : '?0'
+#      Sec-Ch-Ua-Model                            : '""'
+#      Sec-Ch-Ua-Platform                         : '"Windows"'
+#      Sec-Ch-Ua-Platform-Version                 : '"10.0.0"'
+#      Sec-Ch-Ua-Wow64                            : '?0'
+#    expected:
+#      DeviceClass                                : 'Desktop'
+#      DeviceName                                 : 'Desktop'
+#      DeviceBrand                                : 'Unknown'
+#      DeviceCpu                                  : 'Intel x86_64'             #      106           | FAILED; Should be 'Intel'
+#      DeviceCpuBits                              : '64'                       #      111
+#      OperatingSystemClass                       : 'Desktop'
+#      OperatingSystemName                        : 'Windows NT'
+#      OperatingSystemVersion                     : '10'                       #       21           | FAILED; Should be '??'
+#      OperatingSystemVersionMajor                : '10'                       #        0           | FAILED; Should be '??'
+#      OperatingSystemNameVersion                 : 'Windows NT 10'            #       21           | FAILED; Should be 'Windows NT ??'
+#      OperatingSystemNameVersionMajor            : 'Windows 10'               #        0           | FAILED; Should be 'Windows NT ??'
+#      LayoutEngineClass                          : 'Browser'
+#      LayoutEngineName                           : 'Blink'                    #       13
+#      LayoutEngineVersion                        : '114.0'                    #       13           | FAILED; Should be '537.75.14'
+#      LayoutEngineVersionMajor                   : '114'                      #        0           | FAILED; Should be '537'
+#      LayoutEngineNameVersion                    : 'Blink 114.0'              #       13           | FAILED; Should be 'Blink 537.75.14'
+#      LayoutEngineNameVersionMajor               : 'Blink 114'                #       13           | FAILED; Should be 'Blink 537'
+#      AgentClass                                 : 'Browser'
+#      AgentName                                  : 'Chrome'
+#      AgentVersion                               : '114.0.5735.110'           #       56           | FAILED; Should be '114'
+#      AgentVersionMajor                          : '114'
+#      AgentNameVersion                           : 'Chrome 114.0.5735.110'    #       56           | FAILED; Should be 'Chrome 114'
+#      AgentNameVersionMajor                      : 'Chrome 114'
+#      RemarkablePattern                          : 'Not a version'
+#      UAClientHintArchitecture                   : 'x86'
+#      UAClientHintBitness                        : '64'
+#      UAClientHintBrands_0_Brand                 : 'Chromium'
+#      UAClientHintBrands_0_Version               : '114'
+#      UAClientHintBrands_1_Brand                 : 'Google Chrome'
+#      UAClientHintBrands_1_Version               : '114'
+#      UAClientHintFullVersion                    : '114.0.5735.110'
+#      UAClientHintFullVersionList_0_Brand        : 'Chromium'
+#      UAClientHintFullVersionList_0_Version      : '114.0.5735.110'
+#      UAClientHintFullVersionList_1_Brand        : 'Google Chrome'
+#      UAClientHintFullVersionList_1_Version      : '114.0.5735.110'
+#      UAClientHintMobile                         : 'false'
+#      UAClientHintPlatform                       : 'Windows'
+#      UAClientHintPlatformVersion                : '10.0.0'
+#      UAClientHintWow64                          : 'false'
+
+
+# FIXME: Manipulated UserAgent ... but not the other headers
+#- test:
+#    input:
+#      User-Agent                                 : 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'
+#      Sec-Ch-Ua                                  : '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"'
+#      Sec-Ch-Ua-Arch                             : '"x86"'
+#      Sec-Ch-Ua-Bitness                          : '"64"'
+#      Sec-Ch-Ua-Full-Version                     : '"112.0.5615.49"'
+#      Sec-Ch-Ua-Full-Version-List                : '"Chromium";v="112.0.5615.49", "Google Chrome";v="112.0.5615.49", "Not:A-Brand";v="99.0.0.0"'
+#      Sec-Ch-Ua-Mobile                           : '?0'
+#      Sec-Ch-Ua-Model                            : '""'
+#      Sec-Ch-Ua-Platform                         : '"Linux"'
+#      Sec-Ch-Ua-Platform-Version                 : '"5.4.119"'
+#      Sec-Ch-Ua-Wow64                            : '?0'
+#    expected:
+#      DeviceClass                                : 'Desktop'
+#      DeviceName                                 : 'Desktop'
+#      DeviceBrand                                : 'Unknown'
+#      DeviceCpu                                  : 'Intel x86_64'
+#      DeviceCpuBits                              : '64'
+#      OperatingSystemClass                       : 'Desktop'
+#      OperatingSystemName                        : 'Linux'
+#      OperatingSystemVersion                     : '5.4.119'
+#      OperatingSystemVersionMajor                : '5'
+#      OperatingSystemNameVersion                 : 'Linux 5.4.119'
+#      OperatingSystemNameVersionMajor            : 'Linux 5'
+#      LayoutEngineClass                          : 'Browser'
+#      LayoutEngineName                           : 'Blink'
+#      LayoutEngineVersion                        : '112.0'
+#      LayoutEngineVersionMajor                   : '112'
+#      LayoutEngineNameVersion                    : 'Blink 112.0'
+#      LayoutEngineNameVersionMajor               : 'Blink 112'
+#      AgentClass                                 : 'Browser'
+#      AgentName                                  : 'Chrome'
+#      AgentVersion                               : '112.0.5615.49'
+#      AgentVersionMajor                          : '112'
+#      AgentNameVersion                           : 'Chrome 112.0.5615.49'
+#      AgentNameVersionMajor                      : 'Chrome 112'
+#      UAClientHintArchitecture                   : 'x86'
+#      UAClientHintBitness                        : '64'
+#      UAClientHintBrands_0_Brand                 : 'Chromium'
+#      UAClientHintBrands_0_Version               : '112'
+#      UAClientHintBrands_1_Brand                 : 'Google Chrome'
+#      UAClientHintBrands_1_Version               : '112'
+#      UAClientHintFullVersion                    : '112.0.5615.49'
+#      UAClientHintFullVersionList_0_Brand        : 'Chromium'
+#      UAClientHintFullVersionList_0_Version      : '112.0.5615.49'
+#      UAClientHintFullVersionList_1_Brand        : 'Google Chrome'
+#      UAClientHintFullVersionList_1_Version      : '112.0.5615.49'
+#      UAClientHintMobile                         : 'false'
+#      UAClientHintPlatform                       : 'Linux'
+#      UAClientHintPlatformVersion                : '5.4.119'
+#      UAClientHintWow64                          : 'false'
+
+
+# FIXME:  Kwai ?  Yoda ? ...
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Kwai/10.6.10.7375 ISLP/0 StatusHT/47 ISDM/1 TitleHT/44 NetType/WIFI ICFO/0 locale/zh-Hans CT/0 Yoda/2.10.9 ISLB/1 AZPREFIX/yz BHT/102 WebViewType/WK'
+      Sec-Ch-Ua                                  : '""'
+      Sec-Ch-Ua-Arch                             : '""'
+      Sec-Ch-Ua-Bitness                          : '"64"'
+      Sec-Ch-Ua-Full-Version                     : '""'
+      Sec-Ch-Ua-Full-Version-List                : '"Chromium";v="112.0.5615.137", "Google Chrome";v="112.0.5615.137", "Not:A-Brand";v="99.0.0.0"'
+      Sec-Ch-Ua-Mobile                           : '?1'
+      Sec-Ch-Ua-Model                            : '""'
+      Sec-Ch-Ua-Platform                         : '""'
+      Sec-Ch-Ua-Platform-Version                 : '""'
+      Sec-Ch-Ua-Wow64                            : '?0'
+    expected:
+      DeviceClass                                : 'Phone'
+      DeviceName                                 : 'Apple iPhone'
+      DeviceBrand                                : 'Apple'
+      DeviceCpuBits                              : '64'
+      DeviceFirmwareVersion                      : '15E148'
+      DeviceVersion                              : 'iPhone'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'iOS'
+      OperatingSystemVersion                     : '15.5'
+      OperatingSystemVersionMajor                : '15'
+      OperatingSystemNameVersion                 : 'iOS 15.5'
+      OperatingSystemNameVersionMajor            : 'iOS 15'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '112.0'
+      LayoutEngineVersionMajor                   : '112'
+      LayoutEngineNameVersion                    : 'Blink 112.0'
+      LayoutEngineNameVersionMajor               : 'Blink 112'
+      AgentClass                                 : 'Mobile App'
+      AgentName                                  : 'Chrome'
+      AgentVersion                               : '112.0.5615.137'
+      AgentVersionMajor                          : '112'
+      AgentNameVersion                           : 'Chrome 112.0.5615.137'
+      AgentNameVersionMajor                      : 'Chrome 112'
+      NetworkType                                : 'Wifi'
+      UAClientHintBitness                        : '64'
+      UAClientHintFullVersionList_0_Brand        : 'Chromium'
+      UAClientHintFullVersionList_0_Version      : '112.0.5615.137'
+      UAClientHintFullVersionList_1_Brand        : 'Google Chrome'
+      UAClientHintFullVersionList_1_Version      : '112.0.5615.137'
+      UAClientHintMobile                         : 'true'
+      UAClientHintWow64                          : 'false'
+
+
+# Not all normal headers were provided
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; U; Linux x86_64; fr-FR) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.514.0 Safari/534.7'
+      Sec-Ch-Ua                            : 'Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111' # Missing quotes --> Unparsable value
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.7'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.7'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '7.0.514.0'         # Unable to extra version 111 because of parse problem
+      AgentVersionMajor                    : '7'                 # Unable to extra version 111 because of parse problem
+      AgentNameVersion                     : 'Chrome 7.0.514.0'  # Unable to extra version 111 because of parse problem
+      AgentNameVersionMajor                : 'Chrome 7'          # Unable to extra version 111 because of parse problem
+      AgentLanguage                        : 'French (France)'
+      AgentLanguageCode                    : 'fr-fr'
+      AgentSecurity                        : 'Strong security'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Ubuntu/10.10 Chromium/9.0.600.0 Chrome/9.0.600.0 Safari/534.14'
+      Sec-Ch-Ua                            : 'Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111' # Missing quotes --> Unparsable value
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '10.10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Ubuntu 10.10'
+      OperatingSystemNameVersionMajor      : 'Ubuntu 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '534.14'
+      LayoutEngineVersionMajor             : '534'
+      LayoutEngineNameVersion              : 'AppleWebKit 534.14'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 534'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chromium'
+      AgentVersion                         : '9.0.600.0'              # Unable to extra version 111 because of parse problem
+      AgentVersionMajor                    : '9'                      # Unable to extra version 111 because of parse problem
+      AgentNameVersion                     : 'Chromium 9.0.600.0'     # Unable to extra version 111 because of parse problem
+      AgentNameVersionMajor                : 'Chromium 9'             # Unable to extra version 111 because of parse problem
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'

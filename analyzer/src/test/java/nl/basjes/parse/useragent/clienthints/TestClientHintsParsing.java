@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.clienthints;
 
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
+import nl.basjes.parse.useragent.clienthints.parsers.CHParser;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
@@ -34,6 +35,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -50,6 +52,29 @@ class TestClientHintsParsing {
 
     private static final Logger LOG = LogManager.getFormatterLogger(TestClientHintsParsing.class);
     private static final Random RANDOM = new Random(42); // Repeatable random !
+
+    private static final CHParser DUMMY_PARSER = new CHParser() {
+        @Nonnull
+        @Override
+        public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+            return new ClientHints();
+        }
+
+        @Nonnull
+        @Override
+        public String inputField() {
+            return "Dummy";
+        }
+    };
+
+    // ------------------------------------------
+
+    @Test
+    void testSfString() {
+        assertEquals("\\\\\\\"Windows\\\\\\\"", DUMMY_PARSER.parseSfString("\"\\\\\\\"Windows\\\\\\\"\""));
+        assertEquals("Windows", DUMMY_PARSER.parseSfString("\"Windows\""));
+        assertNull(DUMMY_PARSER.parseSfString("Windows")); // Missing quotes is INVALID so we refuse to parse it.
+    }
 
     // ------------------------------------------
 

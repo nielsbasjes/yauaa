@@ -264,6 +264,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             String majorVersion = VersionSplitter.getInstance().getSingleSplit(platformVersion, 1);
             switch (platform) {
                 case "macOS":
+                case "Mac OS X":
                     platform = "Mac OS";
                     overrideValue(userAgent.get(OPERATING_SYSTEM_NAME),               platform);
                     overrideValue(userAgent.get(OPERATING_SYSTEM_VERSION),            platformVersion);
