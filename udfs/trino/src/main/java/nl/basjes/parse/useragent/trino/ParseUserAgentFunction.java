@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.trino;
 
 import io.airlift.slice.Slice;
 import io.trino.spi.block.Block;
-import io.trino.spi.block.BlockBuilder;
+import io.trino.spi.block.MapBlockBuilder;
 import io.trino.spi.function.Description;
 import io.trino.spi.function.ScalarFunction;
 import io.trino.spi.function.SqlType;
@@ -69,13 +69,13 @@ public final class ParseUserAgentFunction {
 
         MapType mapType = new MapType(VARCHAR, VARCHAR, new TypeOperators());
 
-        BlockBuilder blockBuilder = mapType.createBlockBuilder(null, resultMap.size());
-        BlockBuilder singleMapBlockBuilder = blockBuilder.beginBlockEntry();
-        for (Map.Entry<String, String> entry : resultMap.entrySet()) {
-            VARCHAR.writeString(singleMapBlockBuilder, entry.getKey());
-            VARCHAR.writeString(singleMapBlockBuilder, entry.getValue());
-        }
-        blockBuilder.closeEntry();
+        MapBlockBuilder blockBuilder = mapType.createBlockBuilder(null, resultMap.size());
+        blockBuilder.buildEntry((keyBuilder, valueBuilder) ->
+            resultMap.forEach((key, value) -> {
+                VARCHAR.writeString(keyBuilder, key);
+                VARCHAR.writeString(valueBuilder, value);
+            })
+        );
 
         return mapType.getObject(blockBuilder, blockBuilder.getPositionCount() - 1);
     }
