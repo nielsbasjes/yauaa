@@ -3020,3 +3020,38 @@ config:
       AgentNameVersionMajor                : 'Netfront 4'
 
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; Stratus_C5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36'
+      Sec-Ch-Ua                            : '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"'
+      Sec-Ch-Ua-Mobile                     : '?1'
+      Sec-Ch-Ua-Platform                   : '"Android"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cloud Mobile Stratus C5'
+      DeviceBrand                          : 'Cloud Mobile'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '109'
+      LayoutEngineVersionMajor             : '109'
+      LayoutEngineNameVersion              : 'Blink 109'
+      LayoutEngineNameVersionMajor         : 'Blink 109'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '109'
+      AgentVersionMajor                    : '109'
+      AgentNameVersion                     : 'Chrome 109'
+      AgentNameVersionMajor                : 'Chrome 109'
+      UAClientHintBrands_0_Brand           : 'Google Chrome'
+      UAClientHintBrands_0_Version         : '109'
+      UAClientHintBrands_1_Brand           : 'Chromium'
+      UAClientHintBrands_1_Version         : '109'
+      UAClientHintMobile                   : 'true'
+      UAClientHintPlatform                 : 'Android'
+

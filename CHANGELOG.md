@@ -11,6 +11,7 @@ NEXT RELEASE
   - Detect Amazon Echo Show better (a "Smart Display")
   - Detect Bitwarden Mobile app
   - Detect more Federated Social Servers and Robots
+  - Detect brand: Cloud Mobile Stratus C5
 
 v7.20.0
 ===
