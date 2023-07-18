@@ -6,6 +6,8 @@ NEXT RELEASE
 - New/improved detections:
   - Report Samsung DEX (Desktop Experience) as Tablet
   - New DeviceClass: "Smart Display"
+  - Detect more Robots: Feerder.co, Buck, Rome, python-requests
+  - Initial handling of Robots and Hackers using client hints.
 
 v7.20.0
 ===
