@@ -188,10 +188,6 @@ else
 fi
 
 # ----------------------------------------------------------------------------------------------------
-## Update the top of the CHANGELOG.md and website frontpage
-vim documentation/content/_index.md
-git commit -m"docs: Updated website after release" documentation/content/_index.md
-
 warn "Now go and manually push it all"
 
 # ----------------------------------------------------------------------------------------------------
