@@ -26,11 +26,11 @@ import nl.basjes.parse.core.exceptions.DissectionFailure;
 import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.core.exceptions.MissingDissectorsException;
 import nl.basjes.parse.httpdlog.HttpdLoglineParser;
-import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,7 +42,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.Locale.ROOT;
 
 public final class Main {
 
@@ -239,11 +242,59 @@ public final class Main {
 
         UserAgentAnalyzer analyzer = UserAgentAnalyzer.newBuilder().immediateInitialization().withoutCache().build();
 
-        records
+        // Some names (mostly Fediverse tools) cause an explosion in the number of useragents.
+        Set<String> ignores = Set
+            .of(
+                "http.rb",
+                "Akkoma",
+                "Calckey",
+                "Construct/",
+                "Dendrite",
+                "Friendica",
+                "Misskey",
+                "Pleroma"
+            )
             .stream()
-            .map(logEntry -> analyzer.parse(logEntry.asHeadersMap()))
-            .map(UserAgent::toYamlTestCase)
-            .forEach(System.out::println);
+            .map(String::toLowerCase)
+            .collect(Collectors.toSet());
+
+        int fileNumber = 1;
+        int recordCount = 0;
+        StringBuilder content = new StringBuilder(1_000_000);
+        for (LogRecord logRecord: records) {
+            for (String value : logRecord.asHeadersMap().values()) {
+                String lowerValue = value.toLowerCase(ROOT);
+                if (ignores.stream().anyMatch(h -> h.contains(lowerValue))) {
+                    break;
+                }
+            }
+
+            if (logRecord.asHeadersMap().get("Sec-Ch-Ua") == null) {
+                continue; // Only with multiple headers
+            }
+
+            content.append(analyzer.parse(logRecord.asHeadersMap()).toYamlTestCase());
+            recordCount++;
+            System.out.println(recordCount);
+            if (recordCount % 1000 == 0) {
+                writeToFile(String.format("New_Agents_%04d.yaml", fileNumber), content.toString());
+                fileNumber++;
+                content.delete(0, content.length());
+            }
+        }
+
+        if (!content.isEmpty()) {
+            writeToFile(String.format("New_Agents_%04d.yaml", fileNumber), content.toString());
+        }
+    }
+
+
+    private static void writeToFile(String fileName, String content) throws IOException {
+        try (FileWriter codeFileWriter = new FileWriter(fileName)) {
+            codeFileWriter.write(content);
+        } catch (IOException e) {
+            throw new IOException("Fatal error writing code file (" + fileName + "):" + e.getMessage());
+        }
     }
 
 }

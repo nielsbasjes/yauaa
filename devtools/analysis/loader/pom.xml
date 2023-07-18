@@ -22,14 +22,14 @@
   <parent>
     <groupId>nl.basjes.parse.useragent</groupId>
     <artifactId>yauaa-parent</artifactId>
-    <version>7.9.1-SNAPSHOT</version>
+    <version>7.20.1-SNAPSHOT</version>
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
   <artifactId>yauaa-devtools-es-loader</artifactId>
   <packaging>jar</packaging>
 
-  <name>Yauaa : Code quality tools : ES Loader</name>
+  <name>Yauaa : Development Tools: Load into ElasticSearch</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
   <properties>
@@ -102,8 +102,7 @@
     <dependency>
       <groupId>org.apache.flink</groupId>
       <artifactId>flink-connector-elasticsearch7</artifactId>
-      <version>1.16.1</version>
-<!--      <version>${flink.version}</version>-->
+      <version>${flink-connector-elasticsearch7.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.elasticsearch</groupId>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Yet Another UserAgent Analyzer
   ~ Copyright (C) 2013-2023 Niels Basjes
@@ -22,14 +23,14 @@
   <parent>
     <groupId>nl.basjes.parse.useragent</groupId>
     <artifactId>yauaa-parent</artifactId>
-    <version>7.10.1-SNAPSHOT</version>
+    <version>7.20.1-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <artifactId>yauaa-log2test</artifactId>
   <packaging>jar</packaging>
 
-  <name>Yauaa : Generate tests from Apache AccessLogs</name>
+  <name>Yauaa : Development Tools: AccessLogs to TestCase</name>
   <description>A parsing and analyzing library to get information from a useragent string.</description>
 
   <properties>
@@ -48,7 +49,7 @@
     <dependency>
       <groupId>nl.basjes.parse.httpdlog</groupId>
       <artifactId>httpdlog-parser</artifactId>
-      <version>5.8</version>
+      <version>${logparser.version}</version>
     </dependency>
 
     <dependency>
