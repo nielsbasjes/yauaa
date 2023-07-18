@@ -45,7 +45,7 @@ do
         grep -F "| Test | ${BenchMarkName}  " "${FileName}" | \
         cut -d'|' -f5 | \
         sed 's/ *//g' | \
-        xargs -n1 -iXXX echo -n ",XXX"
+        xargs -iXXX echo -n ",XXX"
     done
     echo "],"
 done

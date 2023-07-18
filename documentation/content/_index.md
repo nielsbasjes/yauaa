@@ -31,10 +31,7 @@ These are only the highlights, the full changelog can be found [here](https://gi
 
 ---
 ## Donations
-If this project has business value for you then don't hesitate to support me with a small donation.
-
-[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Sponsor%20me-via%20Github-red.svg)](https://github.com/sponsors/nielsbasjes)
-[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Donations-via%20Paypal-red.svg)](https://www.paypal.me/nielsbasjes)
+If this project has business value for you then don't hesitate to support me with a small donation wither via [Github Sponsors](https://github.com/sponsors/nielsbasjes) or [Paypal](https://www.paypal.me/nielsbasjes).
 
 ---
 ## License
