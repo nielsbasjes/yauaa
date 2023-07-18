@@ -1485,3 +1485,57 @@ config:
       AgentNameVersion                     : 'WeChat 8.0.35.2360'
       AgentNameVersionMajor                : 'WeChat 8'
       NetworkType                          : '5G'
+
+
+- test:
+    input:
+      User-Agent                           : 'Language/zh ColorScheme/Light DistType/publish wxwork/4.0.20 (MicroMessenger/6.2) WeChat/2.0.4'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '2.0.4'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'WeChat 2.0.4'
+      AgentNameVersionMajor                : 'WeChat 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'Language/zh ColorScheme/Light DistType/publish wxwork/4.1.3 (MicroMessenger/6.2) WeChat/2.0.4 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '2.0.4'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'WeChat 2.0.4'
+      AgentNameVersionMajor                : 'WeChat 2'

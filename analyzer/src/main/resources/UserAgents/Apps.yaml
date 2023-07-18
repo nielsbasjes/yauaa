@@ -83,10 +83,13 @@ config:
 
       'Bitwarden_Mobile'                      : 'Mobile App|Bitwarden Mobile'
 
+      'WeChat'                                : 'Mobile App|WeChat'
+
 - matcher:
     variable:
     - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
     extract:
+    - 'DeviceClass                         :        1 :"Mobile"'
     - 'AgentClass                          :       60 :@AgentTag[[1]]'
     - 'AgentName                           :       60 :@AgentTag[[2]]'
     - 'AgentVersion                        :       60 :@AgentTag^.version'

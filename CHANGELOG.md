@@ -12,6 +12,7 @@ NEXT RELEASE
   - Detect Bitwarden Mobile app
   - Detect more Federated Social Servers and Robots
   - Detect brand: Cloud Mobile Stratus C5
+  - Handle some really bad WeChat useragents.
 
 v7.20.0
 ===

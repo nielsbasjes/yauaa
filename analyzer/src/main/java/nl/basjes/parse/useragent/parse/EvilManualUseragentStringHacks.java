@@ -91,6 +91,9 @@ public final class EvilManualUseragentStringHacks {
         // The 'fix' is to force an extra comment block in there.
         result = TENCENT_NETTYPE_FIX.matcher(result).replaceAll("() $1/$2()");
         result = TENCENT_LANGUAGE_FIX.matcher(result).replaceAll("() $1/$2()");
+        if (result.startsWith("()")) {
+            result = result.substring(2).trim();
+        }
 
         result = replaceString(result, "SSL/TLS", "SSL TLS");
 
