@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Analyzer:
+  - Handle the < and > brackets better.
 - New/improved detections:
   - Report Samsung DEX (Desktop Experience) as Tablet
   - New DeviceClass: "Smart Display"

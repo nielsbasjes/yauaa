@@ -57,6 +57,8 @@ QUOTE2:       '"'       -> skip;
 QUOTE3:       '\\\\'    -> skip;
 QUOTE4:       '\''      -> skip;
 BAD_ESC_TAB:  '\\t'     -> skip;
+LESSTHAN:     '<'       -> skip;
+GREATERTHAN:  '>'       -> skip;
 
 MIME_TYPE_1:  'application/json'   -> skip;
 MIME_TYPE_2:  '*/*'                -> skip;
@@ -254,7 +256,7 @@ VERSION
     ;
 
 fragment WORDLetter
-    : (~[@0-9+;,{}()\\/ \t:=[\]"-])            // Normal letters
+    : (~[<>@0-9+;,{}()\\/ \t:=[\]"-])          // Normal letters
     | '\\x'[0-9a-f][0-9a-f]                    // Hex encoded letters \xab\x12
     | SPECIALVERSIONWORDS
     ;
