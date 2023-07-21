@@ -56,7 +56,7 @@ public final class Main {
         }
     }
 
-    public static void main(String... args) throws IOException, MissingDissectorsException, InvalidDissectorException, DissectionFailure {
+    public static void main(String... args) throws IOException, MissingDissectorsException, InvalidDissectorException {
         switch (args.length) {
             case 0 -> {
                 LOG.error("Usage: Provide `format` `filename`");
