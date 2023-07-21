@@ -17,9 +17,14 @@
 
 package nl.basjes.parse.useragent;
 
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+import nl.basjes.parse.core.exceptions.DissectionFailure;
+import nl.basjes.parse.httpdlog.HttpdLoglineParser;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.connector.elasticsearch.sink.Elasticsearch7SinkBuilder;
 import org.apache.flink.connector.file.src.FileSource;
 import org.apache.flink.connector.file.src.reader.TextLineInputFormat;
@@ -31,12 +36,14 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.DocWriteRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.Requests;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.xcontent.XContentType;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.time.ZoneId;
+import java.lang.reflect.Field;
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -44,7 +51,9 @@ import java.time.format.SignStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import static java.time.ZoneOffset.UTC;
 import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
@@ -60,32 +69,39 @@ public final class LoadIntoES {
         // Dummy
     }
 
+    @AllArgsConstructor
+    @ToString
     public static final class UARecord {
-        int year;
-        int month;
-        int day;
-        long count;
-        String userAgent;
+        LogRecord logRecord;
         Map<String, String> parseResults;
-
-        @Override
-        public String toString() {
-            return "UARecord{" +
-                "year=" + year +
-                ", month=" + month +
-                ", day=" + day +
-                ", count=" + count +
-                ", userAgent='" + userAgent + '\'' +
-                '}';
-        }
     }
 
-    @SuppressWarnings("checkstyle:Indentation")
+    @SuppressWarnings({"checkstyle:Indentation", "deprecation"})
     public static void main(String[] args) throws Exception {
+
+        Runtime.Version version = Runtime.version();
+        if (version.feature() != 11) {
+            LOG.fatal("The runtime Java MUST be version 11. Now using version {}", version);
+            return;
+        }
+
+        // Because of licensing issues with ElasticSearch; Flink only supports up to 7.10.2 (the last with the Apache license)
+        // This is technically ALMOST compatible API compatible with the latest 7.x client but NOT with the 8x server.
+        // The "almost" is in the fact that they have moved the "TimeValue" class to a different package :(
+        // To make the latest (licensing INcompatible) 7.x work with an 8.x server you need to set this environment variable:
+        updateEnv(RestHighLevelClient.API_VERSIONING_ENV_VARIABLE, "true");
+
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         env.setMaxParallelism(5);
         env.setParallelism(5);
+
+        String logFormat1 = "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V";
+        HttpdLoglineParser<LogRecord> logLineParser1 = new HttpdLoglineParser<>(LogRecord.class, logFormat1);
+        String logFormat2 = "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" %V";
+        HttpdLoglineParser<LogRecord> logLineParser2 = new HttpdLoglineParser<>(LogRecord.class, logFormat2);
+
+        ParseUserAgent parseUserAgent = new ParseUserAgent();
 
         File dir = new File(".");
         FileFilter fileFilter = new WildcardFileFilter("*.txt");
@@ -113,20 +129,38 @@ public final class LoadIntoES {
 
             .shuffle()
 
-            .map((MapFunction<String, UARecord>) value -> {
-                String[] split = value.split("\t", 5);
-                UARecord uaRecord = new UARecord();
-                uaRecord.year      = Integer.parseInt(split[0]);
-                uaRecord.month     = Integer.parseInt(split[1]);
-                uaRecord.day       = Integer.parseInt(split[2]);
-                uaRecord.count     = Long.parseLong(split[3]);
-                uaRecord.userAgent = split[4];
-                return uaRecord;
-            })
+//            .map((MapFunction<String, UARecord>) value -> {
+//                String[] split = value.split("\t", 5);
+//                UARecord uaRecord = new UARecord();
+//                uaRecord.year      = Integer.parseInt(split[0]);
+//                uaRecord.month     = Integer.parseInt(split[1]);
+//                uaRecord.day       = Integer.parseInt(split[2]);
+//                uaRecord.count     = Long.parseLong(split[3]);
+//                uaRecord.userAgent = split[4];
+//                return uaRecord;
+//            })
 
-            .map(
-                new ParseUserAgent()
-            )
+            .map(logRecord -> {
+                // The OLD format can also parse the new lines resulting in bad fields.
+                // So the auto switching of the logparser does not work as intended
+                // so this creative construct is needed.
+                try {
+                    return logLineParser1.parse(logRecord);
+                } catch (DissectionFailure df) {
+                    // Continue
+                }
+                try {
+                    return logLineParser2.parse(logRecord);
+                } catch (DissectionFailure df) {
+                    // Continue
+                }
+                return null;
+            })
+            .filter(Objects::nonNull) // Just discard all the parse problems
+
+            // Optimize usage of the Yauaa cache
+            .keyBy((KeySelector<LogRecord, Integer>) LogRecord::getUseragentCacheKey)
+            .map(parseUserAgent)
 
             .sinkTo(
                 new Elasticsearch7SinkBuilder<UARecord>()
@@ -135,7 +169,6 @@ public final class LoadIntoES {
                     .setEmitter(
                         (element, context, indexer) ->
                             indexer.add(createIndexRequest(element)))
-//                    .useApiCompatibilityMode() // Make it compatible with ES 8
                     .build()
             );
 
@@ -143,7 +176,7 @@ public final class LoadIntoES {
         env.execute("Feed into ES");
     }
 
-    public static final class ParseUserAgent implements MapFunction<UARecord, UARecord> {
+    public static final class ParseUserAgent implements MapFunction<LogRecord, UARecord> {
         UserAgentAnalyzer analyzer;
 
         ParseUserAgent() {
@@ -158,10 +191,10 @@ public final class LoadIntoES {
         }
 
         @Override
-        public UARecord map(UARecord value) {
-            UserAgent userAgent = analyzer.parse(value.userAgent);
-            value.parseResults = userAgent.toMap(userAgent.getAvailableFieldNamesSorted());
-            return value;
+        public UARecord map(LogRecord logRecord) {
+            UserAgent userAgent = analyzer.parse(logRecord.asHeadersMap());
+            Map<String, String> parseResults = userAgent.toMap(userAgent.getAvailableFieldNamesSorted());
+            return new UARecord(logRecord, parseResults);
         }
     }
 
@@ -175,12 +208,14 @@ public final class LoadIntoES {
                 .toFormatter();
 
     private static IndexRequest createIndexRequest(UARecord element) {
-        ZonedDateTime elementTimestamp = ZonedDateTime.of(element.year, element.month, element.day, 12, 0, 0, 0, ZoneId.of("UTC"));
+        Instant eventTimestamp = Instant.ofEpochMilli(Long.parseLong(element.logRecord.getEpoch()));
+        ZonedDateTime elementTimestamp = ZonedDateTime.ofInstant(eventTimestamp, UTC);
+
         String jsonString = new JSONObject()
-            .put("@timestamp", ISO_OFFSET_DATE_TIME.format(elementTimestamp))
-            .put("count", element.count)
-            .put("ua", element.userAgent)
-            .put("parsed", element.parseResults)
+            .put("@timestamp",  ISO_OFFSET_DATE_TIME.format(elementTimestamp))
+            .put("count",       1)
+            .put("ua",          element.logRecord.asHeadersMap().toString())
+            .put("parsed",      element.parseResults)
             .toString();
 
         return
@@ -188,6 +223,15 @@ public final class LoadIntoES {
             .index(INDEX_DATE.format(elementTimestamp))
             .opType(DocWriteRequest.OpType.CREATE)
             .source(jsonString, XContentType.JSON);
+    }
+
+    // https://stackoverflow.com/a/496849
+    @SuppressWarnings({ "unchecked" })
+    public static void updateEnv(String name, String val) throws ReflectiveOperationException {
+        Map<String, String> env = System.getenv();
+        Field field = env.getClass().getDeclaredField("m");
+        field.setAccessible(true);
+        ((Map<String, String>) field.get(env)).put(name, val);
     }
 
 }

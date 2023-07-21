@@ -26,11 +26,11 @@ services:
       dockerfile: Dockerfile
       args:
         ELK_VERSION:   ${ELK_VERSION}
-        YAUAA_VERSION: ${YAUAA_VERSION}
     container_name: elasticsearch
     environment:
       - xpack.security.enabled=false
       - discovery.type=single-node
+      - cluster.name=Yauaa-Testing-ES-Cluster
     ulimits:
       memlock:
         soft: -1
@@ -54,6 +54,7 @@ services:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:${ELK_VERSION}
     environment:
+      - TELEMETRY_ENABLED=false
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     ports:
       - 5601:5601
