@@ -20,18 +20,19 @@ config:
 - lookup:
     name: 'FederatedSocialServers'
     map:
-      # Tag : 'NetworkName | Server Software Name'
-      'Dendrite' : 'Mastodon|Dendrite'
-      'Synapse'  : 'Mastodon|Synapse'
-      'Conduit'  : 'Mastodon|Conduit'
-      'Construct': 'Mastodon|Construct'
-      'Ligase'   : 'Mastodon|Ligase'
-      'Mastodon' : 'Mastodon|Mastodon'
-      'Friendica': 'Friendica|Friendica'
-      'Pleroma'  : 'Mastodon|Pleroma' # Actually many federated social networks
-      'Misskey'  : 'Misskey|Misskey'  # https://misskey-hub.net/en/      https://github.com/misskey-dev/misskey
-      'Calckey'  : 'Calckey|Calckey'  # https://calckey.org/             https://codeberg.org/calckey/calckey     https://calckey.social/
-      'Akkoma'   : 'Akkoma|Akkoma'    # https://akkoma.social/
+      # Tag           : 'NetworkName | Server Software Name'
+      'Dendrite'      : 'Mastodon|Dendrite'
+      'Synapse'       : 'Mastodon|Synapse'
+      'Conduit'       : 'Mastodon|Conduit'
+      'Construct'     : 'Mastodon|Construct'
+      'Ligase'        : 'Mastodon|Ligase'
+      'Mastodon'      : 'Mastodon|Mastodon'
+      'Friendica'     : 'Friendica|Friendica'
+      'Pleroma'       : 'Mastodon|Pleroma'    # Actually many federated social networks
+      'Misskey'       : 'Misskey|Misskey'     # https://misskey-hub.net/en/      https://github.com/misskey-dev/misskey
+      'Calckey'       : 'Calckey|Calckey'     # https://calckey.org/             https://codeberg.org/calckey/calckey     https://calckey.social/
+      'Akkoma'        : 'Akkoma|Akkoma'       # https://akkoma.social/
+      'Funkwhale'     : 'Funkwhale|Funkwhale' # https://funkwhale.audio/ A social platform to enjoy and share music
 
 - lookup:
     name: 'FederatedSocialClients'
@@ -46,16 +47,16 @@ config:
     - 'ServerTag  : agent.product.name[1]?FederatedSocialServers'
     - 'ServerInfo : LookUp[FederatedSocialServers;@ServerTag]'
     extract:
-    - 'DeviceClass            : 1000 : "Cloud"'
-    - 'DeviceName             : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
-    - 'DeviceBrand            : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
-    - 'LayoutEngineClass      : 1000 : "<<<null>>>"'
-    - 'LayoutEngineName       : 1000 : "<<<null>>>"'
-    - 'LayoutEngineVersion    : 1000 : "<<<null>>>"'
-    - 'AgentClass             : 1000 : "Server"'
-    - 'AgentName              : 1000 : @ServerInfo[[2]]'
-    - 'AgentVersion           : 1000 : @ServerTag^.version'
-    - 'FederatedSocialNetwork : 1000 : @ServerInfo[[1]]'
+    - 'DeviceClass            : 401000 : "Cloud"'
+    - 'DeviceName             : 401000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'DeviceBrand            : 401000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'LayoutEngineClass      : 401000 : "<<<null>>>"'
+    - 'LayoutEngineName       : 401000 : "<<<null>>>"'
+    - 'LayoutEngineVersion    : 401000 : "<<<null>>>"'
+    - 'AgentClass             : 401000 : "Server"'
+    - 'AgentName              : 401000 : @ServerInfo[[2]]'
+    - 'AgentVersion           : 401000 : @ServerTag^.version'
+    - 'FederatedSocialNetwork : 401000 : @ServerInfo[[1]]'
 
 
 - matcher:
@@ -63,16 +64,16 @@ config:
     - 'ServerTag  : agent.(1-2)product.comments.entry.(1-2)product.name[1]?FederatedSocialServers'
     - 'ServerInfo : LookUp[FederatedSocialServers;@ServerTag]'
     extract:
-    - 'DeviceClass            : 1000 : "Cloud"'
-    - 'DeviceName             : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
-    - 'DeviceBrand            : 1000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
-    - 'LayoutEngineClass      : 1000 : "<<<null>>>"'
-    - 'LayoutEngineName       : 1000 : "<<<null>>>"'
-    - 'LayoutEngineVersion    : 1000 : "<<<null>>>"'
-    - 'AgentClass             : 1000 : "Server"'
-    - 'AgentName              : 1000 : @ServerInfo[[2]]'
-    - 'AgentVersion           : 1000 : @ServerTag^.version'
-    - 'FederatedSocialNetwork : 1000 : @ServerInfo[[1]]'
+    - 'DeviceClass            : 401000 : "Cloud"'
+    - 'DeviceName             : 401000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'DeviceBrand            : 401000 : "Unknown"'  # Hard value --> Do not try to fix it afterwards
+    - 'LayoutEngineClass      : 401000 : "<<<null>>>"'
+    - 'LayoutEngineName       : 401000 : "<<<null>>>"'
+    - 'LayoutEngineVersion    : 401000 : "<<<null>>>"'
+    - 'AgentClass             : 401000 : "Server"'
+    - 'AgentName              : 401000 : @ServerInfo[[2]]'
+    - 'AgentVersion           : 401000 : @ServerTag^.version'
+    - 'FederatedSocialNetwork : 401000 : @ServerInfo[[1]]'
 
 
 - matcher:
@@ -818,6 +819,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Pleroma 2.4.0-168-g4889a7b1-production'
       AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'example@example.nl'
       AgentInformationUrl                  : 'https://yauaa.basjes.nl'
       FederatedSocialNetwork               : 'Mastodon'
 
@@ -847,6 +849,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Pleroma 2.4.3'
       AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'example@example.nl'
       AgentInformationUrl                  : 'https://yauaa.basjes.nl'
       FederatedSocialNetwork               : 'Mastodon'
 
@@ -876,6 +879,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Pleroma 2.4.51-468-gd7c53da7-develop'
       AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'example@example.nl'
       AgentInformationUrl                  : 'https://yauaa.basjes.nl'
       FederatedSocialNetwork               : 'Mastodon'
 
@@ -905,6 +909,7 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Pleroma 2.4.52-1299-g78dd3bdb.develop+soapbox'
       AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'example@example.nl'
       AgentInformationUrl                  : 'https://yauaa.basjes.nl'
       FederatedSocialNetwork               : 'Mastodon'
 
@@ -1337,6 +1342,511 @@ config:
       AgentNameVersionMajor                : 'Misskey 12'
       AgentInformationUrl                  : 'https://social.interordi.com'
       FederatedSocialNetwork               : 'Misskey'
+
+
+# https://funkwhale.audio/ A social platform to enjoy and share music
+- test:
+    input:
+      User-Agent                           : 'python-requests (funkwhale/1.2.10.dev0+60576701; +https://tanukitunes.com)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Funkwhale'
+      AgentVersion                         : '1.2.10.dev0+60576701'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Funkwhale 1.2.10.dev0+60576701'
+      AgentNameVersionMajor                : 'Funkwhale 1'
+      AgentInformationUrl                  : 'https://tanukitunes.com'
+      FederatedSocialNetwork               : 'Funkwhale'
+
+
+- test:
+    input:
+      User-Agent                           : 'python-requests (funkwhale/1.2.9+git.54b3817f; +https://open.audio)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Funkwhale'
+      AgentVersion                         : '1.2.9+git.54b3817f'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Funkwhale 1.2.9+git.54b3817f'
+      AgentNameVersionMajor                : 'Funkwhale 1'
+      AgentInformationUrl                  : 'https://open.audio'
+      FederatedSocialNetwork               : 'Funkwhale'
+
+
+- test:
+    input:
+      User-Agent                           : 'python-requests (funkwhale/1.2.10+git.d075c6ae; +https://funkwhale.it)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Funkwhale'
+      AgentVersion                         : '1.2.10+git.d075c6ae'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Funkwhale 1.2.10+git.d075c6ae'
+      AgentNameVersionMajor                : 'Funkwhale 1'
+      AgentInformationUrl                  : 'https://funkwhale.it'
+      FederatedSocialNetwork               : 'Funkwhale'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''The Tazmans Flax-lily'' 3.6-1256; https://friendica.genndus.de'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '3.6-1256'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Friendica 3.6-1256'
+      AgentNameVersionMajor                : 'Friendica 3'
+      AgentInformationUrl                  : 'https://friendica.genndus.de'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''The Tazmans Flax-lily'' 2019.01-1293; https://sitemaps.ladies-log.de'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2019.01-1293'
+      AgentVersionMajor                    : '2019'
+      AgentNameVersion                     : 'Friendica 2019.01-1293'
+      AgentNameVersionMajor                : 'Friendica 2019'
+      AgentInformationUrl                  : 'https://sitemaps.ladies-log.de'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''Red Hot Poker'' 2021.01-1384; https://friendica.offsite.guru'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2021.01-1384'
+      AgentVersionMajor                    : '2021'
+      AgentNameVersion                     : 'Friendica 2021.01-1384'
+      AgentNameVersionMajor                : 'Friendica 2021'
+      AgentInformationUrl                  : 'https://friendica.offsite.guru'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Friendica ''Giant Rhubarb'' 2022.10-1484; https://frendica.site.nz'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Friendica'
+      AgentVersion                         : '2022.10-1484'
+      AgentVersionMajor                    : '2022'
+      AgentNameVersion                     : 'Friendica 2022.10-1484'
+      AgentNameVersionMajor                : 'Friendica 2022'
+      AgentInformationUrl                  : 'https://frendica.site.nz'
+      FederatedSocialNetwork               : 'Friendica'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.5-2-gd8e32646; https://what.entire.website <>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.5-2-gd8e32646'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.5-2-gd8e32646'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://what.entire.website'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.53-906-gf40ccce7-develop; https://social.sfconservancy.org <support@togethr.party>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.53-906-gf40ccce7-develop'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.53-906-gf40ccce7-develop'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'support@togethr.party'
+      AgentInformationUrl                  : 'https://social.sfconservancy.org'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.53-1901-gaa926ce3.develop+soapbox; https://social.sanfranciscan.org <admin@sanfranciscan.org>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.53-1901-gaa926ce3.develop+soapbox'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.53-1901-gaa926ce3.develop+soapbox'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'admin@sanfranciscan.org'
+      AgentInformationUrl                  : 'https://social.sanfranciscan.org'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.4.4; https://social.camnet.site <>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.4.4'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.4.4'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://social.camnet.site'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.5.51-65-gf5c6e447-develop; https://vtubers.site <frosty@frostyfrog.net>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.5.51-65-gf5c6e447-develop'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.5.51-65-gf5c6e447-develop'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationEmail                : 'frosty@frostyfrog.net'
+      AgentInformationUrl                  : 'https://vtubers.site'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+- test:
+    input:
+      User-Agent                           : 'Pleroma 2.3.0-1-gb221d77a; https://pleroma.zenwillow.website <>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Pleroma'
+      AgentVersion                         : '2.3.0-1-gb221d77a'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Pleroma 2.3.0-1-gb221d77a'
+      AgentNameVersionMajor                : 'Pleroma 2'
+      AgentInformationUrl                  : 'https://pleroma.zenwillow.website'
+      FederatedSocialNetwork               : 'Mastodon'
+
+# FIXME: Matches code injection because of 'bash'
+#- test:
+#    input:
+#      User-Agent                           : 'Akkoma 3.5.0-14-gd9508474; https://social.minbash.de <social@minbash.de>'
+
+- test:
+    input:
+      User-Agent                           : 'Akkoma 3.5.0-74-g5d4c291d; https://plem.sapphic.site <op@terezi.dev>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Akkoma'
+      AgentVersion                         : '3.5.0-74-g5d4c291d'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Akkoma 3.5.0-74-g5d4c291d'
+      AgentNameVersionMajor                : 'Akkoma 3'
+      AgentInformationEmail                : 'op@terezi.dev'
+      AgentInformationUrl                  : 'https://plem.sapphic.site'
+      FederatedSocialNetwork               : 'Akkoma'
+
+
+- test:
+    input:
+      User-Agent                           : 'Akkoma 3.5.0-0-gd9508474b; https://fedi.lamer-ethos.site <taughtsonar@gmail.com>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Akkoma'
+      AgentVersion                         : '3.5.0-0-gd9508474b'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Akkoma 3.5.0-0-gd9508474b'
+      AgentNameVersionMajor                : 'Akkoma 3'
+      AgentInformationEmail                : 'taughtsonar@gmail.com'
+      AgentInformationUrl                  : 'https://fedi.lamer-ethos.site'
+      FederatedSocialNetwork               : 'Akkoma'
+
+
+- test:
+    input:
+      User-Agent                           : 'Akkoma 3.5.0; https://akko.within.website <akko@xeserv.us>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Akkoma'
+      AgentVersion                         : '3.5.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Akkoma 3.5.0'
+      AgentNameVersionMajor                : 'Akkoma 3'
+      AgentInformationEmail                : 'akko@xeserv.us'
+      AgentInformationUrl                  : 'https://akko.within.website'
+      FederatedSocialNetwork               : 'Akkoma'
+
+
+- test:
+    input:
+      User-Agent                           : 'Akkoma 3.7.1; https://turbotime.turboteam.xyz <>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Akkoma'
+      AgentVersion                         : '3.7.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Akkoma 3.7.1'
+      AgentNameVersionMajor                : 'Akkoma 3'
+      AgentInformationUrl                  : 'https://turbotime.turboteam.xyz'
+      FederatedSocialNetwork               : 'Akkoma'
+
 
 
 # ==========================================
