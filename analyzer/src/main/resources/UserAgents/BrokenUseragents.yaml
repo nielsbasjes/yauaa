@@ -121,3 +121,22 @@ config:
     - 'agent.product.name="Safari"'
     extract:
     - 'DeviceClass                         :       99 : "Mobile"'
+
+
+# Some useragents have really different way of indicating the type of device.
+- matcher:
+    variable:
+    - 'ScreenSize: agent.(1-3)product.(1-3)comments.entry[-2]="Screen Size"'
+    require:
+    - '@ScreenSize@~"phone"'
+    extract:
+    - 'DeviceClass: 100: "Phone"'
+
+- matcher:
+    variable:
+    - 'ScreenSize: agent.(1-3)product.(1-3)comments.entry[-2]="Screen Size"'
+    require:
+    - '@ScreenSize@~"tablet"'
+    extract:
+    - 'DeviceClass: 100: "Tablet"'
+

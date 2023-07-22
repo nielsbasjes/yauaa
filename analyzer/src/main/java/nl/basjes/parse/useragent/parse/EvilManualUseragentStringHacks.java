@@ -26,8 +26,6 @@ import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 public final class EvilManualUseragentStringHacks {
     private EvilManualUseragentStringHacks() {}
 
-    private static final Pattern MISSING_PRODUCT_AT_START =
-        Pattern.compile("^\\(( |;|null|compatible|windows|android|linux).*", Pattern.CASE_INSENSITIVE);
     private static final Pattern MISSING_SPACE =
         Pattern.compile("(/\\d+\\.\\d+)([A-Z][a-z][a-z][a-z]+ )");
     private static final Pattern MULTIPLE_SPACES =
@@ -139,12 +137,13 @@ public final class EvilManualUseragentStringHacks {
         result = replaceString(result, ", _TV_", " _TV_");
 
         // Repair certain cases of broken useragents (like we see for the Facebook app a lot)
-        if (MISSING_PRODUCT_AT_START.matcher(result).matches() || result.charAt(0) == '[') {
+        char firstChar = result.charAt(0);
+        if (firstChar == '(' || firstChar == '[') {
             // We simply prefix a fake product name to continue parsing.
             result = "FakeYauaaProduct/3.14 " + result;
         } else {
             // This happens occasionally
-            if (result.charAt(0) == '/') {
+            if (firstChar == '/') {
                 // We simply prefix a fake product name to continue parsing.
                 result = "FakeYauaaProduct" + result;
             }

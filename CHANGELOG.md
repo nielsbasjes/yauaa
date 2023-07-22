@@ -15,6 +15,7 @@ NEXT RELEASE
   - Detect more Federated Social Servers and Robots
   - Detect brand: Cloud Mobile Stratus C5
   - Handle some really bad WeChat useragents.
+  - Handle the Despegar App
 - Updated UDF dependencies
   - Trino 422 (it needs 421 or newer!)
 
