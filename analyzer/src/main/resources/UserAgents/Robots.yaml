@@ -11984,6 +11984,38 @@ config:
       RemarkablePattern                    : 'Windows NT 9'
 
 
+# Real variant with missing closing ')'
+- test:
+    input:
+      User-Agent                           : 'LightspeedSystemsCrawler Mozilla/5.0 (Windows; U; MSIE 9.0; Windows NT 9.0; en-US'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'LightspeedSystemsCrawler Mozilla'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'LightspeedSystemsCrawler Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'LightspeedSystemsCrawler Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'LightspeedSystemsCrawler Mozilla 5'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'LightspeedSystemsCrawler Mozilla'
+      AgentVersion                         : '5.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'LightspeedSystemsCrawler Mozilla 5.0'
+      AgentNameVersionMajor                : 'LightspeedSystemsCrawler Mozilla 5'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+      AgentSecurity                        : 'Strong security'
+      RemarkablePattern                    : 'Windows NT 9'
+
+
 - test:
     input:
       User-Agent                           : 'webprosbot/2.0 (+mailto:abuse-6337@webpros.com)'
@@ -12388,3 +12420,31 @@ config:
       AgentInformationUrl                  : 'feeder.co'
       UAClientHintMobile                   : 'false'
       UAClientHintPlatform                 : 'Mac OS X'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; WellKnownBot/0.1; +https://well-known.dev/about/#bot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Well-Known WellKnownBot'
+      DeviceBrand                          : 'Well-Known'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'WellKnownBot'
+      LayoutEngineVersion                  : '0.1'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'WellKnownBot 0.1'
+      LayoutEngineNameVersionMajor         : 'WellKnownBot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'WellKnownBot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'WellKnownBot 0.1'
+      AgentNameVersionMajor                : 'WellKnownBot 0'
+      AgentInformationUrl                  : 'https://well-known.dev/about/#bot'
