@@ -21,6 +21,7 @@ config:
     name: 'NamedSpecials'
     values:
     - 'IntelliJ IDEA'
+    - 'Intellij IDEA Github Plugin'
 
 - set:
     name: 'UnwantedSpecials'
@@ -488,6 +489,34 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'IntelliJ IDEA ??'
       AgentNameVersionMajor                : 'IntelliJ IDEA ??'
+
+
+# Fetches /api/v3/meta from my gitlab instance.
+- test:
+    input:
+      user_agent_string                    : 'Intellij IDEA Github Plugin'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Intellij IDEA Github Plugin'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Intellij IDEA Github Plugin ??'
+      AgentNameVersionMajor                : 'Intellij IDEA Github Plugin ??'
 
 
 - matcher:
