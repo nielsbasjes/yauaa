@@ -50,6 +50,7 @@ config:
         # TODO: No documentation found so far. GUESS: This is a Google thing.
         'Google-Adwords-DisplayAds-WebRender'  : 'Google Adwords DisplayAds WebRender'
         'Google-HotelAdsVerifier'              : 'Google Hotel Ads Verifier'
+        'GoogleAssociationService'             : 'Google Association Service' # Fetches /.well-known/assetlinks.json from google-proxy-xxx-xxx-xxx-xxx.google.com.
 
 - matcher:
     variable:
@@ -2173,3 +2174,30 @@ config:
       UAClientHintPlatform                       : 'Linux'
       UAClientHintPlatformVersion                : '5.12.0'
       UAClientHintWow64                          : 'false'
+
+# Only fetches /.well-known/assetlinks.json from google-proxy-xxx-xxx-xxx-xxx.google.com. on my Mastodon server ?
+- test:
+    input:
+      User-Agent                                 : 'Google AssociationService'
+    expected:
+      DeviceClass                                : 'Robot'
+      DeviceName                                 : 'Google Association Service'
+      DeviceBrand                                : 'Google'
+      OperatingSystemClass                       : 'Cloud'
+      OperatingSystemName                        : 'Google Cloud'
+      OperatingSystemVersion                     : '??'
+      OperatingSystemVersionMajor                : '??'
+      OperatingSystemNameVersion                 : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor            : 'Google Cloud ??'
+      LayoutEngineClass                          : 'Robot'
+      LayoutEngineName                           : 'Google Association Service'
+      LayoutEngineVersion                        : '??'
+      LayoutEngineVersionMajor                   : '??'
+      LayoutEngineNameVersion                    : 'Google Association Service ??'
+      LayoutEngineNameVersionMajor               : 'Google Association Service ??'
+      AgentClass                                 : 'Robot'
+      AgentName                                  : 'Google Association Service'
+      AgentVersion                               : '??'
+      AgentVersionMajor                          : '??'
+      AgentNameVersion                           : 'Google Association Service ??'
+      AgentNameVersionMajor                      : 'Google Association Service ??'
