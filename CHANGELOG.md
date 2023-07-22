@@ -12,7 +12,7 @@ NEXT RELEASE
   - Initial handling of Robots and Hackers using client hints.
   - Detect Amazon Echo Show better (a "Smart Display")
   - Detect Bitwarden Mobile app
-  - Detect more Federated Social Servers and Robots
+  - Detect more Federated Social Clients, Servers and Robots (Mastodon and such)
   - Detect brand: Cloud Mobile Stratus C5
   - Handle some really bad WeChat useragents.
   - Handle the Despegar App

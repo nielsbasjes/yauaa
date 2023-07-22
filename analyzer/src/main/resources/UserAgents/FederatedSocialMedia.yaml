@@ -34,13 +34,15 @@ config:
       'Akkoma'        : 'Akkoma|Akkoma'       # https://akkoma.social/
       'Funkwhale'     : 'Funkwhale|Funkwhale' # https://funkwhale.audio/ A social platform to enjoy and share music
 
+
 - lookup:
     name: 'FederatedSocialClients'
     map:
-      # Tag : 'NetworkName | Client Software Name'
-      'MastodonAndroid' : 'Mastodon|Mastodon'
-      'Tusky'           : 'Mastodon|Tusky'
-      'Element'         : 'Matrix|Element'
+      # Tag : 'NetworkName | Client Software Name | Agent Class'
+      'MastodonAndroid' : 'Mastodon|Mastodon|Mobile App'
+      'Tusky'           : 'Mastodon|Tusky|Mobile App'
+      'Element'         : 'Matrix|Element|Mobile App'
+      'mastodonpy'      : 'Mastodon|Mastodon.py|Special'
 
 - matcher:
     variable:
@@ -85,10 +87,36 @@ config:
     - 'LayoutEngineClass      :  100 : "<<<null>>>"'
     - 'LayoutEngineName       :  100 : "<<<null>>>"'
     - 'LayoutEngineVersion    :  100 : "<<<null>>>"'
-    - 'AgentClass             : 1000 : "Mobile App"'
+    - 'AgentClass             : 1000 : @ClientInfo[[3]]'
     - 'AgentName              : 1000 : @ClientInfo[[2]]'
     - 'AgentVersion           : 1000 : @ClientTag^.version'
     - 'FederatedSocialNetwork : 1000 : @ClientInfo[[1]]'
+
+- matcher:
+    variable:
+    - 'ClientTag  : agent.text?FederatedSocialClients'
+    - 'ClientInfo : LookUp[FederatedSocialClients;@ClientTag]'
+    extract:
+    # Revert the "Hacker" assessment
+    - 'DeviceClass             :   11 :"<<<null>>>"'
+    - 'DeviceName              :   11 :"<<<null>>>"'
+    - 'DeviceBrand             :   11 :"<<<null>>>"'
+    - 'DeviceVersion           :   11 :"<<<null>>>"'
+    - 'OperatingSystemClass    :   11 :"<<<null>>>"'
+    - 'OperatingSystemName     :   11 :"<<<null>>>"'
+    - 'OperatingSystemVersion  :   11 :"<<<null>>>"'
+    - 'LayoutEngineClass       :   11 :"<<<null>>>"'
+    - 'LayoutEngineName        :   11 :"<<<null>>>"'
+    - 'LayoutEngineVersion     :   11 :"<<<null>>>"'
+    - 'HackerAttackVector      :   11 :"<<<null>>>"'
+    - 'HackerToolkit           :   11 :"<<<null>>>"'
+    - 'RemarkablePattern       :   11 :"<<<null>>>"'
+
+    - 'AgentClass              :  999 : @ClientInfo[[3]]'
+    - 'AgentName               :  999 : @ClientInfo[[2]]'
+    - 'AgentVersion            :  999 : "<<<null>>>"'
+    - 'FederatedSocialNetwork  :  999 : @ClientInfo[[1]]'
+
 
 # MATRIX SERVERS
 - test:
@@ -1932,3 +1960,38 @@ config:
       AgentNameVersion                     : 'Minoru''s Fediverse Crawler ??'
       AgentNameVersionMajor                : 'Minoru''s Fediverse Crawler ??'
       AgentInformationUrl                  : 'https://nodes.fediverse.party'
+
+# https://mastodonpy.readthedocs.io/en/stable/
+# A Python client library to interact with a specific Mastodon instance.
+- test:
+    input:
+      User-Agent                           : 'mastodonpy'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Mastodon.py'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Mastodon.py ??'
+      AgentNameVersionMajor                : 'Mastodon.py ??'
+      FederatedSocialNetwork               : 'Mastodon'
+
+
+# TODO: What is this? Client, Server, Robot ?
+#- test:
+#    input:
+#      User-Agent                           : 'ActivityPub Peer Discovery Service'
