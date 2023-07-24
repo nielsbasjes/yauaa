@@ -17,16 +17,21 @@
 
 package nl.basjes.parse.useragent;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import nl.basjes.parse.core.Field;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 @EqualsAndHashCode
 public final class LogRecord implements Comparable<LogRecord> {
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
     @Getter @Setter(onMethod=@__(@Field("TIME.EPOCH:request.receive.time.epoch")))                  private String epoch                 = null;
     @Getter @Setter(onMethod=@__(@Field("TIME.YEAR:request.receive.time.year_utc")))                private String yearUtc               = null;
     @Getter @Setter(onMethod=@__(@Field("TIME.MONTH:request.receive.time.month_utc")))              private String monthUtc              = null;
@@ -56,7 +61,7 @@ public final class LogRecord implements Comparable<LogRecord> {
     }
 
     public Map<String, String> asHeadersMap() {
-        Map<String, String> result = new TreeMap<>();
+        Map<String, String> result = new LinkedHashMap<>(); // LinkedHashMap to fix the key ordering when creating the toJson.
         putIfNotNull(result, "User-Agent",                  userAgent);
         putIfNotNull(result, "Sec-Ch-Ua",                   secChUa);
         putIfNotNull(result, "Sec-Ch-Ua-Arch",              secChUaArch);
@@ -69,6 +74,20 @@ public final class LogRecord implements Comparable<LogRecord> {
         putIfNotNull(result, "Sec-Ch-Ua-Platform-Version",  secChUaPlatformVersion);
         putIfNotNull(result, "Sec-Ch-Ua-Wow64",             secChUaWow64);
         return result;
+    }
+
+    // Cache this value
+    private String toJson = null;
+
+    public String toJson() {
+        if (toJson == null) {
+            try {
+                toJson = OBJECT_MAPPER.writeValueAsString(asHeadersMap());
+            } catch (JsonProcessingException e) {
+                toJson = e.toString();
+            }
+        }
+        return toJson;
     }
 
     private String escapeYaml(String input) {
