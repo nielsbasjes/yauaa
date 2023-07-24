@@ -39,6 +39,20 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 abstract class AbstractParseServletTests extends AbstractTestingBase {
 
     // ------------------------------------------
+    // Swagger
+    @Test
+    public void testSwaggerExists() {
+        given()
+            .port(getPort())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(ANY)
+        .when()
+            .get("/swagger-ui.html")
+        .then()
+            .statusCode(200);
+    }
+
+    // ------------------------------------------
     // JSON
     @Test
     public void testGetJsonUrl() {
