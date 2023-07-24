@@ -30,6 +30,7 @@ config:
       'Friendica'     : 'Friendica|Friendica'
       'Pleroma'       : 'Mastodon|Pleroma'    # Actually many federated social networks
       'Misskey'       : 'Misskey|Misskey'     # https://misskey-hub.net/en/      https://github.com/misskey-dev/misskey
+      'FoundKey'      : 'FoundKey|FoundKey'
       'Calckey'       : 'Calckey|Calckey'     # https://calckey.org/             https://codeberg.org/calckey/calckey     https://calckey.social/
       'Akkoma'        : 'Akkoma|Akkoma'       # https://akkoma.social/
       'Funkwhale'     : 'Funkwhale|Funkwhale' # https://funkwhale.audio/ A social platform to enjoy and share music
@@ -1757,6 +1758,11 @@ config:
 #    input:
 #      User-Agent                           : 'Akkoma 3.5.0-14-gd9508474; https://social.minbash.de <social@minbash.de>'
 
+# FIXME: Matches code injection because of 'bash'
+#- test:
+#    input:
+#      User-Agent                           : 'http.rb/5.1.0 (Mastodon/4.0.2; +https://mtd.bashell.com/)'
+
 - test:
     input:
       User-Agent                           : 'Akkoma 3.5.0-74-g5d4c291d; https://plem.sapphic.site <op@terezi.dev>'
@@ -1995,3 +2001,32 @@ config:
 #- test:
 #    input:
 #      User-Agent                           : 'ActivityPub Peer Discovery Service'
+
+
+- test:
+    input:
+      User-Agent                           : 'FoundKey/13.0.0-preview4 (https://miruku.cafe)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'FoundKey'
+      AgentVersion                         : '13.0.0-preview4'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'FoundKey 13.0.0-preview4'
+      AgentNameVersionMajor                : 'FoundKey 13'
+      AgentInformationUrl                  : 'https://miruku.cafe'
+      FederatedSocialNetwork               : 'FoundKey'
