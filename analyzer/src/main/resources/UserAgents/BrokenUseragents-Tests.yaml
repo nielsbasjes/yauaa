@@ -3707,3 +3707,33 @@ config:
       AgentLanguage                        : 'Spanish (Chile)'
       AgentLanguageCode                    : 'es-cl'
       AgentUuid                            : '04762253-8940-49b0-b622-53894039b08c'
+
+
+# TODO: Very bad, there is almost no usable information in here and near impossible to parse correctly.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; <64-bit tags>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev> Edge/<EdgeHTML Rev>.<Windows Build>'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '>=10'
+      OperatingSystemVersionMajor          : '>=10'
+      OperatingSystemNameVersion           : 'Windows >=10'
+      OperatingSystemNameVersionMajor      : 'Windows >=10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : 'Chrome Rev'
+      LayoutEngineVersionMajor             : 'Chrome Rev'
+      LayoutEngineNameVersion              : 'Blink Chrome Rev'
+      LayoutEngineNameVersionMajor         : 'Blink Chrome Rev'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : 'Chrome Rev> Safari'
+      AgentVersionMajor                    : 'Chrome Rev> Safari'
+      AgentNameVersion                     : 'Chrome Rev> Safari'
+      AgentNameVersionMajor                : 'Chrome Rev> Safari'
+      RemarkablePattern                    : 'Not a version'
