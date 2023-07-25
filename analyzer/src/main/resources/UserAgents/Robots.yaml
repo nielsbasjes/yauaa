@@ -41,6 +41,7 @@ config:
       'DejaClick'                    : 'DejaClick|DejaClick'
       'DownloaderChrome'             : 'DownloaderChrome|DownloaderChrome'
       'Echoping'                     : 'Echoping|Echoping'
+      'EdgeWatch'                    : 'EdgeWatch|EdgeWatch' # NOT a watch!
       'evc-batch'                    : 'evc-batch|evc-batch'
       'exal'                         : 'exal|exal'
       'Facebot Twitterbot'           : 'Facebook|Facebot Twitterbot'
@@ -12448,3 +12449,137 @@ config:
       AgentNameVersion                     : 'WellKnownBot 0.1'
       AgentNameVersionMajor                : 'WellKnownBot 0'
       AgentInformationUrl                  : 'https://well-known.dev/about/#bot'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Neevabot/1.0; +https://neeva.com/neevabot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Neeva BOT'
+      DeviceBrand                          : 'Neeva'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Neevabot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Neevabot 1.0'
+      LayoutEngineNameVersionMajor         : 'Neevabot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Neevabot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Neevabot 1.0'
+      AgentNameVersionMajor                : 'Neevabot 1'
+      AgentInformationUrl                  : 'https://neeva.com/neevabot'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; intelx.io_bot +https://intelx.io)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Intelx .IO BOT'
+      DeviceBrand                          : 'Intelx'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'intelx.io_bot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'intelx.io_bot ??'
+      LayoutEngineNameVersionMajor         : 'intelx.io_bot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Intelx.io_BOT'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Intelx.io_BOT ??'
+      AgentNameVersionMajor                : 'Intelx.io_BOT ??'
+      AgentInformationUrl                  : 'https://intelx.io'
+
+
+- matcher:
+    require:
+    - 'agent.product.version.keyvalue.email="scaninfo@paloaltonetworks.com"'
+    extract:
+    - 'DeviceClass                         :    10300 :"Robot"'
+    - 'DeviceName                          :    10300 :"Expanse Bot"'
+    - 'DeviceBrand                         :    10300 :"Palo Alto Networks"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10300 :"Cloud"'
+    - 'OperatingSystemName                 :    10300 :"Cloud"'
+    - 'OperatingSystemVersion              :    10300 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10300 :"Robot"'
+    - 'LayoutEngineName                    :    10300 :"<<<null>>>"'
+    - 'LayoutEngineVersion                 :    10300 :"<<<null>>>"'
+    - 'AgentClass                          :    10300 :"Robot"'
+    - 'AgentName                           :    10300 :"Expanse Bot"'
+    - 'AgentVersion                        :    10300 :"<<<null>>>"'
+    - 'RemarkablePattern                   :    10300 :"<<<null>>>"'
+
+# Expanse / Palo Alto Networks thinks it is a good idea to use this useragent ... #idiots
+- test:
+    input:
+      User-Agent                           : 'Expanse, a Palo Alto Networks company, searches across the global IPv4 space multiple times per day to identify customers&#39; presences on the Internet. If you would like to be excluded from our scans, please send IP addresses/domains to: scaninfo@paloaltonetworks.com'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Palo Alto Networks Expanse BOT'
+      DeviceBrand                          : 'Palo Alto Networks'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Expanse Bot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Expanse Bot ??'
+      AgentNameVersionMajor                : 'Expanse Bot ??'
+
+# EdgeWatch is a platform that helps information accredited security practitioners discover, monitor, and analyze devices that are accessible from the Internet.
+# We regularly probe every public IP address and popular domain names, ...
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; EdgeWatch/1.1; +https://about.edgewatch.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'EdgeWatch'
+      DeviceBrand                          : 'EdgeWatch'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'EdgeWatch'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'EdgeWatch 1.1'
+      LayoutEngineNameVersionMajor         : 'EdgeWatch 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'EdgeWatch'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'EdgeWatch 1.1'
+      AgentNameVersionMajor                : 'EdgeWatch 1'
+      AgentInformationUrl                  : 'https://about.edgewatch.com/'
