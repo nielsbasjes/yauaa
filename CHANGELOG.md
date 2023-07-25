@@ -15,6 +15,7 @@ NEXT RELEASE
   - Detect more Federated Social Clients, Servers and Robots (Mastodon and such)
   - Detect brand: Cloud Mobile Stratus C5
   - Detect Power PC Little Endian CPU
+  - Detect Qihoo 360 Safe Browser
   - Handle some really bad WeChat useragents.
   - Handle the Despegar App
 - Updated UDF dependencies

@@ -4186,6 +4186,23 @@ config:
     - 'AgentName                           :     2019 : NormalizeBrand[@Agent.name]'
     - 'AgentVersion                        :     2019 : CleanVersion[@AgentVersion]'
 
+
+- matcher:
+    variable:
+    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry.product!?UnwantedIENames]'
+    - 'AgentVersion                        :@Agent.version'
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name="MSIE"'
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)product.(1)name="IEMobile"]'
+    - 'IsNull[@AgentVersion.url]'
+    - 'IsNull[@AgentVersion.uuid]'
+    - 'IsNull[@AgentVersion.key]'
+    - 'IsNull[@AgentVersion.keyvalue]'
+    extract:
+    - 'AgentName                           :     2020 : LookUp[SpecialChromeBrowserNames;@Agent.name]'
+    - 'AgentVersion                        :     2020 : CleanVersion[@AgentVersion]'
+
+
 #- matcher:
 #    variable:
 #    - 'Agent                               :IsNotInLookUpPrefix[UnwantedIEPrefixes;agent.(1)product.(1)comments.entry!?UnwantedIENames]'
