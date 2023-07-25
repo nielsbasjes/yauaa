@@ -62,6 +62,19 @@ config:
     - 'WebviewAppVersionMajor              :       12 :"<<<null>>>"'
 
 - matcher:
+    require:
+    - 'IsNull[agent.product.name="QQ"]'
+    - 'IsNull[agent.product.name="MicroMessenger"]'
+    extract:
+    - 'AgentClass                          :    15000 :"Browser"'
+    - 'AgentName                           :    15000 :"QQ Browser"'
+    - 'AgentVersion                        :    15000 :agent.product.name="QQBrowser"^.version'
+    - 'WebviewAppName                      :       12 :"<<<null>>>"'
+    - 'WebviewAppNameVersionMajor          :       12 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :       12 :"<<<null>>>"'
+    - 'WebviewAppVersionMajor              :       12 :"<<<null>>>"'
+
+- matcher:
     extract:
     - 'AgentClass                          :    15001 :"Browser"'
     - 'AgentName                           :    15001 :"QQ Client"'
@@ -1539,3 +1552,40 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'WeChat 2.0.4'
       AgentNameVersionMajor                : 'WeChat 2'
+
+
+# QQBrowser with "Chromium" client hints.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36 Core/1.94.197.400 QQBrowser/11.6.5265.400'
+      Sec-Ch-Ua                            : '";Not A Brand";v="99", "Chromium";v="94"'
+      Sec-Ch-Ua-Mobile                     : '?0'
+      Sec-Ch-Ua-Platform                   : '"Windows"'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '94.0'
+      LayoutEngineVersionMajor             : '94'
+      LayoutEngineNameVersion              : 'Blink 94.0'
+      LayoutEngineNameVersionMajor         : 'Blink 94'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'QQ Browser'
+      AgentVersion                         : '11.6.5265.400'
+      AgentVersionMajor                    : '11'
+      AgentNameVersion                     : 'QQ Browser 11.6.5265.400'
+      AgentNameVersionMajor                : 'QQ Browser 11'
+      UAClientHintBrands_0_Brand           : 'Chromium'
+      UAClientHintBrands_0_Version         : '94'
+      UAClientHintMobile                   : 'false'
+      UAClientHintPlatform                 : 'Windows'
