@@ -982,6 +982,61 @@ config:
       - 'AgentVersion                        :  1000000 :"Hacker"'
       - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
       - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
-      #    - 'HackerToolkit                       :   999901 :"<<<null>>>"'
-      - 'HackerAttackVector                  :  1000000 :"Fake CPU Architecture"'
-      - 'RemarkablePattern                   :  1000000 :"Hacker"'
+      - 'RemarkablePattern                   :  1000000 :"Fake CPU Architecture"'
+
+
+- matcher:
+    require:
+    - 'agent.product.name="Edge"'
+    - 'agent.(1)product.(1)comments.(1)entry="X11"'
+    - 'IsNull[agent.(1)product.(1)comments.(2)entry]' # Only a SINGLE entry
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :  1000000 :"Hacker"'
+    - 'DeviceBrand                         :  1000000 :"Hacker"'
+    - 'DeviceName                          :  1000000 :"Hacker"'
+    - 'DeviceVersion                       :  1000000 :"Hacker"'
+    - 'OperatingSystemClass                :  1000000 :"Hacker"'
+    - 'OperatingSystemName                 :  1000000 :"Hacker"'
+    - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+    - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+    - 'LayoutEngineName                    :  1000000 :"Hacker"'
+    - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+    - 'AgentClass                          :  1000000 :"Hacker"'
+    - 'AgentName                           :  1000000 :"Hacker"'
+    - 'AgentVersion                        :  1000000 :"Hacker"'
+    - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+    - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+    - 'RemarkablePattern                   :  1000000 :"Fake Edge like useragent"'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11) AppleWebKit/62.41 (KHTML, like Gecko) Edge/17.10859 Safari/452.6'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      RemarkablePattern                    : 'Fake Edge like useragent'
+
+
