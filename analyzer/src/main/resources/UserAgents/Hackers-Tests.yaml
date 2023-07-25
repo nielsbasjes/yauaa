@@ -14,6 +14,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+isFakeCPUArchitecture: &isFakeCPUArchitecture
+  DeviceClass                          : 'Hacker'
+  DeviceName                           : 'Hacker'
+  DeviceBrand                          : 'Hacker'
+  DeviceVersion                        : 'Hacker'
+  OperatingSystemClass                 : 'Hacker'
+  OperatingSystemName                  : 'Hacker'
+  OperatingSystemVersion               : 'Hacker'
+  OperatingSystemVersionMajor          : 'Hacker'
+  OperatingSystemNameVersion           : 'Hacker'
+  OperatingSystemNameVersionMajor      : 'Hacker'
+  LayoutEngineClass                    : 'Hacker'
+  LayoutEngineName                     : 'Hacker'
+  LayoutEngineVersion                  : 'Hacker'
+  LayoutEngineVersionMajor             : 'Hacker'
+  LayoutEngineNameVersion              : 'Hacker'
+  LayoutEngineNameVersionMajor         : 'Hacker'
+  AgentClass                           : 'Hacker'
+  AgentName                            : 'Hacker'
+  AgentVersion                         : 'Hacker'
+  AgentVersionMajor                    : 'Hacker'
+  AgentNameVersion                     : 'Hacker'
+  AgentNameVersionMajor                : 'Hacker'
+  RemarkablePattern                    : 'Hacker'
+  HackerAttackVector                   : 'Fake CPU Architecture'
+
 config:
 
 - test:
@@ -659,3 +686,40 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       RemarkablePattern                    : 'Hacker'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x187_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x188_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x189_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x190_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x191_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x192_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x193_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/537.31'
+    expected: *isFakeCPUArchitecture
+
