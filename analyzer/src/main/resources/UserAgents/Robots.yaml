@@ -120,6 +120,8 @@ config:
       'xb2.net'                      : 'Xb2|Xbase++ client'                # Xb2.NET is an Internet library for Xbase++.                  | https://www.xb2.net/xb2net/
       'Dart'                         : 'Dart|Dart'                         # Dart is a programming language focussed towards mobile.      | https://dart.dev/
       'Matrix Rooms Search'          : 'Matrix Rooms|Matrix Rooms Search'  # https://matrixrooms.info/
+      'wkhtmltopdf'                  : 'WK HTML to|WK HTML to PDF'         # WebKit HTML to PDF https://wkhtmltopdf.org/
+      'wkhtmltoimage'                : 'WK HTML to|WK HTML to Image'       # WebKit HTML to Image https://wkhtmltopdf.org/
 
       # https://validator.w3.org/services
       'Validator.nu'                 : 'W3C|Validator.nu'
@@ -235,6 +237,32 @@ config:
     - 'RobotProductName                    :agent.product.name?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     require:
+    - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
+    extract:
+    - '__Set_ALL_Fields__                  :   399901 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400001 :"Robot"'
+    - 'DeviceBrand                         :   400001 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400001 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400001 :"Cloud"'
+    - 'OperatingSystemName                 :   400001 :"Cloud"'
+    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400001 :"Robot"'
+    - 'LayoutEngineName                    :   400001 :@RobotProductName'
+    - 'LayoutEngineVersion                 :   399901 :"<<<null>>>"'
+    - 'AgentClass                          :   400001 :"Robot"'
+    - 'AgentName                           :   400001 :@RobotProductName'
+    - 'AgentVersion                        :   399901 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'RobotProductName                    :agent.product.name[2]="Safari"@[1]?NamedRobots'
+    - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
+    require:
+    - 'IsNull[agent.product.name="Mobile Safari"]'
+    - 'IsNull[agent.product.name="TV Safari"]'
+    - 'IsNull[agent.product.name="SmartTV Safari"]'
+    - 'IsNull[agent.product.name="VR Safari"]'
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
@@ -12583,3 +12611,59 @@ config:
       AgentNameVersion                     : 'EdgeWatch 1.1'
       AgentNameVersionMajor                : 'EdgeWatch 1'
       AgentInformationUrl                  : 'https://about.edgewatch.com/'
+
+
+# https://wkhtmltopdf.org/
+# wkhtmltopdf and wkhtmltoimage are open source (LGPLv3) command line tools to render HTML into PDF and various image formats using the Qt WebKit rendering engine.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/534.34 (KHTML, like Gecko) wkhtmltoimage Safari/534.34'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'WK Html TO Image'
+      DeviceBrand                          : 'WK Html TO'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'wkhtmltoimage'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'wkhtmltoimage ??'
+      LayoutEngineNameVersionMajor         : 'wkhtmltoimage ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Wkhtmltoimage'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Wkhtmltoimage ??'
+      AgentNameVersionMajor                : 'Wkhtmltoimage ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/534.34 (KHTML, like Gecko) wkhtmltopdf Safari/534.34'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'WK Html TO PDF'
+      DeviceBrand                          : 'WK Html TO'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'wkhtmltopdf'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'wkhtmltopdf ??'
+      LayoutEngineNameVersionMajor         : 'wkhtmltopdf ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Wkhtmltopdf'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Wkhtmltopdf ??'
+      AgentNameVersionMajor                : 'Wkhtmltopdf ??'
