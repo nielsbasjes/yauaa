@@ -2255,3 +2255,35 @@ config:
       AgentVersionMajor                    : '110'
       AgentNameVersion                     : 'Firefox 110.0'
       AgentNameVersionMajor                : 'Firefox 110'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux ppc64le; rv:75.0) Gecko/20100101 Firefox/75.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'PowerPC 64 LE'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '75.0'
+      LayoutEngineVersionMajor             : '75'
+      LayoutEngineNameVersion              : 'Gecko 75.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 75'
+      LayoutEngineBuild                    : '20100101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '75.0'
+      AgentVersionMajor                    : '75'
+      AgentNameVersion                     : 'Firefox 75.0'
+      AgentNameVersionMajor                : 'Firefox 75'
+
+

@@ -14,6 +14,7 @@ NEXT RELEASE
   - Detect Bitwarden Mobile app
   - Detect more Federated Social Clients, Servers and Robots (Mastodon and such)
   - Detect brand: Cloud Mobile Stratus C5
+  - Detect Power PC Little Endian CPU
   - Handle some really bad WeChat useragents.
   - Handle the Despegar App
 - Updated UDF dependencies
