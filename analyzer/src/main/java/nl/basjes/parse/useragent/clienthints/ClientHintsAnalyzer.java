@@ -431,6 +431,14 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
             // Sanitize the common yet unwanted names
             switch (rawBrandName) {
+                case "Opera":
+                    // There is a bug in Opera which puts the wrong version in the client hints.
+                    // So we skip this one
+                    continue;
+                case "OperaMobile":
+                    // We report the OperaMobile value as "Opera"
+                    agentName = "Opera";
+                    break;
                 case "Microsoft Edge":
                     agentName = "Edge";
                     break;
@@ -440,26 +448,43 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             MutableAgentField agentNameField = userAgent.get(AGENT_NAME);
             MutableAgentField agentVersionField = userAgent.get(AGENT_VERSION);
 
-            switch (agentName) {
-                case "Opera":
-                    // There is a bug in Opera which puts the wrong version in the client hints.
-                    break;
+            // We only update the version if we have a better version number.
+            // We always update the AgentName because I think the Client hints are "better"...
+            String versionFieldValue = agentVersionField.getValue();
+            String newVersion = brand.getVersion();
+            String newMajorVersion = newVersion.split("\\.")[0];
 
-                default:
-                    // Only do this if the existing in only a major version, and we have received full versions
-                    if (agentVersionField.getValue().contains(".") && !usingFullVersions){
-                        continue;
-                    }
-                    // In all other cases the client hint is expected to be "more" true.
-                    String version = brand.getVersion();
-                    String majorVersion = version.split("\\.")[0];
-                    overrideValue(agentNameField, agentName);
-                    overrideValue(userAgent.get(AGENT_VERSION), version);
-                    overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + version);
-                    overrideValue(userAgent.get(AGENT_VERSION_MAJOR), majorVersion);
-                    overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + majorVersion);
-                    break;
+            boolean versionFieldValueHasDot = versionFieldValue.indexOf('.') >= 0;
+            boolean versionIsMajorVersionOnly = !versionFieldValueHasDot;
+            if (versionFieldValueHasDot) {
+                versionIsMajorVersionOnly = versionFieldValue.endsWith(".0.0.0");
             }
+
+            // The values we are going to set at the end.
+            String setVersion = versionFieldValue;
+            String setMajorVersion = versionFieldValue.split("\\.")[0];
+
+            // If the original is a major version only then the new one is better
+            if (versionIsMajorVersionOnly) {
+                setVersion = newVersion;
+                setMajorVersion = newMajorVersion;
+            } else {
+                // If current version is a full version but there is a mismatch in the major we pick the
+                // ClientHints version anyway.
+                if (!setMajorVersion.equals(newMajorVersion)) {
+                    setVersion = newVersion;
+                    setMajorVersion = newMajorVersion;
+                }
+            }
+
+            overrideValue(agentNameField, agentName);
+            overrideValue(userAgent.get(AGENT_VERSION), setVersion);
+            overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + setVersion);
+            overrideValue(userAgent.get(AGENT_VERSION_MAJOR), setMajorVersion);
+            overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + setMajorVersion);
+
+            // We just pick the first one that remains.
+            return;
         }
     }
 
