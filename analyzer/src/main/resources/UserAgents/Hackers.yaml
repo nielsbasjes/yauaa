@@ -960,7 +960,7 @@ config:
 # Note the modified CPU indicator; only used by Hackers.
 - matcher:
     variable:
-     - 'LinuxVersion: agent.product.comments.entry.product.name="Linux"^.version'
+     - 'LinuxVersion: agent.(1-2)product.(1)comments.entry.(1)product.(1)name="Linux"^.version'
     require:
      - '@LinuxVersion{"x"'
      - '@LinuxVersion}"_64"'
