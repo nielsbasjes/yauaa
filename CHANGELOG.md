@@ -18,6 +18,7 @@ NEXT RELEASE
   - Detect Qihoo 360 Safe Browser
   - Handle some really bad WeChat useragents.
   - Handle the Despegar App
+  - Detect Opera GX
 - Updated UDF dependencies
   - Trino 422 (it needs 421 or newer!)
 
