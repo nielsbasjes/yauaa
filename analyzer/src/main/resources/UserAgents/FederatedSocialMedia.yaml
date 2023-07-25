@@ -44,6 +44,7 @@ config:
       'Tusky'           : 'Mastodon|Tusky|Mobile App'
       'Element'         : 'Matrix|Element|Mobile App'
       'mastodonpy'      : 'Mastodon|Mastodon.py|Special'
+      'Archon'          : 'Matrix|Archon|Special' # I have not been able to find this one. Have only seen traffic from 1 IP (Home grown client?).
 
 - matcher:
     variable:
@@ -2030,3 +2031,32 @@ config:
       AgentNameVersionMajor                : 'FoundKey 13'
       AgentInformationUrl                  : 'https://miruku.cafe'
       FederatedSocialNetwork               : 'FoundKey'
+
+
+# NOTE: I have only seen traffic from this from Only 1 IP: Seems like a Matrix client. Perhaps homegrown ?!?!?
+- test:
+    input:
+      User-Agent                           : 'Archon/1.81.0'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Archon'
+      AgentVersion                         : '1.81.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Archon 1.81.0'
+      AgentNameVersionMajor                : 'Archon 1'
+      FederatedSocialNetwork               : 'Matrix'
