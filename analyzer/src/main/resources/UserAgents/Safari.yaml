@@ -73,6 +73,7 @@ config:
     require:
     - 'IsNull[@Product.name[2-3]="iPhone OS"]'
     - 'IsNull[@Product.name[2-3]="iPad OS"]'
+    - 'IsNull[@Product.name[2-4]="Mac OS X"]'
     - 'agent.(1)product.name="Mozilla"'
     - 'agent.(1)product.(1)version="5.0"'
     extract:
