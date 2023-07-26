@@ -21,7 +21,9 @@ import nl.basjes.parse.useragent.analyze.WordRangeVisitor.Range;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Splitter {
@@ -194,6 +196,33 @@ public abstract class Splitter {
         }
 
         return value.substring(splitList.get(firstIndex).getLeft(), splitList.get(lastIndex).getRight());
+    }
+
+    @Nonnull
+    public List<String> getSplits(String value, List<Pair<Integer, Integer>> splitList, int first, int last) {
+        int lastIndex = last - 1;
+        int firstIndex = first - 1;
+        int splits = splitList.size();
+
+        if (last == -1) {
+            lastIndex = splits - 1;
+        }
+        if (lastIndex >= splits) {
+            lastIndex = splits - 1;
+        }
+        if (firstIndex < 0 || lastIndex < 0) {
+            return Collections.emptyList();
+        }
+        if (firstIndex >= splits) {
+            return Collections.emptyList();
+        }
+
+        List<String> result = new ArrayList<>();
+        for (int split = firstIndex; split <= lastIndex; split++) {
+            Pair<Integer, Integer> splitPair = splitList.get(split);
+            result.add(value.substring(splitPair.getLeft(), splitPair.getRight()));
+        }
+        return result;
     }
 
     public List<Pair<Integer, Integer>> createSplitList(String characters) {

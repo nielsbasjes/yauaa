@@ -406,6 +406,76 @@ class TestWordSplitter {
         assertEquals(null,                     splitter.getSplitRange(value, splitList, -1, -1));
     }
 
+    // This silly construct hides a lot of useless warnings
+    List<String> asList(String... values) {
+        return java.util.Arrays.asList(values);
+    }
+
+    @Test
+    void testSplitsList() {
+        String value = "one two/3 four-4 five(some more)";
+        Splitter splitter = WordSplitter.getInstance();
+
+        List<Pair<Integer, Integer>> splitList = splitter.createSplitList(value);
+
+        // Illegal values
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, -5,  0));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList,  0, -5));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, -5, -5));
+
+        // Single word
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 0, 0));
+        assertEquals(asList("one"),                                     splitter.getSplits(value, splitList, 1, 1));
+        assertEquals(asList("two"),                                     splitter.getSplits(value, splitList, 2, 2));
+        assertEquals(asList("3"),                                       splitter.getSplits(value, splitList, 3, 3));
+        assertEquals(asList("four"),                                    splitter.getSplits(value, splitList, 4, 4));
+        assertEquals(asList("4"),                                       splitter.getSplits(value, splitList, 5, 5));
+        assertEquals(asList("five"),                                    splitter.getSplits(value, splitList, 6, 6));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 7, 7));
+
+        // First words
+        assertEquals(asList("one"),                                     splitter.getSplits(value, splitList, 1, 1));
+        assertEquals(asList("one", "two"),                              splitter.getSplits(value, splitList, 1, 2));
+        assertEquals(asList("one", "two", "3"),                         splitter.getSplits(value, splitList, 1, 3));
+        assertEquals(asList("one", "two", "3", "four"),                 splitter.getSplits(value, splitList, 1, 4));
+        assertEquals(asList("one", "two", "3", "four", "4"),            splitter.getSplits(value, splitList, 1, 5));
+        assertEquals(asList("one", "two", "3", "four", "4", "five"),    splitter.getSplits(value, splitList, 1, 6));
+        assertEquals(asList("one", "two", "3", "four", "4", "five"),    splitter.getSplits(value, splitList, 1, 7));
+
+        // Last words
+        assertEquals(asList("one", "two", "3", "four", "4", "five"),    splitter.getSplits(value, splitList, 1, -1));
+        assertEquals(asList("two", "3", "four", "4", "five"),           splitter.getSplits(value, splitList, 2, -1));
+        assertEquals(asList("3", "four", "4", "five"),                  splitter.getSplits(value, splitList, 3, -1));
+        assertEquals(asList("four", "4", "five"),                       splitter.getSplits(value, splitList, 4, -1));
+        assertEquals(asList("4", "five"),                               splitter.getSplits(value, splitList, 5, -1));
+        assertEquals(asList("five"),                                    splitter.getSplits(value, splitList, 6, -1));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 7, -1));
+
+        // 2 word slices
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 0, 1));
+        assertEquals(asList("one", "two"),                              splitter.getSplits(value, splitList, 1, 2));
+        assertEquals(asList("two", "3"),                                splitter.getSplits(value, splitList, 2, 3));
+        assertEquals(asList("3", "four"),                               splitter.getSplits(value, splitList, 3, 4));
+        assertEquals(asList("four", "4"),                               splitter.getSplits(value, splitList, 4, 5));
+        assertEquals(asList("4", "five"),                               splitter.getSplits(value, splitList, 5, 6));
+        assertEquals(asList("five"),                                    splitter.getSplits(value, splitList, 6, 7));
+
+        // 3 word slices
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 0, 2));
+        assertEquals(asList("one", "two", "3"),                         splitter.getSplits(value, splitList, 1, 3));
+        assertEquals(asList("two", "3", "four"),                        splitter.getSplits(value, splitList, 2, 4));
+        assertEquals(asList("3", "four", "4"),                          splitter.getSplits(value, splitList, 3, 5));
+        assertEquals(asList("four", "4", "five"),                       splitter.getSplits(value, splitList, 4, 6));
+        assertEquals(asList("4", "five"),                               splitter.getSplits(value, splitList, 5, 7));
+        assertEquals(asList("five"),                                    splitter.getSplits(value, splitList, 6, 8));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 7, 9));
+
+        // Edge cases
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 0,  0));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, 0, -1));
+        assertEquals(asList(),                                          splitter.getSplits(value, splitList, -1, -1));
+    }
+
     @Test
     void badCalls() {
         String value = "one two/3 four-4 five(some more)";

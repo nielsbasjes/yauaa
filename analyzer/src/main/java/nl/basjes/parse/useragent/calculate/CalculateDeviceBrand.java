@@ -24,9 +24,13 @@ import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.utils.Normalize;
+import nl.basjes.parse.useragent.utils.WordSplitter;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +39,7 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.NULL_VALUE;
+import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractBrandFromEmail;
 import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractBrandFromUrl;
 
@@ -91,6 +96,35 @@ public class CalculateDeviceBrand extends FieldCalculator {
         }
     }
 
+    /**
+     * Some device names are "Generic" so we ignore them when trying to extract a Brand.
+     */
+    private static final List<String> GENERIC_DEVICE_NAMES = Arrays.asList(
+        UNKNOWN_VALUE,
+        "android mobile",
+        "fuchsia mobile",
+        "fuchsia device",
+        "ios device",
+        "linux desktop",
+        "desktop",
+        "laptop",
+        "server",
+        "phone",
+        "tv",
+        "imitator",
+        "bot",
+        "tablet",
+        "mobile",
+        "device",
+        "generic",
+        "windows",
+        "linux",
+        "android",
+        "ios",
+        "fuchsia"
+    );
+
+
     private String determineDeviceBrand(UserAgent userAgent) {
         // If no brand is known but we do have a URL then we assume the hostname to be the brand.
         // We put this AFTER the creation of the DeviceName because we choose to not have
@@ -110,6 +144,33 @@ public class CalculateDeviceBrand extends FieldCalculator {
         AgentField informationEmail = userAgent.get(AGENT_INFORMATION_EMAIL);
         if (!informationEmail.isDefaultValue()) {
             deviceBrand = extractBrandFromEmail(informationEmail.getValue());
+        }
+
+        if (deviceBrand != null) {
+            return deviceBrand;
+        }
+
+        AgentField deviceName = userAgent.get(DEVICE_NAME);
+        if (!deviceName.isDefaultValue()) {
+            if (!GENERIC_DEVICE_NAMES.contains(deviceName.getValue())) {
+                // Only try the non generic names.
+                List<Pair<Integer, Integer>> splitList = WordSplitter.getInstance().createSplitList(deviceName.getValue());
+                if (splitList.size() > 1) {
+                    // If one of the parts is too generic we skip it.
+                    List<String> splits = WordSplitter.getInstance().getSplits(deviceName.getValue(), splitList, 1, 5);
+                    boolean update = true;
+                    for (String split : splits) {
+                        if (GENERIC_DEVICE_NAMES.contains(split.toLowerCase(Locale.ROOT))) {
+                            update = false;
+                            break;
+                        }
+                    }
+                    if (update) {
+                        // If we have at least 2 parts we assume the first one is the Brand name
+                        deviceBrand = Normalize.brand(splits.get(0));
+                    }
+                }
+            }
         }
 
         return deviceBrand;

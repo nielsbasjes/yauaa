@@ -793,20 +793,40 @@ config:
 #*Note that these strings are literal values; they will not update even if a user is on an updated operating system or device.
 
 # ---------------------------------------------------------------------
-# From: https://github.com/chromium/chromium/blob/95.0.4608.0/content/public/common/user_agent.h
+# From: https://github.com/chromium/chromium/blob/117.0.5911.1/content/common/user_agent.cc#L63
 
-#  const char kDesktop[] =
-#       "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, "
-#       "like Gecko) Chrome/%s.0.0.0 Safari/537.36";
-#  const char kAndroid[] =
-#         "Mozilla/5.0 (%s) "
-#         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 %s"
-#         "Safari/537.36";
-#  const char kUnifiedPlatformAndroid[] = "Linux; Android 10; K";
-#  const char kUnifiedPlatformCrOS[]    = "X11; CrOS x86_64";
-#  const char kUnifiedPlatformLinux[]   = "X11; Linux x86_64";
-#  const char kUnifiedPlatformMacOS[]   = "Macintosh; Intel Mac OS X 10_15_7";
-#  const char kUnifiedPlatformWindows[] = "Windows NT 10.0; Win64; x64";
+#  const char kFrozenUserAgentTemplate[] =
+#  "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 "
+##if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_IOS)
+#  "%s"
+##endif
+#  "Safari/537.36";
+#
+
+
+#  std::string GetUnifiedPlatform() {
+#  #if BUILDFLAG(IS_ANDROID)
+#    return "Linux; Android 10; K";
+#  #elif BUILDFLAG(IS_CHROMEOS)
+#    return "X11; CrOS x86_64 14541.0.0";
+#  #elif BUILDFLAG(IS_MAC)
+#    return "Macintosh; Intel Mac OS X 10_15_7";
+#  #elif BUILDFLAG(IS_WIN)
+#    return "Windows NT 10.0; Win64; x64";
+#  #elif BUILDFLAG(IS_FUCHSIA)
+#    return "Fuchsia";
+#  #elif BUILDFLAG(IS_LINUX)
+#    return "X11; Linux x86_64";
+#  #elif BUILDFLAG(IS_IOS)
+#  if (ui::GetDeviceFormFactor() == ui::DEVICE_FORM_FACTOR_TABLET) {
+#    return "iPad; CPU iPad OS 14_0 like Mac OS X";
+#  }
+#    return "iPhone; CPU iPhone OS 14_0 like Mac OS X";
+#  #else
+#  #error Unsupported platform
+#  #endif
+#  }
+
 # ---------------------------------------------------------------------
 
 
@@ -834,17 +854,15 @@ config:
       #   }  // namespace frozen_user_agent_strings
 
       # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName | OSVersion | OSMajorVersion| OSNameVersion | OSNameMajorVersion
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'           : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT|<<<null>>>|<<<null>>>|Windows NT ??|Windows NT ??'
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'     : 'Desktop|Macintosh|Apple|Desktop|Mac OS|>=10.15.7|>=10.15|Mac OS >=10.15.7|Mac OS >=10.15'
-      'Mozilla/5.0 (X11; Linux x86_64)'                     : 'Desktop|Linux Desktop|<<<null>>>|Desktop|Linux|<<<null>>>|<<<null>>>|Linux ??|Linux ??'
-      'Mozilla/5.0 (Linux; Android 10; K)'                  : 'Mobile|Android Mobile|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
+      'Mozilla/5.0 (Linux; Android 10; K)'                      : 'Mobile|Android Mobile|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
+#      'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0)'                : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS|<<<null>>>|<<<null>>>|Chrome OS ??|Chrome OS ??'
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'               : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT|<<<null>>>|<<<null>>>|Windows NT ??|Windows NT ??'
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'         : 'Desktop|Macintosh|Apple|Desktop|Mac OS|>=10.15.7|>=10.15|Mac OS >=10.15.7|Mac OS >=10.15'
+      'Mozilla/5.0 (Fuchsia)'                                    : 'Mobile|Fuchsia Mobile|<<<null>>>|Mobile|Fuchsia|<<<null>>>|<<<null>>>|Fuchsia ??|Fuchsia ??'
+      'Mozilla/5.0 (X11; Linux x86_64)'                         : 'Desktop|Linux Desktop|<<<null>>>|Desktop|Linux|<<<null>>>|<<<null>>>|Linux ??|Linux ??'
+      'Mozilla/5.0 (iPad; CPU iPad OS 14_0 like Mac OS X)'      : 'Tablet|iPad|Apple|Mobile|iOS|<<<null>>>|<<<null>>>|iOS ??|iOS ??'
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)'  : 'Phone|iPhone|Apple|Mobile|iOS|<<<null>>>|<<<null>>>|iOS ??|iOS ??'
 
-# In this list ChromeOS is special as it carries the version of the Chrome tag
-- lookup:
-    name: 'ChromeReducedUnifiedPlatformChromeOS'
-    map:
-      'Mozilla/5.0 (X11; CrOS x86_64)'                      : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS'
-      'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0)'            : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS'
 
 - set:
     name: 'ChromeReducedDeviceCompat'
@@ -880,10 +898,10 @@ config:
 # Chrome OS specific:
 - matcher:
     variable:
-    - 'UnifiedPlatform                     :LookUp[ChromeReducedUnifiedPlatformChromeOS;agent.(1)product]'
     - 'ChromeVersion                       :agent.(3)product.version'
     - 'ChromeMajorVersion                  :@ChromeVersion[1]'
     require:
+    - 'agent.(1)product="Mozilla/5.0 (X11; CrOS x86_64 14541.0.0)"'
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeVersion[2-]="0.0.0"'
@@ -892,16 +910,41 @@ config:
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     extract:
-    - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
-    - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
-    - 'DeviceBrand                         :   400001 :@UnifiedPlatform[[3]]'
-    - 'OperatingSystemClass                :   400001 :@UnifiedPlatform[[4]]'
-    - 'OperatingSystemName                 :   400001 :@UnifiedPlatform[[5]]'
-    - 'OperatingSystemVersion              :   400001 :@ChromeVersion[1]' # Only the major version is valid
-    - 'OperatingSystemVersionBuild         :   400001 :"<<<null>>>"'
-    - 'OperatingSystemVersionMajor         :   400001 :"<<<null>>>"'
-#      - 'OperatingSystemNameVersion          :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
-#      - 'OperatingSystemNameVersionMajor     :   400001 :Concat[@UnifiedPlatform[[5]];" ??"]'
+    - 'DeviceClass                         :      500 :"Desktop"'
+    - 'DeviceName                          :   400002 :"Chromebook"'
+    - 'DeviceBrand                         :   400002 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   400002 :"Desktop"'
+    - 'OperatingSystemName                 :   400002 :"Chrome OS"'
+    - 'OperatingSystemVersion              :   400002 :@ChromeMajorVersion' # Only the major version is valid
+    - 'OperatingSystemVersionBuild         :   400002 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400002 :@ChromeMajorVersion'
+    - 'OperatingSystemNameVersion          :   400002 :Concat["Chrome OS ";@ChromeMajorVersion]'
+    - 'OperatingSystemNameVersionMajor     :   400002 :Concat["Chrome OS ";@ChromeMajorVersion]'
+
+- matcher:
+    variable:
+    - 'ChromeVersion                       :agent.(3)product.version'
+    - 'ChromeMajorVersion                  :@ChromeVersion[1]'
+    require:
+    - 'agent.(1)product="Mozilla/5.0 (X11; CrOS x86_64)"'
+    - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
+    - 'agent.(3)product.name="Chrome"'
+    - '@ChromeVersion[2-]="0.0.0"'
+    - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
+    - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
+    - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
+    - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
+    extract:
+    - 'DeviceClass                         :      500 :"Desktop"'
+    - 'DeviceName                          :   400002 :"Chromebook"'
+    - 'DeviceBrand                         :   400002 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   400002 :"Desktop"'
+    - 'OperatingSystemName                 :   400002 :"Chrome OS"'
+    - 'OperatingSystemVersion              :   400002 :@ChromeMajorVersion' # Only the major version is valid
+    - 'OperatingSystemVersionBuild         :   400002 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400002 :@ChromeMajorVersion'
+    - 'OperatingSystemNameVersion          :   400002 :Concat["Chrome OS ";@ChromeMajorVersion]'
+    - 'OperatingSystemNameVersionMajor     :   400002 :Concat["Chrome OS ";@ChromeMajorVersion]'
 
 
   # ============================================

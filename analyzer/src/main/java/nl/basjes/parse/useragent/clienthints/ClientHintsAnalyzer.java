@@ -47,6 +47,7 @@ import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_VERSION_MAJOR;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU_BITS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
@@ -72,6 +73,7 @@ import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_PLATFORM;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_PLATFORM_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_WOW_64;
 import static nl.basjes.parse.useragent.UserAgent.UNKNOWN_VALUE;
+import static nl.basjes.parse.useragent.classify.DeviceClass.DESKTOP;
 import static nl.basjes.parse.useragent.classify.DeviceClass.MOBILE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.PHONE;
 import static nl.basjes.parse.useragent.classify.DeviceClass.TABLET;
@@ -147,10 +149,10 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         setCHString(userAgent,            UACLIENT_HINT_PLATFORM_VERSION,   clientHints.getPlatformVersion());
         setCHBoolean(userAgent,           UACLIENT_HINT_WOW_64,             clientHints.getWow64());
 
+        improveOperatingSystem(userAgent, clientHints);
         improveMobileDeviceClass(userAgent, clientHints);
         improveDeviceBrandName(userAgent, clientHints);
         improveDeviceCPU(userAgent, clientHints);
-        improveOperatingSystem(userAgent, clientHints);
         improveLayoutEngineAndAgentInfo(userAgent, clientHints);
         return userAgent;
     }
@@ -199,8 +201,11 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     private static final List<String> GENERIC_DEVICE_NAMES = Arrays.asList(
         UNKNOWN_VALUE,
         "Android Mobile",
+        "Fuchsia Mobile",
+        "Fuchsia Device",
         "iOS Device",
-        "Desktop"
+        "Desktop",
+        "Linux Desktop"
     );
 
     public void improveDeviceBrandName(MutableUserAgent userAgent, ClientHints clientHints) {
@@ -263,6 +268,40 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         if (platform != null && platformVersion != null && !platform.trim().isEmpty() && !platformVersion.trim().isEmpty()) {
 //            MutableAgentField osName    = (MutableAgentField) userAgent.get(UserAgent.OPERATING_SYSTEM_NAME);
             String majorVersion = VersionSplitter.getInstance().getSingleSplit(platformVersion, 1);
+
+            // FIXME: The choice between using the UserAgent value and the Client Hint value in case of manipulation is very tricky.
+            if (userAgent.get(DEVICE_CLASS).getValue().equals(DESKTOP.getValue())) {
+                switch (platform) {
+                    case "macOS":
+                    case "Mac OS X":
+                        overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
+                        break;
+
+                    case "iOS":
+                        overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
+                        overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
+                        break;
+                    case "Android":
+                    case "Fuchsia":
+                        overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
+                        overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                        break;
+
+                    case "Linux":
+                        overrideValue(userAgent.get(DEVICE_NAME), "Linux Desktop");
+                        overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                        break;
+                    case "Chrome OS":
+                    case "Windows":
+                    case "Unknown":
+                    default:
+                        overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
+                        overrideValue(userAgent.get(DEVICE_NAME), DESKTOP.getValue());
+                        overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                        break;
+                }
+            }
+
             switch (platform) {
                 case "macOS":
                 case "Mac OS X":
@@ -275,6 +314,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     break;
 
                 case "Android":
+                case "Fuchsia":
                 case "Chrome OS":
                 case "iOS":
                 case "Linux":
@@ -288,6 +328,8 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                 case "Windows":
                     OSFields betterOsVersion = WINDOWS_VERSION_MAPPING.getLongestMatch(platformVersion);
                     if (betterOsVersion != null) {
+                        overrideValue(userAgent.get(DEVICE_CLASS),                        DESKTOP.getValue());
+                        overrideValue(userAgent.get(DEVICE_BRAND),                        NULL_VALUE);
                         overrideValue(userAgent.get(OPERATING_SYSTEM_NAME),               betterOsVersion.getName());
                         overrideValue(userAgent.get(OPERATING_SYSTEM_VERSION),            betterOsVersion.getVersion());
                         overrideValue(userAgent.get(OPERATING_SYSTEM_VERSION_MAJOR),      betterOsVersion.getVersionMajor());

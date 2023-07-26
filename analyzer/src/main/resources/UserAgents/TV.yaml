@@ -2468,15 +2468,15 @@ config:
     variable:
     - 'VTAG                                :agent.product.name{"VIZIO"^'
     extract:
-    - 'DeviceClass                         :     2000 :"TV"'
-    - 'DeviceName                          :     2000 :@VTAG.name'
-    - 'DeviceBrand                         :     2000 :"Vizio"'
-    - 'DeviceVersion                       :     2000 :@VTAG.(1)comments.(1)entry.(3)product.(1)version'
-    - 'OperatingSystemVersion              :     2000 :@VTAG.(1)comments.(1)entry.(2)product.(1)version'
-    - 'OperatingSystemClass                :     2000 :"Embedded"'
-    - 'OperatingSystemName                 :     2000 :"Vizio Smartcast"'
-    - 'OperatingSystemVersion              :     2000 :"<<<null>>>"'
-    - 'OperatingSystemVersionMajor         :     2000 :"<<<null>>>"'
+    - 'DeviceClass                         :   402000 :"TV"'
+    - 'DeviceName                          :   402000 :@VTAG.name'
+    - 'DeviceBrand                         :   402000 :"Vizio"'
+    - 'DeviceVersion                       :   402000 :@VTAG.(1)comments.(1)entry.(3)product.(1)version'
+    - 'OperatingSystemVersion              :   402000 :@VTAG.(1)comments.(1)entry.(2)product.(1)version'
+    - 'OperatingSystemClass                :   402000 :"Embedded"'
+    - 'OperatingSystemName                 :   402000 :"Vizio Smartcast"'
+    - 'OperatingSystemVersion              :   402000 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   402000 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -2484,15 +2484,15 @@ config:
     require:
     - '@VTAG.(1)comments.(1)entry.(1)text="Vizio"'
     extract:
-    - 'DeviceClass                         :     2001 :"TV"'
-    - 'DeviceName                          :     2001 :@VTAG.name'
-    - 'DeviceBrand                         :     2001 :"Vizio"'
-    - 'DeviceVersion                       :     2001 :@VTAG.(1)comments.(2)entry'
-    - 'OperatingSystemVersion              :     2001 :@VTAG.version'
-    - 'OperatingSystemClass                :     2001 :"Embedded"'
-    - 'OperatingSystemName                 :     2001 :"Vizio DTV"'
-    - 'OperatingSystemVersion              :     2001 :"<<<null>>>"'
-    - 'OperatingSystemVersionMajor         :     2001 :"<<<null>>>"'
+    - 'DeviceClass                         :   402001 :"TV"'
+    - 'DeviceName                          :   402001 :@VTAG.name'
+    - 'DeviceBrand                         :   402001 :"Vizio"'
+    - 'DeviceVersion                       :   402001 :@VTAG.(1)comments.(2)entry'
+    - 'OperatingSystemVersion              :   402001 :@VTAG.version'
+    - 'OperatingSystemClass                :   402001 :"Embedded"'
+    - 'OperatingSystemName                 :   402001 :"Vizio DTV"'
+    - 'OperatingSystemVersion              :   402001 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   402001 :"<<<null>>>"'
 
 - test:
     input:

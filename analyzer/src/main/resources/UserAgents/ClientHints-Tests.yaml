@@ -1404,7 +1404,6 @@ config:
 
 
 # Chrome 104 running on Ubuntu 20.04 Linux with a plugin that changes the User-Agent to show IE 10 on a Mac ...
-# In these cases it seems the Device info is used from the incorrect UserAgent, the browser and OS are picked from the Client Headers.
 - test:
     input:
       User-Agent                                 : 'Mozilla/5.0 (compatible; MSIE 10.0; Macintosh; Intel Mac OS X 10_7_3; Trident/6.0)'
@@ -1420,8 +1419,8 @@ config:
       Sec-Ch-Ua-Wow64                            : '?0'
     expected:
       DeviceClass                                : 'Desktop'
-      DeviceName                                 : 'Apple Macintosh'     # From faked UA
-      DeviceBrand                                : 'Apple'               # From faked UA
+      DeviceName                                 : 'Linux Desktop'
+      DeviceBrand                                : 'Unknown'
       DeviceCpu                                  : 'Intel x86_64'
       DeviceCpuBits                              : '64'
       OperatingSystemClass                       : 'Desktop'
@@ -2536,8 +2535,8 @@ config:
       Sec-Ch-Ua-Wow64                            : '?0'
     expected:
       DeviceClass                                : 'Phone'
-      DeviceName                                 : 'Pixel 3 XL'
-      DeviceBrand                                : 'Unknown'
+      DeviceName                                 : 'Google Pixel 3 XL'
+      DeviceBrand                                : 'Google'
       OperatingSystemClass                       : 'Mobile'
       OperatingSystemName                        : 'Android'
       OperatingSystemVersion                     : '12.0.0'
@@ -2865,4 +2864,97 @@ config:
       UAClientHintMobile                         : 'false'
       UAClientHintPlatform                       : 'Windows'
       UAClientHintPlatformVersion                : '10.0.0'
+      UAClientHintWow64                          : 'false'
+
+
+
+
+# NOTE: This is a manually created testcase for Fuchsia as I do not have REAL data from this platform yet.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36'
+      Sec-Ch-Ua                            : '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"'
+      Sec-Ch-Ua-Mobile                     : '?1'
+      Sec-Ch-Ua-Platform                   : '"Fuchsia"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Fuchsia Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Fuchsia'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Fuchsia ??'
+      OperatingSystemNameVersionMajor      : 'Fuchsia ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '109'
+      LayoutEngineVersionMajor             : '109'
+      LayoutEngineNameVersion              : 'Blink 109'
+      LayoutEngineNameVersionMajor         : 'Blink 109'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '109'
+      AgentVersionMajor                    : '109'
+      AgentNameVersion                     : 'Chrome 109'
+      AgentNameVersionMajor                : 'Chrome 109'
+
+      UAClientHintBrands_0_Brand           : 'Google Chrome'
+      UAClientHintBrands_0_Version         : '109'
+      UAClientHintBrands_1_Brand           : 'Chromium'
+      UAClientHintBrands_1_Version         : '109'
+      UAClientHintMobile                   : 'true'
+      UAClientHintPlatform                 : 'Fuchsia'
+
+
+# NOTE: This is a manually created testcase for Fuchsia as I do not have REAL data from this platform.
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Fuchsia) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36'
+      Sec-Ch-Ua                                  : '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"'
+      Sec-Ch-Ua-Arch                             : '""'
+      Sec-Ch-Ua-Bitness                          : '""'
+      Sec-Ch-Ua-Full-Version                     : '"109.0.5414.86"'
+      Sec-Ch-Ua-Full-Version-List                : '"Not_A Brand";v="99.0.0.0", "Google Chrome";v="109.0.5414.86", "Chromium";v="109.0.5414.86"'
+      Sec-Ch-Ua-Mobile                           : '?1'
+      Sec-Ch-Ua-Model                            : '"Google Chromecast"'  # Fake
+      Sec-Ch-Ua-Platform                         : '"Fuchsia"'            # Fake
+      Sec-Ch-Ua-Platform-Version                 : '"1.2.3"'              # Fake
+      Sec-Ch-Ua-Wow64                            : '?0'
+    expected:
+      DeviceClass                                : 'Phone'
+      DeviceName                                 : 'Google Chromecast'
+      DeviceBrand                                : 'Google'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'Fuchsia'
+      OperatingSystemVersion                     : '1.2.3'
+      OperatingSystemVersionMajor                : '1'
+      OperatingSystemNameVersion                 : 'Fuchsia 1.2.3'
+      OperatingSystemNameVersionMajor            : 'Fuchsia 1'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '109.0'
+      LayoutEngineVersionMajor                   : '109'
+      LayoutEngineNameVersion                    : 'Blink 109.0'
+      LayoutEngineNameVersionMajor               : 'Blink 109'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Chrome'
+      AgentVersion                               : '109.0.5414.86'
+      AgentVersionMajor                          : '109'
+      AgentNameVersion                           : 'Chrome 109.0.5414.86'
+      AgentNameVersionMajor                      : 'Chrome 109'
+
+      UAClientHintBrands_0_Brand                 : 'Google Chrome'
+      UAClientHintBrands_0_Version               : '109'
+      UAClientHintBrands_1_Brand                 : 'Chromium'
+      UAClientHintBrands_1_Version               : '109'
+      UAClientHintFullVersion                    : '109.0.5414.86'
+      UAClientHintFullVersionList_0_Brand        : 'Google Chrome'
+      UAClientHintFullVersionList_0_Version      : '109.0.5414.86'
+      UAClientHintFullVersionList_1_Brand        : 'Chromium'
+      UAClientHintFullVersionList_1_Version      : '109.0.5414.86'
+      UAClientHintMobile                         : 'true'
+      UAClientHintModel                          : 'Google Chromecast'
+      UAClientHintPlatform                       : 'Fuchsia'
+      UAClientHintPlatformVersion                : '1.2.3'
       UAClientHintWow64                          : 'false'
