@@ -514,7 +514,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
         // We just pick the first one that remains.
         Optional<Map.Entry<String, Brand>> firstBrand = sortedBrands.entrySet().stream().findFirst();
-        if (firstBrand.isEmpty()) {
+        if (!firstBrand.isPresent()) {
             return;
         }
 
