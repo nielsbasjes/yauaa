@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -308,8 +309,8 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     }
 
     private boolean newVersionIsBetter(MutableAgentField currentVersion, String version) {
-        boolean currentVersionHasMinor = currentVersion.getValue().contains(".");
-        boolean versionHasMinor = version.contains(".");
+        boolean currentVersionHasMinor = currentVersion.getValue().indexOf('.') >= 0;
+        boolean versionHasMinor = version.indexOf('.') >= 0;
         return currentVersion.isDefaultValue() ||
             (!versionHasMinor && !currentVersionHasMinor) ||
             (versionHasMinor);
@@ -317,11 +318,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
-        boolean usingFullVersions = true;
         List<Brand> versionList = clientHints.getFullVersionList();
         if (versionList == null) {
             versionList = clientHints.getBrands();
-            usingFullVersions = false;
         }
 
         if (versionList == null) {
@@ -386,8 +385,8 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
                 return;
             }
+            versionMap.remove("Chromium");
         }
-        versionMap.remove("Chromium");
 
         // ========================
         Brand chrome = versionMap.get("Chrome");
@@ -418,74 +417,91 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     return;
                 }
             }
+            versionMap.remove("Chrome");
+            versionMap.remove("Google Chrome");
         }
-        versionMap.remove("Chrome");
-        versionMap.remove("Google Chrome");
         // ========================
 
         // If anything remains then (we think) THAT is the truth...
-        for (Map.Entry<String, Brand> brandEntry : versionMap.entrySet()) {
-            Brand brand = brandEntry.getValue();
-            String rawBrandName = brand.getName();
-            String agentName = rawBrandName;
+        Map<String, Brand> sortedBrands = new TreeMap<>();
 
-            // Sanitize the common yet unwanted names
-            switch (rawBrandName) {
-                case "Opera":
-                    // There is a bug in Opera which puts the wrong version in the client hints.
-                    // So we skip this one
-                    continue;
-                case "OperaMobile":
-                    // We report the OperaMobile value as "Opera"
-                    agentName = "Opera";
-                    break;
-                case "Microsoft Edge":
-                    agentName = "Edge";
-                    break;
-                default:
-            }
+        // There is a bug in Opera which puts the wrong version in the client hints.
+        // So we skip this one
+        versionMap.remove("Opera");
 
-            MutableAgentField agentNameField = userAgent.get(AGENT_NAME);
-            MutableAgentField agentVersionField = userAgent.get(AGENT_VERSION);
-
-            // We only update the version if we have a better version number.
-            // We always update the AgentName because I think the Client hints are "better"...
-            String versionFieldValue = agentVersionField.getValue();
-            String newVersion = brand.getVersion();
-            String newMajorVersion = newVersion.split("\\.")[0];
-
-            boolean versionFieldValueHasDot = versionFieldValue.indexOf('.') >= 0;
+        // If we have more than 1 left we sort them by how detailed the version info is.
+        int originalPosition = 0;
+        for (Brand brand : versionMap.values()) {
+            originalPosition++;
+            String version = brand.getVersion();
+            boolean versionFieldValueHasDot = version.indexOf('.') >= 0;
             boolean versionIsMajorVersionOnly = !versionFieldValueHasDot;
             if (versionFieldValueHasDot) {
-                versionIsMajorVersionOnly = versionFieldValue.endsWith(".0.0.0");
+                versionIsMajorVersionOnly = version.endsWith(".0.0.0");
             }
+            // The 0 (with detailed version) is sorted before the 1 (only major version) in the TreeMap (which sorts by key)
+            sortedBrands.put((versionIsMajorVersionOnly ?"1":"0") + "_"+ originalPosition + "_" + brand.getName(), brand);
+        }
 
-            // The values we are going to set at the end.
-            String setVersion = versionFieldValue;
-            String setMajorVersion = versionFieldValue.split("\\.")[0];
+        MutableAgentField agentNameField = userAgent.get(AGENT_NAME);
+        MutableAgentField agentVersionField = userAgent.get(AGENT_VERSION);
+        String versionFieldValue = agentVersionField.getValue();
 
-            // If the original is a major version only then the new one is better
-            if (versionIsMajorVersionOnly) {
-                setVersion = newVersion;
-                setMajorVersion = newMajorVersion;
-            } else {
-                // If current version is a full version but there is a mismatch in the major we pick the
-                // ClientHints version anyway.
-                if (!setMajorVersion.equals(newMajorVersion)) {
-                    setVersion = newVersion;
-                    setMajorVersion = newMajorVersion;
-                }
-            }
+        boolean versionFieldValueHasDot = versionFieldValue.indexOf('.') >= 0;
+        boolean versionIsMajorVersionOnly = !versionFieldValueHasDot;
+        if (versionFieldValueHasDot) {
+            versionIsMajorVersionOnly = versionFieldValue.endsWith(".0.0.0");
+        }
 
-            overrideValue(agentNameField, agentName);
-            overrideValue(userAgent.get(AGENT_VERSION), setVersion);
-            overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + setVersion);
-            overrideValue(userAgent.get(AGENT_VERSION_MAJOR), setMajorVersion);
-            overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + setMajorVersion);
-
-            // We just pick the first one that remains.
+        // We just pick the first one that remains.
+        Optional<Map.Entry<String, Brand>> firstBrand = sortedBrands.entrySet().stream().findFirst();
+        if (firstBrand.isEmpty()) {
             return;
         }
+
+        Map.Entry<String, Brand> brandEntry = firstBrand.get();
+        Brand brand = brandEntry.getValue();
+        String agentName = brand.getName();
+
+        // Sanitize the common yet unwanted names
+        switch (agentName) {
+            case "OperaMobile":
+                // We report the OperaMobile value as "Opera"
+                agentName = "Opera";
+                break;
+            case "Microsoft Edge":
+                agentName = "Edge";
+                break;
+            default:
+        }
+
+        // We only update the version if we have a better version number.
+        // We always update the AgentName because I think the Client hints are always "better"...
+        String newVersion = brand.getVersion();
+        String newMajorVersion = newVersion.split("\\.")[0];
+
+        // The values we are going to set at the end.
+        String setVersion = versionFieldValue;
+        String setMajorVersion = versionFieldValue.split("\\.")[0];
+
+        // If the original is a major version only then the new one is better
+        if (versionIsMajorVersionOnly) {
+            setVersion = newVersion;
+            setMajorVersion = newMajorVersion;
+        } else {
+            // If current version is a full version but there is a mismatch in the major we pick the
+            // ClientHints version anyway.
+            if (!setMajorVersion.equals(newMajorVersion)) {
+                setVersion = newVersion;
+                setMajorVersion = newMajorVersion;
+            }
+        }
+
+        overrideValue(agentNameField, agentName);
+        overrideValue(userAgent.get(AGENT_VERSION), setVersion);
+        overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + setVersion);
+        overrideValue(userAgent.get(AGENT_VERSION_MAJOR), setMajorVersion);
+        overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + setMajorVersion);
     }
 
     // In the above calculations there are fields that require additional input fields.
