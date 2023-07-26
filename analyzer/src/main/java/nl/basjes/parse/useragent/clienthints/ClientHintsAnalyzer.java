@@ -41,6 +41,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import static java.lang.Boolean.TRUE;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION_MAJOR;
@@ -53,6 +54,7 @@ import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU_BITS;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_FIRMWARE_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.DEVICE_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION_MAJOR;
@@ -253,12 +255,6 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         }
     }
 
-    private static final List<String> UPDATE_THESE_DEVICE_CLASSES = Arrays.asList(
-        DESKTOP.getValue(),
-        MOBILE.getValue(),
-        TABLET.getValue(),
-        PHONE.getValue()
-    );
 
     public void improveOperatingSystem(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the OS info.
@@ -279,42 +275,48 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 //            MutableAgentField osName    = (MutableAgentField) userAgent.get(UserAgent.OPERATING_SYSTEM_NAME);
             String majorVersion = VersionSplitter.getInstance().getSingleSplit(platformVersion, 1);
 
-            // FIXME: The choice between using the UserAgent value and the Client Hint value in case of manipulation is very tricky.
-            if (UPDATE_THESE_DEVICE_CLASSES.contains(userAgent.get(DEVICE_CLASS).getValue())) {
-                switch (platform) {
-                    case "macOS":
-                    case "Mac OS X":
-                        overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
-                        break;
+            switch (platform) {
+                case "macOS":
+                case "Mac OS X":
+                    overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
+                    overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(OPERATING_SYSTEM_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(LAYOUT_ENGINE_CLASS), "Browser");
+                    overrideValue(userAgent.get(AGENT_CLASS), "Browser");
+                    break;
 
-                    case "iOS":
-                        overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
-                        overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
-                        break;
-                    case "Android":
-                    case "Fuchsia":
-                        overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
-                        overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
-                        break;
+                case "iOS":
+                    overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
+                    overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
+                    break;
+                case "Android":
+                case "Fuchsia":
+                    overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
+                    overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                    break;
 
-                    case "Linux":
-                        overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
-                        overrideValue(userAgent.get(DEVICE_NAME), "Linux Desktop");
-                        overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
-                        overrideValue(userAgent.get(DEVICE_VERSION), NULL_VALUE);
-                        overrideValue(userAgent.get(DEVICE_FIRMWARE_VERSION), NULL_VALUE);
-                        overrideValue(userAgent.get(OPERATING_SYSTEM_CLASS), DESKTOP.getValue());
+                case "Linux":
+                    overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(DEVICE_NAME), "Linux Desktop");
+                    overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                    overrideValue(userAgent.get(DEVICE_VERSION), NULL_VALUE);
+                    overrideValue(userAgent.get(DEVICE_FIRMWARE_VERSION), NULL_VALUE);
+                    overrideValue(userAgent.get(OPERATING_SYSTEM_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(LAYOUT_ENGINE_CLASS), "Browser");
+                    overrideValue(userAgent.get(AGENT_CLASS), "Browser");
 
-                        break;
-                    case "Chrome OS":
-                    case "Windows":
-                    case "Unknown":
-                    default:
-                        overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
-                        overrideValue(userAgent.get(DEVICE_NAME), DESKTOP.getValue());
-                        overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
-                        break;
-                }
+                    break;
+                case "Chrome OS":
+                case "Windows":
+                case "Unknown":
+                default:
+                    overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(DEVICE_NAME), DESKTOP.getValue());
+                    overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                    overrideValue(userAgent.get(LAYOUT_ENGINE_CLASS), "Browser");
+                    overrideValue(userAgent.get(OPERATING_SYSTEM_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(AGENT_CLASS), "Browser");
+                    break;
             }
 
             switch (platform) {

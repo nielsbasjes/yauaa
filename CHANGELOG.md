@@ -22,6 +22,7 @@ NEXT RELEASE
   - Detect Fuchsia OS
   - Better Brand extraction
   - Detect several situations of UserAgent changing plugins
+  - Better classify normal Desktop imitating GoogleBot
 - Updated UDF dependencies
   - Trino 422 (it needs 421 or newer!)
 
