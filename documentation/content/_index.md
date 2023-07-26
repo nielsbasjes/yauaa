@@ -22,6 +22,9 @@ These are only the highlights, the full changelog can be found [here](https://gi
     - Detect Amazon Echo Show better (a "Smart Display")
     - Detect Bitwarden Mobile app
     - Detect more Federated Social Servers and Robots
+    - Detect Opera GX
+    - Detect Fuchsia OS
+    - Detect several situations of UserAgent changing plugins
 - Updated UDF dependencies
     - Trino 422 (it needs 421 or newer!)
 
