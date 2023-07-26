@@ -70,6 +70,7 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_ARCHITECTURE;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_BITNESS;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_BRANDS;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FORMFACTOR;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FULL_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FULL_VERSION_LIST;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_MOBILE;
@@ -147,6 +148,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         setCHBrandVersionsList(userAgent, UACLIENT_HINT_BRANDS,             clientHints.getBrands());
         setCHString(userAgent,            UACLIENT_HINT_ARCHITECTURE,       clientHints.getArchitecture());
         setCHString(userAgent,            UACLIENT_HINT_BITNESS,            clientHints.getBitness());
+        setCHStringList(userAgent,        UACLIENT_HINT_FORMFACTOR,         clientHints.getFormFactors());
         setCHString(userAgent,            UACLIENT_HINT_FULL_VERSION,       clientHints.getFullVersion());
         setCHBrandVersionsList(userAgent, UACLIENT_HINT_FULL_VERSION_LIST,  clientHints.getFullVersionList());
         setCHBoolean(userAgent,           UACLIENT_HINT_MOBILE,             clientHints.getMobile());
@@ -169,6 +171,16 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             for (Brand brand : brands) {
                 userAgent.set(baseFieldName + '_' + i + "_Brand",   brand.getName(),   1);
                 userAgent.set(baseFieldName + '_' + i + "_Version", brand.getVersion(), 1);
+                i++;
+            }
+        }
+    }
+
+    private void setCHStringList(MutableUserAgent userAgent, String baseFieldName, ArrayList<String> values) {
+        if (values != null) {
+            int i = 0;
+            for (String value : values) {
+                userAgent.set(baseFieldName + '_' + i, value, 1);
                 i++;
             }
         }

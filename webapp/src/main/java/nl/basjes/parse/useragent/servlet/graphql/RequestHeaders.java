@@ -23,6 +23,7 @@ import lombok.experimental.Accessors;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactor;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
@@ -42,6 +43,7 @@ public class RequestHeaders {
     @Getter @Setter /* @Description(ParseSecChUa.HEADER_FIELD                  + ": " + ParseSecChUa.HEADER_SPEC                  + " See also " + ParseSecChUa.HEADER_SPEC_URL)                 */  private String secChUa;                 // Sec-CH-UA
     @Getter @Setter /* @Description(ParseSecChUaArch.HEADER_FIELD              + ": " + ParseSecChUaArch.HEADER_SPEC              + " See also " + ParseSecChUaArch.HEADER_SPEC_URL)             */  private String secChUaArch;             // Sec-CH-UA-Arch
     @Getter @Setter /* @Description(ParseSecChUaBitness.HEADER_FIELD           + ": " + ParseSecChUaBitness.HEADER_SPEC           + " See also " + ParseSecChUaBitness.HEADER_SPEC_URL)          */  private String secChUaBitness;          // Sec-CH-UA-Bitness
+    @Getter @Setter /* @Description(ParseSecChUaFormFactor.HEADER_FIELD        + ": " + ParseSecChUaFormFactor.HEADER_SPEC        + " See also " + ParseSecChUaFormFactor.HEADER_SPEC_URL)       */  private String secChUaFormFactor;       // Sec-CH-UA-Form-Factor
     @Getter @Setter /* @Description(ParseSecChUaFullVersion.HEADER_FIELD       + ": " + ParseSecChUaFullVersion.HEADER_SPEC       + " See also " + ParseSecChUaFullVersion.HEADER_SPEC_URL)      */  private String secChUaFullVersion;      // Sec-CH-UA-Full-Version
     @Getter @Setter /* @Description(ParseSecChUaFullVersionList.HEADER_FIELD   + ": " + ParseSecChUaFullVersionList.HEADER_SPEC   + " See also " + ParseSecChUaFullVersionList.HEADER_SPEC_URL)  */  private String secChUaFullVersionList;  // Sec-CH-UA-Full-Version-List
     @Getter @Setter /* @Description(ParseSecChUaMobile.HEADER_FIELD            + ": " + ParseSecChUaMobile.HEADER_SPEC            + " See also " + ParseSecChUaMobile.HEADER_SPEC_URL)           */  private String secChUaMobile;           // Sec-CH-UA-Mobile
@@ -56,6 +58,7 @@ public class RequestHeaders {
         putIfNotNull(result, ParseSecChUa.HEADER_FIELD,                 secChUa);
         putIfNotNull(result, ParseSecChUaArch.HEADER_FIELD,             secChUaArch);
         putIfNotNull(result, ParseSecChUaBitness.HEADER_FIELD,          secChUaBitness);
+        putIfNotNull(result, ParseSecChUaFormFactor.HEADER_FIELD,       secChUaFormFactor);
         putIfNotNull(result, ParseSecChUaFullVersion.HEADER_FIELD,      secChUaFullVersion);
         putIfNotNull(result, ParseSecChUaFullVersionList.HEADER_FIELD,  secChUaFullVersionList);
         putIfNotNull(result, ParseSecChUaMobile.HEADER_FIELD,           secChUaMobile);

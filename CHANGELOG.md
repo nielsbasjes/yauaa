@@ -9,8 +9,10 @@ NEXT RELEASE
   - Uphold javascript sdk
   - Shopify Mobile
   - Apple iOS version in edge cases
+- Analyzer:
+  - Ability to use the Sec-CH-UA-Form-Factor header (no rules yet)
 - Updated UDF dependencies
-    - Trino 430 changed their API
+  - Trino 430 changed their API
 
 v7.22.0
 ===

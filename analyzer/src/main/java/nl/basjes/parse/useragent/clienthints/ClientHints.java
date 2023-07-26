@@ -34,6 +34,7 @@ public class ClientHints implements Serializable {
     private ArrayList<Brand> brands = null;                 // 3.1 https://wicg.github.io/ua-client-hints/#sec-ch-ua
     private String architecture = null;                     // 3.2 https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch
     private String bitness = null;                          // 3.3 https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness
+    private ArrayList<String> formFactors = null;           // 3.4 https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factor
     private String fullVersion = null; /* deprecated */     // 3.4 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version
     private ArrayList<Brand> fullVersionList = null;        // 3.5 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
     private Boolean mobile = null;                          // 3.6 https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile

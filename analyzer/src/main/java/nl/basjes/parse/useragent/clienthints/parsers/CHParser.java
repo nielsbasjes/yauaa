@@ -22,9 +22,13 @@ import nl.basjes.parse.useragent.clienthints.ClientHints;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -87,6 +91,25 @@ public interface CHParser extends Serializable {
             return result;
         }
         return null;
+    }
+
+    /**
+     * A sf-list is a ',' separated list of sf-string.
+     *
+     * @param value The value to be parsed
+     * @return The list of actual payload strings (i.e. without the surrounding '"') or null if invalid
+     */
+    default ArrayList<String> parseSfList(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        return Arrays
+            .stream(value.split(","))
+            .map(String::trim)
+            .map(this::parseSfString)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 
     default void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
