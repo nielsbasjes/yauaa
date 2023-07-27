@@ -3,6 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- New/improved detections:
+  - ...
+
+v7.21.0
+===
 - Analyzer:
   - Handle the < and > brackets better.
 - New/improved detections:

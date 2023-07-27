@@ -17,6 +17,10 @@ These are only the highlights, the full changelog can be found [here](https://gi
 
 ### NEXT RELEASE
 - New/improved detections:
+  - ...
+
+### Version v7.21.0
+- New/improved detections:
     - New DeviceClass: "Smart Display"
     - Report Samsung DEX (Desktop Experience) as Tablet
     - Detect Amazon Echo Show better (a "Smart Display")
