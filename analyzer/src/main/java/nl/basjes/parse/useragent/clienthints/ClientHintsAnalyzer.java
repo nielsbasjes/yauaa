@@ -289,6 +289,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
                     overrideValue(userAgent.get(DEVICE_BRAND), "Apple");
                     break;
+
                 case "Android":
                 case "Fuchsia":
                     overrideValue(userAgent.get(DEVICE_CLASS), MOBILE.getValue());
@@ -304,11 +305,18 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                     overrideValue(userAgent.get(OPERATING_SYSTEM_CLASS), DESKTOP.getValue());
                     overrideValue(userAgent.get(LAYOUT_ENGINE_CLASS), "Browser");
                     overrideValue(userAgent.get(AGENT_CLASS), "Browser");
-
                     break;
+
                 case "Chrome OS":
                 case "Windows":
                     overrideValue(userAgent.get(DEVICE_NAME), DESKTOP.getValue());
+                    overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(DEVICE_BRAND), NULL_VALUE);
+                    overrideValue(userAgent.get(LAYOUT_ENGINE_CLASS), "Browser");
+                    overrideValue(userAgent.get(OPERATING_SYSTEM_CLASS), DESKTOP.getValue());
+                    overrideValue(userAgent.get(AGENT_CLASS), "Browser");
+                    break;
+
                 case "Unknown":
                 default:
                     overrideValue(userAgent.get(DEVICE_CLASS), DESKTOP.getValue());
