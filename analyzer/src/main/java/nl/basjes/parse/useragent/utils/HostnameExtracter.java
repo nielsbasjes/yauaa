@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import static nl.basjes.parse.useragent.utils.publicsuffixlist.DomainType.ICANN;
 
@@ -164,6 +165,8 @@ public final class HostnameExtracter implements Serializable {
         return null;
     }
 
+    private static final Pattern DOT_SPLITTER = Pattern.compile("\\.");
+
     private static String extractCompanyFromHostName(String hostname, Set<String> blackList) {
         if (hostname == null) {
             return null;
@@ -177,7 +180,7 @@ public final class HostnameExtracter implements Serializable {
         if (root == null) {
             return null;
         }
-        return Normalize.brand(root.split("\\.", 2)[0]);
+        return Normalize.brand(DOT_SPLITTER.split(root, 2)[0]);
     }
 
 }

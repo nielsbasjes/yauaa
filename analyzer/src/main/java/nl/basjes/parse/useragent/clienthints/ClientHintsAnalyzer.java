@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.regex.Pattern;
 
 import static java.lang.Boolean.TRUE;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
@@ -383,6 +384,8 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             (versionHasMinor);
     }
 
+    private static final Pattern DOT_SPLITTER = Pattern.compile("\\.");
+
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
         List<Brand> versionList = clientHints.getFullVersionList();
@@ -401,7 +404,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         Brand chromium = versionMap.get("Chromium");
         if (chromium != null) {
             String version = chromium.getVersion();
-            String[] versionSplits = version.split("\\.");
+            String[] versionSplits = DOT_SPLITTER.split(version);
             String majorVersion = versionSplits[0];
 
             // Work around the major in minor hack/feature of Chrome ~v99
@@ -465,7 +468,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
                 // So we have "Chrome" and nothing else
                 MutableAgentField currentVersion = userAgent.get(AGENT_VERSION);
                 String version = chrome.getVersion();
-                String[] versionSplits = version.split("\\.");
+                String[] versionSplits = DOT_SPLITTER.split(version);
                 String majorVersion = versionSplits[0];
 
                 // Work around the major in minor hack/feature of Chrome ~v99
@@ -500,7 +503,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         if ("Opera".equals(currentAgent.getValue())) {
             String currentVersion = userAgent.get(AGENT_VERSION).getValue();
             // We only consider the Client Hints if the version new enough.
-            String currentMajorVersion = currentVersion.substring(0, currentVersion.indexOf('.'));
+            String currentMajorVersion = DOT_SPLITTER.split(currentVersion, 2)[0];
             int currentMajorVersionInt = Integer.parseInt(currentMajorVersion);
             if (currentMajorVersionInt < 98) {
                 versionMap.remove("Opera");
@@ -556,11 +559,11 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         // We only update the version if we have a better version number.
         // We always update the AgentName because I think the Client hints are always "better"...
         String newVersion = brand.getVersion();
-        String newMajorVersion = newVersion.split("\\.")[0];
+        String newMajorVersion = DOT_SPLITTER.split(newVersion, 2)[0];
 
         // The values we are going to set at the end.
         String setVersion = versionFieldValue;
-        String setMajorVersion = versionFieldValue.split("\\.")[0];
+        String setMajorVersion = DOT_SPLITTER.split(versionFieldValue, 2)[0];
 
         // If the original is a major version only then the new one is better
         if (versionIsMajorVersionOnly) {
