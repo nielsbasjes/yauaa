@@ -30,6 +30,7 @@ config:
       'App3leWebKit'                 : 'App3leWebKit|App3leWebKit'
       'bitlybot'                     : 'Bitly|Bitly bot'
       'Buck'                         : 'Hypefactors|Buck'
+      'BW'                           : 'BuildWith|BuildWith Indexing Usage Policy'
       'Catchpoint'                   : 'Catchpoint|Catchpoint Analyzer'
       'curl'                         : 'Curl|curl'
       'magpie-crawler'               : 'Brandwatch|magpie-crawler ' # 'watch' causes it to be seen as a wristwatch
@@ -79,8 +80,10 @@ config:
       'Site-Shot'                    : 'Site-Shot|Site-Shot'
       'Swayy'                        : 'Swayy|Swayy'
       'TencentTraveler'              : 'Tencent|Tencent Traveler'
+      'ThinkChaos'                   : 'ThinkChaos|ThinkChaos'
       'TrendsmapResolver'            : 'TrendsmapResolver|TrendsmapResolver'
       'TrueClicks'                   : 'TrueClicks|TrueClicks'
+      'Turnitin'                     : 'Turnitin|Turnitin'
       'Twitterbot'                   : 'Twitter|Twitterbot'
       'Telegrambot'                  : 'Telegram|Telegrambot'
       'urlwatch'                     : 'Urlwatch|urlwatch'   # 'watch' causes it to be seen as a wristwatch
@@ -12667,3 +12670,127 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Wkhtmltopdf ??'
       AgentNameVersionMajor                : 'Wkhtmltopdf ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; InternetMeasurement/1.0; +https://internet-measurement.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Internet-Measurement Robot'
+      DeviceBrand                          : 'Internet-Measurement'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'InternetMeasurement'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'InternetMeasurement 1.0'
+      AgentNameVersionMajor                : 'InternetMeasurement 1'
+      AgentInformationUrl                  : 'https://internet-measurement.com/'
+
+
+# bit.ly/2W6Px8S -> https://builtwith.com/biup
+# BuiltWith Indexing Usage Policy
+# All our requests contain a User-Agent which will include:   BW/1.1; bit.ly/3eZNDnO
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko; compatible; BW/1.1; bit.ly/2W6Px8S; 88c002fefb) Chrome/84.0.4147.105 Safari/537.36'
+      Sec-Ch-Ua                            : '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"'
+      Sec-Ch-Ua-Mobile                     : '?0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'BuildWith Indexing Usage Policy'
+      DeviceBrand                          : 'BuildWith'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Blink 1.1'
+      LayoutEngineNameVersionMajor         : 'Blink 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BW'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BW 1.1'
+      AgentNameVersionMajor                : 'BW 1'
+      AgentInformationUrl                  : 'bit.ly'
+      UAClientHintBrands_0_Brand           : 'Google Chrome'
+      UAClientHintBrands_0_Version         : '87'
+      UAClientHintBrands_1_Brand           : 'Chromium'
+      UAClientHintBrands_1_Version         : '87'
+      UAClientHintMobile                   : 'false'
+
+
+# https://bit.ly/2UvnfoQ --> https://www.turnitin.com/robot/crawlerinfo.html
+# Why does Turnitin.com need to crawl my site?
+# Part of the plagiarism prevention service relies on comparing student papers to content found on the Internet.
+- test:
+    input:
+      User-Agent                           : 'Turnitin (https://bit.ly/2UvnfoQ)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Turnitin'
+      DeviceBrand                          : 'Turnitin'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Turnitin'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Turnitin ??'
+      LayoutEngineNameVersionMajor         : 'Turnitin ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Turnitin'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Turnitin ??'
+      AgentNameVersionMajor                : 'Turnitin ??'
+      AgentInformationUrl                  : 'https://bit.ly/2UvnfoQ'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; ThinkChaos/0.3.0; +In_the_test_phase,_if_the_ThinkChaos_brings_you_trouble,_please_add_disallow._Thank_you.)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'ThinkChaos'
+      DeviceBrand                          : 'ThinkChaos'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ThinkChaos'
+      LayoutEngineVersion                  : '0.3.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'ThinkChaos 0.3.0'
+      LayoutEngineNameVersionMajor         : 'ThinkChaos 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ThinkChaos'
+      AgentVersion                         : '0.3.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'ThinkChaos 0.3.0'
+      AgentNameVersionMajor                : 'ThinkChaos 0'
