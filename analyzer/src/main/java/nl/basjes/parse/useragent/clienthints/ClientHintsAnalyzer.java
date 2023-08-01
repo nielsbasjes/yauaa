@@ -492,9 +492,20 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         // If anything remains then (we think) THAT is the truth...
         Map<String, Brand> sortedBrands = new TreeMap<>();
 
-        // There is a bug in Opera which puts the wrong version in the client hints.
-        // So we skip this one
-        versionMap.remove("Opera");
+        // There was a bug in Opera which puts the wrong version in the client hints.
+        // This has been fixed in the first release of Opera 98
+        // https://blogs.opera.com/desktop/changelog-for-98/
+        // So up until Opera 97 / Opera Mobile the version information was buggy.
+        MutableAgentField currentAgent = userAgent.get(AGENT_NAME);
+        if ("Opera".equals(currentAgent.getValue())) {
+            String currentVersion = userAgent.get(AGENT_VERSION).getValue();
+            // We only consider the Client Hints if the version new enough.
+            String currentMajorVersion = currentVersion.substring(0, currentVersion.indexOf('.'));
+            int currentMajorVersionInt = Integer.parseInt(currentMajorVersion);
+            if (currentMajorVersionInt < 98) {
+                versionMap.remove("Opera");
+            }
+        }
 
         // If we have more than 1 left we sort them by how detailed the version info is.
         int originalPosition = 0;
