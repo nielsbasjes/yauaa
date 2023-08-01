@@ -113,7 +113,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     // If major is 6 and minor is 1 (i.e., Windows 7), return "0.1".
 
     @AllArgsConstructor
-    private static class OSFields implements Serializable {
+    private static final class OSFields implements Serializable {
         @Getter String name;              // Windows NT
         @Getter String version;           // 8.1
         @Getter String versionMajor;      // 8
