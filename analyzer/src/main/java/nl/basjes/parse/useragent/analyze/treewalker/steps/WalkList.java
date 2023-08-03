@@ -281,7 +281,7 @@ public class WalkList implements Serializable {
         return sb.toString();
     }
 
-    private class WalkListBuilder extends UserAgentTreeWalkerBaseVisitor<Void> {
+     private final class WalkListBuilder extends UserAgentTreeWalkerBaseVisitor<Void> {
 
         // Because we are jumping in 'mid way' we need to skip creating steps until that point.
         boolean foundHashEntryPoint = false;

@@ -786,7 +786,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
     /**
      * Inner delegate class, avoiding a hard JBoss VFS API dependency at runtime.
      */
-    private static class VfsResourceMatchingDelegate {
+    private static final class VfsResourceMatchingDelegate {
 
         public static Set<Resource> findMatchingResources(
             URL rootDirURL, String locationPattern, PathMatcher pathMatcher) throws IOException {

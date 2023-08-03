@@ -564,7 +564,7 @@ public class UserAgentStringMatchMakerTester extends AbstractUserAgentAnalyzer {
     // ===============================================================================================================
 
 
-    private static class MatcherImpact {
+    private static final class MatcherImpact {
         String name;
         long neededInputs;
         long tests;

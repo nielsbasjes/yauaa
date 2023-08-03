@@ -316,7 +316,7 @@ class TestCaching {
         assertEquals(agent1, agent2);
     }
 
-    private static class TestingCacheInstantiator implements CacheInstantiator {
+    private static final class TestingCacheInstantiator implements CacheInstantiator {
         @Override
         public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
             return Collections.synchronizedMap(

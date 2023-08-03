@@ -244,7 +244,7 @@ class TestAnnotationSystem {
         }
     }
 
-    private static class InaccessibleSetterMapperClass extends PrivateMyBaseMapper {
+    private static final class InaccessibleSetterMapperClass extends PrivateMyBaseMapper {
         @SuppressWarnings("unused") // Called via the annotation
         @YauaaField("DeviceClass")
         public void correctSetter(PrivateTestRecord record, String value) {

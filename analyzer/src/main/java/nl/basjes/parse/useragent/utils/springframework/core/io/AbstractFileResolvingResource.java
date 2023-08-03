@@ -189,7 +189,7 @@ public abstract class AbstractFileResolvingResource extends AbstractResource {
     /**
      * Inner delegate class, avoiding a hard JBoss VFS API dependency at runtime.
      */
-    private static class VfsResourceDelegate {
+    private static final class VfsResourceDelegate {
 
         public static Resource getResource(URL url) throws IOException {
             return new VfsResource(VfsUtils.getRoot(url));

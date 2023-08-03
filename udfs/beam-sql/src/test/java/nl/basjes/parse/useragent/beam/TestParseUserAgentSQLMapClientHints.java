@@ -59,7 +59,7 @@ public class TestParseUserAgentSQLMapClientHints implements Serializable {
         return appRowBuilder.build();
     }
 
-    private static class TestCase {
+    private static final class TestCase {
         String useragent;
         String chPlatform;
         String chPlatformVersion;

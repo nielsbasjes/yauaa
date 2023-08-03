@@ -18,7 +18,6 @@
 package nl.basjes.log2test;
 
 import nl.basjes.parse.core.Parser;
-import nl.basjes.parse.core.exceptions.DissectionFailure;
 import nl.basjes.parse.core.exceptions.InvalidDissectorException;
 import nl.basjes.parse.core.exceptions.MissingDissectorsException;
 import nl.basjes.parse.httpdlog.HttpdLoglineParser;

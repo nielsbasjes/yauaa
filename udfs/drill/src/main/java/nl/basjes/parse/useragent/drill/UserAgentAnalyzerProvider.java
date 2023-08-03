@@ -51,7 +51,7 @@ public class UserAgentAnalyzerProvider {
         return allHeaders;
     }
 
-    private static class UserAgentAnalyzerHolder {
+    private static final class UserAgentAnalyzerHolder {
         private static final UserAgentAnalyzer INSTANCE = UserAgentAnalyzer.newBuilder()
             .dropTests()
             .hideMatcherLoadStats()

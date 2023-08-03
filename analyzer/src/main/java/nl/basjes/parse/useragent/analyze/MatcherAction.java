@@ -202,7 +202,7 @@ public abstract class MatcherAction implements Serializable {
 
     protected abstract ParserRuleContext parseWalkerExpression(UserAgentTreeWalkerParser parser);
 
-    private static class UnQuoteValues extends UserAgentTreeWalkerBaseVisitor<Void> {
+    private static final class UnQuoteValues extends UserAgentTreeWalkerBaseVisitor<Void> {
         private void unQuoteToken(Token token) {
             if (token instanceof CommonToken) {
                 CommonToken commonToken = (CommonToken) token;

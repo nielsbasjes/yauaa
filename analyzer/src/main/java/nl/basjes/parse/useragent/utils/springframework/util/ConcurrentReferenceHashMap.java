@@ -791,7 +791,7 @@ public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implemen
     /**
      * Internal entry-set implementation.
      */
-    private class EntrySet extends AbstractSet<Map.Entry<K, V>> {
+    private final class EntrySet extends AbstractSet<Map.Entry<K, V>> {
 
         @Override
         public Iterator<Map.Entry<K, V>> iterator() {
