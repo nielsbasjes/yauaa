@@ -17,7 +17,8 @@ These are only the highlights, the full changelog can be found [here](https://gi
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+    - Handle version bug fixed in Opera 98.
+    - Report all Opera variants as distinct browsers because they all have unrelated version numbers.
 
 ### Version v7.21.0
 - New/improved detections:

@@ -15,7 +15,6 @@
 # limitations under the License.
 #
 
-
 config:
 
 - matcher:
@@ -48,6 +47,99 @@ config:
 #    - 'AgentClass                 : 2020:"Browser"'
 #    - 'AgentName                  : 2020:"Opera"'
 #    - 'AgentVersion               : 2020:agent.product.name="Opr"^.version'
+
+# From 2011: https://dev.opera.com/articles/opera-mini-request-headers/
+# User-Agent: Opera/9.80 (Android; Opera Mini/8.0.1807/36.1609; U; en) Presto/2.12.423 Version/12.16
+# User-Agent: Opera/9.80 ($PLATFORM_NAME$; $PRODUCT_NAME$/$CLIENT_VERSION$/ $SERVER_VERSION$;U; $LOCALE$) $PRESTO_VERSION$ $EQUIV_DESKTOP_VERSION$
+
+- matcher:
+    extract:
+    - 'AgentClass                          :     2012 :"Browser"'
+    - 'AgentName                           :     2012 :"Opera Mini"'
+    - 'AgentVersion                        :     2012 :agent.(1-4)product.comments.entry.(1-2)product.name="Opera Mini"^.version'
+    - 'DeviceClass                         :        1 :"Mobile"'
+
+- matcher:
+    extract:
+    - 'AgentClass                          :     2012 :"Browser"'
+    - 'AgentName                           :     2012 :"Opera Mini"'
+    - 'AgentVersion                        :     2012 :agent.(1)product.name="Opera Mini"^.version'
+    - 'DeviceClass                         :        1 :"Mobile"'
+
+- matcher:
+    require:
+    - 'agent.(1-4)product.comments.entry.(1-4)product.name="Opera Tablet"'
+    extract:
+    - 'AgentClass                          :     2012 :"Browser"'
+    - 'AgentName                           :     2012 :"Opera Tablet"'
+    - 'AgentVersion                        :     2012 :agent.product.name="Version"^.version'
+
+
+# Opera Mini on Android is presented as a "Webview". Perhaps it is really a webview but for reporting not desired.
+- matcher:
+    variable:
+    - 'OperaVersion:agent.product.(1)name="OPR"^.version'
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)text="wv"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
+    extract:
+    - 'AgentClass                   : 12100 : "Browser"'
+    - 'AgentName                    : 12100 : "Opera Mini"'
+    - 'AgentVersion                 : 12100 : @OperaVersion'
+    - 'WebviewAppName               : 10012 : "<<<null>>>"'
+    - 'WebviewAppVersion            : 10012 : "<<<null>>>"'
+
+
+# Opera Mobile on Android is presented as "Opera".
+- matcher:
+    variable:
+    - 'OperaVersion:agent.product.(1)name="OPR"^.version'
+    require:
+    - 'IsNull[agent.(1)product.(1)comments.entry.(1)text="wv"]'
+    - 'agent.(1)product.(1)comments.entry.(1)product.(1)name[1]="Android"'
+    extract:
+    - 'AgentClass                   : 12100 : "Browser"'
+    - 'AgentName                    : 12100 : "Opera Mobile"'
+    - 'AgentVersion                 : 12100 : @OperaVersion'
+    - 'WebviewAppName               : 10012 : "<<<null>>>"'
+    - 'WebviewAppVersion            : 10012 : "<<<null>>>"'
+
+
+# Opera on iOS
+- matcher:
+    extract:
+    - 'AgentClass                          :     2014 :"Browser"'
+    - 'AgentName                           :     2014 :"Opera"'
+    - 'AgentVersion                        :     2014 :agent.product.name="OPiOS"^.version'
+
+
+# Opera Touch.
+- matcher:
+    variable:
+    - 'OperaVersion:agent.product.(1)name="OPT"^.version'
+    extract:
+    - 'AgentClass                   : 12100 : "Browser"'
+    - 'AgentName                    : 12100 : "Opera Touch"'
+    - 'AgentVersion                 : 12100 : @OperaVersion'
+    - 'WebviewAppName               : 10012 : "<<<null>>>"'
+    - 'WebviewAppVersion            : 10012 : "<<<null>>>"'
+
+
+# Opera GX
+- matcher:
+    extract:
+    - 'AgentClass                          :     3014 :"Browser"'
+    - 'AgentName                           :     3014 :"Opera GX"'
+    - 'AgentVersion                        :     3014 :agent.product.name="OPRGX"^.version'
+
+
+# Opera GX on Android
+- matcher:
+    extract:
+    - 'AgentClass                          :     3014 :"Browser"'
+    - 'AgentName                           :     3014 :"Opera GX"'
+    - 'AgentVersion                        :     3014 :agent.product.name="OPX"^.version'
+
 
 - test:
     input:
@@ -167,19 +259,6 @@ config:
       AgentNameVersion                     : 'Opera 12.16'
       AgentNameVersionMajor                : 'Opera 12'
 
-- matcher:
-    extract:
-    - 'AgentClass                          :     2012 :"Browser"'
-    - 'AgentName                           :     2012 :"Opera Mini"'
-    - 'AgentVersion                        :     2012 :agent.(1-4)product.comments.entry.(1-2)product.name="Opera Mini"^.version'
-    - 'DeviceClass                         :        1 :"Mobile"'
-
-- matcher:
-    extract:
-    - 'AgentClass                          :     2012 :"Browser"'
-    - 'AgentName                           :     2012 :"Opera Mini"'
-    - 'AgentVersion                        :     2012 :agent.(1)product.name="Opera Mini"^.version'
-    - 'DeviceClass                         :        1 :"Mobile"'
 
 - test:
     input:
@@ -210,13 +289,6 @@ config:
       AgentLanguageCode                    : 'nl'
       AgentSecurity                        : 'Strong security'
 
-- matcher:
-    require:
-    - 'agent.(1-4)product.comments.entry.(1-4)product.name="Opera Tablet"'
-    extract:
-    - 'AgentClass                          :     2012 :"Browser"'
-    - 'AgentName                           :     2012 :"Opera Tablet"'
-    - 'AgentVersion                        :     2012 :agent.product.name="Version"^.version'
 
 - test:
     input:
@@ -274,13 +346,6 @@ config:
       AgentNameVersion                     : 'Opera Tablet 12.10'
       AgentNameVersionMajor                : 'Opera Tablet 12'
 
-
-  # Opera on iOS
-- matcher:
-    extract:
-    - 'AgentClass                          :     2014 :"Browser"'
-    - 'AgentName                           :     2014 :"Opera"'
-    - 'AgentVersion                        :     2014 :agent.product.name="OPiOS"^.version'
 
 - test:
     input:
@@ -446,17 +511,12 @@ config:
       LayoutEngineVersionMajor             : '66'
       LayoutEngineNameVersion              : 'Blink 66.0'
       LayoutEngineNameVersionMajor         : 'Blink 66'
-      AgentClass                           : 'Browser Webview'
-      AgentName                            : 'Chrome Webview'
-      AgentVersion                         : '66.0.3359.126'
-      AgentVersionMajor                    : '66'
-      AgentNameVersion                     : 'Chrome Webview 66.0.3359.126'
-      AgentNameVersionMajor                : 'Chrome Webview 66'
-      WebviewAppName                       : 'Opera Touch'
-      WebviewAppVersion                    : '1.0.9'
-      WebviewAppVersionMajor               : '1'
-      WebviewAppNameVersion                : 'Opera Touch 1.0.9'
-      WebviewAppNameVersionMajor           : 'Opera Touch 1'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Touch'
+      AgentVersion                         : '1.0.9'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Opera Touch 1.0.9'
+      AgentNameVersionMajor                : 'Opera Touch 1'
 
 - test:
     input:
@@ -847,7 +907,7 @@ config:
       LayoutEngineVersionMajor             : '605'
       LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Browser'
       AgentName                            : 'Opera Touch'
       AgentVersion                         : '3.2.17'
       AgentVersionMajor                    : '3'
@@ -1197,11 +1257,11 @@ config:
       LayoutEngineNameVersion                    : 'Blink 112.0'
       LayoutEngineNameVersionMajor               : 'Blink 112'
       AgentClass                                 : 'Browser'
-      AgentName                                  : 'Opera'
+      AgentName                                  : 'Opera Mobile'
       AgentVersion                               : '75.4.3978.72990'
       AgentVersionMajor                          : '75'
-      AgentNameVersion                           : 'Opera 75.4.3978.72990'
-      AgentNameVersionMajor                      : 'Opera 75'
+      AgentNameVersion                           : 'Opera Mobile 75.4.3978.72990'
+      AgentNameVersionMajor                      : 'Opera Mobile 75'
 
       UAClientHintBrands_0_Brand                 : 'OperaMobile'
       UAClientHintBrands_0_Version               : '75'
@@ -1225,20 +1285,6 @@ config:
 
 # ================================================
 # Opera GX
-- matcher:
-    extract:
-    - 'AgentClass                          :     3014 :"Browser"'
-    - 'AgentName                           :     3014 :"Opera GX"'
-    - 'AgentVersion                        :     3014 :agent.product.name="OPRGX"^.version'
-
-
-# Opera GX on Android
-- matcher:
-    extract:
-    - 'AgentClass                          :     3014 :"Browser"'
-    - 'AgentName                           :     3014 :"Opera GX"'
-    - 'AgentVersion                        :     3014 :agent.product.name="OPX"^.version'
-
 
 - test:
     input:
@@ -1806,3 +1852,179 @@ config:
       UAClientHintPlatform                       : 'Linux'
       UAClientHintPlatformVersion                : '5.15.0'
       UAClientHintWow64                          : 'false'
+
+
+# Opera Mini 71 on Android 11
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; U; Android 11; Nokia 7.2 Build/RKQ1.210607.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.227 Mobile Safari/537.36 OPR/71.0.2254.67050'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RKQ1.210607.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '114.0'
+      LayoutEngineVersionMajor             : '114'
+      LayoutEngineNameVersion              : 'Blink 114.0'
+      LayoutEngineNameVersionMajor         : 'Blink 114'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Mini'
+      AgentVersion                         : '71.0.2254.67050'
+      AgentVersionMajor                    : '71'
+      AgentNameVersion                     : 'Opera Mini 71.0.2254.67050'
+      AgentNameVersionMajor                : 'Opera Mini 71'
+      AgentSecurity                        : 'Strong security'
+
+
+# Opera on iOS reports itself as "OPT" --> "Opera Touch"
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1 OPT/4.1.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.6'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.6'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'                 #    12100
+      AgentName                            : 'Opera Touch'             #    12100           | FAILED; Should be 'OPT'
+      AgentVersion                         : '4.1.1'                   #    12100
+      AgentVersionMajor                    : '4'                       #    12100
+      AgentNameVersion                     : 'Opera Touch 4.1.1'       #    12100           | FAILED; Should be 'OPT 4.1.1'
+      AgentNameVersionMajor                : 'Opera Touch 4'           #    12100           | FAILED; Should be 'OPT 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OPT/2.6.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.5.1'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Touch'
+      AgentVersion                         : '2.6.1'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Opera Touch 2.6.1'
+      AgentNameVersionMajor                : 'Opera Touch 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OPT/3.2.17'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.6'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.6'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Touch'
+      AgentVersion                         : '3.2.17'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Opera Touch 3.2.17'
+      AgentNameVersionMajor                : 'Opera Touch 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 15_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.2 Mobile/15E148 Safari/604.1 OPT/3.2.11'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.2'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.2'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Touch'
+      AgentVersion                         : '3.2.11'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Opera Touch 3.2.11'
+      AgentNameVersionMajor                : 'Opera Touch 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) OPT/2.2.0 Mobile/15E148'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.6'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.6'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Opera Touch'
+      AgentVersion                         : '2.2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'Opera Touch 2.2.0'
+      AgentNameVersionMajor                : 'Opera Touch 2'

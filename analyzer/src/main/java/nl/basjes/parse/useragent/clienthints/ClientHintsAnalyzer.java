@@ -32,7 +32,6 @@ import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -386,6 +385,24 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
     private static final Pattern DOT_SPLITTER = Pattern.compile("\\.");
 
+    // There are some well known browsers that include their "Parent" browser also.
+    // We remove those parents to allow better reporting
+    private static final Map<String, String> BROWSER_ANCESTORS = new TreeMap<>();
+
+    static {
+        // <Wanted> --> <Unwanted Ancestor>
+        BROWSER_ANCESTORS.put("Chrome", "Chromium");
+        BROWSER_ANCESTORS.put("OperaMobile", "Opera");
+    }
+
+    // There are some browsers where we want to map the name to a more readable version
+    private static final Map<String, String> BROWSER_RENAME = new TreeMap<>();
+
+    static {
+        BROWSER_RENAME.put("OperaMobile", "Opera Mobile");
+        BROWSER_RENAME.put("Microsoft Edge", "Edge");
+    }
+
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
         List<Brand> versionList = clientHints.getFullVersionList();
@@ -399,6 +416,12 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
         final Map<String, Brand> versionMap = new TreeMap<>();
         versionList.forEach(v -> versionMap.put(v.getName(), v));
+
+        BROWSER_ANCESTORS.forEach((wanted, unwanted) -> {
+            if (versionMap.containsKey(wanted)) {
+                versionMap.remove(unwanted);
+            }
+        });
 
         // ========================
         Brand chromium = versionMap.get("Chromium");
@@ -492,9 +515,6 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         }
         // ========================
 
-        // If anything remains then (we think) THAT is the truth...
-        Map<String, Brand> sortedBrands = new TreeMap<>();
-
         // There was a bug in Opera which puts the wrong version in the client hints.
         // This has been fixed in the first release of Opera 98
         // https://blogs.opera.com/desktop/changelog-for-98/
@@ -504,11 +524,18 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             String currentVersion = userAgent.get(AGENT_VERSION).getValue();
             // We only consider the Client Hints if the version new enough.
             String currentMajorVersion = DOT_SPLITTER.split(currentVersion, 2)[0];
-            int currentMajorVersionInt = Integer.parseInt(currentMajorVersion);
-            if (currentMajorVersionInt < 98) {
-                versionMap.remove("Opera");
+            try {
+                int currentMajorVersionInt = Integer.parseInt(currentMajorVersion);
+                if (currentMajorVersionInt < 98) {
+                    versionMap.remove("Opera");
+                }
+            } catch (NumberFormatException nfe) {
+                // Safety net; Ignore this problem if it happens.
             }
         }
+
+        // If anything remains then (we think) THAT is the truth...
+        Map<String, Brand> sortedBrands = new TreeMap<>();
 
         // If we have more than 1 left we sort them by how detailed the version info is.
         int originalPosition = 0;
@@ -545,15 +572,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         String agentName = brand.getName();
 
         // Sanitize the common yet unwanted names
-        switch (agentName) {
-            case "OperaMobile":
-                // We report the OperaMobile value as "Opera"
-                agentName = "Opera";
-                break;
-            case "Microsoft Edge":
-                agentName = "Edge";
-                break;
-            default:
+        String renamed = BROWSER_RENAME.get(agentName);
+        if (renamed != null) {
+            agentName = renamed;
         }
 
         // We only update the version if we have a better version number.
@@ -585,14 +606,19 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + setMajorVersion);
     }
 
+    private static Set<String> setOfStrings(String... values) {
+        return new HashSet<>(Arrays.asList(values));
+    }
+
     // In the above calculations there are fields that require additional input fields.
     private static final Map<String, Set<String>> EXTRA_FIELD_DEPENDENCIES = new TreeMap<>();
     static {
-        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME,               Collections.singleton(AGENT_VERSION));
-        EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION,            Collections.singleton(AGENT_NAME));
-        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION,       Collections.singleton(AGENT_NAME));
-        EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION_MAJOR,      Collections.singleton(AGENT_NAME));
-        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION_MAJOR, Collections.singleton(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_CLASS,              setOfStrings(AGENT_NAME, AGENT_VERSION));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME,               setOfStrings(AGENT_VERSION));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION,            setOfStrings(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION,       setOfStrings(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_VERSION_MAJOR,      setOfStrings(AGENT_NAME));
+        EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION_MAJOR, setOfStrings(AGENT_NAME));
     }
 
     public static Set<String> extraDependenciesNeededByClientCalculator(@Nonnull Set<String> wantedFieldNames) {

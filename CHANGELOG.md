@@ -6,6 +6,7 @@ NEXT RELEASE
 - New/improved detections:
   - Detect robots: Internet-Measurement, BuildWith, ThinkChaos, Turnitin
   - Handle version bug fixed in Opera 98.
+  - Report all Opera variants as distinct browsers.
 
 v7.21.0
 ===
