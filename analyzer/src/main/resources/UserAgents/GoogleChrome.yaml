@@ -566,6 +566,8 @@ config:
     - 'AgentVersion                        :     2038 :@Browser^.version'
 
 - matcher:
+    require:
+    - 'agent.product.name="Chrome"'
     variable:
     - 'Browser                             :LookUp[SpecialChromeBrowserNames;agent.product.name[2-]]'
     extract:

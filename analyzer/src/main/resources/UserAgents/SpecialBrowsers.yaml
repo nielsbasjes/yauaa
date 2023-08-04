@@ -1147,6 +1147,32 @@ config:
       AgentNameVersionMajor                : 'Dillo 0'
 
 
+- test:
+    input:
+      user_agent_string: 'SAMSUNG-SGH-A867/A867UCHJ3 SHP/VPP/R5 NetFront/35 SMM-MMS/1.2.0 profile/MIDP-2.0 configuration/CLDC-1.1 UP.Link/6.3.0.0.0'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SGH-A867'
+      DeviceBrand                          : 'Samsung'
+      DeviceVersion                        : 'A867UCHJ3'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Netfront'
+      LayoutEngineVersion                  : '35'
+      LayoutEngineVersionMajor             : '35'
+      LayoutEngineNameVersion              : 'Netfront 35'
+      LayoutEngineNameVersionMajor         : 'Netfront 35'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Netfront'
+      AgentVersion                         : '35'
+      AgentVersionMajor                    : '35'
+      AgentNameVersion                     : 'Netfront 35'
+      AgentNameVersionMajor                : 'Netfront 35'
 # TODO: A lot of special browsers
 
 #DoCoMo    1.0    DoCoMo/1.0/D503iS/c10
