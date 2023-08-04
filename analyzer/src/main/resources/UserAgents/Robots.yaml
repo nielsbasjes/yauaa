@@ -12589,6 +12589,35 @@ config:
       AgentNameVersion                     : 'Expanse Bot ??'
       AgentNameVersionMajor                : 'Expanse Bot ??'
 
+
+# Why have a single clear UserAgent when you can have two that are both completely idiotic.
+- test:
+    input:
+      User-Agent                           : 'Xpanse, a Palo Alto Networks company, indexes customer network perimeters. If you have any questions or concerns, please reach out to: scaninfo@paloaltonetworks.com.'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Palo Alto Networks Expanse BOT'
+      DeviceBrand                          : 'Palo Alto Networks'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Expanse Bot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Expanse Bot ??'
+      AgentNameVersionMajor                : 'Expanse Bot ??'
+
+
 # EdgeWatch is a platform that helps information accredited security practitioners discover, monitor, and analyze devices that are accessible from the Internet.
 # We regularly probe every public IP address and popular domain names, ...
 - test:
