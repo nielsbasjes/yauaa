@@ -78,6 +78,7 @@ config:
       'CBSBot'                       : 'CBS|CBSBot'
       'ScoutJet'                     : 'ScoutJet|ScoutJet'
       'Site-Shot'                    : 'Site-Shot|Site-Shot'
+      'swagger-validator'            : 'Swagger|Validator'
       'Swayy'                        : 'Swayy|Swayy'
       'TencentTraveler'              : 'Tencent|Tencent Traveler'
       'ThinkChaos'                   : 'ThinkChaos|ThinkChaos'
@@ -12560,6 +12561,7 @@ config:
     - 'AgentVersion                        :    10300 :"<<<null>>>"'
     - 'RemarkablePattern                   :    10300 :"<<<null>>>"'
 
+
 # Expanse / Palo Alto Networks thinks it is a good idea to use this useragent ... #idiots
 - test:
     input:
@@ -12825,3 +12827,37 @@ config:
       AgentNameVersion                     : 'Yeti 1.1'
       AgentNameVersionMajor                : 'Yeti 1'
       AgentInformationUrl                  : 'https://naver.me/spd'
+
+
+# Global Digital Network Plus
+# So non-standard it is classfied as a hacker...
+#- test:
+#    input:
+#      User-Agent                           : 'https://gdnplus.com:Gather Analyze Provide.'
+
+# A robot that  checks the data provided by swagger https://validator.swagger.io/
+- test:
+    input:
+      User-Agent                           : 'swagger-validator'
+    expected:
+      DeviceClass                          : 'Robot'                   #
+      DeviceName                           : 'Swagger Validator'       #
+      DeviceBrand                          : 'Swagger'                 #
+      OperatingSystemClass                 : 'Cloud'                   #
+      OperatingSystemName                  : 'Cloud'                   #
+      OperatingSystemVersion               : '??'                      #
+      OperatingSystemVersionMajor          : '??'                      #
+      OperatingSystemNameVersion           : 'Cloud ??'                #
+      OperatingSystemNameVersionMajor      : 'Cloud ??'                #
+      LayoutEngineClass                    : 'Robot'                   #
+      LayoutEngineName                     : 'swagger-validator'       #
+      LayoutEngineVersion                  : '??'                      #
+      LayoutEngineVersionMajor             : '??'                      #
+      LayoutEngineNameVersion              : 'swagger-validator ??'    #
+      LayoutEngineNameVersionMajor         : 'swagger-validator ??'    #
+      AgentClass                           : 'Robot'                   #
+      AgentName                            : 'Swagger-Validator'       #
+      AgentVersion                         : '??'                      #
+      AgentVersionMajor                    : '??'                      #
+      AgentNameVersion                     : 'Swagger-Validator ??'    #
+      AgentNameVersionMajor                : 'Swagger-Validator ??'    #
