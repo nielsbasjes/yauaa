@@ -7,6 +7,7 @@ NEXT RELEASE
   - Detect robots: Internet-Measurement, BuildWith, ThinkChaos, Turnitin
   - Handle version bug fixed in Opera 98.
   - Report all Opera variants as distinct browsers.
+  - Handle special case of anonymization
 
 v7.21.0
 ===
@@ -32,7 +33,6 @@ v7.21.0
   - Better classify normal Desktop imitating GoogleBot
 - Updated UDF dependencies
   - Trino 422 (it needs 421 or newer!)
-
 
 v7.20.0
 ===

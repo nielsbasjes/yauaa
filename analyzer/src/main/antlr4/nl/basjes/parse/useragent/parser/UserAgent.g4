@@ -227,6 +227,7 @@ SPECIALVERSIONWORDS
 UNASSIGNEDVARIABLE
     : '@'  [-_0-9a-zA-Z.]+ '@'
     | '${' [-_0-9a-zA-Z.]+ '}'
+    | '%' [a-z]
     | SPECIALVERSIONWORDS
     ;
 
