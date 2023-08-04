@@ -18,6 +18,7 @@
 package nl.basjes.parse.useragent.servlet;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Getter;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.api.OutputType;
 import nl.basjes.parse.useragent.servlet.exceptions.YauaaIsBusyStarting;
@@ -34,34 +35,19 @@ import javax.annotation.PreDestroy;
 @Tag(name = "Yauaa", description = "Analyzing the useragents")
 @SpringBootApplication
 @RestController
+@Getter
 public class ParseService {
 
     private static final Logger LOG = LogManager.getLogger(ParseService.class);
 
     private UserAgentAnalyzer  userAgentAnalyzer               = null;
     private long               initStartMoment;
-    private boolean            userAgentAnalyzerIsAvailable    = false;
+    private boolean            userAgentAnalyzerAvailable = false;
     private String             userAgentAnalyzerFailureMessage = null;
-
-    public UserAgentAnalyzer getUserAgentAnalyzer() {
-        return userAgentAnalyzer;
-    }
-
-    public long getInitStartMoment() {
-        return initStartMoment;
-    }
-
-    public boolean userAgentAnalyzerIsAvailable() {
-        return userAgentAnalyzerIsAvailable;
-    }
-
-    public String getUserAgentAnalyzerFailureMessage() {
-        return userAgentAnalyzerFailureMessage;
-    }
 
     @PostConstruct
     public void automaticStartup() {
-        if (!userAgentAnalyzerIsAvailable && userAgentAnalyzerFailureMessage == null) {
+        if (!userAgentAnalyzerAvailable && userAgentAnalyzerFailureMessage == null) {
             initStartMoment = System.currentTimeMillis();
             try {
                 LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
@@ -72,7 +58,7 @@ public class ParseService {
                     .immediateInitialization()
                     .keepTests()
                     .build();
-                userAgentAnalyzerIsAvailable = true;
+                userAgentAnalyzerAvailable = true;
             } catch (Exception e) {
                 userAgentAnalyzerFailureMessage =
                     e.getClass().getSimpleName() + "<br/>" +
@@ -92,7 +78,7 @@ public class ParseService {
             UserAgentAnalyzer uaa = userAgentAnalyzer;
             // First we disable it for all uses.
             userAgentAnalyzer = null;
-            userAgentAnalyzerIsAvailable = false;
+            userAgentAnalyzerAvailable = false;
             userAgentAnalyzerFailureMessage = "UserAgentAnalyzer has been destroyed.";
             // Then we actually wipe it.
             uaa.destroy();
@@ -100,7 +86,7 @@ public class ParseService {
     }
 
     public void ensureStartedForApis(OutputType outputType) {
-        if (!userAgentAnalyzerIsAvailable) {
+        if (!userAgentAnalyzerAvailable) {
             throw new YauaaIsBusyStarting(outputType);
         }
     }

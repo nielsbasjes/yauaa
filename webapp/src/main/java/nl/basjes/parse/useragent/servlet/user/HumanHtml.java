@@ -145,7 +145,7 @@ public class HumanHtml {
         try {
             htmlHead(sb);
 
-            if (parseService.userAgentAnalyzerIsAvailable()) {
+            if (parseService.isUserAgentAnalyzerAvailable()) {
                 startParse = System.nanoTime();
                 List<UserAgent> userAgents = new ArrayList<>();
 
@@ -305,7 +305,7 @@ public class HumanHtml {
         }
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        if (parseService.userAgentAnalyzerIsAvailable()) {
+        if (parseService.isUserAgentAnalyzerAvailable()) {
             responseHeaders.add("Accept-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
 //        responseHeaders.add("Critical-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
         }
@@ -402,7 +402,7 @@ public class HumanHtml {
         sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
         // While initializing automatically reload the page.
-        if (!parseService.userAgentAnalyzerIsAvailable() && parseService.getUserAgentAnalyzerFailureMessage() == null) {
+        if (!parseService.isUserAgentAnalyzerAvailable() && parseService.getUserAgentAnalyzerFailureMessage() == null) {
             sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
         }
         sb.append("<link rel=\"stylesheet\" href=\"style.css?").append(CACHE_BUSTER).append("\">");

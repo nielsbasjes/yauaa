@@ -198,7 +198,7 @@ public class ApiXMLOutput {
             throw new MissingUserAgentException();
         }
         parseService.ensureStartedForApis(OutputType.XML);
-        if (parseService.userAgentAnalyzerIsAvailable()) {
+        if (parseService.isUserAgentAnalyzerAvailable()) {
             UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
             List<String> result = new ArrayList<>(2048);
             for (String input : splitPerFilledLine(userAgentString)) {
