@@ -108,6 +108,12 @@ config:
 
 - matcher:
     variable:
+    - 'Darwin                              :agent.product.comments.entry="Darwin"'
+    extract:
+    - 'DeviceBrand                         :      1 :"Apple"'
+
+- matcher:
+    variable:
       - 'Darwin                              :agent.product.name="Darwin"^'
       - 'AppleTag                            :@Darwin.(2)comments.(1)entry?AppleDeviceClass'
     extract:
