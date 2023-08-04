@@ -90,6 +90,7 @@ config:
       'Watchmouse'                   : 'Watchmouse|WatchMouse' # 'watch' causes it to be seen as a wristwatch
       'Vagabondo'                    : 'Wise-Guys|Vagabondo'
       'YaK'                          : 'Linkfluence|YaK'
+      'Yeti'                         : 'Naver|Yeti' # The search robot operated by NAVER is Yeti.
       'wget'                         : 'wget|wget'
       'zgrab'                        : 'zgrab|zgrab'
       'Jakarta Commons-HttpClient'   : 'Apache|Jakarta Commons HttpClient'
@@ -6593,7 +6594,7 @@ config:
       user_agent_string: 'Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/spd)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Naver Robot'
+      DeviceName                           : 'Naver Yeti'
       DeviceBrand                          : 'Naver'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -6601,13 +6602,13 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Mozilla'
-      LayoutEngineVersion                  : '5.0'
-      LayoutEngineVersionMajor             : '5'
-      LayoutEngineNameVersion              : 'Mozilla 5.0'
-      LayoutEngineNameVersionMajor         : 'Mozilla 5'
-      AgentClass                           : 'Browser'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Yeti'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Yeti 1.1'
+      LayoutEngineNameVersionMajor         : 'Yeti 1'
+      AgentClass                           : 'Robot'
       AgentName                            : 'Yeti'
       AgentVersion                         : '1.1'
       AgentVersionMajor                    : '1'
@@ -12794,3 +12795,33 @@ config:
       AgentVersionMajor                    : '0'
       AgentNameVersion                     : 'ThinkChaos 0.3.0'
       AgentNameVersionMajor                : 'ThinkChaos 0'
+
+
+# https://help.naver.com/service/5626/contents/8026?lang=ko
+# The search robot operated by NAVER is Yeti.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko; compatible; Yeti/1.1; +https://naver.me/spd) Chrome/108.0.5359.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Naver Yeti'
+      DeviceBrand                          : 'Naver'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Yeti'
+      LayoutEngineVersion                  : '1.1'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Yeti 1.1'
+      LayoutEngineNameVersionMajor         : 'Yeti 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Yeti'
+      AgentVersion                         : '1.1'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Yeti 1.1'
+      AgentNameVersionMajor                : 'Yeti 1'
+      AgentInformationUrl                  : 'https://naver.me/spd'
