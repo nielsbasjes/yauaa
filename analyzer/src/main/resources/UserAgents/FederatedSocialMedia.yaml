@@ -1754,15 +1754,65 @@ config:
       AgentInformationUrl                  : 'https://pleroma.zenwillow.website'
       FederatedSocialNetwork               : 'Mastodon'
 
-# FIXME: Matches code injection because of 'bash'
-#- test:
-#    input:
-#      User-Agent                           : 'Akkoma 3.5.0-14-gd9508474; https://social.minbash.de <social@minbash.de>'
 
-# FIXME: Matches code injection because of 'bash'
-#- test:
-#    input:
-#      User-Agent                           : 'http.rb/5.1.0 (Mastodon/4.0.2; +https://mtd.bashell.com/)'
+- test:
+    input:
+      User-Agent                           : 'Akkoma 3.5.0-14-gd9508474; https://social.minbash.de <social@minbash.de>'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Akkoma'
+      AgentVersion                         : '3.5.0-14-gd9508474'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Akkoma 3.5.0-14-gd9508474'
+      AgentNameVersionMajor                : 'Akkoma 3'
+      AgentInformationEmail                : 'social@minbash.de'
+      AgentInformationUrl                  : 'https://social.minbash.de'
+      FederatedSocialNetwork               : 'Akkoma'
+
+
+- test:
+    input:
+      User-Agent                           : 'http.rb/5.1.0 (Mastodon/4.0.2; +https://mtd.bashell.com/)'
+    expected:
+      DeviceClass                          : 'Cloud'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Server'
+      AgentName                            : 'Mastodon'
+      AgentVersion                         : '4.0.2'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Mastodon 4.0.2'
+      AgentNameVersionMajor                : 'Mastodon 4'
+      AgentInformationUrl                  : 'https://mtd.bashell.com/'
+      FederatedSocialNetwork               : 'Mastodon'
+
 
 - test:
     input:
@@ -2112,3 +2162,6 @@ config:
 #  Mastodont
 #  mastodon-user-index
 #  MastoPeek v0.7.2 - https://mastopeek.app-dist.eu
+
+# matrix-media-repo
+# Matrix Rooms Search
