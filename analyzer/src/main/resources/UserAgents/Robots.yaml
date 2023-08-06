@@ -12562,6 +12562,28 @@ config:
     - 'RemarkablePattern                   :    10300 :"<<<null>>>"'
 
 
+- matcher:
+    require:
+    - 'agent.product.version.keyvalue.email="scaninfo@expanseinc.com"'
+    extract:
+    - 'DeviceClass                         :    10300 :"Robot"'
+    - 'DeviceName                          :    10300 :"Expanse Bot"'
+    - 'DeviceBrand                         :    10300 :"Palo Alto Networks"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    10300 :"Cloud"'
+    - 'OperatingSystemName                 :    10300 :"Cloud"'
+    - 'OperatingSystemVersion              :    10300 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    10300 :"Robot"'
+    - 'LayoutEngineName                    :    10300 :"<<<null>>>"'
+    - 'LayoutEngineVersion                 :    10300 :"<<<null>>>"'
+    - 'AgentClass                          :    10300 :"Robot"'
+    - 'AgentName                           :    10300 :"Expanse Bot"'
+    - 'AgentVersion                        :    10300 :"<<<null>>>"'
+    - 'RemarkablePattern                   :    10300 :"<<<null>>>"'
+
+
 # Expanse / Palo Alto Networks thinks it is a good idea to use this useragent ... #idiots
 - test:
     input:
@@ -12590,10 +12612,37 @@ config:
       AgentNameVersionMajor                : 'Expanse Bot ??'
 
 
-# Why have a single clear UserAgent when you can have two that are both completely idiotic.
+# Why have a single clear UserAgent when you can have three that are all completely idiotic.
 - test:
     input:
       User-Agent                           : 'Xpanse, a Palo Alto Networks company, indexes customer network perimeters. If you have any questions or concerns, please reach out to: scaninfo@paloaltonetworks.com.'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Palo Alto Networks Expanse BOT'
+      DeviceBrand                          : 'Palo Alto Networks'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Expanse Bot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Expanse Bot ??'
+      AgentNameVersionMajor                : 'Expanse Bot ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Expanse indexes customers\xe2\x80\x99 network perimeters. If you have any questions or concerns, please reach out to: scaninfo@expanseinc.com.'
     expected:
       DeviceClass                          : 'Robot'
       DeviceName                           : 'Palo Alto Networks Expanse BOT'

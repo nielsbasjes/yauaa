@@ -21,7 +21,9 @@ config:
     name: 'HackerAttackVectorsFalsePositives'
     values:
     - 'MSIE or Firefox mutant' # Only on Daum robot
-    - 'scaninfo@paloaltonetworks.com' # And idiot company that does not have a normal useragent.
+    # An idiot company that does not have a normal useragent but does have their email address in there.
+    - 'scaninfo@paloaltonetworks.com'
+    - 'scaninfo@expanseinc.com'
 
 
 - lookup:
