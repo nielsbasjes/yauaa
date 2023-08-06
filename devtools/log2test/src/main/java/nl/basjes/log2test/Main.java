@@ -88,7 +88,6 @@ public final class Main {
                         LOG.error("DissectionFailure : {}", df.getMessage());
                         // Ignore and continue
                     }
-
                 }
             }
         }
@@ -122,9 +121,10 @@ public final class Main {
                 }
             }
 
-            if (logRecord.asHeadersMap().get("Sec-Ch-Ua") == null) {
-                continue; // Only with multiple headers
-            }
+// Enable this to drop anything without Client Hints
+//            if (logRecord.asHeadersMap().get("Sec-Ch-Ua") == null) {
+//                continue; // Only with multiple headers
+//            }
 
             content.append(analyzer.parse(logRecord.asHeadersMap()).toYamlTestCase());
             recordCount++;
