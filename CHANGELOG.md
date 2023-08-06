@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
+  - ...
+
+v7.22.0
+===
+- New/improved detections:
   - Detect robots: Internet-Measurement, BuildWith, ThinkChaos, Turnitin, Naver Yeti, Swagger Validator
   - Handle version bug fixed in Opera 98.
   - Report all Opera variants as distinct browsers because they all have unrelated version numbers.
