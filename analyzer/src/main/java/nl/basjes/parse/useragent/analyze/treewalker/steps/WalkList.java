@@ -109,6 +109,7 @@ import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -330,7 +331,8 @@ public class WalkList implements Serializable {
         private Set<String> getLookupSet(String lookupSetName) {
             Map<String, String> lookup = lookups.get(lookupSetName);
             if (lookup != null) {
-                return lookup.keySet();
+                // The "new HashSet" is avoid serialization problems with Kryo
+                return new HashSet<>(lookup.keySet());
             }
             Set<String> lookupSet = lookupSets.get(lookupSetName);
             if (lookupSet != null) {
