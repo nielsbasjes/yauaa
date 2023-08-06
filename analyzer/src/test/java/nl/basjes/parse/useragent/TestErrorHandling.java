@@ -88,7 +88,7 @@ class TestErrorHandling {
     void checkLookupSetMissing() {
         runTest(
             "classpath*:BadDefinitions/LookupSetMissing.yaml",
-            containsString("Missing lookupSet"));
+            containsString("Missing lookup/lookupSet"));
     }
 
     @Test
