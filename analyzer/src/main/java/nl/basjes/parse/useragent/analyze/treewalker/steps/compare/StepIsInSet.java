@@ -30,24 +30,24 @@ import java.util.Set;
 public class StepIsInSet extends Step {
 
     private final String listName;
-    private final Set<String> list;
+    private final Set<String> set;
 
     @SuppressWarnings("unused") // Private constructor for serialization systems ONLY (like Kryo)
     private StepIsInSet() {
         listName = "<< Should not be seen anywhere >>";
-        list = Collections.emptySet();
+        set = Collections.emptySet();
     }
 
-    public StepIsInSet(String listName, Set<String> list) {
+    public StepIsInSet(String listName, Set<String> set) {
         this.listName = listName;
-        this.list = list;
+        this.set = set;
     }
 
     @Override
     public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
 
-        if (list.contains(actualValue.toLowerCase(Locale.ROOT))) {
+        if (set.contains(actualValue.toLowerCase(Locale.ROOT))) {
             return walkNextStep(tree, actualValue);
         }
         return null;
