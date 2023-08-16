@@ -106,7 +106,7 @@ _Maven pom.xml snippet_
   <dependency>
     <groupId>nl.basjes.parse.useragent</groupId>
     <artifactId>yauaa</artifactId>
-    <version>${yauaa.version}</version>
+    <version>{{%YauaaVersion%}}</version>
     <exclusions>
       <exclusion>
         <groupId>com.github.ben-manes.caffeine</groupId>
