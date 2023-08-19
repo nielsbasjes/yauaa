@@ -182,8 +182,7 @@ Only during development and during unit tests the Useragents are logged.
 This is because it was designed to run in very large scale batch and streaming situations (very large as in "Let's analyze these 10^10 records").
 
 ### Bring your own batteries
-To assist in running Yauaa without the logj4-core jar an example was created that only uses SLF4J: [here](https://github.com/nielsbasjes/yauaa/tree/main/analyzer/src/it/Examples/java-slf4j).
-
+To assist in running Yauaa without the logj4-core jar an example was created that only uses [SLF4J 1.x](https://github.com/nielsbasjes/yauaa/tree/main/analyzer/src/it/Examples/java-slf4j) and and example that only uses [SLF4J 2.x](https://github.com/nielsbasjes/yauaa/tree/main/analyzer/src/it/Examples/java-slf4j2).
 
 ## Serialization
 If your application needs to serialize the instance of the UserAgentAnalyzer then both the standard Java serialization and

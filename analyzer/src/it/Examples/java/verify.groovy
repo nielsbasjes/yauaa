@@ -6,7 +6,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * https://www.apache.org/licenses/LICENSE-2.0
+ *   https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,27 +15,12 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.example;
+File buildLog = new File( basedir, 'build.log' )
+assert buildLog.exists()
 
-import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
-
-public class Demo {
-
-    private final UserAgentAnalyzer uaa;
-
-    public Demo() {
-        uaa = UserAgentAnalyzer
-            .newBuilder()
-            .withCache(1234)
-            .withField("DeviceClass")
-            .withAllFields()
-            .preheat()
-            .build();
-    }
-
-    public UserAgent parse(String userAgent) {
-        return uaa.parse(userAgent);
-    }
-
-}
+assert 1 <= buildLog.getText().count("YauaaVersion")
+assert 1 == buildLog.getText().count("For more information: https://yauaa.basjes.nl")
+assert 1 == buildLog.getText().count("using expression: classpath*:UserAgents/")
+assert 1 == buildLog.getText().count("Building all matchers for all possible fields.")
+assert 1 == buildLog.getText().count("Preheating JVM by running ")
+assert 1 == buildLog.getText().count("Initializing Analyzer data structures")

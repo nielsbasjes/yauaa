@@ -18,24 +18,21 @@
 package nl.basjes.parse.useragent.example;
 
 import nl.basjes.parse.useragent.UserAgent;
-import nl.basjes.parse.useragent.UserAgentAnalyzer;
+import org.junit.jupiter.api.Test;
 
-public class Demo {
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    private final UserAgentAnalyzer uaa;
+class TestDemo {
+    @Test
+    void testParser() {
+        Demo demo = new Demo();
 
-    public Demo() {
-        uaa = UserAgentAnalyzer
-            .newBuilder()
-            .withCache(1234)
-            .withField("DeviceClass")
-            .withAllFields()
-            .preheat()
-            .build();
+        String userAgent = "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) " +
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36";
+
+        UserAgent result  = demo.parse(userAgent);
+
+        assertTrue(result.toXML().contains("<DeviceName>Google Nexus 6</DeviceName>"),
+            "The parser must extract the correct DeviceName");
     }
-
-    public UserAgent parse(String userAgent) {
-        return uaa.parse(userAgent);
-    }
-
 }

@@ -30,6 +30,7 @@ public class Demo {
             .withCache(1234)
             .withField("DeviceClass")
             .withAllFields()
+            .preheat()
             .build();
     }
 
