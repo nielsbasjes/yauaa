@@ -17,7 +17,6 @@
 
 package org.elasticsearch.plugin.ingest.yauaa;
 
-import org.elasticsearch.common.collect.MapBuilder;
 import org.elasticsearch.ingest.Processor;
 import org.elasticsearch.plugins.IngestPlugin;
 import org.elasticsearch.plugins.Plugin;
@@ -28,9 +27,7 @@ public class IngestYauaaPlugin extends Plugin implements IngestPlugin {
 
     @Override
     public Map<String, Processor.Factory> getProcessors(Processor.Parameters parameters) {
-        return MapBuilder.<String, Processor.Factory>newMapBuilder()
-            .put(YauaaProcessor.TYPE, new YauaaProcessor.Factory())
-            .immutableMap();
+        return Map.of(YauaaProcessor.TYPE, new YauaaProcessor.Factory());
     }
 
 }
