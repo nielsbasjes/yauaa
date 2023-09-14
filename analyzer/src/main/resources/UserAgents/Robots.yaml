@@ -101,7 +101,70 @@ config:
       'facebookcatalog'              : 'Facebook|Facebook Catalog'
       'Ask Jeeves'                   : 'Ask|Ask Jeeves'
       'LinkedInBot'                  : 'Linkedin|LinkedInBot'
+      # https://support.yahoo-net.jp/PccSearch/s/article/H000007955
+      # https://www.wbolt.com/tools/yahoo-japan
+      'Y!J-BRU'                      : 'Yahoo! Japan|BRU Bot'
+      'Y!J-BRW'                      : 'Yahoo! Japan|BRW Bot'
+      'Y!J-ASR'                      : 'Yahoo! Japan|ASR Bot'
+      'Y!J-MMP'                      : 'Yahoo! Japan|MMP Bot'
+      'Y!J-WSC'                      : 'Yahoo! Japan|WSC Bot'
+      'Y!J-VSC'                      : 'Yahoo! Japan|VSC Bot'
+      'Y!J-SRD'                      : 'Yahoo! Japan|SRD Bot'
+      'Y!J-BRI'                      : 'Yahoo! Japan|BRI Bot'
+      'Y!J-BRE'                      : 'Yahoo! Japan|BRE Bot'
+      'Y!J SearchMonkey'             : 'Yahoo! Japan|SearchMonkey Bot'
+      'Y!J-BRT'                      : 'Yahoo! Japan|BRT Bot'
+      'Y!J-IER'                      : 'Yahoo! Japan|IER Bot'
+      'Y!J-RIE'                      : 'Yahoo! Japan|RIE Bot'
+      'Y!J-APP'                      : 'Yahoo! Japan|APP Bot'
+      'Y!J-BRH'                      : 'Yahoo! Japan|BRH Bot'
+      'Y!J-BRS'                      : 'Yahoo! Japan|BRS Bot'
+      'Y!J-BRD'                      : 'Yahoo! Japan|BRD Bot'
+      'Y!J-BUZZ'                     : 'Yahoo! Japan|BUZZ Bot'
+      'Y!J-ISC'                      : 'Yahoo! Japan|ISC Bot'
+      'Y!J-BRJ'                      : 'Yahoo! Japan|BRJ Bot'
+      'Y!J-BRL'                      : 'Yahoo! Japan|BRL Bot'
+      'Y!J-BRM'                      : 'Yahoo! Japan|BRM Bot'
+      'Y!J-BRN'                      : 'Yahoo! Japan|BRN Bot'
+      'Y!J-BRY'                      : 'Yahoo! Japan|BRY Bot'
+      'Y!J-BRZ'                      : 'Yahoo! Japan|BRZ Bot'
+      'Y!J-DLC'                      : 'Yahoo! Japan|DLC Bot'
+      'Y!J-BRQ'                      : 'Yahoo! Japan|BRQ Bot'
+      'Y!J-PSC'                      : 'Yahoo! Japan|PSC Bot'
+      'Y!J-DSC      '                : 'Yahoo! Japan|DSC Bot'
       'Y!J-'                         : 'Yahoo! Japan|Bot'
+
+      'YJ-BRU'                       : 'Yahoo! Japan|BRU Bot'
+      'YJ-BRW'                       : 'Yahoo! Japan|BRW Bot'
+      'YJ-ASR'                       : 'Yahoo! Japan|ASR Bot'
+      'YJ-MMP'                       : 'Yahoo! Japan|MMP Bot'
+      'YJ-WSC'                       : 'Yahoo! Japan|WSC Bot'
+      'YJ-VSC'                       : 'Yahoo! Japan|VSC Bot'
+      'YJ-SRD'                       : 'Yahoo! Japan|SRD Bot'
+      'YJ-BRI'                       : 'Yahoo! Japan|BRI Bot'
+      'YJ-BRE'                       : 'Yahoo! Japan|BRE Bot'
+      'YJ SearchMonkey'              : 'Yahoo! Japan|SearchMonkey Bot'
+      'YJ-BRT'                       : 'Yahoo! Japan|BRT Bot'
+      'YJ-IER'                       : 'Yahoo! Japan|IER Bot'
+      'YJ-RIE'                       : 'Yahoo! Japan|RIE Bot'
+      'YJ-APP'                       : 'Yahoo! Japan|APP Bot'
+      'YJ-BRH'                       : 'Yahoo! Japan|BRH Bot'
+      'YJ-BRS'                       : 'Yahoo! Japan|BRS Bot'
+      'YJ-BRD'                       : 'Yahoo! Japan|BRD Bot'
+      'YJ-BUZZ'                      : 'Yahoo! Japan|BUZZ Bot'
+      'YJ-ISC'                       : 'Yahoo! Japan|ISC Bot'
+      'YJ-BRJ'                       : 'Yahoo! Japan|BRJ Bot'
+      'YJ-BRL'                       : 'Yahoo! Japan|BRL Bot'
+      'YJ-BRM'                       : 'Yahoo! Japan|BRM Bot'
+      'YJ-BRN'                       : 'Yahoo! Japan|BRN Bot'
+      'YJ-BRY'                       : 'Yahoo! Japan|BRY Bot'
+      'YJ-BRZ'                       : 'Yahoo! Japan|BRZ Bot'
+      'YJ-DLC'                       : 'Yahoo! Japan|DLC Bot'
+      'YJ-BRQ'                       : 'Yahoo! Japan|BRQ Bot'
+      'YJ-PSC'                       : 'Yahoo! Japan|PSC Bot'
+      'YJ-DSC      '                 : 'Yahoo! Japan|DSC Bot'
+      'YJ-'                          : 'Yahoo! Japan|Bot'
+
       # https://github.com/nielsbasjes/yauaa/issues/605
       'RestSharp'                    : 'RestSharp|RestSharp'               # REST API client library for .NET                             | https://restsharp.dev
       'okhttp'                       : 'Square|okhttp'                     # Kotlin library                                               | https://github.com/square/okhttp
@@ -11183,7 +11246,7 @@ config:
       User-Agent                           : 'Y!J-ASR/1.0 crawler (https://support.yahoo-net.jp/PccSearch/s/article/H000007955)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Yahoo! Japan Crawler'
+      DeviceName                           : 'Yahoo! Japan ASR BOT'
       DeviceBrand                          : 'Yahoo! Japan'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -11207,10 +11270,10 @@ config:
 
 - test:
     input:
-        User-Agent                           : 'Y!J-BRW/1.0 (https://support.yahoo-net.jp/PccSearch/s/article/H000007955)'
+      User-Agent                           : 'Y!J-BRW/1.0 (https://support.yahoo-net.jp/PccSearch/s/article/H000007955)'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Yahoo! Japan BOT'
+      DeviceName                           : 'Yahoo! Japan BRW BOT'
       DeviceBrand                          : 'Yahoo! Japan'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -11258,6 +11321,62 @@ config:
       AgentNameVersion                     : 'Y!J-DLC 1.0'
       AgentNameVersionMajor                : 'Y!J-DLC 1'
       AgentInformationUrl                  : 'https://support.yahoo-net.jp/PccSearch/s/article/H000007955'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko; compatible; Y!J-WSC/1.0; +https://yahoo.jp/3BSZgF) Chrome/115.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yahoo! Japan WSC BOT'
+      DeviceBrand                          : 'Yahoo! Japan'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Y!J-WSC'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Y!J-WSC 1.0'
+      LayoutEngineNameVersionMajor         : 'Y!J-WSC 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Y!J-WSC'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Y!J-WSC 1.0'
+      AgentNameVersionMajor                : 'Y!J-WSC 1'
+      AgentInformationUrl                  : 'https://yahoo.jp/3BSZgF'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Y!J-WSC/1.0; +https://yahoo.jp/3BSZgF)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Yahoo! Japan WSC BOT'
+      DeviceBrand                          : 'Yahoo! Japan'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Y!J-WSC'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Y!J-WSC 1.0'
+      LayoutEngineNameVersionMajor         : 'Y!J-WSC 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Y!J-WSC'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Y!J-WSC 1.0'
+      AgentNameVersionMajor                : 'Y!J-WSC 1'
+      AgentInformationUrl                  : 'https://yahoo.jp/3BSZgF'
 
 
 # https://developer.wordpress.org/reference/classes/wp_rest_url_details_controller/get_remote_url/
@@ -12939,3 +13058,5 @@ config:
       AgentVersionMajor                    : '??'                      #
       AgentNameVersion                     : 'Swagger-Validator ??'    #
       AgentNameVersionMajor                : 'Swagger-Validator ??'    #
+
+
