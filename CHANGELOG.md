@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - Detect more of the Yahoo Japan bots
 
 v7.22.0
 ===
