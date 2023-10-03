@@ -113,7 +113,7 @@ public final class ParseUserAgentFunctionClientHints {
             })
         );
 
-        return mapType.getObject(blockBuilder, blockBuilder.getPositionCount() - 1);
+        return mapType.getObject(blockBuilder.build(), blockBuilder.getPositionCount() - 1);
     }
 }
 

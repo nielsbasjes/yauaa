@@ -77,7 +77,7 @@ public final class ParseUserAgentFunction {
             })
         );
 
-        return mapType.getObject(blockBuilder, blockBuilder.getPositionCount() - 1);
+        return mapType.getObject(blockBuilder.build(), blockBuilder.getPositionCount() - 1);
     }
 }
 

@@ -5,6 +5,8 @@ NEXT RELEASE
 ===
 - New/improved detections:
   - Detect more of the Yahoo Japan bots
+- Updated UDF dependencies
+    - Trino 427 changed their API
 
 v7.22.0
 ===
