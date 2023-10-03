@@ -5815,3 +5815,155 @@ config:
       AgentVersionMajor                    : '2023'
       AgentNameVersion                     : 'Bitwarden Mobile 2023.5.0'
       AgentNameVersionMajor                : 'Bitwarden Mobile 2023'
+
+# https://github.com/uphold/uphold-sdk-javascript
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="uphold-sdk-javascript"'
+    extract:
+    - 'AgentName               :        10 :agent.(2)product.(1)name'
+    - 'AgentVersion            :        10 :agent.(2)product.(1)version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="uphold-sdk-javascript"'
+    - 'agent.(2)product.(1)name[2]="Android"'
+    extract:
+    - 'DeviceName              :        11 : agent.(1)product.(1)comments.(1)entry.text'
+    - 'OperatingSystemClass    :        11 :"Mobile"'
+    - 'OperatingSystemName     :        11 :"Android"'
+    - 'OperatingSystemVersion  :        11 :agent.(1)product.(1)comments.(2)entry.text'
+    - 'AgentName               :        11 :agent.(2)product.(1)name[1]'
+    - 'AgentVersion            :        11 :agent.(2)product.(1)version'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="uphold-sdk-javascript"'
+    - 'agent.(2)product.(1)name[2]="iOS"'
+    variable:
+    - 'AppleTag: agent.(1)product.(1)comments.(1)entry.text'
+    extract:
+    - 'DeviceClass             :        11 : LookUp[AppleDeviceClass;@AppleTag]'
+    - 'DeviceBrand             :        11 : "Apple"'
+    - 'DeviceName              :        11 : LookUp[AppleDeviceName;@AppleTag]'
+    - 'DeviceVersion           :        11 : LookUp[AppleDeviceVersion;@AppleTag]'
+    - 'OperatingSystemClass    :        11 :"Mobile"'
+    - 'OperatingSystemName     :        11 :"iOS"'
+    - 'OperatingSystemVersion  :        11 :agent.(1)product.(1)comments.(2)entry.text'
+    - 'AgentName               :        11 :agent.(2)product.(1)name[1]'
+    - 'AgentVersion            :        11 :agent.(2)product.(1)version'
+
+- test:
+    input:
+      User-Agent                           : 'uphold-sdk-javascript/v2.4.1 (taro; 12; en_US) Wallet Android/4.79.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Taro'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Wallet'
+      AgentVersion                         : '4.79.1'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Wallet 4.79.1'
+      AgentNameVersionMajor                : 'Wallet 4'
+      AgentLanguage                        : 'English (United States)'
+      AgentLanguageCode                    : 'en-us'
+
+# MT6737 is really a MediaTek CPU ... not a Phone
+- test:
+    input:
+      User-Agent                           : 'uphold-sdk-javascript/v2.4.1 (MT6737; 9; es_US) Wallet Android/5.1.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'MediaTek MT6737'
+      DeviceBrand                          : 'MediaTek'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Wallet'
+      AgentVersion                         : '5.1.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Wallet 5.1.1'
+      AgentNameVersionMajor                : 'Wallet 5'
+      AgentLanguage                        : 'Spanish (United States)'
+      AgentLanguageCode                    : 'es-us'
+
+# EXYNOS9820 is really a Samsung CPU ... not a Phone
+- test:
+    input:
+      User-Agent                           : 'uphold-sdk-javascript/v2.4.1 (exynos9820; 12; hu) Wallet Android/5.9.1'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung EXYNOS9820'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Wallet'
+      AgentVersion                         : '5.9.1'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Wallet 5.9.1'
+      AgentNameVersionMajor                : 'Wallet 5'
+      AgentLanguage                        : 'Hungarian'
+      AgentLanguageCode                    : 'hu'
+
+- test:
+    input:
+      User-Agent                           : 'uphold-sdk-javascript/v2.4.1 (iPhone13,4; 16.1.2; en) Wallet iOS/5.6.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 12 Pro Max'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Wallet'
+      AgentVersion                         : '5.6.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'Wallet 5.6.0'
+      AgentNameVersionMajor                : 'Wallet 5'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'

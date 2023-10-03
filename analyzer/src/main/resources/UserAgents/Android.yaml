@@ -2263,43 +2263,6 @@ config:
       AgentNameVersion                     : 'Deposit Forwarded - Vestiaire Collective 3.93.0'
       AgentNameVersionMajor                : 'Deposit Forwarded - Vestiaire Collective 3'
 
-- matcher:
-    require:
-    - 'agent.(1)product.(1)name="uphold-sdk-javascript"'
-    extract:
-    - 'AgentName               :        10 :agent.(2)product.(1)name'
-    - 'AgentVersion            :        10 :agent.(2)product.(1)version'
-
-
-# TODO: Is there a spec for uphold-sdk-javascript? What is "taro" and "12" ?
-- test:
-    input:
-      User-Agent                           : 'uphold-sdk-javascript/v2.4.1 (taro; 12; en_US) Wallet Android/4.79.1'
-    expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Android ??'
-      OperatingSystemNameVersionMajor      : 'Android ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Wallet Android'
-      AgentVersion                         : '4.79.1'
-      AgentVersionMajor                    : '4'
-      AgentNameVersion                     : 'Wallet Android 4.79.1'
-      AgentNameVersionMajor                : 'Wallet Android 4'
-      AgentLanguage                        : 'English (United States)'
-      AgentLanguageCode                    : 'en-us'
-
 
 # Total non standard mess ... but it says "Android" ...
 - test:
