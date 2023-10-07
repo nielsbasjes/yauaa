@@ -8,6 +8,7 @@ NEXT RELEASE
   - MediaTek and EXYNOS CPUs
   - Uphold javascript sdk
   - Shopify Mobile
+  - Apple iOS version in edge cases
 - Updated UDF dependencies
     - Trino 427 changed their API
 

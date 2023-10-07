@@ -48,7 +48,6 @@ config:
     - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
     - 'OperatingSystemClass                :      140 :"Mobile"'
     - 'OperatingSystemName                 :      140 :"iOS"'
-    - 'OperatingSystemVersion              :      140 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -60,7 +59,6 @@ config:
     - 'DeviceVersion                       :      140 :LookUp[AppleDeviceVersion;@AppleTag]'
     - 'OperatingSystemClass                :      140 :"Mobile"'
     - 'OperatingSystemName                 :      140 :"iOS"'
-    - 'OperatingSystemVersion              :      140 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -72,7 +70,6 @@ config:
     - 'DeviceVersion                       :      141 :LookUp[AppleDeviceVersion;@AppleTag]'
     - 'OperatingSystemClass                :      141 :"Mobile"'
     - 'OperatingSystemName                 :      141 :"iOS"'
-    - 'OperatingSystemVersion              :      141 :"<<<null>>>"'
 
 - matcher:
     require:
@@ -1961,3 +1958,36 @@ config:
       AgentVersionMajor                    : '16'
       AgentNameVersion                     : 'Safari 16.1'
       AgentNameVersionMajor                : 'Safari 16'
+
+
+
+# The LBANK app makes a total mess of things.
+# Completely unsure about most of the last part.
+# Only making sure we extract the iOS 16.0 from the first comment.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) _LBANK_LBANK/iOS/5.0.1/iPhone 12/16.0/2_LBANK_'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : '_LBANK_LBANK'
+      AgentVersion                         : 'iOS'
+      AgentVersionMajor                    : 'iOS'
+      AgentNameVersion                     : '_LBANK_LBANK iOS'
+      AgentNameVersionMajor                : '_LBANK_LBANK iOS'
+
