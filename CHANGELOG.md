@@ -7,6 +7,7 @@ NEXT RELEASE
   - Detect more of the Yahoo Japan bots
   - MediaTek and EXYNOS CPUs
   - Uphold javascript sdk
+  - Shopify Mobile
 - Updated UDF dependencies
     - Trino 427 changed their API
 

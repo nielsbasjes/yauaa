@@ -5967,3 +5967,99 @@ config:
       AgentNameVersionMajor                : 'Wallet 5'
       AgentLanguage                        : 'English'
       AgentLanguageCode                    : 'en'
+
+# Some kind of 'spec': https://github.com/Shopify/browser_sniffer/blob/master/test/shopify_agents_test.rb
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="Shopify Mobile"'
+      - 'agent.(1)product.(1)version="Android"'
+    extract:
+    - 'DeviceClass                         :      101 :"Mobile"'
+    - 'DeviceBrand                         :      101 : agent.(1)product.(1)comments.(1)entry.product.name[1]="on"@[2-]'
+    - 'DeviceName                          :      101 : agent.(1)product.(1)comments.(1)entry.product.name[1]="on"^.version'
+    - 'OperatingSystemClass                :      101 :"Mobile"'
+    - 'OperatingSystemName                 :      101 :"Android"'
+    - 'OperatingSystemVersion              :      101 :LookUp[AndroidAPIToVersionMap;agent.(1)product.(1)comments.(1)entry.product.name="with API"^.version;"<<<null>>>"]'
+    - 'OperatingSystemVersionBuild         :      101 :"<<<null>>>"'
+    - 'AgentClass                          :     101 : "Mobile App"'
+    - 'AgentName                           :     101 :"Shopify Mobile"'
+    - 'AgentVersion                        :     101 :agent.(1)product.(2)version'
+    - 'AgentBuild                          :     101 : agent.(1)product.(1)comments.(1)entry.(1)product.(1)name="Build"^.version'
+
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Shopify Mobile"'
+    - 'agent.(1)product.(1)version="iOS"'
+    variable:
+    - 'AppleTag: agent.(1)product.(1)comments.(1)entry.(1)product.(1)name'
+    extract:
+    - 'DeviceClass                         :       11 : LookUp[AppleDeviceClass;@AppleTag]'
+    - 'DeviceBrand                         :       11 : "Apple"'
+    - 'DeviceName                          :       11 : LookUp[AppleDeviceName;@AppleTag]'
+    - 'DeviceVersion                       :       11 : LookUp[AppleDeviceVersion;@AppleTag]'
+    - 'OperatingSystemClass                :      101 :"Mobile"'
+    - 'OperatingSystemName                 :      101 :"iOS"'
+    - 'OperatingSystemVersion              :      101 :@AppleTag^.(2)version'
+    - 'OperatingSystemVersionBuild         :      101 :"<<<null>>>"'
+    - 'AgentClass                          :     101 : "Mobile App"'
+    - 'AgentName                           :     101 :"Shopify Mobile"'
+    - 'AgentVersion                        :     101 :agent.(1)product.(2)version'
+    - 'AgentBuild                          :     101 : agent.product.name="Build"^.version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Shopify Mobile/Android/9.129.0 (Build 33470 with API 31 on OPPO CPH2223)'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oppo CPH2223'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Shopify Mobile'
+      AgentVersion                         : '9.129.0'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Shopify Mobile 9.129.0'
+      AgentNameVersionMajor                : 'Shopify Mobile 9'
+      AgentBuild                           : '33470'
+
+
+- test:
+    input:
+      User-Agent                           : 'Shopify Mobile/iOS/9.124.2 (iPhone15,3/com.jadedpixel.shopify/16.6.0) - Build 1184'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 14 Pro Max'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.6.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.6.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Shopify Mobile'
+      AgentVersion                         : '9.124.2'
+      AgentVersionMajor                    : '9'
+      AgentNameVersion                     : 'Shopify Mobile 9.124.2'
+      AgentNameVersionMajor                : 'Shopify Mobile 9'
+      AgentBuild                           : '1184'
