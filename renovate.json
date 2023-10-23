@@ -37,6 +37,13 @@
       "enabled": false
     },
     {
+      "description": "Do not change the jackson version needed for Apache Drill",
+      "matchPackagePrefixes": ["com.fasterxml.jackson.core"],
+      "matchCurrentVersion": "[2.14.2]",
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "enabled": false
+    },
+    {
       "description": "Disable strange versions of graphql-java",
       "matchPackageNames": ["com.graphql-java:graphql-java"],
       "allowedVersions": "/^[0-9]{1,3}\\.[0-9]{1,3}(?:\\.[0-9]{1,3})?$/"
