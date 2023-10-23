@@ -10,7 +10,7 @@ NEXT RELEASE
   - Shopify Mobile
   - Apple iOS version in edge cases
 - Updated UDF dependencies
-    - Trino 427 changed their API
+    - Trino 430 changed their API
 
 v7.22.0
 ===

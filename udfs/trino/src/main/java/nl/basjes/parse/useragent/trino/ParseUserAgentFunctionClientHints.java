@@ -18,10 +18,16 @@
 package nl.basjes.parse.useragent.trino;
 
 import io.airlift.slice.Slice;
+import io.airlift.slice.Slices;
 import io.trino.spi.block.Block;
+import io.trino.spi.block.BufferedMapValueBuilder;
+import io.trino.spi.block.SqlMap;
 import io.trino.spi.function.Description;
 import io.trino.spi.function.ScalarFunction;
 import io.trino.spi.function.SqlType;
+import io.trino.spi.function.TypeParameter;
+import io.trino.spi.type.MapType;
+import io.trino.spi.type.Type;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
@@ -29,12 +35,15 @@ import nl.basjes.parse.useragent.Version;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static io.trino.spi.type.VarcharType.VARCHAR;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
-import static nl.basjes.parse.useragent.trino.Utils.encodeMap;
 
 public final class ParseUserAgentFunctionClientHints {
 
-    private ParseUserAgentFunctionClientHints() {
+    private final BufferedMapValueBuilder mapValueBuilder;
+
+    public ParseUserAgentFunctionClientHints(@TypeParameter("map(varchar,varchar)") Type mapType) {
+        mapValueBuilder = BufferedMapValueBuilder.createBuffered((MapType) mapType);
     }
 
     // NOTE: We currently cannot make an instance with only the wanted fields.
@@ -59,7 +68,7 @@ public final class ParseUserAgentFunctionClientHints {
         "as possible. Uses Yauaa (Yet Another UserAgent Analyzer) version " + Version.PROJECT_VERSION + ". " +
         "See https://yauaa.basjes.nl/udf/trino/ for documentation.")
     @SqlType("map(varchar, varchar)")
-    public static Block parseUserAgent(@SqlType("array(varchar)") Block input) throws IllegalArgumentException {
+    public SqlMap parseUserAgent(@SqlType("array(varchar)") Block input) throws IllegalArgumentException {
         UserAgentAnalyzer userAgentAnalyzer = threadLocalUserAgentAnalyzer.get();
 
         Map<String, String> requestHeaders = new TreeMap<>();
@@ -100,7 +109,12 @@ public final class ParseUserAgentFunctionClientHints {
 
         Map<String, String> resultMap = userAgent.toMap(userAgentAnalyzer.getAllPossibleFieldNamesSorted());
 
-        return encodeMap(resultMap);
+        return mapValueBuilder.build(resultMap.size(), (keyBuilder, valueBuilder) -> {
+            resultMap.forEach((key, value) -> {
+                VARCHAR.writeSlice(keyBuilder, Slices.utf8Slice(key));
+                VARCHAR.writeSlice(valueBuilder, Slices.utf8Slice(value));
+            });
+        });
     }
 }
 
