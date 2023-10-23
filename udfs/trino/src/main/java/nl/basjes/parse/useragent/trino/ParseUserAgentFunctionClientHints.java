@@ -19,12 +19,9 @@ package nl.basjes.parse.useragent.trino;
 
 import io.airlift.slice.Slice;
 import io.trino.spi.block.Block;
-import io.trino.spi.block.MapBlockBuilder;
 import io.trino.spi.function.Description;
 import io.trino.spi.function.ScalarFunction;
 import io.trino.spi.function.SqlType;
-import io.trino.spi.type.MapType;
-import io.trino.spi.type.TypeOperators;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.Version;
@@ -32,8 +29,8 @@ import nl.basjes.parse.useragent.Version;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static io.trino.spi.type.VarcharType.VARCHAR;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
+import static nl.basjes.parse.useragent.trino.Utils.encodeMap;
 
 public final class ParseUserAgentFunctionClientHints {
 
@@ -103,17 +100,7 @@ public final class ParseUserAgentFunctionClientHints {
 
         Map<String, String> resultMap = userAgent.toMap(userAgentAnalyzer.getAllPossibleFieldNamesSorted());
 
-        MapType mapType = new MapType(VARCHAR, VARCHAR, new TypeOperators());
-
-        MapBlockBuilder blockBuilder = mapType.createBlockBuilder(null, resultMap.size());
-        blockBuilder.buildEntry((keyBuilder, valueBuilder) ->
-            resultMap.forEach((key, value) -> {
-                VARCHAR.writeString(keyBuilder, key);
-                VARCHAR.writeString(valueBuilder, value);
-            })
-        );
-
-        return mapType.getObject(blockBuilder.build(), blockBuilder.getPositionCount() - 1);
+        return encodeMap(resultMap);
     }
 }
 
