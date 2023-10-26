@@ -112,13 +112,14 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     // If major is 6 and minor is 2 (i.e., Windows 8), return "0.2".
     // If major is 6 and minor is 1 (i.e., Windows 7), return "0.1".
 
+    @Getter
     @AllArgsConstructor
     private static final class OSFields implements Serializable {
-        @Getter String name;              // Windows NT
-        @Getter String version;           // 8.1
-        @Getter String versionMajor;      // 8
-        @Getter String nameVersion;       // Windows 8.1
-        @Getter String nameVersionMajor;  // Windows 8
+        String name;              // Windows NT
+        String version;           // 8.1
+        String versionMajor;      // 8
+        String nameVersion;       // Windows 8.1
+        String nameVersionMajor;  // Windows 8
     }
 
     private static final PrefixMap<OSFields> WINDOWS_VERSION_MAPPING = new StringPrefixMap<>(false);

@@ -25,26 +25,30 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-// In call cases: null means not specified
+// In all cases: null means not specified
+@Getter
+@Setter
 @ToString
 public class ClientHints implements Serializable {
     // See: https://wicg.github.io/ua-client-hints/#interface
-    @Getter @Setter private ArrayList<Brand> brands = null;                 // 3.1 https://wicg.github.io/ua-client-hints/#sec-ch-ua
-    @Getter @Setter private String architecture = null;                     // 3.2 https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch
-    @Getter @Setter private String bitness = null;                          // 3.3 https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness
-    @Getter @Setter private String fullVersion = null; /* deprecated */     // 3.4 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version
-    @Getter @Setter private ArrayList<Brand> fullVersionList = null;        // 3.5 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
-    @Getter @Setter private Boolean mobile = null;                          // 3.6 https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile
-    @Getter @Setter private String model = null;                            // 3.7 https://wicg.github.io/ua-client-hints/#sec-ch-ua-model
-    @Getter @Setter private String platform = null;                         // 3.8 https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform
-    @Getter @Setter private String platformVersion = null;                  // 3.9 https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version
-    @Getter @Setter private Boolean wow64 = null;                           // 3.10 https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64
+    private ArrayList<Brand> brands = null;                 // 3.1 https://wicg.github.io/ua-client-hints/#sec-ch-ua
+    private String architecture = null;                     // 3.2 https://wicg.github.io/ua-client-hints/#sec-ch-ua-arch
+    private String bitness = null;                          // 3.3 https://wicg.github.io/ua-client-hints/#sec-ch-ua-bitness
+    private String fullVersion = null; /* deprecated */     // 3.4 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version
+    private ArrayList<Brand> fullVersionList = null;        // 3.5 https://wicg.github.io/ua-client-hints/#sec-ch-ua-full-version-list
+    private Boolean mobile = null;                          // 3.6 https://wicg.github.io/ua-client-hints/#sec-ch-ua-mobile
+    private String model = null;                            // 3.7 https://wicg.github.io/ua-client-hints/#sec-ch-ua-model
+    private String platform = null;                         // 3.8 https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform
+    private String platformVersion = null;                  // 3.9 https://wicg.github.io/ua-client-hints/#sec-ch-ua-platform-version
+    private Boolean wow64 = null;                           // 3.10 https://wicg.github.io/ua-client-hints/#sec-ch-ua-wow64
 
     @AllArgsConstructor
+    @Getter
+    @Setter
     @ToString
     public static class Brand implements Serializable {
-        @Getter @Setter private String name;
-        @Getter @Setter private String version;
+        private String name;
+        private String version;
     }
 
 }
