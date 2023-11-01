@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
+  - ...
+
+v7.23.0
+===
+- New/improved detections:
   - Detect more of the Yahoo Japan bots
   - MediaTek and EXYNOS CPUs
   - Uphold javascript sdk

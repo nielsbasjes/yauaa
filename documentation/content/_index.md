@@ -17,6 +17,10 @@ These are only the highlights, the full changelog can be found [here](https://gi
 
 ### NEXT RELEASE
 - New/improved detections:
+  - ...
+
+### Version v7.23.0
+- New/improved detections:
     - Detect more of the Yahoo Japan bots
 - Updated UDF dependencies
     - Trino 427 changed their API
