@@ -51,7 +51,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
-      <version>1.10.0</version>
+      <version>1.11.0</version>
       <exclusions>
         <exclusion>
           <groupId>org.apache.commons</groupId>
@@ -228,6 +228,20 @@
                 <exclude>META-INF/versions/**</exclude>
               </excludes>
             </filter>
+            <filter>
+              <artifact>org.apache.commons:commons-text</artifact>
+              <excludes>
+                <exclude>META-INF/MANIFEST.MF</exclude>
+                <!-- If not excluded shading overwrites the module-info.class for Yauaa -->
+                <exclude>META-INF/versions/9/module-info.class</exclude>
+              </excludes>
+            </filter>
+            <filter>
+              <artifact>org.apache.commons:commons-lang3</artifact>
+              <excludes>
+                <exclude>META-INF/MANIFEST.MF</exclude>
+              </excludes>
+            </filter>
           </filters>
           <relocations>
             <relocation>
@@ -237,6 +251,14 @@
             <relocation>
               <pattern>org.yaml.snakeyaml</pattern>
               <shadedPattern>nl.basjes.shaded.org.yaml.snakeyaml</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.apache.commons.text</pattern>
+              <shadedPattern>nl.basjes.shaded.org.apache.commons.text</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.apache.commons.lang3</pattern>
+              <shadedPattern>nl.basjes.shaded.org.apache.commons.lang3</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -253,6 +275,8 @@
                 <includes>
                   <include>org.antlr:antlr4-runtime</include>
                   <include>org.yaml:snakeyaml</include>
+                  <include>org.apache.commons:commons-text</include>
+                  <include>org.apache.commons:commons-lang3</include>
                 </includes>
               </artifactSet>
             </configuration>

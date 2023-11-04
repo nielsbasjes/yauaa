@@ -6,6 +6,8 @@ NEXT RELEASE
 - New/improved detections:
   - CamScanner is not a robot
   - NextCloud app
+- Build:
+  - Update commons-text required shading to make it work.
 
 v7.23.0
 ===
