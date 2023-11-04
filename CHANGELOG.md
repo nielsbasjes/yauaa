@@ -5,6 +5,7 @@ NEXT RELEASE
 ===
 - New/improved detections:
   - CamScanner is not a robot
+  - NextCloud app
 
 v7.23.0
 ===

@@ -18,6 +18,17 @@ config:
 
 - matcher:
     require:
+    - 'agent.(1-5)product.(1)comments.entry="iOS"'
+    extract:
+    - 'DeviceClass                         :        9 :"Phone"'
+    - 'DeviceBrand                         :        9 :"Apple"'
+    - 'DeviceName                          :        9 :"iPhone"'
+    - 'OperatingSystemClass                :        9 :"Mobile"'
+    - 'OperatingSystemName                 :        9 :"iOS"'
+    - 'OperatingSystemVersion              :        9 :"<<<null>>>"'
+
+- matcher:
+    require:
     - 'agent.(1-5)product.(1)comments.entry="iPhone"'
     extract:
     - 'DeviceClass                         :        9 :"Phone"'

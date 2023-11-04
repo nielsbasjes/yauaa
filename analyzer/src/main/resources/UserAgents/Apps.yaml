@@ -88,6 +88,9 @@ config:
 
       'WeChat'                                : 'Mobile App|WeChat'
 
+      'Nextcloud-ios'                         : 'MobileApp | NextCloud iOS'
+      'Nextcloud-android'                     : 'MobileApp | NextCloud Android'
+
 - matcher:
     variable:
     - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
@@ -6200,3 +6203,58 @@ config:
       WebviewAppVersionMajor               : '6'
       WebviewAppNameVersion                : 'Camscanner 6.51.0.2310160000'
       WebviewAppNameVersionMajor           : 'Camscanner 6'
+
+
+# A mobile app to connect to a Nextcloud instance
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iOS) Nextcloud-iOS/4.7.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'iOS ??'
+      OperatingSystemNameVersionMajor      : 'iOS ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'MobileApp'
+      AgentName                            : 'NextCloud iOS'
+      AgentVersion                         : '4.7.0'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'NextCloud iOS 4.7.0'
+      AgentNameVersionMajor                : 'NextCloud iOS 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android) Nextcloud-android/3.24.2'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Mozilla'
+      LayoutEngineVersion                  : '5.0'
+      LayoutEngineVersionMajor             : '5'
+      LayoutEngineNameVersion              : 'Mozilla 5.0'
+      LayoutEngineNameVersionMajor         : 'Mozilla 5'
+      AgentClass                           : 'MobileApp'
+      AgentName                            : 'NextCloud Android'
+      AgentVersion                         : '3.24.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'NextCloud Android 3.24.2'
+      AgentNameVersionMajor                : 'NextCloud Android 3'
