@@ -1482,6 +1482,37 @@ config:
       AgentNameVersion                     : 'Chromium 74.0.3729.157'
       AgentNameVersionMajor                : 'Chromium 74'
 
+
+# Raspbian + Headless
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (X11; Linux armv7l) AppleWebKit/537.36 (KHTML, like Gecko) Raspbian Chromium/72.0.3626.121 HeadlessChrome/72.0.3626.121 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Raspberry PI'
+      DeviceBrand                          : 'Raspberry'
+      DeviceCpu                            : 'ARMv7l'
+      DeviceCpuBits                        : '32'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Raspbian'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Raspbian ??'
+      OperatingSystemNameVersionMajor      : 'Raspbian ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '72.0'
+      LayoutEngineVersionMajor             : '72'
+      LayoutEngineNameVersion              : 'Blink 72.0'
+      LayoutEngineNameVersionMajor         : 'Blink 72'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '72.0.3626.121'
+      AgentVersionMajor                    : '72'
+      AgentNameVersion                     : 'Chrome 72.0.3626.121'
+      AgentNameVersionMajor                : 'Chrome 72'
+
+
 - test:
     input:
       user_agent_string: 'Kodi/14.1 (X11; Linux armv6l) Raspbian GNU/Linux/7 HW_RaspberryPi/1.0 App_Bitness/32 Version/14.1-Git:2015-02-02-81c4046-dirty'
