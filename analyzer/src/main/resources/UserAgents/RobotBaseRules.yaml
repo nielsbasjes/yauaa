@@ -68,6 +68,7 @@ config:
       'cubot'         : 'cubot'
       'fuboTV'        : 'fuboTV'
       'SEI Robotics'  : 'SEI Robotics'
+      'Camscanner'    : 'Camscanner'
 
 - matcher:
     variable:
@@ -125,6 +126,7 @@ config:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'IsInLookUpContains[RobotStrings;agent.product.name]'
+    - 'IsNull[IsInLookUpContains[NOTRobotStrings;agent.product.name]]'
     extract:
     - 'DeviceClass                         :   311200 :"Robot Mobile"'
 
@@ -132,6 +134,7 @@ config:
     require:
     - 'agent.product.name="Mobile Safari"'
     - 'IsInLookUpContains[RobotStrings;agent.text]'
+    - 'IsNull[IsInLookUpContains[NOTRobotStrings;agent.product.name]]'
     extract:
     - 'DeviceClass                         :   311200 :"Robot Mobile"'
 

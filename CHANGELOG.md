@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - CamScanner is not a robot
 
 v7.23.0
 ===

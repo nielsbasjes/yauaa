@@ -52,6 +52,9 @@ config:
       # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
       'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Browser|Yahoo! JAPAN Browser'
 
+      # https://www.camscanner.com/ A mobile app for scanning documents
+      'Camscanner'                            : 'Mobile App|Camscanner'
+
 - lookup:
     name: 'NONWebViewAppNamesMapping'
     map:
@@ -6063,3 +6066,137 @@ config:
       AgentNameVersion                     : 'Shopify Mobile 9.124.2'
       AgentNameVersionMajor                : 'Shopify Mobile 9'
       AgentBuild                           : '1184'
+
+
+# https://www.camscanner.com/
+# A mobile app for scanning documents
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 9; SM-A530F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/111.0.5563.58 Mobile Safari/537.36 CamScanner/6.27.0.2210170000'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A530F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      OperatingSystemVersionBuild          : 'PPR1.180610.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '6.27.0.2210170000'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Blink 6.27.0.2210170000'
+      LayoutEngineNameVersionMajor         : 'Blink 6'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '6.27.0.2210170000'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Chrome Webview 6.27.0.2210170000'
+      AgentNameVersionMajor                : 'Chrome Webview 6'
+      WebviewAppName                       : 'Camscanner'
+      WebviewAppVersion                    : '6.27.0.2210170000'
+      WebviewAppVersionMajor               : '6'
+      WebviewAppNameVersion                : 'Camscanner 6.27.0.2210170000'
+      WebviewAppNameVersionMajor           : 'Camscanner 6'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 13; SM-A715F Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/111.0.5563.116 Mobile Safari/537.36 CamScanner/6.35.0.2302240000'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A715F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      OperatingSystemVersionBuild          : 'TP1A.220624.014'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '6.35.0.2302240000'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Blink 6.35.0.2302240000'
+      LayoutEngineNameVersionMajor         : 'Blink 6'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '6.35.0.2302240000'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Chrome Webview 6.35.0.2302240000'
+      AgentNameVersionMajor                : 'Chrome Webview 6'
+      WebviewAppName                       : 'Camscanner'
+      WebviewAppVersion                    : '6.35.0.2302240000'
+      WebviewAppVersionMajor               : '6'
+      WebviewAppNameVersion                : 'Camscanner 6.35.0.2302240000'
+      WebviewAppNameVersionMajor           : 'Camscanner 6'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; CPH2161 Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/113.0.5672.76 Mobile Safari/537.36 CamScanner/6.40.0.2304260000'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oppo CPH2161'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QP1A.190711.020'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '6.40.0.2304260000'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Blink 6.40.0.2304260000'
+      LayoutEngineNameVersionMajor         : 'Blink 6'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '6.40.0.2304260000'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Chrome Webview 6.40.0.2304260000'
+      AgentNameVersionMajor                : 'Chrome Webview 6'
+      WebviewAppName                       : 'Camscanner'
+      WebviewAppVersion                    : '6.40.0.2304260000'
+      WebviewAppVersionMajor               : '6'
+      WebviewAppNameVersion                : 'Camscanner 6.40.0.2304260000'
+      WebviewAppNameVersionMajor           : 'Camscanner 6'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 13; SM-A528B Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/118.0.0.0 Mobile Safari/537.36 CamScanner/6.51.0.2310160000'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A528B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      OperatingSystemVersionBuild          : 'TP1A.220624.014'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '6.51.0.2310160000'
+      LayoutEngineVersionMajor             : '6'
+      LayoutEngineNameVersion              : 'Blink 6.51.0.2310160000'
+      LayoutEngineNameVersionMajor         : 'Blink 6'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '6.51.0.2310160000'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Chrome Webview 6.51.0.2310160000'
+      AgentNameVersionMajor                : 'Chrome Webview 6'
+      WebviewAppName                       : 'Camscanner'
+      WebviewAppVersion                    : '6.51.0.2310160000'
+      WebviewAppVersionMajor               : '6'
+      WebviewAppNameVersion                : 'Camscanner 6.51.0.2310160000'
+      WebviewAppNameVersionMajor           : 'Camscanner 6'
