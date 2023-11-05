@@ -246,19 +246,19 @@
           <relocations>
             <relocation>
               <pattern>org.antlr</pattern>
-              <shadedPattern>nl.basjes.shaded.org.antlr</shadedPattern>
+              <shadedPattern>${project.groupId}.${project.artifactId}.shaded.org.antlr</shadedPattern>
             </relocation>
             <relocation>
               <pattern>org.yaml.snakeyaml</pattern>
-              <shadedPattern>nl.basjes.shaded.org.yaml.snakeyaml</shadedPattern>
+              <shadedPattern>${project.groupId}.${project.artifactId}.shaded.org.yaml.snakeyaml</shadedPattern>
             </relocation>
             <relocation>
               <pattern>org.apache.commons.text</pattern>
-              <shadedPattern>nl.basjes.shaded.org.apache.commons.text</shadedPattern>
+              <shadedPattern>${project.groupId}.${project.artifactId}.shaded.org.apache.commons.text</shadedPattern>
             </relocation>
             <relocation>
               <pattern>org.apache.commons.lang3</pattern>
-              <shadedPattern>nl.basjes.shaded.org.apache.commons.lang3</shadedPattern>
+              <shadedPattern>${project.groupId}.${project.artifactId}.shaded.org.apache.commons.lang3</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -275,6 +275,8 @@
                 <includes>
                   <include>org.antlr:antlr4-runtime</include>
                   <include>org.yaml:snakeyaml</include>
+                  <!-- These are shaded in because of backward compatibility problems when using Yauaa -->
+                  <!-- in an environment which has already loaded an older version of either of these. -->
                   <include>org.apache.commons:commons-text</include>
                   <include>org.apache.commons:commons-lang3</include>
                 </includes>
