@@ -210,7 +210,9 @@ in a limited timespan. Something like 15/30/60 minutes usually gives you a fine 
 On a very busy website I see ~50K-60K distinct useragents per day and ~10K per hour.
 So in my opinion a cache size of 5K-10K elements is a good choice.
 
-## Limiting to only certain fields
+## Reducing the memory footprint
+
+### Limiting to only certain fields
 In some scenarios you only want a specific field and all others are unwanted.
 This can be achieved by creating the analyzer in Java like this:
 
@@ -231,11 +233,21 @@ In the nl.basjes.parse.useragent.UserAgent many (not all!!) of the provided vari
 You can choose to use these and avoid subtle typos in the requested attribute names.
 
 ```java
-uaa = UserAgentAnalyzer
+UserAgentAnalyzer uaa = UserAgentAnalyzer
         .newBuilder()
         .withField(DEVICE_CLASS)
         .withField(AGENT_NAME_VERSION_MAJOR)
         .build();
+```
+
+### Sharing the config between instances (new in 7.24.0)
+In some situations you may want to have multiple instances to handle the load within in a single JVM.
+In those cases you'll also want the configuration of all instances to be identical.
+
+If you are in exactly that scenario you can create a duplicate instance with the exact same configuration and save a few MiB of memory.  The currently estimated savings is at about 20-30MiB for each extra instance (depending on the configuration).
+
+```java
+UserAgentAnalyzer extraUaa = uaa.cloneWithSharedAnalyzerConfig(false, true);
 ```
 
 ## Building your project with -Xlint:all
