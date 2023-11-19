@@ -104,6 +104,11 @@
       "allowedVersions": "/^[0-9]{1,3}\\.[0-9]{1,3}(?:\\.[0-9]{1,3})?(?:-M[0-9]{1,3})?$/"
     },
     {
+      "description": "Disable broken maven-artifact-plugin version",
+      "matchDepNames": ["org.apache.maven.plugins:maven-artifact-plugin"],
+      "allowedVersions": "!/^3\\.5\\.0$/"
+    },
+    {
       "matchPackagePrefixes": [
         "commons-",
         "org.apache.commons"
