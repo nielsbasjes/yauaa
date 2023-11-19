@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Analyzer:
+  - Allow cloning an instance and share the configuration (reducing memory footprint)
 - New/improved detections:
   - CamScanner is not a robot
   - NextCloud app

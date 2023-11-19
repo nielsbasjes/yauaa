@@ -635,6 +635,12 @@ public class UserAgentStringMatchMakerTester extends AbstractUserAgentAnalyzer {
             .forEach(i -> LOG.info("%s", i));
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    protected <T extends AbstractUserAgentAnalyzerDirect> T createNewInstance() {
+        return (T) new UserAgentStringMatchMakerTester();
+    }
+
     public abstract static class AbstractUserAgentAnalyzerTesterBuilder<UAA extends UserAgentStringMatchMakerTester, B extends AbstractUserAgentAnalyzerBuilder<UAA, B>>
         extends AbstractUserAgentAnalyzerBuilder<UAA, B> {
 
@@ -648,7 +654,6 @@ public class UserAgentStringMatchMakerTester extends AbstractUserAgentAnalyzer {
             return super.build();
         }
     }
-
 
     @Override
     public String toString() {
