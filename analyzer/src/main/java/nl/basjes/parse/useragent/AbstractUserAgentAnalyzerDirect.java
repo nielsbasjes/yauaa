@@ -289,6 +289,14 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             pDelayInitialization);
     }
 
+    public <T extends AbstractUserAgentAnalyzerDirect> T cloneWithSharedAnalyzerConfig(boolean showMatcherStats, boolean delayInitialization) {
+        T newInstance = createNewInstance();
+        newInstance.configure(getConfig(), showMatcherStats, delayInitialization);
+        return newInstance;
+    }
+
+    protected abstract <T extends AbstractUserAgentAnalyzerDirect> T createNewInstance();
+
     // ===============================================================================================================
 
     /**

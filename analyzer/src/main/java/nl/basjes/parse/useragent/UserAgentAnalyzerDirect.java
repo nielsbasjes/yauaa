@@ -33,6 +33,12 @@ public final class UserAgentAnalyzerDirect extends AbstractUserAgentAnalyzerDire
         }
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    protected <T extends AbstractUserAgentAnalyzerDirect> T createNewInstance() {
+        return (T) new UserAgentAnalyzerDirect();
+    }
+
     /**
      * This is used to configure the provided Kryo instance if Kryo serialization is desired.
      * The expected type here is Object because otherwise the Kryo library becomes
