@@ -38,7 +38,7 @@ import java.util.TreeMap;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
-public class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect implements Serializable {
+public abstract class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyzerDirect implements Serializable {
     public static final int DEFAULT_PARSE_CACHE_SIZE = 10000;
 
     protected int cacheSize = DEFAULT_PARSE_CACHE_SIZE;
