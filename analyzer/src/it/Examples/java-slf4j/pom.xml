@@ -48,6 +48,13 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-to-slf4j</artifactId>
       <version>${log4j2.version}</version>
+      <exclusions>
+        <exclusion>
+          <!-- Drop the slf4j 2.x that is included by default -->
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- Just the simplest of logger for this demo. -->
