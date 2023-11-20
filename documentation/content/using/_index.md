@@ -139,9 +139,9 @@ UserAgentAnalyzer uaa = UserAgentAnalyzer
 The Yauaa engine uses Log4j2 API as the logging framework.
 
 To minimize the complexity of the dependency handling I have chosen to simply not include ANY logging framework and
-expect the consuming system to provide what ever fits best.
+expect the consuming system to provide what ever fits best. Even the required log4j-api 2.x dependency is configured as `provided` to avoid any needless version conflicts.
 
-So in the end to use this you must provide either an implementation or a bridge for Apache Log4j2.
+To use Yauaa you must provide the desired version of `log4j-api` and either an implementation or a bridge for Apache Log4j2 to route the logging to where you want it.
 
 So it all depends on your exact context (i.e. which logging framework are you going to use) what
 the best solution is for you to make all of this logging work as intended.
