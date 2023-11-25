@@ -240,6 +240,8 @@
               <artifact>org.apache.commons:commons-lang3</artifact>
               <excludes>
                 <exclude>META-INF/MANIFEST.MF</exclude>
+                <!-- If not excluded shading overwrites the module-info.class for Yauaa -->
+                <exclude>META-INF/versions/9/module-info.class</exclude>
               </excludes>
             </filter>
           </filters>
