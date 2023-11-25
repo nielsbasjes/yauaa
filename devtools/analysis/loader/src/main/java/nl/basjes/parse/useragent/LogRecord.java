@@ -32,6 +32,8 @@ public final class LogRecord implements Comparable<LogRecord> {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+    @Getter @Setter                                                                                 private long count = 1;
+
     @Getter @Setter(onMethod=@__(@Field("TIME.EPOCH:request.receive.time.epoch")))                  private String epoch                 = null;
     @Getter @Setter(onMethod=@__(@Field("TIME.YEAR:request.receive.time.year_utc")))                private String yearUtc               = null;
     @Getter @Setter(onMethod=@__(@Field("TIME.MONTH:request.receive.time.month_utc")))              private String monthUtc              = null;

@@ -19,14 +19,10 @@ package nl.basjes.parse.useragent;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;
-import nl.basjes.parse.core.exceptions.DissectionFailure;
-import nl.basjes.parse.httpdlog.HttpdLoglineParser;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.functions.KeySelector;
-import org.apache.flink.configuration.Configuration;
 import org.apache.flink.connector.elasticsearch.sink.Elasticsearch7SinkBuilder;
 import org.apache.flink.connector.file.src.FileSource;
 import org.apache.flink.connector.file.src.reader.TextLineInputFormat;
@@ -53,7 +49,6 @@ import java.time.format.SignStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static java.time.ZoneOffset.UTC;
 import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
@@ -97,8 +92,8 @@ public final class LoadIntoES {
         env.setMaxParallelism(8);
         env.setParallelism(8);
 
-        String logFormat1 = "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V";
-        HttpdLoglineParser<LogRecord> logLineParser = new HttpdLoglineParser<>(LogRecord.class, logFormat1);
+//        String logFormat1 = "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V";
+//        HttpdLoglineParser<LogRecord> logLineParser = new HttpdLoglineParser<>(LogRecord.class, logFormat1);
 
         ParseUserAgent parseUserAgent = new ParseUserAgent();
 
@@ -161,49 +156,67 @@ public final class LoadIntoES {
 //            })
 
 // For different file formats:
-//            .map((MapFunction<String, UARecord>) value -> {
-//                String[] split = value.split("\t", 5);
-//                UARecord uaRecord = new UARecord();
-//                uaRecord.year      = Integer.parseInt(split[0]);
-//                uaRecord.month     = Integer.parseInt(split[1]);
-//                uaRecord.day       = Integer.parseInt(split[2]);
-//                uaRecord.count     = Long.parseLong(split[3]);
-//                uaRecord.userAgent = split[4];
-//                return uaRecord;
+            .filter(string -> !string.contains("1 timestamp\tuseragent"))
+            .map(string -> string
+                .replaceAll("^ +", "")
+                .replaceAll(" (20\\d\\d)-(\\d\\d)-(\\d\\d)\t", "\t$1\t$2\t$3\t"))
+            .map((MapFunction<String, LogRecord>) value -> {
+                String[] split = value.split("\t", 5);
+                LogRecord logRecord = new LogRecord();
+                logRecord.setCount(Long.parseLong(split[0]));
+                logRecord.setYearUtc(split[1]);
+                logRecord.setMonthUtc(split[2]);
+                logRecord.setDayUtc(split[3]);
+                logRecord.setHourUtc("12");
+                logRecord.setMinuteUtc("00");
+                logRecord.setSecondUtc("00");
+                logRecord.setMillisecondUtc("000");
+                logRecord.setMicrosecondUtc("000000");
+
+                logRecord.setUserAgent(split[4]);
+
+                Instant eventInstant = Instant.parse(
+                    logRecord.getYearUtc() + "-" + logRecord.getMonthUtc() + "-" + logRecord.getDayUtc() +
+                        "T" + logRecord.getHourUtc() + ":" + logRecord.getMinuteUtc() + ":" + logRecord.getSecondUtc() + "." + logRecord.getMillisecondUtc() + "Z"
+                );
+
+                logRecord.setEpoch(String.valueOf(eventInstant.toEpochMilli()));
+
+                return logRecord;
+            })
+
+//            .map(logLine -> {
+//                try {
+//                    return logLineParser.parse(logLine);
+//                } catch (DissectionFailure df) {
+//                    LOG.error("{}", logLine);
+//                    return null; // Do not fail the job on a parse error.
+//                }
 //            })
-
-            .map(logRecord -> {
-                try {
-                    return logLineParser.parse(logRecord);
-                } catch (DissectionFailure df) {
-                    LOG.error("{}", logRecord);
-                    return null; // Do not fail the job on a parse error.
-                }
-            })
-            // Output COUNTS per task
-            .map(new RichMapFunction<LogRecord, LogRecord>() {
-                int pId = -1;
-                @Override
-                public void open(Configuration parameters) {
-                    pId = getRuntimeContext().getIndexOfThisSubtask();
-                }
-
-                private long recordsOk = 0;
-                private long recordsBad = 0;
-                @Override
-                public LogRecord map(LogRecord value) {
-                    if (value == null) {
-                        recordsBad++;
-                    } else {
-                        recordsOk++;
-                    }
-                    if ((recordsOk + recordsBad) % 10000 == 0) {
-                        LOG.info("Parsed {} : Ok: {} | Bad: {}", pId, recordsOk, recordsBad);
-                    }
-                    return value;
-                }
-            })
-            .filter(Objects::nonNull) // Just discard all the parse problems
+//            // Output COUNTS per task
+//            .map(new RichMapFunction<LogRecord, LogRecord>() {
+//                int pId = -1;
+//                @Override
+//                public void open(Configuration parameters) {
+//                    pId = getRuntimeContext().getIndexOfThisSubtask();
+//                }
+//
+//                private long recordsOk = 0;
+//                private long recordsBad = 0;
+//                @Override
+//                public LogRecord map(LogRecord value) {
+//                    if (value == null) {
+//                        recordsBad++;
+//                    } else {
+//                        recordsOk++;
+//                    }
+//                    if ((recordsOk + recordsBad) % 10000 == 0) {
+//                        LOG.info("Parsed {} : Ok: {} | Bad: {}", pId, recordsOk, recordsBad);
+//                    }
+//                    return value;
+//                }
+//            })
+//            .filter(Objects::nonNull) // Just discard all the parse problems
 
 //            // Optimize usage of the Yauaa cache
             .keyBy((KeySelector<LogRecord, Integer>) LogRecord::getUseragentCacheKey)
