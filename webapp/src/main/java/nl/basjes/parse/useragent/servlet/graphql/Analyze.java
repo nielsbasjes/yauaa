@@ -44,7 +44,8 @@ public class Analyze {
     }
 
     @QueryMapping
-    public AnalysisResult analyze(@Argument RequestHeaders requestHeaders, @Argument String userAgentString) {
+    public AnalysisResult analyze(@Argument("requestHeaders") RequestHeaders requestHeaders,
+                                  @Argument("userAgentString") String userAgentString) {
         UserAgentAnalyzer analyzer = parseService.getUserAgentAnalyzer();
         Map<String, String> inputHeaders = new TreeMap<>();
         if (requestHeaders != null) {
