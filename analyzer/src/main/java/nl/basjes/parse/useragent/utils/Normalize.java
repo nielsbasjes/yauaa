@@ -173,6 +173,16 @@ public final class Normalize {
         final String searchFor,
         final String replaceWith
     ){
+        // Avoid infinite loop problem
+        if (input.isEmpty() || searchFor.isEmpty()) {
+            return input;
+        }
+
+        // Speedup
+        if (searchFor.equals(replaceWith)) {
+            return input;
+        }
+
         //startIdx and idxSearchFor delimit various chunks of input; these
         //chunks always end where searchFor begins
         int startIdx = 0;

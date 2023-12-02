@@ -138,4 +138,25 @@ class TestNormalize {
         assertFalse(Normalize.isLowerCase("basjeS"));
         assertFalse(Normalize.isLowerCase("BASJES"));
     }
+
+
+    @Test
+    void checkReplaceStringEmpty() {
+        assertEquals("",  Normalize.replaceString("",  "",  ""));
+        assertEquals("",  Normalize.replaceString("",  "",  "x"));
+        assertEquals("",  Normalize.replaceString("",  "x", ""));
+        assertEquals("",  Normalize.replaceString("",  "x", "x"));
+        assertEquals("x", Normalize.replaceString("x", "",  ""));
+        assertEquals("x", Normalize.replaceString("x", "",  "x"));
+        assertEquals("",  Normalize.replaceString("x", "x", ""));
+        assertEquals("x", Normalize.replaceString("x", "x", "x"));
+    }
+
+    @Test
+    void checkReplaceStringNormal() {
+        assertEquals("AAPnootmies", Normalize.replaceString("aapnootmies", "aap",  "AAP"));
+        assertEquals("aapNOOTmies", Normalize.replaceString("aapnootmies", "noot", "NOOT"));
+        assertEquals("aapnootMIES", Normalize.replaceString("aapnootmies", "mies", "MIES"));
+        assertEquals("AAPaatAAP",   Normalize.replaceString("aapaataap",   "aap", "AAP"));
+    }
 }
