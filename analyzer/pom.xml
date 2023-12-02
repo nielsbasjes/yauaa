@@ -216,6 +216,8 @@
               <excludes>
                 <exclude>META-INF/services/**</exclude>
                 <exclude>META-INF/MANIFEST.MF</exclude>
+                <!-- Also relocated so we do not want these anymore -->
+                <exclude>META-INF/maven/**</exclude>
               </excludes>
             </filter>
             <filter>
@@ -225,23 +227,32 @@
                 <exclude>META-INF/MANIFEST.MF</exclude>
                 <!-- The snakeyaml is a `Multi-Release Jar` and the maven-shade-plugin does not (yet) -->
                 <!-- do the relocation of the additional versions correctly. -->
+                <!-- https://issues.apache.org/jira/browse/MSHADE-406 -->
                 <exclude>META-INF/versions/**</exclude>
+                <!-- Also relocated so we do not want these anymore -->
+                <exclude>META-INF/maven/**</exclude>
               </excludes>
             </filter>
             <filter>
               <artifact>org.apache.commons:commons-text</artifact>
               <excludes>
                 <exclude>META-INF/MANIFEST.MF</exclude>
+                <exclude>META-INF/*.txt</exclude>
                 <!-- If not excluded shading overwrites the module-info.class for Yauaa -->
-                <exclude>META-INF/versions/9/module-info.class</exclude>
+                <exclude>META-INF/versions/**</exclude>
+                <!-- Also relocated so we do not want these anymore -->
+                <exclude>META-INF/maven/**</exclude>
               </excludes>
             </filter>
             <filter>
               <artifact>org.apache.commons:commons-lang3</artifact>
               <excludes>
                 <exclude>META-INF/MANIFEST.MF</exclude>
+                <exclude>META-INF/*.txt</exclude>
                 <!-- If not excluded shading overwrites the module-info.class for Yauaa -->
-                <exclude>META-INF/versions/9/module-info.class</exclude>
+                <exclude>META-INF/versions/**</exclude>
+                <!-- Also relocated so we do not want these anymore -->
+                <exclude>META-INF/maven/**</exclude>
               </excludes>
             </filter>
           </filters>
@@ -263,6 +274,16 @@
               <shadedPattern>${project.groupId}.${project.artifactId}.shaded.org.apache.commons.lang3</shadedPattern>
             </relocation>
           </relocations>
+          <artifactSet>
+            <includes>
+              <include>org.antlr:antlr4-runtime</include>
+              <include>org.yaml:snakeyaml</include>
+              <!-- These are shaded in because of backward compatibility problems when using Yauaa -->
+              <!-- in an environment which has already loaded an older version of either of these. -->
+              <include>org.apache.commons:commons-text</include>
+              <include>org.apache.commons:commons-lang3</include>
+            </includes>
+          </artifactSet>
         </configuration>
 
         <executions>
@@ -272,18 +293,6 @@
             <goals>
               <goal>shade</goal>
             </goals>
-            <configuration>
-              <artifactSet>
-                <includes>
-                  <include>org.antlr:antlr4-runtime</include>
-                  <include>org.yaml:snakeyaml</include>
-                  <!-- These are shaded in because of backward compatibility problems when using Yauaa -->
-                  <!-- in an environment which has already loaded an older version of either of these. -->
-                  <include>org.apache.commons:commons-text</include>
-                  <include>org.apache.commons:commons-lang3</include>
-                </includes>
-              </artifactSet>
-            </configuration>
           </execution>
 
         </executions>
