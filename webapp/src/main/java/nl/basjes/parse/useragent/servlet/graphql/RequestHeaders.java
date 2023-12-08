@@ -52,6 +52,26 @@ public class RequestHeaders {
     @Getter @Setter /* @Description(ParseSecChUaPlatformVersion.HEADER_FIELD   + ": " + ParseSecChUaPlatformVersion.HEADER_SPEC   + " See also " + ParseSecChUaPlatformVersion.HEADER_SPEC_URL)  */  private String secChUaPlatformVersion;  // Sec-CH-UA-Platform-Version
     @Getter @Setter /* @Description(ParseSecChUaWoW64.HEADER_FIELD             + ": " + ParseSecChUaWoW64.HEADER_SPEC             + " See also " + ParseSecChUaWoW64.HEADER_SPEC_URL)            */  private String secChUaWoW64;            // Sec-CH-UA-WoW64
 
+
+    public RequestHeaders() {
+        // Empty
+    }
+
+    public RequestHeaders(RequestHeaders requestHeaders) {
+        this.userAgent              = requestHeaders.getUserAgent();
+        this.secChUa                = requestHeaders.getSecChUa();
+        this.secChUaArch            = requestHeaders.getSecChUaArch();
+        this.secChUaBitness         = requestHeaders.getSecChUaBitness();
+        this.secChUaFormFactor      = requestHeaders.getSecChUaFormFactor();
+        this.secChUaFullVersion     = requestHeaders.getSecChUaFullVersion();
+        this.secChUaFullVersionList = requestHeaders.getSecChUaFullVersionList();
+        this.secChUaMobile          = requestHeaders.getSecChUaMobile();
+        this.secChUaModel           = requestHeaders.getSecChUaModel();
+        this.secChUaPlatform        = requestHeaders.getSecChUaPlatform();
+        this.secChUaPlatformVersion = requestHeaders.getSecChUaPlatformVersion();
+        this.secChUaWoW64           = requestHeaders.getSecChUaWoW64();
+    }
+
     public Map<String, String> toMap() {
         Map<String, String> result = new TreeMap<>();
         result.put("User-Agent",                                        userAgent);

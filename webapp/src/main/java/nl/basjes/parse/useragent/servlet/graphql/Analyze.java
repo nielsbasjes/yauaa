@@ -45,18 +45,20 @@ public class Analyze {
 
     @QueryMapping
     public AnalysisResult analyze(@Argument("requestHeaders") RequestHeaders requestHeaders,
-                                  @Argument("userAgentString") String userAgentString) {
+                                  @Argument("userAgent") String userAgentString) {
         UserAgentAnalyzer analyzer = parseService.getUserAgentAnalyzer();
-        Map<String, String> inputHeaders = new TreeMap<>();
+        RequestHeaders effectiveRequestHeaders;
         if (requestHeaders != null) {
-            inputHeaders.putAll(requestHeaders.toMap());
+            effectiveRequestHeaders = new RequestHeaders(requestHeaders);
+        } else {
+            effectiveRequestHeaders = new RequestHeaders();
         }
         if (userAgentString != null) {
-            inputHeaders.put(USERAGENT_HEADER, userAgentString);
+            effectiveRequestHeaders.setUserAgent(userAgentString);
         }
-        UserAgent userAgent = analyzer.parse(inputHeaders);
+        UserAgent userAgent = analyzer.parse(effectiveRequestHeaders.toMap());
         AnalysisResult result = new AnalysisResult(userAgent);
-        result.setRequestHeaders(requestHeaders);
+        result.setRequestHeaders(effectiveRequestHeaders);
         return result;
     }
 

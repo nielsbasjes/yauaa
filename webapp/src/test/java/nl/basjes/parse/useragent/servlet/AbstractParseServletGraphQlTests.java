@@ -62,6 +62,34 @@ abstract class AbstractParseServletGraphQlTests extends AbstractTestingBase {
     }
 
     @Test
+    public void testAnalyzeDirectUserAgent() {
+        LOG.info("Testing GraphQL: Useragent");
+        getGraphQLResponse(
+            "{" +
+            "  analyze(" +
+            "    userAgent: \""+TEST_USER_AGENT+"\", " +
+            "    requestHeaders: {" +
+            "      userAgent:\"\\\"Niels Basjes/123\\\"\", " +
+            "      secChUaArch:\"\\\"arm\\\"\", " +
+            "      secChUaBitness:\"\\\"42\\\"\"}) {" +
+            "    agentNameVersion" +
+            "    requestHeaders {      " +
+            "        userAgent      " +
+            "        secChUaArch" +
+            "      secChUaBitness    " +
+            "    }" +
+            "  }" +
+            "}")
+            .statusCode(200)
+            .contentType(JSON)
+            .body("data.analyze.agentNameVersion",   equalTo(EXPECTED_AGENTNAMEVERSION))
+            // The explicit userAgent overrides the userAgent in the RequestHeaders part
+            .body("data.analyze.requestHeaders.userAgent",      equalTo(TEST_USER_AGENT))
+            .body("data.analyze.requestHeaders.secChUaArch",    equalTo("\"arm\""))
+            .body("data.analyze.requestHeaders.secChUaBitness", equalTo("\"42\""));
+    }
+
+    @Test
     public void testAnalyzeDirectField() {
         LOG.info("Testing GraphQL: direct field");
         getGraphQLResponse(
