@@ -101,7 +101,7 @@ public final class YauaaVersion {
         if (showFullVersion) {
             logVersion();
         } else {
-            LOG.info("{}", YauaaVersion::getVersion);
+            LOG.info("{}", YauaaVersion.getVersion());
         }
     }
 
