@@ -141,6 +141,7 @@ public final class MatchesList implements Collection<MatchesList.Match>, Seriali
     @Nonnull
     @Override
     public Iterator<Match> iterator() {
+        //noinspection Convert2Diamond
         return new Iterator<Match>() {
             int offset = 0;
 

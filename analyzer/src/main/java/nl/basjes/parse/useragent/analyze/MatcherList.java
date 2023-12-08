@@ -109,6 +109,7 @@ public final class MatcherList implements Collection<Matcher>, Serializable {
     @Nonnull
     @Override
     public Iterator<Matcher> iterator() {
+        //noinspection Convert2Diamond
         return new Iterator<Matcher>() {
             int offset = 0;
 
