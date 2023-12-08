@@ -225,64 +225,64 @@ Available operators:
 
 Walking around the tree
 
-Operation | Symbol | Example | Result value (if applicable)
-:--- |:--- |:---|:---
-Up to parent | ^ | agent.(1)product.name^ | agent.(1)product
-Next Sibling | > | agent.(1)product> | agent.(2)product
-Previous Sibling | < | agent.(2)product< | agent.(1)product
-Down to child | .name | agent.(1)product.version |
-Down to specific child | .(2)version | agent.(1)product.(2)version |
-Down to specific child range | .(2-3)version | agent.(1)product.(2-3)version |
-Down to specific child range | .(2-)version | agent.(1)product.(2-)version |
-Down to specific child range | .(-5)version | agent.(1)product.(-5)version |
+| Operation                    | Symbol        | Example                       | Result value (if applicable) |
+|:-----------------------------|:--------------|:------------------------------|:-----------------------------|
+| Up to parent                 | ^             | agent.(1)product.name^        | agent.(1)product             |
+| Next Sibling                 | >             | agent.(1)product>             | agent.(2)product             |
+| Previous Sibling             | <             | agent.(2)product<             | agent.(1)product             |
+| Down to child                | .name         | agent.(1)product.version      |                              |
+| Down to specific child       | .(2)version   | agent.(1)product.(2)version   |                              |
+| Down to specific child range | .(2-3)version | agent.(1)product.(2-3)version |                              |
+| Down to specific child range | .(2-)version  | agent.(1)product.(2-)version  |                              |
+| Down to specific child range | .(-5)version  | agent.(1)product.(-5)version  |                              |
 
 Comparing values in the tree
 
-Operation | Symbol | Example | Result value (if applicable) | Explain
-:--- |:--- |:--- |:---|:---
-Equals | = | agent.(1)product.version="2.3" | agent.(1)product.(2)version | The second version is "2.3"
-Not equals | != | agent.(1)product.version!="1.0" | agent.(1)product.(2)version | The second version is the first one when backtracking that is not "1.0"
-Contains | ~ | agent.product.name~"ar" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"
-Starts with | { | agent.product.name{"b" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"
-Ends with | }| agent.product.name}"z" | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"
-(Key)set contains | ? | agent.product.name?mySetOfValues | agent.(3)product.(1)name | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated
-(Key)set does NOT contain | ?! | agent.product.name?!mySetOfValues | agent.(3)product.(1)name | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated
+| Operation                 | Symbol | Example                           | Result value (if applicable)       | Explain                                                                                                                                                                           |
+|:--------------------------|:-------|:----------------------------------|:-----------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Equals                    | =      | agent.(1)product.version="2.3"    | agent.(1)product.(2)version        | The second version is "2.3"                                                                                                                                                       |
+| Not equals                | !=     | agent.(1)product.version!="1.0"   | agent.(1)product.(2)version        | The second version is the first one when backtracking that is not "1.0"                                                                                                           |
+| Contains                  | ~      | agent.product.name~"ar"           | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"                                                                                                                       |
+| Starts with               | {      | agent.product.name{"b"            | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"                                                                                                                     |
+| Ends with                 | }      | agent.product.name}"z"            | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"                                                                                                                       |
+| (Key)set contains         | ?      | agent.product.name?mySetOfValues  | agent.(3)product.(1)name           | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated     |
+| (Key)set does NOT contain | ?!     | agent.product.name?!mySetOfValues | agent.(3)product.(1)name           | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated |
 
 Extracting substrings
 
 Note this fact *agent.(1)product.(1)comments.(2)entry.(1)text="one two three four five"*
 
-Operation | Symbol | Example | Value
-:--- |:--- |:---|:---
-First N Words | [-N] | agent.(1)product.(1)comments.(2)entry.(1)text[-3] | one two three
-Single Word at position N | [N] | agent.(1)product.(1)comments.(2)entry.(1)text[3] | three
-A range of words N-M | [N-M] | agent.(1)product.(1)comments.(2)entry.(1)text[2-4] | two three four
-All words to the end starting at N | [N-] | agent.(1)product.(1)comments.(2)entry.(1)text[3-] | three four five
-Back to full value | @ | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three" <br/> agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@ | three <br/> one two three four five
+| Operation                          | Symbol | Example                                                                                                                  | Value                               |
+|:-----------------------------------|:-------|:-------------------------------------------------------------------------------------------------------------------------|:------------------------------------|
+| First N Words                      | [-N]   | agent.(1)product.(1)comments.(2)entry.(1)text[-3]                                                                        | one two three                       |
+| Single Word at position N          | [N]    | agent.(1)product.(1)comments.(2)entry.(1)text[3]                                                                         | three                               |
+| A range of words N-M               | [N-M]  | agent.(1)product.(1)comments.(2)entry.(1)text[2-4]                                                                       | two three four                      |
+| All words to the end starting at N | [N-]   | agent.(1)product.(1)comments.(2)entry.(1)text[3-]                                                                        | three four five                     |
+| Back to full value                 | @      | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three" <br/> agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@ | three <br/> one two three four five |
 
 Special operations
 
-Operation | Symbol | Example | Result value (if applicable)
-:--- |:--- |:--- |:---
-Check if the expresssion resulted in a null 'no match' value. | IsNull[expression] | IsNull[agent.(1)product.(3)name] | true
-Return the result or the provided default value in case the expression was a null 'no match' value. | DefaultIfNull[expression;defaultvalue] | DefaultIfNull[agent.(1)product.(3)name;"Something"]
-Cleanup the version from an _ separated to a . separated string| CleanVersion[expression] | CleanVersion["1_2_3"] | 1.2.3
-Is the provided value something that we think can be considered a "Valid Version" | IsValidVersion[expression] | IsValidVersion["FooBar"] | null
-Replace every occurrence of a String with another String (fixed text and case sensitive!)| ReplaceString[expression;search;replace] | ReplaceString["onefoofootwo";"foo";"bar"] | onebarbartwo
-LookUp the value against a lookup table | LookUp[lookupname;expression] | LookUp[OSNames;agent.product.entry.text]
-LookUp the value against a lookup table (with fallback in case no match) | LookUp[lookupname;expression;defaultvalue] | LookUp[OSNames;agent.product.entry.text;"Unknown"]
-LookUp the value against a lookup table and return the original value if a matching prefix is present. | IsInLookUp[lookupname;expression] | IsInLookUp[OSNames;agent.product.entry.text]
-LookUp the lookupname in the lookup table that the value contains | LookUpContains[lookupname;expression] | LookUpContains[OSNames;agent.product.entry.text]
-LookUp the lookupname in the lookup table that the value contains (with fallback in case no match) | LookUpContains[lookupname;expression;defaultvalue] | LookUpContains[OSNames;agent.product.entry.text;"Unknown"]
-LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present. | IsInLookUpContains[lookupname;expression] | IsInLookUpContains[OSNames;agent.product.entry.text]
-LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is NOT present. | IsNotInLookUpContains[lookupname;expression] | IsNotInLookUpContains[OSNames;agent.product.entry.text]
-LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value. | LookUpPrefix[lookupname;expression] | LookUpPrefix[OSNames;agent.product.entry.text]
-LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match). | LookUpPrefix[lookupname;expression;defaultvalue] | LookUpPrefix[OSNames;agent.product.entry.text;"Unknown"]
-LookUp the value against a lookup table and return the value if there is NO matching prefix of the key. | LookUpIsNotInPrefix[lookupname;expression] | LookUpIsNotInPrefix[OSNames;agent.product.entry.text]
-LookUp the value against a lookup table and return the original value if a matching prefix is present. | IsInLookUpPrefix[lookupname;expression] | IsInLookUpPrefix[OSNames;agent.product.entry.text]
-Put a fixed string before an expression | Concat[value;expression] | Concat["Something";agent.product.entry.text]
-Put a fixed string after an expression | Concat[expression;value] | Concat[agent.product.entry.text;"Something"]
-Surround the expression with both a prefix and a postfix | Concat[value;expression;value] | Concat["Something";agent.product.entry.text;"Something"]
+| Operation                                                                                                                                                | Symbol                                             | Example                                                    | Result value (if applicable) |
+|:---------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------|:-----------------------------------------------------------|:-----------------------------|
+| Check if the expresssion resulted in a null 'no match' value.                                                                                            | IsNull[expression]                                 | IsNull[agent.(1)product.(3)name]                           | true                         |
+| Return the result or the provided default value in case the expression was a null 'no match' value.                                                      | DefaultIfNull[expression;defaultvalue]             | DefaultIfNull[agent.(1)product.(3)name;"Something"]        |                              |
+| Cleanup the version from an _ separated to a . separated string                                                                                          | CleanVersion[expression]                           | CleanVersion["1_2_3"]                                      | 1.2.3                        |
+| Is the provided value something that we think can be considered a "Valid Version"                                                                        | IsValidVersion[expression]                         | IsValidVersion["FooBar"]                                   | null                         |
+| Replace every occurrence of a String with another String (fixed text and case sensitive!)                                                                | ReplaceString[expression;search;replace]           | ReplaceString["onefoofootwo";"foo";"bar"]                  | onebarbartwo                 |
+| LookUp the value against a lookup table                                                                                                                  | LookUp[lookupname;expression]                      | LookUp[OSNames;agent.product.entry.text]                   |                              |
+| LookUp the value against a lookup table (with fallback in case no match)                                                                                 | LookUp[lookupname;expression;defaultvalue]         | LookUp[OSNames;agent.product.entry.text;"Unknown"]         |                              |
+| LookUp the value against a lookup table and return the original value if a matching prefix is present.                                                   | IsInLookUp[lookupname;expression]                  | IsInLookUp[OSNames;agent.product.entry.text]               |                              |
+| LookUp the lookupname in the lookup table that the value contains                                                                                        | LookUpContains[lookupname;expression]              | LookUpContains[OSNames;agent.product.entry.text]           |                              |
+| LookUp the lookupname in the lookup table that the value contains (with fallback in case no match)                                                       | LookUpContains[lookupname;expression;defaultvalue] | LookUpContains[OSNames;agent.product.entry.text;"Unknown"] |                              |
+| LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is present.                         | IsInLookUpContains[lookupname;expression]          | IsInLookUpContains[OSNames;agent.product.entry.text]       |                              |
+| LookUp the lookupname in the lookup table that the value contains and return the original value if a matching prefix is NOT present.                     | IsNotInLookUpContains[lookupname;expression]       | IsNotInLookUpContains[OSNames;agent.product.entry.text]    |                              |
+| LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value.                                  | LookUpPrefix[lookupname;expression]                | LookUpPrefix[OSNames;agent.product.entry.text]             |                              |
+| LookUp the value against a lookup table and return the value where the key is the longest matching prefix of the value (with fallback in case no match). | LookUpPrefix[lookupname;expression;defaultvalue]   | LookUpPrefix[OSNames;agent.product.entry.text;"Unknown"]   |                              |
+| LookUp the value against a lookup table and return the value if there is NO matching prefix of the key.                                                  | LookUpIsNotInPrefix[lookupname;expression]         | LookUpIsNotInPrefix[OSNames;agent.product.entry.text]      |                              |
+| LookUp the value against a lookup table and return the original value if a matching prefix is present.                                                   | IsInLookUpPrefix[lookupname;expression]            | IsInLookUpPrefix[OSNames;agent.product.entry.text]         |                              |
+| Put a fixed string before an expression                                                                                                                  | Concat[value;expression]                           | Concat["Something";agent.product.entry.text]               |                              |
+| Put a fixed string after an expression                                                                                                                   | Concat[expression;value]                           | Concat[agent.product.entry.text;"Something"]               |                              |
+| Surround the expression with both a prefix and a postfix                                                                                                 | Concat[value;expression;value]                     | Concat["Something";agent.product.entry.text;"Something"]   |                              |
 
 ## Chaining operators
 An extensive example of walking around to get the right value.
@@ -291,21 +291,21 @@ An extensive example of walking around to get the right value.
 foo faa/1.0/2.3 (one; two three four) bar baz/2.0/3.0 (five; six seven)
 ```
 
-Expression | Current path | Value
-:--- |:--- |:---
-agent.product.(1)comments.entry.(1)text[2]="seven"                                                        | agent.(2)product.(1)comments.(2)entry.(1)text[2] | seven
-agent.product.(1)comments.entry.(1)text[2]="seven"^                                                       | agent.(2)product.(1)comments.(2)entry            | six seven
-agent.product.(1)comments.entry.(1)text[2]="seven"^^                                                      | agent.(2)product.(1)comments                     | (five; six seven)
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^                                                     | agent.(2)product                                 | bar baz/2.0/3.0 (five; six seven)
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<                                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four)
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name                                               | agent.(1)product.(1)name                         | foo faa
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"                                     | agent.(1)product.(1)name                         | foo faa
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four)
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments                           | agent.(1)product.(1)comments                     | (one; two three four)
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry                     | agent.(1)product.(1)comments.(1)entry            | one
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"     | agent.(1)product.(1)comments.(2)entry[2]         | three
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@    | agent.(1)product.(1)comments.(2)entry            | two three four
-agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1] | agent.(1)product.(1)comments.(2)entry[1]         | two
+| Expression                                                                                                | Current path                                     | Value                                 |
+|:----------------------------------------------------------------------------------------------------------|:-------------------------------------------------|:--------------------------------------|
+| agent.product.(1)comments.entry.(1)text[2]="seven"                                                        | agent.(2)product.(1)comments.(2)entry.(1)text[2] | seven                                 |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^                                                       | agent.(2)product.(1)comments.(2)entry            | six seven                             |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^                                                      | agent.(2)product.(1)comments                     | (five; six seven)                     |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^                                                     | agent.(2)product                                 | bar baz/2.0/3.0 (five; six seven)     |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<                                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four) |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name                                               | agent.(1)product.(1)name                         | foo faa                               |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"                                     | agent.(1)product.(1)name                         | foo faa                               |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four) |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments                           | agent.(1)product.(1)comments                     | (one; two three four)                 |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry                     | agent.(1)product.(1)comments.(1)entry            | one                                   |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"     | agent.(1)product.(1)comments.(2)entry[2]         | three                                 |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@    | agent.(1)product.(1)comments.(2)entry            | two three four                        |
+| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1] | agent.(1)product.(1)comments.(2)entry[1]         | two                                   |
 
 Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
