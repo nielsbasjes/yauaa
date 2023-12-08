@@ -62,44 +62,25 @@ public class RestResponseEntityExceptionHandler
 
         String userAgentAnalyzerFailureMessage = parseService.getUserAgentAnalyzerFailureMessage();
         if (userAgentAnalyzerFailureMessage == null) {
-            switch (yauaaIsBusyStarting.getOutputType()) {
-                case YAML:
-                    message = "status: \"Starting\"\ntimeInMs: " + timeSinceStart + "\n";
-                    break;
-                case TXT:
-                    message = "NO";
-                    break;
-                case JSON:
-                    message = "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
-                    break;
-                case XML:
-                    message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Starting</status><timeInMs>" + timeSinceStart + "</timeInMs>";
-                    break;
-                case HTML:
-                default:
-                    message = "Yauaa has been starting up for " + timeSinceStart + " seconds now.";
-                    break;
-            }
+            message = switch (yauaaIsBusyStarting.getOutputType()) {
+                case YAML -> "status: \"Starting\"\ntimeInMs: " + timeSinceStart + "\n";
+                case TXT  -> "NO";
+                case JSON -> "{ \"status\": \"Starting\", \"timeInMs\": " + timeSinceStart + " }";
+                case XML  ->
+                        "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Starting</status><timeInMs>" + timeSinceStart + "</timeInMs>";
+                default   -> "Yauaa has been starting up for " + timeSinceStart + " seconds now.";
+            };
             return new ResponseEntity<>(message, httpHeaders, SERVICE_UNAVAILABLE);
         } else {
-            switch (yauaaIsBusyStarting.getOutputType()) {
-                case YAML:
-                    message = "status: \"Failed\"\nerrorMessage: |\n" + userAgentAnalyzerFailureMessage + "\n";
-                    break;
-                case TXT:
-                    message = "FAILED: \n" + userAgentAnalyzerFailureMessage;
-                    break;
-                case JSON:
-                    message = "{ \"status\": \"Failed\", \"errorMessage\": " + escapeJson(userAgentAnalyzerFailureMessage) + " }";
-                    break;
-                case XML:
-                    message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Failed</status><errorMessage>" + escapeXml10(userAgentAnalyzerFailureMessage) + "</errorMessage>";
-                    break;
-                case HTML:
-                default:
-                    message = "Yauaa start up has failed with message \n" + userAgentAnalyzerFailureMessage;
-                    break;
-            }
+            message = switch (yauaaIsBusyStarting.getOutputType()) {
+                case YAML -> "status: \"Failed\"\nerrorMessage: |\n" + userAgentAnalyzerFailureMessage + "\n";
+                case TXT  -> "FAILED: \n" + userAgentAnalyzerFailureMessage;
+                case JSON ->
+                        "{ \"status\": \"Failed\", \"errorMessage\": " + escapeJson(userAgentAnalyzerFailureMessage) + " }";
+                case XML  ->
+                        "<?xml version=\"1.0\" encoding=\"UTF-8\"?><status>Failed</status><errorMessage>" + escapeXml10(userAgentAnalyzerFailureMessage) + "</errorMessage>";
+                default   -> "Yauaa start up has failed with message \n" + userAgentAnalyzerFailureMessage;
+            };
             return new ResponseEntity<>(message, httpHeaders, INTERNAL_SERVER_ERROR);
         }
 

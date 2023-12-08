@@ -31,26 +31,29 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
+import org.springframework.context.annotation.Description;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-//@Description("The values of the HTTP request Headers that need to be analyzed.")
+@Description("The values of the HTTP request Headers that need to be analyzed.")
 @Accessors(chain = true)
+@Getter
+@Setter
 public class RequestHeaders {
 
-    @Getter @Setter /* @Description(USERAGENT_HEADER                           + ": " + USERAGENT_HEADER_SPEC                     + " See also " + USERAGENT_HEADER_SPEC_URL)                    */  private String userAgent;               // User-Agent
-    @Getter @Setter /* @Description(ParseSecChUa.HEADER_FIELD                  + ": " + ParseSecChUa.HEADER_SPEC                  + " See also " + ParseSecChUa.HEADER_SPEC_URL)                 */  private String secChUa;                 // Sec-CH-UA
-    @Getter @Setter /* @Description(ParseSecChUaArch.HEADER_FIELD              + ": " + ParseSecChUaArch.HEADER_SPEC              + " See also " + ParseSecChUaArch.HEADER_SPEC_URL)             */  private String secChUaArch;             // Sec-CH-UA-Arch
-    @Getter @Setter /* @Description(ParseSecChUaBitness.HEADER_FIELD           + ": " + ParseSecChUaBitness.HEADER_SPEC           + " See also " + ParseSecChUaBitness.HEADER_SPEC_URL)          */  private String secChUaBitness;          // Sec-CH-UA-Bitness
-    @Getter @Setter /* @Description(ParseSecChUaFormFactor.HEADER_FIELD        + ": " + ParseSecChUaFormFactor.HEADER_SPEC        + " See also " + ParseSecChUaFormFactor.HEADER_SPEC_URL)       */  private String secChUaFormFactor;       // Sec-CH-UA-Form-Factor
-    @Getter @Setter /* @Description(ParseSecChUaFullVersion.HEADER_FIELD       + ": " + ParseSecChUaFullVersion.HEADER_SPEC       + " See also " + ParseSecChUaFullVersion.HEADER_SPEC_URL)      */  private String secChUaFullVersion;      // Sec-CH-UA-Full-Version
-    @Getter @Setter /* @Description(ParseSecChUaFullVersionList.HEADER_FIELD   + ": " + ParseSecChUaFullVersionList.HEADER_SPEC   + " See also " + ParseSecChUaFullVersionList.HEADER_SPEC_URL)  */  private String secChUaFullVersionList;  // Sec-CH-UA-Full-Version-List
-    @Getter @Setter /* @Description(ParseSecChUaMobile.HEADER_FIELD            + ": " + ParseSecChUaMobile.HEADER_SPEC            + " See also " + ParseSecChUaMobile.HEADER_SPEC_URL)           */  private String secChUaMobile;           // Sec-CH-UA-Mobile
-    @Getter @Setter /* @Description(ParseSecChUaModel.HEADER_FIELD             + ": " + ParseSecChUaModel.HEADER_SPEC             + " See also " + ParseSecChUaModel.HEADER_SPEC_URL)            */  private String secChUaModel;            // Sec-CH-UA-Model
-    @Getter @Setter /* @Description(ParseSecChUaPlatform.HEADER_FIELD          + ": " + ParseSecChUaPlatform.HEADER_SPEC          + " See also " + ParseSecChUaPlatform.HEADER_SPEC_URL)         */  private String secChUaPlatform;         // Sec-CH-UA-Platform
-    @Getter @Setter /* @Description(ParseSecChUaPlatformVersion.HEADER_FIELD   + ": " + ParseSecChUaPlatformVersion.HEADER_SPEC   + " See also " + ParseSecChUaPlatformVersion.HEADER_SPEC_URL)  */  private String secChUaPlatformVersion;  // Sec-CH-UA-Platform-Version
-    @Getter @Setter /* @Description(ParseSecChUaWoW64.HEADER_FIELD             + ": " + ParseSecChUaWoW64.HEADER_SPEC             + " See also " + ParseSecChUaWoW64.HEADER_SPEC_URL)            */  private String secChUaWoW64;            // Sec-CH-UA-WoW64
+    private String userAgent;               // User-Agent
+    private String secChUa;                 // Sec-CH-UA
+    private String secChUaArch;             // Sec-CH-UA-Arch
+    private String secChUaBitness;          // Sec-CH-UA-Bitness
+    private String secChUaFormFactor;       // Sec-CH-UA-Form-Factor
+    private String secChUaFullVersion;      // Sec-CH-UA-Full-Version
+    private String secChUaFullVersionList;  // Sec-CH-UA-Full-Version-List
+    private String secChUaMobile;           // Sec-CH-UA-Mobile
+    private String secChUaModel;            // Sec-CH-UA-Model
+    private String secChUaPlatform;         // Sec-CH-UA-Platform
+    private String secChUaPlatformVersion;  // Sec-CH-UA-Platform-Version
+    private String secChUaWoW64;            // Sec-CH-UA-WoW64
 
 
     public RequestHeaders() {

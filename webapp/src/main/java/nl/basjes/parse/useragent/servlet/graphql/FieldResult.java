@@ -22,7 +22,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public class FieldResult {
-    @Getter @Setter String fieldName;
-    @Getter @Setter String value;
+    private String fieldName;
+    private String value;
 }

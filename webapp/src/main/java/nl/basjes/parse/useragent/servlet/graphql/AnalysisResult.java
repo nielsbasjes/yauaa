@@ -21,21 +21,18 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.basjes.parse.useragent.AgentField;
 import nl.basjes.parse.useragent.UserAgent;
+import org.springframework.context.annotation.Description;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-//@Description("The analysis results of a User-Agent and other headers.")
+@Description("The analysis results of a User-Agent and other headers.")
 public class AnalysisResult {
 
-    private final UserAgent userAgent;
+    @Getter private final UserAgent userAgent;
 
     public AnalysisResult(UserAgent userAgent) {
         this.userAgent = userAgent;
-    }
-
-    public UserAgent getUserAgent() {
-        return userAgent;
     }
 
     public String getValue(String fieldName) {
@@ -45,6 +42,7 @@ public class AnalysisResult {
         return userAgent.get(fieldName);
     }
 
+    @SuppressWarnings("unused") // Used via reflection by GraphQL
     public Boolean getSyntaxError() {
         return Boolean.parseBoolean(userAgent.getValue("__SyntaxError__"));
     }
