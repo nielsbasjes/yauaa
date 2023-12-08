@@ -17,10 +17,10 @@
 
 package nl.basjes.parse.useragent.quarkus;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusIntegrationTest;
 
-@NativeImageTest
-public class NativeParseServiceIT extends ParseServiceTest {
+@QuarkusIntegrationTest
+public class ParseServiceIT extends ParseServiceTest {
 
-    // Execute the same tests but in native mode.
+    // Execute the same tests but as an integration test.
 }

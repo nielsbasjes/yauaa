@@ -19,12 +19,12 @@ package nl.basjes.parse.useragent.quarkus;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 
-import javax.annotation.PostConstruct;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.annotation.PostConstruct;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 
 @Path("/parse")
 public class ParseService {
