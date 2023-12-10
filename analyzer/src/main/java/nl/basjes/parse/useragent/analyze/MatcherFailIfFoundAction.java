@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("this-escape")
 public class MatcherFailIfFoundAction extends MatcherAction {
     private static final Logger LOG = LogManager.getLogger(MatcherFailIfFoundAction.class);
 

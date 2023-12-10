@@ -117,6 +117,20 @@
               </toolchains>
             </configuration>
           </execution>
+          <execution>
+            <id>Ensure ToolChain for JDK 21 is available</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>toolchain</goal>
+            </goals>
+            <configuration>
+              <toolchains>
+                <jdk>
+                  <version>21</version>
+                </jdk>
+              </toolchains>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 

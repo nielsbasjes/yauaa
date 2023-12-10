@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-# Use Ubuntu 20.04 LTS with Java 17 and Maven 3.x as the base.
-image: maven:3.9.6-eclipse-temurin-17-focal
+# Use Ubuntu 22.04 LTS with Java 21 and Maven 3.x as the base.
+image: maven:3.9.6-eclipse-temurin-21-jammy
 
 stages:
   - build
@@ -24,8 +24,8 @@ stages:
 maven-build:
   stage: build
   script:
-    # Install the 3 needed LTS JDKs that can be used by toolchains
-    - apt-get update -qq && apt-get install -qq -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk
+    # Install the needed LTS JDKs that can be used by toolchains
+    - apt-get update -qq && apt-get install -qq -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk
     - mkdir -p ${HOME}/.m2 && cp ./.gitlab/toolchains.xml ${HOME}/.m2/
     # And build it.
     - ./mvnw clean verify -PdisableDockerHubUsages -B

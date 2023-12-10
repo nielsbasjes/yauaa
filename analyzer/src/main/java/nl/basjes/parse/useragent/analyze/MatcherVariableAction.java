@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Set;
 
+@SuppressWarnings("this-escape")
 public class MatcherVariableAction extends MatcherAction {
     private static final Logger LOG = LogManager.getLogger(MatcherVariableAction.class);
 

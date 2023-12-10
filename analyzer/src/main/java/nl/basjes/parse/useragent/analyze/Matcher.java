@@ -98,6 +98,7 @@ public class Matcher implements Serializable {
         return analyzer.getLookupSets();
     }
 
+    @SuppressWarnings("this-escape")
     public Matcher(MatchMaker analyzer,
                    Collection<String> wantedFieldNames,
                    MatcherConfig matcherConfig) throws UselessMatcherException {

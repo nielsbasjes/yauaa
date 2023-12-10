@@ -27,6 +27,7 @@ These are only the highlights, the full changelog can be found [here](https://gi
     - NextCloud app
 - Build:
     - Update commons-text required shading to make it work.
+    - Build under Java 21 and also run all tests with Java 21
 
 ### Version v7.23.0
 - New/improved detections:

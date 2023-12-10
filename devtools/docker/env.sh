@@ -24,7 +24,7 @@ export JDK_VERSION="???"
 function __INTERNAL__SwitchJDK {
     JDK=$1
     warn "Setting JDK to version ${JDK}"
-    info "Use switch-jdk8, switch-jdk11 or switch-jdk17 to select the desired JDK to build with."
+    info "Use switch-jdk8, switch-jdk11, switch-jdk17 or switch-jdk21 to select the desired JDK to build with."
     # shellcheck disable=SC2046
     sudo update-java-alternatives --set $(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f1)
     JAVA_HOME=$(update-java-alternatives -l | fgrep "${JDK}" | sed 's@ \+@ @g' | cut -d' ' -f3)
@@ -34,9 +34,9 @@ function __INTERNAL__SwitchJDK {
 alias switch-jdk8="__INTERNAL__SwitchJDK 1.8.0; export JDK_VERSION=JDK-8"
 alias switch-jdk11="__INTERNAL__SwitchJDK 1.11.0; export JDK_VERSION=JDK-11"
 alias switch-jdk17="__INTERNAL__SwitchJDK 1.17.0 ; export JDK_VERSION=JDK-17"
-#alias switch-jdk13="__INTERNAL__SwitchJDK latest; export JDK_VERSION=JDK-13"
+alias switch-jdk21="__INTERNAL__SwitchJDK 1.21.0 ; export JDK_VERSION=JDK-21"
 
-switch-jdk17
+switch-jdk21
 
 . "/usr/lib/git-core/git-sh-prompt"
 # shellcheck disable=SC2154

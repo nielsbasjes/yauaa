@@ -58,6 +58,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Juergen Hoeller
  * @since 3.2
  */
+@SuppressWarnings("this-escape")
 public class ConcurrentReferenceHashMap<K, V> extends AbstractMap<K, V> implements ConcurrentMap<K, V> {
 
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;

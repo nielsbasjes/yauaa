@@ -164,7 +164,9 @@
         <configuration>
           <toolchains>
             <jdk>
-              <version>17</version>
+              <!-- FIXME: Building under Java 21 results in [this-escape] warnings in the generated Antlr4 code. -->
+              <!-- Waiting for https://github.com/antlr/antlr4/pull/4486 to be approved and released. -->
+              <version>21</version>
             </jdk>
           </toolchains>
         </configuration>
@@ -373,6 +375,24 @@
       </plugin>
 
       <plugin>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-maven-plugin</artifactId>
+        <version>${antlr.version}</version>
+        <executions>
+          <execution>
+            <id>antlr</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>antlr4</goal>
+            </goals>
+            <configuration>
+              <visitor>true</visitor>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <executions>
@@ -398,21 +418,18 @@
             </configuration>
           </execution>
 
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
-        <executions>
           <execution>
-            <id>antlr</id>
+            <id>Temporary workaround for the Java 21 and Antlr4 generated code problem: https://github.com/antlr/antlr4/issues/4485</id>
+            <phase>generate-sources</phase>
             <goals>
-              <goal>antlr4</goal>
+              <goal>exec</goal>
             </goals>
             <configuration>
-              <visitor>true</visitor>
+              <executable>bash</executable>
+              <arguments>
+                <argument>-c</argument>
+                <argument>find "${project.build.directory}/generated-sources/antlr4/" -type f -name '*.java' | xargs -n1 sed -i 's/"CheckReturnValue"})/"CheckReturnValue", "this-escape"})/'</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
@@ -719,6 +736,21 @@
               </properties>
               <projectsDirectory>./src/it-all-jdk</projectsDirectory>
               <cloneProjectsTo>${project.build.directory}/it-jdk-17</cloneProjectsTo>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>Integration tests under Java 21</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <integrationTestingJDK>21</integrationTestingJDK>
+                <maven.compiler.release>21</maven.compiler.release>
+              </properties>
+              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it-jdk-21</cloneProjectsTo>
             </configuration>
           </execution>
         </executions>

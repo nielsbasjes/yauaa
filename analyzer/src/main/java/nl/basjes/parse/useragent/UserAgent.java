@@ -569,6 +569,7 @@ public interface UserAgent extends Serializable {
         return result;
     }
 
+    @SuppressWarnings("this-escape")
     class MutableUserAgent extends UserAgentBaseListener implements UserAgent, Serializable, DefaultANTLRErrorListener {
 
         private static final Logger LOG = LogManager.getLogger(UserAgent.class);
@@ -898,6 +899,7 @@ public interface UserAgent extends Serializable {
         }
     }
 
+    @SuppressWarnings("this-escape")
     class ImmutableUserAgent implements UserAgent {
         private final Map<String, String>               headers;
         private final ImmutableAgentField               userAgentStringField;

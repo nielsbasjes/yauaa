@@ -25,7 +25,7 @@ package nl.basjes.statistics;
  * 2) Actually implements the Associative and Commutativity properties of the underlying operations.
  * Thus efficiently allows for doing distributed aggregation of petabyte size datasets.
  */
-public class Counter  {
+public final class Counter  {
 
     private long   n;   // Count of values
     private double m2;  // Second moment of values that have been added

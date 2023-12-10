@@ -670,6 +670,7 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
 
     // ===============================================================================================================
 
+    @SuppressWarnings("this-escape")
     public UserAgentStringMatchMaker(
         AnalyzerConfig        analyzerConfig,
         boolean               showMatcherStats,

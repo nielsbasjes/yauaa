@@ -46,6 +46,7 @@ public class BrandListParser extends ClientHintsBaseVisitor<Void> implements Def
     @Getter
     private final ArrayList<Brand> result;
 
+    @SuppressWarnings("this-escape")
     public BrandListParser(String inputString) {
         result = new ArrayList<>();
         CodePointCharStream input = CharStreams.fromString(inputString);

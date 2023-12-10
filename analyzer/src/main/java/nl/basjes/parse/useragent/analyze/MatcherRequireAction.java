@@ -23,6 +23,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("this-escape")
 public class MatcherRequireAction extends MatcherAction {
     private static final Logger LOG = LogManager.getLogger(MatcherRequireAction.class);
 

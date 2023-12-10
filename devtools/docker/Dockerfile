@@ -65,6 +65,7 @@ RUN apt-get -q install -y --no-install-recommends \
     openjdk-8-jdk \
     openjdk-11-jdk \
     openjdk-17-jdk \
+    openjdk-21-jdk \
     diffoscope \
     python3-tlsh \
     tlsh-tools \

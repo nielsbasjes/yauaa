@@ -15,6 +15,7 @@ v7.24.0
   - NextCloud app
 - Build:
   - Update commons-text required shading to make it work.
+  - Build under Java 21 and also run all tests with Java 21
 
 v7.23.0
 ===

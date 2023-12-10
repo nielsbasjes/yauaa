@@ -111,7 +111,7 @@ public abstract class MatcherAction implements Serializable {
         setVerbose(newVerbose, false);
     }
 
-    public void setVerbose(boolean newVerbose, boolean temporary) {
+    public final void setVerbose(boolean newVerbose, boolean temporary) {
         this.verbose = newVerbose;
         if (!temporary) {
             this.verbosePermanent = newVerbose;
@@ -141,7 +141,7 @@ public abstract class MatcherAction implements Serializable {
         // Ignore all other types of problems
     }
 
-    void init(String newMatchExpression, Matcher newMatcher) {
+    final void init(String newMatchExpression, Matcher newMatcher) {
         this.matcher = newMatcher;
         this.matchExpression = newMatchExpression;
         setVerbose(newMatcher.getVerbose());
