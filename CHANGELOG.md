@@ -3,6 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- New/improved detections:
+  - ...
+
+v7.24.0
+===
 - Analyzer:
   - Allow cloning an instance and share the configuration (reducing memory footprint)
 - New/improved detections:

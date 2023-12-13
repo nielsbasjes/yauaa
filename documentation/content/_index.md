@@ -16,6 +16,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 These are only the highlights, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+- New/improved detections:
+  - ...
+
+### Version v7.24.0
 - Analyzer:
     - Allow cloning an instance and share the configuration (reducing memory footprint)
 - New/improved detections:
