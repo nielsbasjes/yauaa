@@ -22,6 +22,9 @@ ENV INSIDE_DOCKER Yes
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Suppress an apt-key warning about standard out not being a terminal. Use in this script is safe.
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+
 WORKDIR /root
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -40,7 +43,8 @@ ENV DEBCONF_TERSE true
 ###
 RUN apt clean cache \
    && apt -q update \
-   && apt install -y software-properties-common apt-utils apt-transport-https ca-certificates
+   && apt install -y software-properties-common apt-utils apt-transport-https ca-certificates \
+   && apt clean cache
 
 RUN apt-get -q install -y --no-install-recommends \
     bash-completion \
@@ -63,7 +67,8 @@ RUN apt-get -q install -y --no-install-recommends \
     openjdk-17-jdk \
     diffoscope \
     python3-tlsh \
-    tlsh-tools
+    tlsh-tools \
+     && apt clean cache
 
 ###
 # The update-java-alternatives uses the config files like /usr/lib/jvm/.java-1.8.0-openjdk-amd64.jinfo
@@ -83,10 +88,11 @@ ENV LC_ALL en_US.UTF-8
 
 # --------------------------------
 # Install Maven ( https://maven.apache.org/download.cgi )
-ENV MAVEN_VERSION=3.8.7
+ENV MAVEN_VERSION=3.9.6
 RUN mkdir -p /usr/local/apache-maven
-RUN cd /usr/local/ && wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
-RUN cd /usr/local/ && tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
+WORKDIR /usr/local/
+RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
 ENV M2_HOME /usr/local/apache-maven
 ENV PATH ${M2_HOME}/bin:${PATH}
 
@@ -99,17 +105,17 @@ RUN wget https://raw.githubusercontent.com/juven/maven-bash-completion/master/ba
 # --------------------------------
 # Install shellcheck ( https://github.com/koalaman/shellcheck/releases )
 ENV SHELLCHECK_VERSION=0.9.0
-RUN cd /usr/local/bin && \
-    wget https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
+WORKDIR /usr/local/bin
+RUN wget https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
     tar xJf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
     mv shellcheck-v${SHELLCHECK_VERSION}/shellcheck . && \
     rm -rf shellcheck-v${SHELLCHECK_VERSION} shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz
 
 # --------------------------------
 # Install Hugo ( https://github.com/gohugoio/hugo/releases )
-ENV HUGO_VERSION=0.110.0
-RUN cd /usr/local/bin && \
-    wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+ENV HUGO_VERSION=0.121.1
+WORKDIR /usr/local/bin
+RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
     tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
     rm -f hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
