@@ -340,23 +340,6 @@
     </profile>
 
     <profile>
-      <id>useLocalReproduceRepo</id>
-      <properties>
-        <!--suppress UnresolvedMavenProperty -->
-        <altReleaseDeploymentRepository>localReproduceRepo::file://${maven.multiModuleProjectDirectory}/__tmp_deploy/</altReleaseDeploymentRepository>
-        <!--suppress UnresolvedMavenProperty -->
-        <altSnapshotDeploymentRepository>localReproduceRepo::file://${maven.multiModuleProjectDirectory}/__tmp_deploy/</altSnapshotDeploymentRepository>
-      </properties>
-      <repositories>
-        <repository>
-          <id>localReproduceRepo</id>
-          <!--suppress UnresolvedMavenProperty -->
-          <url>file://${maven.multiModuleProjectDirectory}/__tmp_deploy/</url>
-        </repository>
-      </repositories>
-    </profile>
-
-    <profile>
       <id>artifactCompare</id>
       <properties>
         <maven.build.cache.enabled>false</maven.build.cache.enabled>
@@ -405,15 +388,6 @@
                 <goals>
                   <goal>check-buildplan</goal>
                 </goals>
-              </execution>
-              <execution>
-                <id>Generate buildinfo</id>
-                <goals>
-                  <goal>buildinfo</goal>
-                </goals>
-                <configuration>
-                  <attach>true</attach>
-                </configuration>
               </execution>
             </executions>
           </plugin>
