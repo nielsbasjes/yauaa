@@ -436,6 +436,12 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             }
         });
 
+        // Opera GX 2.1 has some really bad ClientHint headers.
+        if ("Opera GX".equals(userAgent.getValue(AGENT_NAME))) {
+            versionMap.remove("Android WebView");
+            versionMap.remove("Chromium");
+        }
+
         // ========================
         Brand chromium = versionMap.get("Chromium");
         if (chromium != null) {
