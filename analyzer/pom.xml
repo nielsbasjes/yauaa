@@ -164,8 +164,6 @@
         <configuration>
           <toolchains>
             <jdk>
-              <!-- FIXME: Building under Java 21 results in [this-escape] warnings in the generated Antlr4 code. -->
-              <!-- Waiting for https://github.com/antlr/antlr4/pull/4486 to be approved and released. -->
               <version>21</version>
             </jdk>
           </toolchains>
@@ -418,6 +416,8 @@
             </configuration>
           </execution>
 
+          <!-- FIXME: Building under Java 21 results in [this-escape] warnings in the generated Antlr4 code. -->
+          <!-- Waiting for https://github.com/antlr/antlr4/pull/4486 to be approved and released. -->
           <execution>
             <id>Temporary workaround for the Java 21 and Antlr4 generated code problem: https://github.com/antlr/antlr4/issues/4485</id>
             <phase>generate-sources</phase>
