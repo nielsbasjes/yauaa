@@ -286,7 +286,7 @@ gives
       "gitCommitIdDescribeShort": "v7.3.0-63-dirty",
       "buildTimeStamp": "2022-08-01T14:45:59Z",
       "projectVersion": "7.3.1-SNAPSHOT",
-      "copyright": "Copyright (C) 2013-2023 Niels Basjes",
+      "copyright": "Copyright (C) 2013-2024 Niels Basjes",
       "license": "License Apache 2.0",
       "url": "https://yauaa.basjes.nl",
       "targetJREVersion": "1.8"
