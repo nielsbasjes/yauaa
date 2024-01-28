@@ -17,6 +17,10 @@ These are only the highlights, the full changelog can be found [here](https://gi
 
 ### NEXT RELEASE
 - New/improved detections:
+  - ...
+
+### Version v7.25.0
+- New/improved detections:
   - Mitigate the invalid ClientHints given by Opera GX 2.1
 
 ### Version v7.24.0

@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
+  - ...
+
+v7.25.0
+===
+- New/improved detections:
   - Mitigate the invalid ClientHints given by Opera GX 2.1
 
 v7.24.0
