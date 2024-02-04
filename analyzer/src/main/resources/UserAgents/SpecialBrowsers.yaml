@@ -3215,6 +3215,35 @@ config:
     - 'AgentName                           :       59 :@Product.name'
     - 'AgentVersion                        :       59 :@Product.version'
 
+- matcher:
+    variable:
+    - 'Safari                              :agent.product.name="Safari"^'
+    - 'Product                             :@Safari.comments.(1)entry.(1)product'
+    extract:
+    - 'AgentClass                          :     2060 :"Browser"'
+    - 'AgentName                           :     2060 :LookUp[BrowserTagToNameMapping;@Product.name]'
+    - 'AgentVersion                        :     2060 :@Product.version'
+
+- matcher:
+    variable:
+    - 'Safari                              :agent.product.name="Mobile Safari"^'
+    - 'Product                             :@Safari.comments.(1)entry.(1)product'
+    extract:
+    - 'AgentClass                          :     2060 :"Browser"'
+    - 'AgentName                           :     2060 :LookUp[BrowserTagToNameMapping;@Product.name]'
+    - 'AgentVersion                        :     2060 :@Product.version'
+
+- matcher:
+    variable:
+    - 'Version                             :agent.product.name="Version"^'
+    - 'Product                             :@Version.comments.(1)entry.(1)product'
+    extract:
+    - 'AgentClass                          :     2061 :"Browser"'
+    - 'AgentName                           :     2061 :LookUp[BrowserTagToNameMapping;@Product.name]'
+    - 'AgentVersion                        :     2061 :@Product.version'
+
+
+
 # Apparently the Airwatch Browser is a browser within the VMWare "Workspace ONE"/"AirWatch" system.
 - test:
     input:
@@ -4330,7 +4359,7 @@ config:
     - 'IsNull[@AgentVersion.key]'
     - 'IsNull[@AgentVersion.keyvalue]'
     extract:
-    - 'AgentName                           :     2020 : LookUp[SpecialChromeBrowserNames;@Agent.name]'
+    - 'AgentName                           :     2020 : LookUp[BrowserTagToNameMapping;@Agent.name]'
     - 'AgentVersion                        :     2020 : CleanVersion[@AgentVersion]'
 
 

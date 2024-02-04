@@ -1,0 +1,347 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2024 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+- lookup:
+    name: 'BrowserTagToNameMapping'
+    map:
+      'Ecosia android'  : 'Ecosia'
+      'Ecosia ios'      : 'Ecosia'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU iPhone OS 16_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6.1 Mobile/15E148 Safari/604.1 (Ecosia ios@8.3.0.1069)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.6.1'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '8.3.0.1069'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Ecosia 8.3.0.1069'
+      AgentNameVersionMajor                : 'Ecosia 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 10_3_3 like Mac OS X) AppleWebKit/603.3.8 (KHTML, like Gecko) Mobile/14G60 Version/13.1 (Ecosia ios@4.1.10.875) Safari/604.1'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '14G60'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '10.3.3'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'iOS 10.3.3'
+      OperatingSystemNameVersionMajor      : 'iOS 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '603.3.8'
+      LayoutEngineVersionMajor             : '603'
+      LayoutEngineNameVersion              : 'AppleWebKit 603.3.8'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 603'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '4.1.10.875'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'Ecosia 4.1.10.875'
+      AgentNameVersionMajor                : 'Ecosia 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 9; SM-T595) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36 (Ecosia android@101.0.4951.41)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T595'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101.0'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101.0'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '101.0.4951.41'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Ecosia 101.0.4951.41'
+      AgentNameVersionMajor                : 'Ecosia 101'
+
+# Special because of the .0.0.0 in the version of chrome
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 9; SM-T720) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Safari/537.36 (Ecosia android@101.0.4951.41)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung SM-T720'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '101.0.4951.41'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Ecosia 101.0.4951.41'
+      AgentNameVersionMajor                : 'Ecosia 101'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 13; SM-A127F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.181 Mobile Safari/537.36 (Ecosia android@88.0.4324.181)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A127F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Blink 88.0'
+      LayoutEngineNameVersionMajor         : 'Blink 88'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '88.0.4324.181'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Ecosia 88.0.4324.181'
+      AgentNameVersionMajor                : 'Ecosia 88'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 13; SM-A127F Build/TP1A.220624.014) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Mobile Safari/537.36 (Ecosia android@69.0.3497.128)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A127F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      OperatingSystemVersionBuild          : 'TP1A.220624.014'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '69.0'
+      LayoutEngineVersionMajor             : '69'
+      LayoutEngineNameVersion              : 'Blink 69.0'
+      LayoutEngineNameVersionMajor         : 'Blink 69'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '69.0.3497.128'
+      AgentVersionMajor                    : '69'
+      AgentNameVersion                     : 'Ecosia 69.0.3497.128'
+      AgentNameVersionMajor                : 'Ecosia 69'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Mobile Safari/537.36 (Ecosia android@111.0.5563.58)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '111'
+      LayoutEngineVersionMajor             : '111'
+      LayoutEngineNameVersion              : 'Blink 111'
+      LayoutEngineNameVersionMajor         : 'Blink 111'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '111.0.5563.58'
+      AgentVersionMajor                    : '111'
+      AgentNameVersion                     : 'Ecosia 111.0.5563.58'
+      AgentNameVersionMajor                : 'Ecosia 111'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Mobile Safari/537.36 (Ecosia android@111.0.5563.116)'
+      Sec-Ch-Ua                            : '"Chromium";v="111", "Not(A:Brand";v="8"'
+      Sec-Ch-Ua-Mobile                     : '?1'
+      Sec-Ch-Ua-Platform                   : '"Android"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '111'
+      LayoutEngineVersionMajor             : '111'
+      LayoutEngineNameVersion              : 'Blink 111'
+      LayoutEngineNameVersionMajor         : 'Blink 111'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ecosia'
+      AgentVersion                         : '111.0.5563.116'
+      AgentVersionMajor                    : '111'
+      AgentNameVersion                     : 'Ecosia 111.0.5563.116'
+      AgentNameVersionMajor                : 'Ecosia 111'
+
+      UAClientHintBrands_0_Brand           : 'Chromium'
+      UAClientHintBrands_0_Version         : '111'
+      UAClientHintMobile                   : 'true'
+      UAClientHintPlatform                 : 'Android'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Mobile Safari/537.36 (Ecosia android@111.0.5563.116)'
+      Sec-Ch-Ua                                  : '"Chromium";v="111", "Not(A:Brand";v="8"'
+      Sec-Ch-Ua-Arch                             : ''
+      Sec-Ch-Ua-Bitness                          : ''
+      Sec-Ch-Ua-Full-Version                     : '"111.0.5563.116"'
+      Sec-Ch-Ua-Full-Version-List                : '"Chromium";v="111.0.5563.116", "Not(A:Brand";v="8.0.0.0"'
+      Sec-Ch-Ua-Mobile                           : '?1'
+      Sec-Ch-Ua-Model                            : '"Nokia 7.2"'
+      Sec-Ch-Ua-Platform                         : '"Android"'
+      Sec-Ch-Ua-Platform-Version                 : '"11.0.0"'
+      Sec-Ch-Ua-Wow64                            : '?0'
+    expected:
+      DeviceClass                                : 'Phone'
+      DeviceName                                 : 'Nokia 7.2'
+      DeviceBrand                                : 'Nokia'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'Android'
+      OperatingSystemVersion                     : '11.0.0'
+      OperatingSystemVersionMajor                : '11'
+      OperatingSystemNameVersion                 : 'Android 11.0.0'
+      OperatingSystemNameVersionMajor            : 'Android 11'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '111.0'
+      LayoutEngineVersionMajor                   : '111'
+      LayoutEngineNameVersion                    : 'Blink 111.0'
+      LayoutEngineNameVersionMajor               : 'Blink 111'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Ecosia'
+      AgentVersion                               : '111.0.5563.116'
+      AgentVersionMajor                          : '111'
+      AgentNameVersion                           : 'Ecosia 111.0.5563.116'
+      AgentNameVersionMajor                      : 'Ecosia 111'
+
+      UAClientHintBrands_0_Brand                 : 'Chromium'
+      UAClientHintBrands_0_Version               : '111'
+      UAClientHintFullVersion                    : '111.0.5563.116'
+      UAClientHintFullVersionList_0_Brand        : 'Chromium'
+      UAClientHintFullVersionList_0_Version      : '111.0.5563.116'
+      UAClientHintMobile                         : 'true'
+      UAClientHintModel                          : 'Nokia 7.2'
+      UAClientHintPlatform                       : 'Android'
+      UAClientHintPlatformVersion                : '11.0.0'
+      UAClientHintWow64                          : 'false'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Mobile Safari/537.36 (Ecosia android@111.0.5563.116)'
+      Sec-Ch-Ua                                  : '"Chromium";v="111", "Not(A:Brand";v="8"'
+      Sec-Ch-Ua-Arch                             : '""'
+      Sec-Ch-Ua-Bitness                          : '""'
+      Sec-Ch-Ua-Full-Version                     : '"111.0.5563.116"'
+      Sec-Ch-Ua-Full-Version-List                : '"Chromium";v="111.0.5563.116", "Not(A:Brand";v="8.0.0.0"'
+      Sec-Ch-Ua-Mobile                           : '?1'
+      Sec-Ch-Ua-Model                            : '"Nokia 7.2"'
+      Sec-Ch-Ua-Platform                         : '"Android"'
+      Sec-Ch-Ua-Platform-Version                 : '"11.0.0"'
+      Sec-Ch-Ua-Wow64                            : '?0'
+    expected:
+      DeviceClass                                : 'Phone'
+      DeviceName                                 : 'Nokia 7.2'
+      DeviceBrand                                : 'Nokia'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'Android'
+      OperatingSystemVersion                     : '11.0.0'
+      OperatingSystemVersionMajor                : '11'
+      OperatingSystemNameVersion                 : 'Android 11.0.0'
+      OperatingSystemNameVersionMajor            : 'Android 11'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '111.0'
+      LayoutEngineVersionMajor                   : '111'
+      LayoutEngineNameVersion                    : 'Blink 111.0'
+      LayoutEngineNameVersionMajor               : 'Blink 111'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Ecosia'
+      AgentVersion                               : '111.0.5563.116'
+      AgentVersionMajor                          : '111'
+      AgentNameVersion                           : 'Ecosia 111.0.5563.116'
+      AgentNameVersionMajor                      : 'Ecosia 111'
+
+      UAClientHintBrands_0_Brand                 : 'Chromium'
+      UAClientHintBrands_0_Version               : '111'
+      UAClientHintFullVersion                    : '111.0.5563.116'
+      UAClientHintFullVersionList_0_Brand        : 'Chromium'
+      UAClientHintFullVersionList_0_Version      : '111.0.5563.116'
+      UAClientHintMobile                         : 'true'
+      UAClientHintModel                          : 'Nokia 7.2'
+      UAClientHintPlatform                       : 'Android'
+      UAClientHintPlatformVersion                : '11.0.0'
+      UAClientHintWow64                          : 'false'
