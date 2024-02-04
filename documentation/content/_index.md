@@ -19,8 +19,10 @@ These are only the highlights for the last few releases, the full changelog can 
 - Analyzer:
     - Improve handling of invalid ClientHints
 - New/improved detections:
-    - Ecosia browser
-    - Phoenix browser (has very bad ClientHints)
+  - Ecosia browser
+  - Phoenix browser (has very bad ClientHints)
+  - Lookup Amazon device tags from ClientHints
+  - Report the agent version 'NULL' as '??'
 
 ### Version v7.25.0
 - New/improved detections:

@@ -8,6 +8,8 @@ NEXT RELEASE
 - New/improved detections:
   - Ecosia browser
   - Phoenix browser (has very bad ClientHints)
+  - Lookup Amazon device tags from ClientHints
+  - Report the agent version 'NULL' as '??'
 
 v7.25.0
 ===
