@@ -3,8 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Analyzer:
+  - Improve handling of invalid ClientHints
 - New/improved detections:
-  - ...
+  - Ecosia browser
+  - Phoenix browser (has very bad ClientHints)
 
 v7.25.0
 ===

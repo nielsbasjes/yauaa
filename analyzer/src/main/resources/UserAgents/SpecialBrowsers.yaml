@@ -4126,6 +4126,98 @@ config:
       AgentSecurity                        : 'Strong security'
 
 
+# Phoenix browser https://play.google.com/store/apps/details?id=com.transsion.phoenix
+# Does not clean the useragent but does include invalid ClientHints
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; U; Android 11; en-gb; Nokia 7.2 Build/RKQ1.210607.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.143 Mobile Safari/537.36 PHX/14.5'
+      Sec-Ch-Ua                            : '"Not A(Brand";v="99", "Android WebView";v="121", "Chromium";v="121"'
+      Sec-Ch-Ua-Mobile                     : '?1'
+      Sec-Ch-Ua-Platform                   : '"Android"'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RKQ1.210607.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '121.0'
+      LayoutEngineVersionMajor             : '121'
+      LayoutEngineNameVersion              : 'Blink 121.0'
+      LayoutEngineNameVersionMajor         : 'Blink 121'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Phoenix'
+      AgentVersion                         : '14.5'
+      AgentVersionMajor                    : '14'
+      AgentNameVersion                     : 'Phoenix 14.5'
+      AgentNameVersionMajor                : 'Phoenix 14'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+      UAClientHintBrands_0_Brand           : 'Android WebView'
+      UAClientHintBrands_0_Version         : '121'
+      UAClientHintBrands_1_Brand           : 'Chromium'
+      UAClientHintBrands_1_Version         : '121'
+      UAClientHintMobile                   : 'true'
+      UAClientHintPlatform                 : 'Android'
+
+
+# Phoenix browser https://play.google.com/store/apps/details?id=com.transsion.phoenix
+# Does not clean the useragent but does include invalid ClientHints
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; U; Android 11; en-gb; Nokia 7.2 Build/RKQ1.210607.001) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.143 Mobile Safari/537.36 PHX/14.5'
+      Sec-Ch-Ua                            : '"Not A(Brand";v="99", "Android WebView";v="121", "Chromium";v="121"'
+      Sec-Ch-Ua-Arch                       : '""'
+      Sec-Ch-Ua-Bitness                    : '""'
+      Sec-Ch-Ua-Full-Version               : '""'
+      Sec-Ch-Ua-Full-Version-List          : ''
+      Sec-Ch-Ua-Mobile                     : '?1'
+      Sec-Ch-Ua-Model                      : '""'
+      Sec-Ch-Ua-Platform                   : '"Android"'
+      Sec-Ch-Ua-Platform-Version           : '""'
+      Sec-Ch-Ua-Wow64                      : '?0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 7.2'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RKQ1.210607.001'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '121.0'
+      LayoutEngineVersionMajor             : '121'
+      LayoutEngineNameVersion              : 'Blink 121.0'
+      LayoutEngineNameVersionMajor         : 'Blink 121'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Phoenix'
+      AgentVersion                         : '14.5'
+      AgentVersionMajor                    : '14'
+      AgentNameVersion                     : 'Phoenix 14.5'
+      AgentNameVersionMajor                : 'Phoenix 14'
+      AgentLanguage                        : 'English (United Kingdom)'
+      AgentLanguageCode                    : 'en-gb'
+      AgentSecurity                        : 'Strong security'
+      UAClientHintBrands_0_Brand           : 'Android WebView'
+      UAClientHintBrands_0_Version         : '121'
+      UAClientHintBrands_1_Brand           : 'Chromium'
+      UAClientHintBrands_1_Version         : '121'
+      UAClientHintMobile                   : 'true'
+      UAClientHintPlatform                 : 'Android'
+      UAClientHintWow64                    : 'false'
+
+
 # Aloha (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
 - test:
     input:

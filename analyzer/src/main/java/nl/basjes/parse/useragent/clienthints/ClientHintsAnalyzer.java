@@ -404,8 +404,15 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
     static {
         // <Wanted> --> <Unwanted Ancestor>
+        BROWSER_ANCESTORS.put("Google Chrome", "Chromium");
         BROWSER_ANCESTORS.put("Chrome", "Chromium");
         BROWSER_ANCESTORS.put("OperaMobile", "Opera");
+    }
+
+    private static final Set<String> CHROMIUMNAMES = new HashSet<>();
+    static {
+        CHROMIUMNAMES.add("Chromium");
+        CHROMIUMNAMES.add("Chrome");
     }
 
     // There are some browsers where we want to map the name to a more readable version
@@ -429,18 +436,6 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
         final Map<String, Brand> versionMap = new TreeMap<>();
         versionList.forEach(v -> versionMap.put(v.getName(), v));
-
-        BROWSER_ANCESTORS.forEach((wanted, unwanted) -> {
-            if (versionMap.containsKey(wanted)) {
-                versionMap.remove(unwanted);
-            }
-        });
-
-        // Opera GX 2.1 has some really bad ClientHint headers.
-        if ("Opera GX".equals(userAgent.getValue(AGENT_NAME))) {
-            versionMap.remove("Android WebView");
-            versionMap.remove("Chromium");
-        }
 
         // ========================
         Brand chromium = versionMap.get("Chromium");
@@ -475,8 +470,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             overrideValue(userAgent.get(LAYOUT_ENGINE_NAME_VERSION_MAJOR), engineName.getValue() + " " + engineMajorVersion.getValue());
 
             // ===== Chromium browser?
-            if (versionList.size() == 1) { // NOTE: The grease was filtered out !
-                // So we have "Chromium" and not "Chrome" or "Edge" or something else
+            if (versionList.size() == 1 && CHROMIUMNAMES.contains(userAgent.getValue(AGENT_NAME))) { // NOTE: The grease was filtered out !
+                // So we have only have a "Chromium" hint and not "Chrome" or "Edge" or something else
+                // If the previous agentname is Chrome and there is only 1 hing then the real name is Chromium ...
                 MutableAgentField currentVersion = userAgent.get(AGENT_VERSION);
                 if (newVersionIsBetter(currentVersion, version)) {
                     overrideValue(userAgent.get(AGENT_NAME), "Chromium");
@@ -499,6 +495,16 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
             }
             versionMap.remove("Chromium");
         }
+
+        // Some browsers include tags for their historical version --> Drop those
+        BROWSER_ANCESTORS.forEach((wanted, unwanted) -> {
+            if (versionMap.containsKey(wanted)) {
+                versionMap.remove(unwanted);
+            }
+        });
+
+        // Some browsers include tags that are simply nonsense
+        versionMap.remove("Android WebView"); // Opera GX 2.1, Phoenix
 
         // ========================
         Brand chrome = versionMap.get("Chrome");
