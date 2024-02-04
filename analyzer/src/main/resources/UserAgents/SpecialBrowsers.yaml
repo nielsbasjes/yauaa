@@ -3218,7 +3218,7 @@ config:
 - matcher:
     variable:
     - 'Safari                              :agent.product.name="Safari"^'
-    - 'Product                             :@Safari.comments.(1)entry.(1)product'
+    - 'Product                             :@Safari.comments.(1)entry.(1)product.name?BrowserTagToNameMapping^'
     extract:
     - 'AgentClass                          :     2060 :"Browser"'
     - 'AgentName                           :     2060 :LookUp[BrowserTagToNameMapping;@Product.name]'
@@ -3227,7 +3227,7 @@ config:
 - matcher:
     variable:
     - 'Safari                              :agent.product.name="Mobile Safari"^'
-    - 'Product                             :@Safari.comments.(1)entry.(1)product'
+    - 'Product                             :@Safari.comments.(1)entry.(1)product.name?BrowserTagToNameMapping^'
     extract:
     - 'AgentClass                          :     2060 :"Browser"'
     - 'AgentName                           :     2060 :LookUp[BrowserTagToNameMapping;@Product.name]'
@@ -3236,12 +3236,20 @@ config:
 - matcher:
     variable:
     - 'Version                             :agent.product.name="Version"^'
-    - 'Product                             :@Version.comments.(1)entry.(1)product'
+    - 'Product                             :@Version.comments.(1)entry.(1)product.name?BrowserTagToNameMapping^'
     extract:
     - 'AgentClass                          :     2061 :"Browser"'
     - 'AgentName                           :     2061 :LookUp[BrowserTagToNameMapping;@Product.name]'
     - 'AgentVersion                        :     2061 :@Product.version'
 
+- matcher:
+    variable:
+    - 'AppleWebKit                         :agent.product.name="AppleWebKit"^'
+    - 'Product                             :@AppleWebKit.comments.(1)entry.(1)product.name?BrowserTagToNameMapping^'
+    extract:
+    - 'AgentClass                          :     2061 :"Browser"'
+    - 'AgentName                           :     2061 :LookUp[BrowserTagToNameMapping;@Product.name]'
+    - 'AgentVersion                        :     2061 :@Product.version'
 
 
 # Apparently the Airwatch Browser is a browser within the VMWare "Workspace ONE"/"AirWatch" system.
