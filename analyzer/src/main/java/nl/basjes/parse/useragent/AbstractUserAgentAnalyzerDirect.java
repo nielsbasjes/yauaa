@@ -215,7 +215,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
             ClientHints clientHints = clientHintsAnalyzer.parse(requestHeaders);
 
             // Lastly we modify the parsed userAgent with the found clientHints
-            userAgent = clientHintsAnalyzer.merge(userAgent, clientHints);
+            userAgent = clientHintsAnalyzer.merge(this, userAgent, clientHints);
         }
         userAgent = matchMaker.hardCodedPostProcessing(userAgent);
         return new ImmutableUserAgent(userAgent);

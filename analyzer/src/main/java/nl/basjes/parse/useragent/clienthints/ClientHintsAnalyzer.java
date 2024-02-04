@@ -26,6 +26,7 @@ import nl.basjes.parse.useragent.AgentField.MutableAgentField;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
+import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
 import javax.annotation.Nonnull;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -144,7 +146,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         WINDOWS_VERSION_MAPPING.put("16",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
     }
 
-    public MutableUserAgent merge(MutableUserAgent userAgent, ClientHints clientHints) {
+    public MutableUserAgent merge(AnalyzerConfigHolder config, MutableUserAgent userAgent, ClientHints clientHints) {
         setCHBrandVersionsList(userAgent, UACLIENT_HINT_BRANDS,             clientHints.getBrands());
         setCHString(userAgent,            UACLIENT_HINT_ARCHITECTURE,       clientHints.getArchitecture());
         setCHString(userAgent,            UACLIENT_HINT_BITNESS,            clientHints.getBitness());
@@ -162,6 +164,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         improveDeviceBrandName(userAgent, clientHints);
         improveDeviceCPU(userAgent, clientHints);
         improveLayoutEngineAndAgentInfo(userAgent, clientHints);
+
+        improveUsingBrandLookups(config, userAgent, clientHints);
+
         return userAgent;
     }
 
@@ -629,6 +634,24 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         overrideValue(userAgent.get(AGENT_NAME_VERSION), agentName + " " + setVersion);
         overrideValue(userAgent.get(AGENT_VERSION_MAJOR), setMajorVersion);
         overrideValue(userAgent.get(AGENT_NAME_VERSION_MAJOR), agentName + " " + setMajorVersion);
+    }
+
+    public void improveUsingBrandLookups(AnalyzerConfigHolder config, MutableUserAgent userAgent, ClientHints clientHints) {
+        String model = clientHints.getModel();
+        if (model == null || model.isEmpty()) {
+            return;
+        }
+        Map<String, String> amazonDeviceTags = config.getLookups().get("AmazonDeviceTags");
+        if (amazonDeviceTags == null || amazonDeviceTags.isEmpty()) {
+            return;
+        }
+        String betterValue = amazonDeviceTags.get(model.toLowerCase(Locale.ROOT));
+        if (betterValue != null) {
+            String[] split = betterValue.split("\\|", 3);
+            overrideValue(userAgent.get(DEVICE_CLASS), split[0]);
+            overrideValue(userAgent.get(DEVICE_BRAND), split[1]);
+            overrideValue(userAgent.get(DEVICE_NAME), split[2]);
+        }
     }
 
     private static Set<String> setOfStrings(String... values) {

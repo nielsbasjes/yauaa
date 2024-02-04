@@ -45,7 +45,6 @@ import static nl.basjes.parse.useragent.utils.HostnameExtracter.extractBrandFrom
 
 public class CalculateDeviceBrand extends FieldCalculator {
 
-//    private final PrefixMap<String> mobileBrands = new StringPrefixMap<>(false);
     private final PrefixMap<String> mobileBrandPrefixes = new StringPrefixMap<>(false);
 
     public CalculateDeviceBrand() {
