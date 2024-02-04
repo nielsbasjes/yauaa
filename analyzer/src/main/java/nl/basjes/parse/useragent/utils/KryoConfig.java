@@ -80,6 +80,7 @@ import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MacOSXMajorVersionCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.calculate.VersionCleanupCalculator;
 import nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.MatcherConfig;
@@ -177,6 +178,7 @@ public final class KryoConfig {
         kryo.register(FieldCalculator.class);
         kryo.register(MajorVersionCalculator.class);
         kryo.register(MacOSXMajorVersionCalculator.class);
+        kryo.register(VersionCleanupCalculator.class);
 
         kryo.register(UserAgentTreeFlattener.class);
         kryo.register(TreeExpressionEvaluator.class);

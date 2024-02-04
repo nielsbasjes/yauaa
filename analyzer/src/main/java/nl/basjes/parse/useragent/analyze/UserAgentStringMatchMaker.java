@@ -34,6 +34,7 @@ import nl.basjes.parse.useragent.calculate.ConcatNONDuplicatedCalculator;
 import nl.basjes.parse.useragent.calculate.FieldCalculator;
 import nl.basjes.parse.useragent.calculate.MacOSXMajorVersionCalculator;
 import nl.basjes.parse.useragent.calculate.MajorVersionCalculator;
+import nl.basjes.parse.useragent.calculate.VersionCleanupCalculator;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.config.ConfigLoader;
@@ -711,6 +712,8 @@ public class UserAgentStringMatchMaker implements MatchMaker, AnalyzerConfigHold
         registerFieldCalculator(new CalculateDeviceName());
         registerFieldCalculator(new CalculateDeviceBrand(this));
         registerFieldCalculator(new CalculateAgentEmail());
+        registerFieldCalculator(new VersionCleanupCalculator(AGENT_VERSION));
+        registerFieldCalculator(new VersionCleanupCalculator(LAYOUT_ENGINE_VERSION));
 
         Collections.reverse(fieldCalculators);
         verifyCalculatorDependencyOrdering();
