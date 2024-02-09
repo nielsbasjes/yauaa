@@ -839,6 +839,58 @@ config:
       AgentLanguageCode                    : 'en-au'
 
 
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (Linux; Android 11; Nokia 7.2) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/115.0.0.0 Mobile Safari/537.36'
+      Sec-Ch-Ua                                  : '"Not/A)Brand";v="99", "Samsung Internet";v="23.0", "Chromium";v="115"'
+      Sec-Ch-Ua-Arch                             : '""'
+      Sec-Ch-Ua-Bitness                          : '""'
+      Sec-Ch-Ua-Full-Version                     : '"23.0.1.1"'
+      Sec-Ch-Ua-Full-Version-List                : '"Not/A)Brand";v="99.0.0.0", "Samsung Internet";v="23.0.1.1", "Chromium";v="115.0.5790.168"'
+      Sec-Ch-Ua-Mobile                           : '?1'
+      Sec-Ch-Ua-Model                            : '"Nokia 7.2"'
+      Sec-Ch-Ua-Platform                         : '"Android"'
+      Sec-Ch-Ua-Platform-Version                 : '"11.0.0"'
+      Sec-Ch-Ua-Wow64                            : '?0'
+    expected:
+      DeviceClass                                : 'Phone'
+      DeviceName                                 : 'Nokia 7.2'
+      DeviceBrand                                : 'Nokia'
+      OperatingSystemClass                       : 'Mobile'
+      OperatingSystemName                        : 'Android'
+      OperatingSystemVersion                     : '11.0.0'
+      OperatingSystemVersionMajor                : '11'
+      OperatingSystemNameVersion                 : 'Android 11.0.0'
+      OperatingSystemNameVersionMajor            : 'Android 11'
+      LayoutEngineClass                          : 'Browser'
+      LayoutEngineName                           : 'Blink'
+      LayoutEngineVersion                        : '115.0'
+      LayoutEngineVersionMajor                   : '115'
+      LayoutEngineNameVersion                    : 'Blink 115.0'
+      LayoutEngineNameVersionMajor               : 'Blink 115'
+      AgentClass                                 : 'Browser'
+      AgentName                                  : 'Samsung Internet'
+      AgentVersion                               : '23.0'
+      AgentVersionMajor                          : '23'
+      AgentNameVersion                           : 'Samsung Internet 23.0'
+      AgentNameVersionMajor                      : 'Samsung Internet 23'
+
+      UAClientHintBrands_0_Brand                 : 'Samsung Internet'
+      UAClientHintBrands_0_Version               : '23.0'
+      UAClientHintBrands_1_Brand                 : 'Chromium'
+      UAClientHintBrands_1_Version               : '115'
+      UAClientHintFullVersion                    : '23.0.1.1'
+      UAClientHintFullVersionList_0_Brand        : 'Samsung Internet'
+      UAClientHintFullVersionList_0_Version      : '23.0.1.1'
+      UAClientHintFullVersionList_1_Brand        : 'Chromium'
+      UAClientHintFullVersionList_1_Version      : '115.0.5790.168'
+      UAClientHintMobile                         : 'true'
+      UAClientHintModel                          : 'Nokia 7.2'
+      UAClientHintPlatform                       : 'Android'
+      UAClientHintPlatformVersion                : '11.0.0'
+      UAClientHintWow64                          : 'false'
+
+
 # Current (Samsung Internet for Android 4.0):
 - test:
     input:

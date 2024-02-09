@@ -2287,3 +2287,29 @@ config:
       AgentNameVersionMajor                : 'Firefox 75'
 
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 11; Mobile; rv:122.0) Gecko/122.0 Firefox/122.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '122.0'
+      LayoutEngineVersionMajor             : '122'
+      LayoutEngineNameVersion              : 'Gecko 122.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 122'
+      LayoutEngineBuild                    : '122.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '122.0'
+      AgentVersionMajor                    : '122'
+      AgentNameVersion                     : 'Firefox 122.0'
+      AgentNameVersionMajor                : 'Firefox 122'
