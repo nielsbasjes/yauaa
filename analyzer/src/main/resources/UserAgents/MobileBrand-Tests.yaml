@@ -3200,3 +3200,30 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Opera Touch 2.9'
       AgentNameVersionMajor                : 'Opera Touch 2'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 13; V2311) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'V2311'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '104'
+      LayoutEngineVersionMajor             : '104'
+      LayoutEngineNameVersion              : 'Blink 104'
+      LayoutEngineNameVersionMajor         : 'Blink 104'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '104'
+      AgentVersionMajor                    : '104'
+      AgentNameVersion                     : 'Chrome 104'
+      AgentNameVersionMajor                : 'Chrome 104'

@@ -10,6 +10,7 @@ NEXT RELEASE
   - Phoenix browser (has very bad ClientHints)
   - Lookup Amazon device tags from ClientHints
   - Report the agent version 'NULL' as '??'
+  - Handle Edge case of unknown device names
 
 v7.25.0
 ===
