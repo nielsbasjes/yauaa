@@ -11,6 +11,8 @@ NEXT RELEASE
   - Lookup Amazon device tags from ClientHints
   - Report the agent version 'NULL' as '??'
   - Handle Edge case of unknown device names
+- Updated UDF dependencies
+    - Trino 439 changed their API
 
 v7.25.0
 ===

@@ -22,6 +22,7 @@ import io.airlift.slice.Slices;
 import io.trino.spi.block.Block;
 import io.trino.spi.block.BufferedMapValueBuilder;
 import io.trino.spi.block.SqlMap;
+import io.trino.spi.block.VariableWidthBlock;
 import io.trino.spi.function.Description;
 import io.trino.spi.function.ScalarFunction;
 import io.trino.spi.function.SqlType;
@@ -60,7 +61,7 @@ public final class ParseUserAgentFunctionClientHints {
 
 
     private static Slice getSlice(Block elements, int i) {
-        return elements.getSlice(i, 0, elements.getSliceLength(i));
+        return ((VariableWidthBlock) elements.getUnderlyingValueBlock()).getSlice(i);
     }
 
     @ScalarFunction("parse_user_agent")
