@@ -3,6 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- New/improved detections:
+  - ...
+
+v7.26.0
+===
 - Analyzer:
   - Improve handling of invalid ClientHints
 - New/improved detections:
