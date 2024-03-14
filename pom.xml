@@ -436,49 +436,6 @@
     </profile>
 
     <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <!-- Description: https://github.com/git-commit-id/git-commit-id-maven-plugin -->
-            <groupId>io.github.git-commit-id</groupId>
-            <artifactId>git-commit-id-maven-plugin</artifactId>
-            <version>${git-commit-id-maven-plugin.version}</version>
-            <executions>
-              <execution>
-                <id>Validate-Revision-Information</id>
-                <phase>validate</phase>
-                <goals>
-                  <goal>validateRevision</goal>
-                </goals>
-                <configuration>
-                  <validationProperties>
-                    <!-- verify that the current repository is not dirty -->
-                    <validationProperty>
-                      <name>Don't try to release if something has not yet been committed.</name>
-                      <!--suppress UnresolvedMavenProperty -->
-                      <value>${git.dirty}</value>
-                      <shouldMatchTo>false</shouldMatchTo>
-                    </validationProperty>
-                    <!-- verify that the current commit has a tag -->
-                    <validationProperty>
-                      <name>validating current commit has a tag</name>
-                      <!--suppress UnresolvedMavenProperty -->
-                      <value>${git.closest.tag.commit.count}</value>
-                      <shouldMatchTo>0</shouldMatchTo>
-                    </validationProperty>
-                  </validationProperties>
-                  <validationShouldFailIfNoMatch>true</validationShouldFailIfNoMatch>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
       <id>deployToSonatype</id>
       <properties>
         <altReleaseDeploymentRepository>sonatype::https://oss.sonatype.org/service/local/staging/deploy/maven2/</altReleaseDeploymentRepository>
@@ -773,7 +730,7 @@
 
           <preparationProfiles>prepareRelease,packageForRelease</preparationProfiles>
           <preparationGoals>clean verify</preparationGoals>
-          <releaseProfiles>packageForRelease,release,deployToSonatype</releaseProfiles>
+          <releaseProfiles>packageForRelease,deployToSonatype</releaseProfiles>
           <pushChanges>false</pushChanges>
           <remoteTagging>false</remoteTagging>
         </configuration>
