@@ -74,7 +74,7 @@ class TestUserAgentAnalysisMapperCHClass {
             "\"12.3.1\"");
 
         DataStream<TestRecord> resultDataStream = environment
-            .fromElements(
+            .fromData(
                 testRecord1, testRecord2, testRecord3
             )
             .map(new MyUserAgentAnalysisMapper());

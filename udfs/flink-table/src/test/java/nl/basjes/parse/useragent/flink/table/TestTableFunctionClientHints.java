@@ -78,7 +78,7 @@ class TestTableFunctionClientHints {
             "Chrome 100",
             "Mac OS 12.3.1"));
 
-        return env.fromCollection(data, TypeInformation.of(new TypeHint<Tuple6<String, String, String, String, String, String>>(){}));
+        return env.fromData(data, TypeInformation.of(new TypeHint<Tuple6<String, String, String, String, String, String>>(){}));
     }
 
     public static Schema getTestAgentStreamSchema() {

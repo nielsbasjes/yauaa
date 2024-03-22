@@ -61,7 +61,7 @@ class TestTableFunction {
             "Phone",
             "WeChat 6"));
 
-        return env.fromCollection(data);
+        return env.fromData(data);
     }
 
     public static Schema getTestAgentStreamSchema() {
