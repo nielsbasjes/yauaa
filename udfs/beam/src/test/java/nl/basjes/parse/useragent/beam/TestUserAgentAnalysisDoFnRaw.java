@@ -35,8 +35,8 @@ import org.junit.experimental.categories.Category;
 import java.io.Serializable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Category(ValidatesRunner.class)
 public class TestUserAgentAnalysisDoFnRaw implements Serializable {
@@ -126,10 +126,10 @@ public class TestUserAgentAnalysisDoFnRaw implements Serializable {
             });
 
         Throwable userCodeException = exception.getCause();
-        assertTrue(userCodeException instanceof UserCodeException);
+        assertInstanceOf(UserCodeException.class, userCodeException);
 
         Throwable myException = userCodeException.getCause();
-        assertTrue(myException instanceof InvalidParserConfigurationException);
+        assertInstanceOf(InvalidParserConfigurationException.class, myException);
 
         assertEquals("We cannot provide these fields:[NielsBasjes]", myException.getMessage());
 

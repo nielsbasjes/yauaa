@@ -27,7 +27,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 class TestJavaSerialization extends AbstractSerializationTest {
 
@@ -45,7 +45,7 @@ class TestJavaSerialization extends AbstractSerializationTest {
 
         try (ObjectInput in = new ObjectInputStream(bis)) {
             Object o = in.readObject();
-            assertTrue(o instanceof UserAgentAnalyzer);
+            assertInstanceOf(UserAgentAnalyzer.class, o);
             return (UserAgentAnalyzer) o;
         }
     }

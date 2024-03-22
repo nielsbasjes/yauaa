@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -111,11 +112,11 @@ class TestTableFunction {
             Object expectedDeviceClass            = row.getField(3);
             Object expectedAgentNameVersionMajor  = row.getField(4);
 
-            assertTrue(useragent                     instanceof String);
-            assertTrue(deviceClass                   instanceof String);
-            assertTrue(agentNameVersionMajor         instanceof String);
-            assertTrue(expectedDeviceClass           instanceof String);
-            assertTrue(expectedAgentNameVersionMajor instanceof String);
+            assertInstanceOf(String.class, useragent);
+            assertInstanceOf(String.class, deviceClass);
+            assertInstanceOf(String.class, agentNameVersionMajor);
+            assertInstanceOf(String.class, expectedDeviceClass);
+            assertInstanceOf(String.class, expectedAgentNameVersionMajor);
 
             System.err.println("----- Checking: " + useragent);
             assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
@@ -169,11 +170,11 @@ class TestTableFunction {
             Object expectedDeviceClass            = row.getField(3);
             Object expectedAgentNameVersionMajor  = row.getField(4);
 
-            assertTrue(useragent                     instanceof String);
-            assertTrue(deviceClass                   instanceof String);
-            assertTrue(agentNameVersionMajor         instanceof String);
-            assertTrue(expectedDeviceClass           instanceof String);
-            assertTrue(expectedAgentNameVersionMajor instanceof String);
+            assertInstanceOf(String.class, useragent);
+            assertInstanceOf(String.class, deviceClass);
+            assertInstanceOf(String.class, agentNameVersionMajor);
+            assertInstanceOf(String.class, expectedDeviceClass);
+            assertInstanceOf(String.class, expectedAgentNameVersionMajor);
 
             System.err.println("----- Checking: " + useragent);
             assertEquals(expectedDeviceClass,           deviceClass,           "Wrong DeviceClass: "           + useragent);
@@ -219,10 +220,10 @@ class TestTableFunction {
             Object expectedDeviceClass           = row.getField(2);
             Object expectedAgentNameVersionMajor = row.getField(3);
 
-            assertTrue(useragent                     instanceof String);
-            assertTrue(parsedUseragent               instanceof Map<?, ?>);
-            assertTrue(expectedDeviceClass           instanceof String);
-            assertTrue(expectedAgentNameVersionMajor instanceof String);
+            assertInstanceOf(String.class, useragent);
+            assertInstanceOf(Map.class, parsedUseragent);
+            assertInstanceOf(String.class, expectedDeviceClass);
+            assertInstanceOf(String.class, expectedAgentNameVersionMajor);
 
             assertEquals(
                 expectedDeviceClass,

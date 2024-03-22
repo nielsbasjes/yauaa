@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestTableFunctionClientHints {
@@ -145,12 +146,12 @@ class TestTableFunctionClientHints {
             Object expectedAgentNameVersionMajor       = row.getField(5);
             Object expectedOperatingSystemNameVersion  = row.getField(6);
 
-            assertTrue(useragent                          instanceof String);
-            assertTrue(deviceClass                        instanceof String);
-            assertTrue(agentNameVersionMajor              instanceof String);
-            assertTrue(expectedDeviceClass                instanceof String);
-            assertTrue(expectedAgentNameVersionMajor      instanceof String);
-            assertTrue(expectedOperatingSystemNameVersion instanceof String);
+            assertInstanceOf(String.class, useragent);
+            assertInstanceOf(String.class, deviceClass);
+            assertInstanceOf(String.class, agentNameVersionMajor);
+            assertInstanceOf(String.class, expectedDeviceClass);
+            assertInstanceOf(String.class, expectedAgentNameVersionMajor);
+            assertInstanceOf(String.class, expectedOperatingSystemNameVersion);
 
             System.err.println("----- Checking: " + useragent);
             assertEquals(expectedDeviceClass,                deviceClass,                "Wrong DeviceClass: "           + useragent);
@@ -203,11 +204,11 @@ class TestTableFunctionClientHints {
             Object expectedAgentNameVersionMajor = row.getField(3);
             Object expectedOperatingSystemNameVersion = row.getField(4);
 
-            assertTrue(useragent                     instanceof String);
-            assertTrue(parsedUseragent               instanceof Map<?, ?>);
-            assertTrue(expectedDeviceClass           instanceof String);
-            assertTrue(expectedAgentNameVersionMajor instanceof String);
-            assertTrue(expectedOperatingSystemNameVersion instanceof String);
+            assertInstanceOf(String.class, useragent);
+            assertInstanceOf(Map.class, parsedUseragent);
+            assertInstanceOf(String.class, expectedDeviceClass);
+            assertInstanceOf(String.class, expectedAgentNameVersionMajor);
+            assertInstanceOf(String.class, expectedOperatingSystemNameVersion);
 
             assertEquals(
                 expectedDeviceClass,

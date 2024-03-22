@@ -37,8 +37,8 @@ import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TestYauaaProcessor {
 
@@ -70,7 +70,7 @@ class TestYauaaProcessor {
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
 
         Object targetFieldData = data.get(TARGET_FIELD);
-        assertTrue(targetFieldData instanceof Map, "Wrong type");
+        assertInstanceOf(Map.class, targetFieldData, "Wrong type");
         Map<?, ?> results = (Map<?, ?>) targetFieldData;
 
         assertHasKValue(results, "DeviceClass",                      "Desktop");
@@ -130,7 +130,7 @@ class TestYauaaProcessor {
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
 
         Object targetFieldData = data.get(TARGET_FIELD);
-        assertTrue(targetFieldData instanceof Map, "Wrong type");
+        assertInstanceOf(Map.class, targetFieldData, "Wrong type");
         Map<?, ?> results = (Map<?, ?>) targetFieldData;
 
         // The EXPLICITLY requested fields
@@ -204,7 +204,7 @@ class TestYauaaProcessor {
         MatcherAssert.assertThat(data, hasKey(TARGET_FIELD));
 
         Object targetFieldData = data.get(TARGET_FIELD);
-        assertTrue(targetFieldData instanceof Map, "Wrong type");
+        assertInstanceOf(Map.class, targetFieldData, "Wrong type");
         Map<?, ?> results = (Map<?, ?>) targetFieldData;
 
         // The EXPLICITLY requested fields

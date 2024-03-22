@@ -29,6 +29,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -96,8 +97,8 @@ class TestMatcherList {
         final Object[] array = list.toArray();
         assertNotNull(array);
         assertEquals(2, array.length);
-        assertTrue(array[0] instanceof Matcher);
-        assertTrue(array[1] instanceof Matcher);
+        assertInstanceOf(Matcher.class, array[0]);
+        assertInstanceOf(Matcher.class, array[1]);
     }
 
     private Kryo getKryo() {
@@ -148,8 +149,8 @@ class TestMatcherList {
         final Object[] array = list.toArray();
         assertNotNull(array);
         assertEquals(2, array.length);
-        assertTrue(array[0] instanceof Matcher);
-        assertTrue(array[1] instanceof Matcher);
+        assertInstanceOf(Matcher.class, array[0]);
+        assertInstanceOf(Matcher.class, array[1]);
 
         list.clear();
 

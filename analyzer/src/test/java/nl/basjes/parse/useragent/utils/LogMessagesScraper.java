@@ -30,7 +30,7 @@ import java.io.CharArrayWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 /**
  * JUnit rule for testing output to Log4j. Handy for verifying logging.
@@ -56,7 +56,7 @@ public class LogMessagesScraper implements BeforeTestExecutionCallback, AfterTes
             org.apache.logging.log4j.Logger logger = LogManager.getLogger(clazz);
             // Only the Logger in log4j2-core support what we need here.
             // The clean Logger interface in the api does not.
-            assertTrue(logger instanceof Logger);
+            assertInstanceOf(Logger.class, logger);
             this.loggers.add((Logger) logger);
         }
     }
