@@ -98,6 +98,7 @@ class TestTableFunctionClientHints {
     void testMapFunctionExtractInSQLSubSelect() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        senv.setParallelism(2);
 
         // The table environment
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
@@ -167,6 +168,7 @@ class TestTableFunctionClientHints {
     void testMapFunctionReturnMap() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        senv.setParallelism(2);
 
         // The table environment
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);

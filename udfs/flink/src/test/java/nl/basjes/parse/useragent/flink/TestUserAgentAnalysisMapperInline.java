@@ -35,6 +35,7 @@ class TestUserAgentAnalysisMapperInline {
     @Test
     void testInlineDefinitionDataStream() throws Exception {
         StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
+        environment.setParallelism(2);
 
         DataStream<TestRecord> resultDataStream = environment
             .fromData(

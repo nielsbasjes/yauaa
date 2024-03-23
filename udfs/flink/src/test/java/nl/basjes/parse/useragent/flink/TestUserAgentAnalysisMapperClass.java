@@ -55,6 +55,7 @@ class TestUserAgentAnalysisMapperClass {
     @Test
     void testClassDefinitionDataStream() throws Exception {
         StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
+        environment.setParallelism(2);
 
         DataStream<TestRecord> resultDataStream = environment
             .fromData(

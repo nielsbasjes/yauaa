@@ -60,6 +60,7 @@ class TestUserAgentAnalysisMapperCHClass {
     @Test
     void testClassDefinitionDataStream() throws Exception {
         StreamExecutionEnvironment environment = LocalStreamEnvironment.getExecutionEnvironment();
+        environment.setParallelism(2);
 
         TestRecord testRecord1 = new TestRecord("Mozilla/5.0 (X11; Linux x86_64) " +
             "AppleWebKit/537.36 (KHTML, like Gecko) " +

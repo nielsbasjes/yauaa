@@ -78,6 +78,7 @@ class TestTableFunction {
     void testFunctionExtractDirect() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        senv.setParallelism(2);
 
         // The table environment
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
@@ -131,6 +132,7 @@ class TestTableFunction {
     void testMapFunctionExtractInSQLSubSelect() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        senv.setParallelism(2);
 
         // The table environment
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
@@ -189,6 +191,7 @@ class TestTableFunction {
     void testMapFunctionReturnMap() throws Exception {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        senv.setParallelism(2);
 
         // The table environment
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
@@ -287,6 +290,7 @@ class TestTableFunction {
     void testInvalidUsage() {
         // The base execution environment
         StreamExecutionEnvironment   senv        = StreamExecutionEnvironment.getExecutionEnvironment();
+        senv.setParallelism(2);
 
         // The table environment
         StreamTableEnvironment       tableEnv    = StreamTableEnvironment.create(senv);
