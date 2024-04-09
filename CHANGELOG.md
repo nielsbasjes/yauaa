@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - Samsung Browser 24 now does Frozen UA
 
 v7.26.0
 ===

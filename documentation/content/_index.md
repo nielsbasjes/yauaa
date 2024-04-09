@@ -17,7 +17,7 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+  - Samsung Browser 24 now does Frozen UA
 
 ### Version v7.26.0
 - Analyzer:

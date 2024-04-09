@@ -426,6 +426,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
     static {
         BROWSER_RENAME.put("OperaMobile", "Opera Mobile");
         BROWSER_RENAME.put("Microsoft Edge", "Edge");
+        BROWSER_RENAME.put("Samsung Internet", "SamsungBrowser");
     }
 
     public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {

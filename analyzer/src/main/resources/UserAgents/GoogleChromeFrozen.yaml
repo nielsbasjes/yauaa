@@ -873,20 +873,20 @@ config:
 - matcher:
     variable:
     - 'UnifiedPlatform                     :LookUp[ChromeReducedUnifiedPlatform;agent.(1)product]'
-    - 'ChromeVersion                       :agent.(3)product.version'
+    - 'ChromeProduct                       :agent.(3-4)product.name="Chrome"^'
+    - 'ChromeVersion                       :@ChromeProduct.version'
     - 'ChromeMajorVersion                  :@ChromeVersion[1]'
     require:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
-    - 'agent.(3)product.name="Chrome"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
-    - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
+    - '@ChromeProduct>.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     extract:
     - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
     - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
-    - 'DeviceBrand                         :   400001 :@UnifiedPlatform[[3]]'
+    - 'DeviceBrand                         :       50 :@UnifiedPlatform[[3]]'
     - 'OperatingSystemClass                :   400001 :@UnifiedPlatform[[4]]'
     - 'OperatingSystemName                 :   400001 :@UnifiedPlatform[[5]]'
     - 'OperatingSystemVersion              :   400001 :@UnifiedPlatform[[6]]'
