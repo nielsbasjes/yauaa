@@ -20,10 +20,10 @@ cd "${SCRIPTDIR}" || exit 1
 CONTAINER_NAME=hive-server
 
 # Ensure clean starting point
-docker-compose down
+docker compose down
 
 # Start the Hive installation
-docker-compose up -d
+docker compose up -d
 
 # ---------------------------------------------------------------------------
 # Wait for the server to start
@@ -126,6 +126,6 @@ ensure 'CLIENTHINTS' '"operatingsystemnameversion":"Mac OS 12.3.1"' "CLIENTHINTS
 # Shut it all down again.
 echo "==========================================="
 echo "Shutting down the test setup"
-docker-compose down
+docker compose down
 
 exit ${EXIT_CODE}

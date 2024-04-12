@@ -20,5 +20,5 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 cd "${DIR}" || exit 1
 
-docker-compose down
+docker compose down
 

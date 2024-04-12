@@ -59,14 +59,14 @@ function fail() {
 
 # Third we start the instance
 echo "Building ElasticSearch image with plugin installed."
-docker-compose build
+docker compose build
 
 # Third we start the instance
 echo "Starting ElasticSearch with plugin installed."
-docker-compose up -d
+docker compose up -d
 
 #killContainer() {
-#  docker-compose down
+#  docker compose down
 #}
 #
 ##trap killContainer EXIT
