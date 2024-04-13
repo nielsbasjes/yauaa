@@ -2,7 +2,7 @@
 title = "Performance"
 weight = 20
 +++
-On my i7 system I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
+On my systems I see a speed ranging from 500 to 4000 useragents per second (depending on the length and ambiguities in the useragent).
 On average the speed is around 2000 per second or ~0.5ms each.
 A LRU cache is in place that does over 1M per second if they are in the cache.
 
@@ -19,6 +19,6 @@ Also the periodic drops in time needed are clearly visible when a performance im
 Between version 5.5 and 5.6 a lot of extra rules to detect more brands of mobile devices on Android (at one point during development the needed time to reached ~ 3ms).
 Followed by a few steps in a rewrite of that part resulting in effectively the fastest versions to date.
 
-Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/main/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java) ) on a Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz from version 4.0 onwards:
+Output from the benchmark ( [using this code](https://github.com/nielsbasjes/yauaa/blob/main/benchmarks/src/test/java/nl/basjes/parse/useragent/benchmarks/RunBenchmarks.java) ) on an 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz from version 4.0 onwards:
 
 {{< PerformanceGraph >}}
