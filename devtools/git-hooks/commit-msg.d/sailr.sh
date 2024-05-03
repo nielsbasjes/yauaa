@@ -72,14 +72,14 @@ function build_regex() {
 function print_error() {
   commit_message=$1
   regular_expression=$2
-  echo -e "\n\e[31m[Invalid Commit Message]"
-  echo -e "------------------------\033[0m\e[0m"
-  echo -e "Valid types            : \e[36m${types[@]}\033[0m"
-  echo -e "Max length (first line): \e[36m$max_length\033[0m"
-  echo -e "Min length (first line): \e[36m$min_length\033[0m"
-  echo -e "\e[37mRegex                  : \e[33m$regular_expression\033[0m\n"
-  echo -e "\e[37mCommit message         : \e[33m\"$commit_message\"\033[0m"
-  echo -e "\e[37mCommit message length  : \e[33m$(echo $commit_message | wc -c)\033[0m\n"
+  echo -e "\n\033[31m[Invalid Commit Message]"
+  echo -e "------------------------\033[0m\033[0m"
+  echo -e "Valid types            : \033[36m${types[@]}\033[0m"
+  echo -e "Max length (first line): \033[36m$max_length\033[0m"
+  echo -e "Min length (first line): \033[36m$min_length\033[0m"
+  echo -e "\033[37mRegex                  : \033[33m$regular_expression\033[0m\n"
+  echo -e "\033[37mCommit message         : \033[33m\"$commit_message\"\033[0m"
+  echo -e "\033[37mCommit message length  : \033[33m$(echo $commit_message | wc -c)\033[0m\n"
 }
 
 set_config

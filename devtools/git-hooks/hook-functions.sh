@@ -21,19 +21,19 @@
 
 #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 # Reset
-export Color_Off='\e[0m'      # Text Reset
+export Color_Off='\033[0m'      # Text Reset
 
 # High Intensity
-export IRed='\e[0;91m'        # Red
-export IYellow='\e[0;93m'     # Yellow
-export IBlue='\e[0;94m'       # Blue
-export IWhite='\e[0;97m'      # White
+export IRed='\033[0;91m'        # Red
+export IYellow='\033[0;93m'     # Yellow
+export IBlue='\033[0;94m'       # Blue
+export IWhite='\033[0;97m'      # White
 
 # Bold High Intensity
-export BIRed='\e[1;91m'       # Red
-export BIYellow='\e[1;93m'     # Yellow
-export BIGreen='\e[1;92m'     # Green
-export BIBlue='\e[1;94m'      # Blue
+export BIRed='\033[1;91m'       # Red
+export BIYellow='\033[1;93m'     # Yellow
+export BIGreen='\033[1;92m'     # Green
+export BIBlue='\033[1;94m'      # Blue
 
 function pass() {
   echo -e "${Color_Off}${IWhite}[${BIGreen}PASS${IWhite}] ${Color_Off}${1}"
