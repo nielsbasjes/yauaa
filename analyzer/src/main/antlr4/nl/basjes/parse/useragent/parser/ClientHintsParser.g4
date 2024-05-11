@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-grammar ClientHints;
+parser grammar ClientHintsParser;
 
 options { tokenVocab=ClientHintsLexer; }
 
