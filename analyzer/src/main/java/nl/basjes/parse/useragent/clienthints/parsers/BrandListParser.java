@@ -19,10 +19,10 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 
 import lombok.Getter;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
-import nl.basjes.parse.useragent.parser.ClientHintsBaseVisitor;
 import nl.basjes.parse.useragent.parser.ClientHintsLexer;
 import nl.basjes.parse.useragent.parser.ClientHintsParser;
 import nl.basjes.parse.useragent.parser.ClientHintsParser.BrandContext;
+import nl.basjes.parse.useragent.parser.ClientHintsParserBaseVisitor;
 import nl.basjes.parse.useragent.utils.DefaultANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
@@ -37,7 +37,7 @@ import org.antlr.v4.runtime.Token;
 
 import java.util.ArrayList;
 
-public class BrandListParser extends ClientHintsBaseVisitor<Void> implements DefaultANTLRErrorListener {
+public class BrandListParser extends ClientHintsParserBaseVisitor<Void> implements DefaultANTLRErrorListener {
 
     public static ArrayList<Brand> parse(String inputString) {
         return new BrandListParser(inputString).getResult();
