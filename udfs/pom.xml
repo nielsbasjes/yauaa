@@ -85,8 +85,19 @@
     <module>nifi</module>
     <module>elastic</module>
     <module>snowflake</module>
-    <module>trino</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>Java22</id>
+      <activation>
+        <jdk>[22,)</jdk>
+      </activation>
+      <modules>
+        <module>trino</module>
+      </modules>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
