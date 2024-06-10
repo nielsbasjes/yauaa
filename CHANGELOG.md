@@ -5,6 +5,8 @@ NEXT RELEASE
 ===
 - New/improved detections:
   - ...
+- Updated UDF dependencies
+  - The Trino UDF requires Java 22 which is non-LTS. This UDF will simply not be built if Java 22 is missing (and thus may go missing in some releases).
 
 v7.26.1
 ===
