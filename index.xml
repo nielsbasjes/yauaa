@@ -72,7 +72,4 @@ If you use a maven based project simply add this dependency
 The people at Snowplow have included Yauaa as a readily available feature in their system.
 The official documentation: Snowplow Yauaa Enrichment</description></item><item><title>Trino</title><link>/udf/trino/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/trino/</guid><description>Introduction This is a User Defined Function for Trino (a.k.a. Presto SQL)
 STATUS: &amp;hellip; EXPERIMENTAL &amp;hellip; The Trino plugin is very new. Please tell if it works or not in your case.
-Installation You can get the prebuilt UDF from maven central (yauaa-trino-7.26.1-udf.jar).
-NOTE: You MUST use the -udf.jar: yauaa-trino-7.26.1-udf.jar
-In the plugin directory of your Trino server create a subdirectory and copy the yauaa-trino-7.26.1-udf.jar to that new directory.
-In the trino docker image this is /usr/lib/trino/plugin/ so putting the jar in something like /usr/lib/trino/plugin/yauaa is a fine choice.</description></item></channel></rss>
+Trino now requires Java 22 (which is non-LTS) which is not readily available for installation in Ubuntu using a normal package manager. This means that I have chosen to no longer let the build fail if you do not have Java 22 installed.</description></item></channel></rss>
