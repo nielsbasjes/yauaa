@@ -22,12 +22,26 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 [ -d "${DIR}/target/" ] || mkdir "${DIR}/target"
 
 cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
-  grep -F "user_agent_string:" | \
+  grep "  user_agent_string *:" | \
   grep -v '^#' | \
   sed "
-    s@^ \+user_agent_string: \+'\(.*\)'.*\$@\1@g;
+    s@^ \+user_agent_string *: *['\"]\(.*\)['\"] *\$@\1@g;
     s@\\\\@\\\\\\\\@g;
     s@\\\"@\\\\\\\"@g;
+  " > "${DIR}/target/temp-agents-list-1.txt"
+
+cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
+  grep "  User-Agent *:" | \
+  grep -v '^#' | \
+  sed "
+    s@^ \+User-Agent *: *['\"]\(.*\)['\"] *\$@\1@g;
+    s@\\\\@\\\\\\\\@g;
+    s@\\\"@\\\\\\\"@g;
+  " > "${DIR}/target/temp-agents-list-2.txt"
+
+cat "${DIR}/target/temp-agents-list-1.txt" \
+    "${DIR}/target/temp-agents-list-2.txt" | \
+  sed "
     s@^@            \"@;
     s@\$@\",\n@;
   " | grep . | sort -u > "${DIR}/target/temp-agents-list.txt"

@@ -301,7 +301,8 @@ config:
 
 - test:
     input:
-      user_agent_string: '../README.md' # .md is the TLD of Moldova --> And readme.md is actually a website that exists.
+      # .md is the TLD of Moldova --> And readme.md is actually a website that exists.
+      user_agent_string: '../README.md'
     expected:
       DeviceClass                          : 'Hacker'
       DeviceName                           : 'Hacker'
