@@ -185,7 +185,7 @@ config:
 - matcher:
     variable:
       - 'NextProduct                         :agent.(2-5)product.name="Mobile Safari"^>'
-      - 'AgentTag : LookUp[AppNamesMapping;@NextProduct.name]'
+      - 'AgentTag                            :LookUp[AppNamesMapping;@NextProduct.name]'
     require:
       - 'IsNull[@NextProduct.name.key]'
       - 'IsNull[@NextProduct.name.keyvalue]'
