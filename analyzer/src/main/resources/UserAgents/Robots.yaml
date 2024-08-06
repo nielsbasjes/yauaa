@@ -5803,6 +5803,35 @@ config:
       AgentNameVersionMajor                : 'I-AM-Proxy-HRD ??'
       AgentInformationUrl                  : 'http://www.bing.com/bingbot.htm'
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 AppEngine-Google; (+http://code.google.com/appengine; appid: s~virustotalcloud)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appengine'
+      DeviceBrand                          : 'Google'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Cloud'
+      LayoutEngineName                     : 'Cloud'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Cloud ??'
+      LayoutEngineNameVersionMajor         : 'Cloud ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Virustotalcloud'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Virustotalcloud ??'
+      AgentNameVersionMajor                : 'Virustotalcloud ??'
+      AgentInformationUrl                  : 'http://code.google.com/appengine'
+
 
 - test:
     input:
