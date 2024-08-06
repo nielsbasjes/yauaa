@@ -30,27 +30,6 @@ config:
       'fabuild-android' : 'Mobile App|Fabuild'
       'fabuild-ios'     : 'Mobile App|Fabuild'
 
-      # Yahoo Japan news app for IOS
-      # https://apps.apple.com/jp/app/yahoo-japan/id299147843
-      # https://www.ifreeware.net/download-jp-co-yahoo-ipn-appli.html : Yahoo! JAPAN for iPhone is a news app specially designed to be fully-featured entertainment app.
-      'YJApp-IOS jp.co.yahoo.ipn.appli'             : 'Mobile App|Yahoo! JAPAN'
-
-      # Yahoo Japan news app for Android
-      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.yjtop&hl=en&gl=US
-      'YJApp-ANDROID jp.co.yahoo.android.yjtop'     : 'Mobile App|Yahoo! JAPAN'
-
-      # https://2bee.jp/entry/20151011/1444564265/
-      # - YJApp-IOS jp.co.yahoo.YBrowser / xxxx.x → Yahoo! Japan Browser (iOS version)
-      # - YJApp-Android jp.co.yahoo.YBrowser / xxxx → Yahoo! Japan Browser (Android version)
-      # Yahoo! Browser Specifications iOS: http://promo.ybrowser.yahoo.co.jp/ios/ Android: http://promo.ybrowser.yahoo.co.jp/
-
-      # Yahoo Japan Browser app for IOS
-      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
-      'YJApp-IOS jp.co.yahoo.YBrowser'  : 'Browser|Yahoo! JAPAN Browser'
-
-      # Yahoo Japan Browser app for Android
-      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
-      'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Browser|Yahoo! JAPAN Browser'
 
       # https://www.camscanner.com/ A mobile app for scanning documents
       'Camscanner'                            : 'Mobile App|Camscanner'
@@ -91,14 +70,65 @@ config:
       'Nextcloud-ios'                         : 'MobileApp | NextCloud iOS'
       'Nextcloud-android'                     : 'MobileApp | NextCloud Android'
 
+      'mailapp'                               : 'Email Client|MailApp'
+      'foxmail'                               : 'Email Client|Foxmail'        # https://www.foxmail.com/
+      'Superhuman'                            : 'Email Client|Superhuman'     # https://superhuman.com
+      'PostboxApp'                            : 'Email Client|PostboxApp'     # https://www.postbox-inc.com/
+      'Mailspring'                            : 'Email Client|Mailspring'     # https://www.getmailspring.com/
+      'Mailbird'                              : 'Email Client|Mailbird'       # https://www.getmailbird.com/nl/
+      'SparkDesktop'                          : 'Email Client|Spark mail'     # https://sparkmailapp.com/
+      'SparkMail'                             : 'Email Client|Spark mail'     # https://sparkmailapp.com/
+      'ZohoMail-Desktop'                      : 'Email Client|Zoho mail'      # https://www.zoho.com/nl/mail/desktop/
+      'ZohoTridentWindows'                    : 'Email Client|Zoho Trident'   # https://www.zoho.com/trident/
+      'ZohoTridentMac'                        : 'Email Client|Zoho Trident'   # https://www.zoho.com/trident/
+      'MailMaster'                            : 'Email Client|Mail Master'    # https://www.coremail.ai/
+      'MailMasterPC'                          : 'Email Client|Mail Master'    # https://www.coremail.ai/
+      'NewtonMail'                            : 'Email Client|Newton'         # https://www.newtonhq.com/
+      'Tempo'                                 : 'Email Client|Tempo'          # https://www.yourtempo.co/ --> Dead project
+      'Lark'                                  : 'Email Client|Lark'           # https://www.larksuite.com/
+      'Sunsama'                               : 'Email Client|Sunsama'        # https://www.sunsama.com/
+      'monday'                                : 'Email Client|Monday'         # https://monday.com/
+      'tutanota-desktop'                      : 'Email Client|Tuta'           # https://tuta.com/
+      'FastmailUA'                            : 'Email Client|Fastmail'       # https://www.fastmail.com/
+      'OneOutlook'                            : 'Email Client|OneOutlook'
+
+      # Yahoo Japan news app for IOS
+      # https://apps.apple.com/jp/app/yahoo-japan/id299147843
+      # https://www.ifreeware.net/download-jp-co-yahoo-ipn-appli.html : Yahoo! JAPAN for iPhone is a news app specially designed to be fully-featured entertainment app.
+      'YJApp-IOS jp.co.yahoo.ipn.appli'             : 'Mobile App|Yahoo! JAPAN'
+
+      # Yahoo Japan news app for Android
+      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.yjtop&hl=en&gl=US
+      'YJApp-ANDROID jp.co.yahoo.android.yjtop'     : 'Mobile App|Yahoo! JAPAN'
+
+      # Yahoo  y!mail client
+      'YJApp-IOS jp.co.yahoo.ymail'                 : 'Email Client|Yahoo! Mail'
+      'YJApp-ANDROID jp.co.yahoo.android.ymail'     : 'Email Client|Yahoo! Mail'
+
+      # https://2bee.jp/entry/20151011/1444564265/
+      # - YJApp-IOS jp.co.yahoo.YBrowser / xxxx.x → Yahoo! Japan Browser (iOS version)
+      # - YJApp-Android jp.co.yahoo.YBrowser / xxxx → Yahoo! Japan Browser (Android version)
+      # Yahoo! Browser Specifications
+      # - iOS:     http://promo.ybrowser.yahoo.co.jp/ios/
+      # - Android: http://promo.ybrowser.yahoo.co.jp/
+
+      # Yahoo Japan Browser app for IOS
+      'YJApp-IOS jp.co.yahoo.YBrowser'              : 'Browser|Yahoo! JAPAN Browser'
+
+      # Yahoo Japan Browser app for Android
+      # https://play.google.com/store/apps/details?id=jp.co.yahoo.android.ybrowser
+      'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Browser|Yahoo! JAPAN Browser'
+
 - matcher:
     variable:
     - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
     extract:
     - 'DeviceClass                         :        1 :"Mobile"'
-    - 'AgentClass                          :       60 :@AgentTag[[1]]'
-    - 'AgentName                           :       60 :@AgentTag[[2]]'
-    - 'AgentVersion                        :       60 :@AgentTag^.version'
+    - 'AgentClass                          :    13060 :@AgentTag[[1]]'
+    - 'AgentName                           :    13060 :@AgentTag[[2]]'
+    - 'AgentVersion                        :    13060 :@AgentTag^.version'
+    - 'WebviewAppName                      :    13060 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :    13060 :"<<<null>>>"'
 
 # ht tps://user-agents.me/cfnetwork-version-list   (Original source no longer exists)
 # If you create an iOS app and retrieve data from a webserver,
@@ -3415,17 +3445,12 @@ config:
       LayoutEngineVersionMajor             : '80'
       LayoutEngineNameVersion              : 'Blink 80.0'
       LayoutEngineNameVersionMajor         : 'Blink 80'
-      AgentClass                           : 'Browser Webview'
-      AgentName                            : 'Chrome Webview'
-      AgentVersion                         : '80.0.3987.162'
-      AgentVersionMajor                    : '80'
-      AgentNameVersion                     : 'Chrome Webview 80.0.3987.162'
-      AgentNameVersionMajor                : 'Chrome Webview 80'
-      WebviewAppName                       : 'Yahoo! JAPAN'
-      WebviewAppVersion                    : '3.66.1'
-      WebviewAppVersionMajor               : '3'
-      WebviewAppNameVersion                : 'Yahoo! JAPAN 3.66.1'
-      WebviewAppNameVersionMajor           : 'Yahoo! JAPAN 3'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Yahoo! JAPAN'
+      AgentVersion                         : '3.66.1'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Yahoo! JAPAN 3.66.1'
+      AgentNameVersionMajor                : 'Yahoo! JAPAN 3'
 
 - test:
     input:
@@ -3447,17 +3472,12 @@ config:
       LayoutEngineVersionMajor             : '87'
       LayoutEngineNameVersion              : 'Blink 87.0'
       LayoutEngineNameVersionMajor         : 'Blink 87'
-      AgentClass                           : 'Browser Webview'
-      AgentName                            : 'Chrome Webview'
-      AgentVersion                         : '87.0.4280.101'
-      AgentVersionMajor                    : '87'
-      AgentNameVersion                     : 'Chrome Webview 87.0.4280.101'
-      AgentNameVersionMajor                : 'Chrome Webview 87'
-      WebviewAppName                       : 'Yahoo! JAPAN Browser'
-      WebviewAppVersion                    : '3.8.8.4'
-      WebviewAppVersionMajor               : '3'
-      WebviewAppNameVersion                : 'Yahoo! JAPAN Browser 3.8.8.4'
-      WebviewAppNameVersionMajor           : 'Yahoo! JAPAN Browser 3'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Yahoo! JAPAN Browser'
+      AgentVersion                         : '3.8.8.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Yahoo! JAPAN Browser 3.8.8.4'
+      AgentNameVersionMajor                : 'Yahoo! JAPAN Browser 3'
 
 
 - test:
