@@ -7,6 +7,7 @@ NEXT RELEASE
   - Many Email Clients: Yahoo Y!mail, Mailapp, Foxmail, Superhuman, PostboxApp,
                         Mailspring, Mailbird, Spark, Zoho Mail, Zoho Trident, MailMaster,
                         NewtonMail, Tempo, Lark, Sunsama, Monday, Tuta, Fastmail, OneOutlook
+  - Lenovo SLBrowser
 - Updated UDF dependencies
   - The Trino UDF requires Java 22 which is non-LTS. This UDF will simply not be built if Java 22 is missing.
 

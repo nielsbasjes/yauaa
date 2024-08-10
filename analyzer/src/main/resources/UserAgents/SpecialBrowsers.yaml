@@ -6810,3 +6810,39 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'Aoyou ??'
       AgentNameVersionMajor                : 'Aoyou ??'
+
+# The SLBrowser is a Lenovo provided browser
+- matcher:
+    extract:
+      - 'DeviceBrand                         :     4014 :"Lenovo"' # We ASSUME only people with a Lenovo device have access to this.
+      - 'AgentClass                          :     4014 :"Browser"'
+      - 'AgentName                           :     4014 :"SLBrowser"'
+      - 'AgentVersion                        :     4014 :agent.product.name="SLBrowser"^.version'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36 SLBrowser/8.0.1.1171 SLBChan/105'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Lenovo Desktop'
+      DeviceBrand                          : 'Lenovo'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '92.0'
+      LayoutEngineVersionMajor             : '92'
+      LayoutEngineNameVersion              : 'Blink 92.0'
+      LayoutEngineNameVersionMajor         : 'Blink 92'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SLBrowser'
+      AgentVersion                         : '8.0.1.1171'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'SLBrowser 8.0.1.1171'
+      AgentNameVersionMajor                : 'SLBrowser 8'
