@@ -2271,6 +2271,35 @@ config:
       AgentLanguageCode                    : 'en-us'
       AgentSecurity                        : 'Strong security'
 
+
+- test:
+    input:
+      User-Agent                           : 'HubSpot Connect 2.0 (http://dev.hubspot.com/) (namespace: filemanager.downloads.http.client) - contentfilemanagerdaemons-downloadFromUrlTq2Worker'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Hubspot Robot'
+      DeviceBrand                          : 'Hubspot'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'HubSpot Connect'
+      AgentVersion                         : '2.0'
+      AgentVersionMajor                    : '2'
+      AgentNameVersion                     : 'HubSpot Connect 2.0'
+      AgentNameVersionMajor                : 'HubSpot Connect 2'
+      AgentInformationUrl                  : 'http://dev.hubspot.com/'
+
+
 - test:
     input:
       user_agent_string: 'AltaVista V2.0B crawler@evreka.com'
@@ -13089,4 +13118,30 @@ config:
       AgentNameVersion                     : 'Swagger-Validator ??'    #
       AgentNameVersionMajor                : 'Swagger-Validator ??'    #
 
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 VirusTotalBot'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'VirusTotalBot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'VirusTotalBot ??'
+      LayoutEngineNameVersionMajor         : 'VirusTotalBot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'VirusTotalBot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'VirusTotalBot ??'
+      AgentNameVersionMajor                : 'VirusTotalBot ??'
 
