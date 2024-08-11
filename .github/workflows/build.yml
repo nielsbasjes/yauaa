@@ -67,9 +67,9 @@ jobs:
     # https://issues.apache.org/jira/browse/MNG-7750
     - name: 'Ensure build is reproducible'
       run: |
-        mkdir -p ../PreproducibleRebuildInDifferentDirectory
-        cp -a . ../PreproducibleRebuildInDifferentDirectory
-        cd ../PreproducibleRebuildInDifferentDirectory
+        mkdir -p ../ReproducibleRebuildInDifferentDirectory
+        cp -a . ../ReproducibleRebuildInDifferentDirectory
+        cd ../ReproducibleRebuildInDifferentDirectory
         ./mvnw clean verify -PskipQuality -PartifactCompare
         # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
         rm -rf ~/.m2/repository/nl/basjes/parse/useragent/
