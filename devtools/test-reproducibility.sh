@@ -78,26 +78,26 @@ TMPDIR=YauaaRebuild-$$
 mkdir -p "/tmp/${TMPDIR}"
 cp -a . "/tmp/${TMPDIR}"
 cd "/tmp/${TMPDIR}"
-mvn clean install -PprepareRelease -PskipQuality
-snapshotPublishStatus=$?
-if [ ${snapshotPublishStatus} -ne 0 ];
+./mvnw clean install -PskipQuality
+cleanInstallStatus=$?
+if [ ${cleanInstallStatus} -ne 0 ];
 then
-    fail "Publishing SNAPSHOT failed."
-    exit ${snapshotPublishStatus}
+    fail "Building and installing Failed."
+    exit ${cleanInstallStatus}
 else
-    pass "Publishing SNAPSHOT Success."
+    pass "Building and installing Success."
 fi
 popd || exit 1
 rm -rf "/tmp/${TMPDIR}"
 
 # ----------------------------------------------------------------------------------------------------
 info "Comparing the build ... "
-mvn clean verify -PskipQuality -PartifactCompare
-snapshotPublishStatus=$?
-if [ ${snapshotPublishStatus} -ne 0 ];
+./mvnw clean verify -PskipQuality -PartifactCompare
+cleanCompareStatus=$?
+if [ ${cleanCompareStatus} -ne 0 ];
 then
     fail "Comparing SNAPSHOT failed."
-    exit ${snapshotPublishStatus}
+    exit ${cleanCompareStatus}
 else
     pass "Comparing SNAPSHOT Success."
 fi
