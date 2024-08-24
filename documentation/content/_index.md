@@ -23,6 +23,8 @@ These are only the highlights for the last few releases, the full changelog can 
   - Lenovo SLBrowser
 - Updated UDF dependencies
     - The Trino UDF requires Java 22 which is non-LTS. This UDF will simply not be built if Java 22 is missing.
+- Webapp
+  - Improved the layout in case of very long single words.
 
 ### Version v7.26.1
 - New/improved detections:
