@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
+  - ...
+
+v7.27.0
+===
+- New/improved detections:
   - Many Email Clients: Yahoo Y!mail, Mailapp, Foxmail, Superhuman, PostboxApp,
                         Mailspring, Mailbird, Spark, Zoho Mail, Zoho Trident, MailMaster,
                         NewtonMail, Tempo, Lark, Sunsama, Monday, Tuta, Fastmail, OneOutlook
