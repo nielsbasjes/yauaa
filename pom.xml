@@ -733,9 +733,9 @@
             <versionTag>^v([0-9]+\.[0-9]+\.[0-9]+)$</versionTag>
           </projectVersionPolicyConfig>
 
-          <preparationProfiles>prepareRelease,packageForRelease</preparationProfiles>
+          <preparationProfiles>Java22,prepareRelease,packageForRelease</preparationProfiles>
           <preparationGoals>clean verify</preparationGoals>
-          <releaseProfiles>packageForRelease,deployToSonatype</releaseProfiles>
+          <releaseProfiles>Java22,packageForRelease,deployToSonatype</releaseProfiles>
           <pushChanges>false</pushChanges>
           <remoteTagging>false</remoteTagging>
         </configuration>
