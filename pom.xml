@@ -515,6 +515,10 @@
             </goals>
             <configuration>
               <rules>
+                <requireJavaVersion>
+                  <version>[21,22)</version>
+                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 21 (detected: JDK ${java.version}).</message>
+                </requireJavaVersion>
                 <requireMavenVersion>
                   <version>[${maven.minimal.version},)</version>
                   <message>You must use Maven version ${maven.minimal.version} or newer to build this project.</message>
