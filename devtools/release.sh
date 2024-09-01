@@ -134,7 +134,7 @@ fi
 git checkout "$(git describe --abbrev=0)"
 # ----------------------------------------------------------------------------------------------------
 info "Publishing for reproduction check to Local reproduceTest Repo"
-mvn clean install -PpackageForRelease -PskipQuality
+mvn clean install -PpackageForRelease -PskipQuality -PJava22
 reproCheckPublishStatus=$?
 if [ ${reproCheckPublishStatus} -ne 0 ];
 then
@@ -147,7 +147,7 @@ fi
 
 # ----------------------------------------------------------------------------------------------------
 info "Checking build reproducibility ... "
-mvn clean verify -PpackageForRelease -PskipQuality -PartifactCompare
+mvn clean verify -PpackageForRelease -PskipQuality -PartifactCompare -PJava22
 reproducibleStatus=$?
 git switch -
 if [ ${reproducibleStatus} -ne 0 ];
