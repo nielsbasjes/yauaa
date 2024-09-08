@@ -56,7 +56,7 @@ jobs:
       # NOTE: The last one in the list is the version used to run Maven in!
 
     - name: 'Build Yauaa'
-      run: ./mvnw clean install -PdisableDockerHubUsages
+      run: ./mvnw clean install -PdisableDockerHubUsages -PJava22
 
     - name: 'Codecov'
       uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
@@ -71,7 +71,7 @@ jobs:
         mkdir -p ../ReproducibleRebuildInDifferentDirectory
         cp -a . ../ReproducibleRebuildInDifferentDirectory
         cd ../ReproducibleRebuildInDifferentDirectory
-        ./mvnw clean verify -PskipQuality -PartifactCompare
+        ./mvnw clean verify -PskipQuality -PartifactCompare -PJava22
         # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
         rm -rf ~/.m2/repository/nl/basjes/parse/useragent/
 
