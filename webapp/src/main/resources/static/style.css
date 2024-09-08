@@ -38,7 +38,6 @@ body {
 .title {
     font-weight: bold;
     text-align: center;
-    vertical-align: center;
     text-shadow: 0.05em 0.05em #aaaaaa ;
 }
 .version {
@@ -279,15 +278,26 @@ input[type=submit] {
     background-color: #777;
     color: #fff;
     text-align: center;
-    border-radius: 6px;
+    border-radius: 10px;
     padding: 5px;
     position: absolute;
     z-index: 1;
-    bottom: 150%;
+    bottom: 70%;
     left: 50%;
-    margin-left: -75px;
+    margin-left: -124px;
     opacity: 0;
     transition: opacity 0.3s;
+}
+
+@media (max-width: 500px) {
+    .tooltip .tooltiptext {
+        position: fixed;
+        margin: 5% 5%;
+        left: 10%;
+        right: 10%;
+        bottom: 0;
+        width: auto;
+    }
 }
 
 .tooltip .tooltiptext::after {
