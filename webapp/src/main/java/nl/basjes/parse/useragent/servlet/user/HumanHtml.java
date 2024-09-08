@@ -509,7 +509,7 @@ public class HumanHtml {
 
             function closeCopyGraphQLToClipboardTooltip{INDEX}() {
                 var tooltip = document.getElementById("copyGraphQLToClipboardTooltip{INDEX}");
-                tooltip.innerHTML = "Copy this as a graphQL to clipboard";
+                tooltip.innerHTML = "Copy this as a graphQL query to the clipboard";
             }
             </script>
             """;
