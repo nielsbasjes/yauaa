@@ -13,7 +13,10 @@ some APIs that allow you to try things out.&lt;/p>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.27.0&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;type&amp;gt;&lt;/span>war&lt;span style="color:#f92672">&amp;lt;/type&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Kubernetes</title><link>/using/kubernetes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/using/kubernetes/</guid><description>&lt;p>I&amp;rsquo;ve been playing around with Kubernetes and the code below &amp;ldquo;works on my cluster&amp;rdquo;.&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE that this is a &lt;strong>DEMONSTRATION&lt;/strong> servlet!&lt;/p>
+&lt;p>It is simply the library in a servlet, no optimizations or smart memory settings have been done at all.&lt;/p>
+&lt;h2 id="docker">Docker&lt;/h2>
+&lt;p>Starting with version 5.14.1 the webservlet is also published to the central docker registry.&lt;/p></description></item><item><title>Kubernetes</title><link>/using/kubernetes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/using/kubernetes/</guid><description>&lt;p>I&amp;rsquo;ve been playing around with Kubernetes and the code below &amp;ldquo;works on my cluster&amp;rdquo;.&lt;/p>
 &lt;h2 id="basic-service">Basic Service&lt;/h2>
 &lt;p>First create a dedicated namespace and a very basic deployment to run this image 3 times and
 exposes it as a &lt;code>Service&lt;/code> that simply does &lt;code>http&lt;/code>.&lt;/p>
@@ -75,7 +78,9 @@ exposes it as a &lt;code>Service&lt;/code> that simply does &lt;code>http&lt;/co
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">port&lt;/span>: &lt;span style="color:#ae81ff">80&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">targetPort&lt;/span>: &lt;span style="color:#ae81ff">8080&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">type&lt;/span>: &lt;span style="color:#ae81ff">ClusterIP&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pr</description></item><item><title>Licence</title><link>/using/license/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/using/license/</guid><description>&lt;h2 id="apache-license">Apache License&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="custom-rules-in-kubernetes">Custom rules in Kubernetes&lt;/h2>
+&lt;p>In some cases you&amp;rsquo;ll have internal systems with custom useragents.
+You can write your own rules and include them in the deployment.&lt;/p></description></item><item><title>Licence</title><link>/using/license/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/using/license/</guid><description>&lt;h2 id="apache-license">Apache License&lt;/h2>
 &lt;p>Version 2.0, January 2004
 &lt;a href="https://www.apache.org/licenses/">https://www.apache.org/licenses/&lt;/a>&lt;/p>
 &lt;h2 id="terms-and-conditions-for-use-reproduction-and-distribution">TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION&lt;/h2>
