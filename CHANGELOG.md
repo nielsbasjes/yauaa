@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Analyzer:
+    - Fix edge case if ONLY a specific useragent is given in SQL class UDFs.
 - New/improved detections:
   - ...
 
