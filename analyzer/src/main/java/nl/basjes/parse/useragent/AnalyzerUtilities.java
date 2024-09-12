@@ -35,9 +35,11 @@ public final class AnalyzerUtilities {
         // Utility class that should not be instantiated
     }
 
+    @Setter
+    @Getter
     public static class ParsedArguments {
-        @Getter @Setter private Map<String, String> requestHeaders  = new TreeMap<>();
-        @Getter @Setter private List<String>        wantedFields    = new ArrayList<>();
+        private Map<String, String> requestHeaders  = new TreeMap<>();
+        private List<String>        wantedFields    = new ArrayList<>();
     }
 
     public static @Nonnull ParsedArguments parseArguments(@Nonnull String[] args, @Nonnull List<String> allAllowedFields, @Nonnull List<String> allAllowedHeaders) {
@@ -52,12 +54,12 @@ public final class AnalyzerUtilities {
      * - useragent
      * - useragent [ headername, headervalue ]+
      * - [ headername, headervalue ]+
-     *
+     * <p>
      * Notes:
      * - The useragent and any of the headervalues can be null or empty.
      * - A trailing list of null values will be ignored
      * - When not having the useragent as the first value the Analyzers will expect a "User-Agent" header in the list.
-     *
+     * <p>
      * @param args The list of arguments passed from the user
      * @param allAllowedFields The list of all supported fieldnames (i.e. all possible outputs)
      * @param allAllowedHeaders The list of all supported headers (i.e. all supported inputs)
