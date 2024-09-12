@@ -6,7 +6,7 @@ NEXT RELEASE
 - Analyzer:
     - Fix edge case if ONLY a specific useragent is given in SQL class UDFs.
 - New/improved detections:
-  - ...
+    - TikTok
 
 v7.27.0
 ===

@@ -36,13 +36,15 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern ANDROID_DASH_VERSION =
         Pattern.compile("(android)-(\\d+)", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern TENCENT_NETTYPE_FIX  =
-        Pattern.compile("(NetType)/([\\da-z._-]+)", Pattern.CASE_INSENSITIVE);
-    private static final Pattern TENCENT_LANGUAGE_FIX =
-        Pattern.compile("(Language)/([a-z_-]+)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern PROPERTY_PRODUCT_VERSION_FIX =
+        Pattern.compile("(NetType|Language|AppName|app_version|ByteLocale|ByteFullLocale|Region)/([\\da-z._-]+)", Pattern.CASE_INSENSITIVE);
+    // NOTE: "Channel" is separate because we see "Channel/googleplay" and "Channel/App Store"
 
     private static final Pattern GLUED_VERSION_FIX =
         Pattern.compile("(Java|Wazzup)(\\d)", Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern GLUED_VERSION_FIX_2 =
+        Pattern.compile("(OS|[a-z][a-z_][a-z_][a-z_]+[a-z])_([\\d_.]+) ", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern MISSING_COMMENT_BRACES =
         Pattern.compile("^(Mozilla/[^ ]+) ([^(][^)]+?)( Gecko/| AppleWebKit/| Safari/| Mobile Safari/)", Pattern.CASE_INSENSITIVE);
@@ -79,16 +81,17 @@ public final class EvilManualUseragentStringHacks {
         result = MISSING_COMMENT_BRACES.matcher(result).replaceAll("$1 ($2)$3");
         result = MISSING_COMMENT_BRACES_OPERA.matcher(result).replaceAll("$1 ($2)$3");
 
-        // The NetType and Language tags as used by Tencent are hard to parse.
+        // The NetType and Language tags as used by Tencent and ByteDance are hard to parse.
         // Some example snippets from Tencent/Alibaba style agents:
         //    Core/UIWebView NetType/WIFI
         //    Core/UIWebView NetType/2G
         //    Process/tools NetType/portalmmm.nl Language/zh_CN
         //    Process/tools NetType/NON_NETWORK Language/zh_CN
-        //
+        //    NetType/WIFI Channel/googleplay AppName/musical_ly
         // The 'fix' is to force an extra comment block in there.
-        result = TENCENT_NETTYPE_FIX.matcher(result).replaceAll("() $1/$2()");
-        result = TENCENT_LANGUAGE_FIX.matcher(result).replaceAll("() $1/$2()");
+        // NOTE: "Channel" is separate because we see "Channel/googleplay" and "Channel/App Store"
+        result = replaceString(result, "Channel/App Store", "()Channel/App Store()");
+        result = PROPERTY_PRODUCT_VERSION_FIX.matcher(result).replaceAll("() $1/$2()");
         if (result.startsWith("()")) {
             result = result.substring(2).trim();
         }
@@ -120,6 +123,9 @@ public final class EvilManualUseragentStringHacks {
 
         // We have seen problem cases like "Java1.0.21.0" and "Wazzup1.1.100"
         result = GLUED_VERSION_FIX.matcher(result).replaceAll("$1 $2");
+
+        // For musical_ly_123 and trill_123
+        result = GLUED_VERSION_FIX_2.matcher(result).replaceAll("$1 $2 ");
 
         // This one is a single useragent that hold significant traffic
         result = replaceString(result, " (Macintosh); ", " (Macintosh; ");

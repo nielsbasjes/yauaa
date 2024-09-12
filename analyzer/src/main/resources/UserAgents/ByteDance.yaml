@@ -1,0 +1,182 @@
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2024 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+- matcher:
+    variable:
+    - 'Language: LookUp[ISOLanguageCodes;agent.(1-20)product.name="ByteLocale"^.version]'
+    extract:
+    - 'AgentLanguageCode                   :   10 :@Language[[1]]'
+    - 'AgentLanguage                       :   10 :@Language[[2]]'
+
+# Testcases for ByteDance
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 14; Pixel 6 Build/AP2A.240805.005.F1; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/128.0.6613.88 Mobile Safari/537.36 musical_ly_2023603030 JsSdk/1.0 NetType/WIFI Channel/googleplay AppName/musical_ly app_version/36.3.3 ByteLocale/en ByteFullLocale/en Region/GB AppId/1233 Spark/1.6.2.4-bugfix AppVersion/36.3.3 BytedanceWebview/d8a21c6'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel 6'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'AP2A.240805.005.F1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '128.0'
+      LayoutEngineVersionMajor             : '128'
+      LayoutEngineNameVersion              : 'Blink 128.0'
+      LayoutEngineNameVersionMajor         : 'Blink 128'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'TikTok'
+      AgentVersion                         : '36.3.3'
+      AgentVersionMajor                    : '36'
+      AgentNameVersion                     : 'TikTok 36.3.3'
+      AgentNameVersionMajor                : 'TikTok 36'
+      AgentLanguage                        : 'English'
+      AgentLanguageCode                    : 'en'
+      NetworkType                          : 'Wifi'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 musical_ly_31.4.0 JsSdk/2.0 NetType/WIFI Channel/App Store ByteLocale/nl Region/NL isDarkMode/0 WKWebView/1 RevealType/Dialog BytedanceWebview/d8a21c6 FalconTag/C4386F12-1340-48E3-BEE7-2B6CC1CCEEA7'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.0.3'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.0.3'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'TikTok'
+      AgentVersion                         : '31.4.0'
+      AgentVersionMajor                    : '31'
+      AgentNameVersion                     : 'TikTok 31.4.0'
+      AgentNameVersionMajor                : 'TikTok 31'
+      AgentLanguage                        : 'Dutch'
+      AgentLanguageCode                    : 'nl'
+      AgentUuid                            : 'C4386F12-1340-48E3-BEE7-2B6CC1CCEEA7'
+      NetworkType                          : 'Wifi'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 musical_ly_27.7.1 JsSdk/2.0 NetType/MOBILE Channel/App Store AppVersion/27.7.1 AppName/musical_ly Rifle_27.7.1  Spark/1.2.5.1-bugfix HybridTag/170AC5A0-BEA7-4705-8DF8-78677A2854F8 WKWebView/1 Bullet/1 musical_ly/27.7.1 BytedanceWebview/d8a21c6 FalconTag/CDF5395D-47A2-400E-9272-80FE69103637'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'TikTok'
+      AgentVersion                         : '27.7.1'
+      AgentVersionMajor                    : '27'
+      AgentNameVersion                     : 'TikTok 27.7.1'
+      AgentNameVersionMajor                : 'TikTok 27'
+      AgentUuid                            : '170AC5A0-BEA7-4705-8DF8-78677A2854F8'
+      NetworkType                          : 'Mobile'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 trill_28.4.1 JsSdk/2.0 NetType/WIFI Channel/App Store ByteLocale/vi Region/NL RevealType/Dialog isDarkMode/0 WKWebView/1 BytedanceWebview/d8a21c6 FalconTag/1C51CA16-1D4B-4659-8E2D-1F4D21714BFC'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.1'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.1'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Trill'
+      AgentVersion                         : '28.4.1'
+      AgentVersionMajor                    : '28'
+      AgentNameVersion                     : 'Trill 28.4.1'
+      AgentNameVersionMajor                : 'Trill 28'
+      AgentLanguage                        : 'Vietnamese'
+      AgentLanguageCode                    : 'vi'
+      AgentUuid                            : '1C51CA16-1D4B-4659-8E2D-1F4D21714BFC'
+      NetworkType                          : 'Wifi'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; CPH2293 Build/RP1A.200720.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36 trill_270603 JsSdk/1.0 NetType/WIFI Channel/googleplay AppName/trill app_version/27.6.3 ByteLocale/th-TH ByteFullLocale/th-TH Region/NL BytedanceWebview/d8a21c6'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oppo CPH2293'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108.0'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108.0'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Trill'
+      AgentVersion                         : '27.6.3'
+      AgentVersionMajor                    : '27'
+      AgentNameVersion                     : 'Trill 27.6.3'
+      AgentNameVersionMajor                : 'Trill 27'
+      AgentLanguage                        : 'Thai (Thailand)'
+      AgentLanguageCode                    : 'th-th'
+      NetworkType                          : 'Wifi'

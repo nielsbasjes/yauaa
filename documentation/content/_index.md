@@ -19,7 +19,7 @@ These are only the highlights for the last few releases, the full changelog can 
 - Analyzer:
   - Fix edge case if ONLY a specific useragent is given in SQL class UDFs.
 - New/improved detections:
-  - ...
+  - TikTok, Trill
 
 ### Version v7.27.0
 - New/improved detections:
