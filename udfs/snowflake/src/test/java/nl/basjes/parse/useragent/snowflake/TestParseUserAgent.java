@@ -40,6 +40,28 @@ class TestParseUserAgent {
     }
 
     @Test
+    void testErrorReport1557Header() {
+        // https://github.com/nielsbasjes/yauaa/issues/1557
+        // This is an edge case where the only a single value is given
+        // which is the same as a recognized header name.
+        String userAgent = "User-Agent";
+        Map<String, String> row = ParseUserAgent.parse(userAgent);
+        assertEquals("Hacker", row.get("DeviceClass"));
+        assertEquals("Hacker", row.get("OperatingSystemNameVersion"));
+    }
+
+    @Test
+    void testErrorReport1557Field() {
+        // https://github.com/nielsbasjes/yauaa/issues/1557
+        // This is an edge case where the only a single value is given
+        // which is the same as a recognized field name.
+        String userAgent = "DeviceClass";
+        Map<String, String> row = ParseUserAgent.parse(userAgent);
+        assertEquals("Hacker", row.get("DeviceClass"));
+        assertEquals("Hacker", row.get("OperatingSystemNameVersion"));
+    }
+
+    @Test
     void testWithoutClientHints() {
         final int iterations = 100_000;
         int i;

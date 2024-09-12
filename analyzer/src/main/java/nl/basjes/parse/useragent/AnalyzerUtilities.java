@@ -88,6 +88,12 @@ public final class AnalyzerUtilities {
                     // Apparently we have a list of trailing null values which we all ignore.
                     return parsedArguments;
                 }
+            } else {
+                if (args.size() == 1) {
+                    // Only a single non-null value is always assumed to be the User-Agent header
+                    parsedArguments.requestHeaders.put(USERAGENT_HEADER, args.get(i));
+                    return parsedArguments;
+                }
             }
             if (allAllowedFields.stream().anyMatch(argument::equalsIgnoreCase)) {
                 parsedArguments.wantedFields.add(argument);

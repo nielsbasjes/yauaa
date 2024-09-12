@@ -56,6 +56,40 @@ class TestArgumentParser {
     }
 
     @Test
+    void testOnlyUserAgentWhichISTheSameAsARequestHeader() {
+        String[] args = {
+            "User-Agent"
+        };
+        ParsedArguments parsedArguments = parseArguments(args, allAllowedFields, allAllowedHeaders);
+
+        Map<String, String> expectedHeaders = new TreeMap<>();
+        expectedHeaders.put(USERAGENT_HEADER, "User-Agent");
+
+        List<String> expectedWantedFields = new ArrayList<>();
+        // expectedWantedFields is empty
+
+        assertEquals(expectedHeaders, parsedArguments.getRequestHeaders());
+        assertEquals(expectedWantedFields, parsedArguments.getWantedFields());
+    }
+
+    @Test
+    void testOnlyUserAgentWhichISTheSameAsAWantedField() {
+        String[] args = {
+            "Field1"
+        };
+        ParsedArguments parsedArguments = parseArguments(args, allAllowedFields, allAllowedHeaders);
+
+        Map<String, String> expectedHeaders = new TreeMap<>();
+        expectedHeaders.put(USERAGENT_HEADER, "Field1");
+
+        List<String> expectedWantedFields = new ArrayList<>();
+        // expectedWantedFields is empty
+
+        assertEquals(expectedHeaders, parsedArguments.getRequestHeaders());
+        assertEquals(expectedWantedFields, parsedArguments.getWantedFields());
+    }
+
+    @Test
     void testOnlyUserAgent() {
         String[] args = {
             "Mozilla"
@@ -288,6 +322,7 @@ class TestArgumentParser {
     @Test
     void testBADMissingHeaderValue1() {
         String[] args = {
+            "Mozilla",
             "Head2"
         };
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> {
