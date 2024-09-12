@@ -95,7 +95,7 @@ public final class EvilManualUseragentStringHacks {
 
         result = replaceString(result, "SSL/TLS", "SSL TLS");
 
-        // Quant specific hacks (this also affects the " h QuantMobile" case !!)
+        // Quant specific hacks (this also affects the " h QwantMobile" case !!)
         result = replaceString(result, "QwantMobile", " QwantMobile");
 
         if (result.contains("MSIE")) {
