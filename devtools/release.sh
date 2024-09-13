@@ -119,7 +119,7 @@ trap killSigner SIGINT
 # ----------------------------------------------------------------------------------------------------
 ## Prepare the release: Make releasable version and make tag.
 info "Doing release:prepare"
-mvn release:prepare -B
+mvn release:prepare -B -PJava22
 prepareStatus=$?
 if [ ${prepareStatus} -ne 0 ];
 then
@@ -161,7 +161,7 @@ fi
 # ----------------------------------------------------------------------------------------------------
 # Actually run the release: Effectively mvn deploy towards Sonatype
 info "Doing release:perform"
-mvn release:perform
+mvn release:perform -PJava22
 performStatus=$?
 if [ ${performStatus} -ne 0 ];
 then
