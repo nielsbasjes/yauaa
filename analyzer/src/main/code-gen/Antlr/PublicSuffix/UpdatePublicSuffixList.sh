@@ -37,5 +37,6 @@ echo -n "Downloading public_suffix_list.dat ... "
 curl -s https://publicsuffix.org/list/public_suffix_list.dat -o "${DAILYFILE}"
 cp "${DAILYFILE}" "${TARGETFILE}"
 git add "${TARGETFILE}"
+git commit -m"chore: Updated the Mozilla Public Suffix list" ./analyzer/src/main/resources/mozilla-public-suffix-list.txt
 echo "done"
 exit 0

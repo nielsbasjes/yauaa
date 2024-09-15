@@ -117,6 +117,11 @@ trap killSigner EXIT
 trap killSigner SIGINT
 
 # ----------------------------------------------------------------------------------------------------
+## Force the mozilla-public-suffix-list.txt to be downloaded and committed
+rm ./analyzer/src/main/code-gen/Antlr/PublicSuffix/tmp/*
+./analyzer/src/main/code-gen/Antlr/PublicSuffix/UpdatePublicSuffixList.sh
+
+# ----------------------------------------------------------------------------------------------------
 ## Prepare the release: Make releasable version and make tag.
 info "Doing release:prepare"
 mvn release:prepare -B -PJava22
