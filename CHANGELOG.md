@@ -3,6 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- New/improved detections:
+  - ...
+
+v7.28.1
+===
 - Build/Release:
   - Trino UDF was not released with 7.28.0
   - Fix reproducibility issue

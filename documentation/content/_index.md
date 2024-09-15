@@ -16,6 +16,10 @@ The full documentation can be found here [https://yauaa.basjes.nl](https://yauaa
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+- New/improved detections:
+  - ...
+
+### Version v7.28.1
 - Build/Release:
   - Trino UDF was not released with 7.28.0
   - Fix reproducibility issue
