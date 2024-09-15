@@ -38,6 +38,9 @@ echo "Generating: ${OUTPUT}";
 echo "// The TLDs extracted from https://publicsuffix.org/list/public_suffix_list.dat"
 echo -n "fragment TLD"
 SEP=':'
+# This is needed to ensure reproducible results from sort
+LC_ALL=C
+
 grep -F -v '//' "${INPUT}" | grep . | sed 's@.*\.\([a-z]\+\)$@\1@g' | grep -v "[^a-z]" | grep -v -P "[\x7f-\xff]" | sort -u | \
 while read -r suffix
 do

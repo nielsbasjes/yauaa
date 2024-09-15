@@ -68,6 +68,9 @@ config:
     name: "AmazonDeviceTags"
     map:'
 
+# This is needed to ensure reproducible results from sort
+LC_ALL=C
+
 grep -F -v '#' "${INPUT}" | grep '[a-z]' | sort | while read -r line
 do
     tag=$(        echo "${line}" | sed 's@ *| *@|@g' | cut -d'|' -f1 )

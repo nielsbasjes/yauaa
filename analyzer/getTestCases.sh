@@ -39,6 +39,9 @@ cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
     s@\\\"@\\\\\\\"@g;
   " > "${DIR}/target/temp-agents-list-2.txt"
 
+# This is needed to ensure reproducible results from sort
+LC_ALL=C
+
 cat "${DIR}/target/temp-agents-list-1.txt" \
     "${DIR}/target/temp-agents-list-2.txt" | \
   sed "
