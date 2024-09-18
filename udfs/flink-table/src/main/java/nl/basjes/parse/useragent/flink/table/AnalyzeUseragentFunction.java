@@ -40,6 +40,13 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
     private final List<String> allAllowedHeaders;
 
     /**
+     * Create a UserAgentAnalyzer that extracts all the fields
+     */
+    public AnalyzeUseragentFunction() {
+        this(DEFAULT_PARSE_CACHE_SIZE, new ArrayList<>());
+    }
+
+    /**
      * Create a UserAgentAnalyzer that extracts only the specified fields
      * @param desiredFields The list of desired field names.
      */
