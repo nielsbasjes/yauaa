@@ -144,6 +144,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         WINDOWS_VERSION_MAPPING.put("14",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
         WINDOWS_VERSION_MAPPING.put("15",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
         WINDOWS_VERSION_MAPPING.put("16",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
+        WINDOWS_VERSION_MAPPING.put("17",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
+        WINDOWS_VERSION_MAPPING.put("18",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
+        WINDOWS_VERSION_MAPPING.put("19",  new OSFields("Windows NT", "11",  "11", "Windows 11",  "Windows 11"));
     }
 
     public MutableUserAgent merge(AnalyzerConfigHolder config, MutableUserAgent userAgent, ClientHints clientHints) {
