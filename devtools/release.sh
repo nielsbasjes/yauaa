@@ -104,7 +104,7 @@ info "GPG workaround: Starting"
   cd /tmp
   echo x > Yauaa-release-$$.txt
   gpg --clearsign Yauaa-release-$$.txt
-  rm Yauaa-release.txt Yauaa-release-$$.txt.asc
+  rm Yauaa-release-$$.txt Yauaa-release-$$.txt.asc
 )
 
 runGpgSignerInBackGround(){
