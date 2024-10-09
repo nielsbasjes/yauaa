@@ -15,7 +15,7 @@ However...
 I get quite a few bug reports and questions that Yauaa is not extracting the right version number from the provided User-Agent.
 
 ### Key thing to know
-There are so many [manipulations and lies]({{< relref "expect/Manipulations.md" >}}) in the `User-Agent`s that simply looking at the User-Agent will yield the wrong answer.
+There are so many [manipulations and lies]({{% relref "expect/Manipulations.md" %}}) in the `User-Agent`s that simply looking at the User-Agent will yield the wrong answer.
 Yauaa will try to give the best possible answer and some classes of lies are reported as such.
 
 **So in addition to simply looking at the `User-Agent` it will also overrule these values if a documented manipulations is detected.**
@@ -66,7 +66,7 @@ This example was recorded on an `Android 11` system and there is nothing in the 
 
 ## Your best workaround
 
-At this point in time (mid 2022) the best way around much of these [manipulations and lies]({{< relref "expect/Manipulations.md" >}}) is by asking for and recording the [User-Agent Client Hints]({{< relref "using/ClientHints.md" >}}) on your website.
+At this point in time (mid 2022) the best way around much of these [manipulations and lies]({{% relref "expect/Manipulations.md" %}}) is by asking for and recording the [User-Agent Client Hints]({{% relref "using/ClientHints.md" %}}) on your website.
 
 If you ask for these User-Agent Client Hints you can get something like these extra request headers in addition to the `User-Agent` from the browser.
 

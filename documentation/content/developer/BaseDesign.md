@@ -84,5 +84,5 @@ points to all the applicable matcher actions. As a consequence
   - the startup is "slow"
   - the memory footprint is pretty big due to the number of matchers, the size of the hashmap and the cache of the parsed useragents.
 
-A much more in depth explanation can be found in the documentation on [how to create new rules]({{< relref "MakingNewRules.md" >}})
+A much more in depth explanation can be found in the documentation on [how to create new rules]({{% relref "MakingNewRules.md" %}})
 
