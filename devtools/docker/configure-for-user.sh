@@ -22,7 +22,8 @@ USER_NAME=$1
 USER_ID=$2
 GROUP_ID=$3
 
-
+# If you are on a normal Ubuntu then you have uid 1000 ... which is already in use in the Ubuntu image
+userdel -f ubuntu
 groupadd --non-unique -g "${GROUP_ID}" "${USER_NAME}"
 useradd -g "${GROUP_ID}" -u "${USER_ID}" -k /root -m "${USER_NAME}"
 
