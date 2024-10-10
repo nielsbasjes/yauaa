@@ -1,181 +1,58 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>User Defined Functions on Yauaa - Yet Another UserAgent Analyzer</title><link>/udf/</link><description>Recent content in User Defined Functions on Yauaa - Yet Another UserAgent Analyzer</description><generator>Hugo</generator><language>en-us</language><atom:link href="/udf/index.xml" rel="self" type="application/rss+xml"/><item><title>Apache Beam</title><link>/udf/apache-beam/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-beam/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://beam.apache.org">Apache Beam&lt;/a>&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa-beam/7.28.1/jar">maven central&lt;/a>.&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency to your project.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-beam&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.28.1&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="usage">Usage&lt;/h2>
-&lt;p>Assume you have a PCollection with your records.
-In most cases I see (clickstream data) these records (In this example this class is called &amp;ldquo;TestRecord&amp;rdquo;) contain the useragent string in a field and the parsed results must be added to these fields.&lt;/p></description></item><item><title>Apache Beam SQL</title><link>/udf/apache-beam-sql/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-beam-sql/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://beam.apache.org">Apache Beam SQL&lt;/a>.&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa-beam-sql/7.28.1/jar">maven central&lt;/a>.&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency to your project.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-beam-sql&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.28.1&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="available-functions">Available functions&lt;/h2>
-&lt;h3 id="getting-a-single-value">Getting a single value&lt;/h3>
-&lt;p>To get a single value from the parse result use this one:&lt;/p>
-&lt;pre>&lt;code>ParseUserAgentField(userAgent, 'DeviceClass') AS deviceClassField
-&lt;/code>&lt;/pre>
-&lt;p>to give&lt;/p>
-&lt;pre>&lt;code>Phone
-&lt;/code>&lt;/pre>
-&lt;h3 id="getting-several-values-as-a-map-requires-apache-beam-2300-or-newer">Getting several values as a Map (requires Apache Beam 2.30.0 or newer)&lt;/h3>
-&lt;p>You can ask for all fields and return the full map with all of them in there.&lt;/p></description></item><item><title>Apache Drill</title><link>/udf/apache-drill/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-drill/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is UDF for &lt;a href="https://drill.apache.org">Apache Drill&lt;/a>.
-This function was originally created by &lt;a href="https://github.com/cgivre">Charles S. Givre&lt;/a> and was imported into
-the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.&lt;/p>
-&lt;p>This function is now also packaged as part of Apache Drill itself: &lt;a href="https://github.com/apache/drill/tree/master/contrib/udfs#user-agent-functions">documentation&lt;/a>.&lt;/p>
-&lt;h2 id="notable-changes">Notable changes&lt;/h2>
-&lt;p>With Yauaa 7.0.0&lt;/p>
-&lt;ul>
-&lt;li>the code for this UDF has been copied back from the Drill project to ensure it keeps working as expected.&lt;/li>
-&lt;li>the &lt;code>parse_user_agent_field&lt;/code> has been removed and &lt;code>parse_user_agent&lt;/code> supports the same input/output now.&lt;/li>
-&lt;/ul>
-&lt;h2 id="usage">Usage&lt;/h2>
-&lt;p>I have copied/implemented the functions&lt;/p></description></item><item><title>Apache Flink</title><link>/udf/apache-flink/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-flink/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://flink.apache.org">Apache Flink&lt;/a>&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa-flink/7.28.1/jar">maven central&lt;/a>.&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency to your project.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-flink&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.28.1&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="usage">Usage&lt;/h3>
-&lt;p>Assume you have a DataSet or DataStream with your records.
-In most cases I see (clickstream data) these records (In this example this class is called &amp;ldquo;TestRecord&amp;rdquo;) contain the useragent string in a field and the parsed results must be added to these fields.&lt;/p></description></item><item><title>Apache Flink Table/SQL</title><link>/udf/apache-flink-table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-flink-table/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://flink.apache.org">Apache Flink&lt;/a> Table&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa-flink-table/7.28.1/jar">maven central&lt;/a>.&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency to your project.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-flink-table&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.28.1&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="syntax">Syntax&lt;/h2>
-&lt;p>Assume you register this function under the name &lt;code>ParseUserAgent&lt;/code>
-Then the generic usage in your SQL is&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sql" data-lang="sql">&lt;span style="display:flex;">&lt;span>ParseUserAgent(&lt;span style="color:#f92672">&amp;lt;&lt;/span>useragent&lt;span style="color:#f92672">&amp;gt;&lt;/span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This returns a &lt;code>Map&amp;lt;String, String&amp;gt;&lt;/code> with all the requested values in one go.&lt;/p></description></item><item><title>Apache Hive</title><link>/udf/apache-hive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-hive/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://hive.apache.org">Apache Hive&lt;/a>&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-hive/7.28.1/yauaa-hive-7.28.1-udf.jar">maven central (yauaa-hive-7.28.1-udf.jar)&lt;/a>.&lt;/p>
-&lt;p>NOTE: You MUST use the &lt;code>-udf.jar&lt;/code>: yauaa-hive-7.28.1-udf.jar&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-hive&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;classifier&amp;gt;&lt;/span>udf&lt;span style="color:#f92672">&amp;lt;/classifier&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.28.1&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="building">Building&lt;/h2>
-&lt;p>Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:&lt;/p>
-&lt;pre>&lt;code>mvn clean package
-&lt;/code>&lt;/pre>
-&lt;h2 id="example-usage">Example usage&lt;/h2>
-&lt;p>First the jar file must be &amp;lsquo;known&amp;rsquo;
-Either by doing&lt;/p></description></item><item><title>Apache Pig</title><link>/udf/apache-pig/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-pig/</guid><description>&lt;h1 id="deprecated">DEPRECATED&lt;/h1>
-&lt;p>Apache Pig is no longer used. So with Yauaa 7 this UDF has been dropped.
-Version 6.12 is the last released version which still has the Apache Pig in it.&lt;/p>
-&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://pig.apache.org">Apache Pig&lt;/a>&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-pig/6.12/yauaa-pig-6.12-udf.jar">maven central&lt;/a>.&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-pig&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;classifier&amp;gt;&lt;/span>udf&lt;span style="color:#f92672">&amp;lt;/classifier&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>6.12&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example-usage">Example usage&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-pig" data-lang="pig">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- Import the UDF jar file so this script can use it&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">REGISTER&lt;/span> &lt;span style="color:#f92672">../&lt;/span>target/*-udf.jar;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">------------------------------------------------------------------------&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- Define a more readable name for the UDF and pass optional parameters&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- First parameter is ALWAYS the cache size (as a text string!)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- The parameters after that are the requested fields.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">----------&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- If you simply want &amp;#39;everything&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- DEFINE ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">----------&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- If you just want to set the cache&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- DEFINE ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent(&amp;#39;10000&amp;#39;);&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">----------&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">-- If you want to set the cache and only retrieve the specified fields&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">DEFINE&lt;/span> ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent(&lt;span style="color:#e6db74">&amp;#39;10000&amp;#39;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#39;DeviceClass&amp;#39;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#39;DeviceBrand&amp;#39;&lt;/span> );
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rawData &lt;span style="color:#f92672">=&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">LOAD&lt;/span> &lt;span style="color:#e6db74">&amp;#39;testcases.txt&amp;#39;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">USING&lt;/span> PigStorage()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">AS&lt;/span> ( useragent: &lt;span style="color:#66d9ef">chararray&lt;/span> );
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>UaData &lt;span style="color:#f92672">=&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">FOREACH&lt;/span> rawData
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">GENERATE&lt;/span> useragent,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">-- Do NOT specify a type for this field as the UDF provides the definitions&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ParseUserAgent&lt;/span>(useragent) &lt;span style="color:#66d9ef">AS&lt;/span> parsedAgent;
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Commandline usage</title><link>/udf/commandline/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/commandline/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>With version 6.0 the dedicated commandline tool was removed.&lt;/p>
-&lt;p>Primary reason is that it was not getting any attention,
-and it did not perform well (mainly due to the relatively big startup overhead).&lt;/p>
-&lt;p>So if you have the need to use Yauaa from a commandline perspective the easiest way to do this is by starting
-the docker based webservlet locally (and leave it running &amp;ldquo;for a long time&amp;rdquo;) and use something like curl
-to get the information you are looking for.&lt;/p></description></item><item><title>Elastic LogStash</title><link>/udf/elastic-logstash/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/elastic-logstash/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>User Defined Function (Filter plugin) for &lt;a href="https://www.elastic.co/guide/en/logstash/current/filter-plugins.html">Elastic Logstash&lt;/a>&lt;/p>
-&lt;h2 id="status--dropped-">STATUS: &amp;hellip; DROPPED &amp;hellip;&lt;/h2>
-&lt;p>With Yauaa 7.18.0 the logstash UDF has been dropped.&lt;/p>
-&lt;p>The primary reason is that 3 years after Elastic announced Java UDF support as &amp;ldquo;GA&amp;rdquo; they have not published the needed dependencies. The workaround I came up with is starting to cause more and more problems so I&amp;rsquo;m dropping it.&lt;/p>
-&lt;h2 id="still-want-it">Still want it?&lt;/h2>
-&lt;p>Get the sources from the latest tag that still had it and build it yourself.
-&lt;a href="https://github.com/nielsbasjes/yauaa/tree/v7.17.1/udfs/elastic/logstash">https://github.com/nielsbasjes/yauaa/tree/v7.17.1/udfs/elastic/logstash&lt;/a>&lt;/p></description></item><item><title>Elastic Search</title><link>/udf/elastic-search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/elastic-search/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>User Defined Function (ingest processor) for &lt;a href="https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html">Elastic Search&lt;/a>&lt;/p>
-&lt;h2 id="status--experimental-">STATUS: &amp;hellip; EXPERIMENTAL &amp;hellip;&lt;/h2>
-&lt;p>The ElasticSearch ingest plugin is very new.&lt;/p>
-&lt;p>And yes it is similar to &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/user-agent-processor.html">https://www.elastic.co/guide/en/elasticsearch/reference/master/user-agent-processor.html&lt;/a>&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt ingest plugin from maven central for&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-elasticsearch/7.28.1/yauaa-elasticsearch-7.28.1.zip">Elastic Search 7.x&lt;/a>.&lt;/li>
-&lt;li>&lt;a href="https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-elasticsearch-8/7.28.1/yauaa-elasticsearch-8-7.28.1.zip">Elastic Search 8.x&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;h2 id="installing-the-plugin">Installing the plugin&lt;/h2>
-&lt;p>You only need to install it into your Elastic Search once&lt;/p>
-&lt;p>On Elastic Search 7.x:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-7.28.1.zip
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>On Elastic Search 8.x&lt;/p></description></item><item><title>LogParser</title><link>/udf/logparser/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/logparser/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://github.com/nielsbasjes/logparser/">LogParser&lt;/a>&lt;/p>
-&lt;h2 id="getting-the-udf">Getting the UDF&lt;/h2>
-&lt;p>You can get the prebuilt UDF from &lt;a href="https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-logparser/7.28.1/yauaa-logparser-7.28.1-udf.jar">maven central (yauaa-logparser-7.28.1-udf.jar)&lt;/a>.&lt;/p>
-&lt;p>NOTE: You MUST use the &lt;code>-udf.jar&lt;/code>: yauaa-logparser-7.28.1-udf.jar&lt;/p>
-&lt;p>If you use a maven based project simply add this dependency&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-xml" data-lang="xml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;groupId&amp;gt;&lt;/span>nl.basjes.parse.useragent&lt;span style="color:#f92672">&amp;lt;/groupId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;artifactId&amp;gt;&lt;/span>yauaa-logparser&lt;span style="color:#f92672">&amp;lt;/artifactId&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;classifier&amp;gt;&lt;/span>udf&lt;span style="color:#f92672">&amp;lt;/classifier&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;lt;version&amp;gt;&lt;/span>7.28.1&lt;span style="color:#f92672">&amp;lt;/version&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&amp;lt;/dependency&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="client-hints">Client hints&lt;/h2>
-&lt;p>Because the logparser can only dissect a &lt;em>single&lt;/em> field into multiple pieces it is impossible to extend this to support User-Agent Client Hints.&lt;/p></description></item><item><title>Snowplow</title><link>/udf/snowplow/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/snowplow/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>If you are a user of the Snowplow Analytics system and would like to use Yauaa in your analysis you are in luck.&lt;/p>
-&lt;p>The people at Snowplow have included Yauaa as a readily available feature in their system.&lt;/p>
-&lt;p>The official documentation: &lt;a href="https://docs.snowplowanalytics.com/docs/enriching-your-data/available-enrichments/yauaa-enrichment/">Snowplow Yauaa Enrichment&lt;/a>&lt;/p></description></item><item><title>Trino</title><link>/udf/trino/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/trino/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a User Defined Function for &lt;a href="https://trino.io">Trino&lt;/a> (a.k.a. Presto SQL)&lt;/p>
-&lt;h2 id="status--experimental-">STATUS: &amp;hellip; EXPERIMENTAL &amp;hellip;&lt;/h2>
-&lt;p>The Trino plugin is very new.
-Please tell if it works or not in your case.&lt;/p>
-&lt;p>Trino now requires Java 22 (which is non-LTS) which is not readily available for installation in Ubuntu using a normal package manager.
-This means that I have chosen to no longer let the build fail if you do not have Java 22 installed.
-The CI build does do Java 22 so any breaking API changes should be detected there.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>User Defined Functions | Yauaa - Yet Another UserAgent Analyzer</title><link>/udf/index.html</link><description>Several external computation systems support the concept of a User Defined Function (UDF). A UDF is simply a way of making functionality (in this case the analysis of useragents) available in such a system.
+For several systems (tools used within bol.com (where I work)) I have written such a UDF which are all part of this project.
+Apache Beam Apache Beam SQL Apache Drill Apache Flink Apache Flink Table/SQL Apache Hive Apache Nifi Apache Pig Commandline usage Elastic LogStash Elastic Search LogParser Snowflake Snowplow Trino</description><generator>Hugo</generator><language>en-us</language><atom:link href="/udf/index.xml" rel="self" type="application/rss+xml"/><item><title>Apache Beam</title><link>/udf/apache-beam/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-beam/index.html</guid><description>Introduction This is a User Defined Function for Apache Beam
+Getting the UDF You can get the prebuilt UDF from maven central.
+If you use a maven based project simply add this dependency to your project.
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-beam&lt;/artifactId> &lt;version>7.28.1&lt;/version> &lt;/dependency> Usage Assume you have a PCollection with your records. In most cases I see (clickstream data) these records (In this example this class is called “TestRecord”) contain the useragent string in a field and the parsed results must be added to these fields.</description></item><item><title>Apache Beam SQL</title><link>/udf/apache-beam-sql/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-beam-sql/index.html</guid><description>Introduction This is a User Defined Function for Apache Beam SQL.
+Getting the UDF You can get the prebuilt UDF from maven central.
+If you use a maven based project simply add this dependency to your project.
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-beam-sql&lt;/artifactId> &lt;version>7.28.1&lt;/version> &lt;/dependency> Available functions Getting a single value To get a single value from the parse result use this one:
+ParseUserAgentField(userAgent, 'DeviceClass') AS deviceClassField to give
+Phone Getting several values as a Map (requires Apache Beam 2.30.0 or newer) You can ask for all fields and return the full map with all of them in there.</description></item><item><title>Apache Drill</title><link>/udf/apache-drill/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-drill/index.html</guid><description>Introduction This is UDF for Apache Drill. This function was originally created by Charles S. Givre and was imported into the main Yauaa project to ensure users would have a prebuilt and up-to-date version available.
+This function is now also packaged as part of Apache Drill itself: documentation.
+Notable changes With Yauaa 7.0.0
+the code for this UDF has been copied back from the Drill project to ensure it keeps working as expected. the parse_user_agent_field has been removed and parse_user_agent supports the same input/output now. Usage I have copied/implemented the functions</description></item><item><title>Apache Flink</title><link>/udf/apache-flink/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-flink/index.html</guid><description>Introduction This is a User Defined Function for Apache Flink
+Getting the UDF You can get the prebuilt UDF from maven central.
+If you use a maven based project simply add this dependency to your project.
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-flink&lt;/artifactId> &lt;version>7.28.1&lt;/version> &lt;/dependency> Usage Assume you have a DataSet or DataStream with your records. In most cases I see (clickstream data) these records (In this example this class is called “TestRecord”) contain the useragent string in a field and the parsed results must be added to these fields.</description></item><item><title>Apache Flink Table/SQL</title><link>/udf/apache-flink-table/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-flink-table/index.html</guid><description>Introduction This is a User Defined Function for Apache Flink Table
+Getting the UDF You can get the prebuilt UDF from maven central.
+If you use a maven based project simply add this dependency to your project.
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-flink-table&lt;/artifactId> &lt;version>7.28.1&lt;/version> &lt;/dependency> Syntax Assume you register this function under the name ParseUserAgent Then the generic usage in your SQL is
+ParseUserAgent(&lt;useragent>) This returns a Map&lt;String, String> with all the requested values in one go.</description></item><item><title>Apache Hive</title><link>/udf/apache-hive/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-hive/index.html</guid><description>Introduction This is a User Defined Function for Apache Hive
+Getting the UDF You can get the prebuilt UDF from maven central (yauaa-hive-7.28.1-udf.jar).
+NOTE: You MUST use the -udf.jar: yauaa-hive-7.28.1-udf.jar
+If you use a maven based project simply add this dependency
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-hive&lt;/artifactId> &lt;classifier>udf&lt;/classifier> &lt;version>7.28.1&lt;/version> &lt;/dependency> Building Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
+mvn clean package Example usage First the jar file must be ‘known’ Either by doing</description></item><item><title>Apache Nifi</title><link>/udf/apache-nifi/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-nifi/index.html</guid><description>Introduction This is a User Defined Function for Apache Nifi
+Introduction This is an Apache Nifi Processor for parsing User Agent Strings.
+Getting the Processor You can get the prebuilt NAR file from maven central.
+If you use a maven based project simply add this dependency
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-nifi&lt;/artifactId> &lt;type>nar&lt;/type> &lt;version>7.28.1&lt;/version> &lt;/dependency> Installation To install this function put the nar file in the &lt;nifi-path>/lib directory.
+cp ./udfs/nifi/nifi-nar/target/yauaa-nifi-&lt;version>.nar &lt;nifi-path>/lib Make sure you replace &lt;nifi-path> with your actual path to your nifi installation. After you have added this nar file you will find the ParseUserAgent processor in the list.</description></item><item><title>Apache Pig</title><link>/udf/apache-pig/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-pig/index.html</guid><description>DEPRECATED Apache Pig is no longer used. So with Yauaa 7 this UDF has been dropped. Version 6.12 is the last released version which still has the Apache Pig in it.
+Introduction This is a User Defined Function for Apache Pig
+Getting the UDF You can get the prebuilt UDF from maven central.
+If you use a maven based project simply add this dependency
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-pig&lt;/artifactId> &lt;classifier>udf&lt;/classifier> &lt;version>6.12&lt;/version> &lt;/dependency> Example usage -- Import the UDF jar file so this script can use it REGISTER ../target/*-udf.jar; ------------------------------------------------------------------------ -- Define a more readable name for the UDF and pass optional parameters -- First parameter is ALWAYS the cache size (as a text string!) -- The parameters after that are the requested fields. ---------- -- If you simply want 'everything' -- DEFINE ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent; ---------- -- If you just want to set the cache -- DEFINE ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent('10000'); ---------- -- If you want to set the cache and only retrieve the specified fields DEFINE ParseUserAgent nl.basjes.parse.useragent.pig.ParseUserAgent('10000', 'DeviceClass', 'DeviceBrand' ); rawData = LOAD 'testcases.txt' USING PigStorage() AS ( useragent: chararray ); UaData = FOREACH rawData GENERATE useragent, -- Do NOT specify a type for this field as the UDF provides the definitions ParseUserAgent(useragent) AS parsedAgent;</description></item><item><title>Commandline usage</title><link>/udf/commandline/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/commandline/index.html</guid><description>Introduction With version 6.0 the dedicated commandline tool was removed.
+Primary reason is that it was not getting any attention, and it did not perform well (mainly due to the relatively big startup overhead).
+So if you have the need to use Yauaa from a commandline perspective the easiest way to do this is by starting the docker based webservlet locally (and leave it running “for a long time”) and use something like curl to get the information you are looking for.</description></item><item><title>Elastic LogStash</title><link>/udf/elastic-logstash/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/elastic-logstash/index.html</guid><description>Introduction User Defined Function (Filter plugin) for Elastic Logstash
+STATUS: … DROPPED … With Yauaa 7.18.0 the logstash UDF has been dropped.
+The primary reason is that 3 years after Elastic announced Java UDF support as “GA” they have not published the needed dependencies. The workaround I came up with is starting to cause more and more problems so I’m dropping it.
+Still want it? Get the sources from the latest tag that still had it and build it yourself. https://github.com/nielsbasjes/yauaa/tree/v7.17.1/udfs/elastic/logstash</description></item><item><title>Elastic Search</title><link>/udf/elastic-search/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/elastic-search/index.html</guid><description>Introduction User Defined Function (ingest processor) for Elastic Search
+STATUS: … EXPERIMENTAL … The ElasticSearch ingest plugin is very new.
+And yes it is similar to https://www.elastic.co/guide/en/elasticsearch/reference/master/user-agent-processor.html
+Getting the UDF You can get the prebuilt ingest plugin from maven central for
+Elastic Search 7.x. Elastic Search 8.x. Installing the plugin You only need to install it into your Elastic Search once
+On Elastic Search 7.x:
+bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-7.28.1.zip On Elastic Search 8.x</description></item><item><title>LogParser</title><link>/udf/logparser/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/logparser/index.html</guid><description>Introduction This is a User Defined Function for LogParser
+Getting the UDF You can get the prebuilt UDF from maven central (yauaa-logparser-7.28.1-udf.jar).
+NOTE: You MUST use the -udf.jar: yauaa-logparser-7.28.1-udf.jar
+If you use a maven based project simply add this dependency
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-logparser&lt;/artifactId> &lt;classifier>udf&lt;/classifier> &lt;version>7.28.1&lt;/version> &lt;/dependency> Client hints Because the logparser can only dissect a single field into multiple pieces it is impossible to extend this to support User-Agent Client Hints.</description></item><item><title>Snowflake</title><link>/udf/snowflake/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/snowflake/index.html</guid><description>Introduction User Defined Function for Snowflake.
+STATUS: … EXPERIMENTAL … The Snowflake UDF is very experimental for two reasons:
+Snowflake has marked (last checked on 2021-11-07) Java based UDFs as a Preview Feature. I do not have Snowflake so I do not have any way of testing this other than getting feedback from you. Thanks to Luke Ambrosetti for helping out here!
+See for more information:
+https://docs.snowflake.com/en/developer-guide/udf/java/udf-java.html Installation and usage Download the UDF jar to the local file system and upload into a Snowflake internal or external stage.</description></item><item><title>Snowplow</title><link>/udf/snowplow/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/snowplow/index.html</guid><description>Introduction If you are a user of the Snowplow Analytics system and would like to use Yauaa in your analysis you are in luck.
+The people at Snowplow have included Yauaa as a readily available feature in their system.
+The official documentation: Snowplow Yauaa Enrichment</description></item><item><title>Trino</title><link>/udf/trino/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/trino/index.html</guid><description>Introduction This is a User Defined Function for Trino (a.k.a. Presto SQL)
+STATUS: … EXPERIMENTAL … The Trino plugin is very new. Please tell if it works or not in your case.
+Trino now requires Java 22 (which is non-LTS) which is not readily available for installation in Ubuntu using a normal package manager. This means that I have chosen to no longer let the build fail if you do not have Java 22 installed. The CI build does do Java 22 so any breaking API changes should be detected there.</description></item></channel></rss>

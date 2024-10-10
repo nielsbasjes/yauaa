@@ -1,47 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Development on Yauaa - Yet Another UserAgent Analyzer</title><link>/developer/</link><description>Recent content in Development on Yauaa - Yet Another UserAgent Analyzer</description><generator>Hugo</generator><language>en-us</language><atom:link href="/developer/index.xml" rel="self" type="application/rss+xml"/><item><title>Building from source</title><link>/developer/building/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/building/</guid><description>&lt;h2 id="building">Building&lt;/h2>
-&lt;p>Requirements:&lt;/p>
-&lt;ul>
-&lt;li>A Linux class machine (can be a VM).
-&lt;ul>
-&lt;li>Some of the build scripts rely in bash/sed/grep and related tools, so it will not build on a Windows machine. I&amp;rsquo;m unsure if it will build on a Mac.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>The normal build tools for a Java project
-&lt;ul>
-&lt;li>JDK 8, 11, 17 and 21 all need to be installed and defined in the &lt;code>~/.m2/toolchains.xml&lt;/code>
-&lt;ul>
-&lt;li>All of these are needed to ensure the code works in all UDFs.
-Some of them only run on Java 8 (like Hive), some (like Flink) only work on Java 11 and some UDFs (like ElasticSearch and Trino) only work on Java 17.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;p>The &lt;code>./start-docker.sh&lt;/code> script launches a docker based build environment with all needed tools and configs.&lt;/p></description></item><item><title>Base Design</title><link>/developer/basedesign/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/basedesign/</guid><description>&lt;h2 id="parsing-useragents">Parsing Useragents&lt;/h2>
-&lt;p>Parsing useragents is considered by many to be a ridiculously hard problem.
-The main problems are:&lt;/p>
-&lt;ul>
-&lt;li>Although there seems to be a specification, many do not follow it.&lt;/li>
-&lt;li>Useragents LIE that they are their competing predecessor with an extra flag.&lt;/li>
-&lt;/ul>
-&lt;p>The pattern the &amp;rsquo;normal&amp;rsquo; browser builders are following is that they all LIE about the ancestor they are trying to improve upon.&lt;/p>
-&lt;p>The reason this system (historically) works is because a lot of website builders do a very simple check to see if they can use a specific feature.&lt;/p></description></item><item><title>Making new rules</title><link>/developer/makingnewrules/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/makingnewrules/</guid><description>&lt;h2 id="detecting-new-useragent-patterns">Detecting new useragent patterns&lt;/h2>
-&lt;p>When you find a useragent for which one or more of the fields are wrong there is the need to change the patterns and rules
-that are used by this system for classifying these attributes.
-In order to write rules this first described how the system works and what tools have been created to make writing new rules easier.&lt;/p>
-&lt;h2 id="base-problem-they-all-lie">Base problem: They all lie&lt;/h2>
-&lt;p>When looking at useragents it is clear that almost all of them include the name of predecessors/competitors
-with which they are supposed to be compatible with.&lt;/p></description></item><item><title>Shading dependencies</title><link>/developer/shadingdependencies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/shadingdependencies/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>This is a summary of the reasons WHY I have done the shading in this project the way it is now.&lt;/p>
-&lt;p>If someone has suggestions/hint on how this can be done better I&amp;rsquo;m really curious what the &amp;lsquo;right&amp;rsquo; way of doing this is.&lt;/p>
-&lt;p>The base structure of this project is we have a module with the functionality and a set of &amp;lsquo;UDFs&amp;rsquo;
-that wrap this functionality so that it can be used in external processing frameworks (like Flink, Hive, etc.)&lt;/p></description></item><item><title>Reporting issues</title><link>/developer/reportingissues/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/reportingissues/</guid><description>&lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>All software has bugs and things that it should do better.&lt;/p>
-&lt;p>Yauaa is no exception; there are bugs, inaccuracies and there is lots of room for improvement.&lt;/p>
-&lt;p>So if you find something please report it via the &lt;a href="https://github.com/nielsbasjes/yauaa/issues">issue tracker&lt;/a>.&lt;/p>
-&lt;p>However&amp;hellip;&lt;/p>
-&lt;h2 id="these-are-not-bugs">These are not bugs&lt;/h2>
-&lt;p>I get quite a few bug reports and questions that Yauaa is not extracting the right version number from the provided User-Agent.&lt;/p>
-&lt;h3 id="key-thing-to-know">Key thing to know&lt;/h3>
-&lt;p>There are so many &lt;a href="/expect/manipulations/">manipulations and lies&lt;/a> in the &lt;code>User-Agent&lt;/code>s that simply looking at the User-Agent will yield the wrong answer.
-Yauaa will try to give the best possible answer and some classes of lies are reported as such.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Development | Yauaa - Yet Another UserAgent Analyzer</title><link>/developer/index.html</link><description>These pages explain the internals of the system and contains the guidelines on how to extend it with your own rules.
+Building from source Base Design Making new rules Shading dependencies Reporting issues</description><generator>Hugo</generator><language>en-us</language><atom:link href="/developer/index.xml" rel="self" type="application/rss+xml"/><item><title>Building from source</title><link>/developer/building/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/building/index.html</guid><description>Building Requirements:
+A Linux class machine (can be a VM). Some of the build scripts rely in bash/sed/grep and related tools, so it will not build on a Windows machine. I’m unsure if it will build on a Mac. The normal build tools for a Java project JDK 8, 11, 17 and 21 all need to be installed and defined in the ~/.m2/toolchains.xml All of these are needed to ensure the code works in all UDFs. Some of them only run on Java 8 (like Hive), some (like Flink) only work on Java 11 and some UDFs (like ElasticSearch and Trino) only work on Java 17. The ./start-docker.sh script launches a docker based build environment with all needed tools and configs.</description></item><item><title>Base Design</title><link>/developer/basedesign/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/basedesign/index.html</guid><description>Parsing Useragents Parsing useragents is considered by many to be a ridiculously hard problem. The main problems are:
+Although there seems to be a specification, many do not follow it. Useragents LIE that they are their competing predecessor with an extra flag. The pattern the ’normal’ browser builders are following is that they all LIE about the ancestor they are trying to improve upon.
+The reason this system (historically) works is because a lot of website builders do a very simple check to see if they can use a specific feature.</description></item><item><title>Making new rules</title><link>/developer/makingnewrules/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/makingnewrules/index.html</guid><description>Detecting new useragent patterns When you find a useragent for which one or more of the fields are wrong there is the need to change the patterns and rules that are used by this system for classifying these attributes. In order to write rules this first described how the system works and what tools have been created to make writing new rules easier.
+Base problem: They all lie When looking at useragents it is clear that almost all of them include the name of predecessors/competitors with which they are supposed to be compatible with.</description></item><item><title>Shading dependencies</title><link>/developer/shadingdependencies/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/shadingdependencies/index.html</guid><description>Introduction This is a summary of the reasons WHY I have done the shading in this project the way it is now.
+If someone has suggestions/hint on how this can be done better I’m really curious what the ‘right’ way of doing this is.
+The base structure of this project is we have a module with the functionality and a set of ‘UDFs’ that wrap this functionality so that it can be used in external processing frameworks (like Flink, Hive, etc.)</description></item><item><title>Reporting issues</title><link>/developer/reportingissues/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/developer/reportingissues/index.html</guid><description>Introduction All software has bugs and things that it should do better.
+Yauaa is no exception; there are bugs, inaccuracies and there is lots of room for improvement.
+So if you find something please report it via the issue tracker.
+However…
+These are not bugs I get quite a few bug reports and questions that Yauaa is not extracting the right version number from the provided User-Agent.
+Key thing to know There are so many manipulations and lies in the User-Agents that simply looking at the User-Agent will yield the wrong answer. Yauaa will try to give the best possible answer and some classes of lies are reported as such.</description></item></channel></rss>
