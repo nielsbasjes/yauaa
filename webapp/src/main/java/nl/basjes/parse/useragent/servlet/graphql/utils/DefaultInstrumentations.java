@@ -46,7 +46,7 @@ public final class DefaultInstrumentations {
         if (selections.size() != 1) {
             return false;
         }
-        Selection selection = selections.get(0);
+        Selection selection = selections.getFirst();
         if (!(selection instanceof Field)) {
             return false;
         }
