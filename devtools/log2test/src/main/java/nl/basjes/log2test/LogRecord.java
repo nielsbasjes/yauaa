@@ -31,6 +31,7 @@ public final class LogRecord implements Comparable<LogRecord> {
     @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua")))                   private String secChUa                = null;
     @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua-arch")))              private String secChUaArch            = null;
     @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua-bitness")))           private String secChUaBitness         = null;
+    @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua-form-factors")))      private String secChUaFormFactors     = null;
     @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua-full-version")))      private String secChUaFullVersion     = null;
     @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua-full-version-list"))) private String secChUaFullVersionList = null;
     @Getter @Setter(onMethod=@__(@Field("HTTP.HEADER:request.header.sec-ch-ua-mobile")))            private String secChUaMobile          = null;
@@ -51,6 +52,7 @@ public final class LogRecord implements Comparable<LogRecord> {
         putIfNotNull(result, "Sec-Ch-Ua",                   secChUa);
         putIfNotNull(result, "Sec-Ch-Ua-Arch",              secChUaArch);
         putIfNotNull(result, "Sec-Ch-Ua-Bitness",           secChUaBitness);
+        putIfNotNull(result, "Sec-Ch-Ua-Form-Factors",      secChUaFormFactors);
         putIfNotNull(result, "Sec-Ch-Ua-Full-Version",      secChUaFullVersion);
         putIfNotNull(result, "Sec-Ch-Ua-Full-Version-List", secChUaFullVersionList);
         putIfNotNull(result, "Sec-Ch-Ua-Mobile",            secChUaMobile);
@@ -80,6 +82,7 @@ public final class LogRecord implements Comparable<LogRecord> {
         appendIfNotNull(sb, "Sec-Ch-Ua                    ", secChUa);
         appendIfNotNull(sb, "Sec-Ch-Ua-Arch               ", secChUaArch);
         appendIfNotNull(sb, "Sec-Ch-Ua-Bitness            ", secChUaBitness);
+        appendIfNotNull(sb, "Sec-Ch-Ua-Form-Factors       ", secChUaFormFactors);
         appendIfNotNull(sb, "Sec-Ch-Ua-Full-Version       ", secChUaFullVersion);
         appendIfNotNull(sb, "Sec-Ch-Ua-Full-Version-List  ", secChUaFullVersionList);
         appendIfNotNull(sb, "Sec-Ch-Ua-Mobile             ", secChUaMobile);
@@ -124,6 +127,11 @@ public final class LogRecord implements Comparable<LogRecord> {
         }
 
         compare = compareFields(secChUaBitness, other.secChUaBitness);
+        if (compare != 0) {
+            return compare;
+        }
+
+        compare = compareFields(secChUaFormFactors, other.secChUaFormFactors);
         if (compare != 0) {
             return compare;
         }

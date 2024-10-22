@@ -72,7 +72,7 @@ import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_VERSION_MAJOR
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_ARCHITECTURE;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_BITNESS;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_BRANDS;
-import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FORMFACTOR;
+import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FORMFACTORS;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FULL_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_FULL_VERSION_LIST;
 import static nl.basjes.parse.useragent.UserAgent.UACLIENT_HINT_MOBILE;
@@ -153,7 +153,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         setCHBrandVersionsList(userAgent, UACLIENT_HINT_BRANDS,             clientHints.getBrands());
         setCHString(userAgent,            UACLIENT_HINT_ARCHITECTURE,       clientHints.getArchitecture());
         setCHString(userAgent,            UACLIENT_HINT_BITNESS,            clientHints.getBitness());
-        setCHStringList(userAgent,        UACLIENT_HINT_FORMFACTOR,         clientHints.getFormFactors());
+        setCHStringList(userAgent,        UACLIENT_HINT_FORMFACTORS,        clientHints.getFormFactors());
         setCHString(userAgent,            UACLIENT_HINT_FULL_VERSION,       clientHints.getFullVersion());
         setCHBrandVersionsList(userAgent, UACLIENT_HINT_FULL_VERSION_LIST,  clientHints.getFullVersionList());
         setCHBoolean(userAgent,           UACLIENT_HINT_MOBILE,             clientHints.getMobile());

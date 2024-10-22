@@ -37,11 +37,11 @@ These headers are
 
 If additional headers are desired then the service should send an `Accept-CH` response header with the first response and then any subsequent requests will (if allowed) send the requested additional headers.
 
-    Accept-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Form-Factor, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
+    Accept-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Form-Factors, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
 
 If the additional headers are critical to your application you can send `Critical-CH` in addition of the  `Accept-CH` to indicate which are
 
-    Critical-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Form-Factor, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
+    Critical-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Form-Factors, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
 
 See:
 - https://chromestatus.com/feature/5727177800679424
@@ -75,11 +75,11 @@ The shown example values are the real values recorded when running Chrome 100.0.
 
 If you happen to be using the Apache HTTPD webserver you can record these values with a LogFormat configuration something like this:
 
-    LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Form-Factor}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V" combinedhintsvhost
+    LogFormat "%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Form-Factors}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V" combinedhintsvhost
 
 Behind this Apache Httpd webserver is a website that returns the header
 
-    Accept-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Form-Factor, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
+    Accept-CH: Sec-CH-UA, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Form-Factors, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version, Sec-CH-UA-WoW64
 
 With all of this in place: these are two of the lines that are found in the access log of this Apache Httpd webserver:
 
@@ -127,15 +127,15 @@ General considerations:
 
 | Client hint                 | Example                                                                                      | Keep it? | Why                                                                                                                                      |
 |-----------------------------|----------------------------------------------------------------------------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
-| Sec-Ch-Ua                   | " Not A;Brand";v=“99”, “Chromium”;v=“100”, “Google Chrome”;v=“100”                           | Yes      | You may not have the Sec-Ch-Ua-Full-Version-List with the exact versions.                                                                |
-| Sec-Ch-Ua-Full-Version-List | " Not A;Brand";v=“99.0.0.0”, “Chromium”;v=“100.0.4896.75”, “Google Chrome”;v=“100.0.4896.75” | Yes      | Is the better variant of Sec-Ch-Ua but it may not be present.                                                                            |
-| Sec-CH-Ua-Full-Version      | “100.0.4896.75”                                                                              | No       | This field is deprecated in the standard. Also this info is also present in the Sec-Ch-Ua-Full-Version-List.                             |
+| Sec-Ch-Ua                   | " Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"                           | Yes      | You may not have the Sec-Ch-Ua-Full-Version-List with the exact versions.                                                                |
+| Sec-Ch-Ua-Full-Version-List | " Not A;Brand";v="99.0.0.0", "Chromium";v="100.0.4896.75", "Google Chrome";v="100.0.4896.75" | Yes      | Is the better variant of Sec-Ch-Ua but it may not be present.                                                                            |
+| Sec-CH-Ua-Full-Version      | "100.0.4896.75"                                                                              | No       | This field is deprecated in the standard. Also this info is also present in the Sec-Ch-Ua-Full-Version-List.                             |
 | Sec-Ch-Ua-Mobile            | ?0                                                                                           | Yes      | In the (very rare) case where we cannot determine if it is a phone or tablet this flag determines the end result.                        |
-| Sec-Ch-Ua-Platform          | “Windows”                                                                                    | Yes      | Needed in the very common case of bad version info in the useragent.                                                                     |
-| Sec-Ch-Ua-Platform-Version  | “0.1.0”                                                                                      | Yes      | Needed in the very common case of bad version info in the useragent. This "0.1.0" means "Windows 7" because the Platform says "Windows". |
-| Sec-Ch-Ua-Arch              | “x86”                                                                                        | Yes      | The only way to determine a MacOS system is running an M1/M2 (ARM) instead of an Intel CPU                                               |
-| Sec-Ch-Ua-Bitness           | “64”                                                                                         | Yes      | Often not present in the useragent                                                                                                       |
-| Sec-CH-UA-Form-Factor       | “Mobile”                                                                                     | Yes      | New in the specification, in July 2023 no browsers supported this yet.                                                                   |
+| Sec-Ch-Ua-Platform          | "Windows"                                                                                    | Yes      | Needed in the very common case of bad version info in the useragent.                                                                     |
+| Sec-Ch-Ua-Platform-Version  | "0.1.0"                                                                                      | Yes      | Needed in the very common case of bad version info in the useragent. This "0.1.0" means "Windows 7" because the Platform says "Windows". |
+| Sec-Ch-Ua-Arch              | "x86"                                                                                        | Yes      | The only way to determine a MacOS system is running an M1/M2 (ARM) instead of an Intel CPU                                               |
+| Sec-Ch-Ua-Bitness           | "64"                                                                                         | Yes      | Often not present in the useragent                                                                                                       |
+| Sec-CH-UA-Form-Factors      | "Mobile"                                                                                     | Yes      | New in the specification, in July 2023 no browsers supported this yet.                                                                   |
 | Sec-Ch-Ua-Model             | "Nokia 7.2"                                                                                  | Yes      | Often not present in the useragent (brand and device info).                                                                              |
 | Sec-Ch-Ua-Wow64             | ?0                                                                                           | No       | The only thing this says is that this is Windows (use Platform) and that it is 32 bit software running on a 64 bit system.               |
 

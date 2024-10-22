@@ -5,6 +5,8 @@ NEXT RELEASE
 ===
 - New/improved detections:
   - ...
+- Analyzer:
+    - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
 v7.28.1
 ===

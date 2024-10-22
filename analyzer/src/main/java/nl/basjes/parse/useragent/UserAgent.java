@@ -154,7 +154,7 @@ public interface UserAgent extends Serializable {
     String UACLIENT_HINT_BRANDS                 = "UAClientHintBrands";
     String UACLIENT_HINT_ARCHITECTURE           = "UAClientHintArchitecture";
     String UACLIENT_HINT_BITNESS                = "UAClientHintBitness";
-    String UACLIENT_HINT_FORMFACTOR             = "UAClientHintFormFactor";
+    String UACLIENT_HINT_FORMFACTORS            = "UAClientHintFormFactors";
     String UACLIENT_HINT_FULL_VERSION           = "UAClientHintFullVersion";
     String UACLIENT_HINT_FULL_VERSION_LIST      = "UAClientHintFullVersionList";
     String UACLIENT_HINT_MOBILE                 = "UAClientHintMobile";

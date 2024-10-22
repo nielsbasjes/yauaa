@@ -36,7 +36,7 @@ import nl.basjes.parse.useragent.clienthints.ClientHintsAnalyzer;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactor;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactors;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
@@ -255,7 +255,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
         addHeaderSpecification(ParseSecChUa                .getHeaderSpecification());
         addHeaderSpecification(ParseSecChUaArch            .getHeaderSpecification());
         addHeaderSpecification(ParseSecChUaBitness         .getHeaderSpecification());
-        addHeaderSpecification(ParseSecChUaFormFactor      .getHeaderSpecification());
+        addHeaderSpecification(ParseSecChUaFormFactors     .getHeaderSpecification());
         addHeaderSpecification(ParseSecChUaFullVersion     .getHeaderSpecification());
         addHeaderSpecification(ParseSecChUaFullVersionList .getHeaderSpecification());
         addHeaderSpecification(ParseSecChUaMobile          .getHeaderSpecification());

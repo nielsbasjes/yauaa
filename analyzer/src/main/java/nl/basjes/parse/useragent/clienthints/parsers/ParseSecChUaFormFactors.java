@@ -24,22 +24,22 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ParseSecChUaFormFactor implements CHParser {
+public class ParseSecChUaFormFactors implements CHParser {
 
-    public static final String HEADER_FIELD       = "Sec-CH-UA-Form-Factor";
-    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factor";
+    public static final String HEADER_FIELD       = "Sec-CH-UA-Form-Factors";
+    public static final String HEADER_SPEC_URL    = "https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factors";
     public static final String HEADER_SPEC        = "The Sec-CH-UA-Form-Factor request header field gives a server information about the user agent's form-factor.";
-    public static final String FIELD_NAME         = "secChUaFormFactor";
+    public static final String FIELD_NAME         = "secChUaFormFactors";
 
-    public ParseSecChUaFormFactor() {
+    public ParseSecChUaFormFactors() {
         // Nothing to do right now
     }
 
     //   From https://wicg.github.io/ua-client-hints/#http-ua-hints
     //
-    //    3.4. The 'Sec-CH-UA-Form-Factor' Header Field
+    //    3.4. The 'Sec-CH-UA-Form-Factors' Header Field
 
-    //    The Sec-CH-UA-Form-Factor request header field gives a server information about the user agent's form-factor.
+    //    The Sec-CH-UA-Form-Factors request header field gives a server information about the user agent's form-factors.
     //    It is a Structured Header whose value MUST be a list [RFC8941]. In order to avoid providing additional
     //    fingerprinting entropy, the header’s values MUST be given in lexical order, and values are case-sensitive.
     //
@@ -66,7 +66,7 @@ public class ParseSecChUaFormFactor implements CHParser {
     //
     //    The header’s ABNF is:
     //
-    //    Sec-CH-UA-Form-Factor = sf-list
+    //    Sec-CH-UA-Form-Factors = sf-list
 
     @Nonnull
     @Override

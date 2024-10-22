@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.clienthints.parsers.CHParser;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactor;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactors;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
@@ -273,11 +273,11 @@ class TestClientHintsParsing {
 
     // ------------------------------------------
 
-    private static final RandomizeCase SEC_CH_UA_FORMFACTOR = new RandomizeCase(ParseSecChUaFormFactor.HEADER_FIELD);
+    private static final RandomizeCase SEC_CH_UA_FORMFACTORS = new RandomizeCase(ParseSecChUaFormFactors.HEADER_FIELD);
 
     @Test
     void testSecChUaFormfactor() {
-        ClientHints clientHints = parse(SEC_CH_UA_FORMFACTOR, "\"Mobile\", \"EInk\"");
+        ClientHints clientHints = parse(SEC_CH_UA_FORMFACTORS, "\"Mobile\", \"EInk\"");
         List<String> formFactors = clientHints.getFormFactors();
         assertNotNull(formFactors);
         assertTrue(formFactors.contains("Mobile"));
@@ -286,27 +286,27 @@ class TestClientHintsParsing {
 
     @Test
     void testSecChUaFormfactorEmpty() {
-        assertNull(parse(SEC_CH_UA_FORMFACTOR, "\"\"").getFormFactors());
+        assertNull(parse(SEC_CH_UA_FORMFACTORS, "\"\"").getFormFactors());
     }
 
     @Test
     void testSecChUaFormfactorBadValueNoQuotes() {
-        assertNull(parse(SEC_CH_UA_FORMFACTOR, "xxx").getFormFactors());
+        assertNull(parse(SEC_CH_UA_FORMFACTORS, "xxx").getFormFactors());
     }
 
     @Test
     void testSecChUaFormfactorBadValueOneQuoteLeft() {
-        assertNull(parse(SEC_CH_UA_FORMFACTOR, "\"xxx").getFormFactors());
+        assertNull(parse(SEC_CH_UA_FORMFACTORS, "\"xxx").getFormFactors());
     }
 
     @Test
     void testSecChUaFormfactorBadValueOneQuoteRight() {
-        assertNull(parse(SEC_CH_UA_FORMFACTOR, "xxx\"").getFormFactors());
+        assertNull(parse(SEC_CH_UA_FORMFACTORS, "xxx\"").getFormFactors());
     }
 
     @Test
     void testSecChUaFormfactorNull() {
-        assertNull(parse(SEC_CH_UA_FORMFACTOR, null).getFormFactors());
+        assertNull(parse(SEC_CH_UA_FORMFACTORS, null).getFormFactors());
     }
 
     // ------------------------------------------

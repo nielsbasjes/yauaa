@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactor;
+import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactors;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
@@ -81,7 +81,7 @@ public class RequestHeaders {
         putIfNotNull(result, ParseSecChUa.HEADER_FIELD,                 secChUa);
         putIfNotNull(result, ParseSecChUaArch.HEADER_FIELD,             secChUaArch);
         putIfNotNull(result, ParseSecChUaBitness.HEADER_FIELD,          secChUaBitness);
-        putIfNotNull(result, ParseSecChUaFormFactor.HEADER_FIELD,       secChUaFormFactor);
+        putIfNotNull(result, ParseSecChUaFormFactors.HEADER_FIELD,       secChUaFormFactor);
         putIfNotNull(result, ParseSecChUaFullVersion.HEADER_FIELD,      secChUaFullVersion);
         putIfNotNull(result, ParseSecChUaFullVersionList.HEADER_FIELD,  secChUaFullVersionList);
         putIfNotNull(result, ParseSecChUaMobile.HEADER_FIELD,           secChUaMobile);
