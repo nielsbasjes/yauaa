@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "$ref": "#/definitions/Yauaa",
+  "id": "https://yauaa.basjes.nl/v1/YauaaConfig.json",
+  "title": "Yauaa config file with matching rules, lookups/sets and tests",
+  "description": "This file can contain a mix of rules and tests that define the patterns Yauaa must respond to",
+  "definitions": {
+    "Yauaa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "config": {
+          "type": "array",
+          "description": "The collection of all Yauaa config entries",
+          "items": {
+            "$ref": "#/definitions/Config"
+          }
+        }
+      },
+      "required": [
+        "config"
+      ],
+      "title": "Yauaa config file",
+      "description": "This file can contain a mix of rules and tests that define the patterns Yauaa must respond to"
+    },
+    "Config": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lookup": {
+          "$ref": "#/definitions/Lookup"
+        },
+        "set": {
+          "$ref": "#/definitions/Set"
+        },
+        "matcher": {
+          "$ref": "#/definitions/Matcher"
+        },
+        "test": {
+          "$ref": "#/definitions/Test"
+        }
+      },
+      "required": [],
+      "title": "Config",
+      "description": "The collection of all Yauaa config entries"
+    },
+    "Lookup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the lookup as it must be referenced in matcher rules."
+        },
+        "map": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "description": "A mapping from a key to the provided value."
+          },
+          "description": "The key-value map"
+        },
+        "merge": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "The name of another lookup that must be merged."
+          },
+          "description": "A set of lookup names to merge"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Lookup",
+      "description": "A Lookup maps a provided input value to the shows output value."
+    },
+    "Set": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the set as it must be referenced in matcher rules."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "A value in the set."
+          },
+          "description": "A set of values"
+        },
+        "merge": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "The name of another set or lookup that must be merged. If it is a lookup then the keys of the lookup are merged into the set."
+          },
+          "description": "A set of set/lookup names to merge"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Set",
+      "description": "A collection of values that can be used in pattern detection"
+    },
+    "Matcher": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["only", "verbose"]
+          }
+        },
+        "variable": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A set of patterns that are (if found) assigned to a variable name to be used by later rules. If any of the patterns is not found then the entire Matcher is skipped."
+        },
+        "require": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A set of patterns that must be found. If any of the patterns is not found then the entire Matcher is skipped."
+        },
+        "extract": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A set of patterns that are (if found) assigned to the final property at the provided confidence. If any of the patterns is not found then the entire Matcher is skipped."
+        }
+      },
+      "required": [
+        "extract"
+      ],
+      "title": "Matcher",
+      "description": "A single matcher that either matches all underlying requirements and extracts some values, or does nothing."
+    },
+    "Test": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the test (optional)."
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [],
+          "properties": {
+            "user_agent_string":            { "type": "string", "description": "The 'User-Agent' header field contains information about the user agent originating the request." },
+            "User-Agent":                   { "type": "string", "description": "The 'User-Agent' header field contains information about the user agent originating the request." },
+            "Sec-Ch-Ua":                    { "type": "string", "description": "The Sec-CH-UA request header field gives a server information about a user agent's branding and version." },
+            "Sec-Ch-Ua-Arch":               { "type": "string", "description": "The Sec-CH-UA-Arch request header field gives a server information about the architecture of the platform on which a given user agent is executing." },
+            "Sec-Ch-Ua-Bitness":            { "type": "string", "description": "The Sec-CH-UA-Bitness request header field gives a server information about the bitness of the architecture of the platform on which a given user agent is executing." },
+            "Sec-CH-UA-Form-Factors":       { "type": "string", "description": "The Sec-CH-UA-Form-Factors request header field gives a server information about the user agent's form-factors." },
+            "Sec-Ch-Ua-Full-Version":       { "type": "string", "description": "The Sec-CH-UA-Full-Version request header field gives a server information about the user agent&rsquo;s full version. Sec-CH-UA-Full-Version is deprecated and will be removed in the future. Developers should use Sec-CH-UA-Full-Version-List instead." },
+            "Sec-Ch-Ua-Full-Version-List":  { "type": "string", "description": "The Sec-CH-UA-Full-Version-List request header field gives a server information about the full version for each brand in its brands list." },
+            "Sec-Ch-Ua-Mobile":             { "type": "string", "description": "The Sec-CH-UA-Mobile request header field gives a server information about whether or not a user agent prefers a 'mobile' user experience." },
+            "Sec-Ch-Ua-Model":              { "type": "string", "description": "The Sec-CH-UA-Model request header field gives a server information about the device on which a given user agent is executing." },
+            "Sec-Ch-Ua-Platform":           { "type": "string", "description": "The Sec-CH-UA-Platform request header field gives a server information about the platform on which a given user agent is executing. Its value SHOULD match one of the following common platform values: 'Android', 'Chrome OS', 'iOS', 'Linux', 'macOS', 'Windows', or 'Unknown'." },
+            "Sec-Ch-Ua-Platform-Version":   { "type": "string", "description": "The Sec-CH-UA-Platform-Version request header field gives a server information about the platform version on which a given user agent is executing." },
+            "Sec-Ch-Ua-WoW64":              { "type": "string", "description": "The Sec-CH-UA-WoW64 request header field gives a server information about whether or not a user agent binary is running in 32-bit mode on 64-bit Windows." }
+          },
+          "title": "Input",
+          "description": "The provided input that is to be fed into Yauaa."
+        },
+        "expected": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [],
+          "title": "Expected",
+          "description": "The expected output from Yauaa assuming the provided input."
+        }
+      },
+      "required": [
+        "input",
+        "expected"
+      ],
+      "title": "Test",
+      "description": "A test to ensure given the defined input the expected final values all appear."
+    }
+  }
+}
