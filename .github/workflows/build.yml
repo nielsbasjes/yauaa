@@ -43,7 +43,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - name: 'Setup: Install JDK 8, 11, 17, 21 & 22'
+    - name: 'Setup: Install JDK 8, 11, 17, 21 & 23'
       uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
       with:
         distribution: 'temurin'
@@ -51,12 +51,12 @@ jobs:
           8
           11
           17
-          22
+          23
           21
       # NOTE: The last one in the list is the version used to run Maven in!
 
     - name: 'Build Yauaa'
-      run: ./mvnw clean install -PdisableDockerHubUsages -PJava22
+      run: ./mvnw clean install -PdisableDockerHubUsages -PJava23
 
     - name: 'Codecov'
       uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
@@ -71,7 +71,7 @@ jobs:
         mkdir -p ../ReproducibleRebuildInDifferentDirectory
         cp -a . ../ReproducibleRebuildInDifferentDirectory
         cd ../ReproducibleRebuildInDifferentDirectory
-        ./mvnw clean verify -PskipQuality -PartifactCompare -PJava22
+        ./mvnw clean verify -PskipQuality -PartifactCompare -PJava23
         # Remove the just installed artifacts to avoid blowing up the ~/.m2 cache.
         rm -rf ~/.m2/repository/nl/basjes/parse/useragent/
 
