@@ -18,7 +18,7 @@ FROM ubuntu:24.04
 
 WORKDIR /root
 
-ENV INSIDE_DOCKER Yes
+ENV INSIDE_DOCKER=Yes
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -72,11 +72,18 @@ RUN apt-get -q install -y --no-install-recommends \
      && apt clean cache
 
 ###
+# Install the latest JDK if not an LTS version (needed for Trino)
+###
+ENV NON_LTS_JDK 23
+RUN wget "https://download.oracle.com/java/${NON_LTS_JDK}/latest/jdk-${NON_LTS_JDK}_linux-x64_bin.deb"
+RUN apt install "./jdk-${NON_LTS_JDK}_linux-x64_bin.deb"
+
+###
 # The update-java-alternatives uses the config files like /usr/lib/jvm/.java-1.8.0-openjdk-amd64.jinfo
 # Some of these files contain a reference to mozilla-javaplugin.so which we do not need AND which does not exist
 # in this docker image. So we remove this reference as it will give a needless warning every time we switch JDK.
 ###
-RUN sed -i '/^plugin mozilla-javaplugin.so.*$/d' /usr/lib/jvm/.java-*
+RUN sed -i '/^plugin mozilla-javaplugin.so.*$/d' /usr/lib/jvm/.*.jinfo
 
 ###
 # Set the locale ( see https://stackoverflow.com/a/28406007/114196 )
@@ -89,7 +96,7 @@ ENV LC_ALL en_US.UTF-8
 
 # --------------------------------
 # Install Maven ( https://maven.apache.org/download.cgi )
-ENV MAVEN_VERSION=3.9.6
+ENV MAVEN_VERSION=3.9.9
 RUN mkdir -p /usr/local/apache-maven
 WORKDIR /usr/local/
 RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
