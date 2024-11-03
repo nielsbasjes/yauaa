@@ -31,7 +31,9 @@ fi
 echo "Generating: ${OUTPUT}";
 
 (
-echo '# =============================================
+echo '
+# $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
+# =============================================
 # THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
 # =============================================
 #

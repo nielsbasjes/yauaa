@@ -53,6 +53,7 @@ In general a field will receive a value from multiple matchers; the value with t
 The overall structure is this:
 
 ```yaml
+# $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
 config:
 - lookup:
     name: 'lookupname'
@@ -87,6 +88,7 @@ config:
     options:
     - 'verbose'
     - 'init'
+    - 'only'
     input:
       user_agent_string: 'Useragent'
     expected:

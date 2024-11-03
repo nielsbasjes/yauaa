@@ -104,7 +104,8 @@ done
 ) > "${FILE_CODES3}"
 
 (
-cat <<End-of-message
+cat <<"End-of-message"
+# $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
 # =============================================
 # THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
 # =============================================
