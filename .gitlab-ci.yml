@@ -26,6 +26,5 @@ maven-build:
   script:
     # Install the needed LTS JDKs that can be used by toolchains
     - apt-get update -qq && apt-get install -qq -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk
-    - mkdir -p ${HOME}/.m2 && cp ./.gitlab/toolchains.xml ${HOME}/.m2/
     # And build it.
     - ./mvnw clean verify -PdisableDockerHubUsages -B
