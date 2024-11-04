@@ -3,6 +3,9 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Build
+    - Require JDK 23 installed for Trino support.
+    - Leverage new toolchains plugin: no longer needs toolchains.xml.
 - New/improved detections:
   - ...
 - Analyzer:

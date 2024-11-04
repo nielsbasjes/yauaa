@@ -38,9 +38,6 @@ alias switch-jdk21="__INTERNAL__SwitchJDK 1.21.0 ; export JDK_VERSION=JDK-21"
 
 switch-jdk21
 
-info "Generating the ~/.m2/toolchains.xml for this docker image"
-(cd "${HOME}" && mvn toolchains:generate-jdk-toolchains-xml -Dtoolchain.file="${HOME}/.m2/toolchains.xml" )
-
 . "/usr/lib/git-core/git-sh-prompt"
 # shellcheck disable=SC2154
 # shellcheck disable=SC1083

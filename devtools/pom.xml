@@ -79,56 +79,40 @@
             <id>Ensure ToolChain for JDK 8 is available</id>
             <phase>validate</phase>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
             <configuration>
-              <toolchains>
-                <jdk>
-                  <version>8</version>
-                </jdk>
-              </toolchains>
+              <version>[1.8,1.9)</version>
             </configuration>
           </execution>
           <execution>
             <id>Ensure ToolChain for JDK 11 is available</id>
             <phase>validate</phase>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
             <configuration>
-              <toolchains>
-                <jdk>
-                  <version>11</version>
-                </jdk>
-              </toolchains>
+              <version>[11,12)</version>
             </configuration>
           </execution>
           <execution>
             <id>Ensure ToolChain for JDK 17 is available</id>
             <phase>validate</phase>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
             <configuration>
-              <toolchains>
-                <jdk>
-                  <version>17</version>
-                </jdk>
-              </toolchains>
+              <version>[17,18)</version>
             </configuration>
           </execution>
           <execution>
             <id>Ensure ToolChain for JDK 21 is available</id>
             <phase>validate</phase>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
             <configuration>
-              <toolchains>
-                <jdk>
-                  <version>21</version>
-                </jdk>
-              </toolchains>
+              <version>[21,22)</version>
             </configuration>
           </execution>
         </executions>

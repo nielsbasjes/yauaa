@@ -127,17 +127,13 @@
         <executions>
           <execution>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
+            <configuration>
+              <version>[23,24)</version>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <toolchains>
-            <jdk>
-              <version>22</version>
-            </jdk>
-          </toolchains>
-        </configuration>
       </plugin>
 
       <plugin>
