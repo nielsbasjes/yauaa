@@ -45,17 +45,13 @@
         <executions>
           <execution>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
+            <configuration>
+              <version>${integrationTestingJDKRange}</version>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <toolchains>
-            <jdk>
-              <version>${integrationTestingJDK}</version>
-            </jdk>
-          </toolchains>
-        </configuration>
       </plugin>
 
       <plugin>

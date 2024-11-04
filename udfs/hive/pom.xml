@@ -97,18 +97,14 @@
         <executions>
           <execution>
             <goals>
-              <goal>toolchain</goal>
+              <goal>select-jdk-toolchain</goal>
             </goals>
+            <configuration>
+              <!-- Although the Hive UDF must be Java 8 code, we still need Java 11 because of some build plugins. -->
+              <version>[11,12)</version>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <toolchains>
-            <jdk>
-              <!-- Although the Hive UDF must be Java 8 code, we still need Java 11 because of some build plugins. -->
-              <version>11</version>
-            </jdk>
-          </toolchains>
-        </configuration>
       </plugin>
 
 
