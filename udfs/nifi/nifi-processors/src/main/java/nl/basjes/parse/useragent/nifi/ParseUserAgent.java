@@ -20,7 +20,6 @@ package nl.basjes.parse.useragent.nifi;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
-import org.apache.nifi.annotation.behavior.EventDriven;
 import org.apache.nifi.annotation.behavior.ReadsAttribute;
 import org.apache.nifi.annotation.behavior.ReadsAttributes;
 import org.apache.nifi.annotation.behavior.SideEffectFree;
@@ -49,7 +48,6 @@ import java.util.TreeMap;
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_HEADER;
 import static nl.basjes.parse.useragent.nifi.ParseUserAgent.USERAGENTSTRING_ATTRIBUTENAME;
 
-@EventDriven
 @SideEffectFree
 @Tags({"logs", "useragent", "webanalytics"})
 @CapabilityDescription("Extract attributes from the UserAgent string.")
