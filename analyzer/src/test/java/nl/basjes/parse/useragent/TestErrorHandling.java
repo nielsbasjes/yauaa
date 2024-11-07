@@ -81,7 +81,7 @@ class TestErrorHandling {
     void checkFileIsNotAMap() {
         runTest(
             "classpath*:BadDefinitions/FileIsNotAMap.yaml",
-            containsString("Yaml config problem.(FileIsNotAMap.yaml:20): The value should be a sequence but it is a mapping"));
+            containsString("Yaml config problem.(FileIsNotAMap.yaml:21): The value should be a sequence but it is a mapping"));
     }
 
     @Test
