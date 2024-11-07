@@ -114,8 +114,9 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["only", "verbose"]
-          }
+            "enum": ["verbose"]
+          },
+          "description": "Special flags for use during development: verbose=Show much more output. All are optional and are to be used during development only."
         },
         "variable": {
           "type": "array",
@@ -149,6 +150,14 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["only", "init" ,"verbose"]
+          },
+          "description": "Special flags for use during development: only=only run this single test, init=Ignore the current expectations and output the initialization for this testcase, verbose=Show much more output. All are optional and are to be used during development only."
+        },
         "name": {
           "type": "string",
           "description": "The name of the test (optional)."
