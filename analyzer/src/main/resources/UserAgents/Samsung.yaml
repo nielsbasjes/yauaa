@@ -36,6 +36,7 @@ config:
     - 'agent.product.name="Safari"'
     extract:
     - 'DeviceClass                         :      101 :"Tablet"'
+    - 'DeviceName                          :      314 :"Samsung Tablet"'
 
 - matcher:
     require:
@@ -43,6 +44,7 @@ config:
     - 'agent.product.name="Mobile Safari"'
     extract:
     - 'DeviceClass                         :      101 :"Phone"'
+    - 'DeviceName                          :      314 :"Samsung Phone"'
 
 #From: https://en.wikipedia.org/wiki/Samsung_Galaxy#Variants
 #Variants
@@ -988,7 +990,7 @@ config:
       User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/17.0 Chrome/96.0.4664.104 Safari/537.36'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Samsung Browser'
+      DeviceName                           : 'Samsung Tablet'
       DeviceBrand                          : 'Samsung'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
@@ -2248,7 +2250,7 @@ config:
       User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/21.0 Chrome/110.0.5481.154 Safari/537.36'
     expected:
       DeviceClass                          : 'Tablet'
-      DeviceName                           : 'Samsung Browser'
+      DeviceName                           : 'Samsung Tablet'
       DeviceBrand                          : 'Samsung'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
