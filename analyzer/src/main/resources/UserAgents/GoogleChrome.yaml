@@ -555,8 +555,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :@Chrome.version'
-    - 'WebviewAppName                      :       10 :NormalizeBrand[@WebViewAppName]'
-    - 'WebviewAppVersion                   :       10 :@WebViewApp.version'
+    - 'WebviewAppName                      :       12 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :       12 :@WebViewApp.version'
 
 - matcher:
     variable:
@@ -585,8 +585,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       11 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
-    - 'WebviewAppVersion                   :       11 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       13 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
+    - 'WebviewAppVersion                   :       13 :@WebViewProduct.version'
 
 - matcher:
     variable:
@@ -595,8 +595,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       12 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
-    - 'WebviewAppVersion                   :       12 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       14 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
+    - 'WebviewAppVersion                   :       14 :@WebViewProduct.version'
 
 
 - matcher:
@@ -608,8 +608,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       12 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
-    - 'WebviewAppVersion                   :       12 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       14 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
+    - 'WebviewAppVersion                   :       14 :@WebViewProduct.version'
 
 - matcher:
     require:
@@ -620,8 +620,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       12 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
-    - 'WebviewAppVersion                   :       12 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       14 :LookUp[BrowserTagToNameMapping;@WebViewProduct.name]'
+    - 'WebviewAppVersion                   :       14 :@WebViewProduct.version'
 
 - matcher:
     variable:
@@ -633,23 +633,13 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :@Chrome.version'
-    - 'WebviewAppName                      :       11 :LookUp[KnownWebviewAppNames;@WebViewProduct.name][[2]]'
-    - 'WebviewAppVersion                   :       11 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       13 :LookUp[KnownWebviewAppNames;@WebViewProduct.name][[2]]'
+    - 'WebviewAppVersion                   :       13 :@WebViewProduct.version'
 
 - matcher:
     extract:
-    - 'WebviewAppName                      :       12 :LookUp[KnownWebviewAppNames;agent.(1)product.name][[2]]'
-    - 'WebviewAppVersion                   :       12 :agent.(1)product.version'
-
-- matcher:
-    variable:
-    - 'WebViewProduct                      :agent.product.name="Version"^>>.name="Chrome"^<'
-    extract:
-    - 'AgentClass                          :     2500 :"Browser Webview"'
-    - 'AgentName                           :     2500 :"Chrome Webview"'
-    - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       11 :@WebViewProduct.name'
-    - 'WebviewAppVersion                   :       11 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       14 :LookUp[KnownWebviewAppNames;agent.(1)product.name][[2]]'
+    - 'WebviewAppVersion                   :       14 :agent.(1)product.version'
 
 - matcher:
     variable:
@@ -658,8 +648,18 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       12 :LookUp[KnownWebviewAppNames;@WebViewProduct.name][[2]]'
-    - 'WebviewAppVersion                   :       12 :@WebViewProduct.version'
+    - 'WebviewAppName                      :       13 :@WebViewProduct.name'
+    - 'WebviewAppVersion                   :       13 :@WebViewProduct.version'
+
+- matcher:
+    variable:
+    - 'WebViewProduct                      :agent.product.name="Version"^>>.name="Chrome"^<'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
+    - 'WebviewAppName                      :       14 :LookUp[KnownWebviewAppNames;@WebViewProduct.name][[2]]'
+    - 'WebviewAppVersion                   :       14 :@WebViewProduct.version'
 
 
 - matcher:
@@ -671,8 +671,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       13 :LookUp[KnownWebviewAppNames;@WebViewApp][[2]]'
-    - 'WebviewAppVersion                   :       13 :"<<<null>>>"'
+    - 'WebviewAppName                      :       15 :LookUp[KnownWebviewAppNames;@WebViewApp][[2]]'
+    - 'WebviewAppVersion                   :       15 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -683,8 +683,8 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :agent.product.name="Chrome"^.version'
-    - 'WebviewAppName                      :       13 :LookUp[KnownWebviewAppNames;@WebViewApp][[2]]'
-    - 'WebviewAppVersion                   :       13 :@WebViewApp^.version'
+    - 'WebviewAppName                      :       15 :LookUp[KnownWebviewAppNames;@WebViewApp][[2]]'
+    - 'WebviewAppVersion                   :       15 :@WebViewApp^.version'
 
 # WebView UA in Lollipop and Above
 # In the newer versions of WebView, you can differentiate the WebView by looking for the wv field
@@ -717,8 +717,26 @@ config:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :@Chrome.version'
-    - 'WebviewAppName                      :        9 :NormalizeBrand[@WebViewAppName]'
-    - 'WebviewAppVersion                   :        9 :@WebViewApp.version'
+    - 'WebviewAppName                      :       10 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :       10 :@WebViewApp.version'
+
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>'
+    - 'WebViewAppName                      :@WebViewApp.name'
+    require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
+    - 'agent.product.comments.entry="wv"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :@Chrome.version'
+    - 'WebviewAppName                      :       11 :LookUp[BrowserTagToNameMapping;@WebViewAppName]'
+    - 'WebviewAppVersion                   :       10 :@WebViewApp.version'
 
 - matcher:
     variable:
@@ -736,6 +754,25 @@ config:
     - 'AgentName                           :     2500 :"Chrome Webview"'
     - 'AgentVersion                        :     2500 :@Chrome.version'
     - 'WebviewAppName                      :        8 :NormalizeBrand[@WebViewAppName]'
+    - 'WebviewAppVersion                   :        8 :@WebViewApp.version'
+
+
+- matcher:
+    variable:
+    - 'Chrome                              :agent.product.name="Chrome"^'
+    - 'WebViewApp                          :@Chrome>>'
+    - 'WebViewAppName                      :@WebViewApp.name'
+    require:
+    - 'IsNull[@WebViewAppName.key]'
+    - 'IsNull[@WebViewAppName.keyvalue]'
+    - '@WebViewAppName!="Safari"'
+    - '@WebViewAppName!="Mobile Safari"'
+    - 'agent.product.comments.entry="wv"'
+    extract:
+    - 'AgentClass                          :     2500 :"Browser Webview"'
+    - 'AgentName                           :     2500 :"Chrome Webview"'
+    - 'AgentVersion                        :     2500 :@Chrome.version'
+    - 'WebviewAppName                      :        9 :LookUp[BrowserTagToNameMapping;@WebViewAppName]'
     - 'WebviewAppVersion                   :        8 :@WebViewApp.version'
 
 
