@@ -231,7 +231,9 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         "Fuchsia Device",
         "iOS Device",
         "Desktop",
-        "Linux Desktop"
+        "Linux Desktop",
+        "Samsung Phone",
+        "Samsung Tablet"
     );
 
     public void improveDeviceBrandName(MutableUserAgent userAgent, ClientHints clientHints) {

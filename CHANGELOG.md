@@ -7,7 +7,8 @@ NEXT RELEASE
     - Require JDK 23 installed for Trino support.
     - Leverage new toolchains plugin: no longer needs toolchains.xml.
 - New/improved detections:
-  - ...
+    - Do tag lookups for Webviews (Yandex shoed wrong)
+    - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
 - Analyzer:
     - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 

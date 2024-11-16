@@ -856,6 +856,7 @@ config:
 
       # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName | OSVersion | OSMajorVersion| OSNameVersion | OSNameMajorVersion
       'Mozilla/5.0 (Linux; Android 10; K)'                      : 'Mobile|Android Mobile|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
+# NOTE: Chrome OS has a separate rule
 #      'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0)'                : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS|<<<null>>>|<<<null>>>|Chrome OS ??|Chrome OS ??'
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'               : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT|<<<null>>>|<<<null>>>|Windows NT ??|Windows NT ??'
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'         : 'Desktop|Macintosh|Apple|Desktop|Mac OS|>=10.15.7|>=10.15|Mac OS >=10.15.7|Mac OS >=10.15'
@@ -884,6 +885,7 @@ config:
     - '@ChromeProduct>.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
+    - 'IsNull[agent.product.name="SamsungBrowser"]' # The SamsungBrowser reports incorrect values when DEX is enabled
     extract:
     - 'DeviceClass                         :      500 :@UnifiedPlatform[[1]]'
     - 'DeviceName                          :   400001 :@UnifiedPlatform[[2]]'
@@ -894,6 +896,26 @@ config:
     - 'OperatingSystemVersionMajor         :   400001 :@UnifiedPlatform[[7]]'
     - 'OperatingSystemNameVersion          :   400001 :@UnifiedPlatform[[8]]'
     - 'OperatingSystemNameVersionMajor     :   400001 :@UnifiedPlatform[[9]]'
+    - 'OperatingSystemVersionBuild         :   400001 :"<<<null>>>"'
+
+# Samsung DEX (Desktop Experience) specific. This reports the Android phone as a Linux Desktop.
+- matcher:
+    variable:
+    - 'UnifiedPlatform                     :LookUp[ChromeReducedUnifiedPlatform;agent.(1)product]'
+    - 'ChromeProduct                       :agent.(3-4)product.name="Chrome"^'
+    - 'ChromeVersion                       :@ChromeProduct.version'
+    - 'ChromeMajorVersion                  :@ChromeVersion[1]'
+    require:
+    - 'agent.product.name="SamsungBrowser"'
+    - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
+    - '@ChromeVersion[2-]="0.0.0"'
+    - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
+    - '@ChromeProduct>.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
+    extract:
+    - 'OperatingSystemClass                :   400001 :"Mobile"'
+    - 'OperatingSystemName                 :   400001 :"Android"'
+    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400001 :"<<<null>>>"'
     - 'OperatingSystemVersionBuild         :   400001 :"<<<null>>>"'
 
 # Chrome OS specific:
