@@ -19,6 +19,10 @@ These are only the highlights for the last few releases, the full changelog can 
 - New/improved detections:
   - ...
 
+### Version v7.29.0
+- New/improved detections:
+  - ...
+
 ### Version v7.28.1
 - Build/Release:
   - Trino UDF was not released with 7.28.0
