@@ -3893,3 +3893,63 @@ config:
       AgentVersionMajor                    : '2'
       AgentNameVersion                     : 'Snorlax 2.6.1.2406090117_ios_build_1'
       AgentNameVersionMajor                : 'Snorlax 2'
+
+
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent#safari_ua_string
+# TODO: Safari on "Macintosh" with "Intel" with a "Mobile" tag ?!?!?! This is non standard!
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1'
+    expected:
+      DeviceClass                          : 'Mobile'           # Unknown what this really is (Mobile or Desktop).
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'          # Unknown what this really is (Mobile or Desktop).
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '17.5'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Safari 17.5'
+      AgentNameVersionMajor                : 'Safari 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '17.5'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Safari 17.5'
+      AgentNameVersionMajor                : 'Safari 17'

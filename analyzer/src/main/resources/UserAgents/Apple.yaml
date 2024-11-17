@@ -1676,9 +1676,8 @@ config:
     require:
       - 'agent.(1)product.name="Mozilla"'
       - 'agent.(2)product.name="AppleWebKit"'
-      - 'agent.(3)product.name="Version"'
-      - 'agent.(4)product.name="Safari"'
-      - 'IsNull[agent.(5)product.name]'
+      - 'agent.product.name="Version"'
+      - 'agent.product.name="Safari"'
       - '@MacOS.version="10_15_7"'
     extract:
       - 'OperatingSystemName                  : 21 : "Mac OS"'
