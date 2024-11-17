@@ -622,7 +622,7 @@ config:
 
 - matcher:
     variable:
-    - 'Name                                :agent.(1)product.(1)comments.entry.product.name[2-3]="Android TV"@'
+    - 'Name                                :agent.(1-3)product.(1)comments.entry.product.name[2-3]="Android TV"@'
     extract:
     - 'OperatingSystemClass                :     1100 :"Embedded"'
     - 'DeviceClass                         :     1100 :"Set-top box"'
@@ -989,3 +989,31 @@ config:
       AgentVersionMajor                    : '110'
       AgentNameVersion                     : 'Chrome 110'
       AgentNameVersionMajor                : 'Chrome 110'
+
+
+- test:
+    input:
+      User-Agent                           : 'TV Bro/1.0 Mozilla/5.0 (Linux; Android 11; SHIELD Android TV Build/RQ1A.210105.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/90.0.4430.91 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Nvidia Shield Android TV'
+      DeviceBrand                          : 'Nvidia'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RQ1A.210105.003'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '90.0'
+      LayoutEngineVersionMajor             : '90'
+      LayoutEngineNameVersion              : 'Blink 90.0'
+      LayoutEngineNameVersionMajor         : 'Blink 90'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'TV Bro'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'TV Bro 1.0'
+      AgentNameVersionMajor                : 'TV Bro 1'

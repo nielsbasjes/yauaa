@@ -232,6 +232,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         "iOS Device",
         "Desktop",
         "Linux Desktop",
+        "Unknown Set-top box",
         "Samsung Phone",
         "Samsung Tablet"
     );
