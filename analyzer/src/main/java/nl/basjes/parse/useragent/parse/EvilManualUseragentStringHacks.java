@@ -55,6 +55,11 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern STRIP_SURROUNDING_QUOTES =
         Pattern.compile("^'(.*)'$", Pattern.CASE_INSENSITIVE);
 
+    // As found with the Snorlax examples
+    // Using regex found here https://stackoverflow.com/a/475217/114196
+    private static final Pattern STRIP_BASE64_BLOCK =
+        Pattern.compile(" H@(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)@h ");
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -80,6 +85,7 @@ public final class EvilManualUseragentStringHacks {
         result = STRIP_SURROUNDING_QUOTES.matcher(result).replaceAll("$1");
         result = MISSING_COMMENT_BRACES.matcher(result).replaceAll("$1 ($2)$3");
         result = MISSING_COMMENT_BRACES_OPERA.matcher(result).replaceAll("$1 ($2)$3");
+        result = STRIP_BASE64_BLOCK.matcher(result).replaceAll(" ");
 
         // The NetType and Language tags as used by Tencent and ByteDance are hard to parse.
         // Some example snippets from Tencent/Alibaba style agents:

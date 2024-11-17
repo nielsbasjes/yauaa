@@ -9,6 +9,7 @@ NEXT RELEASE
 - New/improved detections:
     - Do tag lookups for Webviews (Yandex shoed wrong)
     - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
+    - Snorlax useragent with BASE64 encoded part
 - Analyzer:
     - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
