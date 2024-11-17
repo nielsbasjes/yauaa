@@ -48,6 +48,7 @@ config:
       'exal'                         : 'exal|exal'
       'Facebot Twitterbot'           : 'Facebook|Facebot Twitterbot'
       'feeder.co'                    : 'Feeder.co|Feeder.co bot'
+      'gitlab-runner'                : 'Gitlab|Gitlab CI Runner'
       'GnowitNewsbot'                : 'Gnowit|Gnowit Newsbot'
       'gocrawl'                      : 'GoCrawl|GoCrawl'
       'Guzzle'                       : 'Guzzle|Guzzle Http'
@@ -13145,4 +13146,32 @@ config:
       AgentVersionMajor                    : '??'
       AgentNameVersion                     : 'VirusTotalBot ??'
       AgentNameVersionMajor                : 'VirusTotalBot ??'
+
+
+# The gitlab runner connecting to my gitlab instance
+- test:
+    input:
+      User-Agent                           : 'gitlab-runner 17.5.3 (17-5-stable; go1.22.7; linux/amd64)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Gitlab CI Runner'
+      DeviceBrand                          : 'Gitlab'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'gitlab-runner'
+      LayoutEngineVersion                  : '17.5.3'
+      LayoutEngineVersionMajor             : '17'
+      LayoutEngineNameVersion              : 'gitlab-runner 17.5.3'
+      LayoutEngineNameVersionMajor         : 'gitlab-runner 17'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Gitlab-Runner'
+      AgentVersion                         : '17.5.3'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Gitlab-Runner 17.5.3'
+      AgentNameVersionMajor                : 'Gitlab-Runner 17'
 

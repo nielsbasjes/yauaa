@@ -12,6 +12,7 @@ NEXT RELEASE
     - Snorlax useragent with BASE64 encoded part
     - Devices from OX Tab, Xiaomi
     - Partially handle broken: Safari "Mobile" on Mac OS X
+    - Gitlab CI Runner
 - Analyzer:
     - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
