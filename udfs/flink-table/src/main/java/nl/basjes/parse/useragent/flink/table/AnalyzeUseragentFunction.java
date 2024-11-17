@@ -40,7 +40,9 @@ public class AnalyzeUseragentFunction extends ScalarFunction {
     private final List<String> allAllowedHeaders;
 
     /**
-     * Create a UserAgentAnalyzer that extracts all the fields
+     * Create a UserAgentAnalyzer that extracts all the fields.
+     * NOTE: This default constructor is needed to support PyFlink !!
+     *       See <a href="https://github.com/nielsbasjes/yauaa/issues/1563">this bug report</a>.
      */
     public AnalyzeUseragentFunction() {
         this(DEFAULT_PARSE_CACHE_SIZE, new ArrayList<>());
