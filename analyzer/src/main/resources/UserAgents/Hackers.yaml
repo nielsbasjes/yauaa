@@ -43,7 +43,7 @@ config:
                                                  # ${${env:NaN:-j}ndi${env:NaN:-:}${env:NaN:-l}dap
 
       "{{"                    : "Code Injection"
-      "}}"                    : "Code Injection"
+#      "}}"                    : "Code Injection"
       "curl "                 : "Code Injection"
       "wget "                 : "Code Injection"
       "bash'"                 : "Code Injection"
@@ -1080,3 +1080,61 @@ config:
       AgentNameVersion                     : 'Hacker'
       AgentNameVersionMajor                : 'Hacker'
       RemarkablePattern                    : 'Hacker'
+
+
+# A very strange useragent which is a false positive for Hacker classification
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; ELE-L29 Build/HUAWEIELE-L29; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/126.0.6478.134 Mobile Safari/537.36 hap/1110/huawei com.huawei.fastapp/13.5.1.300 fruitcrush.HUAWEI/1.0.4 ({"type":"shortcut","packageName":"com.huawei.android.launcher","extra":{"isNative":false,"scene":"dialog","original":{"type":"other","packageName":"fastappList"}}})'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ELE-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'HUAWEIELE-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '126.0'
+      LayoutEngineVersionMajor             : '126'
+      LayoutEngineNameVersion              : 'Blink 126.0'
+      LayoutEngineNameVersionMajor         : 'Blink 126'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'HUAWEI Quick App Center'
+      AgentVersion                         : '13.5.1.300'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'HUAWEI Quick App Center 13.5.1.300'
+      AgentNameVersionMajor                : 'HUAWEI Quick App Center 13'
+
+
+# Very similar to the previous one but not seen as a Hacker
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; ELE-L29 Build/HUAWEIELE-L29; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/126.0.6478.134 Mobile Safari/537.36 hap/1110/huawei com.huawei.fastapp/13.5.1.300 fruitcrush.HUAWEI/1.0.4 ({"packageName":"fastappList","type":"other","extra":"{}"})'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Huawei ELE-L29'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'HUAWEIELE-L29'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '126.0'
+      LayoutEngineVersionMajor             : '126'
+      LayoutEngineNameVersion              : 'Blink 126.0'
+      LayoutEngineNameVersionMajor         : 'Blink 126'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'HUAWEI Quick App Center'
+      AgentVersion                         : '13.5.1.300'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'HUAWEI Quick App Center 13.5.1.300'
+      AgentNameVersionMajor                : 'HUAWEI Quick App Center 13'

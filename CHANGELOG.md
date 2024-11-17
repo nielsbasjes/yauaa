@@ -13,6 +13,7 @@ NEXT RELEASE
     - Devices from OX Tab, Xiaomi
     - Partially handle broken: Safari "Mobile" on Mac OS X
     - Gitlab CI Runner
+    - HUAWEI Quick App Center (+ false positive of it being a Hacker)
 - Analyzer:
     - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
