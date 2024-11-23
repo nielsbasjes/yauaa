@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - Updated the list of Amazon devices (2023, 2024 models)
 
 v7.29.0
 ===

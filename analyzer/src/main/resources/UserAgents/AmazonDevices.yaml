@@ -1,3 +1,4 @@
+
 # $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
 # =============================================
 # THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
@@ -96,6 +97,7 @@ config:
       'KFOT' : 'Tablet|Amazon|Amazon Kindle Fire (2nd Gen - 2012)'
       'KFQUWI' : 'Tablet|Amazon|Amazon Fire 7 (12th gen - 2022)'
       'KFRAPWI' : 'Tablet|Amazon|Amazon Fire HD 8 (12th Gen - 2022) (3GB)'
+      'KFRASWI' : 'Tablet|Amazon|Amazon Fire HD 8 (12th Gen - 2024) (4GB)'
       'KFRAWI' : 'Tablet|Amazon|Amazon Fire HD 8 (12th Gen - 2022) (2GB)'
       'KFSAWA' : 'Tablet|Amazon|Amazon Fire HDX 8.9 (WAN) (4th Gen - 2014)'
       'KFSAWI' : 'Tablet|Amazon|Amazon Fire HDX 8.9 (Wi-Fi) (4th Gen - 2014)'
@@ -107,6 +109,7 @@ config:
       'KFTRPWI' : 'Tablet|Amazon|Amazon Fire HD 10 (11th Gen - 2021) (4GB)'
       'KFTRWI' : 'Tablet|Amazon|Amazon Fire HD 10 (11th Gen - 2021) (3GB)'
       'KFTT' : 'Tablet|Amazon|Amazon Kindle Fire HD 7 (2nd Gen - 2012)'
+      'KFTUWI' : 'Tablet|Amazon|Amazon Fire HD 10 (13th Gen - 2023)'
       'Kindle Fire' : 'Tablet|Amazon|Amazon Kindle Fire (1st Gen - 2011)'
       'SD4930UR' : 'Phone|Amazon|Amazon Fire Phone'
 
@@ -2624,6 +2627,47 @@ config:
 
 - matcher:
     require:
+    - 'agent.product.name="KFRASWI"'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 8 (12th Gen - 2024) (4GB)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Android"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="KFRASWI"'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 8 (12th Gen - 2024) (4GB)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 8 (12th Gen - 2024) (4GB)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemVersionBuild         :       12 :agent.(1)product.(1)comments.entry[1-2]="KFRASWI Build"@[3]'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 8 (12th Gen - 2024) (4GB)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-1]="KFRASWI"@[2]'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+
+
+- matcher:
+    require:
     - 'agent.product.name="KFRAWI"'
     extract:
     - 'DeviceClass                         :     1001 :"Tablet"'
@@ -3069,6 +3113,47 @@ config:
     - 'DeviceName                          :     1002 :"Amazon Kindle Fire HD 7 (2nd Gen - 2012)"'
     - 'DeviceBrand                         :     1002 :"Amazon"'
     - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-1]="KFTT"@[2]'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+
+
+- matcher:
+    require:
+    - 'agent.product.name="KFTUWI"'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 10 (13th Gen - 2023)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="Android"'
+    - 'agent.(1)product.(1)comments.entry.(1)product.name[1]="KFTUWI"'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 10 (13th Gen - 2023)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 10 (13th Gen - 2023)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemVersionBuild         :       12 :agent.(1)product.(1)comments.entry[1-2]="KFTUWI Build"@[3]'
+    - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
+
+- matcher:
+    require:
+    - 'IsNull[agent.product.name="Chrome"]'
+    extract:
+    - 'DeviceClass                         :     1001 :"Tablet"'
+    - 'DeviceName                          :     1002 :"Amazon Fire HD 10 (13th Gen - 2023)"'
+    - 'DeviceBrand                         :     1002 :"Amazon"'
+    - 'OperatingSystemVersionBuild         :       11 :agent.(1)product.(1)comments.entry[1-1]="KFTUWI"@[2]'
     - 'OperatingSystemName                 :     1002 :"FireOS"' # All known Amazon devices run FireOS (a tweaked Android)
 
 
