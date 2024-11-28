@@ -127,6 +127,23 @@ config:
 
       'TV Bro'                                      : 'Mobile App|TV Bro'
 
+      # https://play.google.com/store/apps/details?id=com.presearch
+      'Presearch'                                   : 'Browser|Presearch'
+
+
+- matcher:
+    variable:
+    - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
+    require:
+    - 'IsNull[@AgentTag^.version]'
+    extract:
+    - 'DeviceClass                         :        1 :"Mobile"'
+    - 'AgentClass                          :    13059 :@AgentTag[[1]]'
+    - 'AgentName                           :    13059 :@AgentTag[[2]]'
+    - 'AgentVersion                        :    13059 :"<<<null>>>"'
+    - 'WebviewAppName                      :    13059 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :    13059 :"<<<null>>>"'
+
 - matcher:
     variable:
     - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.product.(1)name]'
@@ -6371,3 +6388,30 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'NextCloud Android 3.24.2'
       AgentNameVersionMajor                : 'NextCloud Android 3'
+
+# https://play.google.com/store/apps/details?id=com.presearch
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36 Presearch (Tempest)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '123'
+      LayoutEngineVersionMajor             : '123'
+      LayoutEngineNameVersion              : 'Blink 123'
+      LayoutEngineNameVersionMajor         : 'Blink 123'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Presearch'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Presearch ??'
+      AgentNameVersionMajor                : 'Presearch ??'
