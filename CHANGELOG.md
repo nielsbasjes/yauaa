@@ -9,6 +9,7 @@ NEXT RELEASE
   - Presearch browser, Citrix WorxWeb
   - Very old Samsung Browser is a webview
   - Whitelabel "Safe" Browser apps (iOS): Ziggo, KPN, VandenBorre, F-Secure
+  - Handle "Windows 11.0" (the '.0' is very rare)
 
 v7.29.0
 ===

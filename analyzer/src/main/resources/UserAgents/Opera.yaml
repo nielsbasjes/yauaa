@@ -1288,7 +1288,7 @@ config:
 # Opera GX
 
 - test:
-    input:
+    input:                                                             # 11.0 is very very rare (because of the '.0')
       User-Agent                                 : 'Mozilla/5.0 (Windows 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 OPRGX/104.0.4480.100'
     expected:
       DeviceClass                                : 'Desktop'
@@ -1297,11 +1297,11 @@ config:
       DeviceCpu                                  : 'Intel x86_64'
       DeviceCpuBits                              : '64'
       OperatingSystemClass                       : 'Desktop'
-      OperatingSystemName                        : 'Windows'
-      OperatingSystemVersion                     : '??'
-      OperatingSystemVersionMajor                : '??'
-      OperatingSystemNameVersion                 : 'Windows ??'
-      OperatingSystemNameVersionMajor            : 'Windows ??'
+      OperatingSystemName                        : 'Windows NT'
+      OperatingSystemVersion                     : '11'
+      OperatingSystemVersionMajor                : '11'
+      OperatingSystemNameVersion                 : 'Windows 11'
+      OperatingSystemNameVersionMajor            : 'Windows 11'
       LayoutEngineClass                          : 'Browser'
       LayoutEngineName                           : 'Blink'
       LayoutEngineVersion                        : '104.0'
