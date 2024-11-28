@@ -4255,6 +4255,32 @@ config:
       AgentNameVersion                     : 'Aloha Browser 2.18.1'
       AgentNameVersionMajor                : 'Aloha Browser 2'
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Mobile Safari/537.36 AlohaBrowser/6.2.3'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '123'
+      LayoutEngineVersionMajor             : '123'
+      LayoutEngineNameVersion              : 'Blink 123'
+      LayoutEngineNameVersionMajor         : 'Blink 123'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Aloha Browser'
+      AgentVersion                         : '6.2.3'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'Aloha Browser 6.2.3'
+      AgentNameVersionMajor                : 'Aloha Browser 6'
+
 # Sleipnir (on Windows 10)
 - test:
     input:
