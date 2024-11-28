@@ -4036,6 +4036,38 @@ config:
       RemarkablePattern                    : 'Not a version'
 
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 13; Mobile; rv:88.0) Gecko/88.0 Firefox/88.0/TansoDL'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '88.0'
+      LayoutEngineVersionMajor             : '88'
+      LayoutEngineNameVersion              : 'Gecko 88.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 88'
+      LayoutEngineBuild                    : '88.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Firefox'
+      AgentVersion                         : '88.0'
+      AgentVersionMajor                    : '88'
+      AgentNameVersion                     : 'Firefox 88.0'
+      AgentNameVersionMajor                : 'Firefox 88'
+      WebviewAppName                       : 'Kode'
+      WebviewAppNameVersion                : 'Kode ??'
+      WebviewAppNameVersionMajor           : 'Kode ??'
+      RemarkablePattern                    : 'Not a version'
+
+
 # Cake browser (on Phone, Motorola/Google Nexus 6, Android 7.1.1)
 - test:
     input:

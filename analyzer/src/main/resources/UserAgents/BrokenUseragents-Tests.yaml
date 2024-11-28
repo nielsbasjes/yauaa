@@ -4042,3 +4042,35 @@ config:
       AgentNameVersion                     : 'Firefox 99.0esr'
       AgentNameVersionMajor                : 'Firefox 99'
 
+
+- test:
+    input:  # All versions are missing --> The result is a mess
+      User-Agent                           : 'Mozilla/ (Linux; Android) AppleWebKit/ (KHTML, like Gecko) Version/ Chrome/ Mobile Safari/ EdgA/ SearchCraft/'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'            # Chrome? Safari? Edge? SearchCraft?
+      AgentVersion                         : 'Chrome'            # Messy but cannot be done better
+      AgentVersionMajor                    : 'Chrome'            # Messy but cannot be done better
+      AgentNameVersion                     : 'Safari Chrome'     # Messy but cannot be done better
+      AgentNameVersionMajor                : 'Safari Chrome'     # Messy but cannot be done better
+      RemarkablePattern                    : 'Not a version'
+
+
+
+
+
