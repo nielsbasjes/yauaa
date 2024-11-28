@@ -7,6 +7,7 @@ NEXT RELEASE
   - Updated the list of Amazon devices (2023, 2024 models)
   - Fix phones with real browser name at the end (like AAB does)
   - Presearch browser
+  - Very old Samsung Browser is a webview
 
 v7.29.0
 ===
