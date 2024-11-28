@@ -6,7 +6,7 @@ NEXT RELEASE
 - New/improved detections:
   - Updated the list of Amazon devices (2023, 2024 models)
   - Fix phones with real browser name at the end (like AAB does)
-  - Presearch browser, Citrix WorxWeb
+  - Presearch browser, Citrix WorxWeb, Klarna, Budbee
   - Very old Samsung Browser is a webview
   - Whitelabel "Safe" Browser apps (iOS): Ziggo, KPN, VandenBorre, F-Secure
   - Handle "Windows 11.0" (the '.0' is very rare)
