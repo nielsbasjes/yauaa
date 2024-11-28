@@ -340,7 +340,7 @@ public interface UserAgent extends Serializable {
             String value = escapeYaml(field.getValue());
             sb.append(": '").append(value).append('\'');
 
-            if (showConfidence || comments != null) {
+            if (showConfidence || comments != null && !comments.isEmpty()) {
                 int l = value.length();
                 for (; l < maxValueLength + 4; l++) {
                     sb.append(' ');
