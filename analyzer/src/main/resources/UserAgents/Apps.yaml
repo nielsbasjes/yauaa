@@ -62,7 +62,9 @@ config:
       'Yammer'                                : 'Mobile App|Yammer'
 
       # F-secure app https://apps.apple.com/app/f-secure-safe/id572847748
-      'FSCDCSafe'                             : 'Mobile App|F-Secure'
+      'FSCDCSafe'                             : 'Browser|F-Secure'
+      'FSCDCSafe_nosms'                       : 'Browser|F-Secure'
+      'FSCDCSafe_sms'                         : 'Browser|F-Secure' # Educated guess
 
       'Bitwarden_Mobile'                      : 'Mobile App|Bitwarden Mobile'
 
@@ -121,7 +123,7 @@ config:
       'YJApp-ANDROID jp.co.yahoo.android.ybrowser'  : 'Browser|Yahoo! JAPAN Browser'
 
       # TikTok used to be called Musically
-      'Musical_LY'                                  : 'TikTok'
+      'Musical_LY'                                  : 'Mobile App|TikTok'
 
       'com.huawei.fastapp'                          : 'Mobile App|HUAWEI Quick App Center'
 
@@ -130,6 +132,7 @@ config:
       # https://play.google.com/store/apps/details?id=com.presearch
       'Presearch'                                   : 'Browser|Presearch'
 
+      'WorxWeb'                                     : 'Mobile App|Citrix WorxWeb'
 
 - matcher:
     variable:
@@ -202,11 +205,11 @@ config:
     variable:
     - 'AppNameTag:  agent.(1-30)product.(1)name="AppName"^.version'
     - 'AppVersion:  agent.(1-30)product.(1)name="app_version"^.version'
-    - 'AppName:     LookUp[NONWebViewAppNamesMapping;@AppNameTag]'
+    - 'AgentTag:     LookUp[NONWebViewAppNamesMapping;@AppNameTag]'
     extract:
     - 'DeviceClass                         :        1 :"Mobile"'
-    - 'AgentClass                          :    13064 :"Mobile App"'
-    - 'AgentName                           :    13064 :@AppName'
+    - 'AgentClass                          :    13064 :@AgentTag[[1]]'
+    - 'AgentName                           :    13064 :@AgentTag[[2]]'
     - 'AgentVersion                        :    13064 :@AppVersion'
     - 'WebviewAppName                      :    13064 :"<<<null>>>"'
     - 'WebviewAppVersion                   :    13064 :"<<<null>>>"'
@@ -217,14 +220,52 @@ config:
     variable:
     - 'AppNameTag:  agent.(1-30)product.(1)name="AppName"^.version'
     - 'AppVersion:  agent.(1-30)product.(1)name="AppVersion"^.version'
-    - 'AppName:     LookUp[NONWebViewAppNamesMapping;@AppNameTag]'
+    - 'AgentTag:    LookUp[NONWebViewAppNamesMapping;@AppNameTag]'
     extract:
     - 'DeviceClass                         :        1 :"Mobile"'
-    - 'AgentClass                          :    13065 :"Mobile App"'
-    - 'AgentName                           :    13065 :@AppName'
+    - 'AgentClass                          :    13065 :@AgentTag[[1]]'
+    - 'AgentName                           :    13065 :@AgentTag[[2]]'
     - 'AgentVersion                        :    13065 :@AppVersion'
     - 'WebviewAppName                      :    13065 :"<<<null>>>"'
     - 'WebviewAppVersion                   :    13065 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(2)product.(1)name="AppleWebKit"'
+    - 'agent.(4)product.(1)name="Mobile"'
+    - 'agent.(5)product.(1)name="Version"'
+    - 'agent.(6)product.(1)name="Safari"'
+    variable:
+    - 'AppName:     agent.(3)product.(1)name'
+    - 'AppVersion:  agent.(3)product.(1)version'
+    extract:
+    - 'DeviceClass                         :        1 :"Mobile"'
+    - 'AgentClass                          :    13066 :"Browser"' # This pattern is usually a customized browser
+    - 'AgentName                           :    13066 :@AppName'
+    - 'AgentVersion                        :    13066 :@AppVersion'
+    - 'WebviewAppName                      :    13066 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :    13066 :"<<<null>>>"'
+
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="Mozilla"'
+    - 'agent.(2)product.(1)name="AppleWebKit"'
+    - 'agent.(4)product.(1)name="Mobile"'
+    - 'agent.(5)product.(1)name="Version"'
+    - 'agent.(6)product.(1)name="Safari"'
+    variable:
+    - 'AppNameTag:  agent.(3)product.(1)name'
+    - 'AppVersion:  agent.(3)product.(1)version'
+    - 'AgentTag:    LookUp[NONWebViewAppNamesMapping;@AppNameTag]'
+    extract:
+    - 'DeviceClass                         :        1 :"Mobile"'
+    - 'AgentClass                          :    13067 :@AgentTag[[1]]'
+    - 'AgentName                           :    13067 :@AgentTag[[2]]'
+    - 'AgentVersion                        :    13067 :@AppVersion'
+    - 'WebviewAppName                      :    13067 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :    13067 :"<<<null>>>"'
+
 
 # ht tps://user-agents.me/cfnetwork-version-list   (Original source no longer exists)
 # If you create an iOS app and retrieve data from a webserver,
@@ -5542,12 +5583,220 @@ config:
       LayoutEngineVersionMajor             : '605'
       LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
       LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Browser'
       AgentName                            : 'F-Secure'
       AgentVersion                         : '20.0.290702'
       AgentVersionMajor                    : '20'
       AgentNameVersion                     : 'F-Secure 20.0.290702'
       AgentNameVersionMajor                : 'F-Secure 20'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FSCDCSafe_nosms/24.8.303404 Mobile/15E148 Version/17.6.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.6.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'F-Secure'
+      AgentVersion                         : '24.8.303404'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'F-Secure 24.8.303404'
+      AgentNameVersionMajor                : 'F-Secure 24'
+
+# Whitelabel F-Secure browser
+# https://apps.apple.com/nl/app/kpn-veilig-browser/id983576415
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) KPN_Veilig/22.0.301201 Mobile/15E148 Version/17.5.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'KPN_Veilig'
+      AgentVersion                         : '22.0.301201'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'KPN_Veilig 22.0.301201'
+      AgentNameVersionMajor                : 'KPN_Veilig 22'
+
+# Whitelabel F-Secure browser
+# https://apps.apple.com/nl/app/kpn-veilig-browser/id983576415
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) KPN_Veilig/22.0.301201 Mobile/15E148 Version/17.5.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'KPN_Veilig'
+      AgentVersion                         : '22.0.301201'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'KPN_Veilig 22.0.301201'
+      AgentNameVersionMajor                : 'KPN_Veilig 22'
+
+
+# Whitelabel F-Secure browser
+# https://apps.apple.com/nl/app/ziggo-safe-online/id1195557906
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) ziggo/22.0.300203 Mobile/15E148 Version/17.5.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ziggo'
+      AgentVersion                         : '22.0.300203'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'Ziggo 22.0.300203'
+      AgentNameVersionMajor                : 'Ziggo 22'
+
+# Whitelabel F-Secure browser
+# https://apps.apple.com/be/app/vanden-borre-mysecurity/id863910078?l=nl
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) VandenBorre/21.1.294258 Mobile/15E148 Version/17.5.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'VandenBorre'
+      AgentVersion                         : '21.1.294258'
+      AgentVersionMajor                    : '21'
+      AgentNameVersion                     : 'VandenBorre 21.1.294258'
+      AgentNameVersionMajor                : 'VandenBorre 21'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) AvastSecureBrowser/5.9.0 Mobile/15E148 Version/17.0 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.6.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AvastSecureBrowser'
+      AgentVersion                         : '5.9.0'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'AvastSecureBrowser 5.9.0'
+      AgentNameVersionMajor                : 'AvastSecureBrowser 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 WorxWeb/24.9.0(build 24.9.0.3) Mobile/21G93 Safari/605.1'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '21G93'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.6.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Citrix WorxWeb'
+      AgentVersion                         : '24.9.0'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'Citrix WorxWeb 24.9.0'
+      AgentNameVersionMajor                : 'Citrix WorxWeb 24'
 
 
 # TODO: No specifications and only this string as input.
