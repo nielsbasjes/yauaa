@@ -5710,6 +5710,35 @@ config:
       AgentNameVersion                     : 'Ziggo 22.0.300203'
       AgentNameVersionMajor                : 'Ziggo 22'
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) ziggo/24.0.303105 Mobile/15E148 Version/17.6.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.6.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ziggo'
+      AgentVersion                         : '24.0.303105'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'Ziggo 24.0.303105'
+      AgentNameVersionMajor                : 'Ziggo 24'
+
+
 # Whitelabel F-Secure browser
 # https://apps.apple.com/be/app/vanden-borre-mysecurity/id863910078?l=nl
 - test:

@@ -130,6 +130,37 @@ config:
       AgentLanguageCode                    : 'en-us'
 
 
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/21F90 Instagram 343.0.0.23.93 (iPhone14,5; iOS 17_5_1; nl_NL; nl-NL; scale=3.00; 1170x2532; 629030903; IABMV/1)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '21F90'
+      DeviceVersion                        : 'iPhone 13'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Instagram'
+      AgentVersion                         : '343.0.0.23.93'
+      AgentVersionMajor                    : '343'
+      AgentNameVersion                     : 'Instagram 343.0.0.23.93'
+      AgentNameVersionMajor                : 'Instagram 343'
+      AgentLanguage                        : 'Dutch (Netherlands)'
+      AgentLanguageCode                    : 'nl-nl'
+
+
 # On Android:
 
 - matcher:
