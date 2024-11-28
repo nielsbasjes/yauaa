@@ -4071,6 +4071,32 @@ config:
       RemarkablePattern                    : 'Not a version'
 
 
-
-
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MAGAPPX|6.1.6-6.1.6-137|iOS 17.5.1 iPhone 12|dutchcn|8FA14ADD-0136-41B8-A375-C406552731D4|ed59c6623076ecf43c0c7c14bb2a8d61|1b0dadb2f49c7cc39b458137591e62b9'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'MAGAPPX'
+      AgentVersion                         : '6.1.6-6.1.6-137'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'MAGAPPX 6.1.6-6.1.6-137'
+      AgentNameVersionMajor                : 'MAGAPPX 6'
+      AgentUuid                            : '8FA14ADD-0136-41B8-A375-C406552731D4'
 

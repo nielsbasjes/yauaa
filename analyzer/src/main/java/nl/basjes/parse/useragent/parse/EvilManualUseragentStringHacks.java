@@ -55,6 +55,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern STRIP_SURROUNDING_QUOTES =
         Pattern.compile("^'(.*)'$", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern STRIP_PIPESYMBOLS =
+        Pattern.compile("([a-z0-9])\\|([a-z0-9])", Pattern.CASE_INSENSITIVE);
+
     // As found with the Snorlax examples
     // Using regex found here https://stackoverflow.com/a/475217/114196
     private static final Pattern STRIP_BASE64_BLOCK =
@@ -101,6 +104,9 @@ public final class EvilManualUseragentStringHacks {
         if (result.startsWith("()")) {
             result = result.substring(2).trim();
         }
+
+        // Turn for example "MAGAPPX|6.1.6" into "MAGAPPX/6.1.6"
+        result = STRIP_PIPESYMBOLS.matcher(result).replaceAll("$1/$2");
 
         result = replaceString(result, "SSL/TLS", "SSL TLS");
 
