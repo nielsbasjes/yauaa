@@ -31,7 +31,6 @@ config:
       'fabuild-android' : 'Mobile App|Fabuild'
       'fabuild-ios'     : 'Mobile App|Fabuild'
 
-
       # https://www.camscanner.com/ A mobile app for scanning documents
       'Camscanner'                            : 'Mobile App|Camscanner'
 
@@ -133,6 +132,24 @@ config:
       'Presearch'                                   : 'Browser|Presearch'
 
       'WorxWeb'                                     : 'Mobile App|Citrix WorxWeb'
+
+      'Appie'                                       : 'Mobile App|Albert Heijn App'
+
+      'Ghostery Private Browser'                    : 'Browser|Ghostery'
+      'Ghostery Dawn'                               : 'Browser|Ghostery Dawn'
+      'YaApp_iOS_Browser'                           : 'Browser|Yandex Browser'
+      'YaApp_iOS'                                   : 'Browser|Yandex Browser'
+
+- matcher:
+    variable:
+    - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.text]'
+    extract:
+    - 'DeviceClass                         :        1 :"Mobile"'
+    - 'AgentClass                          :    13058 :@AgentTag[[1]]'
+    - 'AgentName                           :    13058 :@AgentTag[[2]]'
+    - 'AgentVersion                        :    13058 :"<<<null>>>"'
+    - 'WebviewAppName                      :    13058 :"<<<null>>>"'
+    - 'WebviewAppVersion                   :    13058 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -6751,3 +6768,182 @@ config:
       AgentVersionMajor                    : '5'
       AgentNameVersion                     : 'Budbee 5.11.2'
       AgentNameVersionMajor                : 'Budbee 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.22.3'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.22.3'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.22.3'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:  # TODO: Non standard pattern. Seems like Chrome; unsure about the 'PB/183' part
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 13; moto e13 Build/TLAS33.105-285-4) AppleWebKit [PB/183] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Motorola Moto E13'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      OperatingSystemVersionBuild          : 'TLAS33.105-285-4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'SX256' part
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 14; Pixel 8 Pro Build/AP2A.240605.024) AppleWebKit [SX/256] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Google Pixel 8 PRO'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'AP2A.240605.024'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'SX254' part
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 14; SM-A135F Build/UP1A.231005.007) AppleWebKit [SX/254] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A135F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'UP1A.231005.007'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'PB/183' part
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 14; SM-S916B Build/UP1A.231005.007) AppleWebKit [PB/183] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-S916B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'UP1A.231005.007'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+      AgentSecurity                        : 'Strong security'
+
+
+
+- test:
+    input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'SX254' part
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 14; SM-S916B Build/UP1A.231005.007) AppleWebKit [SX/254] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-S916B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'UP1A.231005.007'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+      AgentSecurity                        : 'Strong security'
+
+
+

@@ -1792,36 +1792,6 @@ config:
       AgentNameVersionMajor                : 'Chrome 48'
 
 
-# Current guess: https://browser.yandex.com/
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 YaBrowser/17.7.1.791 Yowser/2.5 Safari/537.36'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceBrand                          : 'Unknown'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '10.0'
-      OperatingSystemVersionMajor          : '10'
-      OperatingSystemNameVersion           : 'Windows 10.0'
-      OperatingSystemNameVersionMajor      : 'Windows 10'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '59.0'
-      LayoutEngineVersionMajor             : '59'
-      LayoutEngineNameVersion              : 'Blink 59.0'
-      LayoutEngineNameVersionMajor         : 'Blink 59'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Yandex Browser'
-      AgentVersion                         : '17.7.1.791'
-      AgentVersionMajor                    : '17'
-      AgentNameVersion                     : 'Yandex Browser 17.7.1.791'
-      AgentNameVersionMajor                : 'Yandex Browser 17'
-
-
 # 2345Explorer seems to be a bad advertising plugin
 # https://greatis.com/blog/win32-pup-gen/fix-2345explorer-virus.htm .
 # https://malwaretips.com/blogs/2345-com-removal/ --> "The 2345.com browser hijacker"
@@ -1851,60 +1821,6 @@ config:
       AgentVersionMajor                    : '47'
       AgentNameVersion                     : 'Chrome 47.0.2526.108'
       AgentNameVersionMajor                : 'Chrome 47'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.1.1; Nexus 6 Build/N6F27M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 YaBrowser/18.6.0.683.00 Mobile Safari/537.36'
-    expected:
-      DeviceClass                          : 'Phone'
-      DeviceName                           : 'Google Nexus 6'
-      DeviceBrand                          : 'Google'
-      OperatingSystemClass                 : 'Mobile'
-      OperatingSystemName                  : 'Android'
-      OperatingSystemVersion               : '7.1.1'
-      OperatingSystemVersionMajor          : '7'
-      OperatingSystemNameVersion           : 'Android 7.1.1'
-      OperatingSystemNameVersionMajor      : 'Android 7'
-      OperatingSystemVersionBuild          : 'N6F27M'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '66.0'
-      LayoutEngineVersionMajor             : '66'
-      LayoutEngineNameVersion              : 'Blink 66.0'
-      LayoutEngineNameVersionMajor         : 'Blink 66'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Yandex Browser'
-      AgentVersion                         : '18.6.0.683.00'
-      AgentVersionMajor                    : '18'
-      AgentNameVersion                     : 'Yandex Browser 18.6.0.683.00'
-      AgentNameVersionMajor                : 'Yandex Browser 18'
-
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 YaBrowser/19.4.0.2397 Yowser/2.5 Safari/537.36'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Desktop'
-      DeviceCpu                            : 'Intel x86_64'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Windows NT'
-      OperatingSystemVersion               : '7'
-      OperatingSystemVersionMajor          : '7'
-      OperatingSystemNameVersion           : 'Windows 7'
-      OperatingSystemNameVersionMajor      : 'Windows 7'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '73.0'
-      LayoutEngineVersionMajor             : '73'
-      LayoutEngineNameVersion              : 'Blink 73.0'
-      LayoutEngineNameVersionMajor         : 'Blink 73'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Yandex Browser'
-      AgentVersion                         : '19.4.0.2397'
-      AgentVersionMajor                    : '19'
-      AgentNameVersion                     : 'Yandex Browser 19.4.0.2397'
-      AgentNameVersionMajor                : 'Yandex Browser 19'
 
 
 - test:

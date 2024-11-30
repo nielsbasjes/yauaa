@@ -1267,10 +1267,6 @@ config:
     - 'AgentVersion                        :     2500 : @KVProductKey^.value'
 
 
-#    - 'agent.(1)product.(1)comments.(4)entry="Ghostery:3.0"'
-#    - 'agent.(1)product.(1)comments.(4)entry.(1)keyvalue="Ghostery:3.0"'
-#    - 'agent.(1)product.(1)comments.(4)entry.(1)keyvalue.(1)key="Ghostery"'
-#    - 'agent.(1)product.(1)comments.(4)entry.(1)keyvalue.(1)version="3.0"'
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Android 10; Mobile; rv:78.0; Ghostery:3.0) Gecko/78.0 Firefox/78.0'
@@ -1297,6 +1293,92 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'Ghostery 3.0'
       AgentNameVersionMajor                : 'Ghostery 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Android 14; Mobile; rv:125.0; Ghostery:3.0) Gecko/125.0 Firefox/125.0'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Android Mobile'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Gecko'
+      LayoutEngineVersion                  : '125.0'
+      LayoutEngineVersionMajor             : '125'
+      LayoutEngineNameVersion              : 'Gecko 125.0'
+      LayoutEngineNameVersionMajor         : 'Gecko 125'
+      LayoutEngineBuild                    : '125.0'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ghostery'
+      AgentVersion                         : '3.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Ghostery 3.0'
+      AgentNameVersionMajor                : 'Ghostery 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Mobile/15E148 Safari/605.1.15 Ghostery Private Browser'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.6.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ghostery'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Ghostery ??'
+      AgentNameVersionMajor                : 'Ghostery ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Mobile/15E148 Safari/605.1.15 Ghostery Dawn'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.6.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Ghostery Dawn'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Ghostery Dawn ??'
+      AgentNameVersionMajor                : 'Ghostery Dawn ??'
 
 
 # Testcase mentioned in https://github.com/nielsbasjes/yauaa/issues/312

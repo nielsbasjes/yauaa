@@ -57,11 +57,20 @@ echo "config:"
 echo "
 - matcher:
     extract:
-      - 'DeviceCpuBits :      117 :agent.product.name=\"App_Bitness\"^.version'
+      - 'DeviceCpuBits :      118 :agent.product.name=\"App_Bitness\"^.version'
 
 - matcher:
     variable:
       - 'CPUInfo:LookUp[CPUArchitectures;agent.product.name=\"Sys_CPU\"^.version]'
+    extract:
+      - 'DeviceCpu     :      117 :@CPUInfo[[1]]'
+      - 'DeviceCpuBits :      117 :@CPUInfo[[2]]'
+#      - 'DeviceClass   :        0 :@CPUInfo[[3]]'
+
+
+- matcher:
+    variable:
+    - 'CPUInfo:LookUp[CPUArchitectures;agent.(1-3)product.(1)comments.entry]'
     extract:
       - 'DeviceCpu     :      116 :@CPUInfo[[1]]'
       - 'DeviceCpuBits :      116 :@CPUInfo[[2]]'

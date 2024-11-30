@@ -137,6 +137,24 @@ config:
 #
 # }  // namespace frozen_user_agent_strings
 
+# In May 2021 this was changed to
+# namespace frozen_user_agent_strings {
+#
+#   const char kDesktop[] =
+#       "Mozilla/5.0 (%s) AppleWebKit/537.36 (KHTML, "
+#       "like Gecko) Chrome/%s.0.0.0 Safari/537.36";
+#   const char kAndroid[] =
+#       "Mozilla/5.0 (%s) "
+#       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s.0.0.0 %s"
+#       "Safari/537.36";
+#   const char kUnifiedPlatformAndroid[] = "Linux; Android 10; K";
+#   const char kUnifiedPlatformCrOS[] = "X11; CrOS x86_64";
+#   const char kUnifiedPlatformLinux[] = "X11; Linux x86_64";
+#   const char kUnifiedPlatformMacOS[] = "Macintosh; Intel Mac OS X 10_15_7";
+#   const char kUnifiedPlatformWindows[] = "Windows NT 10.0; Win64; x64";
+#
+# }  // namespace frozen_user_agent_strings
+
 # The list of major Chrome versions where "Windows" in the frozen context really meant "Desktop".
 # Based upon the Chromium sources and related tags
 # https://github.com/chromium/chromium/blob/master/content/public/common/user_agent.h
@@ -856,6 +874,7 @@ config:
 
       # Output = DeviceClass | DeviceName | DeviceBrand | OperatingSystemClass | OperatingSystemName | OSVersion | OSMajorVersion| OSNameVersion | OSNameMajorVersion
       'Mozilla/5.0 (Linux; Android 10; K)'                      : 'Mobile|Android Mobile|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
+      'Mozilla/5.0 (Linux; Android 9; Unspecified Device)'      : 'Mobile|Android Mobile|<<<null>>>|Mobile|Android|<<<null>>>|<<<null>>>|Android ??|Android ??'
 # NOTE: Chrome OS has a separate rule
 #      'Mozilla/5.0 (X11; CrOS x86_64 14541.0.0)'                : 'Desktop|Chromebook|<<<null>>>|Desktop|Chrome OS|<<<null>>>|<<<null>>>|Chrome OS ??|Chrome OS ??'
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'               : 'Desktop|Desktop|<<<null>>>|Desktop|Windows NT|<<<null>>>|<<<null>>>|Windows NT ??|Windows NT ??'
@@ -882,7 +901,7 @@ config:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
-    - '@ChromeProduct>.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
+    - 'agent.(4-8)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     - 'IsNull[agent.product.name="SamsungBrowser"]' # The SamsungBrowser reports incorrect values when DEX is enabled
