@@ -23,94 +23,101 @@ config:
     map:
       'Niels'                : 'Some hacker|wrote|all of this'
 
-- matcher:
-    extract:
-      - 'Word1          :   1 : agent.text[1]'
-- matcher:
-    extract:
-      - 'Word2          :   1 : agent.text[2]'
-- matcher:
-    extract:
-      - 'Word3          :   1 : agent.text[3]'
-- matcher:
-    extract:
-      - 'Word4          :   1 : agent.text[4]'
-- matcher:
-    extract:
-      - 'Word5          :   1 : agent.text[5]'
-- matcher:
-    extract:
-      - 'Word6          :   1 : agent.text[6]'
+- lookup:
+    name: Segmented
+    map:
+      # A '|' in the useragent is changed because of a specific real situation
+      'Niels Basjes was here again' : 'Niels Basjes|was|here again'
 
 
 - matcher:
     extract:
-      - 'Segment1       :   1 : agent.text[[1]]'
+      - 'Word1          :   1 : LookUp[Segmented;agent][1]'
 - matcher:
     extract:
-      - 'Segment2       :   1 : agent.text[[2]]'
+      - 'Word2          :   1 : LookUp[Segmented;agent][2]'
 - matcher:
     extract:
-      - 'Segment3       :   1 : agent.text[[3]]'
+      - 'Word3          :   1 : LookUp[Segmented;agent][3]'
 - matcher:
     extract:
-      - 'Segment4       :   1 : agent.text[[4]]'
+      - 'Word4          :   1 : LookUp[Segmented;agent][4]'
 - matcher:
     extract:
-      - 'Segment5       :   1 : agent.text[[5]]'
+      - 'Word5          :   1 : LookUp[Segmented;agent][5]'
 - matcher:
     extract:
-      - 'Segment6       :   1 : agent.text[[6]]'
+      - 'Word6          :   1 : LookUp[Segmented;agent][6]'
 
 
 - matcher:
     extract:
-      - 'FullLookup     :   1 : LookUp[ListOfStrings;agent.text[1]]'
+      - 'Segment1       :   1 : LookUp[Segmented;agent][[1]]'
 - matcher:
     extract:
-      - 'LookupWord1    :   1 : LookUp[ListOfStrings;agent.text[1]][1]'
+      - 'Segment2       :   1 : LookUp[Segmented;agent][[2]]'
 - matcher:
     extract:
-      - 'LookupWord2    :   1 : LookUp[ListOfStrings;agent.text[1]][2]'
+      - 'Segment3       :   1 : LookUp[Segmented;agent][[3]]'
 - matcher:
     extract:
-      - 'LookupWord3    :   1 : LookUp[ListOfStrings;agent.text[1]][3]'
+      - 'Segment4       :   1 : LookUp[Segmented;agent][[4]]'
 - matcher:
     extract:
-      - 'LookupWord4    :   1 : LookUp[ListOfStrings;agent.text[1]][4]'
+      - 'Segment5       :   1 : LookUp[Segmented;agent][[5]]'
 - matcher:
     extract:
-      - 'LookupWord5    :   1 : LookUp[ListOfStrings;agent.text[1]][5]'
-- matcher:
-    extract:
-      - 'LookupWord6    :   1 : LookUp[ListOfStrings;agent.text[1]][6]'
-- matcher:
-    extract:
-      - 'LookupWord7    :   1 : LookUp[ListOfStrings;agent.text[1]][6]'
+      - 'Segment6       :   1 : LookUp[Segmented;agent][[6]]'
+
 
 - matcher:
     extract:
-      - 'LookupSegment1 :   1 : LookUp[ListOfStrings;agent.text[1]][[1]]'
+      - 'FullLookUp     :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]]'
 - matcher:
     extract:
-      - 'LookupSegment2 :   1 : LookUp[ListOfStrings;agent.text[1]][[2]]'
+      - 'LookUpWord1    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][1]'
 - matcher:
     extract:
-      - 'LookupSegment3 :   1 : LookUp[ListOfStrings;agent.text[1]][[3]]'
+      - 'LookUpWord2    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][2]'
 - matcher:
     extract:
-      - 'LookupSegment4 :   1 : LookUp[ListOfStrings;agent.text[1]][[4]]'
+      - 'LookUpWord3    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][3]'
+- matcher:
+    extract:
+      - 'LookUpWord4    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][4]'
+- matcher:
+    extract:
+      - 'LookUpWord5    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][5]'
+- matcher:
+    extract:
+      - 'LookUpWord6    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][6]'
+- matcher:
+    extract:
+      - 'LookUpWord7    :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][6]'
 
 - matcher:
     extract:
-      - 'LookupSegment12 :   1 : LookUp[ListOfStrings;agent.text[1]][[1-2]]'
+      - 'LookUpSegment1 :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][[1]]'
 - matcher:
     extract:
-      - 'LookupSegment23 :   1 : LookUp[ListOfStrings;agent.text[1]][[2-3]]'
+      - 'LookUpSegment2 :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][[2]]'
+- matcher:
+    extract:
+      - 'LookUpSegment3 :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][[3]]'
+- matcher:
+    extract:
+      - 'LookUpSegment4 :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][[4]]'
+
+- matcher:
+    extract:
+      - 'LookUpSegment12 :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][[1-2]]'
+- matcher:
+    extract:
+      - 'LookUpSegment23 :   1 : LookUp[ListOfStrings;LookUp[Segmented;agent][1]][[2-3]]'
 
 - test:
     input:
-      user_agent_string           : 'Niels Basjes|was|here again'
+      user_agent_string           : 'Niels Basjes was here again'
     expected:
       Word1                       : 'Niels'
       Word2                       : 'Basjes'
@@ -122,18 +129,18 @@ config:
       Segment2                    : 'was'
       Segment3                    : 'here again'
 
-      FullLookup                  : 'Some hacker|wrote|all of this'
-      LookupWord1                 : 'Some'
-      LookupWord2                 : 'hacker'
-      LookupWord3                 : 'wrote'
-      LookupWord4                 : 'all'
-      LookupWord5                 : 'of'
-      LookupWord6                 : 'this'
-      LookupWord7                 : 'this'
+      FullLookUp                  : 'Some hacker|wrote|all of this'
+      LookUpWord1                 : 'Some'
+      LookUpWord2                 : 'hacker'
+      LookUpWord3                 : 'wrote'
+      LookUpWord4                 : 'all'
+      LookUpWord5                 : 'of'
+      LookUpWord6                 : 'this'
+      LookUpWord7                 : 'this'
 
-      LookupSegment1              : 'Some hacker'
-      LookupSegment2              : 'wrote'
-      LookupSegment3              : 'all of this'
+      LookUpSegment1              : 'Some hacker'
+      LookUpSegment2              : 'wrote'
+      LookUpSegment3              : 'all of this'
 
-      LookupSegment12             : 'Some hacker|wrote'
-      LookupSegment23             : 'wrote|all of this'
+      LookUpSegment12             : 'Some hacker|wrote'
+      LookUpSegment23             : 'wrote|all of this'

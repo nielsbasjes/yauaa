@@ -114,14 +114,14 @@ config:
     - 'verbose'
     name: 'Validate Debug Output looks good'
     input:
-      user_agent_string: 'Word/1 ( One Two Three; One|Two|Three|Four)'
+      user_agent_string: 'Word/1 ( One Two Three; OneTwoThreeFour)'
     expected:
       Name                    : 'Word'
       FirstCommentEntry       : 'One Two Three'
       LookupSegment23         : 'Two|Three'
       LookupDefaultNoInput    : 'Default for no input'
       DidWeHaveASyntaxError   : 'No we did''t'
-      NoProductUuid                        : 'Dummy'
+      NoProductUuid           : 'Dummy'
 
 - matcher:
     options:
@@ -129,11 +129,16 @@ config:
     extract:
       - 'Name:1:NormalizeBrand [ agent.(1)product.(1)name^.name]'
 
+- lookup:
+    name: Segmented
+    map:
+      'OneTwoThreeFour' : 'One|Two|Three|Four'
+
 - matcher:
     options:
       - 'verbose'
     extract:
-      - 'LookupSegment23 :   1 : agent.product.comments.(2)entry[[2-3]]'
+      - 'LookupSegment23 :   1 : LookUp[Segmented;agent.product.comments.(2)entry][[2-3]]'
 
 - matcher:
     options:
