@@ -105,8 +105,10 @@ public final class EvilManualUseragentStringHacks {
             result = result.substring(2).trim();
         }
 
-        // Turn for example "MAGAPPX|6.1.6" into "MAGAPPX/6.1.6"
-        result = STRIP_PIPESYMBOLS.matcher(result).replaceAll("$1/$2");
+        if (result.contains("|")) {
+            // Turn for example "MAGAPPX|6.1.6" into "MAGAPPX/6.1.6"
+            result = STRIP_PIPESYMBOLS.matcher(result).replaceAll("$1/$2");
+        }
 
         result = replaceString(result, "SSL/TLS", "SSL TLS");
 

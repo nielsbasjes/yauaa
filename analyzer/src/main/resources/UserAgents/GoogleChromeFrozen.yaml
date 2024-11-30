@@ -884,13 +884,6 @@ config:
       'Mozilla/5.0 (iPad; CPU iPad OS 14_0 like Mac OS X)'      : 'Tablet|iPad|Apple|Mobile|iOS|<<<null>>>|<<<null>>>|iOS ??|iOS ??'
       'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)'  : 'Phone|iPhone|Apple|Mobile|iOS|<<<null>>>|<<<null>>>|iOS ??|iOS ??'
 
-
-- set:
-    name: 'ChromeReducedDeviceCompat'
-    values:
-    - 'Safari'
-    - 'Mobile Safari'
-
 - matcher:
     variable:
     - 'UnifiedPlatform                     :LookUp[ChromeReducedUnifiedPlatform;agent.(1)product]'
@@ -901,7 +894,6 @@ config:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
-    - 'agent.(4-8)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     - 'IsNull[agent.product.name="SamsungBrowser"]' # The SamsungBrowser reports incorrect values when DEX is enabled
@@ -929,7 +921,6 @@ config:
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
-    - '@ChromeProduct>.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     extract:
     - 'OperatingSystemClass                :   400001 :"Mobile"'
     - 'OperatingSystemName                 :   400001 :"Android"'
@@ -948,7 +939,6 @@ config:
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
-    - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     extract:
@@ -973,7 +963,6 @@ config:
     - 'agent.(3)product.name="Chrome"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
-    - 'agent.(4)product.name?ChromeReducedDeviceCompat' # -> Safari or Mobile Safari
     - 'IsNull[agent.product.name="Version"]' # Ignore WebViews which can contain Chrome/??.0.0.0
     - 'IsNull[agent.product.name="Edg"]' # Edge still used 6.1 on Windows 7
     extract:
