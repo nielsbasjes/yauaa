@@ -20,8 +20,20 @@ These are only the highlights for the last few releases, the full changelog can 
   - ...
 
 ### Version v7.29.0
+- Build
+    - Require JDK 23 installed for Trino support.
+    - Leverage new toolchains plugin: no longer needs toolchains.xml.
 - New/improved detections:
-  - ...
+    - Do tag lookups for Webviews (Yandex shoed wrong)
+    - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
+    - Snorlax useragent with BASE64 encoded part
+    - Devices from OX Tab, Xiaomi
+    - Partially handle broken: Safari "Mobile" on Mac OS X
+    - Gitlab CI Runner
+    - HUAWEI Quick App Center (+ false positive of it being a Hacker)
+    - TV Bro
+- Analyzer:
+    - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
 ### Version v7.28.1
 - Build/Release:
