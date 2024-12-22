@@ -50,11 +50,11 @@ class TestPredefinedBrowsers {
     @Test
     void validateAllPredefinedBrowsers() {
         UserAgentAnalyzerTester uaa;
-        uaa = UserAgentAnalyzerTester.newBuilder().immediateInitialization().build();
+        uaa = UserAgentAnalyzerTester.newBuilder().showMinimalVersion().immediateInitialization().build();
         LOG.info("==============================================================");
         LOG.info("Validating when getting all fields");
         LOG.info("--------------------------------------------------------------");
-        assertTrue(uaa.runTests(false, true, null, false, true));
+        assertTrue(uaa.runTests(false, true, null, false, false));
 
         LOG.info("--------------------------------------------------------------");
         LOG.info("Running all tests again which should return the cached values");
@@ -242,7 +242,7 @@ class TestPredefinedBrowsers {
 
     @Test
     void makeSureWeDoNotHaveDuplicateTests() {
-        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().delayInitialization().build();
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester.newBuilder().showMinimalVersion().delayInitialization().build();
 
         Map<String, List<TestCase>> allTestCases = new TreeMap<>();
         // Group all testcases by their inputs
