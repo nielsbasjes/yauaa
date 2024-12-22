@@ -1625,3 +1625,66 @@ config:
       AgentNameVersionMajor                : 'Chrome %s'
       RemarkablePattern                    : 'Not a version'
 
+# UltraBlock is an adblock extension that protects your privacy by blocking ads, invisible trackers and third-party cookies.
+# Settings: "Randomize your user-agent (not recommended)"
+# It only appends "UltraBlock/<Random Version> (https://ultrablock.org)" and apparently does for some users to that many times.
+# The rest is unmodified
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 UltraBlock/613.76.1.6.5 (https://ultrablock.org) UltraBlock/177.36.1.6.5 (https://ultrablock.org)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '120'
+      LayoutEngineVersionMajor             : '120'
+      LayoutEngineNameVersion              : 'Blink 120'
+      LayoutEngineNameVersionMajor         : 'Blink 120'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '120'
+      AgentVersionMajor                    : '120'
+      AgentNameVersion                     : 'Chrome 120'
+      AgentNameVersionMajor                : 'Chrome 120'
+      RemarkablePattern                    : 'UltraBlock randomizer'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 UltraBlock/300.72.1.6.2 (https://ultrablock.org) UltraBlock/615.87.1.6.2 (https://ultrablock.org) UltraBlock/916.47.1.6.2 (https://ultrablock.org) UltraBlock/614.51.1.6.2 (https://ultrablock.org) UltraBlock/761.99.1.6.2 (https://ultrablock.org) UltraBlock/329.70.1.6.2 (https://ultrablock.org) UltraBlock/682.30.1.6.2 (https://ultrablock.org) UltraBlock/626.39.1.6.2 (https://ultrablock.org) UltraBlock/196.28.1.6.2 (https://ultrablock.org) UltraBlock/162.41.1.6.2 (https://ultrablock.org) UltraBlock/725.76.1.6.2 (https://ultrablock.org) UltraBlock/773.64.1.6.2 (https://ultrablock.org) UltraBlock/699.71.1.6.2 (https://ultrablock.org) UltraBlock/984.31.1.6.2 (https://ultrablock.org) UltraBlock/464.13.1.6.2 (https://ultrablock.org)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '105'
+      LayoutEngineVersionMajor             : '105'
+      LayoutEngineNameVersion              : 'Blink 105'
+      LayoutEngineNameVersionMajor         : 'Blink 105'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '105'
+      AgentVersionMajor                    : '105'
+      AgentNameVersion                     : 'Chrome 105'
+      AgentNameVersionMajor                : 'Chrome 105'
+      RemarkablePattern                    : 'UltraBlock randomizer'
+

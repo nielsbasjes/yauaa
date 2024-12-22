@@ -13,6 +13,7 @@ NEXT RELEASE
   - Handle "Windows 11.0" (the '.0' is very rare)
   - CPU tag arm_64
   - Handle URLs better with Robots/Hackers/Spammers
+  - UltraBlock useragent randomizer
 
 v7.29.0
 ===

@@ -17,31 +17,32 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-    - Updated the list of Amazon devices (2023, 2024 models)
-    - Fix phones with real browser name at the end (like AAB does)
-    - Presearch browser, Citrix WorxWeb, Klarna, Budbee, MAGAPPX, Yandex, Albert Heijn App, Ghostery, Dalvik,
-    - ZTE Nubia
-    - Very old Samsung Browser is a webview
-    - Whitelabel "Safe" Browser apps (iOS): Ziggo, KPN, VandenBorre, F-Secure
-    - Handle "Windows 11.0" (the '.0' is very rare)
-    - CPU tag arm_64
-    - Handle URLs better with Robots/Hackers/Spammers
+  - Updated the list of Amazon devices (2023, 2024 models)
+  - Fix phones with real browser name at the end (like AAB does)
+  - Presearch browser, Citrix WorxWeb, Klarna, Budbee, MAGAPPX, Yandex, Albert Heijn App, Ghostery, Dalvik,
+  - ZTE Nubia
+  - Very old Samsung Browser is a webview
+  - Whitelabel "Safe" Browser apps (iOS): Ziggo, KPN, VandenBorre, F-Secure
+  - Handle "Windows 11.0" (the '.0' is very rare)
+  - CPU tag arm_64
+  - Handle URLs better with Robots/Hackers/Spammers
+  - UltraBlock useragent randomizer
 
 ### Version v7.29.0
 - Build
-    - Require JDK 23 installed for Trino support.
-    - Leverage new toolchains plugin: no longer needs toolchains.xml.
+  - Require JDK 23 installed for Trino support.
+  - Leverage new toolchains plugin: no longer needs toolchains.xml.
 - New/improved detections:
-    - Do tag lookups for Webviews (Yandex shoed wrong)
-    - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
-    - Snorlax useragent with BASE64 encoded part
-    - Devices from OX Tab, Xiaomi
-    - Partially handle broken: Safari "Mobile" on Mac OS X
-    - Gitlab CI Runner
-    - HUAWEI Quick App Center (+ false positive of it being a Hacker)
-    - TV Bro
+  - Do tag lookups for Webviews (Yandex shoed wrong)
+  - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
+  - Snorlax useragent with BASE64 encoded part
+  - Devices from OX Tab, Xiaomi
+  - Partially handle broken: Safari "Mobile" on Mac OS X
+  - Gitlab CI Runner
+  - HUAWEI Quick App Center (+ false positive of it being a Hacker)
+  - TV Bro
 - Analyzer:
-    - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
+  - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
 ### Version v7.28.1
 - Build/Release:
