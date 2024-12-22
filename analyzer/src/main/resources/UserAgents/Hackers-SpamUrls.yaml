@@ -1,0 +1,406 @@
+# $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2024 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+isSpamUrl: &isSpamUrl
+  DeviceClass                          : 'Hacker'
+  DeviceName                           : 'Hacker'
+  DeviceBrand                          : 'Hacker'
+  DeviceVersion                        : 'Hacker'
+  OperatingSystemClass                 : 'Hacker'
+  OperatingSystemName                  : 'Hacker'
+  OperatingSystemVersion               : 'Hacker'
+  OperatingSystemVersionMajor          : 'Hacker'
+  OperatingSystemNameVersion           : 'Hacker'
+  OperatingSystemNameVersionMajor      : 'Hacker'
+  LayoutEngineClass                    : 'Hacker'
+  LayoutEngineName                     : 'Hacker'
+  LayoutEngineVersion                  : 'Hacker'
+  LayoutEngineVersionMajor             : 'Hacker'
+  LayoutEngineNameVersion              : 'Hacker'
+  LayoutEngineNameVersionMajor         : 'Hacker'
+  AgentClass                           : 'Hacker'
+  AgentName                            : 'Hacker'
+  AgentVersion                         : 'Hacker'
+  AgentVersionMajor                    : 'Hacker'
+  AgentNameVersion                     : 'Hacker'
+  AgentNameVersionMajor                : 'Hacker'
+  RemarkablePattern                    : 'Spam URL'
+
+config:
+
+- set:
+    name: SpamURLWords
+    values:
+      # Normal terms
+      - 'promo'
+      - 'utm_'
+      - 'buy'
+      # Normal sites that are nonsense in a useragent
+      - 'instagram'
+      - 'youtube'
+      - 'facebook'
+      - 'tiktok'
+      - 'patreon'
+      - 'nos.nl' # Dutch news site
+      # Generic Video terms
+      - 'tv'
+      - 'tube'
+      - 'video'
+      - 'vid'
+      - 'movie'
+      - 'film'
+      - 'media'
+      - 'reel'
+      - 'cam'
+      - 'tube'
+      - 'see'
+      # Generic porn terms
+      - 'fan'
+      - 'xxx'
+      - 'love'
+      - 'adult'
+      - 'dildo'
+      - 'tits'
+      - 'ass'
+      - 'nude'
+      - 'slut'
+      - 'hot'
+      - 'ero'
+      - 'porn'
+      - 'fuck'
+      - 'neuk' # Dutch for fuck ... now you learned something ;)
+      - 'suck'
+      - 'cock'
+      - 'cum'
+      - 'bound'
+      - 'anal'
+      - 'sex'
+      - 'rubber'
+      - 'exhib'
+      - 'straight'
+      - 'gay'
+      - 'lesb'
+      - 'shemale'
+      # Specific porn sites
+      - 'xhamster'
+      - 'pornhub'
+      - 'phncdn'
+      - 'beeg'
+      - 'chaturbate'
+      - 'heroero'
+      - 'xnxx'
+
+- matcher:
+    require:
+    - 'IsInLookUpContains[SpamURLWords;agent.(1)url]'
+    extract:
+    - 'DeviceClass                          : 2000000: "Hacker"'
+    - 'DeviceName                           : 2000000: "Hacker"'
+    - 'DeviceBrand                          : 2000000: "Hacker"'
+    - 'DeviceVersion                        : 2000000: "Hacker"'
+    - 'OperatingSystemClass                 : 2000000: "Hacker"'
+    - 'OperatingSystemName                  : 2000000: "Hacker"'
+    - 'OperatingSystemVersion               : 2000000: "Hacker"'
+    - 'LayoutEngineClass                    : 2000000: "Hacker"'
+    - 'LayoutEngineName                     : 2000000: "Hacker"'
+    - 'LayoutEngineVersion                  : 2000000: "Hacker"'
+    - 'AgentClass                           : 2000000: "Hacker"'
+    - 'AgentName                            : 2000000: "Hacker"'
+    - 'AgentVersion                         : 2000000: "Hacker"'
+    - 'AgentNameVersion                     : 2000000: "Hacker"'
+    - 'AgentInformationUrl                  : 2000000: "<<<null>>>"'
+    - 'RemarkablePattern                    : 2000000: "Spam URL"'
+
+- matcher:
+    require:
+      - 'IsInLookUpContains[SpamURLWords;agent.(1)keyvalue]'
+    extract:
+      - 'DeviceClass                          : 2000000: "Hacker"'
+      - 'DeviceName                           : 2000000: "Hacker"'
+      - 'DeviceBrand                          : 2000000: "Hacker"'
+      - 'DeviceVersion                        : 2000000: "Hacker"'
+      - 'OperatingSystemClass                 : 2000000: "Hacker"'
+      - 'OperatingSystemName                  : 2000000: "Hacker"'
+      - 'OperatingSystemVersion               : 2000000: "Hacker"'
+      - 'LayoutEngineClass                    : 2000000: "Hacker"'
+      - 'LayoutEngineName                     : 2000000: "Hacker"'
+      - 'LayoutEngineVersion                  : 2000000: "Hacker"'
+      - 'AgentClass                           : 2000000: "Hacker"'
+      - 'AgentName                            : 2000000: "Hacker"'
+      - 'AgentVersion                         : 2000000: "Hacker"'
+      - 'AgentNameVersion                     : 2000000: "Hacker"'
+      - 'AgentInformationUrl                  : 2000000 : "<<<null>>>"'
+      - 'RemarkablePattern                    : 2000000: "Spam URL"'
+
+# There is only a URL! Usually pornsites (note: unique ids have been changed)
+- test:
+    input:
+      # Yes, this mess was actually used
+      User-Agent                           : 'hthttps://ww7.soap2dayhd.co/film/18-love-2015-6553/thttphttps://phimmoiyyy.net/phim-le/duc-cams://videa.hu/videok/film-animacio/patrick-2019-SFb7N7KvsM2VdSTohttps://videa.hu/videok/film-animacio/patrick-2019-SFb7N7KvsM2VdSTops://www.voyeurweb.com/contributions/view/3489469-on-the-field'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://123moviesgoto.com/somethingus'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://api.avantajadas.com.br/appv2/index.html#/videoplayer?key=1111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://beeg.com/-111111?t=1543-2143'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://chaturbate.com/someone/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://cv-h.phncdn.com/hls/videos/111111/11/11111/1080P_4000K_111111.mp4/index-v1-a1.m3u8?something'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://direct.playstation.com/fr-fr/buy-consoles/playstation5-console'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://en.luxuretv.com'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://f34.mediafront.xyz/someone/2022-08-16,10-20.mp4?'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://fansly.com/someonefckslut/posts'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://fetiliciousfans.com/videos/111-heavy-rubber-straight-jacket-111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://heroero.com/videos/1111/someone-nude-van-god-los-s04e05-2017/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://hotmovs.com/videos/111111/amputee-sex/?promo=111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://hotmovs.com/videos/111111/russian-fucking-111111/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://m.film-adult.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://mrdeepfakes.com/video/111111/aaa-jerk-off'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nl.pornhub.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nl.pornhub.com/view_video.php?viewkey=111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nl.xhamster.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nl.xhamster.com/videos/german-amateur-swinger-couple-party-no-condom-111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nl.xhamster.com/videos/this-tranny-is-really-gorgeous-111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nl.xhamster.com/videos/vintage-girls-collection-111111ttps://xhamster.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://nos.nl/artikel/2403706-schippers-breekt-met-bennema-en-papendal-zat-niet-meer-op-mijn-plek'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://odysee.com/dvo-nieuws-5:111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://pornve.com/111111/Something_Hot_Friend_-_Naughty_Something.html'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://pornzog.com/video/111111/Someone-toys-her-sexy-ass-brazilian-transsexuals/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://pornzog.com/video/111111/Someone-anal-asian-sex-machine/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://pt.wmptctl.com/tube-player/?'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://rec-tube.com/watch/111111/?3'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://rt.tubsexer.pics/embed/111111/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://slud.net/videos/play/video111111/4_way/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://themoviezflix.de.com/download-something/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://thisvid.com'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://thisvid.com/videos/spiderman-kicks/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://tinhduc.org/video/111111/sex-something.html'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://txxx.com/videos/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://videosection.com/video/111111?utm_source=something&utm_medium=click&utm_campaign=something'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://ww8.soap2dayhd.co/film/white-mans-burden-1111/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.boundhub.com'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.instagram.com/reel/something'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.someoneexhib.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.manyvids.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.patreon.com/m/111111/posts'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.poldertube.nl/something-sletje-something-neukmachine-something/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.shemalestube.com/video/something-tits-and-ass-something-dildo-/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.xvideos.com/video.something/something'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://www.youtube.com/watch?v=something'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://xhamster.com/'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://xhamster.com/videos/something-111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://xhamster.com/videos/something-cum-111111'
+    expected: *isSpamUrl
+
+- test:
+    input:
+      User-Agent                           : 'https://xhamster.com/videos/sucking-something-cock-something-ass-with-cum-111111'
+    expected: *isSpamUrl
+

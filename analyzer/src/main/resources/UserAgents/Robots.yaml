@@ -33,6 +33,7 @@ config:
       'Buck'                         : 'Hypefactors|Buck'
       'BW'                           : 'BuildWith|BuildWith Indexing Usage Policy'
       'Catchpoint'                   : 'Catchpoint|Catchpoint Analyzer'
+      'CommonCrawler Node'           : 'CommonCrawler|Node'
       'curl'                         : 'Curl|curl'
       'magpie-crawler'               : 'Brandwatch|magpie-crawler ' # 'watch' causes it to be seen as a wristwatch
       'Dataprovider.com'             : 'Dataprovider|Dataprovider Robot'
@@ -67,6 +68,7 @@ config:
       'MicrosoftPreview'             : 'Microsoft|MicrosoftPreview'
       'node.js'                      : 'OpenJS|Node.js'
       'OhDear.app'                   : 'OhDear.app|OhDear.app'
+      'panscient.com'                : 'Panscient|Panscient'
       'PRTG Network Monitor'         : 'Paessler|PRTG Network Monitor'
       'PingdomPageSpeed'             : 'Pingdom|PingdomPageSpeed'
       'PingdomTMS'                   : 'Pingdom|Pingdom TMS' # TMS = Transaction Monitoring System/Service ??
@@ -79,6 +81,7 @@ config:
       'RuxitSynthetic'               : 'Dynatrace|Ruxit Synthetic'
       'SEOkicks'                     : 'SEOkicks|SEOkicks'
       'SeoSiteCheckup'               : 'SeoSiteCheckup|SeoSiteCheckup'
+      'SpiDir.com'                   : 'SpiDir|SpiDir'
       'CBSBot'                       : 'CBS|CBSBot'
       'ScoutJet'                     : 'ScoutJet|ScoutJet'
       'Site-Shot'                    : 'Site-Shot|Site-Shot'
@@ -241,6 +244,8 @@ config:
     variable:
     - 'RobotProductName                    :agent.(1)product.(1)comments.entry.(1)product.name?NamedSpecialLayoutEngines'
     - 'RobotProductVersion                 :@RobotProductName^.version'
+    require:
+      - 'IsNull[@RobotProductVersion.url]'
     extract:
     - 'DeviceClass                         :   400000 :"Robot"'
     - 'LayoutEngineClass                   :   400002 :"Robot"'
@@ -251,6 +256,8 @@ config:
     variable:
     - 'RobotProductName                    :agent.(1)product.(1)comments.entry.(1)product.(1)comments.(1)entry.(1)product.name?NamedSpecialLayoutEngines'
     - 'RobotProductVersion                 :@RobotProductName^.version'
+    require:
+    - 'IsNull[@RobotProductVersion.url]'
     extract:
     - 'DeviceClass                         :   400000 :"Robot"'
     - 'LayoutEngineClass                   :   400002 :"Robot"'
@@ -264,6 +271,7 @@ config:
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     - 'RobotProductVersion                 :@RobotProductName^.version'
     require:
+    - 'IsNull[@RobotProductVersion.url]'
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
@@ -287,6 +295,7 @@ config:
     - 'RobotProductVersion                 :agent.(1)product.(1)version'
     - 'RobotProduct                        :LookUpPrefix[NamedRobots;@RobotProductName]'
     require:
+    - 'IsNull[@RobotProductVersion.url]'
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
@@ -382,6 +391,7 @@ config:
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     - 'RobotProductVersion                 :@RobotProductName^.version'
     require:
+    - 'IsNull[@RobotProductVersion.url]'
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
@@ -2393,16 +2403,17 @@ config:
       OperatingSystemNameVersionMajor      : 'Cloud ??'
       LayoutEngineClass                    : 'Robot'
       LayoutEngineName                     : 'CommonCrawler Node'
-      LayoutEngineVersion                  : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
-      LayoutEngineVersionMajor             : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
-      LayoutEngineNameVersion              : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
-      LayoutEngineNameVersionMajor         : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'CommonCrawler Node ??'
+      LayoutEngineNameVersionMajor         : 'CommonCrawler Node ??'
       AgentClass                           : 'Robot'
       AgentName                            : 'CommonCrawler Node'
-      AgentVersion                         : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
-      AgentVersionMajor                    : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
-      AgentNameVersion                     : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
-      AgentNameVersionMajor                : 'CommonCrawler Node 252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'CommonCrawler Node ??'
+      AgentNameVersionMajor                : 'CommonCrawler Node ??'
+      AgentInformationUrl                  : '252Y6KCHGDLOM4NOCXY5DDVIQC4I4CQ46SU5EM76GSZ2ZY6EPLYBKYFL5PRMOL4.R.GPMRT2CTBQMMKZPSBBCPP6O4XLKIWXRKYIQNNL3CIDAST4WS.cdn0.common.crawl.zone'
 
 
 - test:
@@ -6223,7 +6234,7 @@ config:
       user_agent_string: 'panscient.com'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Panscient Robot'
+      DeviceName                           : 'Panscient'
       DeviceBrand                          : 'Panscient'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -6231,10 +6242,12 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Panscient'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Panscient ??'
+      LayoutEngineNameVersionMajor         : 'Panscient ??'
       AgentClass                           : 'Robot'
       AgentName                            : 'Panscient'
       AgentVersion                         : '??'
@@ -6249,7 +6262,7 @@ config:
       user_agent_string: 'SpiDir.com'
     expected:
       DeviceClass                          : 'Robot'
-      DeviceName                           : 'Spidir Robot'
+      DeviceName                           : 'Spidir'
       DeviceBrand                          : 'Spidir'
       OperatingSystemClass                 : 'Cloud'
       OperatingSystemName                  : 'Cloud'
@@ -6257,16 +6270,18 @@ config:
       OperatingSystemVersionMajor          : '??'
       OperatingSystemNameVersion           : 'Cloud ??'
       OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'SpiDir'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'SpiDir ??'
+      LayoutEngineNameVersionMajor         : 'SpiDir ??'
       AgentClass                           : 'Robot'
-      AgentName                            : 'Spidir'
+      AgentName                            : 'SpiDir'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'
-      AgentNameVersion                     : 'Spidir ??'
-      AgentNameVersionMajor                : 'Spidir ??'
+      AgentNameVersion                     : 'SpiDir ??'
+      AgentNameVersionMajor                : 'SpiDir ??'
       AgentInformationUrl                  : 'SpiDir.com'
 
 
