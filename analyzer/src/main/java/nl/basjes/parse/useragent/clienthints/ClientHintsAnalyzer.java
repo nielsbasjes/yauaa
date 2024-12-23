@@ -166,7 +166,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         improveMobileDeviceClass(userAgent, clientHints);
         improveDeviceBrandName(userAgent, clientHints);
         improveDeviceCPU(userAgent, clientHints);
-        improveLayoutEngineAndAgentInfo(userAgent, clientHints);
+        improveLayoutEngineAndAgentInfo(config, userAgent, clientHints);
 
         improveUsingBrandLookups(config, userAgent, clientHints);
 
@@ -426,16 +426,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         CHROMIUMNAMES.add("Chrome");
     }
 
-    // There are some browsers where we want to map the name to a more readable version
-    private static final Map<String, String> BROWSER_RENAME = new TreeMap<>();
-
-    static {
-        BROWSER_RENAME.put("OperaMobile", "Opera Mobile");
-        BROWSER_RENAME.put("Microsoft Edge", "Edge");
-        BROWSER_RENAME.put("Samsung Internet", "SamsungBrowser");
-    }
-
-    public void improveLayoutEngineAndAgentInfo(MutableUserAgent userAgent, ClientHints clientHints) {
+    public void improveLayoutEngineAndAgentInfo(AnalyzerConfigHolder config, MutableUserAgent userAgent, ClientHints clientHints) {
         // Improve the Agent info.
         List<Brand> versionList = clientHints.getFullVersionList();
         if (versionList == null) {
@@ -609,9 +600,12 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         String agentName = brand.getName();
 
         // Sanitize the common yet unwanted names
-        String renamed = BROWSER_RENAME.get(agentName);
-        if (renamed != null) {
-            agentName = renamed;
+        Map<String, String> clientHintTagMapping = config.getLookups().get("ClientHintTagToNameMapping");
+        if (clientHintTagMapping != null) {
+            String betterValue = clientHintTagMapping.get(agentName.toLowerCase(Locale.ROOT));
+            if (betterValue != null) {
+                agentName = betterValue;
+            }
         }
 
         // We only update the version if we have a better version number.

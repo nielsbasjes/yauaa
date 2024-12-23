@@ -15,6 +15,7 @@ NEXT RELEASE
   - Handle URLs better with Robots/Hackers/Spammers
   - UltraBlock useragent randomizer
   - Improve DuckDuckGo
+  - Mapping ClientHint value for AgentName (i.e. ClientHint "YaBrowser" --> "Yandex Browser")
 
 v7.29.0
 ===

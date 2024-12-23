@@ -80,6 +80,14 @@ config:
       'EkiohFlow'       : 'Ekioh Flow'
       'QIHU'            : 'Qihoo 360 Safe Browser'
 
+- lookup: # Used in the post ClientHint processing code (Java)
+    name: 'ClientHintTagToNameMapping'
+    merge:
+      - 'BrowserTagToNameMapping'
+    map:
+      'OperaMobile'       : 'Opera Mobile'
+      'Microsoft Edge'    : 'Edge'
+      'Samsung Internet'  : 'SamsungBrowser'
 
 - lookup:
     name: 'KnownWebviewAppNames'
