@@ -14,6 +14,7 @@ NEXT RELEASE
   - CPU tag arm_64
   - Handle URLs better with Robots/Hackers/Spammers
   - UltraBlock useragent randomizer
+  - Improve DuckDuckGo
 
 v7.29.0
 ===

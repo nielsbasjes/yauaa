@@ -140,6 +140,9 @@ config:
       'YaApp_iOS_Browser'                           : 'Browser|Yandex Browser'
       'YaApp_iOS'                                   : 'Browser|Yandex Browser'
 
+      'ddg_android'                                 : 'Browser|DuckDuckGo'
+      'ddg'                                         : 'Browser|DuckDuckGo'
+
 - matcher:
     variable:
     - 'AgentTag                            :LookUp[NONWebViewAppNamesMapping;agent.text]'
@@ -5055,14 +5058,6 @@ config:
 #
 #  com.google.android.youtube.player/1.14.0 com.google.android.youtube/17.28.34 com.google.android.youtube/17.28.34 (Linux; U; Android 9; nl_NL; FIG-LX1 Build/HUAWEIFIG-L31) gzip
 
-
-- matcher:
-    extract:
-      - 'AgentClass                         : 1000  : "Mobile App"'
-      - 'AgentName                          : 1000  : "DuckDuckGo"'
-      - 'AgentVersion                       : 1000  : agent.product.name="ddg_android"^.version'
-
-
 - test:
     input:
       User-Agent                           : 'ddg_android/5.107.0 (com.duckduckgo.mobile.android; Android API 30)'
@@ -5082,7 +5077,7 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Browser'
       AgentName                            : 'DuckDuckGo'
       AgentVersion                         : '5.107.0'
       AgentVersionMajor                    : '5'
@@ -5111,7 +5106,7 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Browser'
       AgentName                            : 'DuckDuckGo'
       AgentVersion                         : '5.109.0'
       AgentVersionMajor                    : '5'
@@ -5139,13 +5134,72 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Mobile App'
+      AgentClass                           : 'Browser'
       AgentName                            : 'DuckDuckGo'
       AgentVersion                         : '5.111.0'
       AgentVersionMajor                    : '5'
       AgentNameVersion                     : 'DuckDuckGo 5.111.0'
       AgentNameVersionMajor                : 'DuckDuckGo 5'
       AgentInformationUrl                  : 'com.duckduckgo.mobile.android'
+
+
+# DDG --> DuckDuckGo on iOS
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Safari/605.1.15 Ddg/17.5'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '17.5'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'DuckDuckGo 17.5'
+      AgentNameVersionMajor                : 'DuckDuckGo 17'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1 Ddg/17.5'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.5.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.5.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'DuckDuckGo'
+      AgentVersion                         : '17.5'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'DuckDuckGo 17.5'
+      AgentNameVersionMajor                : 'DuckDuckGo 17'
+
 
 
 # This is URL encoded Japanese ウイルスバスター which translates to "Virus Buster" and seems to be from TrendMicro
