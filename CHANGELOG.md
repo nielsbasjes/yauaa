@@ -21,7 +21,7 @@ v7.29.0
     - Require JDK 23 installed for Trino support.
     - Leverage new toolchains plugin: no longer needs toolchains.xml.
 - New/improved detections:
-    - Do tag lookups for Webviews (Yandex shoed wrong)
+    - Do tag lookups for Webviews (Yandex showed wrong)
     - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
     - Snorlax useragent with BASE64 encoded part
     - Devices from OX Tab, Xiaomi
