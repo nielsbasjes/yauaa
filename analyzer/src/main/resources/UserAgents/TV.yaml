@@ -2971,3 +2971,45 @@ config:
       AgentVersionMajor                    : '104'
       AgentNameVersion                     : 'Chrome 104'
       AgentNameVersionMajor                : 'Chrome 104'
+
+
+# Anything that is called a "TV Stick" is really an external device plugged into a TV --> Set-top box
+- matcher:
+    require:
+      - 'agent~"TV Stick"'
+    extract:
+      - 'DeviceClass                       : 1000 : "Set-top box"'
+
+
+# Seems like a Yandex Browser on a Google TV stick (4K)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; 4K Google TV Stick Build/RTT0.210829.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/126.0.6478.134 YaBrowser/24.1.2.250 (lite) TV Safari/537.36'
+    expected:
+      DeviceClass                          : 'Set-top box'
+      DeviceName                           : 'Google 4K Google TV Stick'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RTT0.210829.002'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '126.0'
+      LayoutEngineVersionMajor             : '126'
+      LayoutEngineNameVersion              : 'Blink 126.0'
+      LayoutEngineNameVersionMajor         : 'Blink 126'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '126.0.6478.134'
+      AgentVersionMajor                    : '126'
+      AgentNameVersion                     : 'Chrome Webview 126.0.6478.134'
+      AgentNameVersionMajor                : 'Chrome Webview 126'
+      WebviewAppName                       : 'Yandex Browser'
+      WebviewAppVersion                    : '24.1.2.250'
+      WebviewAppVersionMajor               : '24'
+      WebviewAppNameVersion                : 'Yandex Browser 24.1.2.250'
+      WebviewAppNameVersionMajor           : 'Yandex Browser 24'
