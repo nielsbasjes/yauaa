@@ -513,8 +513,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - 'agent.product.name="Version"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
@@ -535,8 +534,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - '@WebViewAppName[1]="Mobile"'
     - 'agent.product.name="Version"'
     extract:
@@ -556,8 +554,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - 'agent.product.name="Version"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
@@ -621,9 +618,9 @@ config:
 
 - matcher:
     require:
-    - 'agent.product.name="Mobile Safari"'
+    - 'agent.product.name?SafariTags'
     variable:
-    - 'WebViewProduct                      :agent.product.name="Version"^>.name="Chrome"^>>.name="Mobile Safari"^<'
+    - 'WebViewProduct                      :agent.product.name="Version"^>.name="Chrome"^>>.name?SafariTags^<'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
     - 'AgentName                           :     2500 :"Chrome Webview"'
@@ -718,8 +715,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - 'agent.product.comments.entry="wv"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
@@ -736,8 +732,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - 'agent.product.comments.entry="wv"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
@@ -754,8 +749,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - 'agent.product.comments.entry="wv"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
@@ -773,8 +767,7 @@ config:
     require:
     - 'IsNull[@WebViewAppName.key]'
     - 'IsNull[@WebViewAppName.keyvalue]'
-    - '@WebViewAppName!="Safari"'
-    - '@WebViewAppName!="Mobile Safari"'
+    - '@WebViewAppName!?SafariTags'
     - 'agent.product.comments.entry="wv"'
     extract:
     - 'AgentClass                          :     2500 :"Browser Webview"'
@@ -2274,13 +2267,12 @@ config:
 - matcher:
     variable:
     - 'ChromeName                          :agent.product.name[1]="Chrome"'
-    - 'SafariName                          :agent.product.name[3]="Safari"'
-    - 'ProductName                         :@SafariName@[2]'
+    - 'SafariName                          :agent.product.name[3]="Safari"@'
+    - 'ProductName                         :@SafariName[2]'
     require:
     - 'agent.product.name[1]="Mobile"' # Speedup trick
-    - '@SafariName@[1]="Mobile"'
-    - 'IsNull[agent.product.name="Mobile Safari"]'
-    - 'IsNull[agent.product.name="Mobile VR Safari"]'
+    - '@SafariName[1]="Mobile"'
+    - '@SafariName!?SafariTags'
     extract:
     - 'AgentName                           :     2100 :@ProductName'
     - 'AgentVersion                        :     2100 :@ChromeName^.version'
