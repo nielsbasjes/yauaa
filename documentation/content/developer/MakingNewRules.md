@@ -248,7 +248,7 @@ Comparing values in the tree
 | Starts with               | {      | agent.product.name{"b"            | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"                                                                                                                     |
 | Ends with                 | }      | agent.product.name}"z"            | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"                                                                                                                       |
 | (Key)set contains         | ?      | agent.product.name?mySetOfValues  | agent.(3)product.(1)name           | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated     |
-| (Key)set does NOT contain | ?!     | agent.product.name?!mySetOfValues | agent.(3)product.(1)name           | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated |
+| (Key)set does NOT contain | !?     | agent.product.name!?mySetOfValues | agent.(3)product.(1)name           | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated |
 
 Extracting substrings
 
