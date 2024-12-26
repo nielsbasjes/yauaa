@@ -1,0 +1,1202 @@
+# $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2024 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+config:
+
+# https://gist.github.com/jabbink/8bfa44bdfc535d696b340c46d228fdd1
+#   Always use User-Agent: Appie/8.22.3 and Content-Type: application/json
+#   Technically there is more information about your device and user ID after it, but the server does not seem to care
+# So this ... is a hacker.
+- test:
+    input: # Seems the hacked advice from using the AH API that needs this exact User-Agent
+      User-Agent                           : 'Appie/8.22.3'
+    expected:
+      DeviceClass                          : 'Hacker'
+      DeviceName                           : 'Hacker'
+      DeviceBrand                          : 'Hacker'
+      DeviceVersion                        : 'Hacker'
+      OperatingSystemClass                 : 'Hacker'
+      OperatingSystemName                  : 'Hacker'
+      OperatingSystemVersion               : 'Hacker'
+      OperatingSystemVersionMajor          : 'Hacker'
+      OperatingSystemNameVersion           : 'Hacker'
+      OperatingSystemNameVersionMajor      : 'Hacker'
+      LayoutEngineClass                    : 'Hacker'
+      LayoutEngineName                     : 'Hacker'
+      LayoutEngineVersion                  : 'Hacker'
+      LayoutEngineVersionMajor             : 'Hacker'
+      LayoutEngineNameVersion              : 'Hacker'
+      LayoutEngineNameVersionMajor         : 'Hacker'
+      AgentClass                           : 'Hacker'
+      AgentName                            : 'Hacker'
+      AgentVersion                         : 'Hacker'
+      AgentVersionMajor                    : 'Hacker'
+      AgentNameVersion                     : 'Hacker'
+      AgentNameVersionMajor                : 'Hacker'
+      RemarkablePattern                    : 'Manually faking to look like the Albert Heijn Appie App'
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="Appie"'
+      - 'IsNull[agent.product.(1)name="Android"]'
+      - 'IsNull[agent.product.(1)name="Apple"]'
+      - 'IsNull[agent.product.(1)name="Member"]'
+    extract:
+      - '__Set_ALL_Fields__                  :   999900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'DeviceClass                         :  1000000 :"Hacker"'
+      - 'DeviceBrand                         :  1000000 :"Hacker"'
+      - 'DeviceName                          :  1000000 :"Hacker"'
+      - 'DeviceVersion                       :  1000000 :"Hacker"'
+      - 'OperatingSystemClass                :  1000000 :"Hacker"'
+      - 'OperatingSystemName                 :  1000000 :"Hacker"'
+      - 'OperatingSystemVersion              :  1000000 :"Hacker"'
+      - 'LayoutEngineClass                   :  1000000 :"Hacker"'
+      - 'LayoutEngineName                    :  1000000 :"Hacker"'
+      - 'LayoutEngineVersion                 :  1000000 :"Hacker"'
+      - 'AgentClass                          :  1000000 :"Hacker"'
+      - 'AgentName                           :  1000000 :"Hacker"'
+      - 'AgentVersion                        :  1000000 :"Hacker"'
+      - 'AgentInformationUrl                 :  1000000 :"<<<null>>>"'
+      - 'AgentInformationEmail               :  1000000 :"<<<null>>>"'
+      - 'RemarkablePattern                   :  1000000 :"Manually faking to look like the Albert Heijn Appie App"'
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name[1]="Appie"'
+    extract:
+      - 'DeviceClass                   : 1000  : "Mobile"'
+      - 'DeviceName                    : 1000  : ReplaceString[agent.(2)product;"/";""]'
+      - 'DeviceBrand                   : 1000  : agent.(2)product.(1)name'
+      - 'OperatingSystemClass          : 1000  : "Mobile"'
+      - 'OperatingSystemName           : 1000  : "Android"'
+      - 'OperatingSystemVersion        : 1000  : agent.(3)product.(1)name="Android"^.version[1]' # Strip the API version
+
+# Some brands have "Google/Pixel 7 Pro Android/13-API33" --> "Pro Android/13-API33"
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name[1]="Appie"'
+    extract:
+      - 'DeviceClass                   : 1000  : "Mobile"'
+      - 'DeviceName                    : 1000  : ReplaceString[agent.(2)product;"/";""]'
+      - 'DeviceBrand                   : 1000  : agent.(2)product.(1)name'
+      - 'OperatingSystemClass          : 1000  : "Mobile"'
+      - 'OperatingSystemName           : 1000  : "Android"'
+      - 'OperatingSystemVersion        : 1000  : agent.(3)product.(1)name[2]="Android"^.version[1]' # Strip the API version
+
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name[1]="Appie"'
+      - 'agent.(2)product.(1)name="Apple"'
+    extract:
+      - 'OperatingSystemClass                :      1 : "Mobile"'
+      - 'OperatingSystemName                 :      1 : "iOS"'
+      - 'OperatingSystemVersion              :      1  : agent.(3)product.(1)version'
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.11.1 Samsung/SM-A505FN Android/11-API30 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A505FN'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.11.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.11.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 OPPO/CPH2371 Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oppo CPH2371'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 OUKITEL/K8 Android/8.0.0-API26 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oukitel K8'
+      DeviceBrand                          : 'Oukitel'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Realme/RMX3511 Android/11-API30 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Realme RMX3511'
+      DeviceBrand                          : 'Realme'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Samsung/SM-A025G Android/11-API30 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A025G'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 HMD Global/Nokia 5.1 Android/10-API29 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'HMD Global Nokia 5.1'
+      DeviceBrand                          : 'HMD Global'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.1 Apple/iPhone8,4 iOS/15.7.1 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone SE'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.7.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.7.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31 Apple/iPad7,11 iPadOS/15.6.1 Member/234567890'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (7th gen, 10.2-inch, WiFi)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.6.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 Xiaomi/21081111RG Android/11-API30 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Xiaomi 21081111RG'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 Xiaomi/2201116TG Android/11-API30 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Xiaomi 2201116TG'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 Xiaomi/MI MAX 3 Android/10-API29 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Xiaomi MI MAX 3'
+      DeviceBrand                          : 'Xiaomi'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 Google/Pixel 7 Pro Android/13-API33 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Google Pixel 7' # FIXME: The 'Pro' goes missing
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 HUAWEI/CLT-L09 Android/10-API29 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Huawei CLT-L09'
+      DeviceBrand                          : 'Huawei'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:  # Broken example: The '/' in the device identifier is missing
+      User-Agent                           : 'Appie/8.32.1 Motorola edge 20 lite Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Edge 20'
+      DeviceBrand                          : 'Motorola Edge'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 OPPO/CPH2251 Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oppo CPH2251'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32.1 Samsung/SM-A525F Android/13-API33'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-A525F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '13'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'Android 13'
+      OperatingSystemNameVersionMajor      : 'Android 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Samsung/SM-G930F Android/8.0.0-API26 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Samsung SM-G930F'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Motorola/Moto E (4) Plus Android/7.1.1-API25 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto E (4)'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7' # FIXME: Should be 7.1.1
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7' # FIXME: Should be 7.1.1
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Motorola/Moto g(100) Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto G(100)'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Motorola/Moto g22 Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Motorola Moto G22'
+      DeviceBrand                          : 'Motorola'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 OPPO/CPH2145 Android/12-API31 Member/234567890/L'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Oppo CPH2145'
+      DeviceBrand                          : 'Oppo'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Doro 8040 Android/7.0-API24 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Doro 8040'
+      DeviceBrand                          : 'Doro'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Fairphone/FP4 Android/11-API30 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Fairphone FP4'
+      DeviceBrand                          : 'Fairphone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Gigaset/E940-2796-00 Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Gigaset E940-2796-00'
+      DeviceBrand                          : 'Gigaset'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.31.0 Gigaset/GS110 Android/9-API28 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Gigaset GS110'
+      DeviceBrand                          : 'Gigaset'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '9'
+      OperatingSystemVersionMajor          : '9'
+      OperatingSystemNameVersion           : 'Android 9'
+      OperatingSystemNameVersionMajor      : 'Android 9'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.31.0'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.31.0'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.30.1 HMD Global/Nokia 3.4 Android/12-API31 Member/234567890'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'HMD Global Nokia 3.4'
+      DeviceBrand                          : 'HMD Global'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.30.1'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.30.1'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPad7,6 iPadOS/15.6.1 Member/234567890'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPad (6th gen, A1954)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.6.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone10,4 iOS/15.6.1 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 8 (A1905)'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.6.1'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.6.1'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone11,8 iOS/14.3 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone XR'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '14.3'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'iOS 14.3'
+      OperatingSystemNameVersionMajor      : 'iOS 14'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone12,1 iOS/15.2 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 11'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.2'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.2'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone12,1 iOS/16.1.2 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 11'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone12,3 iOS/16.1.2 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 11 Pro'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone12,5 iOS/16.0 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 11 Pro Max'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone12,8 iOS/16.1.2 Member/234567890/L'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone SE 2nd Gen'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone13,2 iOS/16.0 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 12'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone13,3 iOS/16.1.2 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 12 Pro'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone14,3 iOS/16.0 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 13 Pro Max'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone14,5 iOS/16.0.2 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 13'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie/8.32 Apple/iPhone15,2 iOS/16.1.2 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 14 Pro'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.1.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.1.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Albert Heijn App'
+      AgentVersion                         : '8.32'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Albert Heijn App 8.32'
+      AgentNameVersionMajor                : 'Albert Heijn App 8'
+
+
+- test:
+    input:
+      User-Agent                           : 'Appie-time/8.40 Apple/iPhone14,5 iOS/16.0 Member/234567890'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone 13'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.0'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.0'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Appie-time'
+      AgentVersion                         : '8.40'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'Appie-time 8.40'
+      AgentNameVersionMajor                : 'Appie-time 8'

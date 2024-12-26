@@ -7170,33 +7170,6 @@ config:
 
 
 - test:
-    input:
-      User-Agent                           : 'Appie/8.22.3'
-    expected:
-      DeviceClass                          : 'Mobile'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Mobile App'
-      AgentName                            : 'Albert Heijn App'
-      AgentVersion                         : '8.22.3'
-      AgentVersionMajor                    : '8'
-      AgentNameVersion                     : 'Albert Heijn App 8.22.3'
-      AgentNameVersionMajor                : 'Albert Heijn App 8'
-
-
-- test:
     input:  # TODO: Non standard pattern. Seems like Chrome; unsure about the 'PB/183' part
       User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 13; moto e13 Build/TLAS33.105-285-4) AppleWebKit [PB/183] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
     expected:
@@ -7223,7 +7196,6 @@ config:
       AgentNameVersion                     : 'Chrome 108'
       AgentNameVersionMajor                : 'Chrome 108'
       AgentSecurity                        : 'Strong security'
-
 
 
 - test:
@@ -7255,7 +7227,6 @@ config:
       AgentSecurity                        : 'Strong security'
 
 
-
 - test:
     input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'SX254' part
       User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 14; SM-A135F Build/UP1A.231005.007) AppleWebKit [SX/254] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
@@ -7283,7 +7254,6 @@ config:
       AgentNameVersion                     : 'Chrome 108'
       AgentNameVersionMajor                : 'Chrome 108'
       AgentSecurity                        : 'Strong security'
-
 
 
 - test:
@@ -7315,9 +7285,8 @@ config:
       AgentSecurity                        : 'Strong security'
 
 
-
 - test:
-    input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'SX254' part
+    input: # TODO: Non standard pattern. Seems like Chrome; unsure about the 'SX/254' part
       User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 14; SM-S916B Build/UP1A.231005.007) AppleWebKit [SX/254] (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
