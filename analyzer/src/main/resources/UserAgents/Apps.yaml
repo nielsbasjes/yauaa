@@ -6186,6 +6186,92 @@ config:
       AgentNameVersionMajor                : 'Ziggo 18'
 
 
+# VOO ?
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/VOO 18.6.281206 18.6.281206 15.0 Mobile Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.5'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.5'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'VOO'
+      AgentVersion                         : '18.6.281206'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'VOO 18.6.281206'
+      AgentNameVersionMajor                : 'VOO 18'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/Solcon 18.6.282002 18.6.282002 16.0 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      DeviceVersion                        : 'iPhone'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '13.5'
+      OperatingSystemVersionMajor          : '13'
+      OperatingSystemNameVersion           : 'iOS 13.5'
+      OperatingSystemNameVersionMajor      : 'iOS 13'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Solcon'
+      AgentVersion                         : '18.6.282002'
+      AgentVersionMajor                    : '18'
+      AgentNameVersion                     : 'Solcon 18.6.282002'
+      AgentNameVersionMajor                : 'Solcon 18'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (iPad; CPU OS 16_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Solcon/19.2.284505 Mobile/15E148 Version/16.3.1 Safari/605.1.15'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      DeviceFirmwareVersion                : '15E148'
+      DeviceVersion                        : 'iPad'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.3.1'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.3.1'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Solcon'
+      AgentVersion                         : '19.2.284505'
+      AgentVersionMajor                    : '19'
+      AgentNameVersion                     : 'Solcon 19.2.284505'
+      AgentNameVersionMajor                : 'Solcon 19'
+
+
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) AvastSecureBrowser/5.9.0 Mobile/15E148 Version/17.0 Safari/605.1.15'
