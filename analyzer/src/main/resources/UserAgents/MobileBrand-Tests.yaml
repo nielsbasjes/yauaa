@@ -3722,3 +3722,116 @@ config:
       AgentNameVersion                     : 'Chrome 103'
       AgentNameVersionMajor                : 'Chrome 103'
 
+
+# Heavily whitelabeled --> Unclear brand https://www.alibaba.com/product-detail/YC-83P-8-inch-black-color_1600617309766.html
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; YC-83P Build/RP1A.201105.002) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.163 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'YC 83P'
+      DeviceBrand                          : 'YC'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.201105.002'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '119.0'
+      LayoutEngineVersionMajor             : '119'
+      LayoutEngineNameVersion              : 'Blink 119.0'
+      LayoutEngineNameVersionMajor         : 'Blink 119'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '119.0.6045.163'
+      AgentVersionMajor                    : '119'
+      AgentNameVersion                     : 'Chrome 119.0.6045.163'
+      AgentNameVersionMajor                : 'Chrome 119'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; TIQ-1049 Build/RP1A.200720.011) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.66 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'TIQ 1049'
+      DeviceBrand                          : 'TIQ'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '11'
+      OperatingSystemVersionMajor          : '11'
+      OperatingSystemNameVersion           : 'Android 11'
+      OperatingSystemNameVersionMajor      : 'Android 11'
+      OperatingSystemVersionBuild          : 'RP1A.200720.011'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '119.0'
+      LayoutEngineVersionMajor             : '119'
+      LayoutEngineNameVersion              : 'Blink 119.0'
+      LayoutEngineNameVersionMajor         : 'Blink 119'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '119.0.6045.66'
+      AgentVersionMajor                    : '119'
+      AgentNameVersion                     : 'Chrome 119.0.6045.66'
+      AgentNameVersionMajor                : 'Chrome 119'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 12; Nokia 8.3 5G) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Nokia 8.3 5G'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '108'
+      AgentVersionMajor                    : '108'
+      AgentNameVersion                     : 'Chrome 108'
+      AgentNameVersionMajor                : 'Chrome 108'
+
+
+- test:
+    input:
+      User-Agent                           : 'Dalvik/2.1.0 (Linux; U; Android 10; Nokia 6.1 Build/QKQ1.190828.002) AppleWebKit [PB/107]'
+    expected:
+      DeviceClass                          : 'Mobile'
+      DeviceName                           : 'Nokia 6.1'
+      DeviceBrand                          : 'Nokia'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '10'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Android 10'
+      OperatingSystemNameVersionMajor      : 'Android 10'
+      OperatingSystemVersionBuild          : 'QKQ1.190828.002'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'AppleWebKit ??'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit ??'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Safari'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Safari ??'
+      AgentNameVersionMajor                : 'Safari ??'
+      AgentSecurity                        : 'Strong security'
+
