@@ -6244,24 +6244,186 @@ config:
       AgentNameVersionMajor                : 'Citrix WorxWeb 24'
 
 
-# TODO: No specifications and only this string as input.
+# No specifications and only this string as input.
 # The values shown are my current guess. Looking for a specification and a few more examples
-#- test:
-#    input:
-#      User-Agent                           : 'nu.nl/10.13 (iOS,16.2;230124161124;828x1792@2.0x)(Sanoma/app)'
-#    expected:
-#      DeviceClass                          : 'Mobile'
-#      DeviceName                           : 'Apple iOS Device'
-#      DeviceBrand                          : 'Apple'
-#      OperatingSystemClass                 : 'Mobile'
-#      OperatingSystemName                  : 'iOS'
-#      OperatingSystemVersion               : '16.2'
+# nu.nl/10.12.1 (iPadOS,15.7;221212130909;1620x2160@2.0x)(Sanoma/app)
+# app/version   (OS,OS.version; buildid; resolution ; dark-mode ) (Sanoma/app)
 
-#      LayoutEngineClass                    : 'Mobile App'
+- matcher:
+    require:
+    - 'agent.(1)product.(1)name="nu.nl"'
+    - 'agent.(1)product.(1)name.(1)url="nu.nl"'
+    - 'agent.(1)product.(1)comments.(1)entry="iOS"'
+    - 'agent.(1)product.(2)comments="(Sanoma/app)"'
+    extract:
+    - 'DeviceClass                     : 100 : "Phone"'
+    - 'DeviceName                      : 100 : "Apple iPhone"'
+    - 'DeviceBrand                     : 100 : "Apple"'
+    - 'OperatingSystemClass            : 100 : "Mobile"'
+    - 'OperatingSystemName             : 100 : "iOS"'
+    - 'OperatingSystemVersion          : 100 : agent.(1)product.(1)comments.(2)entry'
+    - 'LayoutEngineClass               : 100 : "Mobile App"'
+    - 'AgentClass                      : 100 : "Mobile App"'
+    - 'AgentName                       : 100 : "Nu.nl"'
+    - 'AgentVersion                    : 100 : agent.(1)product.(1)version'
 
-#      AgentClass                           : 'Mobile App'
-#      AgentName                            : 'Nu.nl'
-#      AgentVersion                         : '10.13'
+- matcher:
+    require:
+      - 'agent.(1)product.(1)name="nu.nl"'
+      - 'agent.(1)product.(1)name.(1)url="nu.nl"'
+      - 'agent.(1)product.(1)comments.(1)entry="iPadOS"'
+      - 'agent.(1)product.(2)comments="(Sanoma/app)"'
+    extract:
+      - 'DeviceClass                     : 100 : "Tablet"'
+      - 'DeviceName                      : 100 : "Apple iPad"'
+      - 'DeviceBrand                     : 100 : "Apple"'
+      - 'OperatingSystemClass            : 100 : "Mobile"'
+      - 'OperatingSystemName             : 100 : "iOS"'
+      - 'OperatingSystemVersion          : 100 : agent.(1)product.(1)comments.(2)entry'
+      - 'LayoutEngineClass               : 100 : "Mobile App"'
+      - 'AgentClass                      : 100 : "Mobile App"'
+      - 'AgentName                       : 100 : "Nu.nl"'
+      - 'AgentVersion                    : 100 : agent.(1)product.(1)version'
+
+
+- test:
+    input:
+      User-Agent                           : 'nu.nl/10.13 (iOS,16.2;230124161124;828x1792@2.0x)(Sanoma/app)'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Apple iPhone'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '16.2'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'iOS 16.2'
+      OperatingSystemNameVersionMajor      : 'iOS 16'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Nu.nl'
+      AgentVersion                         : '10.13'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Nu.nl 10.13'
+      AgentNameVersionMajor                : 'Nu.nl 10'
+      AgentInformationUrl                  : 'nu.nl'
+
+
+- test:
+    input:
+      User-Agent                           : 'nu.nl/10.12.1 (iPadOS,15.7;221212130909;1620x2160@2.0x)(Sanoma/app)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.7'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.7'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Nu.nl'
+      AgentVersion                         : '10.12.1'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Nu.nl 10.12.1'
+      AgentNameVersionMajor                : 'Nu.nl 10'
+      AgentInformationUrl                  : 'nu.nl'
+
+
+- test:
+    input:
+      User-Agent                           : 'nu.nl/10.9 (iPadOS,15.5;220730155801;1640x2360@2.0x)(Sanoma/app)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.5'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.5'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Nu.nl'
+      AgentVersion                         : '10.9'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Nu.nl 10.9'
+      AgentNameVersionMajor                : 'Nu.nl 10'
+      AgentInformationUrl                  : 'nu.nl'
+
+
+- test:
+    input:
+      User-Agent                           : 'nu.nl/10.11 (iPadOS,15.7;221031203712;1536x2048@2.0x;dark-mode)(Sanoma/app)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '15.7'
+      OperatingSystemVersionMajor          : '15'
+      OperatingSystemNameVersion           : 'iOS 15.7'
+      OperatingSystemNameVersionMajor      : 'iOS 15'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Nu.nl'
+      AgentVersion                         : '10.11'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Nu.nl 10.11'
+      AgentNameVersionMajor                : 'Nu.nl 10'
+      AgentInformationUrl                  : 'nu.nl'
+
+
+- test:
+    input:
+      User-Agent                           : 'nu.nl/10.27.1 (iPadOS,17.4.1;240505152247;1640x2360@2.0x)(Sanoma/app)'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Apple iPad'
+      DeviceBrand                          : 'Apple'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'iOS'
+      OperatingSystemVersion               : '17.4.1'
+      OperatingSystemVersionMajor          : '17'
+      OperatingSystemNameVersion           : 'iOS 17.4.1'
+      OperatingSystemNameVersionMajor      : 'iOS 17'
+      LayoutEngineClass                    : 'Mobile App'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Nu.nl'
+      AgentVersion                         : '10.27.1'
+      AgentVersionMajor                    : '10'
+      AgentNameVersion                     : 'Nu.nl 10.27.1'
+      AgentNameVersionMajor                : 'Nu.nl 10'
+      AgentInformationUrl                  : 'nu.nl'
 
 
 - lookup:
@@ -7312,6 +7474,3 @@ config:
       AgentNameVersion                     : 'Chrome 108'
       AgentNameVersionMajor                : 'Chrome 108'
       AgentSecurity                        : 'Strong security'
-
-
-

@@ -6,7 +6,7 @@ NEXT RELEASE
 - New/improved detections:
   - Updated the list of Amazon devices (2023, 2024 models)
   - Fix phones with real browser name at the end (like AAB does)
-  - Presearch browser, Citrix WorxWeb, Klarna, Budbee, MAGAPPX, Yandex, Albert Heijn App, Ghostery, Dalvik,
+  - Presearch browser, Citrix WorxWeb, Klarna, Budbee, MAGAPPX, Yandex, Albert Heijn App, Ghostery, Dalvik, Nu.nl (iOS)
   - ZTE Nubia
   - Very old Samsung Browser is a webview
   - Whitelabel "Safe" Browser apps (iOS): Ziggo, KPN, VandenBorre, F-Secure
