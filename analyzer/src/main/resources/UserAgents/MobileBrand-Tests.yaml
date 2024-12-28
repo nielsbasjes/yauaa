@@ -3641,3 +3641,84 @@ config:
       AgentVersionMajor                    : '119'
       AgentNameVersion                     : 'Chrome 119.0.6045.193'
       AgentNameVersionMajor                : 'Chrome 119'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.1.0; Tesla_SP9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'  # NOTE: This is actually correct; this is NOT a car !!
+      DeviceName                           : 'Tesla SP9 2'
+      DeviceBrand                          : 'Tesla'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '90.0'
+      LayoutEngineVersionMajor             : '90'
+      LayoutEngineNameVersion              : 'Blink 90.0'
+      LayoutEngineNameVersionMajor         : 'Blink 90'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '90.0.4430.91'
+      AgentVersionMajor                    : '90'
+      AgentNameVersion                     : 'Chrome 90.0.4430.91'
+      AgentNameVersionMajor                : 'Chrome 90'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.1.0; Tesla_SP9_2 Build/O11019) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.91 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'   # NOTE: This is actually correct; this is NOT a car !!
+      DeviceName                           : 'Tesla SP9 2'
+      DeviceBrand                          : 'Tesla'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      OperatingSystemVersionBuild          : 'O11019'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '68.0'
+      LayoutEngineVersionMajor             : '68'
+      LayoutEngineNameVersion              : 'Blink 68.0'
+      LayoutEngineNameVersionMajor         : 'Blink 68'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '68.0.3440.91'
+      AgentVersionMajor                    : '68'
+      AgentNameVersion                     : 'Chrome 68.0.3440.91'
+      AgentNameVersionMajor                : 'Chrome 68'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 8.1.0; Tesla_SP9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'   # NOTE: This is actually correct; this is NOT a car !!
+      DeviceName                           : 'Tesla SP9 2'
+      DeviceBrand                          : 'Tesla'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.1.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.1.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '103'
+      LayoutEngineVersionMajor             : '103'
+      LayoutEngineNameVersion              : 'Blink 103'
+      LayoutEngineNameVersionMajor         : 'Blink 103'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '103'
+      AgentVersionMajor                    : '103'
+      AgentNameVersion                     : 'Chrome 103'
+      AgentNameVersionMajor                : 'Chrome 103'
+
