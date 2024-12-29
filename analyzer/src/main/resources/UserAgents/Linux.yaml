@@ -1514,6 +1514,75 @@ config:
       AgentNameVersionMajor                : 'Chrome 72'
 
 
+# You can actually run Android on a PI 4
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 12; Raspberry Pi 4 Build/SP2A.220505.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Raspberry PI 4'
+      DeviceBrand                          : 'Raspberry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '12'
+      OperatingSystemVersionMajor          : '12'
+      OperatingSystemNameVersion           : 'Android 12'
+      OperatingSystemNameVersionMajor      : 'Android 12'
+      OperatingSystemVersionBuild          : 'SP2A.220505.002'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '100.0.4896.127'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Chrome Webview 100.0.4896.127'
+      AgentNameVersionMajor                : 'Chrome Webview 100'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+# You can actually run Android on a PI 5
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 14; Raspberry Pi 5 Build/AP1A.240505.005; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/125.0.6422.165 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Raspberry PI 5'
+      DeviceBrand                          : 'Raspberry'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'AP1A.240505.005'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '125.0'
+      LayoutEngineVersionMajor             : '125'
+      LayoutEngineNameVersion              : 'Blink 125.0'
+      LayoutEngineNameVersionMajor         : 'Blink 125'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '125.0.6422.165'
+      AgentVersionMajor                    : '125'
+      AgentNameVersion                     : 'Chrome Webview 125.0.6422.165'
+      AgentNameVersionMajor                : 'Chrome Webview 125'
+      WebviewAppName                       : 'Unknown Webview App'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Unknown Webview App ??'
+      WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+
 - test:
     input:
       user_agent_string: 'Kodi/14.1 (X11; Linux armv6l) Raspbian GNU/Linux/7 HW_RaspberryPi/1.0 App_Bitness/32 Version/14.1-Git:2015-02-02-81c4046-dirty'
