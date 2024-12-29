@@ -153,6 +153,7 @@ public class TreeExpressionEvaluator implements Serializable {
 
     public WalkResult evaluate(ParseTree tree, String key, String value) {
         if (verbose) {
+            LOG.info("===========================================");
             LOG.info("Evaluate: {} => {}", key, value);
             LOG.info("Pattern : {}", requiredPatternText);
             LOG.info("WalkList: {}", walkList);
