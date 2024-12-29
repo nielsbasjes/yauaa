@@ -63,6 +63,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern STRIP_BASE64_BLOCK =
         Pattern.compile(" H@(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)@h ");
 
+    private static final Pattern PICO_OS_TAG =
+        Pattern.compile("(Pico [a-zA-Z0-9 ._-]+ OS)", Pattern.CASE_INSENSITIVE);
+
     /**
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
@@ -190,6 +193,9 @@ public final class EvilManualUseragentStringHacks {
                 // Ignore and continue.
             }
         }
+
+        // As found with the PICO 4 examples: Add an extra space behind ' OS' (handle: "Pico 4 OS1.2.3").
+        result = PICO_OS_TAG.matcher(result).replaceAll("$1 ");
 
         return result; // 99.99% of the cases nothing will have changed.
     }

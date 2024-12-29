@@ -329,3 +329,257 @@ config:
       AgentVersionMajor                    : '22'
       AgentNameVersion                     : 'OculusBrowser 22.2.0.3.39.382455783'
       AgentNameVersionMajor                : 'OculusBrowser 22'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/33.3.0.1.166.605484368 Chrome/124.0.6367.221 VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Oculus Linux Desktop'
+      DeviceBrand                          : 'Oculus'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '124.0'
+      LayoutEngineVersionMajor             : '124'
+      LayoutEngineNameVersion              : 'Blink 124.0'
+      LayoutEngineNameVersionMajor         : 'Blink 124'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'OculusBrowser'
+      AgentVersion                         : '33.3.0.1.166.605484368'
+      AgentVersionMajor                    : '33'
+      AgentNameVersion                     : 'OculusBrowser 33.3.0.1.166.605484368'
+      AgentNameVersionMajor                : 'OculusBrowser 33'
+
+
+# https://developer.picoxr.com/document/web/development-platform/#8acb98bd
+# In the default "Desktop" mode, the formal UA of the PICO Browser is:
+#  Mozilla/5.0 (X11; Linux x86_64; PICO 4 OS{OS Version} like Quest)
+#  AppleWebKit/537.36 (KHTML, like Gecko)
+#  PicoBrowser/{Pico Browser Version}
+#  Chrome/{Chrome Rev} VR Safari/537.36 OculusBrowser/7.0
+
+# In the "Mobile" mode, the formal UA of the PICO Browser is:
+#  Mozilla/5.0 (Linux; Android 10; PICO 4 OS{OS Version} like Quest)
+#  AppleWebKit/537.36 (KHTML, like Gecko)
+#  PicoBrowser/{Pico Browser Version}
+#  Chrome/{Chrome Rev} Mobile VR Safari/537.36 OculusBrowser/7.0
+
+- matcher:
+    variable:
+      - 'Agent: agent.product.name="PicoBrowser"^'
+    extract:
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
+      - 'DeviceBrand                         :      315 :"Pico"'
+      - 'AgentName                           :     3500 :"PicoBrowser"'
+      - 'AgentVersion                        :     3500 :@Agent.version'
+
+# Handle:
+#  - Pico Neo3 Link OS5.8.4.0 like Quest
+#  - PICO 4 Enterprise OS5.9.2 like Quest
+
+- matcher:
+    variable:
+      - 'PICO: agent.(1)product.(1)comments.entry[1]="PICO"@'
+    require:
+      - '@PICO[2]="OS"'
+    extract:
+      - 'DeviceClass                       : 1010   : "Virtual Reality"'
+      - 'DeviceName                        : 1010   : @PICO[1]'
+      - 'DeviceBrand                       : 1010   : "Pico"'
+
+- matcher:
+    variable:
+      - 'PICO: agent.(1)product.(1)comments.entry[1]="PICO"@'
+    require:
+      - '@PICO[3]="OS"'
+    extract:
+      - 'DeviceClass                       : 1010   : "Virtual Reality"'
+      - 'DeviceName                        : 1010   : @PICO[-2]'
+      - 'DeviceBrand                       : 1010   : "Pico"'
+
+- matcher:
+    variable:
+      - 'PICO: agent.(1)product.(1)comments.entry[1]="PICO"@'
+    require:
+      - '@PICO[4]="OS"'
+    extract:
+      - 'DeviceClass                       : 1010   : "Virtual Reality"'
+      - 'DeviceName                        : 1010   : @PICO[-3]'
+      - 'DeviceBrand                       : 1010   : "Pico"'
+
+- matcher:
+    variable:
+      - 'PICO: agent.(1)product.(1)comments.entry[1]="PICO"@'
+    require:
+      - '@PICO[5]="OS"'
+    extract:
+      - 'DeviceClass                       : 1010   : "Virtual Reality"'
+      - 'DeviceName                        : 1010   : @PICO[-4]'
+      - 'DeviceBrand                       : 1010   : "Pico"'
+
+- matcher:
+    variable:
+      - 'PICO: agent.(1)product.(1)comments.entry[1]="PICO"'
+      - 'OSTag: @PICO.product.name[1]="OS"^'
+    extract:
+      - 'OperatingSystemName               : 1010   : "PICO OS"'
+      - 'OperatingSystemVersion            : 1010   : @OSTag.version'
+
+- matcher:
+    variable:
+      - 'PICO: agent.(1)product.(1)comments.entry[1]="PICO"'
+      - 'OSTag: @PICO.product.name[2]="OS"^'
+    extract:
+      - 'OperatingSystemName               : 1010   : "PICO OS"'
+      - 'OperatingSystemVersion            : 1010   : @OSTag.version'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; PICO 4 OS5.9.2 like Quest) AppleWebKit/537.36 (KHTML, like Gecko) PicoBrowser/3.3.42 Chrome/105.0.5195.68 VR Safari/537.36 OculusBrowser/7.0'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pico 4'
+      DeviceBrand                          : 'Pico'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'PICO OS'
+      OperatingSystemVersion               : '5.9.2'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'PICO OS 5.9.2'
+      OperatingSystemNameVersionMajor      : 'PICO OS 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '105.0'
+      LayoutEngineVersionMajor             : '105'
+      LayoutEngineNameVersion              : 'Blink 105.0'
+      LayoutEngineNameVersionMajor         : 'Blink 105'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'PicoBrowser'
+      AgentVersion                         : '3.3.42'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'PicoBrowser 3.3.42'
+      AgentNameVersionMajor                : 'PicoBrowser 3'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; PICO 4 Enterprise OS5.9.2 like Quest) AppleWebKit/537.36 (KHTML, like Gecko) PicoBrowser/3.3.42 Chrome/105.0.5195.68 VR Safari/537.36  OculusBrowser/7.0'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pico 4 Enterprise'
+      DeviceBrand                          : 'Pico'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'PICO OS'
+      OperatingSystemVersion               : '5.9.2'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'PICO OS 5.9.2'
+      OperatingSystemNameVersionMajor      : 'PICO OS 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '105.0'
+      LayoutEngineVersionMajor             : '105'
+      LayoutEngineNameVersion              : 'Blink 105.0'
+      LayoutEngineNameVersionMajor         : 'Blink 105'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'PicoBrowser'
+      AgentVersion                         : '3.3.42'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'PicoBrowser 3.3.42'
+      AgentNameVersionMajor                : 'PicoBrowser 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Pico Neo3 Link OS5.8.4.0 like Quest) AppleWebKit/537.36 (KHTML, like Gecko) PicoBrowser/3.3.22 Chrome/105.0.5195.68 VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pico NEO3 Link'
+      DeviceBrand                          : 'Pico'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'PICO OS'
+      OperatingSystemVersion               : '5.8.4.0'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'PICO OS 5.8.4.0'
+      OperatingSystemNameVersionMajor      : 'PICO OS 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '105.0'
+      LayoutEngineVersionMajor             : '105'
+      LayoutEngineNameVersion              : 'Blink 105.0'
+      LayoutEngineNameVersionMajor         : 'Blink 105'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'PicoBrowser'
+      AgentVersion                         : '3.3.22'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'PicoBrowser 3.3.22'
+      AgentNameVersionMajor                : 'PicoBrowser 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Pico Neo 3 OS5.9.5 like Quest) AppleWebKit/537.36 (KHTML, like Gecko) PicoBrowser/3.3.42 Chrome/105.0.5195.68 VR Safari/537.36 OculusBrowser/7.0'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pico NEO 3'
+      DeviceBrand                          : 'Pico'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop' # Desktop OS !!
+      OperatingSystemName                  : 'PICO OS'
+      OperatingSystemVersion               : '5.9.5'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'PICO OS 5.9.5'
+      OperatingSystemNameVersionMajor      : 'PICO OS 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '105.0'
+      LayoutEngineVersionMajor             : '105'
+      LayoutEngineNameVersion              : 'Blink 105.0'
+      LayoutEngineNameVersionMajor         : 'Blink 105'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'PicoBrowser'
+      AgentVersion                         : '3.3.42'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'PicoBrowser 3.3.42'
+      AgentNameVersionMajor                : 'PicoBrowser 3'
+
+# Manually created based using the specifications from Pico (i.e. fake version numbers)
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 10; PICO 4 OS1.2.3 like Quest) AppleWebKit/537.36 (KHTML, like Gecko) PicoBrowser/4.5.6 Chrome/105.0.5195.68 Mobile VR Safari/537.36 OculusBrowser/7.0'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Pico 4'
+      DeviceBrand                          : 'Pico'
+      OperatingSystemClass                 : 'Mobile' # Mobile OS !!
+      OperatingSystemName                  : 'PICO OS'
+      OperatingSystemVersion               : '1.2.3'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'PICO OS 1.2.3'
+      OperatingSystemNameVersionMajor      : 'PICO OS 1'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '105.0'
+      LayoutEngineVersionMajor             : '105'
+      LayoutEngineNameVersion              : 'Blink 105.0'
+      LayoutEngineNameVersionMajor         : 'Blink 105'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'PicoBrowser'
+      AgentVersion                         : '4.5.6'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'PicoBrowser 4.5.6'
+      AgentNameVersionMajor                : 'PicoBrowser 4'
