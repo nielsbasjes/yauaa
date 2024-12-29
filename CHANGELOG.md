@@ -16,6 +16,7 @@ NEXT RELEASE
   - UltraBlock useragent randomizer
   - Improve DuckDuckGo
   - Mapping ClientHint value for AgentName (i.e. ClientHint "YaBrowser" --> "Yandex Browser")
+  - Edgecase: 'OpenBSD != Linux amd64'
 
 v7.29.0
 ===
