@@ -7515,6 +7515,7 @@ config:
       AgentNameVersionMajor                : 'Bytespider ??'
       AgentInformationEmail                : 'bytespider@bytedance.com'
 
+
 - test:
     input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)'
@@ -7541,6 +7542,34 @@ config:
       AgentNameVersion                     : 'Bytespider ??'
       AgentNameVersionMajor                : 'Bytespider ??'
       AgentInformationEmail                : 'spider-feedback@bytedance.com'
+
+
+- test:
+    input: # Wrong website ??
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; https://zhanzhang.toutiao.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Toutiao Bytespider'
+      DeviceBrand                          : 'Toutiao'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bytespider'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Bytespider ??'
+      LayoutEngineNameVersionMajor         : 'Bytespider ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bytespider'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Bytespider ??'
+      AgentNameVersionMajor                : 'Bytespider ??'
+      AgentInformationUrl                  : 'https://zhanzhang.toutiao.com/'
 
 
 # A screenshot creation bot.
@@ -10055,6 +10084,34 @@ config:
       AgentNameVersion                     : 'PetalBot ??'
       AgentNameVersionMajor                : 'PetalBot ??'
       AgentInformationUrl                  : 'http://aspiegel.com/petalbot'
+
+
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (compatible;PetalBot;+https://webmaster.petalsearch.com/site/petalbot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Petalsearch PetalBot'
+      DeviceBrand                          : 'Petalsearch'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PetalBot'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'PetalBot ??'
+      LayoutEngineNameVersionMajor         : 'PetalBot ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PetalBot'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'PetalBot ??'
+      AgentNameVersionMajor                : 'PetalBot ??'
+      AgentInformationUrl                  : 'https://webmaster.petalsearch.com/site/petalbot'
 
 
 - test:
@@ -13318,7 +13375,7 @@ config:
 
 
 - test:
-    input:
+    input: # A Mastodon robot
       User-Agent                           : 'CDSCbot/2024.06 https://wiki.communitydata.science/CommunityData:Fediverse_research'
     expected:
       DeviceClass                          : 'Robot'
@@ -13346,7 +13403,7 @@ config:
 
 
 - test:
-    input:
+    input: # A Mastodon robot
       User-Agent                           : 'CDSCbot/2024.08.08 https://wiki.communitydata.science/CommunityData:Fediverse_research'
     expected:
       DeviceClass                          : 'Robot'
@@ -13371,6 +13428,62 @@ config:
       AgentNameVersion                     : 'CDSCbot 2024.08.08'
       AgentNameVersionMajor                : 'CDSCbot 2024'
       AgentInformationUrl                  : 'https://wiki.communitydata.science/CommunityData:Fediverse_research'
+
+
+- test:
+    input: # A Mastodon robot
+      User-Agent                           : 'caveman-hunter/0.0.0 (+https://fedi.buzz/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Fedi Robot'
+      DeviceBrand                          : 'Fedi'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Caveman-Hunter'
+      AgentVersion                         : '0.0.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Caveman-Hunter 0.0.0'
+      AgentNameVersionMajor                : 'Caveman-Hunter 0'
+      AgentInformationUrl                  : 'https://fedi.buzz/'
+
+
+- test:
+    input: # A Mastodon robot
+      User-Agent                           : 'vmcrawl/0.2 (https://docs.vmst.io/projects/vmcrawl)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Vmst Vmcrawl'
+      DeviceBrand                          : 'Vmst'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'vmcrawl'
+      LayoutEngineVersion                  : '0.2'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'vmcrawl 0.2'
+      LayoutEngineNameVersionMajor         : 'vmcrawl 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Vmcrawl'
+      AgentVersion                         : '0.2'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Vmcrawl 0.2'
+      AgentNameVersionMajor                : 'Vmcrawl 0'
+      AgentInformationUrl                  : 'https://docs.vmst.io/projects/vmcrawl'
 
 
 - test:

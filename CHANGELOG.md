@@ -20,9 +20,11 @@ NEXT RELEASE
   - Handle edgecases:
     - 'OpenBSD != Linux amd64'
     - 'Linux x86_64:108.0'
-  - Robots: AmazonBot, Bravebot, FediIndex
-  - AI related robots: OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
-  - Codeberg.org is a code hosting site
+  - Robots (Generic, Fediverse and AI Related):
+    - AmazonBot, Bravebot, PetalBot
+    - FediIndex, vmcrawl, Nonsensebot, Caveman-hunter, ...
+    - OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
+  - Codeberg.org is a code hosting site (not a brand for a bot)
   - Updated the ISO 639-3 language code table
 
 v7.29.0
