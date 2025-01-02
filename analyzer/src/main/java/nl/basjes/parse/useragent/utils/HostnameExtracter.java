@@ -42,6 +42,7 @@ public final class HostnameExtracter implements Serializable {
         // Software repositories
         UNWANTED_URL_BRANDS.add("github.com");
         UNWANTED_URL_BRANDS.add("gitlab.com");
+        UNWANTED_URL_BRANDS.add("codeberg.org");
         // Url shortners
         UNWANTED_URL_BRANDS.add("bit.ly");
         // Hosting sites

@@ -69,6 +69,9 @@ config:
       'MicrosoftPreview'             : 'Microsoft|MicrosoftPreview'
       'node.js'                      : 'OpenJS|Node.js'
       'OhDear.app'                   : 'OhDear.app|OhDear.app'
+      'ChatGPT-User'                 : 'Openai|ChatGPT-User'
+      'OAI-SearchBot'                : 'Openai|OAI-SearchBot'
+      'GPTBot'                       : 'Openai|GPTBot'
       'panscient.com'                : 'Panscient|Panscient'
       'PRTG Network Monitor'         : 'Paessler|PRTG Network Monitor'
       'PingdomPageSpeed'             : 'Pingdom|PingdomPageSpeed'
@@ -7512,6 +7515,34 @@ config:
       AgentNameVersionMajor                : 'Bytespider ??'
       AgentInformationEmail                : 'bytespider@bytedance.com'
 
+- test:
+    input:
+      user_agent_string: 'Mozilla/5.0 (Linux; Android 5.0) AppleWebKit/537.36 (KHTML, like Gecko) Mobile Safari/537.36 (compatible; Bytespider; spider-feedback@bytedance.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Bytedance Bytespider'
+      DeviceBrand                          : 'Bytedance'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bytespider'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Bytespider ??'
+      LayoutEngineNameVersionMajor         : 'Bytespider ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bytespider'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Bytespider ??'
+      AgentNameVersionMajor                : 'Bytespider ??'
+      AgentInformationEmail                : 'spider-feedback@bytedance.com'
+
+
 # A screenshot creation bot.
 - test:
     input:
@@ -13284,3 +13315,295 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'EchoboxBot 1.0'
       AgentNameVersionMajor                : 'EchoboxBot 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'CDSCbot/2024.06 https://wiki.communitydata.science/CommunityData:Fediverse_research'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Communitydata Cdscbot'
+      DeviceBrand                          : 'Communitydata'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'CDSCbot'
+      LayoutEngineVersion                  : '2024.06'
+      LayoutEngineVersionMajor             : '2024'
+      LayoutEngineNameVersion              : 'CDSCbot 2024.06'
+      LayoutEngineNameVersionMajor         : 'CDSCbot 2024'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'CDSCbot'
+      AgentVersion                         : '2024.06'
+      AgentVersionMajor                    : '2024'
+      AgentNameVersion                     : 'CDSCbot 2024.06'
+      AgentNameVersionMajor                : 'CDSCbot 2024'
+      AgentInformationUrl                  : 'https://wiki.communitydata.science/CommunityData:Fediverse_research'
+
+
+- test:
+    input:
+      User-Agent                           : 'CDSCbot/2024.08.08 https://wiki.communitydata.science/CommunityData:Fediverse_research'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Communitydata Cdscbot'
+      DeviceBrand                          : 'Communitydata'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'CDSCbot'
+      LayoutEngineVersion                  : '2024.08.08'
+      LayoutEngineVersionMajor             : '2024'
+      LayoutEngineNameVersion              : 'CDSCbot 2024.08.08'
+      LayoutEngineNameVersionMajor         : 'CDSCbot 2024'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'CDSCbot'
+      AgentVersion                         : '2024.08.08'
+      AgentVersionMajor                    : '2024'
+      AgentNameVersion                     : 'CDSCbot 2024.08.08'
+      AgentNameVersionMajor                : 'CDSCbot 2024'
+      AgentInformationUrl                  : 'https://wiki.communitydata.science/CommunityData:Fediverse_research'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Amazonbot/0.1; +https://developer.amazon.com/support/amazonbot) Chrome/119.0.6045.214 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Amazon BOT'
+      DeviceBrand                          : 'Amazon'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Amazonbot'
+      LayoutEngineVersion                  : '0.1'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Amazonbot 0.1'
+      LayoutEngineNameVersionMajor         : 'Amazonbot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Amazonbot'
+      AgentVersion                         : '0.1'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Amazonbot 0.1'
+      AgentNameVersionMajor                : 'Amazonbot 0'
+      AgentInformationUrl                  : 'https://developer.amazon.com/support/amazonbot'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Bravebot/1.0; +https://search.brave.com/help/brave-search-crawler) Chrome/W.X.Y.Z Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Brave BOT'
+      DeviceBrand                          : 'Brave'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Bravebot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Bravebot 1.0'
+      LayoutEngineNameVersionMajor         : 'Bravebot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Bravebot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Bravebot 1.0'
+      AgentNameVersionMajor                : 'Bravebot 1'
+      AgentInformationUrl                  : 'https://search.brave.com/help/brave-search-crawler'
+
+
+# 2025-01-02: https://platform.openai.com/docs/bots/
+#   ChatGPT-User is for user actions in ChatGPT and Custom GPTs. When users ask ChatGPT or a CustomGPT a question, it may visit
+#   a web page to help answer and include a link to the source in its response. ChatGPT users may also interact with external
+#   applications via GPT Actions. ChatGPT-User governs which sites these user requests can be made to. It is not used for crawling
+#   the web in any automatic fashion, nor to crawl content for generative AI training.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; ChatGPT-User/1.0; +https://openai.com/bot'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Openai ChatGpt-User'
+      DeviceBrand                          : 'Openai'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ChatGPT-User'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'ChatGPT-User 1.0'
+      LayoutEngineNameVersionMajor         : 'ChatGPT-User 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ChatGPT-User'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ChatGPT-User 1.0'
+      AgentNameVersionMajor                : 'ChatGPT-User 1'
+      AgentInformationUrl                  : 'https://openai.com/bot'
+
+# 2025-01-02: https://platform.openai.com/docs/bots/
+#   OAI-SearchBot is for search. OAI-SearchBot is used to link to and surface websites in search results in ChatGPT's search features.
+#   It is not used to crawl content to train OpenAI’s generative AI foundation models. To help ensure your site appears in search results,
+#   we recommend allowing OAI-SearchBot in your site’s robots.txt file and allowing requests from our published IP ranges below.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko); compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Openai OAI-SearchBot'
+      DeviceBrand                          : 'Openai'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'OAI-SearchBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'OAI-SearchBot 1.0'
+      LayoutEngineNameVersionMajor         : 'OAI-SearchBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'OAI-SearchBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'OAI-SearchBot 1.0'
+      AgentNameVersionMajor                : 'OAI-SearchBot 1'
+      AgentInformationUrl                  : 'https://openai.com/searchbot'
+
+
+# 2025-01-02: https://platform.openai.com/docs/bots/
+#   GPTBot is used to make our generative AI foundation models more useful and safe. It is used to crawl content that may be used in training
+#   our generative AI foundation models. Disallowing GPTBot indicates a site’s content should not be used in training generative AI foundation models.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.2; +https://openai.com/gptbot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Openai Gptbot'
+      DeviceBrand                          : 'Openai'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'GPTBot'
+      LayoutEngineVersion                  : '1.2'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'GPTBot 1.2'
+      LayoutEngineNameVersionMajor         : 'GPTBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'GPTBot'
+      AgentVersion                         : '1.2'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'GPTBot 1.2'
+      AgentNameVersionMajor                : 'GPTBot 1'
+      AgentInformationUrl                  : 'https://openai.com/gptbot'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Anthropic ClaudeBot'
+      DeviceBrand                          : 'Anthropic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ClaudeBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'ClaudeBot 1.0'
+      LayoutEngineNameVersionMajor         : 'ClaudeBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ClaudeBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ClaudeBot 1.0'
+      AgentNameVersionMajor                : 'ClaudeBot 1'
+      AgentInformationEmail                : 'claudebot@anthropic.com'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; PerplexityBot/1.0; +https://docs.perplexity.ai/docs/perplexity-bot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Perplexity BOT'
+      DeviceBrand                          : 'Perplexity'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PerplexityBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'PerplexityBot 1.0'
+      LayoutEngineNameVersionMajor         : 'PerplexityBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PerplexityBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'PerplexityBot 1.0'
+      AgentNameVersionMajor                : 'PerplexityBot 1'
+      AgentInformationUrl                  : 'https://docs.perplexity.ai/docs/perplexity-bot'
+
+
+# A Matrix bot (intended as tech demo)
+- test:
+    input:
+      User-Agent: 'Nonsensebot/0.0 (+https://codeberg.org/nexy7574/nonsensebot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Nonsensebot'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Nonsensebot'
+      LayoutEngineVersion                  : '0.0'
+      LayoutEngineVersionMajor             : '0'
+      LayoutEngineNameVersion              : 'Nonsensebot 0.0'
+      LayoutEngineNameVersionMajor         : 'Nonsensebot 0'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Nonsensebot'
+      AgentVersion                         : '0.0'
+      AgentVersionMajor                    : '0'
+      AgentNameVersion                     : 'Nonsensebot 0.0'
+      AgentNameVersionMajor                : 'Nonsensebot 0'
+      AgentInformationUrl                  : 'https://codeberg.org/nexy7574/nonsensebot'
