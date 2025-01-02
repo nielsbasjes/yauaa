@@ -3576,6 +3576,34 @@ config:
 
 - test:
     input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; BLEXBot/1.0; +https://help.seranking.com/en/blex-crawler)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Seranking Blexbot'
+      DeviceBrand                          : 'Seranking'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BLEXBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'BLEXBot 1.0'
+      LayoutEngineNameVersionMajor         : 'BLEXBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BLEXBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BLEXBot 1.0'
+      AgentNameVersionMajor                : 'BLEXBot 1'
+      AgentInformationUrl                  : 'https://help.seranking.com/en/blex-crawler'
+
+
+- test:
+    input:
       User-Agent                           : 'Mozilla/5.0 (compatible; Dataprovider.com;)'
     expected:
       DeviceClass                          : 'Robot'
