@@ -20,7 +20,7 @@ NEXT RELEASE
   - Handle edgecases:
     - 'OpenBSD != Linux amd64'
     - 'Linux x86_64:108.0'
-  - Robots: AmazonBot, Bravebot
+  - Robots: AmazonBot, Bravebot, FediIndex
   - AI related robots: OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
   - Codeberg.org is a code hosting site
   - Updated the ISO 639-3 language code table
