@@ -548,6 +548,87 @@ config:
 
 - test:
     input:
+      User-Agent: 'Mozilla/5.0 (Linux; Android 7.0; CUBOT NOTE Plus) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cubot Note Plus'
+      DeviceBrand                          : 'Cubot'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '7.0'
+      OperatingSystemVersionMajor          : '7'
+      OperatingSystemNameVersion           : 'Android 7.0'
+      OperatingSystemNameVersionMajor      : 'Android 7'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '100.0.4896.127'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Chrome 100.0.4896.127'
+      AgentNameVersionMajor                : 'Chrome 100'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; Android 8.0.0; CUBOT_P20) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cubot P20'
+      DeviceBrand                          : 'Cubot'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '100.0'
+      LayoutEngineVersionMajor             : '100'
+      LayoutEngineNameVersion              : 'Blink 100.0'
+      LayoutEngineNameVersionMajor         : 'Blink 100'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '100.0.4896.127'
+      AgentVersionMajor                    : '100'
+      AgentNameVersion                     : 'Chrome 100.0.4896.127'
+      AgentNameVersionMajor                : 'Chrome 100'
+
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; Android 8.0.0; CUBOT_X18_Plus) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Mobile Safari/537.36'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Cubot X18 Plus'
+      DeviceBrand                          : 'Cubot'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '8.0.0'
+      OperatingSystemVersionMajor          : '8'
+      OperatingSystemNameVersion           : 'Android 8.0.0'
+      OperatingSystemNameVersionMajor      : 'Android 8'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '101.0'
+      LayoutEngineVersionMajor             : '101'
+      LayoutEngineNameVersion              : 'Blink 101.0'
+      LayoutEngineNameVersionMajor         : 'Blink 101'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '101.0.4951.41'
+      AgentVersionMajor                    : '101'
+      AgentNameVersion                     : 'Chrome 101.0.4951.41'
+      AgentNameVersionMajor                : 'Chrome 101'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; D5803) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.57 Mobile Safari/537.36'
     expected:
       DeviceClass                          : 'Phone'
