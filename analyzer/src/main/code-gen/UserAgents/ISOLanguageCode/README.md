@@ -3,6 +3,9 @@ On 2017-02-06 from http://www-01.sil.org/iso639-3/download.asp I downloaded the 
 On 2021-04-22 redownloaded http://www-01.sil.org/iso639-3/iso-639-3.tab and fixed some trailing spaces and bad line endings.
 NOTE: I kept the "removals" to ensure being able to recognise "old" things.
 
+On 2025-02-01 redownloaded https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab and fixed some trailing spaces/tabs.
+NOTE: I kept the "removals" to ensure being able to recognise "old" things.
+
 Schema of this file (tab separated)
 
     Id        char(3) NOT NULL,        -- The three-letter 639-3 identifier
@@ -17,6 +20,6 @@ Schema of this file (tab separated)
     Ref_Name  varchar(150) NOT NULL,   -- Reference language name
     Comment   varchar(150) NULL)       -- Comment relating to one or more of the columns
 
-In addition, language codes from serveral sources
+In addition, language codes from several sources
   http://www.localeplanet.com/icu/index.html
   https://lingohub.com/documentation/developers/supported-locales/language-designators-with-regions/

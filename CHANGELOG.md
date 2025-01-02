@@ -23,6 +23,7 @@ NEXT RELEASE
   - Robots: AmazonBot, Bravebot
   - AI related robots: OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
   - Codeberg.org is a code hosting site
+  - Updated the ISO 639-3 language code table
 
 v7.29.0
 ===
