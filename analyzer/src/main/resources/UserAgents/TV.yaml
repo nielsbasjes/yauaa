@@ -2241,16 +2241,58 @@ config:
     require:
     - 'agent.product.comments.entry="Web0S"' # Note the 'zero' in the name 'Web0S'
     extract:
-    - 'DeviceClass                         :      100 : "TV"'
-    - 'DeviceName                          :      100 : "SmartTV"'
-    - 'DeviceBrand                         :      100 : "LG"'
-    - 'OperatingSystemClass                :      100 : "Embedded"'
-    - 'OperatingSystemName                 :      100 : "WebOS"'
-    - 'OperatingSystemVersion              :      100 : "<<<null>>>"'
+    - 'DeviceClass                         :      3000 : "TV"'
+    - 'DeviceName                          :      3000 : "SmartTV"'
+    - 'DeviceBrand                         :      3000 : "LG"'
+    - 'OperatingSystemClass                :      3000 : "Embedded"'
+    - 'OperatingSystemName                 :      3000 : "WebOS"'
+    - 'OperatingSystemVersion              :      3000 : "<<<null>>>"'
+    - 'AgentClass                          :        36 : "Browser"'
+    - 'AgentName                           :        36 : "LG Browser"'
+    - 'AgentVersion                        :        36 : "<<<null>>>"'
+
+
+# WebOS is the OS employed by LG on (some of?) their TVs
+- matcher:
+    require:
+      - 'agent.product.comments.entry="Web0S"' # Note the 'zero' in the name 'Web0S'
+      - 'agent.text="WebAppManager"'
+    variable:
+      - 'LGTag : LookUp[LGSmartTV; agent.(3-4)product]'
+    extract:
+      - 'DeviceClass                         :     3000 : "TV"'
+      - 'DeviceName                          :     3000 : "SmartTV"'
+      - 'DeviceBrand                         :     3000 : "LG"'
+      - 'OperatingSystemClass                :     3000 : "Embedded"'
+      - 'OperatingSystemName                 :     3000 : "WebOS"'
+      - 'OperatingSystemVersion              :     3001 : @LGTag[[2]]'
+      - 'LayoutEngineClass                   :     3001 : "Browser"'
+      - 'LayoutEngineName                    :     3001 : @LGTag[[3]]'
+      - 'LayoutEngineVersion                 :     3001 : @LGTag[[4]]'
+      - 'AgentClass                          :     3001 : "Browser"'
+      - 'AgentName                           :     3001 : "LG Browser"'
+      # NOTE: We tag the LG Browser with the same version as the OS if we do not have better.
+      - 'AgentVersion                        :     3001 : @LGTag[[2]]'
+
+
+# https://webostv.developer.lge.com/develop/specifications/web-api-and-web-engine#useragent-string
+- lookup:
+    name: 'LGSmartTV'
+    map:
+      'Large Screen WebAppManager Safari/537.41'  : 'webOS TV | 1.x | AppleWebKit | 537.41'
+      'Large Screen WebAppManager Safari/538.2'   : 'webOS TV | 2.x | AppleWebKit | 538.2'
+      'Chrome/38.0.2125.122'                      : 'webOS TV | 3.x | Blink       | 38'
+      'Chrome/53.0.2785.34'                       : 'webOS TV | 4.x | Blink       | 53'
+      'Chrome/68.0.3440.106'                      : 'webOS TV | 5.x | Blink       | 68'
+      'Chrome/79.0.3945.79'                       : 'webOS TV | 6.x | Blink       | 79'
+      'Chrome/87.0.4280.88'                       : 'webOS TV | 22  | Blink       | 87'
+      'Chrome/94.0.4606.128'                      : 'webOS TV | 23  | Blink       | 94'
+      'Chrome/108.0.5359.211'                     : 'webOS TV | 24  | Blink       | 108'
+
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.34 Safari/537.36 WebAppManager'
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.41 (KHTML, like Gecko) Large Screen WebAppManager Safari/537.41'
     expected:
       DeviceClass                          : 'TV'
       DeviceName                           : 'LG SmartTv'
@@ -2262,21 +2304,22 @@ config:
       OperatingSystemNameVersion           : 'WebOS ??'
       OperatingSystemNameVersionMajor      : 'WebOS ??'
       LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '53.0'
-      LayoutEngineVersionMajor             : '53'
-      LayoutEngineNameVersion              : 'Blink 53.0'
-      LayoutEngineNameVersionMajor         : 'Blink 53'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.41'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.41'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '53.0.2785.34'
-      AgentVersionMajor                    : '53'
-      AgentNameVersion                     : 'Chrome 53.0.2785.34'
-      AgentNameVersionMajor                : 'Chrome 53'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'LG Browser ??'
+      AgentNameVersionMajor                : 'LG Browser ??'
+
 
 - test:
     input:
-      user_agent_string: 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.2.1 Chrome/38.0.2125.122 Safari/537.36 WebAppManager'
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/538.2 (KHTML, like Gecko) Large Screen WebAppManager Safari/538.2'
     expected:
       DeviceClass                          : 'TV'
       DeviceName                           : 'LG SmartTv'
@@ -2288,17 +2331,206 @@ config:
       OperatingSystemNameVersion           : 'WebOS ??'
       OperatingSystemNameVersionMajor      : 'WebOS ??'
       LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '538.2'
+      LayoutEngineVersionMajor             : '538'
+      LayoutEngineNameVersion              : 'AppleWebKit 538.2'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 538'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'LG Browser ??'
+      AgentNameVersionMajor                : 'LG Browser ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.2.1 Chrome/38.0.2125.122 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '3.x'
+      OperatingSystemVersionMajor          : '3'
+      OperatingSystemNameVersion           : 'WebOS 3.x'
+      OperatingSystemNameVersionMajor      : 'WebOS 3'
+      LayoutEngineClass                    : 'Browser'
       LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '38.0'
+      LayoutEngineVersion                  : '38'
       LayoutEngineVersionMajor             : '38'
-      LayoutEngineNameVersion              : 'Blink 38.0'
+      LayoutEngineNameVersion              : 'Blink 38'
       LayoutEngineNameVersionMajor         : 'Blink 38'
       AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '38.0.2125.122'
-      AgentVersionMajor                    : '38'
-      AgentNameVersion                     : 'Chrome 38.0.2125.122'
-      AgentNameVersionMajor                : 'Chrome 38'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '3.x'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'LG Browser 3.x'
+      AgentNameVersionMajor                : 'LG Browser 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.34 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '4.x'
+      OperatingSystemVersionMajor          : '4'
+      OperatingSystemNameVersion           : 'WebOS 4.x'
+      OperatingSystemNameVersionMajor      : 'WebOS 4'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '53'
+      LayoutEngineVersionMajor             : '53'
+      LayoutEngineNameVersion              : 'Blink 53'
+      LayoutEngineNameVersionMajor         : 'Blink 53'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '4.x'
+      AgentVersionMajor                    : '4'
+      AgentNameVersion                     : 'LG Browser 4.x'
+      AgentNameVersionMajor                : 'LG Browser 4'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '5.x'
+      OperatingSystemVersionMajor          : '5'
+      OperatingSystemNameVersion           : 'WebOS 5.x'
+      OperatingSystemNameVersionMajor      : 'WebOS 5'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '68'
+      LayoutEngineVersionMajor             : '68'
+      LayoutEngineNameVersion              : 'Blink 68'
+      LayoutEngineNameVersionMajor         : 'Blink 68'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '5.x'
+      AgentVersionMajor                    : '5'
+      AgentNameVersion                     : 'LG Browser 5.x'
+      AgentNameVersionMajor                : 'LG Browser 5'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '6.x'
+      OperatingSystemVersionMajor          : '6'
+      OperatingSystemNameVersion           : 'WebOS 6.x'
+      OperatingSystemNameVersionMajor      : 'WebOS 6'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '79'
+      LayoutEngineVersionMajor             : '79'
+      LayoutEngineNameVersion              : 'Blink 79'
+      LayoutEngineNameVersionMajor         : 'Blink 79'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '6.x'
+      AgentVersionMajor                    : '6'
+      AgentNameVersion                     : 'LG Browser 6.x'
+      AgentNameVersionMajor                : 'LG Browser 6'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '22'
+      OperatingSystemVersionMajor          : '22'
+      OperatingSystemNameVersion           : 'WebOS 22'
+      OperatingSystemNameVersionMajor      : 'WebOS 22'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '87'
+      LayoutEngineVersionMajor             : '87'
+      LayoutEngineNameVersion              : 'Blink 87'
+      LayoutEngineNameVersionMajor         : 'Blink 87'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '22'
+      AgentVersionMajor                    : '22'
+      AgentNameVersion                     : 'LG Browser 22'
+      AgentNameVersionMajor                : 'LG Browser 22'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.128 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '23'
+      OperatingSystemVersionMajor          : '23'
+      OperatingSystemNameVersion           : 'WebOS 23'
+      OperatingSystemNameVersionMajor      : 'WebOS 23'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '94'
+      LayoutEngineVersionMajor             : '94'
+      LayoutEngineNameVersion              : 'Blink 94'
+      LayoutEngineNameVersionMajor         : 'Blink 94'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '23'
+      AgentVersionMajor                    : '23'
+      AgentNameVersion                     : 'LG Browser 23'
+      AgentNameVersionMajor                : 'LG Browser 23'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.5359.211 Safari/537.36 WebAppManager'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Embedded'
+      OperatingSystemName                  : 'WebOS'
+      OperatingSystemVersion               : '24'
+      OperatingSystemVersionMajor          : '24'
+      OperatingSystemNameVersion           : 'WebOS 24'
+      OperatingSystemNameVersionMajor      : 'WebOS 24'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '108'
+      LayoutEngineVersionMajor             : '108'
+      LayoutEngineNameVersion              : 'Blink 108'
+      LayoutEngineNameVersionMajor         : 'Blink 108'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'LG Browser'
+      AgentVersion                         : '24'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'LG Browser 24'
+      AgentNameVersionMajor                : 'LG Browser 24'
 
 
 - test:
@@ -2328,6 +2560,34 @@ config:
       AgentNameVersionMajor                : 'DMOST 1'
 
 
+- test:
+    input: # FIXME: Figure out what Colt/2.0 is (This was obtained from an LG SmartTV in the Netherlands)
+      user_agent_string: 'Mozilla/5.0 (Linux; NetCast; U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.3945.79 Safari/537.36 SmartTV/10.0 Colt/2.0'
+    expected:
+      DeviceClass                          : 'TV'
+      DeviceName                           : 'LG SmartTv'
+      DeviceBrand                          : 'LG'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '87.0'
+      LayoutEngineVersionMajor             : '87'
+      LayoutEngineNameVersion              : 'Blink 87.0'
+      LayoutEngineNameVersionMajor         : 'Blink 87'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '87.0.3945.79'
+      AgentVersionMajor                    : '87'
+      AgentNameVersion                     : 'Chrome 87.0.3945.79'
+      AgentNameVersionMajor                : 'Chrome 87'
+      AgentSecurity                        : 'Strong security'
+
+
 - matcher:
     variable:
     - 'LGBrowser                           :agent.product.name="LG Browser"^'
@@ -2335,7 +2595,7 @@ config:
     require:
     - 'IsNull[@DeviceName{"WEBOS"]'
     extract:
-    - 'DeviceName                          :      500 : @DeviceName'
+    - 'DeviceName                          :     3500 : @DeviceName'
 
 
 - test:

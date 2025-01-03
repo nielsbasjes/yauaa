@@ -26,6 +26,7 @@ NEXT RELEASE
     - OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
   - Codeberg.org is a code hosting site (not a brand for a bot)
   - Updated the ISO 639-3 language code table
+  - More version info on some LG Smart TVs
 
 v7.29.0
 ===
