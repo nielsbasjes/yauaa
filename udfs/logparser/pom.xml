@@ -38,17 +38,10 @@
       <artifactId>yauaa</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>nl.basjes.parse</groupId>
-      <artifactId>parser-core</artifactId>
-      <version>${logparser.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
     <!-- The default logging implementation for Yauaa -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
+      <artifactId>log4j-api</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -64,6 +57,13 @@
       <artifactId>parser-core</artifactId>
       <version>${logparser.version}</version>
       <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- The default logging implementation for Yauaa -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
       <scope>test</scope>
     </dependency>
 
