@@ -16,7 +16,7 @@
 #
 ARG DRILL_VERSION
 
-FROM apache/drill:${DRILL_VERSION}-openjdk-17
+FROM apache/drill:${DRILL_VERSION:-The_DRILL_VERSION_argument_is_mandatory}-openjdk-17
 
 # New scope, must redefine the need for these ARGs
 ARG DRILL_VERSION

@@ -16,7 +16,7 @@
 #
 ARG TRINO_VERSION
 
-FROM trinodb/trino:${TRINO_VERSION}
+FROM trinodb/trino:${TRINO_VERSION:-The_TRINO_VERSION_argument_is_mandatory}
 
 ARG YAUAA_VERSION
 
