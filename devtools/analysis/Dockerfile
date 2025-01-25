@@ -18,7 +18,7 @@
 ARG ELK_VERSION
 
 # https://github.com/elastic/elasticsearch-docker
-FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION}
+FROM docker.elastic.co/elasticsearch/elasticsearch:${ELK_VERSION:-The_ELK_VERSION_argument_is_mandatory}
 
 #COPY *.zip ./plugin/
 COPY elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
