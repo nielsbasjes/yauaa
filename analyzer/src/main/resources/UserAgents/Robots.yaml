@@ -201,6 +201,8 @@ config:
       'Matrix Rooms Search'          : 'Matrix Rooms|Matrix Rooms Search'  # https://matrixrooms.info/
       'wkhtmltopdf'                  : 'WK HTML to|WK HTML to PDF'         # WebKit HTML to PDF https://wkhtmltopdf.org/
       'wkhtmltoimage'                : 'WK HTML to|WK HTML to Image'       # WebKit HTML to Image https://wkhtmltopdf.org/
+      'Optimizer'                    : 'SISTRIX|Optimizer'                 # https://www.sistrix.com/faq/what-is-the-optimizer-crawler-called/
+      'Uptime'                       : 'SISTRIX|Optimizer Uptime'          # https://www.sistrix.com/faq/uptime
 
       # https://validator.w3.org/services
       'Validator.nu'                 : 'W3C|W3C Validator.nu'
@@ -13720,3 +13722,59 @@ config:
       AgentNameVersion                     : 'Nonsensebot 0.0'
       AgentNameVersionMajor                : 'Nonsensebot 0'
       AgentInformationUrl                  : 'https://codeberg.org/nexy7574/nonsensebot'
+
+
+# https://github.com/nielsbasjes/yauaa/issues/1731
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Optimizer)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Sistrix Optimizer'
+      DeviceBrand                          : 'Sistrix'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Optimizer'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Optimizer ??'
+      LayoutEngineNameVersionMajor         : 'Optimizer ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Optimizer'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Optimizer ??'
+      AgentNameVersionMajor                : 'Optimizer ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; SISTRIX Optimizer; Uptime; +https://www.sistrix.com/faq/uptime)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Sistrix Optimizer Uptime'
+      DeviceBrand                          : 'Sistrix'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Optimizer Uptime'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Optimizer Uptime ??'
+      LayoutEngineNameVersionMajor         : 'Optimizer Uptime ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Optimizer Uptime'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Optimizer Uptime ??'
+      AgentNameVersionMajor                : 'Optimizer Uptime ??'
+      AgentInformationUrl                  : 'https://www.sistrix.com/faq/uptime'
