@@ -19,6 +19,10 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
+  - ...
+
+### Version v7.30.0
+- New/improved detections:
   - Updated the list of Amazon devices (2023, 2024 models)
   - Fix phones with real browser name at the end (like AAB does)
   - Presearch browser, Citrix WorxWeb, Klarna, Budbee, MAGAPPX, Yandex, Albert Heijn App, Ghostery, Dalvik, Nu.nl (iOS)
