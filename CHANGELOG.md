@@ -24,6 +24,7 @@ NEXT RELEASE
     - AmazonBot, Bravebot, PetalBot
     - FediIndex, vmcrawl, Nonsensebot, Caveman-hunter, ...
     - OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
+    - Sistrix Optimizer and Uptime
   - Codeberg.org is a code hosting site (not a brand for a bot)
   - Updated the ISO 639-3 language code table
   - More version info on some LG Smart TVs
