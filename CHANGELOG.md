@@ -4,7 +4,8 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - CrowBrowser (LG SmartTV),
+  - Robots: Scrapy
 
 v7.30.0
 ===
