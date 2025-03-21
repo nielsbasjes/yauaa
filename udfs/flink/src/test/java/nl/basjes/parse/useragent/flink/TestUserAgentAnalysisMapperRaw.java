@@ -19,7 +19,6 @@ package nl.basjes.parse.useragent.flink;
 
 import nl.basjes.parse.useragent.analyze.InvalidParserConfigurationException;
 import nl.basjes.parse.useragent.annotate.YauaaField;
-import org.apache.flink.configuration.Configuration;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,10 +45,10 @@ class TestUserAgentAnalysisMapperRaw {
     }
 
     @Test
-    void testUserAgentParser() {
+    void testUserAgentParser() throws Exception {
         TestMapper mapper = new TestMapper();
 
-        mapper.open((Configuration) null);
+        mapper.open(null);
 
         TestRecord record = new TestRecord("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) " +
             "Chrome/48.0.2564.82 Safari/537.36");
@@ -84,6 +83,6 @@ class TestUserAgentAnalysisMapperRaw {
     void testImpossibleField() {
         TestImpossibleFieldMapper mapper = new TestImpossibleFieldMapper();
         assertThrows(InvalidParserConfigurationException.class, () ->
-            mapper.open((Configuration) null));
+            mapper.open(null));
     }
 }

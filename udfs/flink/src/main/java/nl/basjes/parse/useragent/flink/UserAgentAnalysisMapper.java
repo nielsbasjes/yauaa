@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.flink;
 
 import nl.basjes.parse.useragent.annotate.UserAgentAnnotationAnalyzer;
 import nl.basjes.parse.useragent.annotate.UserAgentAnnotationMapper;
+import org.apache.flink.api.common.functions.OpenContext;
 import org.apache.flink.api.common.functions.RichMapFunction;
-import org.apache.flink.configuration.Configuration;
 
 import java.io.Serializable;
 
@@ -41,7 +41,8 @@ public abstract class UserAgentAnalysisMapper<T> extends RichMapFunction<T, T>
     }
 
     @Override
-    public void open(Configuration parameters) {
+    public void open(OpenContext openContext) throws Exception {
+        super.open(openContext);
         userAgentAnalyzer = new UserAgentAnnotationAnalyzer<>();
         userAgentAnalyzer.setCacheSize(cacheSize);
         userAgentAnalyzer.initialize(this);
