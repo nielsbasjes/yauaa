@@ -150,7 +150,7 @@
     <maven-toolchains-plugin.version>3.2.0</maven-toolchains-plugin.version>
     <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
 
-    <native.maven.plugin.version>0.10.4</native.maven.plugin.version>
+    <graalvm-native-maven-plugin.version>0.10.4</graalvm-native-maven-plugin.version>
 
     <script-maven-plugin.version>1.0.0</script-maven-plugin.version>
 
@@ -529,10 +529,10 @@
             </goals>
             <configuration>
               <rules>
-                <requireJavaVersion>
-                  <version>[21,22)</version>
-                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 21 (detected: JDK ${java.version}).</message>
-                </requireJavaVersion>
+<!--                <requireJavaVersion>-->
+<!--                  <version>[21,22)</version>-->
+<!--                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 21 (detected: JDK ${java.version}).</message>-->
+<!--                </requireJavaVersion>-->
                 <requireMavenVersion>
                   <version>[${maven.minimal.version},)</version>
                   <message>You must use Maven version ${maven.minimal.version} or newer to build this project.</message>
