@@ -13351,6 +13351,60 @@ config:
 
 - test:
     input:
+      User-Agent                           : 'gitlab-runner 17.8.3 (17-8-stable; go1.23.2 X:cacheprog; linux/arm64)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Gitlab CI Runner'
+      DeviceBrand                          : 'Gitlab'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Gitlab CI Runner'
+      LayoutEngineVersion                  : '17.8.3'
+      LayoutEngineVersionMajor             : '17'
+      LayoutEngineNameVersion              : 'Gitlab CI Runner 17.8.3'
+      LayoutEngineNameVersionMajor         : 'Gitlab CI Runner 17'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Gitlab CI Runner'
+      AgentVersion                         : '17.8.3'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Gitlab CI Runner 17.8.3'
+      AgentNameVersionMajor                : 'Gitlab CI Runner 17'
+
+
+- test:
+    input:
+      User-Agent                           : 'gitlab-runner 17.10.0 (17-10-stable; go1.23.6 X:cacheprog; linux/amd64)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Gitlab CI Runner'
+      DeviceBrand                          : 'Gitlab'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Gitlab CI Runner'
+      LayoutEngineVersion                  : '17.10.0'
+      LayoutEngineVersionMajor             : '17'
+      LayoutEngineNameVersion              : 'Gitlab CI Runner 17.10.0'
+      LayoutEngineNameVersionMajor         : 'Gitlab CI Runner 17'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Gitlab CI Runner'
+      AgentVersion                         : '17.10.0'
+      AgentVersionMajor                    : '17'
+      AgentNameVersion                     : 'Gitlab CI Runner 17.10.0'
+      AgentNameVersionMajor                : 'Gitlab CI Runner 17'
+
+
+- test:
+    input:
       User-Agent                           : 'EchoboxBot/1.0; hash/w4mwnpbXf3MFAbxOkJRw;'
     expected:
       DeviceClass                          : 'Robot'
