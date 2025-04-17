@@ -3,7 +3,7 @@ title = "Manipulations"
 weight = 40
 +++
 ## Privacy
-Useragents have had a lot of information about the device and the browser in it. This has been so detailled in the past that there were many situations where the useragents could be used for tracking visitors very reliably.
+Useragents have had a lot of information about the device and the browser in it. This has been so detailed in the past that there were many situations where the useragents could be used for tracking visitors very reliably.
 
 ### Reducing/Freezing the UserAgent
 So a few years ago in several browsers projects started to reduce the level of information in the UserAgent. As a direct consequence the analysis results will become less usefull over time as browsers will start taking away more and more information.

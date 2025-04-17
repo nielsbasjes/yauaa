@@ -13,6 +13,20 @@ If you just want to give it a quick try then you can do that with your own brows
 
 ---
 
+## Significant change happened in Apple iPads
+Since about February 2025 the Apple iPads no longer are reported as a Tablet because their useragent has switched to reporting a Desktop:
+
+A known device which was previously reporting these useragents
+
+    Mozilla/5.0 (iPad; CPU OS 18_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+    Mozilla/5.0 (iPad; CPU OS 18_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko)
+
+is now reporting this one
+
+    Mozilla/5.0 (Macintosh; Intel Mac OS 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15
+
+This last one is identical to an Apple Mac Desktop and this makes it impossible to determine that this is really a Tablet.
+
 ## HIGH Profile release notes:
 
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
