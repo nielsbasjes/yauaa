@@ -31,6 +31,20 @@ when this device is connected to a computer screen then "Samsung Dex" (Dex = Des
 
 This time the change (from `Mobile Safari` to just `Safari`) indicates the device is to be treated as a `Tablet` because the screen size and ways of interacting have changed.
 
+## Apple iPads are a "Desktop"
+Since about February 2025 the Apple iPads no longer are reported as a Tablet because their useragent has switched to reporting a Desktop:
+
+A known device which was previously reporting these
+
+    Mozilla/5.0 (iPad; CPU OS 18_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+    Mozilla/5.0 (iPad; CPU OS 18_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko)
+
+is now reporting this
+
+    Mozilla/5.0 (Macintosh; Intel Mac OS 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15
+
+This last one is identical to an Apple Mac Desktop and this makes it impossible to determine that this is really a Tablet.
+
 ## Some are simply incorrect
 When the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6) you get this:
 
