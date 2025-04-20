@@ -6,6 +6,7 @@ NEXT RELEASE
 - New/improved detections:
   - CrowBrowser (LG SmartTV),
   - Robots: Scrapy
+  - OpenHarmony
 
 v7.30.0
 ===
