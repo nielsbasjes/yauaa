@@ -866,6 +866,11 @@ config:
     - 'OperatingSystemName                 :     1000 : "HarmonyOS"'
     - 'OperatingSystemVersion              :     1000 : @HarmonyOS^.version'
 
+- matcher:
+    extract:
+    - 'LayoutEngineClass                    :    5000 : "Browser"'
+    - 'LayoutEngineName                     :    5000 : "ArkWeb"'
+    - 'LayoutEngineVersion                  :    5000 : agent.product.name="ArkWeb"^.version'
 
 # OpenHarmony: https://OpenHarmony.io
 - matcher:

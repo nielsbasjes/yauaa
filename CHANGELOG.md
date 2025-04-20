@@ -7,6 +7,7 @@ NEXT RELEASE
   - CrowBrowser (LG SmartTV),
   - Robots: Scrapy
   - OpenHarmony
+  - ArkWeb (HuaweiOS browser engine)
 
 v7.30.0
 ===
