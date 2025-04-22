@@ -45,6 +45,8 @@ is now reporting this
 
 This last one is identical to an Apple Mac Desktop and this makes it impossible to determine that this is really a Tablet.
 
+Currently (April 2025) it seems that this effect is different depending on the used browser. Browsers like Chrome, Edge, Opera, Aloha and Yandex still report `iPad Tablet`, but browsers like Safari, Brave, Firefox, DuckDuckGo and Arc Search report `MacOS Desktop`
+
 ## Some are simply incorrect
 When the Samsung Browser is installed on a non-Samsung device (in this example a Google Nexus 6) you get this:
 

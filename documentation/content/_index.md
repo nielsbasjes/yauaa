@@ -27,6 +27,8 @@ is now reporting this one
 
 This last one is identical to an Apple Mac Desktop and this makes it impossible to determine that this is really a Tablet.
 
+Currently (April 2025) it seems that this effect is different depending on the used browser. Browsers like Chrome, Edge, Opera, Aloha and Yandex still report `iPad Tablet`, but browsers like Safari, Brave, Firefox, DuckDuckGo and Arc Search report `MacOS Desktop`
+
 ## HIGH Profile release notes:
 
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
