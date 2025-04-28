@@ -25,7 +25,7 @@ COPY src/it/docker/elasticsearch.yml /usr/share/elasticsearch/config/elasticsear
 
 RUN bin/elasticsearch-plugin -v -v -v install file:///$(ls /usr/share/elasticsearch/plugin/*.zip | head -1)
 
-ENV ES_JAVA_OPTS "-Xmx1024m -Xms1024m"
+ENV ES_JAVA_OPTS="-Xmx1024m -Xms1024m"
 
 RUN ls -laF /usr/share/elasticsearch/plugin
 

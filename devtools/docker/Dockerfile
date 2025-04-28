@@ -35,8 +35,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo APT::Install-Recommends "0"\; > /etc/apt/apt.conf.d/10disableextras
 RUN echo APT::Install-Suggests "0"\; >>  /etc/apt/apt.conf.d/10disableextras
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV DEBCONF_TERSE true
+ENV DEBIAN_FRONTEND="noninteractive"
+ENV DEBCONF_TERSE="true"
 
 ###
 # Update and install common packages
@@ -74,7 +74,7 @@ RUN apt-get -q install -y --no-install-recommends \
 ###
 # Install the latest JDK if not an LTS version (needed for Trino)
 ###
-ENV NON_LTS_JDK 23
+ENV NON_LTS_JDK=24
 RUN wget "https://download.oracle.com/java/${NON_LTS_JDK}/latest/jdk-${NON_LTS_JDK}_linux-x64_bin.deb"
 RUN apt install "./jdk-${NON_LTS_JDK}_linux-x64_bin.deb"
 
@@ -90,9 +90,9 @@ RUN sed -i '/^plugin mozilla-javaplugin.so.*$/d' /usr/lib/jvm/.*.jinfo
 ###
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG="en_US.UTF-8"
+ENV LANGUAGE="en_US:en"
+ENV LC_ALL="en_US.UTF-8"
 
 # --------------------------------
 # Install Maven ( https://maven.apache.org/download.cgi )
@@ -101,11 +101,11 @@ RUN mkdir -p /usr/local/apache-maven
 WORKDIR /usr/local/
 RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 RUN tar xzf apache-maven-${MAVEN_VERSION}-bin.tar.gz --strip-components 1 -C /usr/local/apache-maven
-ENV M2_HOME /usr/local/apache-maven
-ENV PATH ${M2_HOME}/bin:${PATH}
+ENV M2_HOME=/usr/local/apache-maven
+ENV PATH=${M2_HOME}/bin:${PATH}
 
 # Avoid out of memory errors in builds
-ENV MAVEN_OPTS -Xms256m -Xmx512m
+ENV MAVEN_OPTS="-Xms256m -Xmx512m"
 
 # Install command line completion for maven
 RUN wget https://raw.githubusercontent.com/juven/maven-bash-completion/master/bash_completion.bash -O /etc/bash_completion.d/maven
