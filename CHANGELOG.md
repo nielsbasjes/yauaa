@@ -8,6 +8,8 @@ NEXT RELEASE
   - Robots: Scrapy
   - OpenHarmony
   - ArkWeb (HuaweiOS browser engine)
+- UDFs
+    - New UDF for Elastic Search 9
 
 v7.30.0
 ===
