@@ -134,7 +134,6 @@
     <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
     <maven-clean-plugin.version>3.4.1</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
-    <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
     <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
     <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
@@ -428,22 +427,30 @@
             </executions>
           </plugin>
 
+          <!-- https://central.sonatype.org/publish/publish-portal-maven/ -->
           <plugin>
-            <!-- explicitly define maven-deploy-plugin after other to force exec order -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.7.0</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+<!--              <autoPublish>true</autoPublish>-->
+<!--              <waitUntil>published</waitUntil>-->
+              <waitUntil>validated</waitUntil>
+              <excludeArtifacts>
+                <excludeArtifact>nl.basjes.parse.useragent/yauaa-benchmark</excludeArtifact>
+                <excludeArtifact>nl.basjes.parse.useragent/yauaa-devtools</excludeArtifact>
+                <excludeArtifact>nl.basjes.parse.useragent/yauaa-devtools-es-loader</excludeArtifact>
+                <excludeArtifact>nl.basjes.parse.useragent/yauaa-documentation</excludeArtifact>
+                <excludeArtifact>nl.basjes.parse.useragent/yauaa-log2test</excludeArtifact>
+                <excludeArtifact>nl.basjes.parse.useragent/yauaa-nifi-processors</excludeArtifact>
+              </excludeArtifacts>
+            </configuration>
           </plugin>
 
         </plugins>
       </build>
-    </profile>
-
-    <profile>
-      <id>deployToSonatype</id>
-      <properties>
-        <altReleaseDeploymentRepository>sonatype::https://oss.sonatype.org/service/local/staging/deploy/maven2/</altReleaseDeploymentRepository>
-        <altSnapshotDeploymentRepository>sonatype::https://oss.sonatype.org/content/repositories/snapshots</altSnapshotDeploymentRepository>
-      </properties>
     </profile>
 
     <profile>
@@ -577,11 +584,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -733,7 +735,7 @@
 
           <preparationProfiles>Java23,prepareRelease,packageForRelease</preparationProfiles>
           <preparationGoals>clean verify</preparationGoals>
-          <releaseProfiles>Java23,packageForRelease,deployToSonatype</releaseProfiles>
+          <releaseProfiles>Java23,packageForRelease</releaseProfiles>
           <pushChanges>false</pushChanges>
           <remoteTagging>false</remoteTagging>
         </configuration>
@@ -876,11 +878,9 @@
         </plugin>
 
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId><version>${maven-antrun-plugin.version}</version></plugin>
-        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-artifact-plugin</artifactId><version>${maven-artifact-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-assembly-plugin</artifactId><version>${maven-assembly-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>${maven-clean-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>${maven-compiler-plugin.version}</version></plugin>
-        <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-deploy-plugin</artifactId><version>${maven-deploy-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId><version>${maven-enforcer-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-failsafe-plugin</artifactId><version>${maven-failsafe-plugin.version}</version></plugin>
         <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-gpg-plugin</artifactId><version>${maven-gpg-plugin.version}</version></plugin>
@@ -903,6 +903,22 @@
           <version>${maven-surefire-plugin.version}</version>
           <configuration>
             <failIfNoTests>true</failIfNoTests>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-artifact-plugin</artifactId>
+          <version>${maven-artifact-plugin.version}</version>
+          <configuration>
+            <skipModules>
+              <skipModule>nl.basjes.parse.useragent/yauaa-benchmark</skipModule>
+              <skipModule>nl.basjes.parse.useragent/yauaa-devtools</skipModule>
+              <skipModule>nl.basjes.parse.useragent/yauaa-devtools-es-loader</skipModule>
+              <skipModule>nl.basjes.parse.useragent/yauaa-documentation</skipModule>
+              <skipModule>nl.basjes.parse.useragent/yauaa-log2test</skipModule>
+              <skipModule>nl.basjes.parse.useragent/yauaa-nifi-processors</skipModule>
+            </skipModules>
           </configuration>
         </plugin>
 
