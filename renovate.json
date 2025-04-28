@@ -51,6 +51,17 @@
       ]
     },
     {
+      "description": "Disable major updates for Elastic Search 8.x (Needed for backwards compatibility testing)",
+      "matchCurrentVersion": "[8.0.0,9.0.0)",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false,
+      "matchPackageNames": [
+        "org.elasticsearch{/,}**"
+      ]
+    },
+    {
       "description": "Do not change the jackson version needed for Apache Drill",
       "matchCurrentVersion": "[2.14.2]",
       "matchUpdateTypes": [
