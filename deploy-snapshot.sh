@@ -24,7 +24,7 @@ SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 echo "PWD: ${SCRIPTDIR}"
 
-cd "${SCRIPTDIR}/.." || ( echo "This should not be possible" ; exit 1 )
+cd "${SCRIPTDIR}" || ( echo "This should not be possible" ; exit 1 )
 
 # Working directory is now the root of the project
 
@@ -118,7 +118,7 @@ trap killSigner SIGINT
 
 # ----------------------------------------------------------------------------------------------------
 info "Publishing SNAPSHOT"
-mvn clean deploy -PpackageForRelease -PdeployToSonatype
+mvn clean deploy -PpackageForRelease
 snapshotPublishStatus=$?
 if [ ${snapshotPublishStatus} -ne 0 ];
 then

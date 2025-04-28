@@ -24,7 +24,7 @@ SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
 echo "PWD: ${SCRIPTDIR}"
 
-cd "${SCRIPTDIR}/.." || ( echo "This should not be possible" ; exit 1 )
+cd "${SCRIPTDIR}" || ( echo "This should not be possible" ; exit 1 )
 
 # Working directory is now the root of the project
 
@@ -97,16 +97,15 @@ else
 fi
 
 # ----------------------------------------------------------------------------------------------------
-info "GPG workaround: Starting"
-
 # Forcing a manual gpg signing action to ensure the password is known
 (
-  cd /tmp
-  echo x > Yauaa-release-$$.txt
-  gpg --clearsign Yauaa-release-$$.txt
-  rm Yauaa-release-$$.txt Yauaa-release-$$.txt.asc
+  cd /tmp || die "Unable to enter /tmp"
+  echo x > ReleaseProcess-$$.txt
+  gpg --clearsign ReleaseProcess-$$.txt
+  rm ReleaseProcess-$$.txt ReleaseProcess-$$.txt.asc
 )
 
+info "GPG workaround: Starting"
 runGpgSignerInBackGround(){
   while : ; do date ; echo "test" | gpg --clearsign ; sleep 10s ; done
 }
@@ -147,7 +146,7 @@ fi
 # Check if build for this tag is reproducible
 git checkout "$(git describe --abbrev=0)"
 # ----------------------------------------------------------------------------------------------------
-info "Publishing for reproduction check to Local reproduceTest Repo"
+info "Publishing for reproduction check to Local repo"
 mvn clean install -PpackageForRelease -PskipQuality -PJava23
 reproCheckPublishStatus=$?
 if [ ${reproCheckPublishStatus} -ne 0 ];
@@ -192,6 +191,7 @@ fi
 RELEASEVERSION=$(git describe --abbrev=0| sed 's/^v//')
 
 info "Now verify Sonatype to release version ${RELEASEVERSION}"
+info "Go to https://central.sonatype.com/publishing/deployments"
 warn "Press any key abort or 'c' to continue and update the website"
 read -n 1 k <&1
 if [[ $k = c ]] ;
