@@ -1,7 +1,7 @@
 # Security Policy
 
 The Yauaa team takes security very seriously, and aim to resolve issues as quickly as possible. Building secure
-software is a continuous process, and can always be improved. As such we welcome reports on potential security 
+software is a continuous process, and can always be improved. As such we welcome reports on potential security
 vulnerabilities, as well as suggestions around hardening the software and our process.
 
 ## Reporting a suspected vulnerability
@@ -12,14 +12,14 @@ after they have been analysed and a fix is available.
 To report a security vulnerability, send an email to yauaa-security@basjes.nl .
 
 Do *not* open a public issue, send a pull request, or disclose any information about the suspected vulnerability publicly.
-If you discover any publicly disclosed security vulnerabilities, please notify us *immediately* through 
+If you discover any publicly disclosed security vulnerabilities, please notify us *immediately* through
 yauaa-security@basjes.nl .
 
 ## Supported Versions
 
-Depending on the severity of a vulnerability the issue may be fixed in the current `major.minor` release of Yauaa, or
-for lower severity vulnerabilities or hardening in the following `major.minor` release. Refer to 
-[the versions available on Maven central](https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa/7.12.2/versions) to find the latest release.
+Depending on the severity of a vulnerability the issue may be fixed in the current `major.minor.patch` release of Yauaa, or
+for lower severity vulnerabilities or hardening in the following `major.minor.patch` release. Refer to
+[the versions available on Maven central](https://central.sonatype.com/artifact/nl.basjes.parse.useragent/yauaa/7.30.0/versions) to find the latest release.
 
 ## Automatic updates
 
