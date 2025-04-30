@@ -7,8 +7,7 @@ Yauaa: Yet Another UserAgent Analyzer
 [![Reproducible Builds](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jvm-repo-rebuild/reproducible-central/master/content/nl/basjes/parse/useragent/yauaa/badge.json)](https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/nl/basjes/parse/useragent/yauaa/README.md)
 [![GitHub stars](https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars)](https://github.com/nielsbasjes/yauaa/stargazers)
 [![Docker Hub](https://img.shields.io/docker/pulls/nielsbasjes/yauaa)](https://hub.docker.com/r/nielsbasjes/yauaa)
-[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Sponsor%20me-via%20Github-red.svg)](https://github.com/sponsors/nielsbasjes)
-[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Donations-via%20Paypal-red.svg)](https://www.paypal.me/nielsbasjes)
+[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Sponsor%20me-via%20Github-darkgreen.svg)](https://github.com/sponsors/nielsbasjes)
 [![Website](https://img.shields.io/badge/https://-yauaa.basjes.nl-blue.svg)](https://yauaa.basjes.nl/)
 
 This is a java library that tries to parse and analyze the useragent string (and when available the User-Agent Client Hints) and extract as many relevant attributes as possible.
@@ -26,15 +25,19 @@ You can try it online with your own browser here: [https://try.yauaa.basjes.nl/]
 2. If you really like this then run it on your local systems. It's much faster that way.
    A Kubernetes ready Docker image is provided. See this page about the [WebServlet](https://yauaa.basjes.nl/using/webservlet) for more information.
 
-Donations
-===
-If this project has business value for you then don't hesitate to support me with a small donation.
-
-[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Donations-via%20Github-red.svg)](https://github.com/sponsors/nielsbasjes)
-[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Donations-via%20Paypal-red.svg)](https://www.paypal.me/nielsbasjes)
-
 License
 =======
+I'm publishing this under the Apache 2.0 license because I believe it is the best way to make these kinds of projects available to the world.
+
+But do not underestimate how much work went into this. I have spent over a decade tuning this project to what you have now.
+
+All I want to see in return is a little bit of gratitude from the people who use this.
+If you are a home user/hobbyist/small business then a simple star on the project is enough for me. Seeing that people use and like the things I create is what I'm doing this for.
+What also really helps are bug reports, headers from real/new devices/browsers that I have net yet seen before and discussions on things you think can be done better.
+
+Despite there not being any obligation (because of the Apache 2.0 license); If you are a big corporation where my code really adds value to the products you make/sell then I would really appreciate it if you could do a small sponsor thing. Buy me lunch (€10), Buy me a game (€100) or what ever you think is the right way to say thank you for the work I have done.
+
+[![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Sponsor%20me-via%20Github-darkgreen.svg)](https://github.com/sponsors/nielsbasjes)
 
     Yet Another UserAgent Analyzer
     Copyright (C) 2013-2025 Niels Basjes
