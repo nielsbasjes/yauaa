@@ -3,10 +3,11 @@ Yauaa: Yet Another UserAgent Analyzer
 [![Github actions Build status](https://img.shields.io/github/actions/workflow/status/nielsbasjes/yauaa/build.yml?branch=main)](https://github.com/nielsbasjes/yauaa/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/nielsbasjes/yauaa)](https://app.codecov.io/gh/nielsbasjes/yauaa)
 [![License](https://img.shields.io/:license-apache-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![Maven Central](https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg)](https://central.sonatype.com/namespace/nl.basjes.parse.useragent)
+[![Maven Central](https://img.shields.io/maven-central/v/nl.basjes.parse.useragent/yauaa-parent.svg?label=Maven%20central)](https://central.sonatype.com/namespace/nl.basjes.parse.useragent)
 [![Reproducible Builds](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/jvm-repo-rebuild/reproducible-central/master/content/nl/basjes/parse/useragent/yauaa/badge.json)](https://github.com/jvm-repo-rebuild/reproducible-central/blob/master/content/nl/basjes/parse/useragent/yauaa/README.md)
 [![GitHub stars](https://img.shields.io/github/stars/nielsbasjes/yauaa?label=GitHub%20stars)](https://github.com/nielsbasjes/yauaa/stargazers)
-[![Docker Hub](https://img.shields.io/docker/pulls/nielsbasjes/yauaa)](https://hub.docker.com/r/nielsbasjes/yauaa)
+[![Docker Image](https://img.shields.io/docker/v/nielsbasjes/yauaa/latest?arch=amd64&label=Docker%20image)](https://hub.docker.com/r/nielsbasjes/yauaa)
+[![Docker Hub](https://img.shields.io/docker/pulls/nielsbasjes/yauaa?label=Docker%20pulls)](https://hub.docker.com/r/nielsbasjes/yauaa)
 [![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Sponsor%20me-via%20Github-darkgreen.svg)](https://github.com/sponsors/nielsbasjes)
 [![Website](https://img.shields.io/badge/https://-yauaa.basjes.nl-blue.svg)](https://yauaa.basjes.nl/)
 
