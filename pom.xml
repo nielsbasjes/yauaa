@@ -440,16 +440,19 @@
 <!--              <waitUntil>published</waitUntil>-->
               <waitUntil>validated</waitUntil>
               <excludeArtifacts>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-benchmark</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-devtools</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-devtools-es-loader</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-documentation</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-log2test</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-nifi-processors</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-elastic-udfs-parent</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-elasticsearch</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-elasticsearch-8</excludeArtifact>
-                <excludeArtifact>nl.basjes.parse.useragent/yauaa-elasticsearch-9</excludeArtifact>
+                <!-- Testing and benchmarking -->
+                <excludeArtifact>yauaa-devtools</excludeArtifact>
+                <excludeArtifact>yauaa-devtools-es-loader</excludeArtifact>
+                <excludeArtifact>yauaa-log2test</excludeArtifact>
+                <excludeArtifact>yauaa-benchmark</excludeArtifact>
+                <!-- Documentation -->
+                <excludeArtifact>yauaa-documentation</excludeArtifact>
+                <!-- Specific UDF parts -->
+                <excludeArtifact>yauaa-nifi-processors</excludeArtifact>
+                <excludeArtifact>yauaa-elastic-udfs-parent</excludeArtifact>
+                <excludeArtifact>yauaa-elasticsearch</excludeArtifact>
+                <excludeArtifact>yauaa-elasticsearch-8</excludeArtifact>
+                <excludeArtifact>yauaa-elasticsearch-9</excludeArtifact>
               </excludeArtifacts>
             </configuration>
           </plugin>
@@ -917,11 +920,14 @@
           <version>${maven-artifact-plugin.version}</version>
           <configuration>
             <skipModules>
-              <skipModule>nl.basjes.parse.useragent/yauaa-benchmark</skipModule>
+              <!-- Testing and benchmarking -->
               <skipModule>nl.basjes.parse.useragent/yauaa-devtools</skipModule>
               <skipModule>nl.basjes.parse.useragent/yauaa-devtools-es-loader</skipModule>
-              <skipModule>nl.basjes.parse.useragent/yauaa-documentation</skipModule>
               <skipModule>nl.basjes.parse.useragent/yauaa-log2test</skipModule>
+              <skipModule>nl.basjes.parse.useragent/yauaa-benchmark</skipModule>
+              <!-- Documentation -->
+              <skipModule>nl.basjes.parse.useragent/yauaa-documentation</skipModule>
+              <!-- Specific UDF parts -->
               <skipModule>nl.basjes.parse.useragent/yauaa-nifi-processors</skipModule>
               <skipModule>nl.basjes.parse.useragent/yauaa-elastic-udfs-parent</skipModule>
               <skipModule>nl.basjes.parse.useragent/yauaa-elasticsearch</skipModule>
