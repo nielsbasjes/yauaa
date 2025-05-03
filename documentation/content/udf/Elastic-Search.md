@@ -10,9 +10,47 @@ The ElasticSearch ingest plugin is very new.
 And yes it is similar to https://www.elastic.co/guide/en/elasticsearch/reference/master/user-agent-processor.html
 
 ## Getting the UDF
-You can get the prebuilt ingest plugin from maven central for
-- [Elastic Search 7.x](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-elasticsearch/{{%YauaaVersion%}}/yauaa-elasticsearch-{{%YauaaVersion%}}.zip).
-- [Elastic Search 8.x](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-elasticsearch-8/{{%YauaaVersion%}}/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip).
+Starting with 7.31.0 the prebuilt UDF is no longer distributed by me.
+
+The **ONLY** reason for this change is that Elastic Search is VERY picky about the version of ES the Plugin was built for. If you have a Yauaa Plugin that was built against ES 8.17.1 then that plugin will not load in ES 8.17.2.
+
+The way now for you to get the right version of the plugin for your installation is to build de UDF yourself.
+
+1) Get a Linux machine (I use Ubuntu 24.04 LTS) with docker and git installed. Running this in a VM or a recent WSL (running on Windows 11) is fine.
+
+2) Get the sourcecode and open the latest released version
+   ```bash
+    git clone https://github.com/nielsbasjes/yauaa
+    cd yauaa
+    git checkout v{{%YauaaVersion%}}
+    ```
+
+3) Change to the exact version you need. Edit in the `pom.xml` the property for the version you need. Assume you want it for ES 8.17.3 then change the `elasticsearch-8.version` property to that version.
+    This command does that:
+   ```bash
+   sed -i 's@<elasticsearch-8.version>[^<]\+</elasticsearch-8.version>@<elasticsearch-8.version>8.17.3</elasticsearch-8.version>@g'  pom.xml
+   ```
+
+    In this example it will look like this `<elasticsearch-8.version>8.17.3</elasticsearch-8.version>`.
+
+4) Start the docker based build environment.
+    ```bash
+    ./start-docker.sh
+    ```
+
+5) In this environment build the plugin
+    ```bash
+    mvn package -pl :yauaa-devtools,:yauaa-elasticsearch-8
+    ```
+
+6) Exit the docker based environment again
+    ```bash
+    exit
+    ```
+
+7) Now you should have the file `udfs/elastic/elasticsearch-8/target/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip` which you can install on your installation.
+
+Replace `elasticsearch-8` with `elasticsearch-9` in the above example incase you have an ElasticSearch 9.x installation.
 
 ## Installing the plugin
 You only need to install it into your Elastic Search once
@@ -21,9 +59,15 @@ On Elastic Search 7.x:
 ```bash
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-{{%YauaaVersion%}}.zip
 ```
+
 On Elastic Search 8.x
 ```bash
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip
+```
+
+On Elastic Search 9.x
+```bash
+bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-9-{{%YauaaVersion%}}.zip
 ```
 
 ## Usage
@@ -35,7 +79,6 @@ the possible configuration flags are:
 | Name                    | Mandatory/Optional | Description                                                                                                                                                          | Default             | Example                                                                                                       |
 |-------------------------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|
 | field_to_header_mapping | M                  | The mapping from the input field name to the `original` request header name of this field                                                                            | -                   | `"field_to_header_mapping" : { "ua": "User-Agent" }`                                                          |
-| ~~field~~ (deprecated)  | ~~M~~              | ~~The name of the input field that contains the UserAgent string~~                                                                                                   | -                   | ~~`"useragent"`~~                                                                                             |
 | target_field            | M                  | The name of the output structure that will be filled with the parse results                                                                                          | `"user_agent"`      | `"parsed_ua"`                                                                                                 |
 | fieldNames              | O                  | A list of Yauaa fieldnames that are desired. When specified the system will limit processing to what is needed to get these. This means faster and less memory used. | All possible fields | `[ "DeviceClass", "DeviceBrand", "DeviceName", "AgentNameVersionMajor" ]`                                     |
 | cacheSize               | O                  | The number of entries in the LRU cache of the parser                                                                                                                 | `10000`             | `100`                                                                                                         |
