@@ -35,7 +35,13 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+    - CrowBrowser (LG SmartTV),
+    - Robots: Scrapy, HTTPie
+    - OpenHarmony
+    - ArkWeb (HuaweiOS browser engine)
+- UDFs
+    - New UDF for Elastic Search 9
+    - All Elastic Search UDFs(Plugins) must be built by the user for their specific version.
 
 ### Version v7.30.0
 - New/improved detections:
