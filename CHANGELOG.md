@@ -10,6 +10,7 @@ NEXT RELEASE
   - ArkWeb (HuaweiOS browser engine)
 - UDFs
     - New UDF for Elastic Search 9
+    - All Elastic Search UDFs(Plugins) must be built by the user for their specific version.
 
 v7.30.0
 ===
