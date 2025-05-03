@@ -5,7 +5,7 @@ NEXT RELEASE
 ===
 - New/improved detections:
   - CrowBrowser (LG SmartTV),
-  - Robots: Scrapy
+  - Robots: Scrapy, HTTPie
   - OpenHarmony
   - ArkWeb (HuaweiOS browser engine)
 - UDFs
