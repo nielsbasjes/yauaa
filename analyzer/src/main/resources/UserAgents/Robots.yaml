@@ -56,6 +56,7 @@ config:
       'gocrawl'                      : 'GoCrawl|GoCrawl'
       'Guzzle'                       : 'Guzzle|Guzzle'
       'GuzzleHttp'                   : 'Guzzle|Guzzle'
+      'HTTPie'                       : 'HTTPie|HTTPie'
       'Hackney'                      : 'Hackney|Hackney'
       'heritrix'                     : 'heritrix|heritrix'
       'Kapow Technologies RoboSuite' : 'Kapow|Kapow Technologies RoboSuite'
@@ -6925,6 +6926,60 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Wget 1.17.1'
       AgentNameVersionMajor                : 'Wget 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'HTTPie/3.2.2'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Httpie'
+      DeviceBrand                          : 'Httpie'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'HTTPie'
+      LayoutEngineVersion                  : '3.2.2'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'HTTPie 3.2.2'
+      LayoutEngineNameVersionMajor         : 'HTTPie 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'HTTPie'
+      AgentVersion                         : '3.2.2'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'HTTPie 3.2.2'
+      AgentNameVersionMajor                : 'HTTPie 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'HTTPie/3.2.4'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Httpie'
+      DeviceBrand                          : 'Httpie'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'HTTPie'
+      LayoutEngineVersion                  : '3.2.4'
+      LayoutEngineVersionMajor             : '3'
+      LayoutEngineNameVersion              : 'HTTPie 3.2.4'
+      LayoutEngineNameVersionMajor         : 'HTTPie 3'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'HTTPie'
+      AgentVersion                         : '3.2.4'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'HTTPie 3.2.4'
+      AgentNameVersionMajor                : 'HTTPie 3'
 
 
 - test:
