@@ -35,6 +35,10 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
+  - ...
+
+### Version v7.31.0
+- New/improved detections:
     - CrowBrowser (LG SmartTV),
     - Robots: Scrapy, HTTPie
     - OpenHarmony
