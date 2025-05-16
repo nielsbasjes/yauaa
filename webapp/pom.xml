@@ -48,17 +48,11 @@
       <version>${slf4j2.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j2.version}</version>
-    </dependency>
-
     <!-- The default logging implementation for Yauaa -->
-    <!-- Send all Log4j2 calls to SLF4J -->
+    <!-- Send all SLF4J calls to Log4j2 -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-to-slf4j</artifactId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
