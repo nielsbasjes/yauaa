@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Analyzer:
+  - Disable using the default constructor (thanks to https://github.com/izeye)
 - New/improved detections:
   - ...
 

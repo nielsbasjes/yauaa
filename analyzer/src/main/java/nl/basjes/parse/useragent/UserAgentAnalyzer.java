@@ -25,6 +25,12 @@ import java.io.Serializable;
 @DefaultSerializer(AbstractUserAgentAnalyzer.KryoSerializer.class)
 public final class UserAgentAnalyzer extends AbstractUserAgentAnalyzer implements Serializable {
 
+    /**
+     * Do not try to construct directly; Use the Builder you get from newBuilder()
+     */
+    private UserAgentAnalyzer() {
+    }
+
     public static UserAgentAnalyzerBuilder newBuilder() {
         return new UserAgentAnalyzerBuilder(new UserAgentAnalyzer());
     }
@@ -51,10 +57,6 @@ public final class UserAgentAnalyzer extends AbstractUserAgentAnalyzer implement
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(UserAgentAnalyzer.class);
         AbstractUserAgentAnalyzer.configureKryo(kryo);
-    }
-
-    private UserAgentAnalyzer() {
-        super();
     }
 
 }

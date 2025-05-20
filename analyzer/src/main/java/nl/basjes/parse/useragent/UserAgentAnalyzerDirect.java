@@ -23,6 +23,12 @@ import com.esotericsoftware.kryo.Kryo;
 @DefaultSerializer(UserAgentAnalyzerDirect.KryoSerializer.class)
 public final class UserAgentAnalyzerDirect extends AbstractUserAgentAnalyzerDirect {
 
+    /**
+     * Do not try to construct directly; Use the Builder you get from newBuilder()
+     */
+    private UserAgentAnalyzerDirect() {
+    }
+
     public static UserAgentAnalyzerDirectBuilder newBuilder() {
         return new UserAgentAnalyzerDirectBuilder(new UserAgentAnalyzerDirect());
     }
