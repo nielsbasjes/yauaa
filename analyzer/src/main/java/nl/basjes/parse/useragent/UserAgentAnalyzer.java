@@ -53,4 +53,8 @@ public final class UserAgentAnalyzer extends AbstractUserAgentAnalyzer implement
         AbstractUserAgentAnalyzer.configureKryo(kryo);
     }
 
+    private UserAgentAnalyzer() {
+        super();
+    }
+
 }
