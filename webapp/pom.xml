@@ -111,18 +111,6 @@
           <artifactId>slf4j-api</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-autoconfigure</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-lang3</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>org.yaml</groupId>
           <artifactId>snakeyaml</artifactId>
         </exclusion>
@@ -184,38 +172,6 @@
           <artifactId>spring-context</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-logging</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.graphql-java</groupId>
-          <artifactId>graphql-java</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>com.graphql-java</groupId>
-      <artifactId>graphiql-spring-boot-starter</artifactId>
-      <version>5.0.2</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-autoconfigure</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-text</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>com.graphql-java</groupId>
-      <artifactId>graphql-java</artifactId>
-      <version>23.1</version>
-      <exclusions>
-        <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
         </exclusion>
@@ -224,6 +180,12 @@
           <artifactId>reactive-streams</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.reactivestreams</groupId>
+      <artifactId>reactive-streams</artifactId>
+      <version>1.0.4</version>
     </dependency>
 
     <!-- The webapp needs more classes than have been shaded in. -->
