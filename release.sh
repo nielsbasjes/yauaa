@@ -132,7 +132,7 @@ rm ./analyzer/src/main/code-gen/Antlr/PublicSuffix/tmp/*
 # ----------------------------------------------------------------------------------------------------
 ## Prepare the release: Make releasable version and make tag.
 info "Doing release:prepare"
-mvn release:prepare -B -PJava23
+mvn release:prepare -B -PJava24
 prepareStatus=$?
 if [ ${prepareStatus} -ne 0 ];
 then
@@ -147,7 +147,7 @@ fi
 git checkout "$(git describe --abbrev=0)"
 # ----------------------------------------------------------------------------------------------------
 info "Publishing for reproduction check to Local repo"
-mvn clean install -PpackageForRelease -PskipQuality -PJava23
+mvn clean install -PpackageForRelease -PskipQuality -PJava24
 reproCheckPublishStatus=$?
 if [ ${reproCheckPublishStatus} -ne 0 ];
 then
@@ -160,7 +160,7 @@ fi
 
 # ----------------------------------------------------------------------------------------------------
 info "Checking build reproducibility ... "
-mvn clean verify -PpackageForRelease -PskipQuality -PartifactCompare -PJava23
+mvn clean verify -PpackageForRelease -PskipQuality -PartifactCompare -PJava24
 reproducibleStatus=$?
 git switch -
 if [ ${reproducibleStatus} -ne 0 ];
@@ -174,7 +174,7 @@ fi
 # ----------------------------------------------------------------------------------------------------
 # Actually run the release: Effectively mvn deploy towards Sonatype
 info "Doing release:perform"
-mvn release:perform -PJava23
+mvn release:perform -PJava24
 performStatus=$?
 if [ ${performStatus} -ne 0 ];
 then
