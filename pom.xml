@@ -88,7 +88,7 @@
     <elasticsearch-9.version>9.0.2</elasticsearch-9.version>
 
     <!-- Trino (a.k.a. Presto SQL)-->
-    <trino.version>475</trino.version>
+    <trino.version>476</trino.version>
     <opentelemetry.version>1.51.0</opentelemetry.version>
 
     <!-- ============================================== -->
@@ -741,9 +741,9 @@
             <versionTag>^v([0-9]+\.[0-9]+\.[0-9]+)$</versionTag>
           </projectVersionPolicyConfig>
 
-          <preparationProfiles>Java23,prepareRelease,packageForRelease</preparationProfiles>
+          <preparationProfiles>Java24,prepareRelease,packageForRelease</preparationProfiles>
           <preparationGoals>clean verify</preparationGoals>
-          <releaseProfiles>Java23,packageForRelease</releaseProfiles>
+          <releaseProfiles>Java24,packageForRelease</releaseProfiles>
           <pushChanges>false</pushChanges>
           <remoteTagging>false</remoteTagging>
         </configuration>
