@@ -5,6 +5,8 @@ NEXT RELEASE
 ===
 - Analyzer:
   - Disable using the default constructor (thanks to https://github.com/izeye)
+- Build
+    - Require JDK 24 installed for Trino support.
 - New/improved detections:
   - ...
 

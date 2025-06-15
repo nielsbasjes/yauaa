@@ -8,13 +8,11 @@ This is a User Defined Function for [Trino](https://trino.io) (a.k.a. Presto SQL
 The Trino plugin is very new.
 Please tell if it works or not in your case.
 
-Trino now requires Java 23 (which is non-LTS) which is not readily available for installation in Ubuntu using a normal package manager.
-This means that I have chosen to no longer let the build fail if you do not have Java 22 installed.
-The CI build does do Java 23 so any breaking API changes should be detected there.
+Trino now requires Java 24 (which is non-LTS) which is not readily available for installation in Ubuntu using a normal package manager.
+This means that I have chosen to no longer let the build fail if you do not have that Java version installed.
+The CI build runs with the correct version so any breaking API changes should be detected there.
 
-This UDF will simply not be built if Java 22 is missing (and thus may go missing in some releases).
-
-If you have Java 23 installed (and added it to your toolchains.xml) you can still build it.
+This UDF will simply not be built if Java 24 is missing.
 
 ## Installation
 You can get the prebuilt UDF from [maven central (yauaa-trino-{{%YauaaVersion%}}-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-trino/{{%YauaaVersion%}}/yauaa-trino-{{%YauaaVersion%}}-udf.jar).
