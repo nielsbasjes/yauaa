@@ -19,12 +19,6 @@
 config:
 
 - set:
-    name: 'NamedSpecials'
-    values:
-    - 'IntelliJ IDEA'
-    - 'Intellij IDEA Github Plugin'
-
-- set:
     name: 'UnwantedSpecials'
     values:
     - 'Mozilla'
@@ -47,15 +41,6 @@ config:
     values:
       - 'AmigaVoyager'
       - 'Xombrero'
-
-- matcher:
-    require:
-    - 'agent.(1)text?NamedSpecials'
-    extract:
-    - '__Set_ALL_Fields__                  :     1400 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'AgentClass                          :     1500 :"Special"'
-    - 'AgentName                           :     1500 :agent'
-    - 'AgentVersion                        :     1500 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -442,11 +427,45 @@ config:
       AgentNameVersion                     : 'Chromeless 1.3.0'
       AgentNameVersionMajor                : 'Chromeless 1'
 
+
+- matcher:
+    require:
+      - 'agent.(1)text[1]="IntelliJ"'
+    extract:
+      - '__Set_ALL_Fields__                  :     1400 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'DeviceClass                         :     1500 :"Desktop"'
+      - 'AgentClass                          :     1500 :"Desktop App"'
+      - 'AgentName                           :     1500 :agent'
+      - 'AgentVersion                        :     1500 :"<<<null>>>"'
+
+
+- matcher:
+    variable:
+      - 'ProductName: agent.product.name[1]="IntelliJ"@'
+    extract:
+      - '__Set_ALL_Fields__                  :     1400 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'DeviceClass                         :     1500 :"Desktop"'
+      - 'AgentClass                          :     1500 :"Desktop App"'
+      - 'AgentName                           :     1500 :@ProductName'
+      - 'AgentVersion                        :     1500 :@ProductName^.version'
+
+
+- matcher:
+    variable:
+      - 'ProductName: agent.product.name[1]="IntelliJ"@'
+    extract:
+      - '__Set_ALL_Fields__                  :     1400 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+      - 'DeviceClass                         :     1500 :"Desktop"'
+      - 'AgentClass                          :     1500 :"Desktop App"'
+      - 'AgentName                           :     1500 :@ProductName'
+      - 'AgentVersion                        :     1501 :@ProductName^.(2)version'
+
+
 - test:
     input:
       user_agent_string: 'IntelliJ IDEA/162.1447.26'
     expected:
-      DeviceClass                          : 'Unknown'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Unknown'
@@ -459,7 +478,7 @@ config:
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Desktop App'
       AgentName                            : 'IntelliJ IDEA'
       AgentVersion                         : '162.1447.26'
       AgentVersionMajor                    : '162'
@@ -471,7 +490,7 @@ config:
     input:
       user_agent_string: 'IntelliJ IDEA'
     expected:
-      DeviceClass                          : 'Unknown'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Unknown'
@@ -484,7 +503,7 @@ config:
       LayoutEngineName                     : 'Unknown'
       LayoutEngineVersion                  : '??'
       LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Desktop App'
       AgentName                            : 'IntelliJ IDEA'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'
@@ -492,12 +511,38 @@ config:
       AgentNameVersionMajor                : 'IntelliJ IDEA ??'
 
 
+  # This is from the http client to manually do http commands from IntelliJ IDEA
+- test:
+    input:
+      user_agent_string: 'IntelliJ HTTP Client/IntelliJ IDEA 2025.1.1.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'IntelliJ HTTP Client'
+      AgentVersion                         : '2025.1.1.1'
+      AgentVersionMajor                    : '2025'
+      AgentNameVersion                     : 'IntelliJ HTTP Client 2025.1.1.1'
+      AgentNameVersionMajor                : 'IntelliJ HTTP Client 2025'
+
+
 # Fetches /api/v3/meta from my gitlab instance.
 - test:
     input:
       user_agent_string                    : 'Intellij IDEA Github Plugin'
     expected:
-      DeviceClass                          : 'Unknown'
+      DeviceClass                          : 'Desktop'
       DeviceName                           : 'Unknown'
       DeviceBrand                          : 'Unknown'
       OperatingSystemClass                 : 'Unknown'
@@ -512,7 +557,7 @@ config:
       LayoutEngineVersionMajor             : '??'
       LayoutEngineNameVersion              : 'Unknown ??'
       LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
+      AgentClass                           : 'Desktop App'
       AgentName                            : 'Intellij IDEA Github Plugin'
       AgentVersion                         : '??'
       AgentVersionMajor                    : '??'

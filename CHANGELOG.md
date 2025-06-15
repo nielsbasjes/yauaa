@@ -9,7 +9,7 @@ NEXT RELEASE
   - Require JDK 24 installed for Trino support.
   - Remove workaround for conjars.org going away.
 - New/improved detections:
-  - ...
+  - IntelliJ IDEA (now Desktop App on a Desktop)
 
 v7.31.0
 ===
