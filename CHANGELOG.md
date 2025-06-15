@@ -6,7 +6,8 @@ NEXT RELEASE
 - Analyzer:
   - Disable using the default constructor (thanks to https://github.com/izeye)
 - Build
-    - Require JDK 24 installed for Trino support.
+  - Require JDK 24 installed for Trino support.
+  - Remove workaround for conjars.org going away.
 - New/improved detections:
   - ...
 
