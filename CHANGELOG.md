@@ -10,6 +10,8 @@ NEXT RELEASE
   - Remove workaround for conjars.org going away.
 - New/improved detections:
   - IntelliJ IDEA (now Desktop App on a Desktop)
+- UDFs:
+  - Update UDF for Elastic Search 9 to their API changes
 
 v7.31.0
 ===

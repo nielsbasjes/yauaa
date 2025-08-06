@@ -19,6 +19,7 @@ package org.elasticsearch.plugin.ingest.yauaa;
 
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import org.apache.logging.log4j.LogManager;
+import org.elasticsearch.cluster.metadata.ProjectId;
 import org.elasticsearch.index.VersionType;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
@@ -188,7 +189,7 @@ class TestYauaaProcessor {
         configuration.put("preheat",      10);
         configuration.put("extraRules",   "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n");
 
-        Processor processor = yauaaFactory.create(processors, "tag", "description", configuration);
+        Processor processor = yauaaFactory.create(processors, "tag", "description", configuration, ProjectId.fromId("test"));
 
         Assertions.assertEquals("yauaa", processor.getType());
 
@@ -257,7 +258,7 @@ class TestYauaaProcessor {
         configuration.put("extraRules",   "config:\n- matcher:\n    extract:\n      - 'FirstProductName     : 1 :agent.(1)product.(1)name'\n");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Processor processor = yauaaFactory.create(processors, "tag", "description", configuration);
+            Processor processor = yauaaFactory.create(processors, "tag", "description", configuration, ProjectId.fromId("test"));
         });
     }
 
