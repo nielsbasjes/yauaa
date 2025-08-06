@@ -20,6 +20,7 @@ package org.elasticsearch.plugin.ingest.yauaa;
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.UserAgentAnalyzer.UserAgentAnalyzerBuilder;
+import org.elasticsearch.cluster.metadata.ProjectId;
 import org.elasticsearch.ingest.AbstractProcessor;
 import org.elasticsearch.ingest.IngestDocument;
 import org.elasticsearch.ingest.Processor;
@@ -84,7 +85,7 @@ public class YauaaProcessor extends AbstractProcessor {
     public static final class Factory implements Processor.Factory {
 
         @Override
-        public Processor create(Map<String, Processor.Factory> processorFactories, String tag, String description, Map<String, Object> config) {
+        public Processor create(Map<String, Processor.Factory> processorFactories, String tag, String description, Map<String, Object> config, ProjectId projectId) {
             String                  field                       = readOptionalStringProperty(TYPE, tag, config, "field"); // Deprecated
             Map<String, String>     fieldToHeaderMappingConfig  = readOptionalMap(TYPE, tag, config, "field_to_header_mapping");
             String                  targetField                 = readStringProperty(TYPE, tag, config, "target_field", "user_agent");
