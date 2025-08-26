@@ -248,6 +248,17 @@
   <build>
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
 
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.graalvm.buildtools</groupId>
+          <artifactId>native-maven-plugin</artifactId>
+          <version>${native-build-tools-plugin.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
 
       <plugin>
@@ -522,5 +533,223 @@
     </plugins>
 
   </build>
+
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <image>
+                <builder>paketobuildpacks/builder:tiny</builder>
+                <env>
+                  <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+                </env>
+              </image>
+            </configuration>
+            <executions>
+              <execution>
+                <id>process-aot</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>process-aot</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <configuration>
+              <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+              <metadataRepository>
+                <enabled>true</enabled>
+              </metadataRepository>
+              <buildArgs>
+                <buildArg>-H:Name=${project.build.directory}/native-image/yauaa-webapp-native-${project.version}</buildArg>
+              </buildArgs>
+            </configuration>
+            <executions>
+              <execution>
+                <id>add-reachability-metadata</id>
+                <goals>
+                  <goal>add-reachability-metadata</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>compile to native</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>compile</goal>
+                </goals>
+              </execution>
+
+            </executions>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>Create native output directory</id>
+                <phase>package</phase>
+                <configuration>
+                  <target>
+                    <mkdir dir="target/native-image"/>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Documentation: https://dmp.fabric8.io/ -->
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>${docker-maven-plugin.version}</version>
+
+            <configuration>
+              <!--              <skip>${docker-based-tests.skip}</skip>-->
+              <follow>false</follow>
+              <sourceDirectory>src/test/resources</sourceDirectory>
+              <images>
+                <image>
+                  <name>nielsbasjes/yauaa:${project.version}-native</name>
+                  <build>
+                    <maintainer>Niels Basjes</maintainer>
+                    <!-- <from>scratch</from> doesn't work because of dependence on shared libraries. -->
+                    <from>debian:12</from>
+                    <tags>
+                      <tag>latest-native</tag>
+                      <tag>${project.version}-native</tag>
+                    </tags>
+
+                    <labels>
+                      <name>yauaa</name>
+                      <org.opencontainers.image.created>${maven.build.timestamp}</org.opencontainers.image.created>
+                      <org.opencontainers.image.authors>Niels Basjes</org.opencontainers.image.authors>
+                      <org.opencontainers.image.url>https://yauaa.basjes.nl</org.opencontainers.image.url>
+                      <org.opencontainers.image.documentation>https://yauaa.basjes.nl</org.opencontainers.image.documentation>
+                      <org.opencontainers.image.source>https://github.com/nielsbasjes/yauaa</org.opencontainers.image.source>
+                      <org.opencontainers.image.version>${project.version}</org.opencontainers.image.version>
+                      <!--suppress UnresolvedMavenProperty -->
+                      <org.opencontainers.image.revision>${git.commit.id}</org.opencontainers.image.revision>
+                      <org.opencontainers.image.vendor>Niels Basjes</org.opencontainers.image.vendor>
+                      <org.opencontainers.image.licenses>Apache-2.0</org.opencontainers.image.licenses>
+                      <org.opencontainers.image.title>Yauaa: Yet Another UserAgent Analyzer</org.opencontainers.image.title>
+                      <org.opencontainers.image.description>This is a java library that tries to parse and analyze the useragent string (and when available the User-Agent Client Hints) and extract as many relevant attributes as possible.</org.opencontainers.image.description>
+                    </labels>
+
+                    <assembly>
+                      <targetDir>/</targetDir>
+                      <inline>
+                        <fileSets>
+                          <fileSet>
+                            <directory>${project.build.directory}/native-image</directory>
+                            <outputDirectory>/</outputDirectory>
+                          </fileSet>
+                        </fileSets>
+                      </inline>
+                    </assembly>
+                    <ports>
+                      <port>8080</port>
+                    </ports>
+                    <entryPoint>
+                      <exec>
+                        <arg>/yauaa-webapp-native-${project.version}</arg>
+                      </exec>
+                    </entryPoint>
+                  </build>
+
+                  <run>
+                    <skip>true</skip>
+                  </run>
+                </image>
+
+                <image>
+                  <name>nielsbasjes/yauaa:${project.version}-native-WITH-EXTRA-CONFIG</name>
+                  <build>
+                    <tags>
+                      <tag>${project.version}-native-WITH-EXTRA-CONFIG</tag>
+                    </tags>
+                    <dockerFile>ITDockerfile-native</dockerFile>
+                  </build>
+
+                  <run>
+                    <containerNamePattern>yauaa-ittest-native-%i</containerNamePattern>
+                    <ports>
+                      <port>yauaa.port:8080</port>
+                    </ports>
+                    <wait>
+                      <http>
+                        <url>http://localhost:${yauaa.port}/readiness</url>
+                      </http>
+                      <time>20000</time>
+                    </wait>
+                    <log>
+                      <prefix>[ LOCAL TEST OF NATIVE YAUAA WITH CONFIG ]::</prefix>
+                      <color>yellow</color>
+                    </log>
+                  </run>
+                </image>
+
+              </images>
+            </configuration>
+
+            <executions>
+              <execution>
+                <id>build-docker</id>
+                <configuration>
+                  <skip>${docker-based-tests.skip}</skip>
+                  <removeMode>build</removeMode>
+                </configuration>
+                <phase>${docker-based-package.phase}</phase>
+                <goals>
+                  <goal>stop</goal>
+                  <goal>remove</goal>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+
+              <execution>
+                <id>start-docker-before-it</id>
+                <phase>pre-integration-test</phase>
+                <configuration>
+                  <skip>${docker-based-tests.skip}</skip>
+                </configuration>
+                <goals>
+                  <goal>stop</goal>
+                  <goal>start</goal>
+                </goals>
+              </execution>
+
+              <execution>
+                <id>stop-docker-after-it</id>
+                <configuration>
+                  <skip>${docker-based-tests.skip}</skip>
+                </configuration>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
 
 </project>
