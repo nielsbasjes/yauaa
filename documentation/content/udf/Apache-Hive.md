@@ -4,6 +4,8 @@ title = "Apache Hive"
 ## Introduction
 This is a User Defined Function for [Apache Hive](https://hive.apache.org)
 
+NOTE: Since Apache Hive 4.1.0 it needs Java 17 to build and run.
+
 ## Getting the UDF
 
 You can get the prebuilt UDF from [maven central (yauaa-hive-{{%YauaaVersion%}}-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-hive/{{%YauaaVersion%}}/yauaa-hive-{{%YauaaVersion%}}-udf.jar).
