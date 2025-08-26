@@ -158,7 +158,7 @@
     <docker-maven-plugin.version>0.46.0</docker-maven-plugin.version>
 
     <spring-boot.version>3.5.7</spring-boot.version>
-    <spring-boot-legacy.version>2.1.0.RELEASE</spring-boot-legacy.version>
+    <native-build-tools-plugin.version>0.11.0</native-build-tools-plugin.version>
 
     <springdoc.version>2.8.13</springdoc.version>
 
@@ -499,18 +499,18 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--   FIXME: REENABLE   <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-source-plugin</artifactId>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>attach-sources</id>-->
+<!--            <goals>-->
+<!--              <goal>jar-no-fork</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -23,7 +23,7 @@
     <version>7.32.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <packaging>war</packaging>
+<!--  <packaging>war</packaging>-->
 
   <artifactId>yauaa-webapp</artifactId>
   <name>Yauaa : Web Servlet</name>
@@ -38,6 +38,19 @@
     <!-- The default port on which to expose if you do "mvn docker:run" -->
     <yauaa.port>8080</yauaa.port>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- Import dependency management from Spring Boot -->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
 
@@ -63,7 +76,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring-boot.version}</version>
       <exclusions>
         <exclusion>
           <groupId>com.fasterxml.jackson.core</groupId>
@@ -86,12 +98,6 @@
           <artifactId>snakeyaml</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-legacy</artifactId>
-      <version>${spring-boot-legacy.version}</version>
     </dependency>
 
     <dependency>
@@ -145,7 +151,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <version>${spring-boot.version}</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -184,7 +189,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-graphql</artifactId>
-      <version>${spring-boot.version}</version>
       <exclusions>
         <exclusion>
           <groupId>org.springframework</groupId>
@@ -289,6 +293,17 @@
   <build>
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
 
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.graalvm.buildtools</groupId>
+          <artifactId>native-maven-plugin</artifactId>
+          <version>${native-build-tools-plugin.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
 
       <plugin>
@@ -356,21 +371,21 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <webResources>
-            <!-- in order to interpolate version and main class from pom into {appengine-,}web.xml -->
-            <resource>
-              <directory>${project.basedir}/src/main/webapp/WEB-INF</directory>
-              <filtering>true</filtering>
-              <targetPath>WEB-INF</targetPath>
-            </resource>
-          </webResources>
-        </configuration>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-war-plugin</artifactId>-->
+<!--        <configuration>-->
+<!--          <failOnMissingWebXml>false</failOnMissingWebXml>-->
+<!--          <webResources>-->
+<!--            &lt;!&ndash; in order to interpolate version and main class from pom into {appengine-,}web.xml &ndash;&gt;-->
+<!--            <resource>-->
+<!--              <directory>${project.basedir}/src/main/webapp/WEB-INF</directory>-->
+<!--              <filtering>true</filtering>-->
+<!--              <targetPath>WEB-INF</targetPath>-->
+<!--            </resource>-->
+<!--          </webResources>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -563,5 +578,117 @@
     </plugins>
 
   </build>
+
+
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <image>
+                <builder>paketobuildpacks/builder:tiny</builder>
+                <env>
+                  <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+                </env>
+              </image>
+            </configuration>
+            <executions>
+              <execution>
+                <id>process-aot</id>
+                <goals>
+                  <goal>process-aot</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <configuration>
+              <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+              <metadataRepository>
+                <enabled>true</enabled>
+              </metadataRepository>
+              <requiredVersion>22.3</requiredVersion>
+              <buildArgs>
+                <buildArg>-H:Name=yauaa-native-webapp</buildArg>
+              </buildArgs>
+            </configuration>
+            <executions>
+              <execution>
+                <id>add-reachability-metadata</id>
+                <goals>
+                  <goal>add-reachability-metadata</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>compile to native</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>compile</goal>
+                </goals>
+              </execution>
+
+            </executions>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
+<!--    <profile>-->
+<!--      <id>nativeTest</id>-->
+<!--      <dependencies>-->
+<!--        <dependency>-->
+<!--          <groupId>org.junit.platform</groupId>-->
+<!--          <artifactId>junit-platform-launcher</artifactId>-->
+<!--          <scope>test</scope>-->
+<!--        </dependency>-->
+<!--      </dependencies>-->
+<!--      <build>-->
+<!--        <plugins>-->
+<!--          -->
+<!--          <plugin>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <id>process-test-aot</id>-->
+<!--                <goals>-->
+<!--                  <goal>process-test-aot</goal>-->
+<!--                </goals>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
+<!--          <plugin>-->
+<!--            <groupId>org.graalvm.buildtools</groupId>-->
+<!--            <artifactId>native-maven-plugin</artifactId>-->
+<!--            <configuration>-->
+<!--              <classesDirectory>${project.build.outputDirectory}</classesDirectory>-->
+<!--              <metadataRepository>-->
+<!--                <enabled>true</enabled>-->
+<!--              </metadataRepository>-->
+<!--              <requiredVersion>22.3</requiredVersion>-->
+<!--            </configuration>-->
+<!--            <executions>-->
+<!--              <execution>-->
+<!--                <id>native-test</id>-->
+<!--                <goals>-->
+<!--                  <goal>test</goal>-->
+<!--                </goals>-->
+<!--              </execution>-->
+<!--            </executions>-->
+<!--          </plugin>-->
+<!--        </plugins>-->
+<!--      </build>-->
+<!--      -->
+<!--    </profile>-->
+  </profiles>
 
 </project>
