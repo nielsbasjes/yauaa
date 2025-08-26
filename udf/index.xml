@@ -19,11 +19,11 @@ Getting the UDF You can get the prebuilt UDF from maven central.
 If you use a maven based project simply add this dependency to your project.
 &lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-flink-table&lt;/artifactId> &lt;version>7.31.0&lt;/version> &lt;/dependency> Syntax Assume you register this function under the name ParseUserAgent Then the generic usage in your SQL is
 ParseUserAgent(&lt;useragent>) This returns a Map&lt;String, String> with all the requested values in one go.</description></item><item><title>Apache Hive</title><link>/udf/apache-hive/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-hive/index.html</guid><description>Introduction This is a User Defined Function for Apache Hive
+NOTE: Since Apache Hive 4.1.0 it needs Java 17 to build and run.
 Getting the UDF You can get the prebuilt UDF from maven central (yauaa-hive-7.31.0-udf.jar).
 NOTE: You MUST use the -udf.jar: yauaa-hive-7.31.0-udf.jar
 If you use a maven based project simply add this dependency
-&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-hive&lt;/artifactId> &lt;classifier>udf&lt;/classifier> &lt;version>7.31.0&lt;/version> &lt;/dependency> Building Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:
-mvn clean package Example usage First the jar file must be ‘known’ Either by doing</description></item><item><title>Apache Nifi</title><link>/udf/apache-nifi/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-nifi/index.html</guid><description>Introduction This is a User Defined Function for Apache Nifi
+&lt;dependency> &lt;groupId>nl.basjes.parse.useragent&lt;/groupId> &lt;artifactId>yauaa-hive&lt;/artifactId> &lt;classifier>udf&lt;/classifier> &lt;version>7.31.0&lt;/version> &lt;/dependency> Building Simply install the normal build tools for a Java project (i.e. maven and jdk) and then simply do:</description></item><item><title>Apache Nifi</title><link>/udf/apache-nifi/index.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/udf/apache-nifi/index.html</guid><description>Introduction This is a User Defined Function for Apache Nifi
 Introduction This is an Apache Nifi Processor for parsing User Agent Strings.
 Getting the Processor You can get the prebuilt NAR file from maven central.
 If you use a maven based project simply add this dependency
