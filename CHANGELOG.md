@@ -10,6 +10,7 @@ NEXT RELEASE
   - Remove workaround for conjars.org going away.
 - New/improved detections:
   - IntelliJ IDEA (now Desktop App on a Desktop)
+  - Safari 26 on iOS 26
 - UDFs:
   - Update UDF for Elastic Search 9 to their API changes
 

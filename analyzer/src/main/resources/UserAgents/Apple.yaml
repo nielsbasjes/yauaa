@@ -377,6 +377,19 @@ config:
 
 - matcher:
     variable:
+      - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPhone OS"^'
+    require:
+      # Only if this is EXACTLY Safari do we use the version
+      - 'agent.(5)product.(1)name="Safari"'
+      # Only if this is EXACTLY Safari do we use the version
+      - '@CPUProduct.version="18_7"' # FIXME: Is this the ONLY version for which this is wrong?
+    extract:
+      - 'OperatingSystemClass                :       20 :"Mobile"'
+      - 'OperatingSystemName                 :       20 :"iOS"'
+      - 'OperatingSystemVersion              :       21 :CleanVersion[agent.product.name="Version"^.version]'
+
+- matcher:
+    variable:
     - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
     extract:
     - 'DeviceFirmwareVersion               :       20 :agent.product.name="Mobile"^.version'
@@ -388,6 +401,19 @@ config:
     - 'OperatingSystemClass                :       20 :"Mobile"'
     - 'OperatingSystemName                 :       20 :"iOS"'
     - 'OperatingSystemVersion              :       20 :CleanVersion[@CPUProduct.version]'
+
+- matcher:
+    variable:
+      - 'CPUProduct                          :agent.(1-5)product.(1)comments.entry.(1-2)product.name="CPU iPad OS"^'
+    require:
+      # Only if this is EXACTLY Safari do we use the version
+      - 'agent.(5)product.(1)name="Safari"'
+      # Only if this is EXACTLY Safari do we use the version
+      - '@CPUProduct.version="18_7"' # FIXME: Is this the ONLY version for which this is wrong?
+    extract:
+      - 'OperatingSystemClass                :       20 :"Mobile"'
+      - 'OperatingSystemName                 :       20 :"iOS"'
+      - 'OperatingSystemVersion              :       21 :CleanVersion[agent.product.name="Version"^.version]'
 
 - matcher:
     require:
@@ -416,14 +442,6 @@ config:
     - 'agent.product.name="CPU OS"^>="like Mac OS X"'
     extract:
     - 'DeviceFirmwareVersion               :       20 :agent.product.name="Mobile"^.version'
-
-- matcher:
-    require:
-    - 'agent.product.name="CPU OS"^>="like Mac OS X"'
-    extract:
-    - 'OperatingSystemClass                :       20 :"Mobile"'
-    - 'OperatingSystemName                 :       20 :"iOS"'
-    - 'OperatingSystemVersion              :       20 :CleanVersion[agent.product.name="CPU OS"^.version]'
 
 - matcher:
     require:
@@ -1969,7 +1987,6 @@ config:
       AgentVersionMajor                    : '16'
       AgentNameVersion                     : 'Safari 16.1'
       AgentNameVersionMajor                : 'Safari 16'
-
 
 
 # The LBANK app makes a total mess of things.
