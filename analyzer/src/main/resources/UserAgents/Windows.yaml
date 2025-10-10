@@ -42,6 +42,19 @@ config:
     - 'OperatingSystemVersion              :      101 :LookUp[WindowsDesktopOSVersion;@Product]'
     - 'OperatingSystemNameVersion          :      101 :LookUp[WindowsDesktopOSNameVersion;@Product]'
 
+- matcher:
+    variable:
+      - 'Product                             :agent.(1-2)product.comments.entry.product.name="Windows_NT"^'
+    require:
+      - 'IsNull[@Product?WindowsDesktopOSName]'
+    extract:
+      - 'DeviceClass                         :      101 :"Desktop"'
+      - 'DeviceName                          :      101 :"Desktop"'
+      - 'OperatingSystemClass                :      101 :"Desktop"'
+      - 'OperatingSystemName                 :      101 :"Windows NT"'
+      - 'OperatingSystemVersion              :      101 :@Product.version'
+      - 'OperatingSystemNameVersion          :      101 :Concat["Windows ";@Product.version]'
+
 # Low level fallback
 - matcher:
     variable:

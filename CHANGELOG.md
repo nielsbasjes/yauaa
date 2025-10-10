@@ -11,6 +11,7 @@ NEXT RELEASE
 - New/improved detections:
   - IntelliJ IDEA (now Desktop App on a Desktop)
   - Safari 26 on iOS 26
+  - Electron Desktop App using special format
 - UDFs:
   - Update UDF for Elastic Search 9 to their API changes
 

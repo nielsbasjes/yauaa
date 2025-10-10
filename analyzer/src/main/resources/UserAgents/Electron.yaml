@@ -48,6 +48,14 @@ config:
     - 'AgentName                           :     3000 :"Electron app"'
     - 'AgentVersion                        :     2999 :@Electron.version'
 
+- matcher:
+    variable:
+      - 'AgentTag                          : agent.(1)product.(1)name!="Mozilla"^'
+      - 'Electron                          : agent.(2-)product.name="Electron"^'
+    extract:
+      - 'AgentClass                        :     3101 : "Desktop App"'
+      - 'AgentName                         :     3101 : @AgentTag.name'
+      - 'AgentVersion                      :     3101 : @AgentTag.version'
 
   # Cypress ( https://www.cypress.io/ ) is a tool to test websites
   # https://github.com/cypress-io/cypress
@@ -575,3 +583,32 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'RancherDesktop 1.7.0'
       AgentNameVersionMajor                : 'RancherDesktop 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'XXX_APP/1.2025.258 (Windows_NT 10.0.19045; x86_64; build) Electron/37.4.0 Chrome/138.0.7204.243'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0.19045'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows 10.0.19045'
+      OperatingSystemNameVersionMajor      : 'Windows 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '138.0'
+      LayoutEngineVersionMajor             : '138'
+      LayoutEngineNameVersion              : 'Blink 138.0'
+      LayoutEngineNameVersionMajor         : 'Blink 138'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'XXX_APP'
+      AgentVersion                         : '1.2025.258'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'XXX_APP 1.2025.258'
+      AgentNameVersionMajor                : 'XXX_APP 1'
