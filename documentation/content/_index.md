@@ -35,9 +35,16 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - Analyzer:
-  - Disable using the default constructor (thanks to https://github.com/izeye)
+    - Disable using the default constructor (thanks to https://github.com/izeye)
+- Build
+    - Require JDK 24 installed for Trino support.
+    - Remove workaround for conjars.org going away.
 - New/improved detections:
-  - ...
+    - IntelliJ IDEA (now Desktop App on a Desktop)
+    - Safari 26 on iOS 26
+    - Electron Desktop App using special format
+- UDFs:
+    - Update UDF for Elastic Search 9 to their API changes
 
 ### Version v7.31.0
 - New/improved detections:
@@ -48,47 +55,6 @@ These are only the highlights for the last few releases, the full changelog can 
 - UDFs
     - New UDF for Elastic Search 9
     - All Elastic Search UDFs(Plugins) must be built by the user for their specific version.
-
-### Version v7.30.0
-- New/improved detections:
-  - Updated the list of Amazon devices (2023, 2024 models)
-  - Fix phones with real browser name at the end (like AAB does)
-  - Presearch browser, Citrix WorxWeb, Klarna, Budbee, MAGAPPX, Yandex, Albert Heijn App, Ghostery, Dalvik, Nu.nl (iOS)
-  - ZTE Nubia
-  - Pico 3 and Pico 4 VR Headset
-  - Very old Samsung Browser is a webview
-  - Whitelabel "Safe" Browser apps (iOS): Ziggo, KPN, VandenBorre, F-Secure
-  - Handle "Windows 11.0" (the '.0' is very rare)
-  - CPU tag arm_64
-  - Handle URLs better with Robots/Hackers/Spammers
-  - UltraBlock useragent randomizer
-  - Improve DuckDuckGo
-  - Mapping ClientHint value for AgentName (i.e. ClientHint "YaBrowser" --> "Yandex Browser")
-  - Handle edgecases:
-      - 'OpenBSD != Linux amd64'
-      - 'Linux x86_64:108.0'
-  - Robots (Generic, Fediverse and AI Related):
-      - AmazonBot, Bravebot, PetalBot
-      - FediIndex, vmcrawl, Nonsensebot, Caveman-hunter, ...
-      - OpenAI/ChatGPT, Claudebot (Anthropic), PerplexityBot
-  - Codeberg.org is a code hosting site (not a brand for a bot)
-  - Updated the ISO 639-3 language code table
-
-### Version v7.29.0
-- Build
-  - Require JDK 23 installed for Trino support.
-  - Leverage new toolchains plugin: no longer needs toolchains.xml.
-- New/improved detections:
-  - Do tag lookups for Webviews (Yandex showed wrong)
-  - SamsungBrowser with a newer "reduced" version on a Phone doing DEX.
-  - Snorlax useragent with BASE64 encoded part
-  - Devices from OX Tab, Xiaomi
-  - Partially handle broken: Safari "Mobile" on Mac OS X
-  - Gitlab CI Runner
-  - HUAWEI Quick App Center (+ false positive of it being a Hacker)
-  - TV Bro
-- Analyzer:
-  - Renamed Sec-CH-UA-Form-Factor to Sec-CH-UA-Form-Factors (no rules yet)
 
 
 ---
