@@ -73,23 +73,10 @@
       <version>3.2.2</version>
     </dependency>
 
-    <!-- Used for a Java 8 compliant alternative to Caffeine. -->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-      <version>${commons-collections4.version}</version>
-    </dependency>
-
     <dependency>
       <groupId>nl.basjes.collections</groupId>
       <artifactId>prefixmap</artifactId>
       <version>2.1.0</version>
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>com.esotericsoftware</groupId>-->
-<!--          <artifactId>kryo</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
     </dependency>
 
     <dependency>
@@ -683,26 +670,6 @@
           </execution>
 
           <execution>
-            <id>Integration tests under Java 8</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <integrationTestingJDK>8</integrationTestingJDK>
-                <integrationTestingJDKRange>[1.8,1.9)</integrationTestingJDKRange>
-                <maven.compiler.target>8</maven.compiler.target>
-              </properties>
-              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
-              <cloneProjectsTo>${project.build.directory}/it-jdk-8</cloneProjectsTo>
-              <pomExcludes>
-                <!-- This does not work on Java 8 -->
-                <pomExclude>Base/JPMS/pom.xml</pomExclude>
-              </pomExcludes>
-            </configuration>
-          </execution>
-
-          <execution>
             <id>Integration tests under Java 11</id>
             <goals>
               <goal>run</goal>
@@ -776,7 +743,7 @@
                 </banDuplicateClasses>
 
                 <enforceBytecodeVersion>
-                  <maxJdkVersion>8</maxJdkVersion>
+                  <maxJdkVersion>17</maxJdkVersion>
                   <excludes>
                     <exclude>com.github.ben-manes.caffeine:caffeine</exclude>
                     <exclude>org.jboss:jboss-vfs</exclude>
