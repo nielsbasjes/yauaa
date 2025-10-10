@@ -4,7 +4,9 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - Analyzer:
-  - Needs Java 17 to run.
+  - Needs Java 17 LTS to run.
+- Build:
+  - Needs Java 25 LTS to build.
 - UDFs;
   - Dropping the Trino UDF
 
