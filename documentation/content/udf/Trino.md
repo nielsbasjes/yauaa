@@ -4,6 +4,15 @@ title = "Trino"
 ## Introduction
 This is a User Defined Function for [Trino](https://trino.io) (a.k.a. Presto SQL)
 
+# DEPRECATED
+Trino is no longer supported because of
+1. the continued need to update to the latest non-LST Java version.
+2. release 477 no longer released the dependencies needed to run integration tests.
+
+So with Yauaa 8 this UDF has been dropped.
+
+Yauaa version 7.32.0 is the last released version which still has it (version 476).
+
 ## STATUS: ... EXPERIMENTAL ...
 The Trino plugin is very new.
 Please tell if it works or not in your case.
@@ -15,11 +24,11 @@ The CI build runs with the correct version so any breaking API changes should be
 This UDF will simply not be built if Java 24 is missing.
 
 ## Installation
-You can get the prebuilt UDF from [maven central (yauaa-trino-{{%YauaaVersion%}}-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-trino/{{%YauaaVersion%}}/yauaa-trino-{{%YauaaVersion%}}-udf.jar).
+You can get the prebuilt UDF from [maven central (yauaa-trino-7.32.0-udf.jar)](https://repo1.maven.org/maven2/nl/basjes/parse/useragent/yauaa-trino/7.32.0/yauaa-trino-7.32.0-udf.jar).
 
-NOTE: You MUST use the `-udf.jar`: yauaa-trino-{{%YauaaVersion%}}-udf.jar
+NOTE: You MUST use the `-udf.jar`: yauaa-trino-7.32.0-udf.jar
 
-In the plugin directory of your Trino server create a subdirectory and copy the `yauaa-trino-{{%YauaaVersion%}}-udf.jar` to that new directory.
+In the plugin directory of your Trino server create a subdirectory and copy the `yauaa-trino-7.32.0-udf.jar` to that new directory.
 
 In the trino docker image this is `/usr/lib/trino/plugin/` so putting the jar in something like `/usr/lib/trino/plugin/yauaa` is a fine choice.
 

@@ -3,8 +3,10 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
-- New/improved detections:
-  - ...
+- Analyzer:
+  - Needs Java 17 to run.
+- UDFs;
+  - Dropping the Trino UDF
 
 v7.32.0
 ===
