@@ -96,17 +96,7 @@ public class YauaaProcessor extends AbstractProcessor {
             UserAgentAnalyzerBuilder builder = UserAgentAnalyzer
                 .newBuilder()
                 .dropTests()
-                .immediateInitialization()
-
-                // With the default Caffeine based cache an exception occurs at startup:
-                // Caused by: java.security.AccessControlException: access denied ("java.lang.reflect.ReflectPermission" "suppressAccessChecks")
-                //         at java.base/java.security.AccessControlContext.checkPermission(AccessControlContext.java:485)
-                //         at java.base/java.security.AccessController.checkPermission(AccessController.java:1068)
-                //         at java.base/java.lang.SecurityManager.checkPermission(SecurityManager.java:416)
-                //         at java.base/java.lang.invoke.MethodHandles.privateLookupIn(MethodHandles.java:233)
-                //         at com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue.<clinit>(MpscGrowableArrayQueue.java:662)
-                // ...
-                .useJava8CompatibleCaching();
+                .immediateInitialization();
 
             if (cacheSize >= 0) {
                 builder.withCache(cacheSize);

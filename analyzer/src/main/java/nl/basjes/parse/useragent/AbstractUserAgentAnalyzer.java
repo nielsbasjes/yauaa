@@ -24,10 +24,6 @@ import com.esotericsoftware.kryo.io.Output;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.cache.DefaultCacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java11CacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java11ClientHintsCacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java8CacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java8ClientHintsCacheInstantiator;
 
 import javax.annotation.Nonnull;
 import java.io.Serializable;
@@ -76,10 +72,6 @@ public abstract class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyze
         Kryo kryo = (Kryo) kryoInstance;
         kryo.register(AbstractUserAgentAnalyzer.class);
         kryo.register(DefaultCacheInstantiator.class);
-        kryo.register(Java8CacheInstantiator.class);
-        kryo.register(Java11CacheInstantiator.class);
-        kryo.register(Java8ClientHintsCacheInstantiator.class);
-        kryo.register(Java11ClientHintsCacheInstantiator.class);
         AbstractUserAgentAnalyzerDirect.configureKryo(kryo);
     }
 
@@ -314,19 +306,6 @@ public abstract class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyze
             failIfAlreadyBuilt();
             uaa.setClientHintsCacheInstantiator(cacheInstantiator);
             return (B)this;
-        }
-
-        /**
-         * Use a Java 8 compatible caching implementation for the UserAgents and the client hints.
-         * @return the current Builder instance.
-         */
-        public B useJava8CompatibleCaching() {
-            failIfAlreadyBuilt();
-            // Caffeine is a Java 11+ library.
-            // This is one is Java 8 compatible.
-            return this
-                .withCacheInstantiator(new Java8CacheInstantiator())
-                .withClientHintCacheInstantiator(new Java8ClientHintsCacheInstantiator<>());
         }
 
         // ------------------------------------------

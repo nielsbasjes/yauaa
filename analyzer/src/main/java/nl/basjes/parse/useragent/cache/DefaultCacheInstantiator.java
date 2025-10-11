@@ -14,8 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package nl.basjes.parse.useragent.cache;
 
-public class DefaultCacheInstantiator extends Java8CacheInstantiator {
+import com.github.benmanes.caffeine.cache.Caffeine;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
+import nl.basjes.parse.useragent.UserAgent;
+
+import java.util.Map;
+
+public class DefaultCacheInstantiator implements CacheInstantiator {
+    @Override
+    public Map<String, UserAgent.ImmutableUserAgent> instantiateCache(int cacheSize) {
+        return Caffeine.newBuilder().maximumSize(cacheSize).<String, UserAgent.ImmutableUserAgent>build().asMap();
+    }
 }

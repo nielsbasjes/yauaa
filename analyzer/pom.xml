@@ -119,6 +119,13 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.5.0</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <profiles>
@@ -603,25 +610,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>java-11</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <source>11</source>
-              <target>11</target>
-              <release>11</release>
-              <compileSourceRoots>${project.basedir}/src/main/java11</compileSourceRoots>
-              <multiReleaseOutput>true</multiReleaseOutput>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
 
       <!-- Always run integration tests -->
       <plugin>
