@@ -34,6 +34,10 @@ Currently (April 2025) it seems that this effect is different depending on the u
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+- New/improved detections:
+  - ...
+
+### Version v7.32.0
 - Analyzer:
     - Disable using the default constructor (thanks to https://github.com/izeye)
 - Build
