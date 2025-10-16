@@ -40,7 +40,7 @@
     <maven.compiler.release>${target.java.release}</maven.compiler.release>
 
     <!-- In order for everything to work correctly we need at least this version of maven. -->
-    <maven.minimal.version>3.5.2</maven.minimal.version>
+    <maven.minimal.version>3.9.11</maven.minimal.version>
 
     <antlr.version>4.13.2</antlr.version>
     <snakeyaml.version>2.5</snakeyaml.version>
@@ -524,8 +524,8 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>[21,22)</version>
-                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 21 (detected: JDK ${java.version}).</message>
+                  <version>[25,26)</version>
+                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 25 (detected: JDK ${java.version}).</message>
                 </requireJavaVersion>
                 <requireMavenVersion>
                   <version>[${maven.minimal.version},)</version>
