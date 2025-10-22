@@ -72,13 +72,6 @@ RUN apt-get -q install -y --no-install-recommends \
      && apt clean cache
 
 ###
-# Install the latest JDK if not an LTS version (needed for Trino)
-###
-ENV NON_LTS_JDK=24
-RUN wget "https://download.oracle.com/java/${NON_LTS_JDK}/latest/jdk-${NON_LTS_JDK}_linux-x64_bin.deb"
-RUN apt install "./jdk-${NON_LTS_JDK}_linux-x64_bin.deb"
-
-###
 # The update-java-alternatives uses the config files like /usr/lib/jvm/.java-1.8.0-openjdk-amd64.jinfo
 # Some of these files contain a reference to mozilla-javaplugin.so which we do not need AND which does not exist
 # in this docker image. So we remove this reference as it will give a needless warning every time we switch JDK.
