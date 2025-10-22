@@ -100,7 +100,7 @@
     <kryo4.version>4.0.2</kryo4.version>  <!--  DO NOT UPGRADE: We test with Kryo 4.x.x to ensure backwards compatibility. -->
     <kryo5.version>5.6.2</kryo5.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
-    <apache-rat-plugin.version>0.16.1</apache-rat-plugin.version>
+    <apache-rat-plugin.version>0.17</apache-rat-plugin.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <junit5.version>6.0.0</junit5.version>
     <hamcrest-core.version>3.0</hamcrest-core.version>
@@ -631,72 +631,72 @@
         <configuration>
           <consoleOutput>true</consoleOutput>
           <excludeSubProjects>false</excludeSubProjects>
-          <excludes>
+          <inputExcludes>
             <!-- Build config files -->
-            <exclude>.mvn/jvm.config</exclude>
+            <inputExclude>.mvn/jvm.config</inputExclude>
             <!-- Version control files -->
-            <exclude>**/.git/**</exclude>
-            <exclude>**/.gitignore</exclude>
-            <exclude>**/.gitmodules</exclude>
-            <exclude>devtools/git-hooks/commit-msg.d/sailr.sh</exclude>
+            <inputExclude>**/.git/**</inputExclude>
+            <inputExclude>**/.gitignore</inputExclude>
+            <inputExclude>**/.gitmodules</inputExclude>
+            <inputExclude>devtools/git-hooks/commit-msg.d/sailr.sh</inputExclude>
             <!-- IDE settings and files -->
-            <exclude>**/.classpath</exclude>
-            <exclude>**/.project</exclude>
-            <exclude>**/.settings/**</exclude>
-            <exclude>**/.idea/**</exclude>
-            <exclude>**/*.iml</exclude>
-            <exclude>**/.run/**</exclude>
-            <exclude>**/*.patch</exclude>
-            <exclude>**/*.diff</exclude>
+            <inputExclude>**/.classpath</inputExclude>
+            <inputExclude>**/.project</inputExclude>
+            <inputExclude>**/.settings/**</inputExclude>
+            <inputExclude>**/.idea/**</inputExclude>
+            <inputExclude>**/*.iml</inputExclude>
+            <inputExclude>**/.run/**</inputExclude>
+            <inputExclude>**/*.patch</inputExclude>
+            <inputExclude>**/*.diff</inputExclude>
             <!-- Documentation -->
-            <exclude>documentation/**</exclude>
+            <inputExclude>documentation/**</inputExclude>
             <!-- Raw benchmark results -->
-            <exclude>benchmarks/results/*.txt</exclude>
+            <inputExclude>benchmarks/results/*.txt</inputExclude>
             <!-- Files that cannot be 'polluted' -->
-            <exclude>.github/**</exclude>
-            <exclude>**/*.json</exclude>
-            <exclude>**/*.ndjson</exclude>
-            <exclude>udfs/drill/src/main/resources/drill-module.conf</exclude>
-            <exclude>devtools/analysis/.env</exclude>
-            <exclude>**/testcases.txt</exclude>
-            <exclude>analyzer/src/test/resources/YamlParsingTests/Empty.yaml</exclude>
+            <inputExclude>.github/**</inputExclude>
+            <inputExclude>**/*.json</inputExclude>
+            <inputExclude>**/*.ndjson</inputExclude>
+            <inputExclude>udfs/drill/src/main/resources/drill-module.conf</inputExclude>
+            <inputExclude>devtools/analysis/.env</inputExclude>
+            <inputExclude>**/testcases.txt</inputExclude>
+            <inputExclude>analyzer/src/test/resources/YamlParsingTests/Empty.yaml</inputExclude>
             <!-- Files from external sources -->
-            <exclude>**/analyzer/src/main/code-gen/UserAgents/AppleTypes/*.tmp</exclude>
-            <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.tab</exclude>
-            <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.csv</exclude>
-            <exclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.md</exclude>
-            <exclude>**/analyzer/src/main/code-gen/Antlr/PublicSuffix/public_suffix_list.dat</exclude>
-            <exclude>**/analyzer/src/main/code-gen/Antlr/PublicSuffix/PublicSuffix.g4.fragment</exclude>
-            <exclude>analyzer/src/main/code-gen/Antlr/PublicSuffix/tmp/*-public-suffix-list.txt</exclude>
-            <exclude>analyzer/src/main/resources/mozilla-public-suffix-list.txt</exclude>
+            <inputExclude>**/analyzer/src/main/code-gen/UserAgents/AppleTypes/*.tmp</inputExclude>
+            <inputExclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.tab</inputExclude>
+            <inputExclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.csv</inputExclude>
+            <inputExclude>**/analyzer/src/main/code-gen/UserAgents/ISOLanguageCode/*.md</inputExclude>
+            <inputExclude>**/analyzer/src/main/code-gen/Antlr/PublicSuffix/public_suffix_list.dat</inputExclude>
+            <inputExclude>**/analyzer/src/main/code-gen/Antlr/PublicSuffix/PublicSuffix.g4.fragment</inputExclude>
+            <inputExclude>analyzer/src/main/code-gen/Antlr/PublicSuffix/tmp/*-public-suffix-list.txt</inputExclude>
+            <inputExclude>analyzer/src/main/resources/mozilla-public-suffix-list.txt</inputExclude>
             <!-- Test and demo input files -->
-            <exclude>**/testfiles/**</exclude>
-            <exclude>**/*.log</exclude>
-            <exclude>**/examples/**/*.jar</exclude>
+            <inputExclude>**/testfiles/**</inputExclude>
+            <inputExclude>**/*.log</inputExclude>
+            <inputExclude>**/examples/**/*.jar</inputExclude>
             <!-- Files generated during build and/or development -->
-            <exclude>**/target/**</exclude>
-            <exclude>**/dependency-reduced-pom.xml</exclude>
-            <exclude>**/gen/**</exclude> <!-- Generated by Antlr4 plugin -->
+            <inputExclude>**/target/**</inputExclude>
+            <inputExclude>**/dependency-reduced-pom.xml</inputExclude>
+            <inputExclude>**/gen/**</inputExclude> <!-- Generated by Antlr4 plugin -->
             <!-- Other files -->
-            <exclude>ReleaseProcedure.txt</exclude>
-            <exclude>benchmarks/*.txt</exclude>
-            <exclude>benchmarks/*.csv</exclude>
-            <exclude>analyzer/run-pitest.sh</exclude>
-            <exclude>analyzer/pitest/</exclude>
-            <exclude>**/.~lock.*</exclude>
-            <exclude>docker/_m2/**</exclude>
-            <exclude>docker/_gnupg/**</exclude>
+            <inputExclude>ReleaseProcedure.txt</inputExclude>
+            <inputExclude>benchmarks/*.txt</inputExclude>
+            <inputExclude>benchmarks/*.csv</inputExclude>
+            <inputExclude>analyzer/run-pitest.sh</inputExclude>
+            <inputExclude>analyzer/pitest/</inputExclude>
+            <inputExclude>**/.~lock.*</inputExclude>
+            <inputExclude>docker/_m2/**</inputExclude>
+            <inputExclude>docker/_gnupg/**</inputExclude>
             <!-- Test scripts -->
-            <exclude>*.sh</exclude>
-            <exclude>**/_*/**</exclude>
+            <inputExclude>*.sh</inputExclude>
+            <inputExclude>**/_*/**</inputExclude>
             <!-- Icon stuff in the demo webapp -->
-            <exclude>webapp/src/main/**/*.json</exclude>
-            <exclude>webapp/src/main/**/*.xml</exclude>
-            <exclude>webapp/src/main/**/*.svg</exclude>
-            <exclude>webapp/src/main/**/robots.txt</exclude>
-            <exclude>webapp/README.md</exclude>
-            <exclude>webapp/icon/**</exclude>
-          </excludes>
+            <inputExclude>webapp/src/main/**/*.json</inputExclude>
+            <inputExclude>webapp/src/main/**/*.xml</inputExclude>
+            <inputExclude>webapp/src/main/**/*.svg</inputExclude>
+            <inputExclude>webapp/src/main/**/robots.txt</inputExclude>
+            <inputExclude>webapp/README.md</inputExclude>
+            <inputExclude>webapp/icon/**</inputExclude>
+          </inputExcludes>
         </configuration>
       </plugin>
 
