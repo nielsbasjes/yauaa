@@ -32,12 +32,11 @@
   <url>https://yauaa.basjes.nl</url>
 
   <properties>
-    <target.java.version>8</target.java.version>
-    <target.java.release>8</target.java.release>
+    <target.java.version>17</target.java.version>
+    <target.java.release>17</target.java.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
     <maven.compiler.source>${target.java.version}</maven.compiler.source>
-    <maven.compiler.target>${target.java.version}</maven.compiler.target>
     <maven.compiler.release>${target.java.release}</maven.compiler.release>
 
     <!-- In order for everything to work correctly we need at least this version of maven. -->
@@ -494,7 +493,7 @@
               <goal>select-jdk-toolchain</goal>
             </goals>
             <configuration>
-              <version>[21,22)</version>
+              <version>[25,26)</version>
             </configuration>
           </execution>
         </executions>
@@ -525,8 +524,8 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>[21,22)</version>
-                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 21 (detected: JDK ${java.version}).</message>
+                  <version>[25,26)</version>
+                  <message>To ensure the build being reproducible the code MUST be built with Java JDK 25 (detected: JDK ${java.version}).</message>
                 </requireJavaVersion>
                 <requireMavenVersion>
                   <version>[${maven.minimal.version},)</version>
@@ -577,6 +576,13 @@
           </compilerArgs>
           <showWarnings>true</showWarnings>
           <showDeprecation>true</showDeprecation>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
 

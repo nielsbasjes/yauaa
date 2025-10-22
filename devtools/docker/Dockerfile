@@ -62,10 +62,9 @@ RUN apt-get -q install -y --no-install-recommends \
     wget \
     time \
     tzdata \
-    openjdk-8-jdk \
-    openjdk-11-jdk \
     openjdk-17-jdk \
     openjdk-21-jdk \
+    openjdk-25-jdk \
     diffoscope \
     python3-tlsh \
     tlsh-tools \
