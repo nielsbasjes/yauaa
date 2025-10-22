@@ -16,7 +16,14 @@
  */
 package nl.basjes.parse.useragent.cache;
 
-import java.io.Serializable;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 
-public class DefaultClientHintsCacheInstantiator<T extends Serializable> extends Java8ClientHintsCacheInstantiator<T> {
+import java.io.Serializable;
+import java.util.Map;
+
+public class DefaultClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
+    public Map<String, T> instantiateCache(int cacheSize) {
+        return Caffeine.newBuilder().maximumSize(cacheSize).<String, T>build().asMap();
+    }
 }

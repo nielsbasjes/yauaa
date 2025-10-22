@@ -76,8 +76,8 @@ public final class LoadIntoES {
     public static void main(String[] args) throws Exception {
 
         Runtime.Version version = Runtime.version();
-        if (version.feature() != 11) {
-            LOG.fatal("The runtime Java MUST be version 11. Now using version {}", version);
+        if (version.feature() != 17) {
+            LOG.fatal("The runtime Java MUST be version 17. Now using version {}", version);
             return;
         }
 
