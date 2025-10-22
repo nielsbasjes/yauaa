@@ -55,11 +55,6 @@ Replace `elasticsearch-8` with `elasticsearch-9` in the above example incase you
 ## Installing the plugin
 You only need to install it into your Elastic Search once
 
-On Elastic Search 7.x:
-```bash
-bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-{{%YauaaVersion%}}.zip
-```
-
 On Elastic Search 8.x
 ```bash
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip
