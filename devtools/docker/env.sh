@@ -31,12 +31,11 @@ function __INTERNAL__SwitchJDK {
     export JAVA_HOME
 }
 
-alias switch-jdk8="__INTERNAL__SwitchJDK 1.8.0; export JDK_VERSION=JDK-8"
-alias switch-jdk11="__INTERNAL__SwitchJDK 1.11.0; export JDK_VERSION=JDK-11"
 alias switch-jdk17="__INTERNAL__SwitchJDK 1.17.0 ; export JDK_VERSION=JDK-17"
 alias switch-jdk21="__INTERNAL__SwitchJDK 1.21.0 ; export JDK_VERSION=JDK-21"
+alias switch-jdk25="__INTERNAL__SwitchJDK 1.25.0 ; export JDK_VERSION=JDK-25"
 
-switch-jdk21
+switch-jdk25
 
 . "/usr/lib/git-core/git-sh-prompt"
 # shellcheck disable=SC2154

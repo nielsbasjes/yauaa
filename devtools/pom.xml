@@ -67,26 +67,6 @@
         <artifactId>maven-toolchains-plugin</artifactId>
         <executions>
           <execution>
-            <id>Ensure ToolChain for JDK 8 is available</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>select-jdk-toolchain</goal>
-            </goals>
-            <configuration>
-              <version>[1.8,1.9)</version>
-            </configuration>
-          </execution>
-          <execution>
-            <id>Ensure ToolChain for JDK 11 is available</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>select-jdk-toolchain</goal>
-            </goals>
-            <configuration>
-              <version>[11,12)</version>
-            </configuration>
-          </execution>
-          <execution>
             <id>Ensure ToolChain for JDK 17 is available</id>
             <phase>validate</phase>
             <goals>
@@ -104,6 +84,16 @@
             </goals>
             <configuration>
               <version>[21,22)</version>
+            </configuration>
+          </execution>
+          <execution>
+            <id>Ensure ToolChain for JDK 25 is available</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>select-jdk-toolchain</goal>
+            </goals>
+            <configuration>
+              <version>[25,26)</version>
             </configuration>
           </execution>
         </executions>

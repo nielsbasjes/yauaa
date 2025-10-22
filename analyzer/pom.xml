@@ -84,12 +84,6 @@
       <groupId>nl.basjes.collections</groupId>
       <artifactId>prefixmap</artifactId>
       <version>2.1.0</version>
-<!--      <exclusions>-->
-<!--        <exclusion>-->
-<!--          <groupId>com.esotericsoftware</groupId>-->
-<!--          <artifactId>kryo</artifactId>-->
-<!--        </exclusion>-->
-<!--      </exclusions>-->
     </dependency>
 
     <dependency>
@@ -173,7 +167,7 @@
               <goal>select-jdk-toolchain</goal>
             </goals>
             <configuration>
-              <version>[21,22)</version>
+              <version>[25,26)</version>
             </configuration>
           </execution>
         </executions>
@@ -749,6 +743,23 @@
               <cloneProjectsTo>${project.build.directory}/it-jdk-21</cloneProjectsTo>
             </configuration>
           </execution>
+
+          <execution>
+            <id>Integration tests under Java 25</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <properties>
+                <integrationTestingJDK>25</integrationTestingJDK>
+                <integrationTestingJDKRange>[25,26)</integrationTestingJDKRange>
+                <maven.compiler.release>25</maven.compiler.release>
+              </properties>
+              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
+              <cloneProjectsTo>${project.build.directory}/it-jdk-25</cloneProjectsTo>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
 
