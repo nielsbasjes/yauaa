@@ -3,8 +3,13 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
-- New/improved detections:
-  - ...
+- Analyzer:
+  - Needs Java 17 LTS to run.
+- Build:
+  - Needs Java 25 LTS to build.
+- UDFs;
+  - Dropping the Trino UDF
+  - Dropping the ElasticSearch 7.x UDF (ES7 is EOL)
 
 v7.32.0
 ===

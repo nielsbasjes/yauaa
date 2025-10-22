@@ -20,10 +20,6 @@ package nl.basjes.parse.useragent;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.CacheInstantiator;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
-import nl.basjes.parse.useragent.cache.Java11CacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java11ClientHintsCacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java8CacheInstantiator;
-import nl.basjes.parse.useragent.cache.Java8ClientHintsCacheInstantiator;
 import org.apache.commons.collections4.map.LRUMap;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
@@ -149,7 +145,20 @@ class TestCaching {
     }
 
     @Test
-    void testResultFromCacheMustBeIdenticalJava11() {
+    void testResultFromCacheMustBeIdenticalCustomClass() {
+
+        class LRUMapCacheInstantiator implements CacheInstantiator {
+            @Override
+            public Map<String, UserAgent.ImmutableUserAgent> instantiateCache(int cacheSize) {
+                return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+            }
+        }
+        class LRUMapClientHintsCacheInstantiator<T extends Serializable> implements ClientHintsCacheInstantiator<T> {
+            public Map<String, T> instantiateCache(int cacheSize) {
+                return Collections.synchronizedMap(new LRUMap<>(cacheSize));
+            }
+        }
+
         UserAgentAnalyzer uaa = UserAgentAnalyzer
             .newBuilder()
             .showMinimalVersion()
@@ -158,52 +167,8 @@ class TestCaching {
             .withClientHintsCache(10)
             .build();
 
-        uaa.setCacheInstantiator(new Java11CacheInstantiator());
-        uaa.setClientHintsCacheInstantiator(new Java11ClientHintsCacheInstantiator<>());
-
-        // First time
-        UserAgent agent1 = uaa.parse(USER_AGENT);
-
-        // Should come from cache
-        UserAgent agent2 = uaa.parse(USER_AGENT);
-
-        // Both should be the same
-        assertEquals(agent1, agent2);
-    }
-
-    @Test
-    void testResultFromCacheMustBeIdenticalJava8ViaBuilder() {
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
-            .newBuilder()
-            .showMinimalVersion()
-            .hideMatcherLoadStats()
-            .withCache(10)
-            .withClientHintsCache(10)
-            .useJava8CompatibleCaching()
-            .build();
-
-        // First time
-        UserAgent agent1 = uaa.parse(USER_AGENT);
-
-        // Should come from cache
-        UserAgent agent2 = uaa.parse(USER_AGENT);
-
-        // Both should be the same
-        assertEquals(agent1, agent2);
-    }
-
-    @Test
-    void testResultFromCacheMustBeIdenticalJava8() {
-        UserAgentAnalyzer uaa = UserAgentAnalyzer
-            .newBuilder()
-            .showMinimalVersion()
-            .hideMatcherLoadStats()
-            .withCache(10)
-            .withClientHintsCache(10)
-            .build();
-
-        uaa.setCacheInstantiator(new Java8CacheInstantiator());
-        uaa.setClientHintsCacheInstantiator(new Java8ClientHintsCacheInstantiator<>());
+        uaa.setCacheInstantiator(new LRUMapCacheInstantiator());
+        uaa.setClientHintsCacheInstantiator(new LRUMapClientHintsCacheInstantiator<>());
 
         // First time
         UserAgent agent1 = uaa.parse(USER_AGENT);
@@ -225,7 +190,7 @@ class TestCaching {
                     public Map<String, ImmutableUserAgent> instantiateCache(int cacheSize) {
                         // The Map MUST be synchronized
                         return Collections.synchronizedMap(
-                            new LRUMap<String, ImmutableUserAgent>(cacheSize) {
+                            new LRUMap<>(cacheSize) {
                                 @Override
                                 public ImmutableUserAgent get(Object key) {
                                     LOG.info("Did a GET on {}", key);

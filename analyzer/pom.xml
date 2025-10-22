@@ -73,11 +73,12 @@
       <version>3.2.2</version>
     </dependency>
 
-    <!-- Used for a Java 8 compliant alternative to Caffeine. -->
+    <!-- Used for testing using an alternative to Caffeine. -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
       <version>${commons-collections4.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -610,25 +611,6 @@
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>java-11</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <source>11</source>
-              <target>11</target>
-              <release>11</release>
-              <compileSourceRoots>${project.basedir}/src/main/java11</compileSourceRoots>
-              <multiReleaseOutput>true</multiReleaseOutput>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
 
       <!-- Always run integration tests -->
       <plugin>
@@ -673,42 +655,6 @@
             <configuration>
               <projectsDirectory>./src/it</projectsDirectory>
               <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>Integration tests under Java 8</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <integrationTestingJDK>8</integrationTestingJDK>
-                <integrationTestingJDKRange>[1.8,1.9)</integrationTestingJDKRange>
-                <maven.compiler.target>8</maven.compiler.target>
-              </properties>
-              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
-              <cloneProjectsTo>${project.build.directory}/it-jdk-8</cloneProjectsTo>
-              <pomExcludes>
-                <!-- This does not work on Java 8 -->
-                <pomExclude>Base/JPMS/pom.xml</pomExclude>
-              </pomExcludes>
-            </configuration>
-          </execution>
-
-          <execution>
-            <id>Integration tests under Java 11</id>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <properties>
-                <integrationTestingJDK>11</integrationTestingJDK>
-                <integrationTestingJDKRange>[11,12)</integrationTestingJDKRange>
-                <maven.compiler.release>11</maven.compiler.release>
-              </properties>
-              <projectsDirectory>./src/it-all-jdk</projectsDirectory>
-              <cloneProjectsTo>${project.build.directory}/it-jdk-11</cloneProjectsTo>
             </configuration>
           </execution>
 
@@ -787,11 +733,7 @@
                 </banDuplicateClasses>
 
                 <enforceBytecodeVersion>
-                  <maxJdkVersion>8</maxJdkVersion>
-                  <excludes>
-                    <exclude>com.github.ben-manes.caffeine:caffeine</exclude>
-                    <exclude>org.jboss:jboss-vfs</exclude>
-                  </excludes>
+                  <maxJdkVersion>17</maxJdkVersion>
                 </enforceBytecodeVersion>
 
               </rules>
