@@ -35,7 +35,7 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+    - Robot StatusCake (thanks to https://github.com/bdmendes)
 
 ### Version v7.32.0
 - Analyzer:

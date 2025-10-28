@@ -10,6 +10,8 @@ NEXT RELEASE
 - UDFs;
   - Dropping the Trino UDF
   - Dropping the ElasticSearch 7.x UDF (ES7 is EOL)
+- New/improved detections:
+  - Robot StatusCake (thanks to https://github.com/bdmendes)
 
 v7.32.0
 ===
