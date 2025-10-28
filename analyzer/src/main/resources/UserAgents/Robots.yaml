@@ -256,10 +256,10 @@ config:
     require:
       - 'IsNull[@RobotProductVersion.url]'
     extract:
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'LayoutEngineClass                   :   400002 :"Robot"'
-    - 'LayoutEngineName                    :   400002 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
-    - 'LayoutEngineVersion                 :   400002 :@RobotProductVersion'
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'LayoutEngineClass                   :   400012 :"Robot"'
+    - 'LayoutEngineName                    :   400012 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
+    - 'LayoutEngineVersion                 :   400012 :@RobotProductVersion'
 
 - matcher:
     variable:
@@ -268,10 +268,10 @@ config:
     require:
     - 'IsNull[@RobotProductVersion.url]'
     extract:
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'LayoutEngineClass                   :   400002 :"Robot"'
-    - 'LayoutEngineName                    :   400002 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
-    - 'LayoutEngineVersion                 :   400002 :@RobotProductVersion'
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'LayoutEngineClass                   :   400012 :"Robot"'
+    - 'LayoutEngineName                    :   400012 :LookUp[NamedSpecialLayoutEngines;@RobotProductName]'
+    - 'LayoutEngineVersion                 :   400012 :@RobotProductVersion'
 
 
 - matcher:
@@ -284,19 +284,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399901 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400001 :"Robot"'
-    - 'DeviceBrand                         :   400001 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400001 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400001 :"Cloud"'
-    - 'OperatingSystemName                 :   400001 :"Cloud"'
-    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400001 :"Robot"'
-    - 'LayoutEngineName                    :   400001 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400001 :@RobotProductVersion'
-    - 'AgentClass                          :   400001 :"Robot"'
-    - 'AgentName                           :   400001 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400001 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   399911 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400011 :"Robot"'
+    - 'DeviceBrand                         :   400011 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400011 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400011 :"Cloud"'
+    - 'OperatingSystemName                 :   400011 :"Cloud"'
+    - 'OperatingSystemVersion              :   400011 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400010 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400011 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400011 :@RobotProductVersion'
+    - 'AgentClass                          :   400011 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400011 :@RobotProductVersion'
 
 - matcher:
     variable:
@@ -330,19 +332,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399901 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400001 :"Robot"'
-    - 'DeviceBrand                         :   400001 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400001 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400001 :"Cloud"'
-    - 'OperatingSystemName                 :   400001 :"Cloud"'
-    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400001 :"Robot"'
-    - 'LayoutEngineName                    :   400001 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   399901 :"<<<null>>>"'
-    - 'AgentClass                          :   400001 :"Robot"'
-    - 'AgentName                           :   400001 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   399901 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399911 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400011 :"Robot"'
+    - 'DeviceBrand                         :   400011 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400011 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400011 :"Cloud"'
+    - 'OperatingSystemName                 :   400011 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400010 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400011 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   399911 :"<<<null>>>"'
+    - 'AgentClass                          :   400011 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   399911 :"<<<null>>>"'
 
 - matcher:
     variable:
@@ -356,19 +360,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399901 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400001 :"Robot"'
-    - 'DeviceBrand                         :   400001 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400001 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400001 :"Cloud"'
-    - 'OperatingSystemName                 :   400001 :"Cloud"'
-    - 'OperatingSystemVersion              :   400001 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400001 :"Robot"'
-    - 'LayoutEngineName                    :   400001 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   399901 :"<<<null>>>"'
-    - 'AgentClass                          :   400001 :"Robot"'
-    - 'AgentName                           :   400001 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   399901 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399911 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400011 :"Robot"'
+    - 'DeviceBrand                         :   400011 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400011 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400011 :"Cloud"'
+    - 'OperatingSystemName                 :   400011 :"Cloud"'
+    - 'OperatingSystemVersion              :   400011 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400010 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400011 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   399911 :"<<<null>>>"'
+    - 'AgentClass                          :   400011 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   399911 :"<<<null>>>"'
 
 
 - matcher:
@@ -379,19 +385,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   399900 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   399900 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400008 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400008 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   399910 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   399910 :"<<<null>>>"'
 
 
 - matcher:
@@ -404,19 +412,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :@RobotProductVersion'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :@RobotProductVersion'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :@RobotProductVersion'
 
 
 - matcher:
@@ -427,18 +437,20 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   399999 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   399919 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
     - 'AgentVersion                        :   399999 :"<<<null>>>"'
 
 
@@ -450,19 +462,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :"<<<null>>>"'
 
 
 - matcher:
@@ -473,19 +487,21 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400000 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :"<<<null>>>"'
 
 
 - matcher:
@@ -528,19 +544,21 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent~"Phone"'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot Mobile"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :@RobotProductVersion'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot Mobile"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :@RobotProductVersion'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :@RobotProductVersion'
 
 
 - matcher:
@@ -553,19 +571,21 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent~"Phone"'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot Mobile"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :@RobotProductVersion'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot Mobile"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :@RobotProductVersion'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :@RobotProductVersion'
 
 
 - matcher:
@@ -577,19 +597,21 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent~"Phone"'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot Mobile"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot Mobile"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :"<<<null>>>"'
 
 
 - matcher:
@@ -602,19 +624,21 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent~"Android"'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot Mobile"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :@RobotProductVersion'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot Mobile"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :@RobotProductVersion'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :@RobotProductVersion'
 
 
 - matcher:
@@ -627,19 +651,21 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent~"Android"'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot Mobile"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400000 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :@RobotProductVersion'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400000 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :@RobotProductVersion'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot Mobile"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :@RobotProductVersion'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :@RobotProductVersion'
 
 
 - matcher:
@@ -651,19 +677,21 @@ config:
     - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)text?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot Mobile"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400001 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400001 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot Mobile"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :"<<<null>>>"'
 
 
 - matcher:
@@ -671,19 +699,21 @@ config:
     - 'RobotProductName                    :agent.text?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400001 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400001 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :"<<<null>>>"'
 
 
 - matcher:
@@ -691,19 +721,21 @@ config:
     - 'RobotProductName                    :agent.url?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     extract:
-    - '__Set_ALL_Fields__                  :   399900 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
-    - 'DeviceClass                         :   400100 :"Robot"'
-    - 'DeviceBrand                         :   400000 :@RobotProduct[[1]]'
-    - 'DeviceName                          :   400000 :@RobotProduct[[2]]'
-    - 'OperatingSystemClass                :   400000 :"Cloud"'
-    - 'OperatingSystemName                 :   400000 :"Cloud"'
-    - 'OperatingSystemVersion              :   400000 :"<<<null>>>"'
-    - 'LayoutEngineClass                   :   400000 :"Robot"'
-    - 'LayoutEngineName                    :   400001 :@RobotProduct[[2]]'
-    - 'LayoutEngineVersion                 :   400000 :"<<<null>>>"'
-    - 'AgentClass                          :   400000 :"Robot"'
-    - 'AgentName                           :   400001 :@RobotProduct[[2]]'
-    - 'AgentVersion                        :   400000 :"<<<null>>>"'
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400110 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :"<<<null>>>"'
     - 'AgentInformationUrl                 :  2000001 :@RobotProductName'
 
 # --------------------------------------------------------------------------------------
@@ -13916,3 +13948,136 @@ config:
       AgentNameVersion                     : 'Scrapy 2.11.2'
       AgentNameVersionMajor                : 'Scrapy 2'
       AgentInformationUrl                  : 'https://scrapy.org'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36 StatusCake'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'StatusCake'
+      DeviceBrand                          : 'StatusCake'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'StatusCake'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'StatusCake ??'
+      LayoutEngineNameVersionMajor         : 'StatusCake ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'StatusCake'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'StatusCake ??'
+      AgentNameVersionMajor                : 'StatusCake ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'StatusCake'
+      DeviceBrand                          : 'StatusCake'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'StatusCake'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'StatusCake ??'
+      LayoutEngineNameVersionMajor         : 'StatusCake ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'StatusCake'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'StatusCake ??'
+      AgentNameVersionMajor                : 'StatusCake ??'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36 (StatusCake)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'StatusCake'
+      DeviceBrand                          : 'StatusCake'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'StatusCake'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'StatusCake ??'
+      LayoutEngineNameVersionMajor         : 'StatusCake ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'StatusCake'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'StatusCake ??'
+      AgentNameVersionMajor                : 'StatusCake ??'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/98 Safari/537.4 (StatusCake SSL Monitor)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'StatusCake SSL Monitor'
+      DeviceBrand                          : 'StatusCake'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'StatusCake SSL Monitor'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'StatusCake SSL Monitor ??'
+      LayoutEngineNameVersionMajor         : 'StatusCake SSL Monitor ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'StatusCake SSL Monitor'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'StatusCake SSL Monitor ??'
+      AgentNameVersionMajor                : 'StatusCake SSL Monitor ??'
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; StatusCake/1.0; +EpicardTest/Fernandes)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'StatusCake'
+      DeviceBrand                          : 'StatusCake'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'StatusCake'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'StatusCake 1.0'
+      LayoutEngineNameVersionMajor         : 'StatusCake 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'StatusCake'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'StatusCake 1.0'
+      AgentNameVersionMajor                : 'StatusCake 1'
+
