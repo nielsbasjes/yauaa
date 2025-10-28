@@ -34,6 +34,13 @@ Currently (April 2025) it seems that this effect is different depending on the u
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+- Analyzer:
+    - Needs Java 17 LTS to run.
+- Build:
+    - Needs Java 25 LTS to build.
+- UDFs;
+    - Dropping the Trino UDF
+    - Dropping the ElasticSearch 7.x UDF (ES7 is EOL)
 - New/improved detections:
     - Robot StatusCake (thanks to https://github.com/bdmendes)
 
