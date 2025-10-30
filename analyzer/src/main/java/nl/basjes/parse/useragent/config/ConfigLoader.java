@@ -197,10 +197,9 @@ public class ConfigLoader {
         // Just trying to open a stream for one of the resources is enough to see if we can continue.
         if (!resources.isEmpty()) {
             Resource resource = resources.entrySet().iterator().next().getValue();
-            try (InputStream ignored = resource.getInputStream()) {
+            try (InputStream inputStream = resource.getInputStream()) {
                 // Just seeing if opening this stream triggers an error.
-                // Having a useless statement that references the 'ignored' to avoid checkstyle and compilation warnings.
-                LOG.debug("Opening the resource worked. {}", ignored);
+                LOG.debug("Opening the resource worked ({} has approximately {} bytes)", resource.getURL(), inputStream.available());
             } catch (IOException e) {
                 LOG.error("Cannot load the resources (usually classloading problem).");
                 LOG.error("- Resource   : {}", resource);
