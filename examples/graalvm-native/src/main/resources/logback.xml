@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration scan="false">
+  <!-- See:                                                                  -->
+  <!--    http://logback.qos.ch/manual/appenders.html#ConsoleAppender        -->
+  <!--    http://logback.qos.ch/manual/appenders.html#RollingFileAppender    -->
+  <!--    http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy -->
+  <!--                                                                       -->
+  <!-- for further instructions and detailed documentation                   -->
+
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <target>System.out</target>
+    <withJansi>false</withJansi>
+    <encoder>
+      <pattern>%cyan([%d{yyyy/MM/dd HH:mm:ss.SSS}]) %boldWhite([%t]) %highlight(%-5p) %magenta(%-40logger{1}): [%X] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- SEE: https://logback.qos.ch/manual/appenders.html#AsyncAppender -->
+  <appender name="console.async" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="console"/>
+    <queueSize>1024</queueSize>
+    <maxFlushTime>2000</maxFlushTime>
+    <neverBlock>true</neverBlock>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="console.async"/>
+  </root>
+
+  <!-- yauaa browser info -->
+  <logger name="nl.basjes.parse.useragent.analyze" level="warn" />
+  <logger name="nl.basjes.parse.useragent.config" level="warn" />
+</configuration>
+
+<!--
+vim:shiftwidth=2 softtabstop=2 expandtab
+-->
