@@ -200,7 +200,7 @@ public class ConfigLoader {
             try (InputStream ignored = resource.getInputStream()) {
                 // Just seeing if opening this stream triggers an error.
                 // Having a useless statement that references the 'ignored' to avoid checkstyle and compilation warnings.
-                LOG.debug("Opening the resource worked. {}", ignored);
+                LOG.debug("Opening the resource worked ({} has approximately {} bytes)", resource.getURL(), ignored.available());
             } catch (IOException e) {
                 LOG.error("Cannot load the resources (usually classloading problem).");
                 LOG.error("- Resource   : {}", resource);
