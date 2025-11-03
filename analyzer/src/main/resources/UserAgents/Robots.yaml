@@ -9842,6 +9842,35 @@ config:
 
 - test:
     input:
+      user_agent_string: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; trendictionbot0.5.0; trendiction search; http://www.trendiction.de/bot; please let us know of any problems; web at trendiction.com) Gecko/20100101 Firefox/125.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Trendiction BOT0.5.0'
+      DeviceBrand                          : 'Trendiction'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'trendictionbot0.5.0'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'trendictionbot0.5.0 ??'
+      LayoutEngineNameVersionMajor         : 'trendictionbot0.5.0 ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'TRENDICTIONBOT0.5.0'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'TRENDICTIONBOT0.5.0 ??'
+      AgentNameVersionMajor                : 'TRENDICTIONBOT0.5.0 ??'
+      AgentInformationEmail                : 'web@trendiction.com'
+      AgentInformationUrl                  : 'http://www.trendiction.de/bot'
+
+
+- test:
+    input:
       user_agent_string: 'Mozilla/5.0 (compatible; spbot/5.0.1; +http://OpenLinkProfiler.org/bot )'
     expected:
       DeviceClass                          : 'Robot'
