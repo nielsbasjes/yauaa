@@ -656,12 +656,16 @@ config:
 # - $(PLATFORM)
 #   $(PLATFORM\_VER)
 #       “Tizen” is used for Samsung Smart TV 2015 new models (and later), and for Tizen Mobile.
+#       From Samsung Internet v24.0 or later, the browser uses unified platform token for UA reduction.
+#       "Android 10"(for mobile UA) or "Linux x86_64"(for PC UA) keyword will be placed in this field.
 #       Mandatory
 # - SAMSUNG
 #       Company name
 #       Optional
 # - $(MODEL\_NAME)
 #       Mobile devices use MODEL\_NAME field for each device. Smart TV currently does not use this field. This Field will be possibly used in the future.
+#       From Samsung Internet v24.0 or later, the browser uses unified platform token for UA reduction
+#       and "K" will be set for mobile UA.
 #       Optional
 # - Build/$(BUILD\_TAG))
 #       Platform Build Tag is used on Android devices. Currently, Tizen devices do not use this field. It may be possibly used in the future.
@@ -681,6 +685,17 @@ config:
 #       Optional
 #
 
+# Request for PC Content
+#   Users can explicitly request PC content from Samsung Internet for Android via the "More > Desktop version".
+#   User agent string format for desktop version request is as follows.
+#
+#   Mozilla/$(MOZILA\_VER) (X11; Linux x86\_64) AppleWebKit/$(APPLEWEBKIT\_VER) (KHTML, like Gecko) $(APP\_NAME)/$(APP\_VER) (Chrome/$(CHROME\_VER)) Safari/$(SAFARI\_VER)
+#
+#   Example:
+#
+#   Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/24.0 Chrome/117.0.0.0 Safari/537.36
+
+
 # Webviews:
 #   Mozilla/$(MOZILA_VER) ($(DEVICE_TYPE); $(OS); $(PLATFORM) $(PLATFORM_VER);
 #       SAMSUNG $(MODEL_NAME) Build/$(BUILD_TAG)) AppleWebKit/$(APPLEWEBKIT_VER)
@@ -693,6 +708,36 @@ config:
 #   if the $(PLATFORM\_VER) is less than 4.0, than it is not a Web Application.
 
 # Testcases from their website (not already in Yauaa):
+
+# Desktop mode
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/24.0 Chrome/117.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Tablet'
+      DeviceName                           : 'Samsung Tablet'
+      DeviceBrand                          : 'Samsung'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Android ??'
+      OperatingSystemNameVersionMajor      : 'Android ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '117.0'
+      LayoutEngineVersionMajor             : '117'
+      LayoutEngineNameVersion              : 'Blink 117.0'
+      LayoutEngineNameVersionMajor         : 'Blink 117'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'SamsungBrowser'
+      AgentVersion                         : '24.0'
+      AgentVersionMajor                    : '24'
+      AgentNameVersion                     : 'SamsungBrowser 24.0'
+      AgentNameVersionMajor                : 'SamsungBrowser 24'
+
 
 # TVs:
 - test:
