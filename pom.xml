@@ -418,6 +418,10 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
+                <configuration>
+                  <!-- TODO: Remove workaround for issue https://github.com/apache/maven-javadoc-plugin/issues/1244 when fixed -->
+                  <disableNoFonts>true</disableNoFonts>
+                </configuration>
               </execution>
             </executions>
           </plugin>
