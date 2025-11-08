@@ -6950,3 +6950,31 @@ config:
       AgentVersionMajor                    : '8'
       AgentNameVersion                     : 'SLBrowser 8.0.1.1171'
       AgentNameVersionMajor                : 'SLBrowser 8'
+
+# Morph browser on a Fairphone5 running Ubuntu Touch 24.04
+# This mobile phone browser is not showing anywhere it is a mobile ("small" touch screen) device and also not showing what it really is.
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Ubuntu 24.04) AppleWebKit/537.36 Chrome/87.0.4280.144 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Ubuntu'
+      OperatingSystemVersion               : '24.04'
+      OperatingSystemVersionMajor          : '24'
+      OperatingSystemNameVersion           : 'Ubuntu 24.04'
+      OperatingSystemNameVersionMajor      : 'Ubuntu 24'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '87.0'
+      LayoutEngineVersionMajor             : '87'
+      LayoutEngineNameVersion              : 'Blink 87.0'
+      LayoutEngineNameVersionMajor         : 'Blink 87'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '87.0.4280.144'
+      AgentVersionMajor                    : '87'
+      AgentNameVersion                     : 'Chrome 87.0.4280.144'
+      AgentNameVersionMajor                : 'Chrome 87'
