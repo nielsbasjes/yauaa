@@ -15,8 +15,8 @@
 # limitations under the License.
 #
 
-# Use Ubuntu 22.04 LTS with Java 21 and Maven 3.x as the base.
-image: maven:3.9.9-eclipse-temurin-21-jammy
+# Use Ubuntu 24.04 LTS with Java 25 and Maven 4.x as the base.
+image: 4.0.0-rc-5-eclipse-temurin-25-noble
 
 stages:
   - build
@@ -25,6 +25,6 @@ maven-build:
   stage: build
   script:
     # Install the needed LTS JDKs that can be used by toolchains
-    - apt-get update -qq && apt-get install -qq -y openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-21-jdk
+    - apt-get update -qq && apt-get install -qq -y openjdk-17-jdk openjdk-21-jdk openjdk-25-jdk
     # And build it.
     - ./mvnw clean verify -PdisableDockerHubUsages -B
