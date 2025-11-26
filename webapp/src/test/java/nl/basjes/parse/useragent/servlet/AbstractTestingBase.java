@@ -19,7 +19,7 @@ package nl.basjes.parse.useragent.servlet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import static io.restassured.RestAssured.given;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
@@ -34,7 +34,7 @@ abstract class AbstractTestingBase {
     private static int attemptsRemaining = 50;
 
     static boolean isRunning = false;
-    @Before
+    @BeforeEach
     public void ensureRunning() throws InterruptedException {
         if (!isRunning) {
             LOG.info("Status: Checking status...");
