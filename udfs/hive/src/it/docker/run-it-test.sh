@@ -36,7 +36,7 @@ while [ "${STATUS}" == "Stopped" ];
 do
   echo "Waiting for Hive server to complete startup... (${SERVER_START_TTL}) "
   sleep  1s
-  docker exec "${CONTAINER_NAME}" hive -u 'jdbc:hive2://localhost:10000/' hive hive > "${SERVER_LOG}" 2>&1
+  docker exec "${CONTAINER_NAME}" hive -u 'jdbc:hive2://localhost:10000/' -e "show databases;" > "${SERVER_LOG}" 2>&1
   grep -F "Connected to: Apache Hive" "${SERVER_LOG}"
   RESULT=$?
   if [ "${RESULT}" == "0" ];
