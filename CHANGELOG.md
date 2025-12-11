@@ -12,6 +12,7 @@ NEXT RELEASE
   - Dropping the ElasticSearch 7.x UDF (ES7 is EOL)
 - New/improved detections:
   - Robot StatusCake (thanks to https://github.com/bdmendes)
+  - Robot DatadogSynthetics (thanks to https://github.com/notflorian)
   - Samsung Browser for Windows
 
 v7.32.0
