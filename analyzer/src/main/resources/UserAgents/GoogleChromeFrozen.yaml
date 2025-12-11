@@ -918,6 +918,7 @@ config:
     - 'ChromeMajorVersion                  :@ChromeVersion[1]'
     require:
     - 'agent.product.name="SamsungBrowser"'
+    - 'IsNull[agent.product.(1)comments.(1-3)entry.product.name="Windows NT"]'
     - 'agent.(2)product="AppleWebKit/537.36 (KHTML, like Gecko)"'
     - '@ChromeVersion[2-]="0.0.0"'
     - '@ChromeMajorVersion!?ChromeFrozenMajorVersionsToWindows'
