@@ -36,7 +36,7 @@ while [ "${STATUS}" == "Stopped" ];
 do
   echo "Waiting for Hive server to complete startup... (${SERVER_START_TTL}) "
   sleep  1s
-  docker exec "${CONTAINER_NAME}" hive -u 'jdbc:hive2://localhost:10000/' hive hive > "${SERVER_LOG}" 2>&1
+  docker exec -ti "${CONTAINER_NAME}" hive -u 'jdbc:hive2://localhost:10000/' -e "show databases;" > "${SERVER_LOG}" 2>&1
   grep -F "Connected to: Apache Hive" "${SERVER_LOG}"
   RESULT=$?
   if [ "${RESULT}" == "0" ];
@@ -72,7 +72,7 @@ sed "s/@JARNAME@/${JARNAME}/g" create_useragents_table.hql.in > create_useragent
 
 echo "Running tests"
 LOGFILE=hive-it-test.log
-docker exec "${CONTAINER_NAME}" hive -f '/useragents/create_useragents_table.hql' > "${LOGFILE}" 2>&1
+docker exec -ti "${CONTAINER_NAME}" hive -f '/useragents/create_useragents_table.hql' > "${LOGFILE}" 2>&1
 
 echo "==========================================="
 echo "Verify the output of the tests"
@@ -126,6 +126,6 @@ ensure 'CLIENTHINTS' '"operatingsystemnameversion":"Mac OS 12.3.1"' "CLIENTHINTS
 # Shut it all down again.
 echo "==========================================="
 echo "Shutting down the test setup"
-docker compose down
+#docker compose down
 
 exit ${EXIT_CODE}
