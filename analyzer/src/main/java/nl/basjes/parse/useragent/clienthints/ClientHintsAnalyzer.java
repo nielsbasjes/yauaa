@@ -598,7 +598,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
 
         // We just pick the first one that remains.
         Optional<Map.Entry<String, Brand>> firstBrand = sortedBrands.entrySet().stream().findFirst();
-        if (!firstBrand.isPresent()) {
+        if (firstBrand.isEmpty()) {
             return;
         }
 
@@ -618,11 +618,13 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         // We only update the version if we have a better version number.
         // We always update the AgentName because I think the Client hints are always "better"...
         String newVersion = brand.getVersion();
-        String newMajorVersion = DOT_SPLITTER.split(newVersion, 2)[0];
+        String[] newVersionSplits = DOT_SPLITTER.split(newVersion, 4);
+        String newMajorVersion = newVersionSplits[0];
 
         // The values we are going to set at the end.
         String setVersion = versionFieldValue;
-        String setMajorVersion = DOT_SPLITTER.split(versionFieldValue, 2)[0];
+        String[] setVersionSplits = DOT_SPLITTER.split(versionFieldValue, 4);
+        String setMajorVersion = setVersionSplits[0];
 
         // If the original is a major version only then the new one is better
         if (versionIsMajorVersionOnly) {
@@ -631,7 +633,12 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         } else {
             // If current version is a full version but there is a mismatch in the major we pick the
             // ClientHints version anyway.
-            if (!setMajorVersion.equals(newMajorVersion)) {
+            if (setMajorVersion.equals(newMajorVersion)) {
+                if (newVersionSplits.length > setVersionSplits.length) {
+                    setVersion = newVersion;
+                    setMajorVersion = newMajorVersion;
+                }
+            } else {
                 setVersion = newVersion;
                 setMajorVersion = newMajorVersion;
             }
