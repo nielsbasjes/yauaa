@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - Analyzer:
-  - Needs Java 17 LTS to run.
+  - Needs Java 17 LTS to run (no longer a Multi Release jar!).
 - Build:
   - Needs Java 25 LTS to build.
 - UDFs;
