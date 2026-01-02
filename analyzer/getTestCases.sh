@@ -39,12 +39,10 @@ cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
     s@\\\"@\\\\\\\"@g;
   " > "${DIR}/target/temp-agents-list-2.txt"
 
-# This is needed to ensure reproducible results from sort
-LC_ALL=C
-
+# Using a JVM based sort tool because the Linux/Docker commandline versions are NOT reproducible (even with LC_ALL=C).
 cat "${DIR}/target/temp-agents-list-1.txt" \
     "${DIR}/target/temp-agents-list-2.txt" | \
   sed "
     s@^@            \"@;
     s@\$@\",\n@;
-  " | grep . | sort -u > "${DIR}/target/temp-agents-list.txt"
+  " | grep . | java -jar ../devtools/sort/target/yauaa-devtools-sortlines-*-jar-with-dependencies.jar > "${DIR}/target/temp-agents-list.txt"

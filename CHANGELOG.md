@@ -7,6 +7,7 @@ NEXT RELEASE
   - Needs Java 17 LTS to run (no longer a Multi Release jar!).
 - Build:
   - Needs Java 25 LTS to build.
+  - Use a Kotlin based file sorter to fix reproducibility issue.
 - UDFs;
   - Dropping the Trino UDF
   - Dropping the ElasticSearch 7.x UDF (ES7 is EOL)
