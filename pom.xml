@@ -39,6 +39,8 @@
     <maven.compiler.source>${target.java.version}</maven.compiler.source>
     <maven.compiler.release>${target.java.release}</maven.compiler.release>
 
+    <kotlin.version>2.3.0</kotlin.version>
+
     <!-- In order for everything to work correctly we need at least this version of maven. -->
     <maven.minimal.version>3.9.11</maven.minimal.version>
 
@@ -439,6 +441,7 @@
                 <!-- Testing and benchmarking -->
                 <excludeArtifact>yauaa-devtools</excludeArtifact>
                 <excludeArtifact>yauaa-devtools-es-loader</excludeArtifact>
+                <excludeArtifact>yauaa-devtools-sortlines</excludeArtifact>
                 <excludeArtifact>yauaa-log2test</excludeArtifact>
                 <excludeArtifact>yauaa-benchmark</excludeArtifact>
                 <!-- Documentation -->
@@ -958,6 +961,7 @@
 
   <modules>
     <module>devtools</module>
+    <module>devtools/sort</module>
     <module>analyzer</module>
     <module>udfs</module>
     <module>webapp</module>
