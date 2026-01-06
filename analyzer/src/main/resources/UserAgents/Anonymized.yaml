@@ -132,20 +132,40 @@ config:
     - 'RemarkablePattern                   :      101: "Anonymized"'
 
 
-# https://www.privoxy.org/
-- matcher:
-    require:
-      - 'agent.product.name="Privoxy"'
-    extract:
-      - 'DeviceClass                         :    10000 :"Anonymized"'
-      - 'RemarkablePattern                   :      101 :"Anonymized"'
+- lookup:
+    name: 'NamedAnonymizersWithVersion'
+    map:
+      # Matched name --> Reported name
+      "Privoxy"       : "Privoxy" # https://www.privoxy.org/
+      "PrivacyWall"   : "PrivacyWall"
 
 - matcher:
-    require:
-      - 'agent.product.name="PrivacyWall"'
+    variable:
+      - 'ProductName                         :agent.product.name?NamedAnonymizersWithVersion'
+#      - 'AnonymizerName                      :LookUp[NamedAnonymizersWithVersion;@ProductName]'
     extract:
       - 'DeviceClass                         :    10000 :"Anonymized"'
       - 'RemarkablePattern                   :      101 :"Anonymized"'
+#      - 'AgentName                           :    10000 :@AnonymizerName'
+#      - 'AgentVersion                        :    10000 :@ProductName^.version'
+
+- lookup:
+    name: 'NamedAnonymizersWithoutVersion'
+    map:
+      # Matched name --> Reported name
+      "Anonymisiert durch AlMiSoft Browser-Maulkorb"      : "AlMiSoft Browser-Maulkorb"
+      "Anonymisiert durch AlMiSoft Browser-Anonymisierer" : "AlMiSoft Browser-Anonymisierer"
+      "anonymized by Abelssoft"                           : "Abelssoft"
+
+- matcher:
+    variable:
+      - 'ProductName                         :agent.product.name?NamedAnonymizersWithoutVersion'
+#      - 'AnonymizerName                      :LookUp[NamedAnonymizersWithoutVersion;@ProductName]'
+    extract:
+      - 'DeviceClass                         :    10000 :"Anonymized"'
+      - 'RemarkablePattern                   :      101 :"Anonymized"'
+#      - 'AgentName                           :    10000 :@AnonymizerName'
+#      - 'AgentVersion                        :    10000 :"<<<null>>>"'
 
 - matcher:
     require:
