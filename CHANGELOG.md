@@ -16,6 +16,7 @@ NEXT RELEASE
   - Robot DatadogSynthetics (thanks to https://github.com/notflorian)
   - Samsung Browser for Windows
   - Hacking tool Assetnote
+  - PrivacyWall
 
 v7.32.0
 ===
