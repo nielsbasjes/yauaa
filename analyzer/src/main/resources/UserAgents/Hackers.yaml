@@ -136,7 +136,14 @@ config:
       "JDatabaseDriverMysqli" : "Remote exec Joomla"
 
 - lookup:
+    name: 'BugBountyMarkers'
+    map:
+      "intigriti"             : "Intigriti Bugbounty"
+
+- lookup:
     name: 'HackerToolKits'
+    merge:
+      - 'BugBountyMarkers'
     map:
       "Assetnote"             : "Assetnote"
       "nessus"                : "Nessus"
@@ -155,6 +162,11 @@ config:
     - 'Bulid'
     - 'Moblie'
 
+- matcher:
+    variable:
+      - 'Bounty: LookUpContains[BugBountyMarkers;agent]'
+    extract:
+      - 'RemarkablePattern                   :  1000001 :@Bounty'
 
 - matcher:
     require:
