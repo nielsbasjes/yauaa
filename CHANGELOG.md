@@ -18,6 +18,7 @@ NEXT RELEASE
   - Hacking tools: Assetnote, Openbullet
   - Anonymizer PrivacyWall
   - BugBounty cases
+  - Google Gemini App on iOS
 
 v7.32.0
 ===
