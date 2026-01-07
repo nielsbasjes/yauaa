@@ -19,6 +19,7 @@ NEXT RELEASE
   - Anonymizer PrivacyWall
   - BugBounty cases
   - Google Gemini App on iOS
+  - HeyTapBrowser
 
 v7.32.0
 ===
