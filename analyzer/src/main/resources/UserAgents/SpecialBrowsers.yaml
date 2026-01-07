@@ -6978,3 +6978,31 @@ config:
       AgentVersionMajor                    : '87'
       AgentNameVersion                     : 'Chrome 87.0.4280.144'
       AgentNameVersionMajor                : 'Chrome 87'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Windows) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.5790.168 Safari/537.36 HeyTapBrowser/40.10.2.1'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows ??'
+      OperatingSystemNameVersionMajor      : 'Windows ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '115.0'
+      LayoutEngineVersionMajor             : '115'
+      LayoutEngineNameVersion              : 'Blink 115.0'
+      LayoutEngineNameVersionMajor         : 'Blink 115'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'HeyTapBrowser'
+      AgentVersion                         : '40.10.2.1'
+      AgentVersionMajor                    : '40'
+      AgentNameVersion                     : 'HeyTapBrowser 40.10.2.1'
+      AgentNameVersionMajor                : 'HeyTapBrowser 40'
+      RemarkablePattern                    : 'X11 and Windows'
