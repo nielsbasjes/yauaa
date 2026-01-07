@@ -1,8 +1,8 @@
 +++
-title = "Elastic Search"
+title = "Elasticsearch"
 +++
 ## Introduction
-User Defined Function (ingest processor) for [Elastic Search](https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html)
+User Defined Function (ingest processor) for [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/plugins/current/intro.html)
 
 ## STATUS: ... EXPERIMENTAL ...
 The ElasticSearch ingest plugin is very new.
@@ -12,7 +12,7 @@ And yes it is similar to https://www.elastic.co/guide/en/elasticsearch/reference
 ## Getting the UDF
 Starting with 7.31.0 the prebuilt UDF is no longer distributed by me.
 
-The **ONLY** reason for this change is that Elastic Search is VERY picky about the version of ES the Plugin was built for. If you have a Yauaa Plugin that was built against ES 8.17.1 then that plugin will not load in ES 8.17.2.
+The **ONLY** reason for this change is that ElasticSearch is VERY picky about the version of ES the Plugin was built for. If you have a Yauaa Plugin that was built against ES 8.17.1 then that plugin will not load in ES 8.17.2.
 
 The way now for you to get the right version of the plugin for your installation is to build de UDF yourself.
 
@@ -50,17 +50,17 @@ The way now for you to get the right version of the plugin for your installation
 
 7) Now you should have the file `udfs/elastic/elasticsearch-8/target/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip` which you can install on your installation.
 
-Replace `elasticsearch-8` with `elasticsearch-9` in the above example incase you have an ElasticSearch 9.x installation.
+Replace `elasticsearch-8` with `elasticsearch-9` in the above example in case you have an ElasticSearch 9.x installation.
 
 ## Installing the plugin
-You only need to install it into your Elastic Search once
+You only need to install it into your ElasticSearch once
 
-On Elastic Search 8.x
+On Elasticsearch 8.x
 ```bash
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-8-{{%YauaaVersion%}}.zip
 ```
 
-On Elastic Search 9.x
+On Elasticsearch 9.x
 ```bash
 bin/elasticsearch-plugin install file:///path/to/yauaa-elasticsearch-9-{{%YauaaVersion%}}.zip
 ```
