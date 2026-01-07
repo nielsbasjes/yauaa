@@ -1,5 +1,5 @@
 # What is this?
-These are just a few scripts I occasionally use to run Yauaa as part of a pipeline in Elastic Search... locally on my machine in docker.
+These are just a few scripts I occasionally use to run Yauaa as part of a pipeline in Elasticsearch... locally on my machine in docker.
 
 I usually copy these to a separate "working" location out or sight of IntelliJ as that would make it see a LOT of files ... which makes everything very slow.
 

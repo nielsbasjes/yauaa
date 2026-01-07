@@ -31,7 +31,7 @@ v7.32.0
   - Safari 26 on iOS 26
   - Electron Desktop App using special format
 - UDFs:
-  - Update UDF for Elastic Search 9 to their API changes
+  - Update UDF for Elasticsearch 9 to their API changes
 
 v7.31.0
 ===
@@ -41,8 +41,8 @@ v7.31.0
   - OpenHarmony
   - ArkWeb (HuaweiOS browser engine)
 - UDFs
-    - New UDF for Elastic Search 9
-    - All Elastic Search UDFs(Plugins) must be built by the user for their specific version.
+    - New UDF for Elasticsearch 9
+    - All Elasticsearch UDFs(Plugins) must be built by the user for their specific version.
 
 v7.30.0
 ===
@@ -350,7 +350,7 @@ v7.8.0
 - Webservlet:
     - Copy to clipboard works again.
 - Updated UDF dependencies
-    - Elastic Search          7.17.7
+    - Elasticsearch          7.17.7
     - Apache Flink            1.16.0
     - Trino                   401
 
@@ -377,7 +377,7 @@ v7.6.0
 - New/improved detections
   - Opera with reduced UserAgent now reports the correct agent version.
 - Updated UDF dependencies
-  - Elastic Search          7.17.6 & 8.4.1
+  - Elasticsearch          7.17.6 & 8.4.1
   - Elastic Logstash        8.4.1
   - Trino                   396
 
@@ -430,7 +430,7 @@ v7.4.0
   - Apache Flink            1.15.1
   - Apache Nifi             1.17.0
   - Apache Drill            1.20.2
-  - Elastic Search          7.17.5 & 8.3.2
+  - Elasticsearch          7.17.5 & 8.3.2
   - Elastic Logstash        8.3.2
   - Trino                   392
 
@@ -462,7 +462,7 @@ v7.2.0
 - Updated UDF dependencies
     - Apache Beam             2.39.0
     - Apache Nifi             1.16.2
-    - Elastic Search          7.17.4 & 8.2.2
+    - Elasticsearch          7.17.4 & 8.2.2
     - Elastic Logstash        8.2.2
     - Trino                   385
 
@@ -500,7 +500,7 @@ v7.0.0
   - Apache Beam             2.38.0
   - Apache Flink            1.15.0
   - Apache Nifi             1.16.1
-  - Elastic Search          7.17.3 & 8.1.3
+  - Elasticsearch          7.17.3 & 8.1.3
   - Elastic Logstash        8.1.3
   - Trino                   380
 - Dropping support for
@@ -512,11 +512,11 @@ v6.12
   - Apache Flink Table and Hive UDFs now also build under JDK 17
   - Apache Hive UDF has docker based integration test
 - UDFs
-  - New UDF for Elastic Search 8.1.1
+  - New UDF for Elasticsearch 8.1.1
   - Trino UDF uses ThreadLocal for better performance
 - Updated UDF dependencies
   - Apache Flink            1.14.4
-  - Elastic Search          7.17.1
+  - Elasticsearch          7.17.1
   - Elastic Logstash        8.1.1
 
 v6.11
@@ -562,7 +562,7 @@ v6.8
 - Updated UDF dependencies
   - Apache Flink            1.14.3
   - Apache Nifi             1.15.3
-  - Elastic Search/Logstash 7.16.2
+  - Elasticsearch/Logstash 7.16.2
 
 v6.7
 ===
@@ -572,7 +572,7 @@ v6.7
   - Allow specifying a custom caching implementation.
 - Updated UDF dependencies
   - Apache Beam             2.35.0
-  - Elastic Search/Logstash 7.16.0
+  - Elasticsearch/Logstash 7.16.0
 - Build:
   - Builds under JDK 17 (by disabling incompatble UDFs)
 
@@ -612,7 +612,7 @@ v6.4
   - More Amazon devices
 - Updated UDF dependencies
   - Apache Beam             2.34.0
-  - Elastic Search/Logstash 7.15.0
+  - Elasticsearch/Logstash 7.15.0
 - Build:
   - Change developer building docker image to Ubuntu 20.04
 
@@ -672,7 +672,7 @@ v6.0
   - Apache Beam             2.30.0
   - Apache Nifi             1.13.2
   - Apache Drill            1.19.0
-  - Elastic Search/Logstash 7.13.0
+  - Elasticsearch/Logstash 7.13.0
 - WebServlet:
   - Cleaning up the code
   - Also show the classifications based upon the DeviceClass
@@ -714,7 +714,7 @@ v5.22
   - Apache Flink            1.12.1
   - Apache Beam             2.27.0
   - Apache Nifi             1.13.0
-  - Elastic Search/Logstash 7.11.1
+  - Elasticsearch/Logstash 7.11.1
 - New UDF: Beam SQL
 
 v5.21
@@ -753,7 +753,7 @@ v5.20
   - Apache Nifi             1.12.1
   - Apache Flink            1.11.2
   - Apache Beam             2.25.0
-  - Elastic Search/Logstash 7.10.0
+  - Elasticsearch/Logstash 7.10.0
 
 v5.19
 ===
@@ -764,7 +764,7 @@ v5.19
   - Extract Google tools name from the provided url
   - Apache Beam useragent
 - Updated UDF dependencies
-  - Elastic Search/Logstash 7.8.1
+  - Elasticsearch/Logstash 7.8.1
   - Apache Flink            1.11.1
   - Apache Beam             2.22.0
 - Build

@@ -55,7 +55,7 @@ These are only the highlights for the last few releases, the full changelog can 
     - Safari 26 on iOS 26
     - Electron Desktop App using special format
 - UDFs:
-    - Update UDF for Elastic Search 9 to their API changes
+    - Update UDF for Elasticsearch 9 to their API changes
 
 ### Version v7.31.0
 - New/improved detections:
@@ -64,8 +64,8 @@ These are only the highlights for the last few releases, the full changelog can 
     - OpenHarmony
     - ArkWeb (HuaweiOS browser engine)
 - UDFs
-    - New UDF for Elastic Search 9
-    - All Elastic Search UDFs(Plugins) must be built by the user for their specific version.
+    - New UDF for Elasticsearch 9
+    - All Elasticsearch UDFs(Plugins) must be built by the user for their specific version.
 
 
 ---
