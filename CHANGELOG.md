@@ -15,7 +15,7 @@ NEXT RELEASE
   - Robot StatusCake (thanks to https://github.com/bdmendes)
   - Robot DatadogSynthetics (thanks to https://github.com/notflorian)
   - Samsung Browser for Windows
-  - Hacking tool Assetnote
+  - Hacking tools: Assetnote, Openbullet
   - Anonymizer PrivacyWall
   - BugBounty cases
 
