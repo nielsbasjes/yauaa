@@ -23,15 +23,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public final class PreHeatCases {
-    public static final List<String> USERAGENTS;
-    static {
-        // The are all the test cases in the project
-        String[] testAgents = {
-###agents-list###            "Closing dummy entry"
-        };
-
-        List<String> rawList = Arrays.asList(testAgents);
-        rawList.sort(Comparator.comparing(String::hashCode));
-        USERAGENTS = Collections.unmodifiableList(rawList);
-    }
+     public static final List<String> USERAGENTS = List.of(
+        // These are all the test cases in the project
+###agents-list###        "Closing dummy entry"
+    );
 }

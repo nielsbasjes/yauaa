@@ -43,6 +43,6 @@ cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
 cat "${DIR}/target/temp-agents-list-1.txt" \
     "${DIR}/target/temp-agents-list-2.txt" | \
   sed "
-    s@^@            \"@;
+    s@^@        \"@;
     s@\$@\",\n@;
   " | grep . | java -jar ../devtools/sort/target/yauaa-devtools-sortlines-*-jar-with-dependencies.jar > "${DIR}/target/temp-agents-list.txt"
