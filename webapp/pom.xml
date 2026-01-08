@@ -37,6 +37,10 @@
 
     <!-- The default port on which to expose if you do "mvn docker:run" -->
     <yauaa.port>8080</yauaa.port>
+
+    <!-- No need for the jacoco part because we do not do that in this module. -->
+    <argLine>-javaagent:${org.mockito:mockito-core:jar} -Xmx2048m</argLine>
+
   </properties>
 
   <dependencies>
@@ -54,9 +58,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-legacy</artifactId>
-      <version>${spring-boot-legacy.version}</version>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.1.1</version>
     </dependency>
 
     <dependency>

@@ -41,13 +41,25 @@ abstract class AbstractParseServletTests extends AbstractTestingBase {
     // ------------------------------------------
     // Swagger
     @Test
-    public void testSwaggerExists() {
+    public void testSwaggerUiExists() {
         given()
             .port(getPort())
             .header("User-Agent", TEST_USER_AGENT)
             .accept(ANY)
         .when()
             .get("/swagger-ui.html")
+        .then()
+            .statusCode(200);
+    }
+
+    @Test
+    public void testSwaggerApiDocsExists() {
+        given()
+            .port(getPort())
+            .header("User-Agent", TEST_USER_AGENT)
+            .accept(ANY)
+        .when()
+            .get("/v3/api-docs")
         .then()
             .statusCode(200);
     }
