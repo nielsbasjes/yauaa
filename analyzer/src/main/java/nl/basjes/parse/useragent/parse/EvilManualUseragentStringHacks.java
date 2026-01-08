@@ -17,10 +17,10 @@
 
 package nl.basjes.parse.useragent.parse;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 
 public final class EvilManualUseragentStringHacks {
@@ -79,8 +79,26 @@ public final class EvilManualUseragentStringHacks {
         }
         String result = useragent;
 
+        if (
+            (result.indexOf('%') != -1) &&
+                (result.contains("%20") ||
+                    result.contains("%3B") ||
+                    result.contains("%25") ||
+                    result.contains("%2F") ||
+                    result.contains("%28"))) {
+            try {
+                result = URLDecoder.decode(result, UTF_8);
+            } catch (IllegalArgumentException e) {
+                // UnsupportedEncodingException: Can't happen because the UTF-8 is hardcoded here.
+                // IllegalArgumentException: Probably bad % encoding in there somewhere.
+                // Ignore and continue.
+            }
+        }
+
         // Fixes issue https://github.com/nielsbasjes/yauaa/issues/2056 (this pattern:  Mozilla\/5.0 )
         result = replaceString(result, "\\/", "/");
+
+        result = handleNoSpacesUserAgents(result);
 
         result = MULTIPLE_SPACES.matcher(result).replaceAll(" ");
 
@@ -181,26 +199,63 @@ public final class EvilManualUseragentStringHacks {
         // The Weibo useragent This one is a single useragent that hold significant traffic
         result = replaceString(result, "__", " ");
 
-        if (
-            (result.indexOf('%') != -1) &&
-                (result.contains("%20") ||
-                 result.contains("%3B") ||
-                 result.contains("%25") ||
-                 result.contains("%2F") ||
-                 result.contains("%28"))) {
-            try {
-                result = URLDecoder.decode(result, "UTF-8");
-            } catch (UnsupportedEncodingException | IllegalArgumentException e) {
-                // UnsupportedEncodingException: Can't happen because the UTF-8 is hardcoded here.
-                // IllegalArgumentException: Probably bad % encoding in there somewhere.
-                // Ignore and continue.
-            }
-        }
-
         // As found with the PICO 4 examples: Add an extra space behind ' OS' (handle: "Pico 4 OS1.2.3").
         result = PICO_OS_TAG.matcher(result).replaceAll("$1 ");
 
         return result; // 99.99% of the cases nothing will have changed.
     }
+
+    // ------------------------------------------
+
+    private static final Pattern ADD_PRODUCT_SPACES =
+        Pattern.compile("(\\d+)([a-zA-Z][a-zA-Z]+/)");
+
+    private static final Pattern ADD_PRODUCT_SPACES_SAFARI =
+        Pattern.compile("Safari/(\\d\\d\\d.\\d\\d)(\\D)");
+
+    private static String handleNoSpacesUserAgents(String userAgent) {
+        // Cheap checks: Is it long enough
+        if (userAgent == null || userAgent.length() < 50) {
+            return userAgent;
+        }
+        // More expensive check: Really NO spaces?
+        if (userAgent.indexOf(' ') >= 0) {
+            return userAgent;
+        }
+
+        String result = userAgent;
+
+        result = ADD_PRODUCT_SPACES_SAFARI.matcher(result).replaceAll(" Safari/$1 $2");
+
+        result=replaceString(result, "Build/",      " Build/");
+        result=replaceString(result, "Mobile",      " Mobile ");
+        result=replaceString(result, "Safari",      " Safari ");
+        result=replaceString(result, "Android",     " Android ");
+        result=replaceString(result, "Linux",       " Linux ");
+        result=replaceString(result, "WindowsNT",   " Windows NT ");
+
+        result=replaceString(result, "Instagram",   " Instagram ");
+
+        result=replaceString(result, "IntelMacOSX", " Intel Mac OS X ");
+        result=replaceString(result, "likeMacOSX",  " like Mac OS X ");
+        result=replaceString(result, "CPUOS",       " CPU OS ");
+        result=replaceString(result, "CPUiPhoneOS", " CPU iPhone OS ");
+        result=replaceString(result, "CPUiPadOS",   " CPU iPad OS ");
+
+        result=replaceString(result, "x86_64",      " x86_64 ");
+        result=replaceString(result, "i686",        " i686 ");
+
+        result=replaceString(result, "KHTML,likeGecko", " KHTML, like Gecko ");
+
+        result = ADD_PRODUCT_SPACES.matcher(result).replaceAll("$1 $2");
+        result = ADD_PRODUCT_SPACES.matcher(result).replaceAll("$1 $2");
+        result = ADD_PRODUCT_SPACES.matcher(result).replaceAll("$1 $2");
+        result = ADD_PRODUCT_SPACES.matcher(result).replaceAll("$1 $2");
+        result = ADD_PRODUCT_SPACES.matcher(result).replaceAll("$1 $2");
+        result = ADD_PRODUCT_SPACES.matcher(result).replaceAll("$1 $2");
+
+        return result;
+    }
+
 
 }

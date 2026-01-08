@@ -21,6 +21,7 @@ NEXT RELEASE
   - Google Gemini App on iOS
   - HeyTapBrowser
   - Handle escaped slashes like "Mozilla\/5.0"
+  - Partially handle Useragents with removed spaces
 
 v7.32.0
 ===
