@@ -41,7 +41,7 @@ Despite there not being any obligation (because of the Apache 2.0 license); If y
 [![If this project has business value for you then don't hesitate to support me with a small donation.](https://img.shields.io/badge/Sponsor%20me-via%20Github-darkgreen.svg)](https://github.com/sponsors/nielsbasjes)
 
     Yet Another UserAgent Analyzer
-    Copyright (C) 2013-2025 Niels Basjes
+    Copyright (C) 2013-2026 Niels Basjes
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -3,7 +3,7 @@ Why this tool?
 The reason for including a simple tool to sort a set of lines is simple: It turns out that the Linux commandline sort is not reproducible across all variations of Linux/Docker/Shells/etc (even when using LC_ALL=C and such).
 
     Yet Another UserAgent Analyzer
-    Copyright (C) 2013-2025 Niels Basjes
+    Copyright (C) 2013-2026 Niels Basjes
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
