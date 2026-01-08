@@ -33,9 +33,17 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.release>21</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.release>17</maven.compiler.release>
     <dependency-convergence.phase>none</dependency-convergence.phase>
+
+    <!-- Elastic tools 7.x series -->
+    <!-- Using ES 7 because of licensing issues in relation to Flink -->
+    <!-- ... which only works with an older Flink version ... -->
+    <flink.version>1.17.0</flink.version>
+    <elasticsearch-7.version>7.17.29</elasticsearch-7.version>
+    <flink-connector-elasticsearch7.version>3.0.1-1.17</flink-connector-elasticsearch7.version>
+
   </properties>
 
   <dependencies>
