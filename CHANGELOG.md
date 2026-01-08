@@ -20,6 +20,7 @@ NEXT RELEASE
   - BugBounty cases
   - Google Gemini App on iOS
   - HeyTapBrowser
+  - Handle escaped slashes like "Mozilla\/5.0"
 
 v7.32.0
 ===

@@ -79,6 +79,9 @@ public final class EvilManualUseragentStringHacks {
         }
         String result = useragent;
 
+        // Fixes issue https://github.com/nielsbasjes/yauaa/issues/2056 (this pattern:  Mozilla\/5.0 )
+        result = replaceString(result, "\\/", "/");
+
         result = MULTIPLE_SPACES.matcher(result).replaceAll(" ");
 
         // The first one is a special kind of space: https://unicodemap.org/details/0x2002/index.html
