@@ -23,6 +23,7 @@ NEXT RELEASE
   - Handle escaped slashes like "Mozilla\/5.0"
   - Partially handle Useragents with removed spaces
   - Detect language code fragments.
+  - Tolino eReaders
 
 v7.32.0
 ===
