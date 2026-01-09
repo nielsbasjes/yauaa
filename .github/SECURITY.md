@@ -7,7 +7,7 @@ vulnerabilities, as well as suggestions around hardening the software and our pr
 ## Reporting a suspected vulnerability
 
 It is important that suspected vulnerabilities are disclosed in a responsible way, and are not publicly disclosed until
-after they have been analysed and a fix is available.
+after they have been analyzed and a fix is available.
 
 To report a security vulnerability, send an email to yauaa-security@basjes.nl .
 
@@ -23,4 +23,4 @@ for lower severity vulnerabilities or hardening in the following `major.minor.pa
 
 ## Automatic updates
 
-We strongly recommend using tool like [Renovate](https://renovatebot.com) or [Dependabot](https://github.com/dependabot) to get the latest versions of all your dependencies automatically as a pull request in Github or Gitlab.
+We strongly recommend using tool like [Renovate](https://renovatebot.com) or [Dependabot](https://github.com/dependabot) to get the latest versions of all your dependencies automatically as a pull request in GitHub or Gitlab.
