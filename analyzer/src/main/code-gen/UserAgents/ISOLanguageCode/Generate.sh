@@ -70,6 +70,7 @@ do
       then
         (
           echo "      \"${CODE}\" : \"${CODE}|${NAME}\""
+          echo "      \"${CODE}-\" : \"${CODE}|${NAME}\""
         ) >> "${FILE_CODES2}"
       fi
 
