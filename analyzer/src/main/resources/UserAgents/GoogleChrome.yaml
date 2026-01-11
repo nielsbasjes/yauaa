@@ -1002,9 +1002,9 @@ config:
     variable:
     - 'Product                             :agent.product.name="Chrome"^>>>.name="Safari"^<<'
     extract:
-    - 'AgentClass                          :     2080 :"Browser"'
-    - 'AgentName                           :     2080 :@Product.name'
-    - 'AgentVersion                        :     2080 :@Product.version'
+    - 'AgentClass                          :     2081 :"Browser"'
+    - 'AgentName                           :     2081 :@Product.name'
+    - 'AgentVersion                        :     2081 :@Product.version'
 
 - matcher:
     require:
@@ -1012,9 +1012,9 @@ config:
     variable:
     - 'Product                             :agent.product.name="Chrome"^>>>.name="Mobile Safari"^<<'
     extract:
-    - 'AgentClass                          :     2080 :"Browser"'
-    - 'AgentName                           :     2080 :@Product.name'
-    - 'AgentVersion                        :     2080 :@Product.version'
+    - 'AgentClass                          :     2081 :"Browser"'
+    - 'AgentName                           :     2081 :@Product.name'
+    - 'AgentVersion                        :     2081 :@Product.version'
 
 
 - test:
@@ -3828,3 +3828,32 @@ config:
       AgentVersionMajor                    : '3'
       AgentNameVersion                     : 'ABB 3.5.0'
       AgentNameVersionMajor                : 'ABB 3'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Avira/131.0.0.0'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Windows NT ??'
+      OperatingSystemNameVersionMajor      : 'Windows NT ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '131'
+      LayoutEngineVersionMajor             : '131'
+      LayoutEngineNameVersion              : 'Blink 131'
+      LayoutEngineNameVersionMajor         : 'Blink 131'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Avira'
+      AgentVersion                         : '131.0.0.0'
+      AgentVersionMajor                    : '131'
+      AgentNameVersion                     : 'Avira 131.0.0.0'
+      AgentNameVersionMajor                : 'Avira 131'

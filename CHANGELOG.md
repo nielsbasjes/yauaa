@@ -14,12 +14,11 @@ NEXT RELEASE
 - New/improved detections:
   - Robot StatusCake (thanks to https://github.com/bdmendes)
   - Robot DatadogSynthetics (thanks to https://github.com/notflorian)
-  - Samsung Browser for Windows
+  - Browsers: HeyTapBrowser, Avira, Samsung Browser for Windows
   - Hacking tools: Assetnote, Openbullet, Acunetix
   - Anonymizer PrivacyWall
   - BugBounty cases
   - Google Gemini App on iOS
-  - HeyTapBrowser
   - Handle escaped slashes like "Mozilla\/5.0"
   - Partially handle Useragents with removed spaces
   - Detect language code fragments.
