@@ -4255,3 +4255,32 @@ config:
       WebviewAppVersionMajor               : '??'
       WebviewAppNameVersion                : 'Unknown Webview App ??'
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
+
+
+- test:
+    input: # Manually Manipulated. Chrome twice and the 'Not.A/Brand' part ...
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0.0; Win64; x64; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.142 Chrome/125.0.6422.142 Not.A/Brand/24 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Desktop'
+      DeviceBrand                          : 'Unknown'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Windows NT'
+      OperatingSystemVersion               : '10.0.0'
+      OperatingSystemVersionMajor          : '10'
+      OperatingSystemNameVersion           : 'Windows NT 10.0.0'
+      OperatingSystemNameVersionMajor      : 'Windows NT 10'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '125.0'
+      LayoutEngineVersionMajor             : '125'
+      LayoutEngineNameVersion              : 'Blink 125.0'
+      LayoutEngineNameVersionMajor         : 'Blink 125'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '125.0.6422.142'
+      AgentVersionMajor                    : '125'
+      AgentNameVersion                     : 'Chrome 125.0.6422.142'
+      AgentNameVersionMajor                : 'Chrome 125'
