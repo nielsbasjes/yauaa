@@ -24,6 +24,7 @@ NEXT RELEASE
   - Partially handle Useragents with removed spaces
   - Detect language code fragments.
   - Tolino eReaders
+  - FITAGE app (partial because much is hidden in a base64 block)
 
 v7.32.0
 ===
