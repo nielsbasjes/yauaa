@@ -24,6 +24,7 @@ NEXT RELEASE
   - Detect language code fragments.
   - Tolino eReaders
   - FITAGE app (partial because much is hidden in a base64 block)
+  - SamsungBrowser starts with "Samsung" but does not imply the brand Samsung
 
 v7.32.0
 ===
