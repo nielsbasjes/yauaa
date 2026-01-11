@@ -886,6 +886,36 @@ config:
       AgentNameVersionMajor                : 'Snapchat 10'
 
 
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Mobile/15E148 Snapchat/13.60.1.0 (like Safari/8621.3.11.10.3, panda)'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '10.15.7'
+      OperatingSystemVersionMajor          : '10.15'
+      OperatingSystemNameVersion           : 'Mac OS 10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS 10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '605.1.15'
+      LayoutEngineVersionMajor             : '605'
+      LayoutEngineNameVersion              : 'AppleWebKit 605.1.15'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 605'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'Snapchat'
+      AgentVersion                         : '13.60.1.0'
+      AgentVersionMajor                    : '13'
+      AgentNameVersion                     : 'Snapchat 13.60.1.0'
+      AgentNameVersionMajor                : 'Snapchat 13'
+
+
+
 #Instagram on Android 7.1.1
 - test:
     input:
