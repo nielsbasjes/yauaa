@@ -3088,3 +3088,32 @@ config:
       UAClientHintPlatform                       : 'Windows'
       UAClientHintPlatformVersion                : '19.0.0'
       UAClientHintWow64                          : 'false'
+
+
+- test:
+    input:
+      User-Agent                                 : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.146 SamsungBrowser/28.0 Safari/537.36'
+    expected:
+      DeviceClass                                 : 'Desktop'
+      DeviceName                                  : 'Linux Desktop'
+      DeviceBrand                                 : 'Unknown'
+      DeviceCpu                                   : 'Intel x86_64'
+      DeviceCpuBits                               : '64'
+      OperatingSystemClass                        : 'Desktop'
+      OperatingSystemName                         : 'Linux'
+      OperatingSystemVersion                      : '??'
+      OperatingSystemVersionMajor                 : '??'
+      OperatingSystemNameVersion                  : 'Linux ??'
+      OperatingSystemNameVersionMajor             : 'Linux ??'
+      LayoutEngineClass                           : 'Browser'
+      LayoutEngineName                            : 'Blink'
+      LayoutEngineVersion                         : '143.0'
+      LayoutEngineVersionMajor                    : '143'
+      LayoutEngineNameVersion                     : 'Blink 143.0'
+      LayoutEngineNameVersionMajor                : 'Blink 143'
+      AgentClass                                  : 'Browser'
+      AgentName                                   : 'SamsungBrowser'
+      AgentVersion                                : '28.0'
+      AgentVersionMajor                           : '28'
+      AgentNameVersion                            : 'SamsungBrowser 28.0'
+      AgentNameVersionMajor                       : 'SamsungBrowser 28'

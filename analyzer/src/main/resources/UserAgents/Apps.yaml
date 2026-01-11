@@ -7655,3 +7655,70 @@ config:
       WebviewAppNameVersionMajor           : 'Unknown Webview App ??'
 
 
+# The FITAGE app actually encodes a lot of information in the Useragent as a base64 part.
+- matcher:
+    require:
+      - 'agent.product.name="yolqn"'
+    extract:
+      - 'WebviewAppName                 :   1000 : "Fitage"'
+      - 'WebviewAppVersion              :   1000 : "<<<null>>>"'  # TODO: Exact version is encoded in a json in the base64 part.
+
+# In this case it contains (wrapped for readability):
+#  {
+#    "statusBarHeight":30.4761905670166,
+#    "titleBarHeight":38,
+#    "tabbarHeight":0,
+#    "tabbarSafeHeight":0,
+#    "platform":"android",
+#    "appId":"fitage",
+#    "appVer":"1.7.0",
+#    "systemType":34,
+#    "cellphoneType":"samsung SM-A546B",
+#    "lang":"nl",
+#    "weightUnit":"1",
+#    "heightUnit":"0",
+#    "local_server_port":7200,
+#    "area_code":"NL",
+#    "capacityUnit":"1",
+#    "register_area_code":"NL",
+#    "currentThemeColor":"#0FBFEF",
+#    "date_format":"dd/MM/yyyy",
+#    "appName":"FITAGE",
+#    "support_google":1,
+#    "server_domain":"https://fitage.qnclouds.com",
+#    "heatUnit":"1",
+#    "temperatureUnit":"0",
+#    "support_flash":1
+#  }
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (Linux; Android 14; SM-A546B Build/UP1A.231005.007; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/135.0.7049.37 Mobile Safari/537.36 yolqn/1.0.0 eyJzdGF0dXNCYXJIZWlnaHQiOjMwLjQ3NjE5MDU2NzAxNjYsInRpdGxlQmFySGVpZ2h0IjozOCwidGFiYmFySGVpZ2h0IjowLCJ0YWJiYXJTYWZlSGVpZ2h0IjowLCJwbGF0Zm9ybSI6ImFuZHJvaWQiLCJhcHBJZCI6ImZpdGFnZSIsImFwcFZlciI6IjEuNy4wIiwic3lzdGVtVHlwZSI6MzQsImNlbGxwaG9uZVR5cGUiOiJzYW1zdW5nIFNNLUE1NDZCIiwibGFuZyI6Im5sIiwid2VpZ2h0VW5pdCI6IjEiLCJoZWlnaHRVbml0IjoiMCIsImxvY2FsX3NlcnZlcl9wb3J0Ijo3MjAwLCJhcmVhX2NvZGUiOiJOTCIsImNhcGFjaXR5VW5pdCI6IjEiLCJyZWdpc3Rlcl9hcmVhX2NvZGUiOiJOTCIsImN1cnJlbnRUaGVtZUNvbG9yIjoiIzBGQkZFRiIsImRhdGVfZm9ybWF0IjoiZGQvTU0veXl5eSIsImFwcE5hbWUiOiJGSVRBR0UiLCJzdXBwb3J0X2dvb2dsZSI6MSwic2VydmVyX2RvbWFpbiI6Imh0dHBzOi8vZml0YWdlLnFuY2xvdWRzLmNvbSIsImhlYXRVbml0IjoiMSIsInRlbXBlcmF0dXJlVW5pdCI6IjAiLCJzdXBwb3J0X2ZsYXNoIjoxfQ=='
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Samsung SM-A546B'
+      DeviceBrand                          : 'Samsung'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '14'
+      OperatingSystemVersionMajor          : '14'
+      OperatingSystemNameVersion           : 'Android 14'
+      OperatingSystemNameVersionMajor      : 'Android 14'
+      OperatingSystemVersionBuild          : 'UP1A.231005.007'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '135.0'
+      LayoutEngineVersionMajor             : '135'
+      LayoutEngineNameVersion              : 'Blink 135.0'
+      LayoutEngineNameVersionMajor         : 'Blink 135'
+      AgentClass                           : 'Browser Webview'
+      AgentName                            : 'Chrome Webview'
+      AgentVersion                         : '135.0.7049.37'
+      AgentVersionMajor                    : '135'
+      AgentNameVersion                     : 'Chrome Webview 135.0.7049.37'
+      AgentNameVersionMajor                : 'Chrome Webview 135'
+      WebviewAppName                       : 'Fitage'
+      WebviewAppVersion                    : '??'
+      WebviewAppVersionMajor               : '??'
+      WebviewAppNameVersion                : 'Fitage ??'
+      WebviewAppNameVersionMajor           : 'Fitage ??'

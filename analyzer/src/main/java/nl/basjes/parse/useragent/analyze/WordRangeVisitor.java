@@ -58,10 +58,14 @@ public final class WordRangeVisitor extends UserAgentTreeWalkerBaseVisitor<WordR
         @Override
         public String toString() {
             if (rangeString == null) {
-                if (last == -1) {
-                    rangeString = "[" + first + "-]";
+                if (first == -1) {
+                    rangeString = "[-" + last + "]";
                 } else {
-                    rangeString = "[" + first + "-" + last + "]";
+                    if (last == -1) {
+                        rangeString = "[" + first + "-]";
+                    } else {
+                        rangeString = "[" + first + "-" + last + "]";
+                    }
                 }
             }
             return rangeString;

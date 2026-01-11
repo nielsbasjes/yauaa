@@ -361,7 +361,7 @@ class TestClientHintsParsing {
         assertEquals("2",               brands.get(0).getVersion());
         assertEquals("Google Chrome",   brands.get(1).getName());
         assertEquals("3",               brands.get(1).getVersion());
-        LOG.info("{}", clientHints);
+        LOG.info("%s", clientHints);
     }
 
     @Test
