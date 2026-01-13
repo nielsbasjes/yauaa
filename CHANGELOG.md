@@ -5,6 +5,7 @@ NEXT RELEASE
 ===
 - Analyzer:
   - Needs Java 17 LTS to run (no longer a Multi Release jar!).
+  - Support for being used in a native GraalVM application.
 - Build:
   - Needs Java 25 LTS to build.
   - Use a Kotlin based file sorter to fix reproducibility issue.
@@ -23,7 +24,7 @@ NEXT RELEASE
   - Partially handle Useragents with removed spaces
   - Detect language code fragments.
   - Tolino eReaders
-  - FITAGE app (partial because much is hidden in a base64 block)
+  - Fitage app (partial because much is hidden in a base64 block)
   - SamsungBrowser starts with "Samsung" but does not imply the brand Samsung
 
 v7.32.0

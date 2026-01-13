@@ -35,14 +35,28 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - Analyzer:
-    - Needs Java 17 LTS to run.
+    - Needs Java 17 LTS to run (no longer a Multi Release jar!).
+    - Support for being used in a native GraalVM application.
 - Build:
     - Needs Java 25 LTS to build.
+    - Use a Kotlin based file sorter to fix reproducibility issue.
 - UDFs;
     - Dropping the Trino UDF
     - Dropping the ElasticSearch 7.x UDF (ES7 is EOL)
 - New/improved detections:
     - Robot StatusCake (thanks to https://github.com/bdmendes)
+    - Robot DatadogSynthetics (thanks to https://github.com/notflorian)
+    - Browsers: HeyTapBrowser, Avira, Samsung Browser for Windows
+    - Hacking tools: Assetnote, Openbullet, Acunetix
+    - Anonymizer PrivacyWall
+    - BugBounty cases
+    - Google Gemini App on iOS
+    - Handle escaped slashes like "Mozilla\/5.0"
+    - Partially handle Useragents with removed spaces
+    - Detect language code fragments.
+    - Tolino eReaders
+    - Fitage app (partial because much is hidden in a base64 block)
+    - SamsungBrowser starts with "Samsung" but does not imply the brand Samsung
 
 ### Version v7.32.0
 - Analyzer:
