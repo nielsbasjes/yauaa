@@ -132,7 +132,7 @@ rm ./analyzer/src/main/code-gen/Antlr/PublicSuffix/tmp/*
 # ----------------------------------------------------------------------------------------------------
 ## Prepare the release: Make releasable version and make tag.
 info "Doing release:prepare"
-mvn release:prepare -B
+./mvnwrelease:prepare -B
 prepareStatus=$?
 if [ ${prepareStatus} -ne 0 ];
 then
@@ -147,7 +147,7 @@ fi
 git checkout "$(git describe --abbrev=0)"
 # ----------------------------------------------------------------------------------------------------
 info "Publishing for reproduction check to Local repo"
-mvn clean install -PpackageForRelease -PskipQuality
+./mvnwclean install -PpackageForRelease -PskipQuality
 reproCheckPublishStatus=$?
 if [ ${reproCheckPublishStatus} -ne 0 ];
 then
@@ -160,7 +160,7 @@ fi
 
 # ----------------------------------------------------------------------------------------------------
 info "Checking build reproducibility ... "
-mvn clean verify -PpackageForRelease -PskipQuality -PartifactCompare
+./mvnw clean verify -PpackageForRelease -PskipQuality -PartifactCompare
 reproducibleStatus=$?
 git switch -
 if [ ${reproducibleStatus} -ne 0 ];
@@ -174,7 +174,7 @@ fi
 # ----------------------------------------------------------------------------------------------------
 # Actually run the release: Effectively mvn deploy towards Sonatype
 info "Doing release:perform"
-mvn release:perform
+./mvnw release:perform
 performStatus=$?
 if [ ${performStatus} -ne 0 ];
 then
@@ -183,6 +183,22 @@ then
 else
     pass "Release perform Success."
 fi
+
+# ----------------------------------------------------------------------------------------------------
+# Building the native parts
+info "Building the native webapp docker image"
+git checkout "$(git describe --abbrev=0)"
+# ----------------------------------------------------------------------------------------------------
+./mvnw package -Pnative -pl :yauaa-webapp
+nativeStatus=$?
+if [ ${nativeStatus} -ne 0 ];
+then
+    fail "Building the native webapp docker image failed."
+    exit ${nativeStatus}
+else
+    pass "Building the native webapp docker image Success."
+fi
+git switch -
 
 # ----------------------------------------------------------------------------------------------------
 #
