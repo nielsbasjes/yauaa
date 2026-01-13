@@ -132,7 +132,7 @@ rm ./analyzer/src/main/code-gen/Antlr/PublicSuffix/tmp/*
 # ----------------------------------------------------------------------------------------------------
 ## Prepare the release: Make releasable version and make tag.
 info "Doing release:prepare"
-./mvnwrelease:prepare -B
+./mvnw release:prepare -B
 prepareStatus=$?
 if [ ${prepareStatus} -ne 0 ];
 then
@@ -147,7 +147,7 @@ fi
 git checkout "$(git describe --abbrev=0)"
 # ----------------------------------------------------------------------------------------------------
 info "Publishing for reproduction check to Local repo"
-./mvnwclean install -PpackageForRelease -PskipQuality
+./mvnw clean install -PpackageForRelease -PskipQuality
 reproCheckPublishStatus=$?
 if [ ${reproCheckPublishStatus} -ne 0 ];
 then
