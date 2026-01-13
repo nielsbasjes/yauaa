@@ -542,6 +542,25 @@
         <plugins>
 
           <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>Create native output directory</id>
+                <phase>package</phase>
+                <configuration>
+                  <target>
+                    <mkdir dir="target/native-image"/>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+
+          <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <configuration>
@@ -590,24 +609,6 @@
                 </goals>
               </execution>
 
-            </executions>
-          </plugin>
-
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>Create native output directory</id>
-                <phase>package</phase>
-                <configuration>
-                  <target>
-                    <mkdir dir="target/native-image"/>
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
             </executions>
           </plugin>
 
