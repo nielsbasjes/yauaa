@@ -902,7 +902,7 @@ config:
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
 
-# FIXME: No spaces --> Robot?
+# NOTE: No spaces
 - test:
     input:
       user_agent_string: 'Mozilla/5.0(compatible;MSIE9.0;WindowsNT6.1;Trident/5.0)'
@@ -929,6 +929,8 @@ config:
       AgentVersionMajor                    : '9'
       AgentNameVersion                     : 'Internet Explorer 9.0'
       AgentNameVersionMajor                : 'Internet Explorer 9'
+      RemarkablePattern                    : 'Long useragent without any spaces'
+
 
 # This one has ',' instead of ';' as the separator.
 - test:

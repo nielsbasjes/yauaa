@@ -267,7 +267,7 @@ public class UserAgentTreeFlattener extends UserAgentBaseListener implements Ser
 //  =================================================================================
 
     private UserAgentContext parseUserAgent(MutableUserAgent userAgent) {
-        String userAgentString = EvilManualUseragentStringHacks.fixIt(userAgent.getUserAgentString());
+        String userAgentString = EvilManualUseragentStringHacks.fixIt(userAgent);
 
         CodePointCharStream input = CharStreams.fromString(userAgentString);
         UserAgentLexer lexer = new UserAgentLexer(input);

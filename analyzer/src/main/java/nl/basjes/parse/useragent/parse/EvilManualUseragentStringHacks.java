@@ -17,10 +17,13 @@
 
 package nl.basjes.parse.useragent.parse;
 
+import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
+
 import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static nl.basjes.parse.useragent.UserAgent.REMARKABLE_PATTERN;
 import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 
 public final class EvilManualUseragentStringHacks {
@@ -70,10 +73,11 @@ public final class EvilManualUseragentStringHacks {
      * There are a few situations where in order to parse the useragent we need to 'fix it'.
      * Yes, all of this is pure evil but we "have to".
      *
-     * @param useragent Raw useragent
-     * @return Cleaned useragent
+     * @param mutableUserAgent The raw useragent instance
+     * @return Cleaned useragent string
      */
-    public static String fixIt(String useragent) {
+    public static String fixIt(MutableUserAgent mutableUserAgent) {
+        String useragent =  mutableUserAgent.getUserAgentString();
         if (useragent == null || useragent.isEmpty()) {
             return useragent;
         }
@@ -98,7 +102,7 @@ public final class EvilManualUseragentStringHacks {
         // Fixes issue https://github.com/nielsbasjes/yauaa/issues/2056 (this pattern:  Mozilla\/5.0 )
         result = replaceString(result, "\\/", "/");
 
-        result = handleNoSpacesUserAgents(result);
+        result = handleNoSpacesUserAgents(mutableUserAgent, result);
 
         result = MULTIPLE_SPACES.matcher(result).replaceAll(" ");
 
@@ -213,7 +217,7 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern ADD_PRODUCT_SPACES_SAFARI =
         Pattern.compile("Safari/(\\d\\d\\d.\\d\\d)(\\D)");
 
-    private static String handleNoSpacesUserAgents(String userAgent) {
+    private static String handleNoSpacesUserAgents(MutableUserAgent mutableUserAgent, String userAgent) {
         // Cheap checks: Is it long enough
         if (userAgent == null || userAgent.length() < 50) {
             return userAgent;
@@ -222,6 +226,8 @@ public final class EvilManualUseragentStringHacks {
         if (userAgent.indexOf(' ') >= 0) {
             return userAgent;
         }
+
+        mutableUserAgent.set(REMARKABLE_PATTERN, "Long useragent without any spaces",  1);
 
         String result = userAgent;
 
