@@ -77,6 +77,9 @@ public final class EvilManualUseragentStringHacks {
      * @return Cleaned useragent string
      */
     public static String fixIt(MutableUserAgent mutableUserAgent) {
+        if (mutableUserAgent == null) {
+            return null;
+        }
         String useragent =  mutableUserAgent.getUserAgentString();
         if (useragent == null || useragent.isEmpty()) {
             return useragent;

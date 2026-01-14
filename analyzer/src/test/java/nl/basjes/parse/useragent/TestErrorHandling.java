@@ -337,6 +337,11 @@ class TestErrorHandling {
         assertNotNull(agent);
 
         assertNull(EvilManualUseragentStringHacks.fixIt(null));
+
+        MutableUserAgent mutableUserAgent = new MutableUserAgent();
+        mutableUserAgent.setUserAgentString(null);
+
+        assertNull(EvilManualUseragentStringHacks.fixIt(mutableUserAgent));
     }
 
 }
