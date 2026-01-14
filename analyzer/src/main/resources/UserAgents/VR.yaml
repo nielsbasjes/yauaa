@@ -30,6 +30,23 @@ config:
       - 'DeviceClass                         :     3500 :"Virtual Reality"'
 
 - matcher:
+    require:
+      - 'agent.product.name="Mobile VR Safari"'
+    extract:
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
+      - 'DeviceName                          :      314 :agent.product.comments.entry[1]="Quest"@'
+      - 'DeviceBrand                         :      314 :"Oculus"'
+
+- matcher:
+    require:
+      - 'agent.product.name="VR Safari"'
+    extract:
+      - 'DeviceClass                         :     3500 :"Virtual Reality"'
+      - 'DeviceName                          :      314 :agent.product.comments.entry[1]="Quest"@'
+      - 'DeviceBrand                         :      314 :"Oculus"'
+
+
+- matcher:
     variable:
       - 'Agent: agent.(3)product.name="OculusBrowser"^'
     extract:
@@ -331,12 +348,14 @@ config:
       AgentNameVersionMajor                : 'OculusBrowser 22'
 
 
+
+
 - test:
     input:
       User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/33.3.0.1.166.605484368 Chrome/124.0.6367.221 VR Safari/537.36'
     expected:
       DeviceClass                          : 'Virtual Reality'
-      DeviceName                           : 'Oculus Linux Desktop'
+      DeviceName                           : 'Oculus Quest 3'
       DeviceBrand                          : 'Oculus'
       DeviceCpu                            : 'Intel x86_64'
       DeviceCpuBits                        : '64'
@@ -358,6 +377,34 @@ config:
       AgentVersionMajor                    : '33'
       AgentNameVersion                     : 'OculusBrowser 33.3.0.1.166.605484368'
       AgentNameVersionMajor                : 'OculusBrowser 33'
+
+- test:
+    input:
+      User-Agent: 'Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.226 VR Safari/537.36'
+    expected:
+      DeviceClass                          : 'Virtual Reality'
+      DeviceName                           : 'Oculus Quest 3'
+      DeviceBrand                          : 'Oculus'
+      DeviceCpu                            : 'Intel x86_64'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Linux'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Linux ??'
+      OperatingSystemNameVersionMajor      : 'Linux ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '126.0'
+      LayoutEngineVersionMajor             : '126'
+      LayoutEngineNameVersion              : 'Blink 126.0'
+      LayoutEngineNameVersionMajor         : 'Blink 126'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '126.0.6478.226'
+      AgentVersionMajor                    : '126'
+      AgentNameVersion                     : 'Chrome 126.0.6478.226'
+      AgentNameVersionMajor                : 'Chrome 126'
 
 
 # https://developer.picoxr.com/document/web/development-platform/#8acb98bd
