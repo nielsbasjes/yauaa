@@ -22,7 +22,7 @@
   <parent>
     <artifactId>yauaa-parent</artifactId>
     <groupId>nl.basjes.parse.useragent</groupId>
-    <version>7.32.1-SNAPSHOT</version>
+    <version>8.0.0</version>
   </parent>
   <artifactId>yauaa</artifactId>
 
@@ -465,7 +465,7 @@
             <configuration>
               <target>
                 <fileset id="packagedRules" dir="src/main/resources/UserAgents/" />
-                <pathconvert targetos="unix" pathsep="&quot;,&#xD;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&#x20;&quot;" property="my-file-list" refid="packagedRules">
+                <pathconvert targetos="unix" pathsep="&quot;,&#xD;        &quot;" property="my-file-list" refid="packagedRules">
                   <map from="${project.basedir}/src/main/resources/" to="" />
                 </pathconvert>
                 <!--suppress MavenModelInspection -->
@@ -813,7 +813,7 @@
     <url>https://github.com/nielsbasjes/yauaa</url>
     <connection>scm:git:https://github.com/nielsbasjes/yauaa.git</connection>
     <developerConnection>scm:git:file:///${project.basedir}</developerConnection>
-    <tag>HEAD</tag>
+    <tag>v8.0.0</tag>
   </scm>
 
 </project>

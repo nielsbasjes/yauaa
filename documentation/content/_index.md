@@ -34,6 +34,10 @@ Currently (April 2025) it seems that this effect is different depending on the u
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+- New/improved detections:
+  - ...
+
+### Version v8.0.0
 - Analyzer:
     - Needs Java 17 LTS to run (no longer a Multi Release jar!).
     - Support for being used in a native GraalVM application.

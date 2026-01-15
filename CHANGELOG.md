@@ -3,6 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- New/improved detections:
+  - ...
+
+v8.0.0
+===
 - Analyzer:
   - Needs Java 17 LTS to run (no longer a Multi Release jar!).
   - Support for being used in a native GraalVM application.
