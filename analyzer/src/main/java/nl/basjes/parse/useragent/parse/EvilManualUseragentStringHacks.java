@@ -36,6 +36,9 @@ public final class EvilManualUseragentStringHacks {
     private static final Pattern AVOID_BASE64_MATCH =
         Pattern.compile("(android/\\d+)(/)", Pattern.CASE_INSENSITIVE);
 
+    private static final Pattern ESCAPED_CHAR =
+        Pattern.compile("\\[A-Z][a-z]");
+
     private static final Pattern ANDROID_DASH_VERSION =
         Pattern.compile("(android)-(\\d+)", Pattern.CASE_INSENSITIVE);
 
@@ -116,6 +119,7 @@ public final class EvilManualUseragentStringHacks {
             result = result.trim();
         }
 
+        result = ESCAPED_CHAR.matcher(result).replaceAll(" ");
         result = STRIP_SURROUNDING_QUOTES.matcher(result).replaceAll("$1");
         result = MISSING_COMMENT_BRACES.matcher(result).replaceAll("$1 ($2)$3");
         result = MISSING_COMMENT_BRACES_OPERA.matcher(result).replaceAll("$1 ($2)$3");
