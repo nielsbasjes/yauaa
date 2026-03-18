@@ -111,4 +111,22 @@ class TestDeveloperTools {
         userAgentAnalyzer.analyzeMatcherImpactAllTests();
     }
 
+    @Test
+    void onlyRunCustomTests() {
+        UserAgentAnalyzerTester uaa = UserAgentAnalyzerTester
+            .newBuilder()
+            .showMatcherLoadStats()
+            .delayInitialization()
+            .dropTests()
+            .build();
+
+        uaa.loadResources("classpath*:**/CompanyInternalBreakingOverride.yaml");
+
+        // We have 1 test in this Yaml
+        assertEquals(1, uaa.getTestCases().size());
+
+        // And this lone test passes
+        assertTrue(uaa.runTests(false, false)); // This test must run some tests
+    }
+
 }
