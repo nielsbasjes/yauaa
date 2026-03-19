@@ -399,8 +399,8 @@ config:
     require:
     - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
     extract:
-    - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
-    - 'DeviceName                          :      313 :@VersionTag'
+    - 'DeviceBrand                         :      312 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+    - 'DeviceName                          :      312 :@VersionTag'
 
 
 # Special case like
@@ -410,9 +410,9 @@ config:
     require:
     - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
     extract:
-    - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
-    - 'DeviceName                          :      313 :@VersionTag'
-    - 'DeviceVersion                       :      313 :@VersionTag^.(3)version'
+    - 'DeviceBrand                         :      312 :LookUpPrefix[MobileBrandPrefixes;@VersionTag]'
+    - 'DeviceName                          :      312 :@VersionTag'
+    - 'DeviceVersion                       :      312 :@VersionTag^.(3)version'
 
 - matcher:
     variable:
@@ -420,9 +420,9 @@ config:
     require:
     - 'IsNull[LookUp[MobileBrands;@VersionTag]]' # Only use this if the name IS NOT exactly the brand
     extract:
-    - 'DeviceBrand                         :      313 :LookUpPrefix[MobileBrands;@VersionTag]'
-    - 'DeviceName                          :      313 :@VersionTag'
-    - 'DeviceVersion                       :      313 :@VersionTag^.(3)version'
+    - 'DeviceBrand                         :      312 :LookUpPrefix[MobileBrands;@VersionTag]'
+    - 'DeviceName                          :      312 :@VersionTag'
+    - 'DeviceVersion                       :      312 :@VersionTag^.(3)version'
 
 - matcher:
     variable:

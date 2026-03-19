@@ -4,7 +4,7 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
-  - ...
+  - Fixed a few rules that had conflicts.
 
 v8.1.0
 ===
