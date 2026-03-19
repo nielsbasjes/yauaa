@@ -88,7 +88,7 @@ ENV LC_ALL="en_US.UTF-8"
 
 # --------------------------------
 # Install Maven ( https://maven.apache.org/download.cgi )
-ENV MAVEN_VERSION=3.9.9
+ENV MAVEN_VERSION=3.9.14
 RUN mkdir -p /usr/local/apache-maven
 WORKDIR /usr/local/
 RUN wget "https://www.apache.org/dyn/closer.lua?action=download&filename=/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz" -O "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
@@ -104,7 +104,7 @@ RUN wget https://raw.githubusercontent.com/juven/maven-bash-completion/master/ba
 
 # --------------------------------
 # Install shellcheck ( https://github.com/koalaman/shellcheck/releases )
-ENV SHELLCHECK_VERSION=0.9.0
+ENV SHELLCHECK_VERSION=0.11.0
 WORKDIR /usr/local/bin
 RUN wget https://github.com/koalaman/shellcheck/releases/download/v${SHELLCHECK_VERSION}/shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \
     tar xJf shellcheck-v${SHELLCHECK_VERSION}.linux.x86_64.tar.xz && \

@@ -19,6 +19,8 @@
 . "/scripts/build_env_checks.sh"
 . "/scripts/bashcolors.sh"
 
+mkdir -p ~/.m2
+
 export JDK_VERSION="???"
 
 function __INTERNAL__SwitchJDK {

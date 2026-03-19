@@ -143,6 +143,11 @@ else
   DOCKER_INTERACTIVE="-i"
 fi
 
+# Ensure the M2 directories we are going to mount actually exist
+[ -d "${HOME}/.m2/repository" ] || mkdir -p "${HOME}/.m2/repository"
+[ -d "${HOME}/.m2/wrapper"    ] || mkdir -p "${HOME}/.m2/wrapper"
+
+
 # man docker-run
 # When using SELinux, mounted directories may not be accessible
 # to the container. To work around this, with Docker prior to 1.7
@@ -152,16 +157,17 @@ fi
 # Since Docker 1.7 was release 5 years ago we only support 1.7 and newer.
 V_OPTS=:z
 
-docker run --rm=true ${DOCKER_INTERACTIVE}                      \
-       -u "${USER_NAME}"                                        \
-       -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}${V_OPTS:-}" \
-       -v "${HOME}/.m2:/home/${USER_NAME}/.m2${V_OPTS:-}"       \
-       -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg${V_OPTS:-}" \
-       ${DOCKER_SOCKET_MOUNT}                                   \
-       -w "/home/${USER}/${PROJECTNAME}"                        \
-       -p 1313:1313                                             \
-       --name "${CONTAINER_NAME}"                               \
-       "${PROJECTNAME}-devtools-${USER_NAME}"                   \
+docker run --rm=true ${DOCKER_INTERACTIVE}                                        \
+       -u "${USER_NAME}"                                                          \
+       -v "${PWD}:/home/${USER_NAME}/${PROJECTNAME}${V_OPTS:-}"                   \
+       -v "${HOME}/.m2/repository:/home/${USER_NAME}/.m2/repository${V_OPTS:-}"   \
+       -v "${HOME}/.m2/wrapper:/home/${USER_NAME}/.m2/wrapper${V_OPTS:-}"         \
+       -v "${MOUNTGPGDIR}:/home/${USER_NAME}/.gnupg${V_OPTS:-}"                   \
+       ${DOCKER_SOCKET_MOUNT}                                                     \
+       -w "/home/${USER}/${PROJECTNAME}"                                          \
+       -p 1313:1313                                                               \
+       --name "${CONTAINER_NAME}"                                                 \
+       "${PROJECTNAME}-devtools-${USER_NAME}"                                     \
        "${COMMAND[@]}"
 
 exit 0
