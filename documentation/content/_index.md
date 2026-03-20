@@ -19,7 +19,7 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+    - Fixed a few rules that had conflicts.
 
 ### Version v8.1.0
 - UDFs:
