@@ -100,7 +100,9 @@ public abstract class MatcherAction implements Serializable {
     }
 
     public void destroy() {
-        evaluator.destroy();
+        if (evaluator != null) {
+            evaluator.destroy();
+        }
     }
 
     boolean verbose = false;
