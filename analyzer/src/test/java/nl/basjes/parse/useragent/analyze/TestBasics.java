@@ -126,4 +126,34 @@ class TestBasics {
         assertEquals(ParseSecChUa.HEADER_SPEC_URL, secChUaHeaderSpec.getSpecificationUrl());
     }
 
+    @Test
+    void testDestroyUninitialized() {
+        // As reported here: https://github.com/nielsbasjes/yauaa/pull/2128
+        // There is a NPE when destroying the UserAgentAnalyzer - when Matchers initialization
+        // is delayed (default), and no parsing was made before destroying.
+
+        // Verify the UNinitialized destroy usecase
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .delayInitialization()
+            .withCache(10000)
+            .build();
+
+        uaa.destroy();
+    }
+
+    @Test
+    void testDestroyNormal() {
+        // Verify the initialized destroy usecase
+        UserAgentAnalyzer uaa = UserAgentAnalyzer
+            .newBuilder()
+            .hideMatcherLoadStats()
+            .immediateInitialization()
+            .withCache(10000)
+            .build();
+
+        uaa.destroy();
+    }
+
 }
