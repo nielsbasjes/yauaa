@@ -5,6 +5,8 @@ NEXT RELEASE
 ===
 - Analyzer:
   - Migrate from JSR305 to JSpecify annotations
+- Webapp:
+  - Added basic MCP Tool
 - New/improved detections:
   - ...
 
