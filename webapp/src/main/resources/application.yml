@@ -26,6 +26,17 @@ spring:
     schema:
       printer:
         enabled: true
+  ai:
+    mcp:
+      server:
+        name: yauaa-mcp-server
+        request-timeout: 5m
+        protocol: STATELESS
+        version: "@project.version@"
+        stdio: false
+        instructions: |
+          Any result that contains 'Unknown' means the only valid answer is that the value cannot be determined.
+          Any result that contains '??' means the only valid answer is that the version cannot be determined.
 
 logging:
   level:

@@ -372,7 +372,8 @@ public class HumanHtml {
             "<a href=\"/graphql\">Endpoint</a>, " +
             "<a href=\"/graphql/schema\">Schema</a>]</p>"
         );
-
+        sb.append("<p class=\"logobar mcp\">A simple MCP based API has been created for testing purposes: " +
+            "Connect your LLM to <a href=\"/mcp\">/mcp</a> to try it out.</p>");
         sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
             "https://github.com/nielsbasjes/yauaa</a></p>");
         sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +

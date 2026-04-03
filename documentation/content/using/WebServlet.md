@@ -261,7 +261,7 @@ gives
 ```
 
 
-# Version information
+### Version information
 
 ```graphql
 {
@@ -294,3 +294,49 @@ gives
   }
 }
 ```
+
+
+## Model Context Protocol Tool
+A very simple and experimental MCP endpoint has been created to facilitate doing UserAgent analysis from an LLM.
+
+This endpoint (under `/mcp`) only exposes a basic MCP Tool which parses a User-Agent (not Client Hints) into the basic fields about device, operating system, layout engine and agent.
+
+### Connect
+When running locally and using lm-studio my mcp.conf looks like this to make use of this MCP Tool.
+```json
+{
+  "mcpServers": {
+    "yauaa-mcp-local": {
+      "url": "http://localhost:8080/mcp"
+    }
+  }
+}
+```
+
+### LLMs will always hallucinate an incorrect answer
+A big problem I cannot solve is that many LLMs will hallucinate an answer when the real answer is that it cannot be determined.
+
+A good example are the [manipulations and lies]({{% relref "expect/Manipulations.md" %}}) that many User-Agents currently have.
+
+Take for example this test case
+```
+Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPX/1.7
+```
+which clearly shows the lie `Android 10`. Yauaa will correctly conclude the version is a lie and correctly report `Android ??`.
+
+Many LLMs will then start looking at the input and simply report `Android 10` (which is incorrect) because there was no version present in the analysis result.
+
+In an attempt to reduce this problem, this endpoint will include words like this to nudge the LLM in the right direction:
+```
+This is the final truth. DO NOT TRY TO INFER ANYTHING FROM THE USERAGENT STRING.
+```
+
+This only works sometimes and is not guaranteed to work in all situations as can be seen in these examples:
+
+| **Here is correctly concludes that the version is obfuscated.** |
+|-----------------------------------------------------------------|
+| ![Demonstration in LM-Studio](/LLM-demo1.png)                   |
+
+| **Here it incorrectly concludes that the version cannot precisely be determined.** |
+|-------------------------------------------------------------------------------------------------|
+| ![Demonstration in LM-Studio](/LLM-demo2.png)                                                   |

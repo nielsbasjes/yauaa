@@ -18,6 +18,8 @@ If you just want to give it a quick try then you can do that with your own brows
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+ - Webapp:
+  - Added basic MCP Tool
 - New/improved detections:
   - ...
 
@@ -57,29 +59,6 @@ These are only the highlights for the last few releases, the full changelog can 
     - Tolino eReaders
     - Fitage app (partial because much is hidden in a base64 block)
     - SamsungBrowser starts with "Samsung" but does not imply the brand Samsung
-
-### Version v7.32.0
-- Analyzer:
-    - Disable using the default constructor (thanks to https://github.com/izeye)
-- Build
-    - Require JDK 24 installed for Trino support.
-    - Remove workaround for conjars.org going away.
-- New/improved detections:
-    - IntelliJ IDEA (now Desktop App on a Desktop)
-    - Safari 26 on iOS 26
-    - Electron Desktop App using special format
-- UDFs:
-    - Update UDF for Elasticsearch 9 to their API changes
-
-### Version v7.31.0
-- New/improved detections:
-    - CrowBrowser (LG SmartTV),
-    - Robots: Scrapy, HTTPie
-    - OpenHarmony
-    - ArkWeb (HuaweiOS browser engine)
-- UDFs
-    - New UDF for Elasticsearch 9
-    - All Elasticsearch UDFs(Plugins) must be built by the user for their specific version.
 
 ## Significant change happened in Apple iPads
 Since about February 2025 the Apple iPads no longer are reported as a Tablet because their useragent has switched to reporting a Desktop:

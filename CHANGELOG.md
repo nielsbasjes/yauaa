@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Webapp:
+  - Added basic MCP Tool
 - New/improved detections:
   - ...
 
