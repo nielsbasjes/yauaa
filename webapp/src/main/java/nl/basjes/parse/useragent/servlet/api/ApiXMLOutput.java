@@ -197,20 +197,17 @@ public class ApiXMLOutput {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        parseService.ensureStartedForApis(OutputType.XML);
-        if (parseService.isUserAgentAnalyzerAvailable()) {
-            UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
-            List<String> result = new ArrayList<>(2048);
-            for (String input : splitPerFilledLine(userAgentString)) {
-                UserAgent userAgent = userAgentAnalyzer.parse(input);
-                List<String> fieldNamesSorted = new ArrayList<>();
-                fieldNamesSorted.add(USERAGENT_FIELDNAME);
-                fieldNamesSorted.addAll(userAgent.getCleanedAvailableFieldNamesSorted());
-                result.add(userAgent.toXML(fieldNamesSorted));
-            }
-            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + String.join("\n", result);
+
+        UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
+        List<String> result = new ArrayList<>(2048);
+        for (String input : splitPerFilledLine(userAgentString)) {
+            UserAgent userAgent = userAgentAnalyzer.parse(input);
+            List<String> fieldNamesSorted = new ArrayList<>();
+            fieldNamesSorted.add(USERAGENT_FIELDNAME);
+            fieldNamesSorted.addAll(userAgent.getCleanedAvailableFieldNamesSorted());
+            result.add(userAgent.toXML(fieldNamesSorted));
         }
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Yauaa></Yauaa>";
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + String.join("\n", result);
     }
 
 }

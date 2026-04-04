@@ -33,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
@@ -60,11 +59,12 @@ public class RunTests {
         description = "The number of reported tests were done to preheat the engine",
         content = @Content(
                     mediaType = APPLICATION_JSON_VALUE,
-                    examples = @ExampleObject("{\n" +
-                    "  \"status\": \"Ran tests\",\n" +
-                    "  \"testsDone\": 2337,\n" +
-                    "  \"timeInMs\": 3123\n" +
-                    "}")
+                    examples = @ExampleObject("""
+                        {
+                          "status": "Ran tests",
+                          "testsDone": 2337,
+                          "timeInMs": 3123
+                        }""")
         )
     )
     @GetMapping(
@@ -72,7 +72,6 @@ public class RunTests {
         produces = APPLICATION_JSON_VALUE
     )
     public String getPreHeat() {
-        parseService.ensureStartedForApis(OutputType.JSON);
         UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
 
         final int cacheSize = userAgentAnalyzer.getCacheSize();
@@ -113,7 +112,6 @@ public class RunTests {
         produces = TEXT_PLAIN_VALUE
     )
     public String getRunTests() {
-        parseService.ensureStartedForApis(OutputType.TXT);
         UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
         List<TestCase> testCases = userAgentAnalyzer.getTestCases();
 
@@ -122,7 +120,7 @@ public class RunTests {
             .stream()
             .map(testCase -> testCase.verify(userAgentAnalyzer, false))
             .filter(TestResult::testFailed)
-            .collect(Collectors.toList());
+            .toList();
         long stop = System.nanoTime();
 
         if (failedTests.isEmpty()) {

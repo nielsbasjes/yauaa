@@ -15,18 +15,20 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.exceptions;
+package nl.basjes.parse.useragent.servlet;
 
-import nl.basjes.parse.useragent.servlet.api.OutputType;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class YauaaIsBusyStarting extends RuntimeException {
-    private final OutputType outputType;
+// CHECKSTYLE.OFF: HideUtilityClassConstructor
 
-    public OutputType getOutputType() {
-        return outputType;
+@Tag(name = "Yauaa", description = "Analyzing the useragents")
+@SpringBootApplication
+public class YauaaWebApp {
+
+    public static void main(String[] args) {
+        SpringApplication.run(YauaaWebApp.class, args);
     }
 
-    public YauaaIsBusyStarting(OutputType outputType) {
-        this.outputType = outputType;
-    }
 }

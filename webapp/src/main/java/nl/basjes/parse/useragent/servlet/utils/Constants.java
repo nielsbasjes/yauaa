@@ -38,85 +38,89 @@ public final class Constants {
     public static final String EXAMPLE_TWO_USERAGENTS = EXAMPLE_USERAGENT + '\n' + EXAMPLE_USERAGENT_2;
 
 
-    public static final String EXAMPLE_JSON = "[ {\n" +
-        "  \"Useragent\": \"Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36\",\n" +
-        "  \"DeviceClass\": \"Phone\",\n" +
-        "  \"DeviceName\": \"Google Nexus 6\",\n" +
-        "  \"DeviceBrand\": \"Google\",\n" +
-        "  \"OperatingSystemClass\": \"Mobile\",\n" +
-        "  \"OperatingSystemName\": \"Android\",\n" +
-        "  \"OperatingSystemVersion\": \"7.0\",\n" +
-        "  \"OperatingSystemVersionMajor\": \"7\",\n" +
-        "  \"OperatingSystemNameVersion\": \"Android 7.0\",\n" +
-        "  \"OperatingSystemNameVersionMajor\": \"Android 7\",\n" +
-        "  \"OperatingSystemVersionBuild\": \"NBD90Z\",\n" +
-        "  \"LayoutEngineClass\": \"Browser\",\n" +
-        "  \"LayoutEngineName\": \"Blink\",\n" +
-        "  \"LayoutEngineVersion\": \"53.0\",\n" +
-        "  \"LayoutEngineVersionMajor\": \"53\",\n" +
-        "  \"LayoutEngineNameVersion\": \"Blink 53.0\",\n" +
-        "  \"LayoutEngineNameVersionMajor\": \"Blink 53\",\n" +
-        "  \"AgentClass\": \"Browser\",\n" +
-        "  \"AgentName\": \"Chrome\",\n" +
-        "  \"AgentVersion\": \"53.0.2785.124\",\n" +
-        "  \"AgentVersionMajor\": \"53\",\n" +
-        "  \"AgentNameVersion\": \"Chrome 53.0.2785.124\",\n" +
-        "  \"AgentNameVersionMajor\": \"Chrome 53\"\n" +
-        "} ]";
+    public static final String EXAMPLE_JSON = """
+        [ {
+          "Useragent": "Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36",
+          "DeviceClass": "Phone",
+          "DeviceName": "Google Nexus 6",
+          "DeviceBrand": "Google",
+          "OperatingSystemClass": "Mobile",
+          "OperatingSystemName": "Android",
+          "OperatingSystemVersion": "7.0",
+          "OperatingSystemVersionMajor": "7",
+          "OperatingSystemNameVersion": "Android 7.0",
+          "OperatingSystemNameVersionMajor": "Android 7",
+          "OperatingSystemVersionBuild": "NBD90Z",
+          "LayoutEngineClass": "Browser",
+          "LayoutEngineName": "Blink",
+          "LayoutEngineVersion": "53.0",
+          "LayoutEngineVersionMajor": "53",
+          "LayoutEngineNameVersion": "Blink 53.0",
+          "LayoutEngineNameVersionMajor": "Blink 53",
+          "AgentClass": "Browser",
+          "AgentName": "Chrome",
+          "AgentVersion": "53.0.2785.124",
+          "AgentVersionMajor": "53",
+          "AgentNameVersion": "Chrome 53.0.2785.124",
+          "AgentNameVersionMajor": "Chrome 53"
+        } ]""";
 
-    public static final String EXAMPLE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-        "  <Yauaa>\n" +
-        "    <Useragent>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36</Useragent>\n" +
-        "    <DeviceClass>Phone</DeviceClass>\n" +
-        "    <DeviceName>Google Nexus 6</DeviceName>\n" +
-        "    <DeviceBrand>Google</DeviceBrand>\n" +
-        "    <OperatingSystemClass>Mobile</OperatingSystemClass>\n" +
-        "    <OperatingSystemName>Android</OperatingSystemName>\n" +
-        "    <OperatingSystemVersion>7.0</OperatingSystemVersion>\n" +
-        "    <OperatingSystemVersionMajor>7</OperatingSystemVersionMajor>\n" +
-        "    <OperatingSystemNameVersion>Android 7.0</OperatingSystemNameVersion>\n" +
-        "    <OperatingSystemNameVersionMajor>Android 7</OperatingSystemNameVersionMajor>\n" +
-        "    <OperatingSystemVersionBuild>NBD90Z</OperatingSystemVersionBuild>\n" +
-        "    <LayoutEngineClass>Browser</LayoutEngineClass>\n" +
-        "    <LayoutEngineName>Blink</LayoutEngineName>\n" +
-        "    <LayoutEngineVersion>53.0</LayoutEngineVersion>\n" +
-        "    <LayoutEngineVersionMajor>53</LayoutEngineVersionMajor>\n" +
-        "    <LayoutEngineNameVersion>Blink 53.0</LayoutEngineNameVersion>\n" +
-        "    <LayoutEngineNameVersionMajor>Blink 53</LayoutEngineNameVersionMajor>\n" +
-        "    <AgentClass>Browser</AgentClass>\n" +
-        "    <AgentName>Chrome</AgentName>\n" +
-        "    <AgentVersion>53.0.2785.124</AgentVersion>\n" +
-        "    <AgentVersionMajor>53</AgentVersionMajor>\n" +
-        "    <AgentNameVersion>Chrome 53.0.2785.124</AgentNameVersion>\n" +
-        "    <AgentNameVersionMajor>Chrome 53</AgentNameVersionMajor>\n" +
-        "  </Yauaa>";
+    public static final String EXAMPLE_XML = """
+        <?xml version="1.0" encoding="UTF-8"?>
+          <Yauaa>
+            <Useragent>Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36</Useragent>
+            <DeviceClass>Phone</DeviceClass>
+            <DeviceName>Google Nexus 6</DeviceName>
+            <DeviceBrand>Google</DeviceBrand>
+            <OperatingSystemClass>Mobile</OperatingSystemClass>
+            <OperatingSystemName>Android</OperatingSystemName>
+            <OperatingSystemVersion>7.0</OperatingSystemVersion>
+            <OperatingSystemVersionMajor>7</OperatingSystemVersionMajor>
+            <OperatingSystemNameVersion>Android 7.0</OperatingSystemNameVersion>
+            <OperatingSystemNameVersionMajor>Android 7</OperatingSystemNameVersionMajor>
+            <OperatingSystemVersionBuild>NBD90Z</OperatingSystemVersionBuild>
+            <LayoutEngineClass>Browser</LayoutEngineClass>
+            <LayoutEngineName>Blink</LayoutEngineName>
+            <LayoutEngineVersion>53.0</LayoutEngineVersion>
+            <LayoutEngineVersionMajor>53</LayoutEngineVersionMajor>
+            <LayoutEngineNameVersion>Blink 53.0</LayoutEngineNameVersion>
+            <LayoutEngineNameVersionMajor>Blink 53</LayoutEngineNameVersionMajor>
+            <AgentClass>Browser</AgentClass>
+            <AgentName>Chrome</AgentName>
+            <AgentVersion>53.0.2785.124</AgentVersion>
+            <AgentVersionMajor>53</AgentVersionMajor>
+            <AgentNameVersion>Chrome 53.0.2785.124</AgentNameVersion>
+            <AgentNameVersionMajor>Chrome 53</AgentNameVersionMajor>
+          </Yauaa>""";
 
     public static final String EXAMPLE_YAML =
-        "- test:\n" +
-        "    input:\n" +
-        "      user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36'\n" +
-        "    expected:\n" +
-        "      DeviceClass                           : 'Phone'\n" +
-        "      DeviceName                            : 'Google Nexus 6'\n" +
-        "      DeviceBrand                           : 'Google'\n" +
-        "      OperatingSystemClass                  : 'Mobile'\n" +
-        "      OperatingSystemName                   : 'Android'\n" +
-        "      OperatingSystemVersion                : '7.0'\n" +
-        "      OperatingSystemVersionMajor           : '7'\n" +
-        "      OperatingSystemNameVersion            : 'Android 7.0'\n" +
-        "      OperatingSystemNameVersionMajor       : 'Android 7'\n" +
-        "      OperatingSystemVersionBuild           : 'NBD90Z'\n" +
-        "      LayoutEngineClass                     : 'Browser'\n" +
-        "      LayoutEngineName                      : 'Blink'\n" +
-        "      LayoutEngineVersion                   : '53.0'\n" +
-        "      LayoutEngineVersionMajor              : '53'\n" +
-        "      LayoutEngineNameVersion               : 'Blink 53.0'\n" +
-        "      LayoutEngineNameVersionMajor          : 'Blink 53'\n" +
-        "      AgentClass                            : 'Browser'\n" +
-        "      AgentName                             : 'Chrome'\n" +
-        "      AgentVersion                          : '53.0.2785.124'\n" +
-        "      AgentVersionMajor                     : '53'\n" +
-        "      AgentNameVersion                      : 'Chrome 53.0.2785.124'\n" +
-        "      AgentNameVersionMajor                 : 'Chrome 53'\n";
+        """
+            - test:
+                input:
+                  user_agent_string: 'Mozilla/5.0 (Linux; Android 7.0; Nexus 6 Build/NBD90Z) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36'
+                expected:
+                  DeviceClass                           : 'Phone'
+                  DeviceName                            : 'Google Nexus 6'
+                  DeviceBrand                           : 'Google'
+                  OperatingSystemClass                  : 'Mobile'
+                  OperatingSystemName                   : 'Android'
+                  OperatingSystemVersion                : '7.0'
+                  OperatingSystemVersionMajor           : '7'
+                  OperatingSystemNameVersion            : 'Android 7.0'
+                  OperatingSystemNameVersionMajor       : 'Android 7'
+                  OperatingSystemVersionBuild           : 'NBD90Z'
+                  LayoutEngineClass                     : 'Browser'
+                  LayoutEngineName                      : 'Blink'
+                  LayoutEngineVersion                   : '53.0'
+                  LayoutEngineVersionMajor              : '53'
+                  LayoutEngineNameVersion               : 'Blink 53.0'
+                  LayoutEngineNameVersionMajor          : 'Blink 53'
+                  AgentClass                            : 'Browser'
+                  AgentName                             : 'Chrome'
+                  AgentVersion                          : '53.0.2785.124'
+                  AgentVersionMajor                     : '53'
+                  AgentNameVersion                      : 'Chrome 53.0.2785.124'
+                  AgentNameVersionMajor                 : 'Chrome 53'
+            """;
 
 }

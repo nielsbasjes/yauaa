@@ -197,19 +197,16 @@ public class ApiJsonOutput {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        parseService.ensureStartedForApis(OutputType.JSON);
-        if (parseService.isUserAgentAnalyzerAvailable()) {
-            UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
-            List<String> result = new ArrayList<>(2048);
-            for (String input : splitPerFilledLine(userAgentString)) {
-                UserAgent userAgent = userAgentAnalyzer.parse(input);
-                List<String> fieldNamesSorted = new ArrayList<>();
-                fieldNamesSorted.add(USERAGENT_FIELDNAME);
-                fieldNamesSorted.addAll(userAgent.getCleanedAvailableFieldNamesSorted());
-                result.add(userAgent.toJson(fieldNamesSorted));
-            }
-            return "[" + String.join(",\n", result) + "]";
+
+        UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
+        List<String> result = new ArrayList<>(2048);
+        for (String input : splitPerFilledLine(userAgentString)) {
+            UserAgent userAgent = userAgentAnalyzer.parse(input);
+            List<String> fieldNamesSorted = new ArrayList<>();
+            fieldNamesSorted.add(USERAGENT_FIELDNAME);
+            fieldNamesSorted.addAll(userAgent.getCleanedAvailableFieldNamesSorted());
+            result.add(userAgent.toJson(fieldNamesSorted));
         }
-        return "[]";
+        return "[" + String.join(",\n", result) + "]";
     }
 }

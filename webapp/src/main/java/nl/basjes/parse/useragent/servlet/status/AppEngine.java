@@ -23,11 +23,13 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.servlet.ParseService;
-import nl.basjes.parse.useragent.servlet.api.OutputType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 
 @Tag(name = "System status")
@@ -47,7 +49,7 @@ public class AppEngine {
      * <a href="https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed#health_checking">
      * App Engine health checking</a> requires responding with 200 to {@code /_ah/health}.
      *
-     * @return Returns a non empty message body.
+     * @return Returns a non-empty message body.
      */
     @SuppressWarnings("SameReturnValue")
     @Operation(
@@ -68,9 +70,11 @@ public class AppEngine {
         path = "/_ah/health",
         produces = TEXT_PLAIN_VALUE
     )
-    public String isHealthy() {
-        parseService.ensureStartedForApis(OutputType.TXT);
-        return "YES";
+    public ResponseEntity<String> isHealthy() {
+        if (parseService.getUserAgentAnalyzer() == null) {
+            return new ResponseEntity<>("NO", INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("YES", OK);
     }
 
 }

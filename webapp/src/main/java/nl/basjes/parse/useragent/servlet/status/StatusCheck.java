@@ -24,10 +24,13 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nl.basjes.parse.useragent.servlet.ParseService;
-import nl.basjes.parse.useragent.servlet.api.OutputType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.OK;
 
 @Tag(name = "System status", description = "Checking if the servlet is running")
 @RestController
@@ -77,8 +80,7 @@ public class StatusCheck {
             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port: yauaa</br>" +
             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initialDelaySeconds: 10</br>" +
             "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;periodSeconds: 30</br>" +
-            "</pre>" +
-            "";
+            "</pre>";
 
     // ------------------------------------------
 
@@ -117,15 +119,17 @@ public class StatusCheck {
     )
     @ApiResponse(
         responseCode = "500", // HttpStatus.INTERNAL_SERVER_ERROR,
-        description = "The analyzer is still starting up or has failed to startup",
+        description = "The analyzer has failed to startup",
         content = @Content(examples = @ExampleObject())
     )
     @GetMapping(
         path = "/readiness"
     )
-    public String isReady() {
-        parseService.ensureStartedForApis(OutputType.TXT);
-        return "YES";
+    public ResponseEntity<String> isReady() {
+        if (parseService.getUserAgentAnalyzer() == null) {
+            return new ResponseEntity<>("NO", INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("YES", OK);
     }
 
     // ------------------------------------------
@@ -138,7 +142,7 @@ public class StatusCheck {
     @GetMapping(
         path = "/running"
     )
-    public String isRunning() {
+    public ResponseEntity<String> isRunning() {
         return isReady();
     }
 

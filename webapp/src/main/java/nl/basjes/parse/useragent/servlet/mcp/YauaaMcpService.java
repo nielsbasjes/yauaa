@@ -28,20 +28,20 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU;
-import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU_BITS;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
-import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_CLASS;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
-import static nl.basjes.parse.useragent.UserAgent.AGENT_LANGUAGE;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_EMAIL;
 import static nl.basjes.parse.useragent.UserAgent.AGENT_INFORMATION_URL;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_LANGUAGE;
+import static nl.basjes.parse.useragent.UserAgent.AGENT_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_BRAND;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_CPU_BITS;
+import static nl.basjes.parse.useragent.UserAgent.DEVICE_NAME;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.LAYOUT_ENGINE_NAME_VERSION;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_CLASS;
+import static nl.basjes.parse.useragent.UserAgent.OPERATING_SYSTEM_NAME_VERSION;
 import static nl.basjes.parse.useragent.UserAgent.WEBVIEW_APP_NAME_VERSION;
 
 @Service
