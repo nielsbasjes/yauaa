@@ -87,7 +87,7 @@ public class YauaaVersion extends GraphQLTypeVisitorStub {
             GraphQLObjectType updatedQuery = objectType.transform(builder -> builder.field(getVersion));
 
             FieldCoordinates coordinates = FieldCoordinates.coordinates(objectType.getName(), getVersion.getName());
-            codeRegistry.dataFetcher(coordinates, (DataFetcher<?>)(env -> Version.getInstance()));
+            codeRegistry.dataFetcher(coordinates, (DataFetcher<Version>)(env -> Version.getInstance()));
             return changeNode(context, updatedQuery);
         }
 

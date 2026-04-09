@@ -56,7 +56,8 @@ public class YauaaMcpService {
 
     @McpTool(
         name = "Yauaa",
-        description = "Analyse and extract properties from the provided User-Agent string, this includes information about the device, the operating system, the layout engine and the agent."
+        description = "Analyse and extract properties from the provided User-Agent string, " +
+                      "this includes information about the device, the operating system, the layout engine and the agent."
     )
     public Map<String, String> parseUserAgent(
         @McpToolParam(description = "The UserAgent string that needs to be analyzed") String userAgent
@@ -70,15 +71,15 @@ public class YauaaMcpService {
         addResult(result, parsed, DEVICE_CPU,                          "Device Cpu");
         addResult(result, parsed, DEVICE_CPU_BITS,                     "Device Cpu-Bits");
         addResult(result, parsed, OPERATING_SYSTEM_CLASS,              "OperatingSystem Class");
-        addResult(result, parsed, OPERATING_SYSTEM_NAME_VERSION,       "OperatingSystem Name+Version");
+        addResult(result, parsed, OPERATING_SYSTEM_NAME_VERSION,       "OperatingSystem");
         addResult(result, parsed, LAYOUT_ENGINE_CLASS,                 "LayoutEngine Class");
-        addResult(result, parsed, LAYOUT_ENGINE_NAME_VERSION,          "LayoutEngine Name+Version");
+        addResult(result, parsed, LAYOUT_ENGINE_NAME_VERSION,          "LayoutEngine");
         addResult(result, parsed, AGENT_CLASS,                         "Agent Class");
-        addResult(result, parsed, AGENT_NAME_VERSION,                  "Agent Name+Version");
+        addResult(result, parsed, AGENT_NAME_VERSION,                  "Agent");
         addResult(result, parsed, AGENT_LANGUAGE,                      "Agent Language");
         addResult(result, parsed, AGENT_INFORMATION_EMAIL,             "Agent Information Email");
         addResult(result, parsed, AGENT_INFORMATION_URL,               "Agent Information Url");
-        addResult(result, parsed, WEBVIEW_APP_NAME_VERSION,            "WebviewApp Name+Version");
+        addResult(result, parsed, WEBVIEW_APP_NAME_VERSION,            "Webview App");
 
         return result;
     }
