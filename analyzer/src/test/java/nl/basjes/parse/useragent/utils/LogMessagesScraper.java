@@ -63,7 +63,7 @@ public class LogMessagesScraper implements BeforeTestExecutionCallback, AfterTes
 
     @Override
     public void beforeTestExecution(ExtensionContext extensionContext) {
-        StringLayout layout = PatternLayout.newBuilder().withPattern(PATTERN).build();
+        StringLayout layout = PatternLayout.newBuilder().setPattern(PATTERN).build();
         appender = WriterAppender.newBuilder()
             .setTarget(outContent)
             .setLayout(layout)
