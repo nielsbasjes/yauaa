@@ -13,6 +13,16 @@ If you just want to give it a quick try then you can do that with your own brows
 
 ---
 
+## False positive by Microsoft Defender about Yauaa 7.32.0
+It was reported (issue [2206](https://github.com/nielsbasjes/yauaa/issues/2206)) that Yauaa v7.32.0 is flagged by Microsoft Defender as a Trojan.
+Depending on their engine it is reported as either `Trojan:Java/SAgnt!AMTB` or `TrojanDownloader:Linux/Capfetox.D!ibt`.
+
+If you unzip the file and then scan all the content then no problem is reported anymore.
+
+I have checked Yauaa 7.29.0, 7.30.0, 7.31.0, 8.0.0, 8.1.0 and 8.1.1 all pass without problems.
+
+I reported this issue to Microsoft as a False Positive in their Defender tool.
+
 ## HIGH Profile release notes:
 
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
