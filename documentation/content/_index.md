@@ -17,9 +17,11 @@ If you just want to give it a quick try then you can do that with your own brows
 It was reported (issue [2206](https://github.com/nielsbasjes/yauaa/issues/2206)) that Yauaa v7.32.0 is flagged by Microsoft Defender as a Trojan.
 Depending on their engine it is reported as either `Trojan:Java/SAgnt!AMTB` or `TrojanDownloader:Linux/Capfetox.D!ibt`.
 
-If you unzip the file and then scan all the content then no problem is reported anymore.
+Further investigation showed the nl/basjes/parse/useragent/PreHeatCases.class to be the one which is marked as the Trojan/TrojanDownloader.
+This file is simply a list of all the UserAgents from all of the testcases specified in the yaml files, which are used to heat up the JVM via the preheat call. 
+This list of testcases also contains all of the samples of the UserAgent attacks that I have encountered of the years. Including all kinds of script/sql/command injection, path traversal, Log4Shell and many more. So this file does contain snippets of evil code.
 
-I have checked Yauaa 7.29.0, 7.30.0, 7.31.0, 8.0.0, 8.1.0 and 8.1.1 all pass without problems.
+The strange thing is that the same file in Yauaa 7.29.0, 7.30.0, 7.31.0, 8.0.0, 8.1.0 and 8.1.1 all pass without problems.
 
 I reported this issue to Microsoft as a False Positive in their Defender tool.
 
