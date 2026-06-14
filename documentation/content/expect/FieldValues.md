@@ -112,6 +112,7 @@ So I classify all of them as hacking oriented tools.                            
 
 | Value           | Meaning                                                                                               |
 |-----------------|-------------------------------------------------------------------------------------------------------|
+| No security     | Indicated to explicitly not have any encryption.                                                      |
 | Weak security   | Indicated to use deliberately weakened encryption (usually due to export restrictions or local laws). |
 | Strong security | Indicated to use strong (normal) encryption.                                                          |
 | Unknown         | It was not specified (very common)                                                                    |
