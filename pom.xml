@@ -315,6 +315,25 @@
     </profile>
 
     <profile>
+      <id>basicQuality</id>
+      <properties>
+<!--        <skipTests>true</skipTests>-->
+        <sonar.skip>true</sonar.skip>
+        <rat.skip>true</rat.skip>
+        <checkstyle.skip>true</checkstyle.skip>
+        <jacoco.skip>true</jacoco.skip>
+        <spotbugs.skip>true</spotbugs.skip>
+        <dependency-check.skip>true</dependency-check.skip>
+        <dependency-convergence.phase>none</dependency-convergence.phase>
+        <docker-based-tests.skip>true</docker-based-tests.skip>
+        <invoker.skip>true</invoker.skip>
+        <cyclonedx.skip>true</cyclonedx.skip>
+        <gpg.skip>true</gpg.skip>
+<!--        <maven.build.cache.skipCache>true</maven.build.cache.skipCache>-->
+      </properties>
+    </profile>
+
+    <profile>
       <id>skipQuality</id>
       <properties>
         <skipTests>true</skipTests>
