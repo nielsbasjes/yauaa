@@ -19,7 +19,7 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+  - Robots: Meta/Facebook robots, KakaoTalk Scrap
 
 ### Version v8.1.1
 - New/improved detections:

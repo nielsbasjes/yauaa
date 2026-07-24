@@ -61,6 +61,7 @@ config:
       'HTTPie'                       : 'HTTPie|HTTPie'
       'Hackney'                      : 'Hackney|Hackney'
       'heritrix'                     : 'heritrix|heritrix'
+      'kakaotalk-scrap'              : 'Kakao|KakaoTalk Scrap'
       'Kapow Technologies RoboSuite' : 'Kapow|Kapow Technologies RoboSuite'
       'Keeper'                       : 'Keeper|Keeper'
       'lua-resty-http'               : 'LedgeTech|lua-resty-http'
@@ -219,11 +220,33 @@ config:
       'W3C_CSS_Validator_JFouffa'    : 'W3C|W3C CSS Validator'
       'W3C_Unicorn'                  : 'W3C|W3C Unicorn'
 
+      # See: https://developers.facebook.com/documentation/sharing/webmasters/web-crawlers
+      # ... crawl the content of an app or website that was shared on one of Meta’s family of apps,
+      # such as Facebook, Instagram, or Messenger.
+#      'facebookexternalhit'          : 'Facebook|Facebook-ExternalHit'  # TO SEPARATE RULE BECAUSE OF OVERLAP
+      # ... navigates the web to improve Meta AI search result quality for users.
+      'meta-webindexer'              : 'Meta|Meta-WebIndexer'
+      # ... crawls the web for use cases such as improving advertising
+      # and other business-related products and services.
+      'meta-externalads'             : 'Meta|Meta-ExternalAds'
+      # ... crawls the web for use cases such as training foundation AI models
+      # or improving products by indexing content directly.
+      'meta-externalagent'           : 'Meta|Meta-ExternalAgent'
+      # ... fetches individual links at a user’s request and supports product functions such as evaluating and
+      # improving agentic AI capabilities—including helping AI navigate websites to complete tasks for users.
+      # Accordingly, this crawler may bypass robots.txt rules.
+      'meta-externalfetcher'         : 'Meta|Meta-ExternalFetcher'
+      # No documentation found...
+      'facebookscraper'              : 'Facebook|Facebook Scraper'
+
+
 - set:
     name: 'TagsKnownNotToBeRobots'
     merge:
       - 'FederatedSocialClients'
       - 'FederatedSocialServers'
+    values:
+      - 'docker'
 
 # Edge case: Java
 - matcher:
@@ -409,7 +432,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)product.name?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)product.name?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     - 'RobotProductVersion                 :@RobotProductName^.version'
     require:
@@ -437,7 +460,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)product.name?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)product.name?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     require:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
@@ -463,7 +486,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)text?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)text?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     require:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
@@ -488,7 +511,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     require:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
@@ -526,7 +549,7 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.(1-4)product.comments.entry.(1-2)product.name?NamedRobots'
+    - 'agent.(1-6)product.comments.entry.(1-2)product.name?NamedRobots'
     extract:
     - 'DeviceClass                         :   400100 :"Robot Mobile"'
 
@@ -536,7 +559,7 @@ config:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent.product.name="Mobile Safari"'
-    - 'agent.(1-4)product.comments.entry.(1-2)text?NamedRobots'
+    - 'agent.(1-6)product.comments.entry.(1-2)text?NamedRobots'
     extract:
     - 'DeviceClass                         :   400100 :"Robot Mobile"'
 
@@ -570,7 +593,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)product.name?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)product.name?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     - 'RobotProductVersion                 :@RobotProductName^.version'
     require:
@@ -597,7 +620,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)text?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)text?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     require:
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
@@ -650,7 +673,7 @@ config:
 
 - matcher:
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)product.name?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)product.name?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     - 'RobotProductVersion                 :@RobotProductName^.version'
     require:
@@ -681,7 +704,7 @@ config:
     - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
     - 'agent~"Android"'
     variable:
-    - 'RobotProductName                    :agent.(1-4)product.comments.entry.(1-2)text?NamedRobots'
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)text?NamedRobots'
     - 'RobotProduct                        :LookUp[NamedRobots;@RobotProductName]'
     extract:
     - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
@@ -2266,68 +2289,6 @@ config:
       AgentNameVersion                     : 'Curious George ??'
       AgentNameVersionMajor                : 'Curious George ??'
       AgentInformationUrl                  : 'www.analyticsseo.com/crawler'
-
-# When you share a link on facebook then the Facebook systems will try to create a preview of the page
-# using one of these useragents
-- matcher:
-    require:
-    - 'agent.(1)product.name="facebookexternalhit"'
-    extract:
-    - 'DeviceClass                         :       10 : "Robot"'
-    - 'DeviceName                          :       10 : "Facebook Robot"'
-    - 'DeviceBrand                         :       10 : "Facebook"'
-    - 'OperatingSystemClass                :       10 : "Cloud"'
-    - 'OperatingSystemName                 :       10 : "Cloud"'
-    - 'OperatingSystemVersion              :       10 : "<<<null>>>"'
-
-- test:
-    input:
-      user_agent_string: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Facebook Robot'
-      DeviceBrand                          : 'Facebook'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Facebookexternalhit'
-      AgentVersion                         : '1.1'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Facebookexternalhit 1.1'
-      AgentNameVersionMajor                : 'Facebookexternalhit 1'
-      AgentInformationUrl                  : 'http://www.facebook.com/externalhit_uatext.php'
-
-- test:
-    input:
-      user_agent_string: 'facebookexternalhit/1.1'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Facebook Robot'
-      DeviceBrand                          : 'Facebook'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Facebookexternalhit'
-      AgentVersion                         : '1.1'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Facebookexternalhit 1.1'
-      AgentNameVersionMajor                : 'Facebookexternalhit 1'
 
 - test:
     input:
@@ -4203,31 +4164,6 @@ config:
       AgentNameVersionMajor                : 'PingdomPageSpeed 1'
       AgentInformationUrl                  : 'http://www.pingdom.com/'
 
-- test:
-    input:
-      user_agent_string: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.4 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.4 facebookexternalhit/1.1 Facebot Twitterbot/1.0'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Facebook Facebot Twitterbot'
-      DeviceBrand                          : 'Facebook'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Facebot Twitterbot'
-      LayoutEngineVersion                  : '1.0'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Facebot Twitterbot 1.0'
-      LayoutEngineNameVersionMajor         : 'Facebot Twitterbot 1'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Facebot Twitterbot'
-      AgentVersion                         : '1.0'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Facebot Twitterbot 1.0'
-      AgentNameVersionMajor                : 'Facebot Twitterbot 1'
 
 - test:
     input:
@@ -10406,32 +10342,6 @@ config:
       AgentNameVersionMajor                : 'Acme.sh 2'
       AgentInformationUrl                  : 'https://github.com/acmesh-official/acme.sh'
 
-
-- test:
-    input:
-      user_agent_string: 'facebookcatalog/1.0'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Facebook Catalog'
-      DeviceBrand                          : 'Facebook'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'Facebook Catalog'
-      LayoutEngineVersion                  : '1.0'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'Facebook Catalog 1.0'
-      LayoutEngineNameVersionMajor         : 'Facebook Catalog 1'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'Facebook Catalog'
-      AgentVersion                         : '1.0'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Facebook Catalog 1.0'
-      AgentNameVersionMajor                : 'Facebook Catalog 1'
 
 - test:
     input:
