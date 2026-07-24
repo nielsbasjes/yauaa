@@ -4,6 +4,11 @@ This is intended as an overview of the major changes
 NEXT RELEASE
 ===
 - New/improved detections:
+  - ...
+
+v8.2.0
+===
+- New/improved detections:
   - Robots: Meta/Facebook robots, KakaoTalk Scrap
 
 v8.1.1
