@@ -35,6 +35,8 @@
     <project.build.outputEncoding>@project.build.outputEncoding@</project.build.outputEncoding>
     <maven.compiler.source>@maven.compiler.source@</maven.compiler.source>
     <maven.compiler.release>@maven.compiler.release@</maven.compiler.release>
+
+    <jackson.version>2.18.9</jackson.version> <!-- DO NOT UPDATE AUTOMATICALLY: CHECK FIRST IF THE INTEGRATION TESTS WITH DRILL PASS!! -->
   </properties>
 
   <build>
@@ -53,6 +55,32 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>@maven-enforcer-plugin.version@</version>
+        <executions>
+          <execution>
+            <id>Enforce specific Jackson version needed by Apache Drill</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireProperty>
+                  <property>jackson.version</property>
+                  <message>The Jackson version cannot be simply updated.</message>
+                  <regex>^2\.18\.9$</regex>
+                  <regexMessage>The Jackson version must be the old 2.18.9 for the integration test to pass. These tests are not run in Github so we block them this way.</regexMessage>
+                </requireProperty>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -144,7 +172,7 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
 <!--      <version>@jackson.version@</version>-->
-      <version>2.14.2</version> <!-- DO NOT UPDATE AUTOMATICALLY: CHECK FIRST IF THE INTEGRATION TESTS WITH DRILL PASS!! -->
+      <version>${jackson.version}</version> <!-- DO NOT UPDATE AUTOMATICALLY: CHECK FIRST IF THE INTEGRATION TESTS WITH DRILL PASS!! -->
       <scope>test</scope>
     </dependency>
 
@@ -152,7 +180,7 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
 <!--      <version>@jackson.version@</version>-->
-      <version>2.22.1</version> <!-- DO NOT UPDATE AUTOMATICALLY: CHECK FIRST IF THE INTEGRATION TESTS WITH DRILL PASS!! -->
+      <version>${jackson.version}</version> <!-- DO NOT UPDATE AUTOMATICALLY: CHECK FIRST IF THE INTEGRATION TESTS WITH DRILL PASS!! -->
       <scope>test</scope>
     </dependency>
 
