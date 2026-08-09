@@ -22,9 +22,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import nl.basjes.parse.useragent.servlet.ParseService;
-import nl.basjes.parse.useragent.servlet.api.OutputType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,13 +30,6 @@ import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
 @Tag(name = "System status")
 @RestController
 public class AppEngine {
-
-    private final ParseService parseService;
-
-    @Autowired
-    public AppEngine(ParseService parseService) {
-        this.parseService = parseService;
-    }
 
     // -------------------------------------------------
 
@@ -59,17 +49,11 @@ public class AppEngine {
         description = "The analyzer is running",
         content = @Content(examples = @ExampleObject("YES"))
     )
-    @ApiResponse(
-        responseCode = "500", // HttpStatus.INTERNAL_SERVER_ERROR,
-        description = "The analyzer is starting up",
-        content = @Content(examples = @ExampleObject())
-    )
     @GetMapping(
         path = "/_ah/health",
         produces = TEXT_PLAIN_VALUE
     )
     public String isHealthy() {
-        parseService.ensureStartedForApis(OutputType.TXT);
         return "YES";
     }
 

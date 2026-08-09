@@ -72,7 +72,6 @@ public class RunTests {
         produces = APPLICATION_JSON_VALUE
     )
     public String getPreHeat() {
-        parseService.ensureStartedForApis(OutputType.JSON);
         UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
 
         final int cacheSize = userAgentAnalyzer.getCacheSize();
@@ -113,7 +112,6 @@ public class RunTests {
         produces = TEXT_PLAIN_VALUE
     )
     public String getRunTests() {
-        parseService.ensureStartedForApis(OutputType.TXT);
         UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
         List<TestCase> testCases = userAgentAnalyzer.getTestCases();
 

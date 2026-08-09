@@ -18,12 +18,9 @@
 package nl.basjes.parse.useragent.servlet;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
-import nl.basjes.parse.useragent.servlet.api.OutputType;
-import nl.basjes.parse.useragent.servlet.exceptions.YauaaIsBusyStarting;
 import nl.basjes.parse.useragent.utils.YauaaVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,34 +37,32 @@ public class ParseService {
     private static final Logger LOG = LogManager.getLogger(ParseService.class);
 
     private UserAgentAnalyzer  userAgentAnalyzer               = null;
-    private long               initStartMoment;
+    private final long         initStartMoment;
     private boolean            userAgentAnalyzerAvailable = false;
     private String             userAgentAnalyzerFailureMessage = null;
 
-    @PostConstruct
-    public void automaticStartup() {
-        if (!userAgentAnalyzerAvailable && userAgentAnalyzerFailureMessage == null) {
-            initStartMoment = System.currentTimeMillis();
-            try {
-                LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
-                userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
-                    .showMatcherLoadStats()
-                    .addOptionalResources("file:UserAgents*/*.yaml")
-                    .addOptionalResources("classpath*:UserAgents-*/*.yaml")
-                    .immediateInitialization()
-                    .keepTests()
-                    .build();
-                userAgentAnalyzerAvailable = true;
-            } catch (Exception e) {
-                userAgentAnalyzerFailureMessage =
-                    e.getClass().getSimpleName() + "<br/>" +
-                        e.getMessage().replace("\n", "<br/>");
-                LOG.fatal("Fatal error during startup: {}\n" +
-                        "=======================================================\n" +
-                        "{}\n" +
-                        "=======================================================\n",
-                        e.getClass().getCanonicalName(), e.getMessage());
-            }
+    public ParseService() {
+        initStartMoment = System.currentTimeMillis();
+        try {
+            LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
+            userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+                .showMatcherLoadStats()
+                .addOptionalResources("file:UserAgents*/*.yaml")
+                .addOptionalResources("classpath*:UserAgents-*/*.yaml")
+                .immediateInitialization()
+                .keepTests()
+                .build();
+            userAgentAnalyzerAvailable = true;
+        } catch (Exception e) {
+            userAgentAnalyzerFailureMessage =
+                e.getClass().getSimpleName() + "<br/>" +
+                    e.getMessage().replace("\n", "<br/>");
+            LOG.fatal("Fatal error during startup: {}\n" +
+                    "=======================================================\n" +
+                    "{}\n" +
+                    "=======================================================\n",
+                    e.getClass().getCanonicalName(), e.getMessage());
+            throw e;
         }
     }
 
@@ -81,12 +76,6 @@ public class ParseService {
             userAgentAnalyzerFailureMessage = "UserAgentAnalyzer has been destroyed.";
             // Then we actually wipe it.
             uaa.destroy();
-        }
-    }
-
-    public void ensureStartedForApis(OutputType outputType) {
-        if (!userAgentAnalyzerAvailable) {
-            throw new YauaaIsBusyStarting(outputType);
         }
     }
 

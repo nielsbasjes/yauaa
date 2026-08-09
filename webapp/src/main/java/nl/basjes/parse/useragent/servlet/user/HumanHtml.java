@@ -145,142 +145,138 @@ public class HumanHtml {
         try {
             htmlHead(sb);
 
-            if (parseService.isUserAgentAnalyzerAvailable()) {
-                startParse = System.nanoTime();
-                List<UserAgent> userAgents = new ArrayList<>();
+            startParse = System.nanoTime();
+            List<UserAgent> userAgents = new ArrayList<>();
+
+            if (useClientHints) {
+                userAgents.add(parseService.getUserAgentAnalyzer().parse(requestHeaders));
+            } else {
+                final List<String> userAgentStrings = splitPerFilledLine(userAgentString);
+                for (String ua : userAgentStrings) {
+                    userAgents.add(parseService.getUserAgentAnalyzer().parse(ua));
+                }
+            }
+            stopParse = System.nanoTime();
+
+            int i = 0;
+            for (UserAgent userAgent: userAgents) {
+                i++;
+                sb.append("<hr/>");
+                sb.append("<h2 class=\"title\">The UserAgent");
+                copyTestcaseToClipboard(sb, userAgent, i);
+                copyGraphQLQueryToClipboard(sb, userAgent, i);
+                if (!useClientHints) {
+                    sb
+                        .append(" <a class=\"hideLink\" href=\"?ua=")
+                        .append(URLEncoder.encode(userAgent.getUserAgentString(), UTF_8))
+                        // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
+                        .append("\">\uD83D\uDD17</a>");
+                }
+                sb.append("</h2>");
+                sb.append("<div class=\"input\">");
 
                 if (useClientHints) {
-                    userAgents.add(parseService.getUserAgentAnalyzer().parse(requestHeaders));
-                } else {
-                    final List<String> userAgentStrings = splitPerFilledLine(userAgentString);
-                    for (String ua : userAgentStrings) {
-                        userAgents.add(parseService.getUserAgentAnalyzer().parse(ua));
-                    }
-                }
-                stopParse = System.nanoTime();
-
-                int i = 0;
-                for (UserAgent userAgent: userAgents) {
-                    i++;
-                    sb.append("<hr/>");
-                    sb.append("<h2 class=\"title\">The UserAgent");
-                    copyTestcaseToClipboard(sb, userAgent, i);
-                    copyGraphQLQueryToClipboard(sb, userAgent, i);
-                    if (!useClientHints) {
-                        sb
-                            .append(" <a class=\"hideLink\" href=\"?ua=")
-                            .append(URLEncoder.encode(userAgent.getUserAgentString(), UTF_8))
-                            // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                            .append("\">\uD83D\uDD17</a>");
-                    }
-                    sb.append("</h2>");
-                    sb.append("<div class=\"input\">");
-
-                    if (useClientHints) {
-                        sb.append("<table class=\"clientHints\">");
-                        sb.append("<tr><th colspan=2><b><center>User-Agent and Client Hints</center></b></th></tr>");
-                        sb.append("<tr><th>Usable header</th><th>Value</th></tr>");
-                        List<String> showHeaders = new ArrayList<>();
-                        showHeaders.add(USERAGENT_HEADER);
-                        showHeaders.addAll(parseService.getUserAgentAnalyzer().supportedClientHintHeaders());
-                        for (String header : showHeaders) {
-                            String value = requestHeaders.get(header);
-                            if (value != null) {
-                                sb.append("<tr><td class=\"tooltip\">");
-                                HeaderSpecification specification = parseService.getUserAgentAnalyzer().getAllSupportedHeaders().get(header);
-                                if (specification != null) {
-                                    // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
-                                    sb.append("<a href=\"").append(specification.getSpecificationUrl()).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
-                                }
-                                sb.append(escapeHtml4(header));
-                                if (specification != null) {
-                                    sb
-                                        .append("<span class=\"tooltiptext\">")
-                                        .append(escapeHtml4(specification.getSpecificationSummary()))
-                                        .append("</span>");
-                                }
+                    sb.append("<table class=\"clientHints\">");
+                    sb.append("<tr><th colspan=2><b><center>User-Agent and Client Hints</center></b></th></tr>");
+                    sb.append("<tr><th>Usable header</th><th>Value</th></tr>");
+                    List<String> showHeaders = new ArrayList<>();
+                    showHeaders.add(USERAGENT_HEADER);
+                    showHeaders.addAll(parseService.getUserAgentAnalyzer().supportedClientHintHeaders());
+                    for (String header : showHeaders) {
+                        String value = requestHeaders.get(header);
+                        if (value != null) {
+                            sb.append("<tr><td class=\"tooltip\">");
+                            HeaderSpecification specification = parseService.getUserAgentAnalyzer().getAllSupportedHeaders().get(header);
+                            if (specification != null) {
+                                // 🔗 == U+1F517 == 3 bytes == In Java 2 chars "Surrogate Pair" : D83D + DD17
+                                sb.append("<a href=\"").append(specification.getSpecificationUrl()).append("\" style='text-decoration: none;' >\uD83D\uDD17 </a>");
+                            }
+                            sb.append(escapeHtml4(header));
+                            if (specification != null) {
                                 sb
-                                    .append("</td><td>")
-                                    .append(escapeHtml4(value))
-                                    .append("</td></tr>");
+                                    .append("<span class=\"tooltiptext\">")
+                                    .append(escapeHtml4(specification.getSpecificationSummary()))
+                                    .append("</span>");
                             }
-                        }
-                        sb.append("</table>");
-                    } else {
-                        sb.append("<p>").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
-                    }
-                    sb.append("</div>");
-
-                    sb.append("<h2 class=\"title\">The analysis result</h2>");
-
-                    List<String> tags = getClassificationTags(userAgent);
-                    sb
-                        .append("<p class=\"tags\">")
-                        .append("DeviceClass : ").append(userAgent.getValue(DEVICE_CLASS)).append("<br/>")
-                        .append(String.join(" - ", tags)).append("</p>");
-
-                    sb.append("<table id=\"result\">");
-                    sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
-
-                    Map<String, Integer>                     fieldGroupCounts = new HashMap<>();
-                    List<Pair<String, Pair<String, String>>> fields           = new ArrayList<>(32);
-                    for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
-                        Pair<String, String> split = prefixSplitter(fieldname);
-
-                        if (!STANDARD_FIELDS.contains(fieldname)) {
-                            if (userAgent.get(fieldname).isDefaultValue()) {
-                                // Skip the "non-standard" fields that do not have a relevant value.
-                                continue;
-                            }
-                        }
-
-                        fields.add(new ImmutablePair<>(fieldname, split));
-                        Integer count = fieldGroupCounts.get(split.getLeft());
-                        if (count == null) {
-                            count = 1;
-                        } else {
-                            count++;
-                        }
-                        fieldGroupCounts.put(split.getLeft(), count);
-                    }
-
-                    String currentGroup = "";
-                    for (Pair<String, Pair<String, String>> field : fields) {
-                        String fieldname  = field.getLeft();
-                        String groupName  = field.getRight().getLeft();
-                        String fieldLabel = field.getRight().getRight();
-                        sb.append("<tr>");
-                        if (!currentGroup.equals(groupName)) {
-                            currentGroup = groupName;
                             sb
-                                .append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
-                                .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                                .append("</td><td>")
+                                .append(escapeHtml4(value))
+                                .append("</td></tr>");
                         }
-                        sb
-                            .append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
-                            .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
-                            .append("</tr>");
                     }
                     sb.append("</table>");
+                } else {
+                    sb.append("<p>").append(escapeHtml4(userAgent.getUserAgentString())).append("</p>");
+                }
+                sb.append("</div>");
+
+                sb.append("<h2 class=\"title\">The analysis result</h2>");
+
+                List<String> tags = getClassificationTags(userAgent);
+                sb
+                    .append("<p class=\"tags\">")
+                    .append("DeviceClass : ").append(userAgent.getValue(DEVICE_CLASS)).append("<br/>")
+                    .append(String.join(" - ", tags)).append("</p>");
+
+                sb.append("<table id=\"result\">");
+                sb.append("<tr><th colspan=2>Field</th><th>Value</th></tr>");
+
+                Map<String, Integer>                     fieldGroupCounts = new HashMap<>();
+                List<Pair<String, Pair<String, String>>> fields           = new ArrayList<>(32);
+                for (String fieldname : userAgent.getAvailableFieldNamesSorted()) {
+                    Pair<String, String> split = prefixSplitter(fieldname);
+
+                    if (!STANDARD_FIELDS.contains(fieldname)) {
+                        if (userAgent.get(fieldname).isDefaultValue()) {
+                            // Skip the "non-standard" fields that do not have a relevant value.
+                            continue;
+                        }
+                    }
+
+                    fields.add(new ImmutablePair<>(fieldname, split));
+                    Integer count = fieldGroupCounts.get(split.getLeft());
+                    if (count == null) {
+                        count = 1;
+                    } else {
+                        count++;
+                    }
+                    fieldGroupCounts.put(split.getLeft(), count);
                 }
 
-                documentationBlock(sb, userAgents);
-
-                sb.append("<hr/>");
-                sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
-                sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
-
-                sb.append("<textarea id=\"useragent\" name=\"useragent\" maxlength=\"2000\" rows=\"4\" " +
-                    "placeholder=\"Paste the useragent you want to test...\">")
-//                    .append(escapeHtml4(userAgentString))
-                    .append("</textarea>");
-                sb.append("<input class=\"testButton\" type=\"submit\" value=\"Analyze\">");
-                sb.append("</form>");
-
-                sb.append("<hr/>");
-            } else {
-                stillStartingUp(sb);
+                String currentGroup = "";
+                for (Pair<String, Pair<String, String>> field : fields) {
+                    String fieldname  = field.getLeft();
+                    String groupName  = field.getRight().getLeft();
+                    String fieldLabel = field.getRight().getRight();
+                    sb.append("<tr>");
+                    if (!currentGroup.equals(groupName)) {
+                        currentGroup = groupName;
+                        sb
+                            .append("<td rowspan=").append(fieldGroupCounts.get(currentGroup)).append("><b><u>")
+                            .append(escapeHtml4(currentGroup)).append("</u></b></td>");
+                    }
+                    sb
+                        .append("<td>").append(camelStretcher(escapeHtml4(fieldLabel))).append("</td>")
+                        .append("<td>").append(escapeHtml4(userAgent.getValue(fieldname))).append("</td>")
+                        .append("</tr>");
+                }
+                sb.append("</table>");
             }
+
+            documentationBlock(sb, userAgents);
+
+            sb.append("<hr/>");
+            sb.append("<form class=\"logobar tryyourown\" action=\"\" method=\"post\">");
+            sb.append("<label for=\"useragent\">Manual testing of a useragent:</label>");
+
+            sb.append("<textarea id=\"useragent\" name=\"useragent\" maxlength=\"2000\" rows=\"4\" " +
+                "placeholder=\"Paste the useragent you want to test...\">")
+//                    .append(escapeHtml4(userAgentString))
+                .append("</textarea>");
+            sb.append("<input class=\"testButton\" type=\"submit\" value=\"Analyze\">");
+            sb.append("</form>");
+
+            sb.append("<hr/>");
         } catch (Exception e) {
             sb.append("<div class=\"failureBorder\">");
             sb.append("<p class=\"failureContent\">An exception occurred during parsing</p>");
@@ -331,28 +327,6 @@ public class HumanHtml {
         }
 
         return tags;
-    }
-
-    private void stillStartingUp(StringBuilder sb) {
-        String userAgentAnalyzerFailureMessage = parseService.getUserAgentAnalyzerFailureMessage();
-        if (userAgentAnalyzerFailureMessage == null) {
-            long   now        = System.currentTimeMillis();
-            long   millisBusy = now - parseService.getInitStartMoment();
-            String timeString = String.format("%3.1f", millisBusy / 1000.0);
-            sb
-                .append("<div class=\"notYetStartedBorder\">")
-                .append("<p class=\"notYetStarted\">The analyzer is currently starting up.</p>")
-                .append("<p class=\"notYetStarted\">It has been starting up for <u>").append(timeString).append("</u> seconds</p>")
-                .append("<p class=\"notYetStarted\">Anything between 5-15 seconds is normal.</p>")
-                .append("<p class=\"notYetStartedAppEngine\">On a free AppEngine 50 seconds is 'normal'.</p>")
-                .append("</div>");
-        } else {
-            sb
-                .append("<div class=\"failureBorder\">")
-                .append("<p class=\"failureContent\">The analyzer startup failed with this message</p>")
-                .append("<p class=\"failureContent\">").append(userAgentAnalyzerFailureMessage).append("</p>")
-                .append("</div>");
-        }
     }
 
     private void documentationBlock(StringBuilder sb, List<UserAgent> userAgents) {

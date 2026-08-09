@@ -107,16 +107,10 @@ public class StatusCheck {
         description = "The analyzer is running",
         content = @Content(examples = @ExampleObject("YES"))
     )
-    @ApiResponse(
-        responseCode = "500", // HttpStatus.INTERNAL_SERVER_ERROR,
-        description = "The analyzer is still starting up or has failed to startup",
-        content = @Content(examples = @ExampleObject())
-    )
     @GetMapping(
         path = "/readiness"
     )
     public String isReady() {
-        parseService.ensureStartedForApis(OutputType.TXT);
         return "YES";
     }
 
