@@ -82,7 +82,7 @@ public class ApiJsonOutput {
         }
     )
     @GetMapping(
-        value ="/analyze",
+        value = "/analyze",
         produces = APPLICATION_JSON_VALUE
     )
     public String handleGETAnalyze(
@@ -175,7 +175,7 @@ public class ApiJsonOutput {
         responseCode = "200", // HttpStatus.OK
         description = "The agent was successfully analyzed",
         content = {
-            @Content(mediaType = APPLICATION_JSON_VALUE,    examples = @ExampleObject(EXAMPLE_JSON))
+            @Content(mediaType = APPLICATION_JSON_VALUE, examples = @ExampleObject(EXAMPLE_JSON))
         }
     )
     public String handlePOSTAnalyzeJson(
@@ -197,7 +197,6 @@ public class ApiJsonOutput {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        parseService.ensureStartedForApis(OutputType.JSON);
         if (parseService.isUserAgentAnalyzerAvailable()) {
             UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
             List<String> result = new ArrayList<>(2048);
@@ -212,4 +211,5 @@ public class ApiJsonOutput {
         }
         return "[]";
     }
+
 }

@@ -74,10 +74,10 @@ public class ApiYamlOutput {
         responseCode = "200", // HttpStatus.OK
         description = "The agent was successfully analyzed",
         content = {
-            @Content(mediaType = APPLICATION_JSON_VALUE,    examples = @ExampleObject(EXAMPLE_JSON)),
-            @Content(mediaType = APPLICATION_XML_VALUE,     examples = @ExampleObject(EXAMPLE_XML)),
-            @Content(mediaType = TEXT_XYAML_VALUE,          examples = @ExampleObject(EXAMPLE_YAML)),
-            @Content(mediaType = TEXT_PLAIN_VALUE,          examples = @ExampleObject(EXAMPLE_YAML))
+            @Content(mediaType = APPLICATION_JSON_VALUE, examples = @ExampleObject(EXAMPLE_JSON)),
+            @Content(mediaType = APPLICATION_XML_VALUE,  examples = @ExampleObject(EXAMPLE_XML)),
+            @Content(mediaType = TEXT_XYAML_VALUE,       examples = @ExampleObject(EXAMPLE_YAML)),
+            @Content(mediaType = TEXT_PLAIN_VALUE,       examples = @ExampleObject(EXAMPLE_YAML))
         }
     )
     @GetMapping(
@@ -107,8 +107,8 @@ public class ApiYamlOutput {
         responseCode = "200", // HttpStatus.OK
         description = "The agent was successfully analyzed",
         content = {
-            @Content(mediaType = TEXT_XYAML_VALUE,          examples = @ExampleObject(EXAMPLE_YAML)),
-            @Content(mediaType = TEXT_PLAIN_VALUE,          examples = @ExampleObject(EXAMPLE_YAML))
+            @Content(mediaType = TEXT_XYAML_VALUE, examples = @ExampleObject(EXAMPLE_YAML)),
+            @Content(mediaType = TEXT_PLAIN_VALUE, examples = @ExampleObject(EXAMPLE_YAML))
         }
     )
     @GetMapping(
@@ -174,8 +174,8 @@ public class ApiYamlOutput {
         responseCode = "200", // HttpStatus.OK
         description = "The agent was successfully analyzed",
         content = {
-            @Content(mediaType = TEXT_XYAML_VALUE,          examples = @ExampleObject(EXAMPLE_YAML)),
-            @Content(mediaType = TEXT_PLAIN_VALUE,          examples = @ExampleObject(EXAMPLE_YAML))
+            @Content(mediaType = TEXT_XYAML_VALUE, examples = @ExampleObject(EXAMPLE_YAML)),
+            @Content(mediaType = TEXT_PLAIN_VALUE, examples = @ExampleObject(EXAMPLE_YAML))
         }
     )
     public String handlePOSTAnalyzeYaml(
@@ -197,7 +197,6 @@ public class ApiYamlOutput {
         if (userAgentString == null) {
             throw new MissingUserAgentException();
         }
-        parseService.ensureStartedForApis(OutputType.JSON);
         if (parseService.isUserAgentAnalyzerAvailable()) {
             UserAgentAnalyzer userAgentAnalyzer = parseService.getUserAgentAnalyzer();
             List<String> result = new ArrayList<>(2048);
