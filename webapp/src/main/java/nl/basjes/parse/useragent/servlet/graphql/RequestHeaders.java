@@ -61,6 +61,9 @@ public class RequestHeaders {
     }
 
     public RequestHeaders(RequestHeaders requestHeaders) {
+        if (requestHeaders == null) {
+            return; // No fields can be filled.
+        }
         this.userAgent              = requestHeaders.getUserAgent();
         this.secChUa                = requestHeaders.getSecChUa();
         this.secChUaArch            = requestHeaders.getSecChUaArch();

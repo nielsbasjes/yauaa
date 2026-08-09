@@ -17,25 +17,23 @@
 
 package nl.basjes.parse.useragent.servlet.api;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class Utils {
     private Utils() {
+        // Utility class
     }
 
     public static List<String> splitPerFilledLine(String input) {
-        String[] lines = input.split("\\r?\\n");
-        List<String> result = new ArrayList<>(lines.length);
-        for (String line: lines) {
-            String trimmedLine = line.trim();
-            if (!trimmedLine.isEmpty()) {
-                result.add(trimmedLine);
-            }
-        }
+        List<String> result = input
+            .lines()
+            .map(String::trim)
+            .filter(line -> !line.isEmpty())
+            .toList();
         if (result.isEmpty()) {
             // Apparently the only input was an empty string, we want to keep that.
-            result.add("");
+            return Collections.singletonList("");
         }
         return result;
     }

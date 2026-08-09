@@ -186,7 +186,7 @@ abstract class AbstractParseServletTests extends AbstractTestingBase {
 
     // ------------------------------------------
     // YAML
-    private AnyOf<String> isYamlContentType = anyOf(equalTo(TEXT_XYAML_VALUE), equalTo(TEXT_XYAML_VALUE + ";charset=UTF-8"));
+    private final AnyOf<String> isYamlContentType = anyOf(equalTo(TEXT_XYAML_VALUE), equalTo(TEXT_XYAML_VALUE + ";charset=UTF-8"));
 
     @Test
     public void testGetYamlUrl() {

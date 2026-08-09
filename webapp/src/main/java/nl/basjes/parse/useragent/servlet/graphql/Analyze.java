@@ -44,12 +44,7 @@ public class Analyze {
     public AnalysisResult analyze(@Argument("requestHeaders") RequestHeaders requestHeaders,
                                   @Argument("userAgent") String userAgentString) {
         UserAgentAnalyzer analyzer = parseService.getUserAgentAnalyzer();
-        RequestHeaders effectiveRequestHeaders;
-        if (requestHeaders != null) {
-            effectiveRequestHeaders = new RequestHeaders(requestHeaders);
-        } else {
-            effectiveRequestHeaders = new RequestHeaders();
-        }
+        RequestHeaders effectiveRequestHeaders = new RequestHeaders(requestHeaders);
         if (userAgentString != null) {
             effectiveRequestHeaders.setUserAgent(userAgentString);
         }

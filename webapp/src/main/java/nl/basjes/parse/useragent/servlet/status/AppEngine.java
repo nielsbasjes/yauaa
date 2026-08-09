@@ -47,7 +47,7 @@ public class AppEngine {
      * <a href="https://cloud.google.com/appengine/docs/flexible/java/how-instances-are-managed#health_checking">
      * App Engine health checking</a> requires responding with 200 to {@code /_ah/health}.
      *
-     * @return Returns a non empty message body.
+     * @return Returns a non-empty message body.
      */
     @SuppressWarnings("SameReturnValue")
     @Operation(
