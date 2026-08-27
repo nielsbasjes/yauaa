@@ -3,6 +3,8 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- Analyzer:
+  - Migrate from JSR305 to JSpecify annotations
 - New/improved detections:
   - ...
 

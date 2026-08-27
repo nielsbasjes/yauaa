@@ -29,7 +29,7 @@ package nl.basjes.parse.useragent.utils.publicsuffixlist;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -59,13 +59,13 @@ public final class PublicSuffixMatcherLoader {
         return new PublicSuffixMatcher(lists);
     }
 
-    public static PublicSuffixMatcher load(@Nonnull final URL url) throws IOException {
+    public static PublicSuffixMatcher load(@NonNull final URL url) throws IOException {
         try (InputStream in = url.openStream()) {
             return load(in);
         }
     }
 
-    public static PublicSuffixMatcher load(@Nonnull final File file) throws IOException {
+    public static PublicSuffixMatcher load(@NonNull final File file) throws IOException {
         try (InputStream in = Files.newInputStream(file.toPath())) {
             return load(in);
         }

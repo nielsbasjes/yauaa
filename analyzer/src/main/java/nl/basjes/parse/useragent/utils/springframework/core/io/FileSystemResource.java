@@ -19,8 +19,8 @@ package nl.basjes.parse.useragent.utils.springframework.core.io;
 import nl.basjes.parse.useragent.utils.springframework.util.Assert;
 import nl.basjes.parse.useragent.utils.springframework.util.StringUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -94,7 +94,7 @@ public class FileSystemResource extends AbstractResource implements Resource {
      * see #FileSystemResource(Path)
      * see #getFile()
      */
-    public FileSystemResource(@Nonnull File filE) {
+    public FileSystemResource(@NonNull File filE) {
         this.path = StringUtils.cleanPath(filE.getPath());
         this.file = filE;
         this.filePath = filE.toPath();

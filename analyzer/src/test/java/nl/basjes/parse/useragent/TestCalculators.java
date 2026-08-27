@@ -27,11 +27,11 @@ import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +51,7 @@ class TestCalculators {
     private static final Logger LOG = LogManager.getLogger(TestCalculators.class);
 
     private static final AnalyzerConfigHolder CONFIG_HOLDER = new AnalyzerConfigHolder() {
-        @Nonnull
+        @NonNull
         @Override
         public AnalyzerConfig getConfig() {
             Map<String, String> mobileBrandPrefixes = new TreeMap<>();

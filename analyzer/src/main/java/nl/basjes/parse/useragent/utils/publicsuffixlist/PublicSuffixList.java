@@ -26,7 +26,7 @@
  */
 package nl.basjes.parse.useragent.utils.publicsuffixlist;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +50,7 @@ public final class PublicSuffixList {
     /**
      * @since 4.5
      */
-    public PublicSuffixList(@Nonnull final DomainType type, @Nonnull final List<String> rules, final List<String> exceptions) {
+    public PublicSuffixList(@NonNull final DomainType type, @NonNull final List<String> rules, final List<String> exceptions) {
         this.type = type;
         this.rules = Collections.unmodifiableList(rules);
         this.exceptions = Collections.unmodifiableList(exceptions != null ? exceptions : Collections.emptyList());

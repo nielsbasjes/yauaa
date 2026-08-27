@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.Map;
 
 public class ParseSecChUaFullVersion implements CHParser {
@@ -44,9 +44,9 @@ public class ParseSecChUaFullVersion implements CHParser {
     //     Sec-CH-UA-Full-Version = sf-string
     //
 
-    @Nonnull
+    @NonNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NonNull Map<String, String> clientHintsHeaders, @NonNull ClientHints clientHints, @NonNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         String value = parseSfString(input);
         if (value != null && !value.isEmpty()) {
@@ -55,7 +55,7 @@ public class ParseSecChUaFullVersion implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

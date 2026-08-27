@@ -32,11 +32,11 @@ import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion
 import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -56,13 +56,13 @@ class TestClientHintsParsing {
     private static final Random RANDOM = new Random(42); // Repeatable random !
 
     private static final CHParser DUMMY_PARSER = new CHParser() {
-        @Nonnull
+        @NonNull
         @Override
-        public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+        public ClientHints parse(@NonNull Map<String, String> clientHintsHeaders, @NonNull ClientHints clientHints, @NonNull String headerName) {
             return new ClientHints();
         }
 
-        @Nonnull
+        @NonNull
         @Override
         public String inputField() {
             return "Dummy";

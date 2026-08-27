@@ -21,8 +21,8 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList.WalkResult;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import static nl.basjes.parse.useragent.utils.Normalize.replaceString;
 
@@ -43,7 +43,7 @@ public class StepReplaceString extends Step {
     }
 
     @Override
-    public WalkResult walk(@Nonnull ParseTree tree, @Nullable String value) {
+    public WalkResult walk(@NonNull ParseTree tree, @Nullable String value) {
         String actualValue = getActualValue(tree, value);
         actualValue = replaceString(actualValue, search, replace);
         return walkNextStep(tree, actualValue);

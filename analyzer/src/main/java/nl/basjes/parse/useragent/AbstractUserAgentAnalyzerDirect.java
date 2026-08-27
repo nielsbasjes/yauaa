@@ -50,8 +50,8 @@ import nl.basjes.parse.useragent.config.ConfigLoader;
 import nl.basjes.parse.useragent.config.TestCase;
 import nl.basjes.parse.useragent.utils.KryoConfig;
 import nl.basjes.parse.useragent.utils.springframework.util.LinkedCaseInsensitiveMap;
+import org.jspecify.annotations.NonNull;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -77,7 +77,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
 
     private AnalyzerConfig        analyzerConfig;
 
-    @Nonnull
+    @NonNull
     @Override
     public AnalyzerConfig getConfig() {
         return analyzerConfig;
@@ -175,7 +175,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      * @param userAgentString The User-Agent String that is to be parsed and analyzed
      * @return An ImmutableUserAgent record that holds all the results.
      */
-    @Nonnull
+    @NonNull
     @Override
     public ImmutableUserAgent parse(String userAgentString) {
         return parse(Collections.singletonMap(USERAGENT_HEADER, userAgentString));
@@ -186,7 +186,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      * @param requestHeaders A map of all useful request Headers: the "User-Agent" and all Client Hints: "Sec-Ch-Ua"*
      * @return An ImmutableUserAgent record that holds all the results.
      */
-    @Nonnull
+    @NonNull
     @Override
     public ImmutableUserAgent parse(Map<String, String> requestHeaders) {
         MutableUserAgent userAgent = new MutableUserAgent(getWantedFieldNames());
@@ -200,7 +200,7 @@ public abstract class AbstractUserAgentAnalyzerDirect implements Analyzer, Analy
      * @param inputUserAgent The MutableUserAgent instance that is to be parsed and that gets all results
      * @return An ImmutableUserAgent copy of the results that is suitable for further usage and caching.
      */
-    @Nonnull
+    @NonNull
     public ImmutableUserAgent parse(MutableUserAgent inputUserAgent) {
         if (inputUserAgent == null) {
             return new ImmutableUserAgent(matchMaker.parse(new MutableUserAgent((String) null)));

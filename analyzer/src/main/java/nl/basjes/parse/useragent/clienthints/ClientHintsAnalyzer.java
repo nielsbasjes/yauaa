@@ -29,7 +29,7 @@ import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import nl.basjes.parse.useragent.utils.VersionSplitter;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -684,7 +684,7 @@ public class ClientHintsAnalyzer extends ClientHintsHeadersParser {
         EXTRA_FIELD_DEPENDENCIES.put(AGENT_NAME_VERSION_MAJOR, setOfStrings(AGENT_NAME));
     }
 
-    public static Set<String> extraDependenciesNeededByClientCalculator(@Nonnull Set<String> wantedFieldNames) {
+    public static Set<String> extraDependenciesNeededByClientCalculator(@NonNull Set<String> wantedFieldNames) {
         HashSet<String> result = new HashSet<>();
 
         for (String wantedFieldName : wantedFieldNames) {

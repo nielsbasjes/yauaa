@@ -71,6 +71,12 @@
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
       <version>3.2.4</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jspecify</groupId>
+          <artifactId>jspecify</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <!-- Used for testing using an alternative to Caffeine. -->
@@ -109,9 +115,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>1.0.1</version>
     </dependency>
 
     <!-- This dependency is only used if provided by the outside.                                         -->

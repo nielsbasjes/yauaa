@@ -24,8 +24,8 @@ import com.esotericsoftware.kryo.io.Output;
 import nl.basjes.parse.useragent.UserAgent.ImmutableUserAgent;
 import nl.basjes.parse.useragent.UserAgent.MutableUserAgent;
 import nl.basjes.parse.useragent.cache.DefaultCacheInstantiator;
+import org.jspecify.annotations.NonNull;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
@@ -190,7 +190,7 @@ public abstract class AbstractUserAgentAnalyzer extends AbstractUserAgentAnalyze
 
     // =========================================================
 
-    @Nonnull
+    @NonNull
     @Override
     public ImmutableUserAgent parse(MutableUserAgent userAgent) {
         // Many caching implementations do not allow null keys and/or values

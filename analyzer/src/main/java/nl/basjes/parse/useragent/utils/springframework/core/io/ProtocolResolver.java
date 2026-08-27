@@ -16,7 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.core.io;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A resolution strategy for protocol-specific resource handles.

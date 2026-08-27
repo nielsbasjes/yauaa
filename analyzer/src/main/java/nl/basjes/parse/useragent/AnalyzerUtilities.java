@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +42,7 @@ public final class AnalyzerUtilities {
         private List<String>        wantedFields    = new ArrayList<>();
     }
 
-    public static @Nonnull ParsedArguments parseArguments(@Nonnull String[] args, @Nonnull List<String> allAllowedFields, @Nonnull List<String> allAllowedHeaders) {
+    public static @NonNull ParsedArguments parseArguments(@NonNull String[] args, @NonNull List<String> allAllowedFields, @NonNull List<String> allAllowedHeaders) {
         List<String> input = new ArrayList<>(Arrays.asList(args));
         return parseArguments(input, allAllowedFields, allAllowedHeaders);
     }
@@ -65,7 +65,7 @@ public final class AnalyzerUtilities {
      * @param allAllowedHeaders The list of all supported headers (i.e. all supported inputs)
      * @return The list of request headers and the list of wanted fields. It is up to the calling system to choose which to use.
      */
-    public static @Nonnull ParsedArguments parseArguments(@Nonnull List<String> args, @Nonnull List<String> allAllowedFields, @Nonnull List<String> allAllowedHeaders) {
+    public static @NonNull ParsedArguments parseArguments(@NonNull List<String> args, @NonNull List<String> allAllowedFields, @NonNull List<String> allAllowedHeaders) {
         ParsedArguments parsedArguments = new ParsedArguments();
 
         int i = 0;

@@ -16,7 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.util;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Assertion utility class that assists in validating arguments.

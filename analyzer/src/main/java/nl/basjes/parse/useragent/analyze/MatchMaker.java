@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import nl.basjes.parse.useragent.config.AnalyzerConfigHolder;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.Collections;
 import java.util.Set;
 
@@ -76,7 +76,7 @@ public interface MatchMaker extends AnalyzerConfigHolder {
             return Collections.emptySet();
         }
 
-        @Nonnull
+        @NonNull
         @Override
         public AnalyzerConfig getConfig() {
             // Nothing, this class should never be actually called.

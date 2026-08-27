@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.Map;
 
 public class ParseSecChUaMobile implements CHParser {
@@ -44,9 +44,9 @@ public class ParseSecChUaMobile implements CHParser {
     //   (although it can still be controlled by its policy controlled client hints feature).
     //   It is considered low entropy because it is a single bit of information directly controllable by the user.
 
-    @Nonnull
+    @NonNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NonNull Map<String, String> clientHintsHeaders, @NonNull ClientHints clientHints, @NonNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         Boolean parsedBoolean = parseBoolean(input);
         if (parsedBoolean != null) {
@@ -55,7 +55,7 @@ public class ParseSecChUaMobile implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

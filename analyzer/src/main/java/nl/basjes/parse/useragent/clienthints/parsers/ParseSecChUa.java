@@ -22,7 +22,7 @@ import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecifica
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public class ParseSecChUa implements CHParser {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void initializeCache(@Nonnull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
+    public void initializeCache(@NonNull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
         if (cacheSize <= 0) {
             cache = null;
         } else {
@@ -78,9 +78,9 @@ public class ParseSecChUa implements CHParser {
     //          by "examining the structure of other headers and by testing for the availability and semantics of
     //          the features introduced or modified between releases of a particular browser" [Janc2014]).
 
-    @Nonnull
+    @NonNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NonNull Map<String, String> clientHintsHeaders, @NonNull ClientHints clientHints, @NonNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;
@@ -102,7 +102,7 @@ public class ParseSecChUa implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

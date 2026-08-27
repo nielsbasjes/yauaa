@@ -18,6 +18,8 @@ If you just want to give it a quick try then you can do that with your own brows
 These are only the highlights for the last few releases, the full changelog can be found [here](https://github.com/nielsbasjes/yauaa/blob/main/CHANGELOG.md).
 
 ### NEXT RELEASE
+- Analyzer:
+  - Migrate from JSR305 to JSpecify annotations
 - New/improved detections:
   - ...
 

@@ -26,7 +26,7 @@
  */
 package nl.basjes.parse.useragent.utils.publicsuffixlist;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.net.IDN;
 import java.util.Collection;
 import java.util.List;
@@ -54,8 +54,8 @@ public final class PublicSuffixMatcher {
      * @since 4.5
      */
     public PublicSuffixMatcher(
-            @Nonnull final DomainType domainType,
-            @Nonnull final Collection<String> rules,
+            @NonNull final DomainType domainType,
+            @NonNull final Collection<String> rules,
             final Collection<String> exceptions) {
         this.rules = new ConcurrentHashMap<>(rules.size());
         for (final String rule: rules) {
@@ -72,7 +72,7 @@ public final class PublicSuffixMatcher {
     /**
      * @since 4.5
      */
-    public PublicSuffixMatcher(@Nonnull final Collection<PublicSuffixList> lists) {
+    public PublicSuffixMatcher(@NonNull final Collection<PublicSuffixList> lists) {
         this.rules = new ConcurrentHashMap<>();
         this.exceptions = new ConcurrentHashMap<>();
         for (final PublicSuffixList list: lists) {

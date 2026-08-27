@@ -17,12 +17,12 @@
 
 package nl.basjes.parse.useragent.clienthints.parsers;
 
-import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer;
+import nl.basjes.parse.useragent.AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 import nl.basjes.parse.useragent.clienthints.ClientHints.Brand;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public class ParseSecChUaFullVersionList implements CHParser {
 
     @Override
     @SuppressWarnings("unchecked")
-    public void initializeCache(@Nonnull AbstractUserAgentAnalyzer.ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
+    public void initializeCache(@NonNull ClientHintsCacheInstantiator<?> clientHintsCacheInstantiator, int cacheSize) {
         if (cacheSize <= 0) {
             cache = null;
         } else {
@@ -71,9 +71,9 @@ public class ParseSecChUaFullVersionList implements CHParser {
     //   - Return the output of running serializing a list with list as input.
     //
 
-    @Nonnull
+    @NonNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NonNull Map<String, String> clientHintsHeaders, @NonNull ClientHints clientHints, @NonNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         if (input == null) {
             return clientHints;
@@ -93,7 +93,7 @@ public class ParseSecChUaFullVersionList implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

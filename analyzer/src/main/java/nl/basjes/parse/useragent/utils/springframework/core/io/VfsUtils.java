@@ -18,7 +18,7 @@ package nl.basjes.parse.useragent.utils.springframework.core.io;
 
 import nl.basjes.parse.useragent.utils.springframework.util.ReflectionUtils;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

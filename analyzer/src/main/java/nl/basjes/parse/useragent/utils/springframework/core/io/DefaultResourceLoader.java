@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.utils.springframework.util.ClassUtils;
 import nl.basjes.parse.useragent.utils.springframework.util.ResourceUtils;
 import nl.basjes.parse.useragent.utils.springframework.util.StringUtils;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;

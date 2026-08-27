@@ -16,7 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.util;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.Serializable;
 import java.util.AbstractCollection;
 import java.util.AbstractSet;

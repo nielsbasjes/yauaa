@@ -56,10 +56,10 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -94,7 +94,7 @@ class TestSteps {
 
     private final Step returnNullStep = new Step() {
         @Override
-        public WalkResult walk(@Nonnull ParseTree tree, String value) {
+        public WalkResult walk(@NonNull ParseTree tree, String value) {
             return null;
         }
     };

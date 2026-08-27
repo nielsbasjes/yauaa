@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.utils.springframework.util.ClassUtils;
 import nl.basjes.parse.useragent.utils.springframework.util.ObjectUtils;
 import nl.basjes.parse.useragent.utils.springframework.util.StringUtils;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;

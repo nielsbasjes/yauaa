@@ -16,7 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.core;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Helper class for resolving generic types against type variables.

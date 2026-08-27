@@ -18,7 +18,7 @@ package nl.basjes.parse.useragent.utils.springframework.core.io;
 
 import nl.basjes.parse.useragent.utils.springframework.util.ResourceUtils;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Strategy interface for loading resources (e.g., class path or file system

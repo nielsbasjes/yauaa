@@ -16,7 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.util;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;

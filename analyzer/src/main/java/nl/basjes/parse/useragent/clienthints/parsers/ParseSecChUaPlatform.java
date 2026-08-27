@@ -20,7 +20,7 @@ package nl.basjes.parse.useragent.clienthints.parsers;
 import nl.basjes.parse.useragent.AbstractUserAgentAnalyzerDirect.HeaderSpecification;
 import nl.basjes.parse.useragent.clienthints.ClientHints;
 
-import javax.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import java.util.Map;
 
 public class ParseSecChUaPlatform implements CHParser {
@@ -45,9 +45,9 @@ public class ParseSecChUaPlatform implements CHParser {
     //   will be sent by default, whether or not the server opted-into receiving the header via an Accept-CH header
     //   (although it can still be controlled by its policy controlled client hints feature).
 
-    @Nonnull
+    @NonNull
     @Override
-    public ClientHints parse(@Nonnull Map<String, String> clientHintsHeaders, @Nonnull ClientHints clientHints, @Nonnull String headerName) {
+    public ClientHints parse(@NonNull Map<String, String> clientHintsHeaders, @NonNull ClientHints clientHints, @NonNull String headerName) {
         String input = clientHintsHeaders.get(headerName);
         String value = parseSfString(input);
         if (value != null && !value.isEmpty()) {
@@ -56,7 +56,7 @@ public class ParseSecChUaPlatform implements CHParser {
         return clientHints;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public String inputField() {
         return HEADER_FIELD;

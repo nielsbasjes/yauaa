@@ -24,9 +24,9 @@ import nl.basjes.parse.useragent.analyze.treewalker.steps.Step;
 import nl.basjes.parse.useragent.analyze.treewalker.steps.WalkList;
 import nl.basjes.parse.useragent.config.AnalyzerConfig;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -447,7 +447,7 @@ class TestTreewalkerRequire {
     public static class TestAnalyzer implements Analyzer, MatchMaker {
         private final AnalyzerConfig config;
 
-        @Nonnull
+        @NonNull
         @Override
         public AnalyzerConfig getConfig() {
             return config;

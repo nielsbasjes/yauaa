@@ -16,7 +16,7 @@
 
 package nl.basjes.parse.useragent.utils.springframework.util;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;

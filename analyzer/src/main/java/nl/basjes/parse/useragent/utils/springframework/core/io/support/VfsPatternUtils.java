@@ -18,7 +18,7 @@ package nl.basjes.parse.useragent.utils.springframework.core.io.support;
 
 import nl.basjes.parse.useragent.utils.springframework.core.io.VfsUtils;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

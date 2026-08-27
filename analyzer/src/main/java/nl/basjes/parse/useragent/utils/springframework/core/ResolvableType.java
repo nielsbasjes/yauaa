@@ -21,7 +21,7 @@ import nl.basjes.parse.useragent.utils.springframework.util.ConcurrentReferenceH
 import nl.basjes.parse.useragent.utils.springframework.util.ObjectUtils;
 import nl.basjes.parse.useragent.utils.springframework.util.StringUtils;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
