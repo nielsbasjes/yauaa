@@ -32,7 +32,7 @@ echo "Generating: ${OUTPUT}";
 
 (
 echo '
-# $schema: https://yauaa.basjes.nl/v1/YauaaConfig.json
+# yaml-language-server: $schema=https://yauaa.basjes.nl/v1/YauaaConfig.json
 # =============================================
 # THIS FILE WAS GENERATED; DO NOT EDIT MANUALLY
 # =============================================
