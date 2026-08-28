@@ -25,12 +25,21 @@ docker compose down
 # Start the Hive installation
 docker compose up -d
 
+killSigner() {
+  # Shut it all down again.
+  echo "==========================================="
+  echo "Shutting down the test setup"
+  docker compose down
+}
+
+trap killSigner EXIT
+
 # ---------------------------------------------------------------------------
 # Wait for the server to start
 SERVER_LOG="${SCRIPTDIR}/hive-it-server.log"
 STATUS="Stopped"
 # Startup may take at most 60 seconds
-SERVER_START_TTL=60
+SERVER_START_TTL=10
 
 while [ "${STATUS}" == "Stopped" ];
 do
@@ -123,9 +132,5 @@ ensure 'TMP'  '"devicename":"Google Nexus 6"' "TMP  Function: Map with all field
 ensure 'PERM' '"devicename":"Google Nexus 6"' "PERM Function: Map with all fields query"
 ensure 'CLIENTHINTS' '"operatingsystemnameversion":"Mac OS 12.3.1"' "CLIENTHINTS Function: Map with all fields query"
 
-# Shut it all down again.
-echo "==========================================="
-echo "Shutting down the test setup"
-docker compose down
 
 exit ${EXIT_CODE}
