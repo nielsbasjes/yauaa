@@ -59,6 +59,7 @@ import static nl.basjes.parse.useragent.classify.UserAgentClassifier.isNormalCon
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
 import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getAllFieldsForGraphQL;
 import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getSchemaFieldName;
+import static nl.basjes.parse.useragent.servlet.mcp.HumanMcpInstructions.getFullMCPUrl;
 import static nl.basjes.parse.useragent.servlet.utils.Constants.GIT_REPO_URL;
 import static nl.basjes.parse.useragent.utils.YauaaVersion.getVersion;
 import static org.apache.commons.text.StringEscapeUtils.escapeHtml4;
@@ -345,6 +346,9 @@ public class HumanHtml {
             "<a href=\"/graphql/schema\">Schema</a>]</p>"
         );
 
+        String fullMCPUrl = getFullMCPUrl();
+        sb.append("<p class=\"logobar mcp\">A simple MCP based API has been created for testing purposes: " +
+            "Connect your LLM to <a href=\"").append(fullMCPUrl).append("\">").append(fullMCPUrl).append("</a> to try it out.</p>");
         sb.append("<p class=\"logobar source\">This project is opensource: <a href=\"https://github.com/nielsbasjes/yauaa\">" +
             "https://github.com/nielsbasjes/yauaa</a></p>");
         sb.append("<p class=\"logobar contribute\">Creating this free software is a lot of work. " +

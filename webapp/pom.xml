@@ -47,6 +47,13 @@
         <version>1.0.1</version>
       </dependency>
       <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-bom</artifactId>
+        <version>${spring-ai.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring-boot.version}</version>
@@ -138,6 +145,22 @@
           <artifactId>slf4j-api</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.ai</groupId>
+      <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.yaml</groupId>
+          <artifactId>snakeyaml</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
     </dependency>
 
     <dependency>
@@ -248,6 +271,22 @@
 
   <build>
     <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>application.yml</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>application.yml</exclude>
+        </excludes>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
 
     <pluginManagement>
       <plugins>
@@ -334,6 +373,11 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
           <webResources>
             <!-- in order to interpolate version and main class from pom into {appengine-,}web.xml -->
+            <resource>
+              <directory>${project.basedir}/src/main/resources/</directory>
+              <filtering>true</filtering>
+              <targetPath></targetPath>
+            </resource>
             <resource>
               <directory>${project.basedir}/src/main/webapp/WEB-INF</directory>
               <filtering>true</filtering>
@@ -593,6 +637,7 @@
               </metadataRepository>
               <buildArgs>
                 <buildArg>-march=x86-64-v1</buildArg>
+                <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
                 <buildArg>-H:Name=${project.build.directory}/native-image/yauaa-webapp-native-${project.version}</buildArg>
               </buildArgs>
             </configuration>
