@@ -17,32 +17,23 @@
 
 package nl.basjes.parse.useragent.servlet;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.utils.YauaaVersion;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@Tag(name = "Yauaa", description = "Analyzing the useragents")
-@SpringBootApplication
-@RestController
 @Getter
+@Service
 public class ParseService {
 
     private static final Logger LOG = LogManager.getLogger(ParseService.class);
 
     private UserAgentAnalyzer  userAgentAnalyzer               = null;
-    private final long         initStartMoment;
-    private boolean            userAgentAnalyzerAvailable = false;
-    private String             userAgentAnalyzerFailureMessage = null;
 
     public ParseService() {
-        initStartMoment = System.currentTimeMillis();
         try {
             LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
             userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
@@ -52,15 +43,13 @@ public class ParseService {
                 .immediateInitialization()
                 .keepTests()
                 .build();
-            userAgentAnalyzerAvailable = true;
         } catch (Exception e) {
-            userAgentAnalyzerFailureMessage =
-                e.getClass().getSimpleName() + "<br/>" +
-                    e.getMessage().replace("\n", "<br/>");
-            LOG.fatal("Fatal error during startup: {}\n" +
-                    "=======================================================\n" +
-                    "{}\n" +
-                    "=======================================================\n",
+            LOG.fatal("""
+                    Fatal error during startup: {}
+                    =======================================================
+                    {}
+                    =======================================================
+                    """,
                     e.getClass().getCanonicalName(), e.getMessage());
             throw e;
         }
@@ -72,15 +61,9 @@ public class ParseService {
             UserAgentAnalyzer uaa = userAgentAnalyzer;
             // First we disable it for all uses.
             userAgentAnalyzer = null;
-            userAgentAnalyzerAvailable = false;
-            userAgentAnalyzerFailureMessage = "UserAgentAnalyzer has been destroyed.";
             // Then we actually wipe it.
             uaa.destroy();
         }
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(ParseService.class, args);
     }
 
 }

@@ -15,12 +15,18 @@
  * limitations under the License.
  */
 
-package nl.basjes.parse.useragent.servlet.api;
+package nl.basjes.parse.useragent.servlet;
 
-public enum OutputType {
-    YAML,
-    HTML,
-    JSON,
-    XML,
-    TXT
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+// CHECKSTYLE.OFF: HideUtilityClassConstructor
+
+@Tag(name = "Yauaa", description = "Analyzing the useragents")
+@SpringBootApplication
+public class YauaaWebApp {
+    public static void main(String[] args) {
+        SpringApplication.run(YauaaWebApp.class, args);
+    }
 }

@@ -39,7 +39,7 @@ public class OpenAPIConfig {
                     "<br/>" +
                     "<h3><b>This MUST be treated as an <u>insecure</u> \"Proof of concept\" implementation.</b></h3>")
                 .version(Version.PROJECT_VERSION)
-                .license(new License().name("Apache 2.0").url("https://yauaa.basjes.nl/LICENSE.html")))
+                 .license(new License().name("Apache 2.0").url("https://yauaa.basjes.nl/using/license/")))
             .externalDocs(new ExternalDocumentation()
                 .description("Yauaa - Yet Another UserAgent Analyzer")
                 .url("https://yauaa.basjes.nl"));

@@ -301,10 +301,8 @@ public class HumanHtml {
         }
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        if (parseService.isUserAgentAnalyzerAvailable()) {
-            responseHeaders.add("Accept-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
+        responseHeaders.add("Accept-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
 //        responseHeaders.add("Critical-CH", String.join(", ", parseService.getUserAgentAnalyzer().supportedClientHintHeaders()));
-        }
 
         return new ResponseEntity<>(sb.toString(), responseHeaders, OK);
     }
@@ -337,7 +335,7 @@ public class HumanHtml {
             "here</a></p>");
 
         sb.append("<p class=\"logobar bug\">");
-        addBugReportButton(sb, userAgents.get(0));
+        addBugReportButton(sb, userAgents.getFirst());
         sb.append("</p>");
         sb.append("<p class=\"logobar swagger\">A simple Swagger based API has been created for testing purposes: " +
             "<a href=\"/swagger-ui.html\">Swagger UI</a></p>");
@@ -375,10 +373,6 @@ public class HumanHtml {
         insertFavIcons(sb);
         sb.append("<meta name=\"theme-color\" content=\"dodgerblue\" />");
 
-        // While initializing automatically reload the page.
-        if (!parseService.isUserAgentAnalyzerAvailable() && parseService.getUserAgentAnalyzerFailureMessage() == null) {
-            sb.append("<meta http-equiv=\"refresh\" content=\"1\" >");
-        }
         sb.append("<link rel=\"stylesheet\" href=\"style.css?").append(CACHE_BUSTER).append("\">");
         sb.append("<title>Analyzing the useragent</title>");
 
@@ -490,8 +484,10 @@ public class HumanHtml {
 
         sb.append(baseScript.replace("{INDEX}", String.valueOf(index)));
         sb.append("<textarea style='display:none' id=\"graphQLForClipboard").append(index).append("\">");
-        sb.append("query {\n" +
-            "  analyze(requestHeaders: {\n");
+        sb.append("""
+            query {
+              analyze(requestHeaders: {
+            """);
         Map<String, String> headers = userAgent.getHeaders();
 
         for (HeaderSpecification headerSpecification : parseService

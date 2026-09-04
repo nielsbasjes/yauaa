@@ -58,6 +58,9 @@ public class AnalysisResultSchemaInitializer extends GraphQLTypeVisitorStub {
             return null;
         }
         String schemaFieldName = environment.getField().getName();
+        if (analysisResult == null) {
+            return null;
+        }
         return analysisResult.getValue(getFieldName(schemaFieldName));
     };
 
