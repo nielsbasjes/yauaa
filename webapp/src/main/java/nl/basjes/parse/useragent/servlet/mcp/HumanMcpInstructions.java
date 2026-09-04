@@ -17,55 +17,44 @@
 
 package nl.basjes.parse.useragent.servlet.mcp;
 
+import nl.basjes.parse.useragent.Version;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.function.RequestPredicates;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.RouterFunctions;
+import org.springframework.web.servlet.function.ServerResponse;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
 
 @RestController
 public class HumanMcpInstructions {
     public static String getFullMCPUrl() {
         return ServletUriComponentsBuilder
             .fromCurrentRequestUri()
-            .replacePath(null)
+            .replacePath("/mcp")
             .build()
-            .toUriString() + "/mcp";
+            .toUriString();
     }
 
-//    @Bean
-//    @Order(HIGHEST_PRECEDENCE)
-//    public RouterFunction<?> mcpHumanHelperPage() {
-//        return RouterFunctions.route()
-//            .GET("/mcp", RequestPredicates.accept(MediaType.TEXT_HTML), (serverRequest) ->
-//                ServerResponse
-//                    .status(HttpStatus.METHOD_NOT_ALLOWED)
-//                    .contentType(MediaType.TEXT_HTML)
-//                    .body("""
-//                        <!DOCTYPE html>
-//                        <html>
-//                        <head>
-//                            <title>MCP Tool Access</title>
-//                        </head>
-//                        <body>
-//                            <h1>Only for MCP Tools</h1>
-//                            <p>You've reached the MCP tool endpoint. This page is only usable for AI clients like LM-studio and Claude Desktop.</p>
-//                            <h2>What to do instead:</h2>
-//                            <ul>
-//                                <li>Configure your <strong>AI Client</strong> to use this URL: <b><code>""" +
-//                        ServletUriComponentsBuilder
-//                            .fromCurrentRequestUri()
-//                            .replacePath(null)
-//                            .build()
-//                            .toUriString() + "/mcp" +
-//                        """
-//                            </b></code></li>
-//                                    <li>Or just use the <a href="/">main page</a> to directly interact with the UI.</li>
-//                                </ul>
-//                            </body>
-//                            </html>
-//                            """))
-//            .build();
-//    }
+    // FIXME: This is a workaround because the normal @GetMapping (see below) does not work.
+    //        https://github.com/spring-projects/spring-ai/pull/5769
+    @Bean
+    @Order(HIGHEST_PRECEDENCE)
+    public RouterFunction<?> mcpHumanHelperPage() {
+        return RouterFunctions.route()
+            .GET("/mcp", RequestPredicates.accept(MediaType.TEXT_HTML), (serverRequest) ->
+                ServerResponse
+                    .status(HttpStatus.METHOD_NOT_ALLOWED)
+                    .contentType(MediaType.TEXT_HTML)
+                    .body(showMcpInstructions()))
+            .build();
+    }
 
 
     @GetMapping(value = "/mcp", produces = MediaType.TEXT_HTML_VALUE)
@@ -85,6 +74,10 @@ public class HumanMcpInstructions {
             </b></code></li>
                     <li>Or just use the <a href="/">main page</a> to directly interact with the UI.</li>
                 </ul>
+
+                <h2>What does it do?</h2>
+                <p>Check the source repo of this version to see what this does on <a href="https://github.com/nielsbasjes/yauaa/tree/""" + Version.GIT_COMMIT_ID + """
+            /webapp/src/main/java/nl/basjes/parse/useragent/servlet/mcp">Github here</a>.
             </body>
             </html>
             """;

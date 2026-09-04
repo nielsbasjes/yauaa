@@ -20,17 +20,7 @@ package nl.basjes.parse.useragent.servlet.graphql;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUa;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaArch;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaBitness;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFormFactors;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersion;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaFullVersionList;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaMobile;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaModel;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatform;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaPlatformVersion;
-import nl.basjes.parse.useragent.clienthints.parsers.ParseSecChUaWoW64;
+import nl.basjes.parse.useragent.clienthints.parsers.*;
 import org.springframework.context.annotation.Description;
 
 import java.util.Map;

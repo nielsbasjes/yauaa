@@ -18,13 +18,7 @@
 package nl.basjes.parse.useragent.servlet.graphql;
 
 import graphql.Scalars;
-import graphql.schema.DataFetcher;
-import graphql.schema.FieldCoordinates;
-import graphql.schema.GraphQLCodeRegistry;
-import graphql.schema.GraphQLObjectType;
-import graphql.schema.GraphQLSchemaElement;
-import graphql.schema.GraphQLTypeVisitor;
-import graphql.schema.GraphQLTypeVisitorStub;
+import graphql.schema.*;
 import graphql.util.TraversalControl;
 import graphql.util.TraverserContext;
 import nl.basjes.parse.useragent.servlet.ParseService;
@@ -36,9 +30,7 @@ import org.springframework.context.annotation.Configuration;
 
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
 import static graphql.util.TraversalControl.CONTINUE;
-import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getAllFieldsForGraphQL;
-import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getFieldName;
-import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.getSchemaFieldName;
+import static nl.basjes.parse.useragent.servlet.graphql.utils.FieldsAndSchema.*;
 
 @Configuration(proxyBeanMethods = false)
 public class AnalysisResultSchemaInitializer extends GraphQLTypeVisitorStub {

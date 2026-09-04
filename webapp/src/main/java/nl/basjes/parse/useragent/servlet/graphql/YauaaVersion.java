@@ -18,14 +18,7 @@
 package nl.basjes.parse.useragent.servlet.graphql;
 
 import graphql.Scalars;
-import graphql.schema.DataFetcher;
-import graphql.schema.FieldCoordinates;
-import graphql.schema.GraphQLCodeRegistry;
-import graphql.schema.GraphQLFieldDefinition;
-import graphql.schema.GraphQLObjectType;
-import graphql.schema.GraphQLSchemaElement;
-import graphql.schema.GraphQLTypeVisitor;
-import graphql.schema.GraphQLTypeVisitorStub;
+import graphql.schema.*;
 import graphql.util.TraversalControl;
 import graphql.util.TraverserContext;
 import nl.basjes.parse.useragent.Version;

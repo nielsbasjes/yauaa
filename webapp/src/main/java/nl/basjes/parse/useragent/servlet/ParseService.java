@@ -17,6 +17,7 @@
 
 package nl.basjes.parse.useragent.servlet;
 
+import jakarta.annotation.PreDestroy;
 import lombok.Getter;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.utils.YauaaVersion;
@@ -24,23 +25,45 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+@Getter
 @Service
 public class ParseService {
 
     private static final Logger LOG = LogManager.getLogger(ParseService.class);
 
-    @Getter
-    private final UserAgentAnalyzer userAgentAnalyzer;
+    private UserAgentAnalyzer  userAgentAnalyzer               = null;
 
     public ParseService() {
-        LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
-        userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
-            .showMatcherLoadStats()
-            .addOptionalResources("file:UserAgents*/*.yaml")
-            .addOptionalResources("classpath*:UserAgents-*/*.yaml")
-            .immediateInitialization()
-            .keepTests()
-            .build();
+        try {
+            LOG.info("Yauaa: Starting {}", YauaaVersion.getVersion());
+            userAgentAnalyzer = UserAgentAnalyzer.newBuilder()
+                .showMatcherLoadStats()
+                .addOptionalResources("file:UserAgents*/*.yaml")
+                .addOptionalResources("classpath*:UserAgents-*/*.yaml")
+                .immediateInitialization()
+                .keepTests()
+                .build();
+        } catch (Exception e) {
+            LOG.fatal("""
+                    Fatal error during startup: {}
+                    =======================================================
+                    {}
+                    =======================================================
+                    """,
+                    e.getClass().getCanonicalName(), e.getMessage());
+            throw e;
+        }
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        if (userAgentAnalyzer != null) {
+            UserAgentAnalyzer uaa = userAgentAnalyzer;
+            // First we disable it for all uses.
+            userAgentAnalyzer = null;
+            // Then we actually wipe it.
+            uaa.destroy();
+        }
     }
 
 }

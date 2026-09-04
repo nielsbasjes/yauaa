@@ -29,27 +29,15 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 import nl.basjes.parse.useragent.servlet.ParseService;
 import nl.basjes.parse.useragent.servlet.exceptions.MissingUserAgentException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static nl.basjes.parse.useragent.UserAgent.USERAGENT_FIELDNAME;
 import static nl.basjes.parse.useragent.servlet.api.Utils.splitPerFilledLine;
-import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_JSON;
-import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_TWO_USERAGENTS;
-import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_USERAGENT;
-import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_XML;
-import static nl.basjes.parse.useragent.servlet.utils.Constants.EXAMPLE_YAML;
-import static nl.basjes.parse.useragent.servlet.utils.Constants.TEXT_XYAML_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
-import static org.springframework.http.MediaType.TEXT_PLAIN_VALUE;
+import static nl.basjes.parse.useragent.servlet.utils.Constants.*;
+import static org.springframework.http.MediaType.*;
 
 @Tag(name = "Analyze", description = "Analyzing the useragents")
 @RequestMapping(value = "/yauaa/v1")
