@@ -77,7 +77,7 @@ echo "Generating: ${OUTPUT}"
   echo "      \"Apple iPod iOS\"       : \"Phone\""
   echo "      \"Apple iPod touch iOS\" : \"Phone\""
 
-  grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
+  grep -F -v '#' "${INPUT}" | grep '[a-z]' | sed 's@ \+| \+@|@g' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
     keyE=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/%2C/g')
@@ -121,7 +121,7 @@ echo "Generating: ${OUTPUT}"
   echo "      \"Apple iPad iOS\"       : \"Apple iPad\""
   echo "      \"Apple iPod iOS\"       : \"Apple iPod\""
   echo "      \"Apple iPod touch iOS\" : \"Apple iPod touch\""
-  grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
+  grep -F -v '#' "${INPUT}" | grep '[a-z]' | sed 's@ \+| \+@|@g' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
     keyE=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/%2C/g')
@@ -166,7 +166,7 @@ echo "Generating: ${OUTPUT}"
   echo "      \"Apple iPod iOS\"       : \"iPod\""
   echo "      \"Apple iPod touch iOS\" : \"iPod touch\""
 
-  grep -F -v '#' "${INPUT}" | grep '[a-z]' | while read -r line; do
+  grep -F -v '#' "${INPUT}" | grep '[a-z]' | sed 's@ \+| \+@|@g' | while read -r line; do
     key=$(echo "${line}" | cut -d'|' -f1)
     keyC=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/C/g')
     keyE=$(echo "${line}" | cut -d'|' -f1 | sed 's/,/%2C/g')
