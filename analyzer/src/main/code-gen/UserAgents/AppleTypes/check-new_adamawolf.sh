@@ -28,7 +28,7 @@ cd "${SCRIPTDIR}" || exit
    echo "i386"
    echo "x86_64"
    echo "arm64"
-   grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sort -u
+   grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sed 's@^ *@@;s@ *$@@g' | sort -u
 ) > __currentIds.txt
 
 echo "===================================="

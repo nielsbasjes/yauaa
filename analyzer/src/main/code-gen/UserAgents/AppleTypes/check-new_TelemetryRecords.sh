@@ -17,7 +17,12 @@ SCRIPTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 cd "${SCRIPTDIR}" || exit
 
-docker pull blacktop/ipsw
+# Clone if not done so already
+[ -d _TelemetryRecords ] || git clone https://github.com/TelemetryDeck/AppleModelNames _TelemetryRecords
+
+# Ensure latest
+( cd _TelemetryRecords && git pull )
+
 (
    # Do not want the "iPhone Simulator" entries as they are the same as the normal cpu tags.
    echo "i386"
@@ -37,7 +42,7 @@ docker pull blacktop/ipsw
 echo "===================================="
 echo "Apparently missing entries"
 echo "vvvvv"
-docker run -it --rm blacktop/ipsw  device-list -p | grep -F '|' | grep -v -F -- '---------' | grep -v -f  __currentIds.txt
+cat _TelemetryRecords/dataset/*.json | jq -r 'to_entries[] | "\(.key) | \(.value.deviceType) | \(.value.readableName)"' | grep -v -f  __currentIds.txt #| sed 's@^ \+"\([^"]\+\)" *: *"\([^"]\+\)".*$@\2 : \1@'
 echo "^^^^^"
 echo "===================================="
 rm -f __currentIds.txt

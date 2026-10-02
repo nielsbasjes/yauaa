@@ -23,27 +23,25 @@ DAY=$(date +%Y%m%d)
 # Do NOT fetch this more than once a day. There is no need at all.
 if [ ! -f ${DAY}-AppleSupport-HTML-Mac-mini.tmp ];
 then
-    curl "https://support.apple.com/en-us/HT201894" > ${DAY}-AppleSupport-HTML-Mac-mini.tmp
-    curl "https://support.apple.com/en-us/HT201300" > ${DAY}-AppleSupport-HTML-MacBook-Pro.tmp
-    curl "https://support.apple.com/en-us/HT201608" > ${DAY}-AppleSupport-HTML-MacBook.tmp
-    curl "https://support.apple.com/en-us/HT201634" > ${DAY}-AppleSupport-HTML-iMac.tmp
-    curl "https://support.apple.com/en-us/HT213073" > ${DAY}-AppleSupport-HTML-Mac-Studio.tmp
-    curl "https://support.apple.com/en-us/HT201862" > ${DAY}-AppleSupport-HTML-MacBook-Air.tmp
-    curl "https://support.apple.com/en-us/HT202888" > ${DAY}-AppleSupport-HTML-Mac-Pro.tmp
+    curl "https://support.apple.com/en-us/102852" > ${DAY}-AppleSupport-HTML-Mac-mini.tmp
+    curl "https://support.apple.com/en-us/108052" > ${DAY}-AppleSupport-HTML-MacBook-Pro.tmp
+
+# Only really OLD models, no more updates and page has different html structure.
+#    curl "https://support.apple.com/en-us/103257" > ${DAY}-AppleSupport-HTML-MacBook.tmp
+    curl "https://support.apple.com/en-us/108054" > ${DAY}-AppleSupport-HTML-iMac.tmp
+    curl "https://support.apple.com/en-us/102231" > ${DAY}-AppleSupport-HTML-Mac-Studio.tmp
+    curl "https://support.apple.com/en-us/102869" > ${DAY}-AppleSupport-HTML-MacBook-Air.tmp
+    curl "https://support.apple.com/en-us/102887" > ${DAY}-AppleSupport-HTML-Mac-Pro.tmp
 fi
 
-cat ${DAY}-AppleSupport-HTML-*.tmp | fgrep "Model Identifier:" | sed '
-  s@</strong>@@g;
-  s@<br/>@@g;
-  s@<br>@@g;
-  s@,&nbsp;@\n@g;
-  s@&nbsp;@\n@g;
-  s@;@\n@g;
-  s@, @\n@g;
-  s@Model Identifier:@@g;
-  s@ @@g;
-  s@,$@@g;
-' | grep '[A-Za-z]' | sort -u > AppleSupport-Identifiers.tmp
+cat "${DAY}"-AppleSupport-HTML-*.tmp | \
+  grep -E '<h2 class="gb-header">|Model Identifier:' | \
+  grep -F -v "Learn more" |\
+  grep -F -v "Find the name" |\
+  grep -F -v "Identify your" |\
+  sed 's@<b>@@g;s@</b>@@g' |\
+  sed -E 'N; s/.*gb-header">([^<]+)<\/h2>.*\n.*Model Identifier: *([^<]+)<\/p>.*/\2 | \1/' | \
+  grep '[A-Za-z]' | sort -u > AppleSupport-Identifiers.tmp
 
 (
 #   # Do not want the "iPhone Simulator" entries as they are the same as the normal cpu tags.
@@ -57,14 +55,14 @@ cat ${DAY}-AppleSupport-HTML-*.tmp | fgrep "Model Identifier:" | sed '
 #   echo "AirTag[0-9]"
 #   echo "AppleDisplay[0-9]"
 #   echo "AudioAccessory[0-9]"
-   grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sort -u
+   grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sed 's@^ *@@;s@ *$@@g' | sort -u
 ) > __currentIds.txt
 
 echo "===================================="
 echo "Apparently missing entries"
 echo "vvvvv"
-diff __currentIds.txt AppleSupport-Identifiers.tmp | grep '^>'
-# fgrep -v -i -f  __currentIds.txt AppleSupport-Identifiers.tmp
+#diff __currentIds.txt AppleSupport-Identifiers.tmp | grep '^>'
+grep -F -v -i -f  __currentIds.txt AppleSupport-Identifiers.tmp
 echo "^^^^^"
 echo "===================================="
 #rm -f __currentIds.txt

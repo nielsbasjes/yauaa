@@ -35,7 +35,8 @@ cd "${SCRIPTDIR}" || exit
    echo "AirTag[0-9]"
    echo "AppleDisplay[0-9]"
    echo "AudioAccessory[0-9]"
-   grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sort -u
+   echo "Description"
+   grep -F '|' AppleTypes.csv | grep -F -v '#' | cut -d'|' -f1 | sed 's@^ *@@;s@ *$@@g' | sort -u
 ) > __currentIds.txt
 
 echo "===================================="
@@ -44,4 +45,4 @@ echo "vvvvv"
 cat _separaterecords/devices/*.json | grep -F ':' | grep -v -f  __currentIds.txt | sed 's@^ \+"\([^"]\+\)" *: *"\([^"]\+\)".*$@\2 : \1@'
 echo "^^^^^"
 echo "===================================="
-rm -f __currentIds.txt
+rm -f __currentIds.txt``
