@@ -3837,3 +3837,31 @@ config:
       AgentNameVersionMajor                : 'Safari ??'
       AgentSecurity                        : 'Strong security'
 
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 16; PLK110 Build/BP2A.250605.015; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/150.0.7871.189 Mobile Safari/537.36 XWEB/1500145 MMWEBSDK/20260901 MMWEBID/7051 REV/095fe5b81ef2b2606e13ed61b00676e4fb1d11ad MicroMessenger/8.0.78.3180(0x28004E78) WeChat/arm64 Weixin NetType/WIFI Language/zh_CN ABI/arm64'
+    expected:
+      DeviceClass                          : 'Phone'
+      DeviceName                           : 'Oneplus PLK110'
+      DeviceBrand                          : 'Oneplus'
+      OperatingSystemClass                 : 'Mobile'
+      OperatingSystemName                  : 'Android'
+      OperatingSystemVersion               : '16'
+      OperatingSystemVersionMajor          : '16'
+      OperatingSystemNameVersion           : 'Android 16'
+      OperatingSystemNameVersionMajor      : 'Android 16'
+      OperatingSystemVersionBuild          : 'BP2A.250605.015'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '150.0'
+      LayoutEngineVersionMajor             : '150'
+      LayoutEngineNameVersion              : 'Blink 150.0'
+      LayoutEngineNameVersionMajor         : 'Blink 150'
+      AgentClass                           : 'Mobile App'
+      AgentName                            : 'WeChat'
+      AgentVersion                         : '8.0.78.3180'
+      AgentVersionMajor                    : '8'
+      AgentNameVersion                     : 'WeChat 8.0.78.3180'
+      AgentNameVersionMajor                : 'WeChat 8'
+      NetworkType                          : 'Wifi'

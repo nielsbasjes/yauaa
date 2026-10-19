@@ -8,7 +8,7 @@ NEXT RELEASE
 - Webapp:
   - Added basic MCP Tool
 - New/improved detections:
-  - ...
+  - Better Oppo and OnePlus brand detection
 
 v8.2.0
 ===
