@@ -3,6 +3,11 @@ This is intended as an overview of the major changes
 
 NEXT RELEASE
 ===
+- New/improved detections:
+  - ...
+
+v8.3.0
+===
 - Analyzer:
   - Migrate from JSR305 to JSpecify annotations
 - Webapp:
