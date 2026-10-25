@@ -227,40 +227,40 @@ Available operators:
 
 Walking around the tree
 
-| Operation                    | Symbol        | Example                       | Result value (if applicable) |
-|:-----------------------------|:--------------|:------------------------------|:-----------------------------|
-| Up to parent                 | ^             | agent.(1)product.name^        | agent.(1)product             |
-| Next Sibling                 | >             | agent.(1)product>             | agent.(2)product             |
-| Previous Sibling             | <             | agent.(2)product<             | agent.(1)product             |
-| Down to child                | .name         | agent.(1)product.version      |                              |
-| Down to specific child       | .(2)version   | agent.(1)product.(2)version   |                              |
-| Down to specific child range | .(2-3)version | agent.(1)product.(2-3)version |                              |
-| Down to specific child range | .(2-)version  | agent.(1)product.(2-)version  |                              |
-| Down to specific child range | .(-5)version  | agent.(1)product.(-5)version  |                              |
+| Operation                    | Symbol          | Example                         | Result value (if applicable) |
+|:-----------------------------|:----------------|:--------------------------------|:-----------------------------|
+| Up to parent                 | `^`             | `agent.(1)product.name^`        | agent.(1)product             |
+| Next Sibling                 | `>`             | `agent.(1)product>`             | agent.(2)product             |
+| Previous Sibling             | `<`             | `agent.(2)product<`             | agent.(1)product             |
+| Down to child                | `.name`         | `agent.(1)product.version`      |                              |
+| Down to specific child       | `.(2)version`   | `agent.(1)product.(2)version`   |                              |
+| Down to specific child range | `.(2-3)version` | `agent.(1)product.(2-3)version` |                              |
+| Down to specific child range | `.(2-)version`  | `agent.(1)product.(2-)version`  |                              |
+| Down to specific child range | `.(-5)version`  | `agent.(1)product.(-5)version`  |                              |
 
 Comparing values in the tree
 
-| Operation                 | Symbol | Example                           | Result value (if applicable)       | Explain                                                                                                                                                                           |
-|:--------------------------|:-------|:----------------------------------|:-----------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Equals                    | =      | agent.(1)product.version="2.3"    | agent.(1)product.(2)version        | The second version is "2.3"                                                                                                                                                       |
-| Not equals                | !=     | agent.(1)product.version!="1.0"   | agent.(1)product.(2)version        | The second version is the first one when backtracking that is not "1.0"                                                                                                           |
-| Contains                  | ~      | agent.product.name~"ar"           | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that contains "ar"                                                                                                                       |
-| Starts with               | {      | agent.product.name{"b"            | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that starts with "b"                                                                                                                     |
-| Ends with                 | }      | agent.product.name}"z"            | agent.(2)product.(1)name="bar baz" | The first product name when backtracking that ends with "z"                                                                                                                       |
-| (Key)set contains         | ?      | agent.product.name?mySetOfValues  | agent.(3)product.(1)name           | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated     |
-| (Key)set does NOT contain | !?     | agent.product.name!?mySetOfValues | agent.(3)product.(1)name           | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated |
+| Operation                 | Symbol | Example                             | Result value (if applicable)         | Explain                                                                                                                                                                           |
+|:--------------------------|:-------|:------------------------------------|:-------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Equals                    | `=`    | `agent.(1)product.version="2.3"`    | `agent.(1)product.(2)version`        | The second version is "2.3"                                                                                                                                                       |
+| Not equals                | `!=`   | `agent.(1)product.version!="1.0"`   | `agent.(1)product.(2)version`        | The second version is the first one when backtracking that is not "1.0"                                                                                                           |
+| Contains                  | `~`    | `agent.product.name~"ar"`           | `agent.(2)product.(1)name="bar baz"` | The first product name when backtracking that contains "ar"                                                                                                                       |
+| Starts with               | `{`    | `agent.product.name{"b"`            | `agent.(2)product.(1)name="bar baz"` | The first product name when backtracking that starts with "b"                                                                                                                     |
+| Ends with                 | `}`    | `agent.product.name}"z"`            | `agent.(2)product.(1)name="bar baz"` | The first product name when backtracking that ends with "z"                                                                                                                       |
+| (Key)set contains         | `?`    | `agent.product.name?mySetOfValues`  | `agent.(3)product.(1)name`           | The name of the third product was present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated     |
+| (Key)set does NOT contain | `!?`   | `agent.product.name!?mySetOfValues` | `agent.(3)product.(1)name`           | The name of the third product was NOT present in the defined set of values. This set may be a "set" or a "lookup" in the last case only the keys of this lookup will be evaluated |
 
 Extracting substrings
 
 Note this fact *agent.(1)product.(1)comments.(2)entry.(1)text="one two three four five"*
 
-| Operation                          | Symbol | Example                                                                                                                  | Value                               |
-|:-----------------------------------|:-------|:-------------------------------------------------------------------------------------------------------------------------|:------------------------------------|
-| First N Words                      | [-N]   | agent.(1)product.(1)comments.(2)entry.(1)text[-3]                                                                        | one two three                       |
-| Single Word at position N          | [N]    | agent.(1)product.(1)comments.(2)entry.(1)text[3]                                                                         | three                               |
-| A range of words N-M               | [N-M]  | agent.(1)product.(1)comments.(2)entry.(1)text[2-4]                                                                       | two three four                      |
-| All words to the end starting at N | [N-]   | agent.(1)product.(1)comments.(2)entry.(1)text[3-]                                                                        | three four five                     |
-| Back to full value                 | @      | agent.(1)product.(1)comments.(2)entry.(1)text[2]="three" <br/> agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@ | three <br/> one two three four five |
+| Operation                          | Symbol  | Example                                                                                                                      | Value                               |
+|:-----------------------------------|:--------|:-----------------------------------------------------------------------------------------------------------------------------|:------------------------------------|
+| First N Words                      | `[-N]`  | `agent.(1)product.(1)comments.(2)entry.(1)text[-3]`                                                                          | one two three                       |
+| Single Word at position N          | `[N]`   | `agent.(1)product.(1)comments.(2)entry.(1)text[3]`                                                                           | three                               |
+| A range of words N-M               | `[N-M]` | `agent.(1)product.(1)comments.(2)entry.(1)text[2-4]`                                                                         | two three four                      |
+| All words to the end starting at N | `[N-]`  | `agent.(1)product.(1)comments.(2)entry.(1)text[3-]`                                                                          | three four five                     |
+| Back to full value                 | `@`     | `agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"` <br/> `agent.(1)product.(1)comments.(2)entry.(1)text[2]="three"@` | three <br/> one two three four five |
 
 Special operations
 
@@ -293,21 +293,21 @@ An extensive example of walking around to get the right value.
 foo faa/1.0/2.3 (one; two three four) bar baz/2.0/3.0 (five; six seven)
 ```
 
-| Expression                                                                                                | Current path                                     | Value                                 |
-|:----------------------------------------------------------------------------------------------------------|:-------------------------------------------------|:--------------------------------------|
-| agent.product.(1)comments.entry.(1)text[2]="seven"                                                        | agent.(2)product.(1)comments.(2)entry.(1)text[2] | seven                                 |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^                                                       | agent.(2)product.(1)comments.(2)entry            | six seven                             |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^                                                      | agent.(2)product.(1)comments                     | (five; six seven)                     |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^                                                     | agent.(2)product                                 | bar baz/2.0/3.0 (five; six seven)     |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<                                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four) |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name                                               | agent.(1)product.(1)name                         | foo faa                               |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"                                     | agent.(1)product.(1)name                         | foo faa                               |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^                                    | agent.(1)product                                 | foo faa/1.0/2.3 (one; two three four) |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments                           | agent.(1)product.(1)comments                     | (one; two three four)                 |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry                     | agent.(1)product.(1)comments.(1)entry            | one                                   |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"     | agent.(1)product.(1)comments.(2)entry[2]         | three                                 |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@    | agent.(1)product.(1)comments.(2)entry            | two three four                        |
-| agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1] | agent.(1)product.(1)comments.(2)entry[1]         | two                                   |
+| Expression                                                                                                  | Current path                                       | Value                                 |
+|:------------------------------------------------------------------------------------------------------------|:---------------------------------------------------|:--------------------------------------|
+| `agent.product.(1)comments.entry.(1)text[2]="seven"`                                                        | `agent.(2)product.(1)comments.(2)entry.(1)text[2]` | seven                                 |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^`                                                       | `agent.(2)product.(1)comments.(2)entry`            | six seven                             |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^`                                                      | `agent.(2)product.(1)comments`                     | (five; six seven)                     |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^`                                                     | `agent.(2)product`                                 | bar baz/2.0/3.0 (five; six seven)     |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<`                                                    | `agent.(1)product`                                 | foo faa/1.0/2.3 (one; two three four) |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name`                                               | `agent.(1)product.(1)name`                         | foo faa                               |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"`                                     | `agent.(1)product.(1)name`                         | foo faa                               |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^`                                    | `agent.(1)product`                                 | foo faa/1.0/2.3 (one; two three four) |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments`                           | `agent.(1)product.(1)comments`                     | (one; two three four)                 |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry`                     | `agent.(1)product.(1)comments.(1)entry`            | one                                   |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"`     | `agent.(1)product.(1)comments.(2)entry[2]`         | three                                 |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@`    | `agent.(1)product.(1)comments.(2)entry`            | two three four                        |
+| `agent.product.(1)comments.entry.(1)text[2]="seven"^^^<.name="foo faa"^.comments.entry.text[2]="three"@[1]` | `agent.(1)product.(1)comments.(2)entry[1]`         | two                                   |
 
 Note that the first possible match is returned.
 If a child sibling or check fails the backtracking continues until the entire parse tree has been examined.
