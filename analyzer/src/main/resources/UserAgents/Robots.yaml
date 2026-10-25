@@ -6985,6 +6985,41 @@ config:
       AgentNameVersion                     : 'Wget 1.17.1'
       AgentNameVersionMajor                : 'Wget 1'
 
+- matcher:
+    variable:
+    - 'APTAgent : agent.(1-3)product.(1)name="Debian APT-HTTP"'
+    extract:
+    - 'AgentClass                          :    100 :"Special"'
+    - 'AgentName                           :    100 :"Debian APT"'
+    - 'AgentVersion                        :    100 :@APTAgent^.(1)comments.(1)entry.(1)text'
+
+# The user agent used by 'apt update' on Ubuntu 26.04:
+- test:
+    input:
+      User-Agent                           : 'Debian APT-HTTP/1.3 (3.2.0) non-interactive'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Linux Desktop'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Debian'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Debian ??'
+      OperatingSystemNameVersionMajor      : 'Debian ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Debian APT'
+      AgentVersion                         : '3.2.0'
+      AgentVersionMajor                    : '3'
+      AgentNameVersion                     : 'Debian APT 3.2.0'
+      AgentNameVersionMajor                : 'Debian APT 3'
+
 
 - test:
     input:

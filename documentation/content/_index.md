@@ -19,12 +19,12 @@ These are only the highlights for the last few releases, the full changelog can 
 
 ### NEXT RELEASE
 - New/improved detections:
-  - ...
+  - Debian/Ubuntu APT
 
 ### Version v8.3.0
 - Analyzer:
   - Migrate from JSR305 to JSpecify annotations
- - Webapp:
+- Webapp:
   - Added basic MCP Tool
 - New/improved detections:
   - Better Oppo and OnePlus brand detection
