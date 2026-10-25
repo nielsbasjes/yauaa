@@ -9,6 +9,9 @@ As a consequence if a useragent does not follow these patterns the analysis will
 Take for example these two (both were found exactly as shown here in the logs of a live website):
 
     Mozilla/5.0 (Linux; Android 5.1; SAMSUNG-T805s Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.94 Mobile Safari/537.36
+
+and
+
     Mozilla/5.0 (Linux; Android 4.4.2; SAMSUNG-T805S Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.89 Safari/537.36
 
 The difference between "Mobile Safari" and "Safari" has been defined for Google Chrome as the difference between "Phone" and "Tablet" (see the [Chrome documentation](https://developer.chrome.com/multidevice/user-agent) on this).
@@ -37,6 +40,9 @@ Since about February 2025 the Apple iPads no longer are reported as a Tablet bec
 A known device which was previously reporting these
 
     Mozilla/5.0 (iPad; CPU OS 18_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148
+
+and
+
     Mozilla/5.0 (iPad; CPU OS 18_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko)
 
 is now reporting this
