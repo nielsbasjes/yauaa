@@ -1,5 +1,5 @@
 baseURL = '/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'Yauaa - Yet Another UserAgent Analyzer'
 
 
@@ -20,7 +20,7 @@ home = [ "HTML", "RSS" ]
   # Shows a checkmark for visited pages on the menu
   showVisitedLinks = false
   # Disable search function. It will hide search bar
-  disableSearch = false
+  search.disable = false
   # Javascript and CSS cache are automatically busted when new version of site is generated.
   # Set this to true to disable this behavior (some proxies don't handle well this optimization)
   disableAssetsBusting = false
@@ -37,8 +37,6 @@ home = [ "HTML", "RSS" ]
   disableBreadcrumb = false
   # If set to false, prevents Hugo from including the mermaid module if not needed (will reduce load times and traffic)
   mermaid = false
-  # Specifies the remote location of the mermaid js
-  customMermaidURL = "https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"
   # Hide Next and Previous page buttons normally displayed full height beside content
   disableNextPrev = true
   # Order sections in menu by "weight" or "title". Default to "weight"
@@ -51,7 +49,14 @@ home = [ "HTML", "RSS" ]
   titleSeparator = " | "
 
 #  landingPageURL = "/"
-  landingPageName = "<i class='fas fa-home'></i> Yauaa"
+#landingPageName = '<i class="fa-fw fas fa-home"></i> Yauaa'
+
+[markup.goldmark.renderer]
+  # Some pages contain direct HTML code.
+  unsafe = true
+
+[markup.goldmark.parser.attribute]
+  block = true
 
 [[menu.shortcuts]]
 name = "<i class='fab fa-git-square'></i> Git repo"

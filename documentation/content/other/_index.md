@@ -2,4 +2,4 @@
 title = "Other"
 weight = 100
 +++
-{{% children  %}}
+{{% pages display="tree" %}}
