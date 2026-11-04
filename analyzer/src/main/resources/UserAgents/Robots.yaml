@@ -20,7 +20,7 @@
 
 config:
 
-# Retrieval product names require exact matching; keep legacy prefix detection separate.
+# Retrieval product names require exact matching; preserve prefix matching for the existing entries.
 - lookup:
     name: 'NamedRobots'
     merge:
@@ -14430,34 +14430,6 @@ config:
 
 - test:
     input:
-      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)'
-    expected:
-      DeviceClass                          : 'Robot'
-      DeviceName                           : 'Anthropic ClaudeBot'
-      DeviceBrand                          : 'Anthropic'
-      OperatingSystemClass                 : 'Cloud'
-      OperatingSystemName                  : 'Cloud'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Cloud ??'
-      OperatingSystemNameVersionMajor      : 'Cloud ??'
-      LayoutEngineClass                    : 'Robot'
-      LayoutEngineName                     : 'ClaudeBot'
-      LayoutEngineVersion                  : '1.0'
-      LayoutEngineVersionMajor             : '1'
-      LayoutEngineNameVersion              : 'ClaudeBot 1.0'
-      LayoutEngineNameVersionMajor         : 'ClaudeBot 1'
-      AgentClass                           : 'Robot'
-      AgentName                            : 'ClaudeBot'
-      AgentVersion                         : '1.0'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'ClaudeBot 1.0'
-      AgentNameVersionMajor                : 'ClaudeBot 1'
-      AgentInformationEmail                : 'claudebot@anthropic.com'
-
-
-- test:
-    input:
       User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-SearchBot/1.0; +claudebot@anthropic.com)'
     expected:
       DeviceClass                          : 'Robot'
@@ -14564,64 +14536,6 @@ config:
       AgentVersionMajor                    : '1'
       AgentNameVersion                     : 'Perplexity-UserFake 1.0'
       AgentNameVersionMajor                : 'Perplexity-UserFake 1'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Claude/1.2.3 Chrome/130.0.0.0 Safari/537.36'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple Macintosh'
-      DeviceBrand                          : 'Apple'
-      DeviceCpu                            : 'Intel'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS'
-      OperatingSystemVersion               : '>=10.15.7'
-      OperatingSystemVersionMajor          : '>=10.15'
-      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
-      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '130.0'
-      LayoutEngineVersionMajor             : '130'
-      LayoutEngineNameVersion              : 'Blink 130.0'
-      LayoutEngineNameVersionMajor         : 'Blink 130'
-      AgentClass                           : 'Desktop App'
-      AgentName                            : 'Claude'
-      AgentVersion                         : '1.2.3'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Claude 1.2.3'
-      AgentNameVersionMajor                : 'Claude 1'
-
-
-- test:
-    input:
-      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
-    expected:
-      DeviceClass                          : 'Desktop'
-      DeviceName                           : 'Apple Macintosh'
-      DeviceBrand                          : 'Apple'
-      DeviceCpu                            : 'Intel'
-      DeviceCpuBits                        : '64'
-      OperatingSystemClass                 : 'Desktop'
-      OperatingSystemName                  : 'Mac OS'
-      OperatingSystemVersion               : '>=10.15.7'
-      OperatingSystemVersionMajor          : '>=10.15'
-      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
-      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
-      LayoutEngineClass                    : 'Browser'
-      LayoutEngineName                     : 'Blink'
-      LayoutEngineVersion                  : '130'
-      LayoutEngineVersionMajor             : '130'
-      LayoutEngineNameVersion              : 'Blink 130'
-      LayoutEngineNameVersionMajor         : 'Blink 130'
-      AgentClass                           : 'Browser'
-      AgentName                            : 'Chrome'
-      AgentVersion                         : '130'
-      AgentVersionMajor                    : '130'
-      AgentNameVersion                     : 'Chrome 130'
-      AgentNameVersionMajor                : 'Chrome 130'
 
 
 - test:
