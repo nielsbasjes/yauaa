@@ -361,9 +361,8 @@ config:
     - 'AgentClass                          :    10100 :"Robot"'
     - 'RemarkablePattern                   :    10100 :"<<<null>>>"'
 
-# Explicit scanner/monitor identities. A product merely containing "scan" is not evidence.
-# Product and purpose declarations identify software, not an authenticated sender.
-# https://github.com/robertdavidgraham/masscan
+# Recognize these scanners by product name instead of matching "scan" anywhere in a UA.
+# The substring also occurs in consumer apps such as TeeScanner and CamScanner.
 - lookup:
     name: KnownScannerProducts
     map:
