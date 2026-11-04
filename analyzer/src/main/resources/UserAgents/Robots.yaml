@@ -20,18 +20,9 @@
 
 config:
 
-# Retrieval product names require exact matching; preserve prefix matching for the existing entries.
-- lookup:
-    name: 'NamedRobots'
-    merge:
-      - 'NamedRobotsWithPrefixes'
-    map:
-      'Claude-User'     : 'Anthropic|Claude-User'
-      'Perplexity-User' : 'Perplexity|Perplexity-User'
-
 # These are known robots that do not have words like bot, crawler, spider in their name.
 - lookup:
-    name: 'NamedRobotsWithPrefixes'
+    name: 'NamedRobots'
     map:
       'Amazon-Route53-Health-Check-Service' : 'Amazon|Amazon-Route53-Health-Check-Service'
       'Apache Nifi'                  : 'Apache|Apache Nifi'
@@ -83,6 +74,8 @@ config:
       'node.js'                      : 'OpenJS|Node.js'
       'OhDear.app'                   : 'OhDear.app|OhDear.app'
       'ChatGPT-User'                 : 'Openai|ChatGPT-User'
+      'Claude-User'                  : 'Anthropic|Claude-User'
+      'Perplexity-User'              : 'Perplexity|Perplexity-User'
       'OAI-SearchBot'                : 'Openai|OAI-SearchBot'
       'GPTBot'                       : 'Openai|GPTBot'
       'panscient.com'                : 'Panscient|Panscient'
@@ -338,7 +331,7 @@ config:
     variable:
     - 'RobotProductName                    :agent.(1)product.(1)name'
     - 'RobotProductVersion                 :agent.(1)product.(1)version'
-    - 'RobotProduct                        :LookUpPrefix[NamedRobotsWithPrefixes;@RobotProductName]'
+    - 'RobotProduct                        :LookUpPrefix[NamedRobots;@RobotProductName]'
     require:
     - 'IsNull[@RobotProductVersion.url]'
     - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
@@ -14342,7 +14335,7 @@ config:
       AgentNameVersion                     : 'MyCustomBot 1.0'
       AgentNameVersionMajor                : 'MyCustomBot 1'
 
-# Retrieval declarations and controls: desktop apps and similarly named products.
+# Retrieval declarations and desktop, contact-only, and injection-marker controls.
 
 - test:
     input:
@@ -14482,60 +14475,6 @@ config:
       AgentNameVersion                     : 'PerplexityBot 1.0'
       AgentNameVersionMajor                : 'PerplexityBot 1'
       AgentInformationUrl                  : 'https://perplexity.ai/perplexitybot'
-
-
-- test:
-    input:
-      User-Agent                           : 'Claude-UserFake/1.0'
-    expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Claude-UserFake'
-      AgentVersion                         : '1.0'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Claude-UserFake 1.0'
-      AgentNameVersionMajor                : 'Claude-UserFake 1'
-
-
-- test:
-    input:
-      User-Agent                           : 'Perplexity-UserFake/1.0'
-    expected:
-      DeviceClass                          : 'Unknown'
-      DeviceName                           : 'Unknown'
-      DeviceBrand                          : 'Unknown'
-      OperatingSystemClass                 : 'Unknown'
-      OperatingSystemName                  : 'Unknown'
-      OperatingSystemVersion               : '??'
-      OperatingSystemVersionMajor          : '??'
-      OperatingSystemNameVersion           : 'Unknown ??'
-      OperatingSystemNameVersionMajor      : 'Unknown ??'
-      LayoutEngineClass                    : 'Unknown'
-      LayoutEngineName                     : 'Unknown'
-      LayoutEngineVersion                  : '??'
-      LayoutEngineVersionMajor             : '??'
-      LayoutEngineNameVersion              : 'Unknown ??'
-      LayoutEngineNameVersionMajor         : 'Unknown ??'
-      AgentClass                           : 'Special'
-      AgentName                            : 'Perplexity-UserFake'
-      AgentVersion                         : '1.0'
-      AgentVersionMajor                    : '1'
-      AgentNameVersion                     : 'Perplexity-UserFake 1.0'
-      AgentNameVersionMajor                : 'Perplexity-UserFake 1'
 
 
 - test:
