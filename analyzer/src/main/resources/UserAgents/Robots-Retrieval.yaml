@@ -1,0 +1,501 @@
+# yaml-language-server: $schema=https://yauaa.basjes.nl/v1/YauaaConfig.json
+#
+# Yet Another UserAgent Analyzer
+# Copyright (C) 2013-2026 Niels Basjes
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an AS IS BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# These are examples of robot/spider/bot useragents we have seen.
+
+config:
+
+# User-triggered retrieval agents; exact product names keep desktop apps distinct.
+# Like ChatGPT-User, Robot describes retrieval software, not whether to block it.
+# DeviceBrand follows the declared product; this does not verify the sender.
+- lookup:
+    name: NamedRetrievalAgents
+    map:
+      Claude-User: Anthropic|Claude-User
+      Perplexity-User: Perplexity|Perplexity-User
+
+- matcher:
+    variable:
+    - 'RobotProductName                    :agent.product.name?NamedRetrievalAgents'
+    - 'RobotProduct                        :LookUp[NamedRetrievalAgents;@RobotProductName]'
+    - 'RobotProductVersion                 :@RobotProductName^.version'
+    require:
+    - 'IsNull[@RobotProductVersion.url]'
+    - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
+    extract:
+    - '__Set_ALL_Fields__                  :   399911 :"<<<null>>>"' # Keep below the explicit field confidences to preserve their values.
+    - 'DeviceClass                         :   400011 :"Robot"'
+    - 'DeviceBrand                         :   400011 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400011 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400011 :"Cloud"'
+    - 'OperatingSystemName                 :   400011 :"Cloud"'
+    - 'OperatingSystemVersion              :   400011 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400010 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400011 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400011 :@RobotProductVersion'
+    - 'AgentClass                          :   400011 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400011 :@RobotProductVersion'
+
+- matcher:
+    variable:
+    - 'RobotProductName                    :agent.product.name?NamedRetrievalAgents'
+    - 'RobotProduct                        :LookUp[NamedRetrievalAgents;@RobotProductName]'
+    require:
+    - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
+    extract:
+    - '__Set_ALL_Fields__                  :   399911 :"<<<null>>>"' # Keep below the explicit field confidences to preserve their values.
+    - 'DeviceClass                         :   400011 :"Robot"'
+    - 'DeviceBrand                         :   400011 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400011 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400011 :"Cloud"'
+    - 'OperatingSystemName                 :   400011 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400010 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400011 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   399911 :"<<<null>>>"'
+    - 'AgentClass                          :   400011 :"Robot"'
+    - 'AgentName                           :   400011 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   399911 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)product.name?NamedRetrievalAgents'
+    - 'RobotProduct                        :LookUp[NamedRetrievalAgents;@RobotProductName]'
+    - 'RobotProductVersion                 :@RobotProductName^.version'
+    require:
+    - 'IsNull[@RobotProductVersion.url]'
+    - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
+    extract:
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Keep below the explicit field confidences to preserve their values.
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   400010 :@RobotProductVersion'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   400010 :@RobotProductVersion'
+
+
+- matcher:
+    variable:
+    - 'RobotProductName                    :agent.(1-6)product.comments.entry.(1-2)product.name?NamedRetrievalAgents'
+    - 'RobotProduct                        :LookUp[NamedRetrievalAgents;@RobotProductName]'
+    require:
+    - 'IsNull[agent.product.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[agent.(1-2)product.comments.entry.(1-2)product.name?TagsKnownNotToBeRobots]'
+    extract:
+    - '__Set_ALL_Fields__                  :   399910 :"<<<null>>>"' # Keep below the explicit field confidences to preserve their values.
+    - 'DeviceClass                         :   400010 :"Robot"'
+    - 'DeviceBrand                         :   400010 :@RobotProduct[[1]]'
+    - 'DeviceName                          :   400010 :@RobotProduct[[2]]'
+    - 'OperatingSystemClass                :   400010 :"Cloud"'
+    - 'OperatingSystemName                 :   400010 :"Cloud"'
+    - 'OperatingSystemVersion              :   400010 :"<<<null>>>"'
+    - 'OperatingSystemVersionMajor         :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400009 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400009 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400010 :"Robot"'
+    - 'LayoutEngineName                    :   400010 :@RobotProduct[[2]]'
+    - 'LayoutEngineVersion                 :   399919 :"<<<null>>>"'
+    - 'AgentClass                          :   400010 :"Robot"'
+    - 'AgentName                           :   400010 :@RobotProduct[[2]]'
+    - 'AgentVersion                        :   399999 :"<<<null>>>"'
+
+
+
+# Retrieval declarations and controls: desktop apps and similarly named products.
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-User/1.0; +claude-user@anthropic.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Anthropic Claude-User'
+      DeviceBrand                          : 'Anthropic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Claude-User'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Claude-User 1.0'
+      LayoutEngineNameVersionMajor         : 'Claude-User 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Claude-User'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Claude-User 1.0'
+      AgentNameVersionMajor                : 'Claude-User 1'
+      AgentInformationEmail                : 'claude-user@anthropic.com'
+
+
+- test:
+    input:
+      User-Agent                           : 'Claude-User (claude-code/2.1.309; +https://support.anthropic.com/)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Anthropic Claude-User'
+      DeviceBrand                          : 'Anthropic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Claude-User'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Claude-User ??'
+      LayoutEngineNameVersionMajor         : 'Claude-User ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Claude-User'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Claude-User ??'
+      AgentNameVersionMajor                : 'Claude-User ??'
+      AgentInformationUrl                  : 'https://support.anthropic.com/'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Perplexity-User/1.0; +https://perplexity.ai/perplexity-user)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Perplexity User'
+      DeviceBrand                          : 'Perplexity'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Perplexity-User'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Perplexity-User 1.0'
+      LayoutEngineNameVersionMajor         : 'Perplexity-User 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Perplexity-User'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Perplexity-User 1.0'
+      AgentNameVersionMajor                : 'Perplexity-User 1'
+      AgentInformationUrl                  : 'https://perplexity.ai/perplexity-user'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Anthropic ClaudeBot'
+      DeviceBrand                          : 'Anthropic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'ClaudeBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'ClaudeBot 1.0'
+      LayoutEngineNameVersionMajor         : 'ClaudeBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ClaudeBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ClaudeBot 1.0'
+      AgentNameVersionMajor                : 'ClaudeBot 1'
+      AgentInformationEmail                : 'claudebot@anthropic.com'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-SearchBot/1.0; +claudebot@anthropic.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Anthropic Claude-SearchBot'
+      DeviceBrand                          : 'Anthropic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Claude-SearchBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Claude-SearchBot 1.0'
+      LayoutEngineNameVersionMajor         : 'Claude-SearchBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Claude-SearchBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Claude-SearchBot 1.0'
+      AgentNameVersionMajor                : 'Claude-SearchBot 1'
+      AgentInformationEmail                : 'claudebot@anthropic.com'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/perplexitybot)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Perplexity BOT'
+      DeviceBrand                          : 'Perplexity'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'PerplexityBot'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'PerplexityBot 1.0'
+      LayoutEngineNameVersionMajor         : 'PerplexityBot 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'PerplexityBot'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'PerplexityBot 1.0'
+      AgentNameVersionMajor                : 'PerplexityBot 1'
+      AgentInformationUrl                  : 'https://perplexity.ai/perplexitybot'
+
+
+- test:
+    input:
+      User-Agent                           : 'Claude-UserFake/1.0'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Claude-UserFake'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Claude-UserFake 1.0'
+      AgentNameVersionMajor                : 'Claude-UserFake 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Perplexity-UserFake/1.0'
+    expected:
+      DeviceClass                          : 'Unknown'
+      DeviceName                           : 'Unknown'
+      DeviceBrand                          : 'Unknown'
+      OperatingSystemClass                 : 'Unknown'
+      OperatingSystemName                  : 'Unknown'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Unknown ??'
+      OperatingSystemNameVersionMajor      : 'Unknown ??'
+      LayoutEngineClass                    : 'Unknown'
+      LayoutEngineName                     : 'Unknown'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Unknown ??'
+      LayoutEngineNameVersionMajor         : 'Unknown ??'
+      AgentClass                           : 'Special'
+      AgentName                            : 'Perplexity-UserFake'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Perplexity-UserFake 1.0'
+      AgentNameVersionMajor                : 'Perplexity-UserFake 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Claude/1.2.3 Chrome/130.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '130.0'
+      LayoutEngineVersionMajor             : '130'
+      LayoutEngineNameVersion              : 'Blink 130.0'
+      LayoutEngineNameVersionMajor         : 'Blink 130'
+      AgentClass                           : 'Desktop App'
+      AgentName                            : 'Claude'
+      AgentVersion                         : '1.2.3'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Claude 1.2.3'
+      AgentNameVersionMajor                : 'Claude 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Desktop'
+      DeviceName                           : 'Apple Macintosh'
+      DeviceBrand                          : 'Apple'
+      DeviceCpu                            : 'Intel'
+      DeviceCpuBits                        : '64'
+      OperatingSystemClass                 : 'Desktop'
+      OperatingSystemName                  : 'Mac OS'
+      OperatingSystemVersion               : '>=10.15.7'
+      OperatingSystemVersionMajor          : '>=10.15'
+      OperatingSystemNameVersion           : 'Mac OS >=10.15.7'
+      OperatingSystemNameVersionMajor      : 'Mac OS >=10.15'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'Blink'
+      LayoutEngineVersion                  : '130'
+      LayoutEngineVersionMajor             : '130'
+      LayoutEngineNameVersion              : 'Blink 130'
+      LayoutEngineNameVersionMajor         : 'Blink 130'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'Chrome'
+      AgentVersion                         : '130'
+      AgentVersionMajor                    : '130'
+      AgentNameVersion                     : 'Chrome 130'
+      AgentNameVersionMajor                : 'Chrome 130'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Claude-User/1.0; +claudebot@anthropic.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Anthropic Claude-User'
+      DeviceBrand                          : 'Anthropic'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Claude-User'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Claude-User 1.0'
+      LayoutEngineNameVersionMajor         : 'Claude-User 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Claude-User'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Claude-User 1.0'
+      AgentNameVersionMajor                : 'Claude-User 1'
+      AgentInformationEmail                : 'claudebot@anthropic.com'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; +https://example.com/Claude-User)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Example Robot'
+      DeviceBrand                          : 'Example'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.36'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.36'
+      AgentNameVersionMajor                : 'AppleWebKit 537'
+      AgentInformationUrl                  : 'https://example.com/Claude-User'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; +perplexity-user@example.com)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Example Robot'
+      DeviceBrand                          : 'Example'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Browser'
+      LayoutEngineName                     : 'AppleWebKit'
+      LayoutEngineVersion                  : '537.36'
+      LayoutEngineVersionMajor             : '537'
+      LayoutEngineNameVersion              : 'AppleWebKit 537.36'
+      LayoutEngineNameVersionMajor         : 'AppleWebKit 537'
+      AgentClass                           : 'Browser'
+      AgentName                            : 'AppleWebKit'
+      AgentVersion                         : '537.36'
+      AgentVersionMajor                    : '537'
+      AgentNameVersion                     : 'AppleWebKit 537.36'
+      AgentNameVersionMajor                : 'AppleWebKit 537'
+      AgentInformationEmail                : 'perplexity-user@example.com'
