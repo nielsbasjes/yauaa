@@ -48,7 +48,6 @@ config:
       'spider'   : 'spider'
       'crawl'    : 'crawl'
       'bot'      : 'bot'
-      'scan'     : 'scan'
       'site'     : 'site'
       'probe'    : 'probe'
       'alyzer'   : 'alyzer'
@@ -361,3 +360,85 @@ config:
     - 'LayoutEngineClass                   :    10100 :"Robot"'
     - 'AgentClass                          :    10100 :"Robot"'
     - 'RemarkablePattern                   :    10100 :"<<<null>>>"'
+
+# Recognize these scanners by product name instead of matching "scan" anywhere in a UA.
+# The substring also occurs in consumer apps such as TeeScanner and CamScanner.
+- lookup:
+    name: KnownScannerProducts
+    map:
+      'masscan': 'masscan'
+      '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon': '0xSCANNER-INURL_blog.inurl.com.br-K-Meleon'
+      'ZapposCanary': 'ZapposCanary'
+      'AgentReadinessScanner': 'AgentReadinessScanner'
+      'CompetLabScanner': 'CompetLabScanner'
+      'sig.ai-readiness-scanner': 'sig.ai-readiness-scanner'
+      'UmaiSecurityResearch': 'UmaiSecurityResearch'
+      'deeptech-scanner': 'deeptech-scanner'
+      'EuroScanner': 'EuroScanner'
+
+- matcher:
+    variable:
+    - 'RobotName                           :agent.product.name?KnownScannerProducts'
+    require:
+    - 'IsNotInLookUpContains[NOTRobotStrings;@RobotName]'
+    extract:
+    - 'DeviceClass                         :    11100 :"Robot"'
+    - 'DeviceName                          :   311100 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :    11100 :"Cloud"'
+    - 'OperatingSystemName                 :    11100 :"Cloud"'
+    - 'OperatingSystemVersion              :    11100 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :    11100 :"Robot"'
+    - 'LayoutEngineName                    :    11100 :@RobotName'
+    - 'LayoutEngineVersion                 :    11100 :"<<<null>>>"'
+    - 'AgentClass                          :    11100 :"Robot"'
+    - 'AgentName                           :    11100 :@RobotName'
+    - 'AgentVersion                        :    11100 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'RobotName                           :agent.product.name?KnownScannerProducts'
+    - 'RobotVersion                        :@RobotName^.(1)version'
+    require:
+    - 'IsNull[@RobotVersion.url]'
+    extract:
+    - 'LayoutEngineVersion                 :    11200 :@RobotVersion'
+    - 'AgentVersion                        :    11200 :@RobotVersion'
+
+- matcher:
+    variable:
+    - 'RobotName                           :agent.product.name?KnownScannerProducts'
+    - 'RobotVersion                        :@RobotName^.(1)version'
+    require:
+    - '@RobotVersion.url'
+    extract:
+    - 'LayoutEngineVersion                 :    11200 :"<<<null>>>"'
+    - 'AgentVersion                        :    11200 :"<<<null>>>"'
+
+- matcher:
+    variable:
+    - 'RobotName                           :agent.(1-5)product.(1-2)comments.entry.(1-4)product.(1)name?KnownScannerProducts'
+    - 'RobotVersion                        :@RobotName^.version'
+    require:
+    - 'IsNotInLookUpContains[NOTRobotStrings;@RobotName]'
+    - 'IsNull[@RobotVersion.url]'
+    extract:
+    - '__Set_ALL_Fields__                  :     9900 :"<<<null>>>"' # Keep below explicit field confidences
+    - 'DeviceClass                         :   110000 :"Robot"'
+    - 'DeviceName                          :   110000 :@RobotName'
+    - 'DeviceBrand                         :     1000 :"<<<null>>>"'
+    - 'DeviceVersion                       :     1000 :"<<<null>>>"'
+    - 'DeviceCpu                           :   100000 :"<<<null>>>"'
+    - 'DeviceCpuBits                       :   100000 :"<<<null>>>"'
+    - 'OperatingSystemClass                :   250000 :"Cloud"'
+    - 'OperatingSystemName                 :   250000 :"Cloud"'
+    - 'OperatingSystemVersion              :   250000 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   250000 :"Robot"'
+    - 'LayoutEngineName                    :   250000 :@RobotName'
+    - 'LayoutEngineVersion                 :   250000 :@RobotVersion'
+    - 'AgentClass                          :   250000 :"Robot"'
+    - 'AgentName                           :   250000 :@RobotName'
+    - 'AgentVersion                        :   250000 :@RobotVersion'
