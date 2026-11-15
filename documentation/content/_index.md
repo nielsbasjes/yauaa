@@ -20,6 +20,8 @@ These are only the highlights for the last few releases, the full changelog can 
 ### NEXT RELEASE
 - New/improved detections:
   - Debian/Ubuntu APT
+  - Apps with `Scan` are not always robots (by [Ana DuCristea](https://github.com/AnaCoda)).
+  - Recognize Claude-User and Perplexity-User retrieval agents (by [Ana DuCristea](https://github.com/AnaCoda)).
 
 ### Version v8.3.0
 - Analyzer:
