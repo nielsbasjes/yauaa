@@ -47,6 +47,7 @@ config:
         'gsa-crawler'                  : 'Google Search Appliance'
         'Google-Safety'                : 'Google Safety'
         'Google Safety'                : 'Google Safety'
+        'Google-InspectionTool'        : 'Google Inspection Tool' # Rich Results Test and URL inspection in Search Console
 
         # TODO: No documentation found so far. GUESS: This is a Google thing.
         'Google-Adwords-DisplayAds-WebRender'  : 'Google Adwords DisplayAds WebRender'
@@ -1692,6 +1693,116 @@ config:
       AgentNameVersion                     : 'Google Read Aloud ??'
       AgentNameVersionMajor                : 'Google Read Aloud ??'
       AgentInformationUrl                  : 'https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers'
+
+
+# https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-inspectiontool
+# Google-InspectionTool: Rich Results Test and URL inspection in Search Console
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Google-InspectionTool/1.0)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Inspection Tool'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Google Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Inspection Tool'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Inspection Tool 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Inspection Tool 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Inspection Tool'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Inspection Tool 1.0'
+      AgentNameVersionMajor                : 'Google Inspection Tool 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.45 Mobile Safari/537.36 (compatible; Google-InspectionTool/1.0)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Inspection Tool'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Google Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Inspection Tool'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Inspection Tool 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Inspection Tool 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Inspection Tool'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Inspection Tool 1.0'
+      AgentNameVersionMajor                : 'Google Inspection Tool 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (compatible; Google-InspectionTool/1.0;)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Inspection Tool'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Google Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Inspection Tool'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Inspection Tool 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Inspection Tool 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Inspection Tool'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Inspection Tool 1.0'
+      AgentNameVersionMajor                : 'Google Inspection Tool 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.7632.45 Mobile Safari/537.36 (compatible; Google-InspectionTool/1.0;)'
+    expected:
+      DeviceClass                          : 'Robot Mobile'
+      DeviceName                           : 'Google Inspection Tool'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '1.0'
+      OperatingSystemVersionMajor          : '1'
+      OperatingSystemNameVersion           : 'Google Cloud 1.0'
+      OperatingSystemNameVersionMajor      : 'Google Cloud 1'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Inspection Tool'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Google Inspection Tool 1.0'
+      LayoutEngineNameVersionMajor         : 'Google Inspection Tool 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Inspection Tool'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Google Inspection Tool 1.0'
+      AgentNameVersionMajor                : 'Google Inspection Tool 1'
 
 
 # https://support.google.com/merchants/answer/13294660
