@@ -49,6 +49,9 @@ config:
         'gsa-crawler'                  : 'Google Search Appliance'
         'Google-Safety'                : 'Google Safety'
         'Google Safety'                : 'Google Safety'
+        'Google-Food'                  : 'Google Food'
+        'Google-Appointments'          : 'Google Appointments'
+        'Google-BusinessLinkVerification' : 'Google Business Link Verification'
 
         # TODO: No documentation found so far. GUESS: This is a Google thing.
         'Google-Adwords-DisplayAds-WebRender'  : 'Google Adwords DisplayAds WebRender'
@@ -2226,3 +2229,84 @@ config:
       AgentNameVersion                     : 'Google Gemini Notebook ??'
       AgentNameVersionMajor                : 'Google Gemini Notebook ??'
       AgentInformationUrl                  : 'https://developers.google.com/crawling/docs/crawlers-fetchers/google-gemininotebook'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; Google-Food) Chrome/104.0.5112.101 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Food'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Food'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Food ??'
+      LayoutEngineNameVersionMajor         : 'Google Food ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Food'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Food ??'
+      AgentNameVersionMajor                : 'Google Food ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; Google-Appointments) Chrome/104.0.5112.101 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Appointments'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Appointments'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Appointments ??'
+      LayoutEngineNameVersionMajor         : 'Google Appointments ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Appointments'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Appointments ??'
+      AgentNameVersionMajor                : 'Google Appointments ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko; Google-BusinessLinkVerification) Chrome/141.0.7390.122 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Business Link Verification'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Google Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Google Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Google Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Google Business Link Verification'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Google Business Link Verification ??'
+      LayoutEngineNameVersionMajor         : 'Google Business Link Verification ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Google Business Link Verification'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Google Business Link Verification ??'
+      AgentNameVersionMajor                : 'Google Business Link Verification ??'
