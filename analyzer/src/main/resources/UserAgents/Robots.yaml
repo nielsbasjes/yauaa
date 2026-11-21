@@ -211,6 +211,12 @@ config:
       'Uptime'                       : 'SISTRIX|Optimizer Uptime'          # https://www.sistrix.com/faq/uptime
       'StatusCake'                   : 'StatusCake|StatusCake'             # https://www.statuscake.com/
       'StatusCake SSL Monitor'       : 'StatusCake|StatusCake SSL Monitor'             # https://www.statuscake.com/
+      'BuiltWith'                    : 'BuildWith|BuildWith Indexer'
+      'Spacecat'                     : 'Adobe|Spacecat'
+      'Chrome-Lighthouse'            : 'Google|Chrome Lighthouse'
+      'GrafanaSyntheticMonitoring'   : 'Grafana|Grafana Synthetic Monitoring'
+      'Splunk Synthetics'            : 'Splunk|Splunk Synthetics'
+      'OneTrust'                     : 'OneTrust|OneTrust Cookie Scanner'
 
       # https://validator.w3.org/services
       'Validator.nu'                 : 'W3C|W3C Validator.nu'
@@ -268,6 +274,29 @@ config:
       - 'AgentName                       : 10 : "Java"'
       - 'AgentVersion                    : 10 : @Java.version'
 
+
+- matcher:
+    variable:
+    - 'NutchVersion                        :agent.product.version[1]="Nutch"@'
+    require:
+    - 'IsNull[@NutchVersion^.name?TagsKnownNotToBeRobots]'
+    - 'IsNull[@NutchVersion^.name="QIHU"]'
+    extract:
+    - '__Set_ALL_Fields__                  :   399911 :"<<<null>>>"' # Must be 1 lower than the rest (or you will wipe yourself too)
+    - 'DeviceClass                         :   400011 :"Robot"'
+    - 'DeviceBrand                         :   400011 :"Apache"'
+    - 'DeviceName                          :   400011 :"Apache Nutch"'
+    - 'OperatingSystemClass                :   400011 :"Cloud"'
+    - 'OperatingSystemName                 :   400011 :"Cloud"'
+    - 'OperatingSystemVersion              :   400011 :"<<<null>>>"'
+    - 'OperatingSystemNameVersion          :   400010 :"<<<null>>>"'
+    - 'OperatingSystemNameVersionMajor     :   400010 :"<<<null>>>"'
+    - 'LayoutEngineClass                   :   400011 :"Robot"'
+    - 'LayoutEngineName                    :   400011 :"Apache Nutch"'
+    - 'LayoutEngineVersion                 :   400011 :@NutchVersion[2-]'
+    - 'AgentClass                          :   400011 :"Robot"'
+    - 'AgentName                           :   400011 :@NutchVersion^.name'
+    - 'AgentVersion                        :   400011 :@NutchVersion[2-]'
 
 - lookup:
     name: 'NamedSpecialLayoutEngines'
@@ -14868,3 +14897,360 @@ config:
       RemarkablePattern                    : 'Hacker'
       HackerAttackVector                   : 'Code Injection'
       __SyntaxError__                      : 'true'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64; Splunk Synthetics) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Splunk Synthetics'
+      DeviceBrand                          : 'Splunk'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Splunk Synthetics'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Splunk Synthetics ??'
+      LayoutEngineNameVersionMajor         : 'Splunk Synthetics ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Splunk Synthetics'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Splunk Synthetics ??'
+      AgentNameVersionMajor                : 'Splunk Synthetics ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 GrafanaSyntheticMonitoring'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Grafana Synthetic Monitoring'
+      DeviceBrand                          : 'Grafana'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Grafana Synthetic Monitoring'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Grafana Synthetic Monitoring ??'
+      LayoutEngineNameVersionMajor         : 'Grafana Synthetic Monitoring ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Grafana Synthetic Monitoring'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Grafana Synthetic Monitoring ??'
+      AgentNameVersionMajor                : 'Grafana Synthetic Monitoring ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 GrafanaSyntheticMonitoring (smdev.grafana.net, CheckID 5678)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Grafana Synthetic Monitoring'
+      DeviceBrand                          : 'Grafana'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Grafana Synthetic Monitoring'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Grafana Synthetic Monitoring ??'
+      LayoutEngineNameVersionMajor         : 'Grafana Synthetic Monitoring ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Grafana Synthetic Monitoring'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Grafana Synthetic Monitoring ??'
+      AgentNameVersionMajor                : 'Grafana Synthetic Monitoring ??'
+      AgentInformationUrl                  : 'smdev.grafana.net'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.199 Safari/537.36;OneTrust;'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Onetrust Cookie Scanner'
+      DeviceBrand                          : 'Onetrust'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'OneTrust Cookie Scanner'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'OneTrust Cookie Scanner ??'
+      LayoutEngineNameVersionMajor         : 'OneTrust Cookie Scanner ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'OneTrust Cookie Scanner'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'OneTrust Cookie Scanner ??'
+      AgentNameVersionMajor                : 'OneTrust Cookie Scanner ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36 Chrome-Lighthouse'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Chrome Lighthouse'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Chrome Lighthouse'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Chrome Lighthouse ??'
+      LayoutEngineNameVersionMajor         : 'Chrome Lighthouse ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Chrome Lighthouse'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Chrome Lighthouse ??'
+      AgentNameVersionMajor                : 'Chrome Lighthouse ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Chrome-Lighthouse'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Google Chrome Lighthouse'
+      DeviceBrand                          : 'Google'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Chrome Lighthouse'
+      LayoutEngineVersion                  : '??'
+      LayoutEngineVersionMajor             : '??'
+      LayoutEngineNameVersion              : 'Chrome Lighthouse ??'
+      LayoutEngineNameVersionMajor         : 'Chrome Lighthouse ??'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Chrome Lighthouse'
+      AgentVersion                         : '??'
+      AgentVersionMajor                    : '??'
+      AgentNameVersion                     : 'Chrome Lighthouse ??'
+      AgentNameVersionMajor                : 'Chrome Lighthouse ??'
+
+
+- test:
+    input:
+      User-Agent                           : 'BuiltWith/1.4; rb.gy/xprgqj'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'BuildWith Indexer'
+      DeviceBrand                          : 'BuildWith'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BuildWith Indexer'
+      LayoutEngineVersion                  : '1.4'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'BuildWith Indexer 1.4'
+      LayoutEngineNameVersionMajor         : 'BuildWith Indexer 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BuildWith Indexer'
+      AgentVersion                         : '1.4'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BuildWith Indexer 1.4'
+      AgentNameVersionMajor                : 'BuildWith Indexer 1'
+      AgentInformationUrl                  : 'rb.gy/xprgqj'
+
+
+- test:
+    input:
+      User-Agent                           : 'BuiltWith/1.5; h1.nu/1ySUD'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'BuildWith Indexer'
+      DeviceBrand                          : 'BuildWith'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BuildWith Indexer'
+      LayoutEngineVersion                  : '1.5'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'BuildWith Indexer 1.5'
+      LayoutEngineNameVersionMajor         : 'BuildWith Indexer 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BuildWith Indexer'
+      AgentVersion                         : '1.5'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BuildWith Indexer 1.5'
+      AgentNameVersionMajor                : 'BuildWith Indexer 1'
+      AgentInformationUrl                  : 'h1.nu'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko; compatible; BuiltWith/1.4; rb.gy/xprgqj) Chrome/124.0.0.0 Safari/537.36'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'BuildWith Indexer'
+      DeviceBrand                          : 'BuildWith'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'BuildWith Indexer'
+      LayoutEngineVersion                  : '1.4'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'BuildWith Indexer 1.4'
+      LayoutEngineNameVersionMajor         : 'BuildWith Indexer 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'BuildWith Indexer'
+      AgentVersion                         : '1.4'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'BuildWith Indexer 1.4'
+      AgentNameVersionMajor                : 'BuildWith Indexer 1'
+      AgentInformationUrl                  : 'rb.gy/xprgqj'
+
+
+- test:
+    input:
+      User-Agent                           : 'Spacecat/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Adobe Spacecat'
+      DeviceBrand                          : 'Adobe'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Spacecat'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Spacecat 1.0'
+      LayoutEngineNameVersionMajor         : 'Spacecat 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Spacecat'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Spacecat 1.0'
+      AgentNameVersionMajor                : 'Spacecat 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Spacecat/1.0'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Adobe Spacecat'
+      DeviceBrand                          : 'Adobe'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Spacecat'
+      LayoutEngineVersion                  : '1.0'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Spacecat 1.0'
+      LayoutEngineNameVersionMajor         : 'Spacecat 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'Spacecat'
+      AgentVersion                         : '1.0'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'Spacecat 1.0'
+      AgentNameVersionMajor                : 'Spacecat 1'
+
+
+- test:
+    input:
+      User-Agent                           : 'ExampleSearch/Nutch-1.21 (Example search engine; https://search.example.org/; info@example.org)'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Nutch'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache Nutch'
+      LayoutEngineVersion                  : '1.21'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Apache Nutch 1.21'
+      LayoutEngineNameVersionMajor         : 'Apache Nutch 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ExampleSearch'
+      AgentVersion                         : '1.21'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ExampleSearch 1.21'
+      AgentNameVersionMajor                : 'ExampleSearch 1'
+      AgentInformationEmail                : 'info@example.org'
+      AgentInformationUrl                  : 'https://search.example.org/'
+
+
+- test:
+    input:
+      User-Agent                           : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 ExampleSearch/Nutch-1.21'
+    expected:
+      DeviceClass                          : 'Robot'
+      DeviceName                           : 'Apache Nutch'
+      DeviceBrand                          : 'Apache'
+      OperatingSystemClass                 : 'Cloud'
+      OperatingSystemName                  : 'Cloud'
+      OperatingSystemVersion               : '??'
+      OperatingSystemVersionMajor          : '??'
+      OperatingSystemNameVersion           : 'Cloud ??'
+      OperatingSystemNameVersionMajor      : 'Cloud ??'
+      LayoutEngineClass                    : 'Robot'
+      LayoutEngineName                     : 'Apache Nutch'
+      LayoutEngineVersion                  : '1.21'
+      LayoutEngineVersionMajor             : '1'
+      LayoutEngineNameVersion              : 'Apache Nutch 1.21'
+      LayoutEngineNameVersionMajor         : 'Apache Nutch 1'
+      AgentClass                           : 'Robot'
+      AgentName                            : 'ExampleSearch'
+      AgentVersion                         : '1.21'
+      AgentVersionMajor                    : '1'
+      AgentNameVersion                     : 'ExampleSearch 1.21'
+      AgentNameVersionMajor                : 'ExampleSearch 1'
