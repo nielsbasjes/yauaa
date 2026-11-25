@@ -5,7 +5,9 @@ I usually copy these to a separate "working" location out or sight of IntelliJ a
 
 I use this to find unexpected agents and patterns to base new rules upon.
 
-In the loader directory is a Flink based tool that does this by fully utilizing all CPU cores on my machine.
+In the loader directory is a Kotlin script that reads the tab-separated input files, analyzes user agents in parallel, and bulk-loads the results into Elasticsearch. Set `PARALLELISM` near the top of `load-into-es.main.kts` to control the number of analyzer threads. The script reads the supplied file paths, or `*.txt` in the current directory when no paths are given.
+
+Install the current analyzer snapshot with `./mvnw -pl analyzer -am install`, then run `kotlin -J-Xmx8g devtools/analysis/loader/load-into-es.main.kts <file...>` from the repository root. Adjust the JVM heap for the chosen parallelism because each worker owns a separate analyzer. `ES_URL` defaults to `http://127.0.0.1:9200`; set `ES_USERNAME` and `ES_PASSWORD` together when the cluster uses basic authentication.
 
 <!--
    - Yet Another UserAgent Analyzer
