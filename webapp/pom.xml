@@ -112,12 +112,6 @@
         <version>1.0.4</version>
       </dependency>
 
-      <dependency>
-        <groupId>io.swagger.core.v3</groupId>
-        <artifactId>swagger-annotations-jakarta</artifactId>
-        <version>2.2.56</version>
-      </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -163,6 +157,13 @@
     <dependency>
       <groupId>org.springframework.ai</groupId>
       <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+      <exclusions>
+        <exclusion>
+          <!-- The old "swagger-annotations-jakarta" clashes with the 3.x version of "swagger-annotations" -->
+          <groupId>io.swagger.core.v3</groupId>
+          <artifactId>swagger-annotations-jakarta</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
