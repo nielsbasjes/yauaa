@@ -102,7 +102,7 @@
     <hamcrest-core.version>3.0</hamcrest-core.version>
     <lombok.version>1.18.48</lombok.version>
 
-    <jackson.version>2.23.0</jackson.version>
+    <jackson.version>3.3.0</jackson.version>
 
     <!-- ============================================== -->
 
@@ -204,6 +204,7 @@
 
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -211,13 +212,15 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${jackson.version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+
       <dependency>
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-bom</artifactId>
@@ -225,6 +228,7 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+
     </dependencies>
   </dependencyManagement>
 
