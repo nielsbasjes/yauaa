@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Yet Another UserAgent Analyzer
 # Copyright (C) 2013-2026 Niels Basjes
@@ -15,12 +16,25 @@
 # limitations under the License.
 #
 
-mvn clean package -PskipQuality -Dmaven.build.cache.enabled=false
-JAR=$(ls target/yauaa-*.jar | fgrep -v source)
+set -euo pipefail
+
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+cd "${SCRIPTDIR}" || exit 1
+
+# Determine the current Yauaa version
+VERSION=$(cd "${SCRIPTDIR}/../../analyzer" && mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+if [[ -z "${VERSION}" ]]; then
+    echo "Unable to determine the Yauaa version from ../../pom.xml" >&2
+    exit 1
+fi
+
+# Inject that version as the "depends on" for this script.
+sed -i "s|\(nl.basjes.parse.useragent:yauaa:\)[^\"]*|\1${VERSION}|" log2test.main.kts
 
 #FORMAT="%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V"
 FORMAT="%a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{Sec-CH-UA}i\" \"%{Sec-CH-UA-Arch}i\" \"%{Sec-CH-UA-Bitness}i\" \"%{Sec-CH-UA-Form-Factors}i\" \"%{Sec-CH-UA-Full-Version}i\" \"%{Sec-CH-UA-Full-Version-List}i\" \"%{Sec-CH-UA-Mobile}i\" \"%{Sec-CH-UA-Model}i\" \"%{Sec-CH-UA-Platform}i\" \"%{Sec-CH-UA-Platform-Version}i\" \"%{Sec-CH-UA-WoW64}i\" %V"
 
 #FORMAT="%{User-Agent}i"
 
-java -jar "${JAR}" "${FORMAT}" TODO.log
+kotlin log2test.main.kts "${FORMAT}" TODO.log
