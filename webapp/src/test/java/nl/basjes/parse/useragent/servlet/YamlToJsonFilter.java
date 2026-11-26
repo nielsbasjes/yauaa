@@ -17,8 +17,8 @@
 
 package nl.basjes.parse.useragent.servlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.dataformat.yaml.YAMLFactory;
 import io.restassured.builder.ResponseBuilder;
 import io.restassured.filter.FilterContext;
 import io.restassured.filter.OrderedFilter;

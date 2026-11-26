@@ -20,15 +20,13 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 cd "${DIR}" || exit 1
 
-ELK_VERSION=$(cd .. && mvn help:evaluate -Dexpression=elasticsearch-8.version -q -DforceStdout)
+ELK_VERSION=$(cd .. && mvn help:evaluate -Dexpression=elasticsearch-9.version -q -DforceStdout)
 YAUAA_VERSION=$(cd .. && mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
 
 docker rmi analysis_elasticsearch:latest
 
 echo "ELK_VERSION=${ELK_VERSION}" > .env
 echo "YAUAA_VERSION=${YAUAA_VERSION}" >>.env
-
-#cp ../../udfs/elastic/elasticsearch-7/target/yauaa-elasticsearch-7-${YAUAA_VERSION}.zip .
 
 #https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 # Reset

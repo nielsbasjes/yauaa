@@ -103,19 +103,13 @@
       <dependency>
         <groupId>io.projectreactor</groupId>
         <artifactId>reactor-core</artifactId>
-        <version>3.8.8</version>
+        <version>3.9.0</version>
       </dependency>
 
       <dependency>
         <groupId>org.reactivestreams</groupId>
         <artifactId>reactive-streams</artifactId>
         <version>1.0.4</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.swagger.core.v3</groupId>
-        <artifactId>swagger-annotations-jakarta</artifactId>
-        <version>2.2.56</version>
       </dependency>
 
     </dependencies>
@@ -163,6 +157,13 @@
     <dependency>
       <groupId>org.springframework.ai</groupId>
       <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+      <exclusions>
+        <exclusion>
+          <!-- The old "swagger-annotations-jakarta" clashes with the 3.x version of "swagger-annotations" -->
+          <groupId>io.swagger.core.v3</groupId>
+          <artifactId>swagger-annotations-jakarta</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -178,12 +179,12 @@
     <!-- ================================================================================================ -->
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+      <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+      <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
     </dependency>
 
@@ -354,7 +355,7 @@
           <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>extra-enforcer-rules</artifactId>
-            <version>1.12.1</version>
+            <version>1.13.0</version>
           </dependency>
         </dependencies>
       </plugin>

@@ -40,9 +40,12 @@ cat "${DIR}/src/main/resources/UserAgents/"*.yaml | \
   " > "${DIR}/target/temp-agents-list-2.txt"
 
 # Using a JVM based sort tool because the Linux/Docker commandline versions are NOT reproducible (even with LC_ALL=C).
+
+# Change to the root of the project or mvn cannot find the module
+cd "${DIR}/.." || exit 1
 cat "${DIR}/target/temp-agents-list-1.txt" \
     "${DIR}/target/temp-agents-list-2.txt" | \
   sed "
     s@^@        \"@;
     s@\$@\",\n@;
-  " | grep . | java -jar ../devtools/sort/target/yauaa-devtools-sortlines-*-jar-with-dependencies.jar > "${DIR}/target/temp-agents-list.txt"
+  " | grep . | mvn -q exec:java -pl ":yauaa-devtools-sortlines" -Dexec.mainClass="nl.basjes.utils.SortKt" > "${DIR}/target/temp-agents-list.txt"
