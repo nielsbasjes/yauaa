@@ -50,13 +50,15 @@
     <quarkus.platform.version>@quarkus.platform.version@</quarkus.platform.version>
     <quarkus-plugin.version>@quarkus-plugin.version@</quarkus-plugin.version>
 
-     <junit6.version>@junit6.version@</junit6.version>
+    <junit6.version>@junit6.version@</junit6.version>
+    <rest-assured.version>@rest-assured.version@</rest-assured.version>
     <hamcrest-core.version>@hamcrest-core.version@</hamcrest-core.version>
 
   </properties>
 
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -64,6 +66,15 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured-bom</artifactId>
+        <version>${rest-assured.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
